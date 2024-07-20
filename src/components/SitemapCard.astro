@@ -7,7 +7,7 @@ type Props = {
 const { text, href } = Astro.props // Might add icon later
 ---
 
-<a href={href} target="_blank" class="px-3 py-4 flex group rounded border gap-2 items-center border-neutral-200 justify-center dark:border-neutral-700 text-white bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-800 focus:outline-none">
+<a href={href} target="_blank" class="w-fit px-3 py-2 group rounded border flex gap-2 items-center border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 hover:dark:bg-neutral-800 blend justify-center focus:outline-none">
   <!-- Will add "md:aspect-square md:items-start md:justify-start" when changing to square layout
     <svg class="flex-none w-6 h-6"> // Will add "md:w-7 md:h-7" when changing to square
       <use href={`/contact.svg#${icon}`}></use>
