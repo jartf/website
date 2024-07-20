@@ -18,18 +18,19 @@ import TopLayout from "@layouts/TopLayout.astro"
       <!-- About Section -->
       <section class="animate">
         <div>
-          <p>All the things I use on a daily basis.</p>
+          <p>All the things I use on a daily basis. Also available on <a href="https://uses.tech/" class="underline decoration-dashed hover:decoration-solid">uses.tech</a>, a website where people share the stuff they use.</p>
         </div>
       </section>
 
       <!-- Tech Stack Section -->
       <section class="animate">
-        <div>
-          <p class="font-semibold text-left text-2xl text-black space-y-5 dark:text-white">
+        <div id="hardware">
+          <p name="hardware" class="font-semibold text-left text-2xl text-black space-y-5 dark:text-white">
             Hardware
           </p>
           <ul class='marker:text-green list-outside list-disc space-y-1 ml-6 mb-4'>
-            <li>Laptop: 15.6" MSI Modern 15 (Ryzen 5 5500U, 512GB)</li>
+            <li>Laptop: 15.6" <a href="https://www.msi.com/Business-Productivity/Modern-15-A5SX/Specification" class="underline decoration-dashed hover:decoration-solid">MSI Modern 15</a> (Ryzen 5 5500U, 512GB)</li>
+            <li>HDD: <a href="https://www.westerndigital.com/products/portable-drives/wd-my-passport-usb-3-0-hdd" class="underline decoration-dashed hover:decoration-solid">WD My Passport 1TB</a> as backup</li>
             <li>Keyboard: Leaven K780 RGB Backlight Wired Detachable Hot-Swappable with Red Switch</li>
             <li>Mouse: Logitech G304</li>
             <li>Phones:
@@ -47,14 +48,14 @@ import TopLayout from "@layouts/TopLayout.astro"
             </li>
           </ul>
         </div>
-        <div>
-          <p class="font-semibold text-left text-2xl text-black space-y-5 dark:text-white">
+        <div id="software">
+          <p name="software" class="font-semibold text-left text-2xl text-black space-y-5 dark:text-white">
             Software
           </p>
-            <p class="font-semibold text-left text-xl text-black space-y-3 dark:text-white">
+            <p id="generaluse" class="font-semibold text-left text-xl text-black space-y-3 dark:text-white">
               General usage
             </p>
-              <ul class='marker:text-green list-outside list-disc space-y-1 ml-6 mb-4'>
+              <ul name="generaluse" class='marker:text-green list-outside list-disc space-y-1 ml-6 mb-4'>
                 <li>Operating system: Dual boot of
                   <a href="https://fedoraproject.org/" class="underline decoration-dashed hover:decoration-solid">Fedora Linux</a>
                   and
@@ -107,6 +108,9 @@ import TopLayout from "@layouts/TopLayout.astro"
                 <li>Version control: <a href="https://git-scm.com/" class="underline decoration-dashed hover:decoration-solid">Git</a></li>
                 <li>API testing: <a href="https://www.postman.com/" class="underline decoration-dashed hover:decoration-solid">Postman</a></li>
                 <li>Database: <a href="https://www.mysql.com/" class="underline decoration-dashed hover:decoration-solid">MySQL</a></li>
+                <li>Code hosting: <a href="https://github.com/" class="underline decoration-dashed hover:decoration-solid">GitHub</a></li>
+                <li>Web hosting: <a href="https://vercel.com/" class="underline decoration-dashed hover:decoration-solid">Vercel</a></li>
+                <li>DDoS protection: <a href="https://www.cloudflare.com/" class="underline decoration-dashed hover:decoration-solid">Cloudflare</a></li>
               </ul>
             <p class="font-semibold text-left text-xl text-black space-y-3 dark:text-white">
               Multimedia
