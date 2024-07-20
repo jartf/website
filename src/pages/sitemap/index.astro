@@ -6,36 +6,48 @@ import TopLayout from "@layouts/TopLayout.astro"
 
 const list = [
   {
-    text: "Email",
-    href: "mailto:hi@jar.tf"
+    text: "Home",
+    href: "/",
   },
   {
-    text: "Pronouns.‏‏‎‎page",
-    href: "https://en.pronouns.page/@jerryv"
+    text: "My work",
+    href: "/work",
   },
   {
-    text: "GitHub",
-    href: "https://github.com/jartf"
+    text: "Contact me",
+    href: "/contact",
   },
   {
-    text: "GitLab",
-    href: "https://gitlab.com/jartf"
+    text: "Blog",
+    href: "/blog",
   },
   {
-    text: "Google Developer",
-    href: "https://g.dev/jarema"
+    text: "My projects",
+    href: "/projects",
   },
   {
-    text: "Discord",
-    href: "https://discord.com/users/490457129090547733"
+    text: "Uses",
+    href: "/uses",
   },
   {
-    text: "Telegram",
-    href: "https://t.me/jarema_me"
+    text: "About me",
+    href: "/about",
   },
   {
-    text: "Twitter / X",
-    href: "https://twitter.com/jartf_"
+    text: "My jobs",
+    href: "/jobs",
+  },
+  {
+    text: "Search",
+    href: "/search",
+  },
+  {
+    text: "RSS",
+    href: "/rss.xml",
+  },
+  {
+    text: "Sitemap (this page)",
+    href: "/sitemap",
   },
 ]
 ---
@@ -60,7 +72,7 @@ const list = [
       <!-- Sitemap links section -->
       <section class="animate">
         <div>
-          <div class="w-full grid mx-auto md:grid-cols-3 sm:grid-cols-2 gap-2 mt-5">
+          <div class="w-full grid mx-auto md:grid-cols-4 sm:grid-cols-2 gap-2 mt-5">
             {list.map(item => (
               <SitemapCard
                 text={item.text}
