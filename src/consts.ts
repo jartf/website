@@ -9,7 +9,7 @@ export const SITE: Site = {
 
 // Work
 export const WORK: Page = {
-  TITLE: "WORK",
+  TITLE: "Work",
   DESCRIPTION: "A partial list of my works.",
 }
 
@@ -17,6 +17,12 @@ export const WORK: Page = {
 export const JOBS: Page = {
   TITLE: "Jobs",
   DESCRIPTION: "A partial list of places I have worked at.",
+}
+
+// Uses
+export const USES: Page = {
+  TITLE: "Uses",
+  DESCRIPTION: "All the things I use on a daily basis.",
 }
 
 // About
@@ -37,7 +43,7 @@ export const BLOG: Page = {
   DESCRIPTION: "Writing on topics I am passionate about.",
 }
 
-// Projects Page 
+// Projects Page
 export const PROJECTS: Page = {
   TITLE: "Projects",
   DESCRIPTION: "Recent projects I have worked on.",
@@ -51,47 +57,46 @@ export const SEARCH: Page = {
 
 // Links
 export const LINKS: Links = [
-  { 
-    TEXT: "Home", 
-    HREF: "/", 
+  {
+    TEXT: "Home",
+    HREF: "/",
   },
-  { 
-    TEXT: "Work", 
-    HREF: "/work", 
+  {
+    TEXT: "Work",
+    HREF: "/work",
   },
-  { 
-    TEXT: "Contact", 
-    HREF: "/contact", 
+  {
+    TEXT: "Contact",
+    HREF: "/contact",
   },
-  { 
-    TEXT: "Blog", 
-    HREF: "/blog", 
+  {
+    TEXT: "Blog",
+    HREF: "/blog",
   },
-  { 
-    TEXT: "Projects", 
-    HREF: "/projects", 
+  {
+    TEXT: "Projects",
+    HREF: "/projects",
   },
 ]
 
 // Socials
 export const SOCIALS: Socials = [
-  { 
+  {
     NAME: "Email",
-    ICON: "email", 
+    ICON: "email",
     TEXT: "hi@jar.tf",
     HREF: "mailto:hi@jar.tf",
   },
-  { 
+  {
     NAME: "Github",
     ICON: "github",
     TEXT: "jartf",
     HREF: "https://github.com/jartf"
   },
-  { 
+  {
     NAME: "Twitter",
     ICON: "twitter-x",
     TEXT: "jartf_",
     HREF: "https://twitter.com/jartf_",
   },
 ]
-

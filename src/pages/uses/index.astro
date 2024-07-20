@@ -1,0 +1,40 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import { SITE } from "@consts"
+import TopLayout from "@layouts/TopLayout.astro"
+
+---
+
+<PageLayout title="Uses" description={SITE.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate page-heading text-center text-3xl">
+      {USES.TITLE}
+    </div>
+  </TopLayout>
+
+  <div class="relative bg-white dark:bg-black">
+    <div class="mx-auto max-w-screen-sm p-5 space-y-8 pb-16">
+
+      <!-- About Section -->
+      <section class="animate">
+        <div>
+          <p>All the things I use on a daily basis.</p>
+        </div>
+      </section>
+
+      <!-- Tech Stack Section -->
+      <section class="animate">
+        <div>
+          <p class="font-semibold text-left text-xl text-black dark:text-white">
+            Hardware
+          </p>
+          <ul class='marker:text-green list-outside list-disc ml-6'>
+            <li>15.6" MSI Modern 15 (Ryzen 5 5500U, 512GB)</li>
+            <li>Main phone: Samsung Galaxy S20 Ultra</li>
+            <li>Sub phone: Oppo A91</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</PageLayout>
