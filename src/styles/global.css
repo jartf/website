@@ -36,7 +36,7 @@ html.dark {
 html,
 body {
   @apply h-full w-full antialiased;
-  @apply bg-white dark:bg-black;
+  @apply bg-blue-500 dark:bg-indigo-950;
   @apply text-black/75 dark:text-white/75;
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 main {
-  @apply flex flex-col flex-1 bg-white dark:bg-black;
+  @apply flex flex-col flex-1 bg-blue-500 dark:bg-indigo-950;
 }
 
 header {
