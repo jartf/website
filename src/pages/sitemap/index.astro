@@ -1,0 +1,76 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import SitemapCard from "@components/SitemapCard.astro"
+import { SITE, SITEMAP } from "@consts"
+import TopLayout from "@layouts/TopLayout.astro"
+
+const list = [
+  {
+    text: "Email",
+    href: "mailto:hi@jar.tf"
+  },
+  {
+    text: "Pronouns.‏‏‎‎page",
+    href: "https://en.pronouns.page/@jerryv"
+  },
+  {
+    text: "GitHub",
+    href: "https://github.com/jartf"
+  },
+  {
+    text: "GitLab",
+    href: "https://gitlab.com/jartf"
+  },
+  {
+    text: "Google Developer",
+    href: "https://g.dev/jarema"
+  },
+  {
+    text: "Discord",
+    href: "https://discord.com/users/490457129090547733"
+  },
+  {
+    text: "Telegram",
+    href: "https://t.me/jarema_me"
+  },
+  {
+    text: "Twitter / X",
+    href: "https://twitter.com/jartf_"
+  },
+]
+---
+
+<PageLayout title="Sitemap" description={SITE.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate page-heading text-center text-3xl">
+      {SITEMAP.TITLE}
+    </div>
+  </TopLayout>
+
+  <div class="relative bg-white dark:bg-indigo-950">
+    <div class="mx-auto max-w-screen-sm p-5 space-y-8 pb-16">
+
+      <!-- About section -->
+      <section class="animate">
+        <div>
+          <p>This is a list of all the links in my site.</p>
+        </div>
+      </section>
+
+      <!-- Sitemap links section -->
+      <section class="animate">
+        <div>
+          <div class="w-full grid mx-auto md:grid-cols-3 sm:grid-cols-2 gap-2 mt-5">
+            {list.map(item => (
+              <SitemapCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</PageLayout>

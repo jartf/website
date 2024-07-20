@@ -55,6 +55,12 @@ export const SEARCH: Page = {
   DESCRIPTION: "Search all posts and projects by keyword.",
 }
 
+// Sitemap
+export const SITEMAP: Page = {
+  TITLE: "Sitemap",
+  DESCRIPTION: "A list of all pages on this site.",
+}
+
 // Links
 export const LINKS: Links = [
   {
