@@ -10,7 +10,7 @@
     font-style: normal;
     font-display: swap;
   }
-  
+
   @font-face {
     font-family: "Lato";
     src: url("/fonts/Lato-Bold.ttf") format("ttf");
@@ -23,14 +23,14 @@
 html {
   overflow-y: scroll;
   color-scheme: light;
-  background-color: white;
+  background-color: #8D67B4;
   font-family: "Lato", sans-serif;
-  
+
 }
 
 html.dark {
   color-scheme: dark;
-  background-color: black;
+  background-color: #0D011E;
 }
 
 html,
