@@ -4,16 +4,16 @@
 
 @layer base {
   @font-face {
-    font-family: "Fira Code";
-    src: url("/fonts/FiraCode-Regular.woff") format("woff");
+    font-family: "Libre Franklin";
+    src: url("/fonts/LibreFranklin-Regular.ttf") format("ttf");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
 
   @font-face {
-    font-family: "Fira Code";
-    src: url("/fonts/FiraCode-Bold.woff") format("woff");
+    font-family: "Libre Franklin";
+    src: url("/fonts/LibreFranklin-Bold.ttf") format("ttf");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -24,7 +24,7 @@ html {
   overflow-y: scroll;
   color-scheme: light;
   background-color: white;
-  font-family: "Fira Code", sans-serif;
+  font-family: "Libre Franklin", sans-serif;
 
 }
 
