@@ -4,35 +4,35 @@ import StackCard from "@components/StackCard.astro"
 import Container from "@components/Container.astro"
 
 const stack = [
-  { 
-    text: "Astro", 
-    icon: "astro", 
-    href: "https://astro.build" 
+  {
+    text: "Astro",
+    icon: "astro",
+    href: "https://astro.build"
   },
-  { 
-    text: "Javascript", 
-    icon: "javascript", 
-    href: "https://www.javascript.com" 
+  {
+    text: "Javascript",
+    icon: "javascript",
+    href: "https://www.javascript.com"
   },
-  { 
-    text: "Typescript", 
-    icon: "typescript", 
-    href: "https://www.typescriptlang.org" 
+  {
+    text: "Typescript",
+    icon: "typescript",
+    href: "https://www.typescriptlang.org"
   },
-  { 
-    text: "Tailwind", 
-    icon: "tailwind", 
-    href: "https://tailwindcss.com" 
+  {
+    text: "Tailwind",
+    icon: "tailwind",
+    href: "https://tailwindcss.com"
   },
-  { 
-    text: "SolidJS", 
-    icon: "solidjs", 
-    href: "https://www.solidjs.com/" 
+  {
+    text: "SolidJS",
+    icon: "solidjs",
+    href: "https://www.solidjs.com/"
   },
 ]
 ---
 
-<footer class="relative bg-white dark:bg-black">
+<footer class="relative bg-white dark:bg-indigo-950">
   <div class="animate">
     <section class="py-5">
       <Container size="md">
@@ -49,7 +49,7 @@ const stack = [
         </div>
       </Container>
     </section>
-  
+
     <section class=" py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
       <Container size="md">
         <div class="gap-3">
@@ -60,7 +60,7 @@ const stack = [
               </p>
               <div class="flex flex-wrap items-end gap-2 mt-5 justify-center">
                 {stack.map(item => (
-                  <StackCard 
+                  <StackCard
                     text={item.text}
                     icon={item.icon}
                     href={item.href}
@@ -72,7 +72,7 @@ const stack = [
         </div>
       </Container>
     </section>
-  
+
     <section class=" py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
       <Container size="md">
         <div class="h-full grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -81,15 +81,15 @@ const stack = [
               &copy; 2024 Jarema
             </div>
           </div>
-  
+
           <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
             <div class="flex flex-wrap gap-1 items-center justify-center">
               {
                 SOCIALS.map((SOCIAL) => (
-                  <a 
-                    href={SOCIAL.HREF} 
-                    target="_blank" 
-                    aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`} 
+                  <a
+                    href={SOCIAL.HREF}
+                    target="_blank"
+                    aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`}
                     class="group size-10 rounded-full p-2 items-center justify-center hover:bg-black/5 dark:hover:bg-white/20  blend"
                   >
                     <svg class="size-full fill-current group-hover:fill-black group-hover:dark:fill-white blend">

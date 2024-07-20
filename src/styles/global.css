@@ -23,7 +23,7 @@
 html {
   overflow-y: scroll;
   color-scheme: light;
-  background-color: DodgerBlue;
+  background-color: white;
   font-family: "Lato", sans-serif;
 
 }
@@ -36,7 +36,7 @@ html.dark {
 html,
 body {
   @apply h-full w-full antialiased;
-  @apply bg-sky-200 dark:bg-indigo-950;
+  @apply bg-white dark:bg-indigo-950;
   @apply text-black/75 dark:text-white/75;
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 main {
-  @apply flex flex-col flex-1 bg-sky-200 dark:bg-indigo-950;
+  @apply flex flex-col flex-1 bg-white dark:bg-indigo-950;
 }
 
 header {
@@ -58,7 +58,7 @@ header:not(.scrolled) {
 }
 
 header.scrolled {
-  @apply bg-sky-200/75 dark:bg-indigo-950/50;
+  @apply bg-white/75 dark:bg-indigo-950/50;
   @apply border-black/10 dark:border-white/25;
   @apply backdrop-blur-sm saturate-200;
 }
