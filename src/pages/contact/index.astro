@@ -5,45 +5,45 @@ import { SITE, CONTACT } from "@consts"
 import TopLayout from "@layouts/TopLayout.astro"
 
 const contact = [
-  { 
-    text: "Email", 
-    icon: "email", 
-    href: "mailto:hi@jar.tf" 
+  {
+    text: "Email",
+    icon: "email",
+    href: "mailto:hi@jar.tf"
   },
-  { 
-    text: "Pronouns.‏‏‎‎page", 
-    icon: "pronounspage", 
-    href: "https://en.pronouns.page/@jerryv" 
+  {
+    text: "Pronouns.‏‏‎‎page",
+    icon: "pronounspage",
+    href: "https://en.pronouns.page/@jerryv"
   },
-  { 
-    text: "GitHub", 
-    icon: "github", 
-    href: "https://github.com/jartf" 
+  {
+    text: "GitHub",
+    icon: "github",
+    href: "https://github.com/jartf"
   },
-  { 
-    text: "GitLab", 
-    icon: "gitlab", 
-    href: "https://gitlab.com/jartf" 
+  {
+    text: "GitLab",
+    icon: "gitlab",
+    href: "https://gitlab.com/jartf"
   },
-  { 
-    text: "Google Developer", 
-    icon: "gdev", 
-    href: "https://g.dev/jarema" 
+  {
+    text: "Google Developer",
+    icon: "gdev",
+    href: "https://g.dev/jarema"
   },
-  { 
-    text: "Discord", 
-    icon: "discord", 
-    href: "https://discord.com/users/490457129090547733" 
+  {
+    text: "Discord",
+    icon: "discord",
+    href: "https://discord.com/users/490457129090547733"
   },
-  { 
-    text: "Telegram", 
-    icon: "telegram", 
-    href: "https://t.me/jarema_me" 
+  {
+    text: "Telegram",
+    icon: "telegram",
+    href: "https://t.me/jarema_me"
   },
-  { 
-    text: "Twitter / X", 
-    icon: "twitter-x", 
-    href: "https://twitter.com/jartf_" 
+  {
+    text: "Twitter / X",
+    icon: "twitter-x",
+    href: "https://twitter.com/jartf_"
   },
 ]
 ---
@@ -55,7 +55,7 @@ const contact = [
     </div>
   </TopLayout>
 
-  <div class="relative bg-white dark:bg-black">
+  <div class="relative bg-white dark:bg-indigo-950">
     <div class="mx-auto max-w-screen-sm p-5 space-y-8 pb-16">
 
       <!-- About Section -->
@@ -73,7 +73,7 @@ const contact = [
           </p>
           <div class="w-full grid mx-auto md:grid-cols-3 sm:grid-cols-2 gap-2 mt-5">
             {contact.map(item => (
-              <ContactCard 
+              <ContactCard
                 text={item.text}
                 icon={item.icon}
                 href={item.href}
