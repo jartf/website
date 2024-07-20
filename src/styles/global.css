@@ -23,14 +23,14 @@
 html {
   overflow-y: scroll;
   color-scheme: light;
-  background-color: #AF95CB;
+  background-color: DodgerBlue;
   font-family: "Lato", sans-serif;
 
 }
 
 html.dark {
   color-scheme: dark;
-  background-color: #0D011E;
+  background-color: LightGray;
 }
 
 html,
