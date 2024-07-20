@@ -8,11 +8,14 @@ type Props = {
 const { text, icon, href } = Astro.props
 ---
 
-<a href={href} target="_blank" class="w-fit px-3 py-2 group rounded border flex gap-2 items-center border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 hover:dark:bg-neutral-800 blend">
+<a href={href} target="_blank" class="w-fit px-3 py-2 inline-flex items-center text-base group rounded border gap-2 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 hover:dark:bg-neutral-800 blend">
   <svg height={20} width={20}>
     <use href={`/stack.svg#${icon}`}></use>
   </svg>
   <span class="text-sm capitalize text-neutral-500 dark:text-neutral-400 group-hover:text-black group-hover:dark:text-white blend">
     {text}
   </span>
+  <svg class="w-4 h-4 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+  </svg>
 </a>
