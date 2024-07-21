@@ -65,7 +65,6 @@ export const SITEMAP: Page = {
 export const COLOPHON: Page = {
   TITLE: "Colophon",
   DESCRIPTION: "How to reach me.",
-  LAST_UPDATED: "July 21, 2024",
 }
 
 // Links
