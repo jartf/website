@@ -36,3 +36,5 @@ So I just found out about the podcast Hemispheric Views, and [Episode 097 - Duel
 - 📱 __Android Launcher:__ [Niagara Launcher](https://niagaralauncher.app/)
 - 🌌 __Screenshot:__ GNOME Screenshot (Linux), [ShareX](https://getsharex.com/) (Windows)
 - 📋 __Clipboard Manager:__ [Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/) (GNOME Extension)
+
+[See more from other people here!](https://defaults.rknight.me/)
