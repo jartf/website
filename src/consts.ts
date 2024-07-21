@@ -55,10 +55,10 @@ export const SEARCH: Page = {
   DESCRIPTION: "Search all posts and projects by keyword.",
 }
 
-// Sitemap
-export const SITEMAP: Page = {
-  TITLE: "Sitemap",
-  DESCRIPTION: "A list of all pages on this site.",
+// Slashes
+export const SLASHES: Page = {
+  TITLE: "Slashes",
+  DESCRIPTION: "A list of all slash pages on this site.",
 }
 
 // Colophon
@@ -74,10 +74,6 @@ export const LINKS: Links = [
     HREF: "/",
   },
   {
-    TEXT: "Work",
-    HREF: "/work",
-  },
-  {
     TEXT: "Contact",
     HREF: "/contact",
   },
@@ -88,6 +84,10 @@ export const LINKS: Links = [
   {
     TEXT: "Projects",
     HREF: "/projects",
+  },
+  {
+    TEXT: "Slashes",
+    HREF: "/slashes",
   },
 ]
 

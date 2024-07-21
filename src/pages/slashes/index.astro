@@ -1,7 +1,7 @@
 ---
 import PageLayout from "@layouts/PageLayout.astro"
-import SitemapCard from "@components/SitemapCard.astro"
-import { SITE, SITEMAP } from "@consts"
+import SlashesCard from "@components/SlashesCard.astro"
+import { SITE, SLASHES } from "@consts"
 import TopLayout from "@layouts/TopLayout.astro"
 
 const list = [
@@ -46,16 +46,16 @@ const list = [
     href: "/rss.xml",
   },
   {
-    text: "Sitemap (this page)",
-    href: "/sitemap",
+    text: "Slashes (this page)",
+    href: "/slashes",
   },
 ]
 ---
 
-<PageLayout title="Sitemap" description={SITE.DESCRIPTION}>
+<PageLayout title="Slashes" description={SITE.DESCRIPTION}>
   <TopLayout>
     <div class="animate page-heading text-center text-3xl">
-      {SITEMAP.TITLE}
+      {SLASHES.TITLE}
     </div>
   </TopLayout>
 
@@ -69,12 +69,12 @@ const list = [
         </div>
       </section>
 
-      <!-- Sitemap links section -->
+      <!-- Slashes links section -->
       <section class="animate">
         <div>
           <div class="w-full grid mx-auto md:grid-cols-3 sm:grid-cols-2 gap-2 mt-5">
             {list.map(item => (
-              <SitemapCard
+              <SlashesCard
                 text={item.text}
                 href={item.href}
               />
