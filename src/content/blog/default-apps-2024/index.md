@@ -7,7 +7,7 @@ tags:
 - App Defaults
 ---
 
-So I just found out about the podcast Hemispheric Views, and [Episode 097 - Duel of the Defaults!](https://listen.hemisphericviews.com/097) inspired me to share my list of default apps I'm using now. Template shamelessly stolen from [Robb](https://rknight.me/blog/app-defaults/):
+So I just found out about the podcast Hemispheric Views, and [Episode 097 - Duel of the Defaults!](https://listen.hemisphericviews.com/097) inspired me to share my list of default apps I'm using now. Template shamelessly stolen from [Robb Knight](https://rknight.me/blog/app-defaults/):
 
 - 📨 __Mail Client:__ Spark
 - 📮 __Mail Server:__ Zoho Mail
