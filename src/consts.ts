@@ -31,6 +31,12 @@ export const ABOUT: Page = {
   DESCRIPTION: "My biography.",
 }
 
+// Support
+export const SUPPORT: Page = {
+  TITLE: "Support me",
+  DESCRIPTION: "Want to support me? Here's how.",
+}
+
 // Contact
 export const CONTACT: Page = {
   TITLE: "Contact",
