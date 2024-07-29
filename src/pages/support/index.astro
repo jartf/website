@@ -1,0 +1,111 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import DonationCard from "@components/DonationCard.astro"
+import { SITE, SUPPORT } from "@consts"
+import TopLayout from "@layouts/TopLayout.astro"
+
+const intlDonationService = [
+  {
+    text: "Ko-fi",
+    icon: "kofi",
+    href: "https://ko-fi.com/jarema"
+  },
+  {
+    text: "PayPal",
+    icon: "paypal",
+    href: "https://paypal.me/jaremame"
+  },
+  {
+    text: "GitHub",
+    icon: "github",
+    href: "https://github.com/sponsors/jartf"
+  },
+  {
+    text: "Liberapay",
+    icon: "liberapay",
+    href: "https://liberapay.com/jarema"
+  },
+  {
+    text: "Patreon",
+    icon: "patreon",
+    href: "https://www.patreon.com/jartf"
+  },
+  {
+    text: "Wise",
+    icon: "wise",
+    href: "https://wise.com/pay/me/vietanhv4"
+  },
+],
+
+vnmDonationService = [
+  {
+    text: "MoMo",
+    icon: "momo",
+    href: "https://me.momo.vn/vietanh"
+  },
+  {
+    text: "ZaloPay",
+    icon: "zalopay",
+    href: "https://zalopay.vn"
+  },
+]
+---
+
+<PageLayout title="Support" description={SITE.DESCRIPTION}>
+
+  <TopLayout>
+    <div class="animate page-heading text-center text-3xl">
+      {SUPPORT.TITLE}
+    </div>
+    <div class="animate text-center text-lg mt-4">
+      {SUPPORT.DESCRIPTION}
+  </TopLayout>
+
+  <div class="relative bg-white dark:bg-black">
+    <div class="mx-auto max-w-screen-sm p-5 pb-16">
+      <!-- Donation service Section -->
+      <section class="animate">
+        <article>
+          <h2 class="text-2xl font-bold">Via a donation service</h2>
+          <p class="mt-4">
+            If you would like to support me, generally PayPal or Ko-fi would be the most convenient for you. Your support is greatly appreciated!
+          </p>
+          <div class="animate w-full grid mx-auto md:grid-cols-3 sm:grid-cols-2 gap-2 mt-5">
+            {intlDonationService.map(item => (
+              <DonationCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+              />
+            ))}
+          </div>
+        </article>
+      </section>
+
+      <section class="animate">
+        <article>
+          <h2 class="text-2xl font-bold">Via Vietnamese e-wallets</h2>
+          <p class="mt-4">
+            If you are able and willing to send me money via Vietnamese e-wallets, please use one of the following:
+          </p>
+          <div class="animate w-full grid mx-auto grid-cols-2 gap-2 mt-5">
+            {vnmDonationService.map(item => (
+              <DonationCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+              />
+            ))}
+          </div>
+          <label>
+            <input class="peer/showLabel absolute scale-0" type="checkbox" />
+            <span class="block max-h-14 w-full overflow-hidden px-4 py-0 shadow-lg transition-all duration-300 peer-checked/showLabel:max-h-52 blend">
+              <p class="h-15 cursor-pointer text-center font-bold">Show QR Code</p>
+              <p class="mb-2">QR Code here</p>
+            </span>
+          </label>
+        </article>
+      </section>
+    </div>
+  </div>
+</PageLayout>
