@@ -3,7 +3,7 @@ import defaultTheme from "tailwindcss/defaultTheme"
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx,vue}"],
   theme: {
     extend: {
       fontFamily: {
@@ -28,30 +28,30 @@ export default {
       },
       keyframes: {
         twinkle: {
-          "0%": { 
-            opacity: 0, 
-            transform: "rotate(0deg)" 
+          "0%": {
+            opacity: 0,
+            transform: "rotate(0deg)"
           },
-          "50%": { 
+          "50%": {
             opacity: 1,
-            transform: "rotate(180deg)" 
+            transform: "rotate(180deg)"
           },
-          "100%": { 
-            opacity: 0, 
-            transform: "rotate(360deg)" 
+          "100%": {
+            opacity: 0,
+            transform: "rotate(360deg)"
           },
         },
         meteor: {
-          "0%": { 
-            opacity: 0, 
-            transform: "translateY(200%)" 
+          "0%": {
+            opacity: 0,
+            transform: "translateY(200%)"
           },
-          "50%": { 
-            opacity: 1  
+          "50%": {
+            opacity: 1
           },
-          "100%": { 
-            opacity: 0, 
-            transform: "translateY(0)" 
+          "100%": {
+            opacity: 0,
+            transform: "translateY(0)"
           },
         },
       },
