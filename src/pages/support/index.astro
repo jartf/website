@@ -48,6 +48,17 @@ vnmDonationService = [
     icon: "zalopay",
     href: "https://zalopay.vn"
   },
+],
+
+crypto = [
+  {
+    text: "Bitcoin (ERC20)",
+    icon: "btc"
+  },
+  {
+    text: "Monero",
+    icon: "xmr"
+  },
 ]
 ---
 
@@ -82,6 +93,42 @@ vnmDonationService = [
         </article>
       </section>
 
+      <!-- Crypto -->
+      <section class="animate">
+        <article>
+          <h2 class="text-2xl font-bold">Cryptocurrencies</h2>
+          <p class="mt-4">
+            I can receive BTC and XMR via the following addresses:
+          </p>
+          <label>
+            <input class="peer/showLabel absolute scale-0" type="checkbox" />
+            <span class="animate block max-h-14 w-full px-3 py-3 overflow-hidden border-2 rounded shadow transition-all duration-300 peer-checked/showLabel:max-h-max blend">
+              <h5 class="cursor-pointer text-center font-bold">Show QR Code</h5>
+              <p class="grid grid-cols-2 gap-w-5">
+                <img
+                  width=99.5%
+                  class="col-1 fit rounded"
+                  src="BTC.png"
+                  alt="Bitcoin">
+                <img
+                  width=100%
+                  class="col-2 fit rounded"
+                  src="XMR.png"
+                  alt="Monero">
+              </p>
+              <div class="w-full grid mx-auto grid-cols-2 gap-2 mt-5 mb-2">
+                {crypto.map(item => (
+                  <DonationCard
+                    text={item.text}
+                    icon={item.icon}
+                  />
+                ))}
+              </div>
+            </span>
+          </label>
+        </article>
+      </section>
+
       <!-- E-wallets -->
       <section class="animate">
         <article>
@@ -89,7 +136,23 @@ vnmDonationService = [
           <p class="mt-4">
             If you are able and willing to send me money via Vietnamese e-wallets, please use one of the following:
           </p>
-          <div class="animate w-full grid mx-auto grid-cols-2 gap-2 mt-5">
+          <label>
+            <input class="peer/showLabel absolute scale-0" type="checkbox" />
+            <span class="animate block max-h-14 w-full px-3 py-3 overflow-hidden border-2 rounded shadow transition-all duration-300 peer-checked/showLabel:max-h-max blend">
+              <h5 class="cursor-pointer text-center font-bold">Show QR Code</h5>
+              <p class="grid grid-cols-2 gap-w-5">
+                <img
+                  width=100%
+                  class="col-1 fit rounded"
+                  src="MoMo.jpg"
+                  alt="MoMo">
+                <img
+                  width=100%
+                  class="col-2 fit rounded"
+                  src="ZaloPay.png"
+                  alt="ZaloPay">
+              </p>
+              <div class="w-full grid mx-auto grid-cols-2 gap-2 mt-5 mb-2">
             {vnmDonationService.map(item => (
               <DonationCard
                 text={item.text}
@@ -98,11 +161,6 @@ vnmDonationService = [
               />
             ))}
           </div>
-          <label>
-            <input class="peer/showLabel absolute scale-0" type="checkbox" />
-            <span class="block max-h-14 w-full overflow-hidden px-4 py-0 shadow-lg transition-all duration-300 peer-checked/showLabel:max-h-52 blend">
-              <p class="h-15 cursor-pointer text-center font-bold">Show QR Code</p>
-              <p class="grid grid-cols-2 mb-2"><img src="3239435.jpg" alt="MoMo"></p>
             </span>
           </label>
         </article>
