@@ -104,7 +104,7 @@ crypto = [
             <input class="peer/showLabel absolute scale-0" type="checkbox" />
             <span class="animate block max-h-14 w-full px-3 py-3 overflow-hidden border border-neutral-200 dark:border-neutral-700 rounded shadow transition-all duration-300 peer-checked/showLabel:max-h-max blend">
               <h5 class="cursor-pointer text-center font-bold">Show QR Code</h5>
-              <p class="grid grid-cols-2 gap-w-5">
+              <p class="grid grid-cols-2 my-0">
                 <img
                   width=95%
                   class="col-1 fit rounded"
@@ -116,7 +116,7 @@ crypto = [
                   src="XMR.png"
                   alt="Monero">
               </p>
-              <div class="w-full grid mx-auto grid-cols-2 gap-2 mt-5 mb-2">
+              <div class="w-full grid mx-auto grid-cols-2 gap-2 mt-0 mb-2">
                 {crypto.map(item => (
                   <DonationCard
                     text={item.text}
@@ -141,7 +141,7 @@ crypto = [
             <input class="peer/showLabel absolute scale-0" type="checkbox" />
             <span class="animate block max-h-14 w-full px-3 py-3 overflow-hidden border border-neutral-200 dark:border-neutral-700 rounded shadow transition-all duration-300 peer-checked/showLabel:max-h-max blend">
               <h5 class="cursor-pointer text-center font-bold">Show QR Code</h5>
-              <p class="grid grid-cols-2">
+              <p class="grid grid-cols-2 my-0">
                 <img
                   width=95%
                   class="col-1 fit rounded"
@@ -153,7 +153,7 @@ crypto = [
                   src="ZaloPay.png"
                   alt="ZaloPay">
               </p>
-              <div class="w-full grid mx-auto grid-cols-2 gap-2 mt-5 mb-2">
+              <div class="w-full grid mx-auto grid-cols-2 gap-2 mt-0 mb-2">
             {vnmDonationService.map(item => (
               <DonationCard
                 text={item.text}
