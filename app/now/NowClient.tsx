@@ -29,6 +29,7 @@ export default function NowClientPage() {
 
   // Fetch Last.fm recent tracks for "listening" section
   useEffect(() => {
+    let interval: NodeJS.Timeout
     const fetchLastfm = async () => {
       try {
         const res = await fetch(
@@ -79,11 +80,14 @@ export default function NowClientPage() {
           }
         }
         setLastfmTrack({ name, artist, url, nowplaying, date })
+        setLastfmError(false)
       } catch (e) {
         setLastfmError(true)
       }
     }
     fetchLastfm()
+    interval = setInterval(fetchLastfm, 60000)
+    return () => clearInterval(interval)
   }, [])
 
   // Add keyboard event listener for category navigation
