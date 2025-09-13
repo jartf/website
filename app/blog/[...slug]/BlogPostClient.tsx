@@ -136,35 +136,35 @@ export default function BlogPostClient({
               >
                 <SharePost title={post.title} url={`https://jarema.me/blog/${slug}`} />
               </div>
+
+              {/* Alternate language notice */}
+              {alternateLanguages.length > 0 && (
+                <div className="mb-6 text-sm text-muted-foreground">
+                  This page is also available in{" "}
+                  {alternateLanguages.map((alt, idx) => {
+                    const isLast = idx === alternateLanguages.length - 1
+                    const isSecondLast = idx === alternateLanguages.length - 2
+                    return (
+                      <span key={alt.language}>
+                        <Link
+                          href={`/blog/${alt.slug}`}
+                          className="underline hover:text-primary"
+                        >
+                          {getFullLanguageName(alt.language)}
+                        </Link>
+                        {alternateLanguages.length > 2 && !isLast && !isSecondLast && ", "}
+                        {isSecondLast && " and "}
+                      </span>
+                    )
+                  })}
+                  .
+                </div>
+              )}
             </header>
 
             <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}>
               <MarkdownRenderer content={post.content} />
             </div>
-
-            {/* Alternate language notice */}
-            {alternateLanguages.length > 0 && (
-              <div className="mb-6 text-sm text-muted-foreground">
-                This page is also available in{" "}
-                {alternateLanguages.map((alt, idx) => {
-                  const isLast = idx === alternateLanguages.length - 1
-                  const isSecondLast = idx === alternateLanguages.length - 2
-                  return (
-                    <span key={alt.language}>
-                      <Link
-                        href={`/blog/${alt.slug}`}
-                        className="underline hover:text-primary"
-                      >
-                        {getFullLanguageName(alt.language)}
-                      </Link>
-                      {alternateLanguages.length > 2 && !isLast && !isSecondLast && ", "}
-                      {isSecondLast && " and "}
-                    </span>
-                  )
-                })}
-                .
-              </div>
-            )}
 
             {/* Add post navigation */}
             <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}>
