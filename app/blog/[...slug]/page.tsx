@@ -229,6 +229,34 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
     const relatedPosts =
       post.tags?.length || post.category ? await getRelatedPosts(slug, post.tags, post.category) : []
 
+    // Find alternate language versions
+    const allPosts = await getAllBlogPosts()
+    // Remove language from slug for base comparison (assume last part is language if matches post.language)
+    const baseSlugParts = [...slugArr]
+    if (baseSlugParts[baseSlugParts.length - 1] === post.language) {
+      baseSlugParts.pop()
+    }
+    const baseSlug = baseSlugParts.join("/")
+
+    const alternateLanguages = allPosts
+      .filter(p => {
+        // Remove language from candidate slug for base comparison
+        const pSlugParts = p.slug.split("/")
+        if (pSlugParts[pSlugParts.length - 1] === p.language) {
+          pSlugParts.pop()
+        }
+        const pBaseSlug = pSlugParts.join("/")
+        return (
+          pBaseSlug === baseSlug &&
+          p.language !== post.language
+        )
+      })
+      .map(p => ({
+        language: p.language,
+        slug: p.slug,
+        title: p.title,
+      }))
+
     // Format the date for display
     const formattedDate = format(new Date(post.date), "MMMM d, yyyy")
 
@@ -240,6 +268,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
         navigation={navigation}
         relatedPosts={relatedPosts}
         slug={slug}
+        alternateLanguages={alternateLanguages}
       />
     )
   } catch (error) {
