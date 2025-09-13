@@ -6,6 +6,9 @@ mood: "optimistic"
 catApproved: true
 readingTime: 2
 language: "vi"
+alternates:
+  - language: en
+    slug: hello-world
 ---
 
 # Xin chào thế giới

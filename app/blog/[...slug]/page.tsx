@@ -238,24 +238,36 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
     }
     const baseSlug = baseSlugParts.join("/")
 
-    const alternateLanguages = allPosts
-      .filter(p => {
-        // Remove language from candidate slug for base comparison
-        const pSlugParts = p.slug.split("/")
-        if (pSlugParts[pSlugParts.length - 1] === p.language) {
-          pSlugParts.pop()
-        }
-        const pBaseSlug = pSlugParts.join("/")
-        return (
-          pBaseSlug === baseSlug &&
-          p.language !== post.language
-        )
-      })
-      .map(p => ({
-        language: p.language,
-        slug: p.slug,
-        title: p.title,
-      }))
+    // Prefer alternates from frontmatter if present
+    let alternateLanguages = []
+    if (post.alternates && Array.isArray(post.alternates) && post.alternates.length > 0) {
+      alternateLanguages = post.alternates
+        .filter((alt: any) => alt.language !== post.language)
+        .map((alt: any) => ({
+          language: alt.language,
+          slug: alt.slug,
+          title: allPosts.find(p => p.slug === alt.slug)?.title || alt.slug,
+        }))
+    } else {
+      alternateLanguages = allPosts
+        .filter(p => {
+          // Remove language from candidate slug for base comparison
+          const pSlugParts = p.slug.split("/")
+          if (pSlugParts[pSlugParts.length - 1] === p.language) {
+            pSlugParts.pop()
+          }
+          const pBaseSlug = pSlugParts.join("/")
+          return (
+            pBaseSlug === baseSlug &&
+            p.language !== post.language
+          )
+        })
+        .map(p => ({
+          language: p.language,
+          slug: p.slug,
+          title: p.title,
+        }))
+    }
 
     // Format the date for display
     const formattedDate = format(new Date(post.date), "MMMM d, yyyy")
