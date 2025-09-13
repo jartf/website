@@ -83,12 +83,7 @@ export default function NowClientPage() {
               const lang = i18n.language?.split("-")[0] || "en"
               const locale = localeMap[lang] || enUS
               // Use locale's default date+time format
-              let utsNum = Number(uts)
-              // If uts is in seconds (10 digits), multiply by 1000. If already ms (13 digits), use as is.
-              if (uts.length === 10) {
-                utsNum = utsNum * 1000
-              }
-              date = format(new Date(utsNum), locale.formatLong?.dateTime?.({ width: "medium" }) || "PPpp", { locale })
+              date = format(new Date(Number(uts) * 1000), locale.formatLong?.dateTime?.({ width: "medium" }) || "PPpp", { locale })
             }
           }
         }
@@ -298,15 +293,11 @@ export default function NowClientPage() {
                               }
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              {(() => {
-                                const d = new Date(item.date)
-                                if (isNaN(d.getTime())) return t('now.invalidDate', 'Invalid date')
-                                return format(
-                                  d,
-                                  (localeMap[currentLang]?.formatLong?.dateTime?.({ width: "medium" }) || "PPpp"),
-                                  { locale: localeMap[currentLang] || enUS }
-                                )
-                              })()}
+                              {format(
+                                new Date(item.date),
+                                (localeMap[currentLang]?.formatLong?.dateTime?.({ width: "medium" }) || "PPpp"),
+                                { locale: localeMap[currentLang] || enUS }
+                              )}
                             </p>
                           </div>
                         ))
