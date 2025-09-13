@@ -2,7 +2,8 @@ import { notFound } from "next/navigation"
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
-import { format } from "date-fns"
+import { formatDate } from "@/lib/utils"
+import { useCurrentLanguage } from "@/hooks/use-current-language"
 import type { Metadata } from "next"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
 import BlogPostClient from "./BlogPostClient"
@@ -272,8 +273,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
         }))
     }
 
-    // Format the date for display
-    const formattedDate = format(new Date(post.date), "MMMM d, yyyy")
+  // Get language for localization
+  const lang = post.language || "en"
+  // Format the date for display
+  const formattedDate = formatDate(post.date, lang)
 
     // Pass all the data to the client component
     return (

@@ -240,7 +240,7 @@ export default function NowClientPage() {
                   key={category.name}
                   variants={item}
                   className="space-y-4"
-                  ref={(el) => (categoryRefs.current[category.name] = el)}
+                  ref={el => { categoryRefs.current[category.name] = el }}
                   id={`category-${category.name}`}
                   tabIndex={0}
                 >

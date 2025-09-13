@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { format } from "date-fns"
+import { formatDate } from "@/lib/utils"
+import { useCurrentLanguage } from "@/hooks/use-current-language"
 import { Calendar, Clock, Cat, Search, Filter, SortDesc, SortAsc, X, Tag, Globe, Rss } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -56,6 +57,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
   // Ensure blogPosts is always an array
   const safeBlogPosts = Array.isArray(blogPosts) ? blogPosts : []
+  const currentLang = useCurrentLanguage()
 
   // Get unique values from all blog posts
   const uniqueMoods = Array.from(new Set(safeBlogPosts.map((post) => post.mood).filter(Boolean)))
@@ -668,7 +670,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
             {filteredPosts.map((post, index) => (
               <div
                 key={post.slug}
-                ref={(el) => (postRefs.current[index] = el)}
+                ref={el => { postRefs.current[index] = el }}
                 className={`relative transition-all duration-300 ${
                   focusedPostIndex === index ? "ring-2 ring-primary ring-offset-2 scale-[1.02] shadow-lg" : ""
                 }`}
@@ -697,7 +699,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                       <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center">
                           <Calendar className="mr-1 h-4 w-4" />
-                          <span>{format(new Date(post.date), "MMMM d, yyyy")}</span>
+                          <span>{formatDate(post.date, post.language || currentLang)}</span>
                         </div>
                         <div className="flex items-center">
                           <Clock className="mr-1 h-4 w-4" />

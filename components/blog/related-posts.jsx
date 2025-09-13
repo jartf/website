@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Calendar, Clock } from "lucide-react"
-import { format } from "date-fns"
+import { formatDate } from "@/lib/utils"
+import { useCurrentLanguage } from "@/hooks/use-current-language"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
@@ -19,7 +20,7 @@ import { Badge } from "@/components/ui/badge"
  * @param {Object} props - Component props
  * @param {RelatedPost[]} props.posts - Array of related posts
  */
-export function RelatedPosts({ posts }) {
+  const currentLang = useCurrentLanguage()
   if (!posts.length) return null
 
   return (
@@ -36,7 +37,7 @@ export function RelatedPosts({ posts }) {
                 <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
                   <div className="flex items-center">
                     <Calendar className="mr-1 h-3 w-3" />
-                    <span>{format(new Date(post.date), "MMM d, yyyy")}</span>
+                    <span>{formatDate(post.date, post.language || currentLang)}</span>
                   </div>
                   <div className="flex items-center">
                     <Clock className="mr-1 h-3 w-3" />
@@ -69,4 +70,3 @@ export function RelatedPosts({ posts }) {
       </div>
     </div>
   )
-}
