@@ -40,11 +40,11 @@ export default function BlogPostClient({
     const languageMap: Record<string, string> = {
       en: t("language.en", "English"),
       vi: t("language.vi", "Vietnamese"),
+      et: t("language.et", "Estonian"),
       ru: t("language.ru", "Russian"),
       da: t("language.da", "Danish"),
       tr: t("language.tr", "Turkish"),
       zh: t("language.zh", "Chinese"),
-      // Add more languages as needed
     }
 
     return languageMap[code.toLowerCase()] || code
@@ -166,7 +166,7 @@ export default function BlogPostClient({
               )}
             </header>
 
-            <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}>
+            <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }} className="text-justify">
               <MarkdownRenderer content={post.content} />
             </div>
 
