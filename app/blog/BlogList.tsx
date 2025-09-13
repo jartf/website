@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { format } from "date-fns"
-import * as locales from "date-fns/locale"
 import { Calendar, Clock, Cat, Search, Filter, SortDesc, SortAsc, X, Tag, Globe, Rss } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -15,7 +14,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
-import { useCurrentLanguage } from "@/hooks/use-current-language"
 import i18n from "i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
 
@@ -39,18 +37,8 @@ type BlogListProps = {
 
 type SortOption = "newest" | "oldest" | "readingTime" | "alphabetical"
 
+export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const { t } = useTranslation()
-  const currentLang = useCurrentLanguage()
-  const localeMap = {
-    en: locales.enUS,
-    vi: locales.vi,
-    et: locales.et,
-    ru: locales.ru,
-    da: locales.da,
-    tr: locales.tr,
-    zh: locales.zhCN,
-  }
-  const postLocale = localeMap[currentLang] || locales.enUS
   const [focusedPostIndex, setFocusedPostIndex] = useState<number>(-1)
   const [searchQuery, setSearchQuery] = useState("")
   const [sortOption, setSortOption] = useState<SortOption>("newest")
@@ -709,7 +697,7 @@ type SortOption = "newest" | "oldest" | "readingTime" | "alphabetical"
                       <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center">
                           <Calendar className="mr-1 h-4 w-4" />
-                          <span>{format(new Date(post.date), "MMMM d, yyyy", { locale: postLocale })}</span>
+                          <span>{format(new Date(post.date), "MMMM d, yyyy")}</span>
                         </div>
                         <div className="flex items-center">
                           <Clock className="mr-1 h-4 w-4" />
