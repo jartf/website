@@ -19,6 +19,7 @@ type BlogPost = {
   tags?: string[]
   category?: string
   language?: string
+  alternates?: { language: string; slug: string }[] // <-- add this line
 }
 
 // Function to safely read a blog post file
@@ -87,6 +88,7 @@ async function getAllBlogPosts(): Promise<BlogPost[]> {
           tags: matterResult.data.tags || [],
           category: matterResult.data.category || null,
           language: matterResult.data.language || "en",
+          alternates: matterResult.data.alternates || [], // <-- add this line
         } as BlogPost
       })
       .filter((post): post is BlogPost => post !== null)
@@ -131,6 +133,7 @@ async function getBlogPost(slugParam: string[] | string): Promise<BlogPost> {
       language: matterResult.data.language || "en",
       tags: matterResult.data.tags || [],
       category: matterResult.data.category || null,
+      alternates: matterResult.data.alternates || [], // <-- add this line
     }
   } catch (error) {
     console.error(`Error getting blog post ${Array.isArray(slugParam) ? slugParam.join("/") : slugParam}:`, error)
