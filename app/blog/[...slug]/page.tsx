@@ -8,31 +8,24 @@ import type { Locale } from "date-fns"
 import type { Metadata } from "next"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
 import BlogPostClient from "./BlogPostClient"
-
-// Types for blog posts
-type BlogPost = {
-  slug: string
-  title: string
-  content: string
-  date: string
-  mood: string
-  catApproved: boolean
-  readingTime: number
-  tags?: string[]
-  category?: string
-  language?: string
-  alternates?: { language: string; slug: string }[] // <-- add this line
+  return (
+    <BlogPostClient
+      post={post}
+      formattedDate={formattedDate}
+      navigation={navigation}
+      relatedPosts={relatedPosts}
+      slug={slug}
+      alternateLanguages={alternateLanguages}
+    />
+  )
 }
 
-// Function to safely read a blog post file
-function readBlogPostFile(filePath: string): { content: string; data: any } | null {
-  try {
-    const fileContents = fs.readFileSync(filePath, "utf8")
-    return matter(fileContents)
-  } catch (error) {
-    console.error(`Error reading blog post file ${filePath}:`, error)
-    return null
-  }
+// Generate static params for all blog posts
+export async function generateStaticParams() {
+  const posts = await getAllBlogPosts()
+  return posts.map((post) => ({
+    slug: post.slug.split("/"),
+  }))
 }
 
 // Helper to recursively get all .md files in a directory and its subdirectories
@@ -225,87 +218,64 @@ export async function generateMetadata({ params }: { params: { slug: string[] | 
   }
 }
 
+export default async function BlogPostPage({ params }: { params: { slug: string[] | string } }) {
+  const slugArr = Array.isArray(params.slug) ? params.slug : [params.slug]
+  const slug = slugArr.join("/")
+  let post: BlogPost
+  let navigation: any
+  let relatedPosts: BlogPost[]
+  let allPosts: BlogPost[]
   try {
-    const slugArr = Array.isArray(params.slug) ? params.slug : [params.slug]
-    const slug = slugArr.join("/")
-    const post = await getBlogPost(slugArr)
-    const navigation = await getPostNavigation(slug)
-    const relatedPosts =
-      post.tags?.length || post.category ? await getRelatedPosts(slug, post.tags, post.category) : []
-
-    // Find alternate language versions
-    const allPosts = await getAllBlogPosts()
-    // Remove language from slug for base comparison (assume last part is language if matches post.language)
-    const baseSlugParts = [...slugArr]
-    if (baseSlugParts[baseSlugParts.length - 1] === post.language) {
-      baseSlugParts.pop()
-    }
-    const baseSlug = baseSlugParts.join("/")
-
-    // Prefer alternates from frontmatter if present
-    let alternateLanguages = []
-    if (post.alternates && Array.isArray(post.alternates) && post.alternates.length > 0) {
-      alternateLanguages = post.alternates
-        .filter((alt: any) => alt.language !== post.language)
-        .map((alt: any) => ({
-          language: alt.language,
-          slug: alt.slug,
-          title: allPosts.find(p => p.slug === alt.slug)?.title || alt.slug,
-        }))
-    } else {
-      alternateLanguages = allPosts
-        .filter(p => {
-          // Remove language from candidate slug for base comparison
-          const pSlugParts = p.slug.split("/")
-          if (pSlugParts[pSlugParts.length - 1] === p.language) {
-            pSlugParts.pop()
-          }
-          const pBaseSlug = pSlugParts.join("/")
-          return (
-            pBaseSlug === baseSlug &&
-            p.language !== post.language
-          )
-        })
-        .map(p => ({
-          language: p.language,
-          slug: p.slug,
-          title: p.title,
-        }))
-    }
-
-    // Map language code to date-fns locale, fallback to enUS if not found
-    const localeMap: Record<string, Locale | undefined> = {
-      en: locales.enUS,
-      vi: locales.vi,
-      et: locales.et,
-      ru: locales.ru,
-      da: locales.da,
-      tr: locales.tr,
-      zh: locales.zhCN,
-    }
-    const postLocale: Locale = localeMap[post.language || "en"] || locales.enUS
-    const formattedDate = format(new Date(post.date), "MMMM d, yyyy", { locale: postLocale })
-
-    return (
-      <BlogPostClient
-        post={post}
-        formattedDate={formattedDate}
-        navigation={navigation}
-        relatedPosts={relatedPosts}
-        slug={slug}
-        alternateLanguages={alternateLanguages}
-      />
-    )
+    post = await getBlogPost(slugArr)
+    navigation = await getPostNavigation(slug)
+    relatedPosts = post.tags?.length || post.category ? await getRelatedPosts(slug, post.tags, post.category) : []
+    allPosts = await getAllBlogPosts()
   } catch (error) {
     console.error("Error rendering blog post:", error)
     notFound()
+    return null
   }
-}
-
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-  const posts = await getAllBlogPosts()
-  return posts.map((post) => ({
-    slug: post.slug.split("/"),
-  }))
-}
+  const baseSlugParts = [...slugArr]
+  if (baseSlugParts[baseSlugParts.length - 1] === post.language) {
+    baseSlugParts.pop()
+  }
+  const baseSlug = baseSlugParts.join("/")
+  let alternateLanguages
+  if (post.alternates && Array.isArray(post.alternates) && post.alternates.length > 0) {
+    alternateLanguages = post.alternates
+      .filter((alt: any) => alt.language !== post.language)
+      .map((alt: any) => ({
+        language: alt.language,
+        slug: alt.slug,
+        title: allPosts.find((p: BlogPost) => p.slug === alt.slug)?.title || alt.slug,
+      }))
+  } else {
+    alternateLanguages = allPosts
+      .filter((p: BlogPost) => {
+        const pSlugParts = p.slug.split("/")
+        if (pSlugParts[pSlugParts.length - 1] === p.language) {
+          pSlugParts.pop()
+        }
+        const pBaseSlug = pSlugParts.join("/")
+        return (
+          pBaseSlug === baseSlug &&
+          p.language !== post.language
+        )
+      })
+      .map((p: BlogPost) => ({
+        language: p.language,
+        slug: p.slug,
+        title: p.title,
+      }))
+  }
+  const localeMap: Record<string, Locale | undefined> = {
+    en: locales.enUS,
+    vi: locales.vi,
+    et: locales.et,
+    ru: locales.ru,
+    da: locales.da,
+    tr: locales.tr,
+    zh: locales.zhCN,
+  }
+  const postLocale: Locale = localeMap[post.language || "en"] || locales.enUS
+  const formattedDate = format(new Date(post.date), "MMMM d, yyyy", { locale: postLocale })
