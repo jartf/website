@@ -11,23 +11,27 @@ import { RelatedPosts } from "@/components/blog/related-posts"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslation } from "react-i18next"
 
+import { formatDate } from "@/lib/utils"
+import { useCurrentLanguage } from "@/hooks/use-current-language"
+
 interface BlogPostClientProps {
   post: any
-  formattedDate: string
+  date: string
   navigation: any
   relatedPosts: any[]
   slug: string
   alternateLanguages?: { language: string; slug: string; title: string }[]
 }
-
 export default function BlogPostClient({
   post,
-  formattedDate,
+  date,
   navigation,
   relatedPosts,
   slug,
   alternateLanguages = [],
 }: BlogPostClientProps) {
+  const currentLang = useCurrentLanguage()
+  const formattedDate = formatDate(date, currentLang)
   const prefersReducedMotion = useReducedMotion()
   const { t, i18n } = useTranslation()
 
