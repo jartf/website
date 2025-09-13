@@ -3,6 +3,8 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import { format } from "date-fns"
+import * as locales from "date-fns/locale"
+import type { Locale } from "date-fns"
 import type { Metadata } from "next"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
 import BlogPostClient from "./BlogPostClient"
@@ -223,7 +225,6 @@ export async function generateMetadata({ params }: { params: { slug: string[] | 
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string[] | string } }) {
   try {
     const slugArr = Array.isArray(params.slug) ? params.slug : [params.slug]
     const slug = slugArr.join("/")
@@ -272,10 +273,19 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
         }))
     }
 
-    // Format the date for display
-    const formattedDate = format(new Date(post.date), "MMMM d, yyyy")
+    // Map language code to date-fns locale, fallback to enUS if not found
+    const localeMap: Record<string, Locale | undefined> = {
+      en: locales.enUS,
+      vi: locales.vi,
+      et: locales.et,
+      ru: locales.ru,
+      da: locales.da,
+      tr: locales.tr,
+      zh: locales.zhCN,
+    }
+    const postLocale: Locale = localeMap[post.language || "en"] || locales.enUS
+    const formattedDate = format(new Date(post.date), "MMMM d, yyyy", { locale: postLocale })
 
-    // Pass all the data to the client component
     return (
       <BlogPostClient
         post={post}
