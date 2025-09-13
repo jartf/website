@@ -273,10 +273,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
         }))
     }
 
-  // Get language for localization
-  const lang = post.language || "en"
+  // Use site language for localization
+  const siteLang = useCurrentLanguage()
   // Format the date for display
-  const formattedDate = formatDate(post.date, lang)
+  const formattedDate = formatDate(post.date, siteLang)
 
     // Pass all the data to the client component
     return (

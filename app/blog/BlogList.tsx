@@ -699,7 +699,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                       <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center">
                           <Calendar className="mr-1 h-4 w-4" />
-                          <span>{formatDate(post.date, post.language || currentLang)}</span>
+                          <span>{formatDate(post.date, currentLang)}</span>
                         </div>
                         <div className="flex items-center">
                           <Clock className="mr-1 h-4 w-4" />

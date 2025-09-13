@@ -38,7 +38,7 @@ export function RelatedPosts({ posts }) {
                 <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
                   <div className="flex items-center">
                     <Calendar className="mr-1 h-3 w-3" />
-                    <span>{formatDate(post.date, post.language || currentLang)}</span>
+                    <span>{formatDate(post.date, currentLang)}</span>
                   </div>
                   <div className="flex items-center">
                     <Clock className="mr-1 h-3 w-3" />
