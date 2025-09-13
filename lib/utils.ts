@@ -20,10 +20,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// Localized date formatting using date-fns
+// Localized date formatting using date-fns, using locale's default format
 export function formatDate(date: Date | string | number, lang: string = "en"): string {
   const locale = LOCALE_MAP[lang] || enUS
-  return format(new Date(date), "MMMM d, yyyy", { locale })
+  // Use the locale's default date format if available
+  let formatStr = "PP" // date-fns 'PP' token uses locale default
+  try {
+    // Some locales may not have formatLong.date, so fallback
+    if (locale && locale.formatLong && typeof locale.formatLong.date === "function") {
+      formatStr = locale.formatLong.date({ width: "medium" })
+    }
+  } catch (e) {
+    // fallback to 'PP'
+  }
+  return format(new Date(date), formatStr, { locale })
 }
 
 export function slugify(str: string): string {
