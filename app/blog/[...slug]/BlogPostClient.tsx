@@ -11,11 +11,22 @@ import { RelatedPosts } from "@/components/blog/related-posts"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslation } from "react-i18next"
 
+interface BlogPost {
+  title: string
+  content: string
+  readingTime?: number
+  mood?: string
+  catApproved?: boolean
+  language?: string
+  category?: string
+  tags?: string[]
+}
+
 interface BlogPostClientProps {
-  post: any
+  post: BlogPost
   formattedDate: string
-  navigation: any
-  relatedPosts: any[]
+  navigation: any // You can further type this if you know the structure
+  relatedPosts: BlogPost[]
   slug: string
   alternateLanguages?: { language: string; slug: string; title: string }[]
 }
@@ -51,39 +62,33 @@ export default function BlogPostClient({
       <ReadingProgress />
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">
-          <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateX(0px)" }}>
+          <div>
             <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to all posts
+              {t("blog.backToAllPosts", "Back to all posts")}
             </Link>
           </div>
 
           <article>
             <header className="mb-10">
-              <h1
-                className="text-4xl md:text-5xl font-bold mb-6"
-                style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}
-              >
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 {post.title}
               </h1>
 
-              <div
-                className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4"
-                style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}
-              >
+              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
                 <div className="flex items-center">
                   <Calendar className="mr-1 h-4 w-4" />
                   <span>{formattedDate}</span>
                 </div>
                 <div className="flex items-center">
                   <Clock className="mr-1 h-4 w-4" />
-                  <span>{post.readingTime} min read</span>
+                  <span>{post.readingTime ?? 0} {t("blog.minRead", "min read")}</span>
                 </div>
-                <Badge variant="outline">Mood: {post.mood}</Badge>
+                {post.mood && <Badge variant="outline">{t("blog.mood", "Mood")}: {post.mood}</Badge>}
                 {post.catApproved && (
                   <div className="flex items-center text-amber-600 dark:text-amber-400">
                     <Cat className="h-4 w-4 mr-1" />
-                    <span>Cat Approved</span>
+                    <span>{t("blog.catApproved", "Cat Approved")}</span>
                   </div>
                 )}
                 {post.language && (
@@ -98,10 +103,7 @@ export default function BlogPostClient({
               </div>
 
               {/* Category and Tags */}
-              <div
-                className="flex flex-wrap gap-2 mb-4"
-                style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}
-              >
+              <div className="flex flex-wrap gap-2 mb-4">
                 {post.category && (
                   <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
                     <Badge
@@ -112,10 +114,10 @@ export default function BlogPostClient({
                     </Badge>
                   </Link>
                 )}
-                {post.tags && post.tags.length > 0 && (
+                {post.tags?.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
-                      <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                    {post.tags.map((tag, idx) => (
+                      <Link key={tag + idx} href={`/blog?tag=${encodeURIComponent(tag)}`}>
                         <Badge
                           variant="outline"
                           className="flex items-center gap-1 text-xs hover:bg-muted cursor-pointer"
@@ -130,17 +132,14 @@ export default function BlogPostClient({
               </div>
 
               {/* Share buttons */}
-              <div
-                className="mb-8 mt-4"
-                style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}
-              >
+              <div className="mb-8 mt-4">
                 <SharePost title={post.title} url={`https://jarema.me/blog/${slug}`} />
               </div>
 
               {/* Alternate language notice */}
               {alternateLanguages.length > 0 && (
                 <div className="mb-6 text-sm text-muted-foreground">
-                  This page is also available in{" "}
+                  {t("blog.alsoAvailableIn", "This page is also available in")}{" "}
                   {alternateLanguages.map((alt, idx) => {
                     const isLast = idx === alternateLanguages.length - 1
                     const isSecondLast = idx === alternateLanguages.length - 2
@@ -162,18 +161,18 @@ export default function BlogPostClient({
               )}
             </header>
 
-            <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}>
+            <div>
               <MarkdownRenderer content={post.content} />
             </div>
 
             {/* Add post navigation */}
-            <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}>
+            <div>
               <BlogPostNavigation navigation={navigation} />
             </div>
 
             {/* Related posts */}
             {relatedPosts.length > 0 && (
-              <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}>
+              <div>
                 <RelatedPosts posts={relatedPosts} />
               </div>
             )}
@@ -182,4 +181,5 @@ export default function BlogPostClient({
       </div>
     </main>
   )
+}
 }
