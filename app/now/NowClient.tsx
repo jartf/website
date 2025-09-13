@@ -1,9 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { format } from "date-fns"
-import { enUS, vi, et, ru, da, tr, zhCN } from "date-fns/locale"
-import type { Locale } from "date-fns"
 import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
@@ -70,20 +67,15 @@ export default function NowClientPage() {
             // Use the "uts" attribute for timestamp
             const uts = dateElem.getAttribute("uts")
             if (uts) {
-              // Map language code to date-fns locale
-              const localeMap: Record<string, Locale> = {
-                en: enUS,
-                vi,
-                et,
-                ru,
-                da,
-                tr,
-                zh: zhCN,
-              }
-              const lang = i18n.language?.split("-")[0] || "en"
-              const locale = localeMap[lang] || enUS
-              // Use locale's default date+time format
-              date = format(new Date(Number(uts) * 1000), locale.formatLong?.dateTime?.({ width: "medium" }) || "PPpp", { locale })
+              date = new Date(Number(uts) * 1000).toLocaleString(undefined, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                timeZoneName: "short"
+              })
             }
           }
         }
@@ -145,24 +137,26 @@ export default function NowClientPage() {
 
   // Get the current language, default to English if not supported
   const currentLang = (() => {
+    // Get the detected language
     const detectedLang = i18n.language || window.navigator.language?.split("-")[0] || "en"
-    const supported = ["en", "vi", "et", "ru", "da", "tr", "zh"]
-    for (const lang of supported) {
-      if (detectedLang.startsWith(lang)) return lang
+
+    // Check if it's one of our supported languages
+    if (["en", "vi", "et", "ru", "da", "tr", "zh"].includes(detectedLang)) {
+      return detectedLang
     }
+
+    // Handle language variants (e.g., en-US, en-GB)
+    if (detectedLang.startsWith("en")) return "en"
+    if (detectedLang.startsWith("vi")) return "vi"
+    if (detectedLang.startsWith("et")) return "et"
+    if (detectedLang.startsWith("ru")) return "ru"
+    if (detectedLang.startsWith("da")) return "da"
+    if (detectedLang.startsWith("tr")) return "tr"
+    if (detectedLang.startsWith("zh")) return "zh"
+
+    // Default fallback
     return "en"
   })()
-
-  // Map language code to date-fns locale (hoisted for use everywhere)
-  const localeMap: Record<string, Locale> = {
-    en: enUS,
-    vi,
-    et,
-    ru,
-    da,
-    tr,
-    zh: zhCN,
-  }
 
   const container = {
     hidden: { opacity: 0 },
@@ -226,11 +220,15 @@ export default function NowClientPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">{t("now.title")}</h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("now.description")}</p>
             <p className="text-sm text-muted-foreground mt-2">
-              {t("now.lastUpdated")}: {format(
-                getLastUpdatedDate(),
-                (localeMap[currentLang]?.formatLong?.dateTime?.({ width: "medium" }) || "PPpp"),
-                { locale: localeMap[currentLang] || enUS }
-              )}
+              {t("now.lastUpdated")}: {getLastUpdatedDate().toLocaleDateString(undefined, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                timeZoneName: "short"
+              })}
             </p>
           </div>
 
@@ -293,11 +291,15 @@ export default function NowClientPage() {
                               }
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              {format(
-                                new Date(item.date),
-                                (localeMap[currentLang]?.formatLong?.dateTime?.({ width: "medium" }) || "PPpp"),
-                                { locale: localeMap[currentLang] || enUS }
-                              )}
+                              {new Date(item.date).toLocaleString(undefined, {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                second: "2-digit",
+                                timeZoneName: "short"
+                              })}
                             </p>
                           </div>
                         ))
@@ -312,11 +314,15 @@ export default function NowClientPage() {
                               }
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              {format(
-                                new Date(item.date),
-                                (localeMap[currentLang]?.formatLong?.dateTime?.({ width: "medium" }) || "PPpp"),
-                                { locale: localeMap[currentLang] || enUS }
-                              )}
+                              {new Date(item.date).toLocaleString(undefined, {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                second: "2-digit",
+                                timeZoneName: "short"
+                              })}
                             </p>
                           </div>
                         ))
