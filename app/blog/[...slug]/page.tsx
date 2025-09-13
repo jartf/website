@@ -106,11 +106,13 @@ async function getAllBlogPosts(): Promise<BlogPost[]> {
 }
 
 // Function to get a specific blog post
-async function getBlogPost(slug: string): Promise<BlogPost> {
+async function getBlogPost(slugParam: string[] | string): Promise<BlogPost> {
   try {
     const postsDirectory = path.join(process.cwd(), "content/blog")
     // Support slugs with subdirectories (e.g., 2024/07/app-defaults-2024)
-    const fullPath = path.join(postsDirectory, ...slug.split("/")) + ".md"
+    const slugArr = Array.isArray(slugParam) ? slugParam : [slugParam]
+    const fullPath = path.join(postsDirectory, ...slugArr) + ".md"
+    const slug = slugArr.join("/")
 
     const matterResult = readBlogPostFile(fullPath)
 
@@ -131,7 +133,7 @@ async function getBlogPost(slug: string): Promise<BlogPost> {
       category: matterResult.data.category || null,
     }
   } catch (error) {
-    console.error(`Error getting blog post ${slug}:`, error)
+    console.error(`Error getting blog post ${Array.isArray(slugParam) ? slugParam.join("/") : slugParam}:`, error)
     throw error
   }
 }
@@ -196,7 +198,7 @@ async function getRelatedPosts(
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string[] | string } }): Promise<Metadata> {
   try {
     const post = await getBlogPost(params.slug)
     return {
@@ -218,12 +220,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: { slug: string[] | string } }) {
   try {
-    const post = await getBlogPost(params.slug)
-    const navigation = await getPostNavigation(params.slug)
+    const slugArr = Array.isArray(params.slug) ? params.slug : [params.slug]
+    const slug = slugArr.join("/")
+    const post = await getBlogPost(slugArr)
+    const navigation = await getPostNavigation(slug)
     const relatedPosts =
-      post.tags?.length || post.category ? await getRelatedPosts(params.slug, post.tags, post.category) : []
+      post.tags?.length || post.category ? await getRelatedPosts(slug, post.tags, post.category) : []
 
     // Format the date for display
     const formattedDate = format(new Date(post.date), "MMMM d, yyyy")
@@ -235,7 +239,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         formattedDate={formattedDate}
         navigation={navigation}
         relatedPosts={relatedPosts}
-        slug={params.slug}
+        slug={slug}
       />
     )
   } catch (error) {
@@ -248,6 +252,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
   return posts.map((post) => ({
-    slug: post.slug,
+    slug: post.slug.split("/"),
   }))
 }
