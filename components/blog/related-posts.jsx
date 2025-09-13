@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge"
  * @param {Object} props - Component props
  * @param {RelatedPost[]} props.posts - Array of related posts
  */
+export function RelatedPosts({ posts }) {
   const currentLang = useCurrentLanguage()
   if (!posts.length) return null
 
@@ -70,3 +71,4 @@ import { Badge } from "@/components/ui/badge"
       </div>
     </div>
   )
+}
