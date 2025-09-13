@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { format } from "date-fns"
+import { enUS, vi, et, ru, da, tr, zhCN } from "date-fns/locale"
+import type { Locale } from "date-fns"
 import { useTranslation } from "react-i18next"
-import { formatDate } from "@/lib/utils"
-import { useCurrentLanguage } from "@/hooks/use-current-language"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import { Firefly } from "@/components/firefly"
@@ -11,8 +12,8 @@ import { nowItems } from "@/content/now-items"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
+export default function NowClientPage() {
   const { t, i18n } = useTranslation()
-  const currentLang = useCurrentLanguage()
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({})
@@ -30,7 +31,7 @@ import { Badge } from "@/components/ui/badge"
   }, [])
 
   // Fetch Last.fm recent tracks for "listening" section
-    const currentLang = useCurrentLanguage() // Declare currentLang once at the top
+  useEffect(() => {
     let interval: NodeJS.Timeout
     const fetchLastfm = async () => {
       try {
@@ -53,8 +54,9 @@ import { Badge } from "@/components/ui/badge"
             nowplaying = true
             break
           }
-            const currentLang = useCurrentLanguage() // Declare currentLang once at the top
+        }
         // Otherwise, use the first track
+        if (!track) {
           track = tracks[0]
         }
         if (!track) return
@@ -68,7 +70,25 @@ import { Badge } from "@/components/ui/badge"
             // Use the "uts" attribute for timestamp
             const uts = dateElem.getAttribute("uts")
             if (uts) {
-              date = formatDate(Number(uts) * 1000, currentLang)
+              // Map language code to date-fns locale
+              const localeMap: Record<string, Locale> = {
+                en: enUS,
+                vi,
+                et,
+                ru,
+                da,
+                tr,
+                zh: zhCN,
+              }
+              const lang = i18n.language?.split("-")[0] || "en"
+              const locale = localeMap[lang] || enUS
+              // Use locale's default date+time format
+              let utsNum = Number(uts)
+              // If uts is in seconds (10 digits), multiply by 1000. If already ms (13 digits), use as is.
+              if (uts.length === 10) {
+                utsNum = utsNum * 1000
+              }
+              date = format(new Date(utsNum), locale.formatLong?.dateTime?.({ width: "medium" }) || "PPpp", { locale })
             }
           }
         }
@@ -130,30 +150,69 @@ import { Badge } from "@/components/ui/badge"
 
   // Get the current language, default to English if not supported
   const currentLang = (() => {
-    // Get the detected language
     const detectedLang = i18n.language || window.navigator.language?.split("-")[0] || "en"
-
-    // Check if it's one of our supported languages
-    if (["en", "vi", "et", "ru", "da", "tr", "zh"].includes(detectedLang)) {
-      return detectedLang
+    const supported = ["en", "vi", "et", "ru", "da", "tr", "zh"]
+    for (const lang of supported) {
+      if (detectedLang.startsWith(lang)) return lang
     }
+    return "en"
+  })()
 
-    // Handle language variants (e.g., en-US, en-GB)
-    if (detectedLang.startsWith("en")) return "en"
-    if (detectedLang.startsWith("vi")) return "vi"
-    if (detectedLang.startsWith("et")) return "et"
-    if (detectedLang.startsWith("ru")) return "ru"
-    if (detectedLang.startsWith("da")) return "da"
-    if (detectedLang.startsWith("tr")) return "tr"
-    if (detectedLang.startsWith("zh")) return "zh"
+  // Map language code to date-fns locale (hoisted for use everywhere)
+  const localeMap: Record<string, Locale> = {
+    en: enUS,
+    vi,
+    et,
+    ru,
+    da,
+    tr,
+    zh: zhCN,
+  }
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
 
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  }
+
+  // Group items by category
+  const groupedItems = nowItems.reduce(
     (acc, item) => {
       if (!acc[item.category]) {
         acc[item.category] = []
       }
       acc[item.category].push(item)
       return acc
+    },
+    {} as Record<string, typeof nowItems>,
+  )
+
+  // Get unique categories with their icons
+  const categories = Object.keys(groupedItems).map((category) => {
+    const categoryItem = nowItems.find((item) => item.category === category)
+    return {
+      name: category,
+      icon: categoryItem?.icon,
+    }
+  })
+
+  // Compute latest last updated date, excluding "listening" if Lastfm is active
+  const getLastUpdatedDate = () => {
+    let items = nowItems
+    if (lastfmTrack && !lastfmError) {
+      items = nowItems.filter(item => item.category !== "listening")
+    }
+    const latest = items.reduce((acc, item) => {
+      const d = new Date(item.date)
       return d > acc ? d : acc
     }, new Date(0))
     return latest
@@ -172,7 +231,11 @@ import { Badge } from "@/components/ui/badge"
             <h1 className="text-4xl md:text-5xl font-bold mb-4">{t("now.title")}</h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("now.description")}</p>
             <p className="text-sm text-muted-foreground mt-2">
-              {t("now.lastUpdated")}: {formatDate(getLastUpdatedDate(), currentLang)}
+              {t("now.lastUpdated")}: {format(
+                getLastUpdatedDate(),
+                (localeMap[currentLang]?.formatLong?.dateTime?.({ width: "medium" }) || "PPpp"),
+                { locale: localeMap[currentLang] || enUS }
+              )}
             </p>
           </div>
 
@@ -235,7 +298,15 @@ import { Badge } from "@/components/ui/badge"
                               }
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              {formatDate(item.date, currentLang)}
+                              {(() => {
+                                const d = new Date(item.date)
+                                if (isNaN(d.getTime())) return t('now.invalidDate', 'Invalid date')
+                                return format(
+                                  d,
+                                  (localeMap[currentLang]?.formatLong?.dateTime?.({ width: "medium" }) || "PPpp"),
+                                  { locale: localeMap[currentLang] || enUS }
+                                )
+                              })()}
                             </p>
                           </div>
                         ))
@@ -250,7 +321,11 @@ import { Badge } from "@/components/ui/badge"
                               }
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              {formatDate(item.date, currentLang)}
+                              {format(
+                                new Date(item.date),
+                                (localeMap[currentLang]?.formatLong?.dateTime?.({ width: "medium" }) || "PPpp"),
+                                { locale: localeMap[currentLang] || enUS }
+                              )}
                             </p>
                           </div>
                         ))
