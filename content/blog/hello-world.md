@@ -15,4 +15,4 @@ alternates:
 
 Welcome to my blog! This is the first entry in what I hope will be a journey of thoughts, reflections, and occasional rants.
 
-I ươn't be posting *that* frequently though, so stay tuned :p
+I wơn't be posting *that* frequently though, so stay tuned :p
