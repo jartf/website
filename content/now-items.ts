@@ -32,7 +32,7 @@ export const nowItems: NowItem[] = [
       tr: 'Jack Gantos\'un "Joey Pigza Loses Control" (Joey Pigza Kontrolü Kaybediyor)',
       zh: '杰克·甘托斯（Jack Gantos）的《乔伊·皮格扎失控》（Joey Pigza Loses Control）',
     },
-    date: "2025-09-12T08:36:18+07:00",
+    date: "2025-09-16T21:32:18+07:00",
   },
   {
     id: 2,
@@ -47,7 +47,7 @@ export const nowItems: NowItem[] = [
       tr: "Bu web sitesini React'e daha az bağımlı hale getirmek ve statik HTML'e dönmek için iyileştiriyorum",
       zh: "改进此网站以减少对React的依赖，回归静态HTML",
     },
-    date: "2025-09-12T11:15:15+07:00",
+    date: "2025-09-17T00:26:17+07:00",
   },
   {
     id: 3,
@@ -62,22 +62,22 @@ export const nowItems: NowItem[] = [
       tr: "Mixue'den biraz siyah şekerli baloncuklu çay",
       zh: "来自蜜雪的一些黑糖珍珠奶茶",
     },
-    date: "2025-09-08T18:45:20+07:00",
+    date: "2025-09-15T:45:20+07:00",
   },
   {
     id: 4,
     category: "listening",
     icon: Headphones,
     content: {
-      en: '"Shiny Sky" by Synthion',
-      vi: '"Shiny Sky" của Synthion',
-      ru: '"Shiny Sky" от Synthion',
-      et: '"Shiny Sky" Synthionilt',
-      da: '"Shiny Sky" af Synthion',
-      tr: 'Synthion\'dan "Shiny Sky"',
-      zh: 'Synthion的《Shiny Sky》'
+      en: '"Ramune" by Aqu3ra',
+      vi: '"Ramune" của Aqu3ra',
+      ru: '"Ramune" от Aqu3ra',
+      et: '"Ramune" Aqu3ra poolt',
+      da: '"Ramune" af Aqu3ra',
+      tr: 'Aqu3ra\'dan "Ramune"',
+      zh: 'Aqu3ra的《Ramune》'
     },
-    date: "2025-09-10T18:41:25+07:00",
+    date: "2025-09-16T21:41:25+07:00",
   },
   {
     id: 5,
@@ -92,7 +92,7 @@ export const nowItems: NowItem[] = [
       tr: "Kendimi nasıl daha da geliştirebileceğim ve sevdiğim şeyleri daha sık yapabileceğim hakkında",
       zh: "关于我如何进一步提升自己并更频繁地做我喜欢的事情",
     },
-    date: "2025-09-11T22:30:00+07:00",
+    date: "2025-09-16T22:30:00+07:00",
   },
   {
     id: 6,
@@ -107,7 +107,7 @@ export const nowItems: NowItem[] = [
       tr: "Jeoekonomi ve bunun Vietnam'ın 2035 Vizyonu üzerindeki etkileri",
       zh: "地缘经济学及其对越南2035年愿景的影响"
     },
-    date: "2025-09-09T11:15:11+07:00",
+    date: "2025-09-16T11:15:11+07:00",
   },
   {
     id: 7,
@@ -122,6 +122,6 @@ export const nowItems: NowItem[] = [
       tr: "Jeoekonomi üzerine bir araştırma projesi ve Vietnam'ın bunu 2025'te ekonomik diplomasi için nasıl kullandığı",
       zh: "关于地缘经济学的研究项目，以及越南如何在2025年利用地缘经济学进行经济外交"
     },
-    date: "2025-09-09T11:30:00+07:00",
+    date: "2025-09-16T11:30:00+07:00",
   },
 ]
