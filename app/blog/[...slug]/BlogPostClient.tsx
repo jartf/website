@@ -10,6 +10,7 @@ import { SharePost } from "@/components/blog/share-post"
 import { RelatedPosts } from "@/components/blog/related-posts"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslation } from "react-i18next"
+import styles from "./BlogPostClient.module.css"
 
 import { formatDate } from "@/lib/utils"
 import { useCurrentLanguage } from "@/hooks/use-current-language"
@@ -55,7 +56,13 @@ export default function BlogPostClient({
       <ReadingProgress />
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">
-          <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateX(0px)" }}>
+          <div
+            className={
+              prefersReducedMotion
+                ? undefined
+                : styles.animatedX
+            }
+          >
             <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8">
               <ArrowLeft className="mr-2 h-4 w-4" />
               {t("blog.back", "Back to blog list")}
@@ -65,15 +72,19 @@ export default function BlogPostClient({
           <article>
             <header className="mb-10">
               <h1
-                className="text-4xl md:text-5xl font-bold mb-6"
-                style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}
+                className={
+                  prefersReducedMotion
+                    ? "text-4xl md:text-5xl font-bold mb-6"
+                    : `text-4xl md:text-5xl font-bold mb-6 ${styles.animatedY}`
+                }
               >
                 {post.title}
               </h1>
 
               <div
-                className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4"
-                style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}
+                className={`flex flex-wrap gap-4 text-sm text-muted-foreground mb-4 ${
+                  prefersReducedMotion ? "" : styles.animatedY
+                }`}
               >
                 <div className="flex items-center">
                   <Calendar className="mr-1 h-4 w-4" />
@@ -103,8 +114,9 @@ export default function BlogPostClient({
 
               {/* Category and Tags */}
               <div
-                className="flex flex-wrap gap-2 mb-4"
-                style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}
+                className={`flex flex-wrap gap-2 mb-4 ${
+                  prefersReducedMotion ? "" : styles.animatedY
+                }`}
               >
                 {post.category && (
                   <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
@@ -118,7 +130,7 @@ export default function BlogPostClient({
                 )}
                 {post.tags && post.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
+                    {post.tags.map((tag: string) => (
                       <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
                         <Badge
                           variant="outline"
@@ -135,8 +147,9 @@ export default function BlogPostClient({
 
               {/* Share buttons */}
               <div
-                className="mb-8 mt-4"
-                style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}
+                className={`mb-8 mt-4 ${
+                  prefersReducedMotion ? "" : styles.animatedY
+                }`}
               >
                 <SharePost title={post.title} url={`https://jarema.me/blog/${slug}`} />
               </div>
@@ -166,18 +179,22 @@ export default function BlogPostClient({
               )}
             </header>
 
-            <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }} className="text-justify">
+            <div
+              className={`text-justify ${
+                prefersReducedMotion ? "" : styles.animatedY
+              }`}
+            >
               <MarkdownRenderer content={post.content} />
             </div>
 
             {/* Add post navigation */}
-            <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}>
+            <div className={prefersReducedMotion ? undefined : styles.animatedY}>
               <BlogPostNavigation navigation={navigation} />
             </div>
 
             {/* Related posts */}
             {relatedPosts.length > 0 && (
-              <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateY(0px)" }}>
+              <div className={prefersReducedMotion ? undefined : styles.animatedY}>
                 <RelatedPosts posts={relatedPosts} />
               </div>
             )}
