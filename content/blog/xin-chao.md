@@ -14,3 +14,5 @@ alternates:
 # Xin chào thế giới
 
 Chào mừng đến với blog của tôi!
+
+Tôi sẽ không đăng bài thường xuyên đâu, thông cảm nhé :p
