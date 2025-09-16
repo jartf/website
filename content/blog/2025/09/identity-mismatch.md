@@ -1,6 +1,6 @@
 ---
 title: "Identity mismatch"
-excerpt: "The obligatory first post of any blog - hello, world! Welcome to my digital garden where thoughts grow wild."
+excerpt: "I study economics, but people say I look like IT. I don't really feel like either, and that's the mismatch I live in."
 date: "2025-09-16T12:45:16Z"
 mood: "optimistic"
 catApproved: true
