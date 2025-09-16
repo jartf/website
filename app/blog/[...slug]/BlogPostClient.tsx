@@ -58,7 +58,7 @@ export default function BlogPostClient({
           <div style={prefersReducedMotion ? {} : { opacity: 1, transform: "translateX(0px)" }}>
             <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to all posts
+              t("blog.back", "Back to blog list"),
             </Link>
           </div>
 
@@ -87,7 +87,7 @@ export default function BlogPostClient({
                 {post.catApproved && (
                   <div className="flex items-center text-amber-600 dark:text-amber-400">
                     <Cat className="h-4 w-4 mr-1" />
-                    <span>Cat Approved</span>
+                    <span>t("blog.cat", "Cat approved")</span>
                   </div>
                 )}
                 {post.language && (
@@ -144,7 +144,7 @@ export default function BlogPostClient({
               {/* Alternate language notice */}
               {alternateLanguages.length > 0 && (
                 <div className="mb-6 text-sm text-muted-foreground">
-                  This page is also available in{" "}
+                  t("blog.availableIn", "This page is also available in"){" "}
                   {alternateLanguages.map((alt, idx) => {
                     const isLast = idx === alternateLanguages.length - 1
                     const isSecondLast = idx === alternateLanguages.length - 2

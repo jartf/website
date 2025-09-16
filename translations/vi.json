@@ -1,0 +1,497 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "projects": "Dự án",
+    "blog": "Blog",
+    "now": "Hiện tại",
+    "uses": "Công cụ",
+    "contact": "Liên hệ",
+    "colophon": "Thông tin",
+    "scrapbook": "Ghi chép"
+  },
+  "languageNotice": {
+    "message": "Bản dịch cho ngôn ngữ này vẫn đang được xây dựng. Một số nội dung có thể chưa hoàn chỉnh hoặc bị thiếu.",
+    "dismiss": "Đóng"
+  },
+  "language": {
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt",
+    "et": "Tiếng Estonia",
+    "ru": "Tiếng Nga",
+    "da": "Tiếng Đan Mạch",
+    "tr": "Tiếng Thổ Nhĩ Kỳ",
+    "zh": "Tiếng Trung"
+  },
+  "greetings": {
+    "morning": "Chào buổi sáng nhé, chú ong chăm chỉ",
+    "afternoon": "Buổi chiều vui vẻ nhé!",
+    "evening": "Buổi tối thảnh thơi nghỉ ngơi nhé!",
+    "night": "Vẫn thức à? Mình cũng thế nè."
+  },
+  "home": {
+    "buttons": {
+      "about": "Về mình",
+      "projects": "Xem dự án của mình"
+    },
+    "footer": "Chào mừng bạn đến với trang web của mình. Cứ tự nhiên mà khám phá nhé.",
+    "heading": "chào bạn, mình là Jarema",
+    "subheading": "Sinh viên ngành kinh tế, thỉnh thoảng nghịch mò với code, thường xuyên nghịch xàm với mèo.",
+    "contactButton": "Liên hệ mình",
+    "aboutButton": "Về mình",
+    "blogButton": "Đọc blog của mình"
+  },
+  "about": {
+    "title": "Về mình",
+    "chapters": {
+      "1": {
+        "title": "mình đã sinh ra như thế nào",
+        "content1": "Mình sinh ra hồi giữa những năm 2000, tức là tính ra cũng thuộc Gen Z, nhưng lớn lên cũng kiểu nửa vời lắm, chẳng thấy thực sự khớp cái mác nào cả. Hồi nhỏ (cụ thể là từ sau hồi lớp 3), mình trờ thành một đứa trầm ngâm, ít nói, hay ngồi cuối lớp, nhưng đầu óc thì lúc nào cũng chạy vù vù. Mình lúc nào cũng phải quan sát đủ thứ, người này, tình huống kia, và cả những kiểu quyền lực ngầm, rồi cứ lặng lẽ ghép mảnh lại với nhau.",
+        "content2": "Tuổi thơ của mình thì lạ lắm, một nửa thì đi tìm nơi trú ẩn ở thế giới trên mạng, nửa kia thì đối mặt với thực tại chông chênh đủ đường. Gia đình mình chẳng mấy hoàn hảo đâu, và mình cũng chẳng thèm giả vờ như là nhà mình tuyệt vời nhất trên đời. Mình phải trưởng thành nhanh về mặt cảm xúc, và phải học sớm cái chuyện là: lúc nhạy cảm thì phải cẩn trọng. Mình phải học cách nghe nhiều hơn nói, học cách \"đổi giọng\" và trung lập cho hợp tình huống, phải tự giấu mình ngay cả khi chẳng ai ép buộc. Nhưng cũng nhờ vậy mà mình rèn được kha khá sức chịu đựng. Mình học cách tự xây dựng một \"cái tôi\" từ một tờ giấy trắng, khi chẳng ai đưa mình một bản vẽ sẵn cả.",
+        "content3": "Và trang web này là một phần trong cái bản vẽ đó. Không phải để giải thích tất tần tật, mình chẳng cần đâu, mà là để làm hòa với cái đống hỗn độn đó."
+      },
+      "2": {
+        "title": "lúc mình nhận ra thế giới này là một trò chơi gian lận",
+        "content1": "Không phải kiểu đập một cái là vỡ lẽ ra ngay đâu. Nó giống kiểu như một ngọn lửa âm ỉ chậm, từ từ nhận ra dần rằng những thứ được gọi là \"hệ thống\" xung quanh mình, từ gia đình, tới giáo dục, tới cả xã hội nói chung, vốn chẳng hề được thiết kế cho mấy đứa như mình. Rằng cái gọi là sự ổn định đôi khi có thể là một cái bẫy. Rằng tình cảm, tình yêu cũng có thể là một thứ có điều kiện, thậm chí bị biến thành vũ khí. Rằng mình có thể chơi \"đúng luật\" mà vẫn thua như thường.",
+        "content2": "Nên mình làm điều mà mình nghĩ là có nhiều người giống mình cũng làm: phải thích nghi. Mình bắt đầu mài bén đầu óc, bọc thép con tim, và bắt đầu học mọi thứ. Kinh tế cho mình ngôn ngữ để hiểu về quyền lực. Lập trình cho mình công cụ để tạo ra quyền lực. Ngôn ngữ cho mình lối thoát và một nơi để biểu đạt. Rồi mình nhận ra rằng: mình không muốn chỉ sống sót trong cái hệ thống này, mình muốn hiểu nó, bóc trần nó, và nếu được thì... cũng gọi hack nó một tí.",
+        "content3": "Trang web này không chỉ là portfolio của mình. Nó là minh chứng rằng mình tồn tại theo cách của riêng mình, không phải những gì người ta áp đặt lên."
+      },
+      "3": {
+        "title": "code, ngôn ngữ, và ADHD \"không chết thì sống dai\" kiểu mình",
+        "content1": "Mình không hợp sống theo mấy kiểu lịch trình cố định, cứng nhắc hay mấy kế hoạch trơn tru đâu. Não ADHD khiến đầu óc mình chạy vù vù, lặp đi lặp lại mãi, tự dưng có thể dính chặt vào cái gì đó lúc 2 giờ sáng, quên ăn cả ngày, và đôi khi bị nhấn chìm trong tiếng ồn. Bị nhạy cảm với âm thanh nữa nên thỉnh thoảng nó cũng khiến mình phát điên. Nhưng bù lại thì mình rất tò mò. Tò mò theo kiểu ám ảnh luôn. Không có kiểu \"thử chơi thôi\" đâu, mà mình nhảy vào như thể sống chết với nó luôn. Cũng không hẳn là đa nhiệm, mà chỉ là sống \"trong nhiều tab\" cùng lúc.",
+        "content2": "Với mình, code hỗn loạn thật, điên đầu thật, nhưng nó cũng là nơi trú ẩn. Nó biến ý tưởng của mình trở thành một khung hoàn chỉnh chứ không bay loạn hết cả lên. Nó giúp mình có thể tạo ra một thứ gì đó có thể hoạt động được, một thứ phản chiếu một phần cái tâm trí mà mình không thể nói ra hết thành lời. Còn ngôn ngữ ư? Nó chính là nửa còn lại của câu chuyện đời mình. Mình nhảy qua lại giữa Tiếng Việt, tiếng Anh, tiếng Nga, lâu lâu thêm tiếng Thổ Nhĩ Kỳ hay Đan Mạch, không phải để khoe, mà vì mỗi ngôn ngữ mở ra một phiên bản khác của mình, một cảm xúc khác, một mảnh ký ức khác. Tiếng Anh là cây kiếm, Tiếng Việt là nhịp đập con tim, tiếng Nga là chiều buồn lặng. Tiếng Thổ là cơn hưng phấn mới lạ. Còn tiếng Đan à... thôi, nó vẫn đang loading đã.",
+        "content3": "Và, ừ đấy, mình viết hơi rối thật, hơi lộn xộn thật, nhưng nó là thật. Code của mình không hoàn hảo thật, nhưng nó có chủ đích của mình. Tất cả những gì bạn đang thấy và đang đọc ở đây đều được tạo ra từ đúng cái năng lượng này đó."
+      },
+      "4": {
+        "title": "hoạt động xã hội và sự \"thật đến mệt\" ở trên mạng",
+        "content1": "Mình không phải influencer, chẳng phải người nổi tiếng. Lại càng không phải người hay hô hào biểu tình này nọ. Nhưng mình tin vào sự minh bạch, sự đồng cảm, cảm thông và việc tạo ra không gian nơi người ta được nhìn thấy, chứ không phải \"chịu đựng\". Việc mình làm hoạt động xã hội đôi khi rất âm thầm, và có khi vô hình. Nó chủ yếu hiện ra ở những thứ mình xây nên, trong những cuộc trò chuyện mình có, và trong việc mình nhất quyết không nhượng bộ cái mình cho là sự thật chỉ để người khác cảm thấy dễ chịu.",
+        "content2": "Nó hiện ra khi mình dám lên tiếng về bất công, ngay cả khi im lặng thì an toàn hơn nhiều. Nó nằm ở việc làm rõ tiếng nói của những người \"bên lề\", dù cho chính giọng mình cũng mong manh như gió. Nó nằm ở câu nói:",
+        "quote": "\"Mình không biết tuốt mọi thứ, nhưng mình vẫn sẵn sàng thử.\"",
+        "quoteTooltip": "ừa mình nói đấy hehe",
+        "content3": "Có lúc mình bặt vô âm tín cả tuần. Có lúc mình lại trút hết suy nghĩ một đêm 3 giờ sáng nọ. Có lúc mình đăng meme mèo xàm rồi bịa đại ra một câu quote. Mình là một mớ hỗn độn thế đó."
+      },
+      "5": {
+        "title": "mình đi đâu về đâu?",
+        "content1": "Mình không ở đây để \"bán\" cho bạn một \"thương hiệu cá nhân\", cũng chẳng giả vờ như mình đã sắp xếp ổn thoả đời mình. Vì thật sự là không hề. Hầu hết các ngày, mình chỉ cố gắng sống cho ra người, cho tử tế, và cho thật lòng. Nhưng mình biết điều gì là quan trọng đối với bản thân mình.",
+        "content2": "Mình muốn tiếp tục tạo ra thứ gì đó. Có thể là viết tiếp. Có thể là học tiếp mấy ngôn ngữ cho vui. Nhưng mình muốn xây mấy thứ có ý nghĩa, chứ không chỉ để câu like. Mình muốn đi đây đó, đi đến những nơi ngôn ngữ, lịch sử, và bản sắc đan xen hoà quyện với nhau. MÌnh muốn để lại cái gì đó ấm áp, hữu ích, và phải thật. Chẳng cần hoàn hảo hay bóng loáng, mà là những mẩu chuyện nào đó khiến người ta bớt thấy cô đơn hơn.",
+        "content3": "Và, mình muốn bình yên. Không phải kiểu không có hỗn loạn, mà là kiểu bình yên do mình hiểu mình là ai, đã trải qua những gì, và đã chọn bỏ lại điều gì.",
+        "content4": "Nếu bạn đọc tới đây rồi, thì chắc đâu đó bạn cũng thấy đồng cảm phần nào. Vậy thì, chào mừng bạn đã đến. Cứ thoải mái như ở nhà nhé. Nhưng cẩn thận xíu, một vài dòng suy nghĩ trong này vẫn đang xây dở đó."
+      },
+      "6": {
+        "title": "mình vẫn chưa nói hết đâu",
+        "content1": "và nên đây là phần lẽ ra \"người ta\" không nên thấy.",
+        "content2": "xin phép được xưng là \"tôi\". tôi vẫn còn bực. bực lắm. tôi vẫn đang tiếc nuối vì một phần của chính mình chưa bao giờ có cơ hội được sống thật. vẫn có những buổi sáng tỉnh dậy mà cứ có cảm giác mọi thứ bị lệch đi vài chút, mà không biết tại sao. có những lúc tôi đã nghĩ đến việc chạy trốn và biến mất luôn, lập một cái tên mới, sống ở thành phố mới, nói một ngôn ngữ mới. hoặc đôi lúc cũng là buông bỏ mọi thứ theo cái nghĩa ngược lại. và có lần tôi đã suýt làm thế thật.",
+        "content3": "có những ngày tôi chẳng cảm thấy mình là con người nữa. có những lúc tôi thấy bản thân giống như kiểu một ký ức đang cố kết lại thành hình hơn. giống như một tiếng vọng vang của một điều gì đó mềm mại mà chính tôi cũng không còn có thể chạm tới được nữa. nhưng cũng có những ngày tôi bùng cháy như có điện chạy trong người. tôi cảm được từng chi tiết quanh tôi, từ ánh nắng trên da, những nốt nhạc nhẹ nhàng của playlist đang bật, những khoảnh khắc ánh mắt và gương mặt người ta thay đổi khi họ thấy đủ an toàn để thể hiện chính mình. mấy điều nhỏ nhoi đó, bằng một cách nào đó, vẫn đang níu giữ tôi sống.",
+        "content4": "tôi vẫn chưa xong cái việc trở thành một phiên bản quái gì mà tôi cũng chẳng biết rõ là ai hay như thế nào. nhưng có một điều tôi chắc chắn, là tôi đã xong với cái việc lúc nào cũng phải giả vờ là mình ổn, và tôi không chịu im lặng nữa."
+      }
+    }
+  },
+  "projects": {
+    "title": "Các dự án của mình",
+    "description": "Tổng hợp các dự án cá nhân, học thuật và hoạt động mà mình đã và đang thực hiện. Một số cái thì đã xong, chỗ khác thì vẫn đang làm dở.",
+    "status": {
+      "completed": "Đã hoàn thành",
+      "inProgress": "Đang tiến hành",
+      "planned": "Dự kiến"
+    },
+    "categories": {
+      "personal": "Cá nhân",
+      "academic": "Học thuật",
+      "activism": "Hoạt động xã hội"
+    },
+    "details": {
+      "what": "Đây là gì",
+      "learned": "Mình đã học được gì",
+      "why": "Dự án này quan trọng với mình vì"
+    },
+    "cardActions": {
+      "clickForDetails": "Nhấn để xem chi tiết",
+      "clickToClose": "Nhấn để đóng"
+    },
+    "statusLabels": {
+      "completed": "Đã hoàn thành",
+      "inProgress": "Đang tiến hành",
+      "planned": "Dự kiến"
+    },
+    "buttons": {
+      "showRandom": "Hiện thêm vài dự án khác",
+      "hideRandom": "Thôi ẩn đi, nhiều quá"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Vài dòng suy nghĩ, vài lời tâm trạng, và thỉnh thoảng là vài lời kêu ca. Giờ nào cũng viết, cảm xúc nào cũng có.",
+    "language": "Ngôn ngữ",
+    "languageFilter": "Lọc theo ngôn ngữ",
+    "tag": "Thẻ",
+    "category": "Thể loại",
+    "noPosts": "Chưa có bài viết nào ở đây cả. Quay lại sau nhé!",
+    "search": "Tìm kiếm bài viết...",
+    "sortNew": "Mới nhất trước",
+    "sortOld": "Cũ nhất trước",
+    "sortReadTime": "Theo thời gian đọc",
+    "sortABC": "Theo bảng chữ cái",
+    "filter": "Lọc",
+    "filterDescription": "Lọc các bài viết",
+    "activeFilter": "Đang lọc theo:",
+    "filterNoMatch": "Không có bài nào phù hợp với bộ lọc. Thử điều chỉnh tìm kiếm nhé!",
+    "clearFilter": "Xoá tất cả bộ lọc",
+    "mood": "Tâm trạng",
+    "cat": "Được boss phê duyệt",
+    "jumpToPost": "Nhảy đến bài viết",
+    "back": "Quay lại danh sách blog",
+    "showingPosts": "Đang hiển thị {{current}} trên tổng số {{total}} bài viết",
+    "minRead": "phút đọc",
+    "availableIn": "Trang này cũng được viết trong"
+  },
+  "now": {
+    "title": "Hiện tại",
+    "description": "Những thứ mình đang làm, đang nghĩ, và đang ngâm.",
+    "lastUpdated": "Cập nhật lần cuối",
+    "categories": {
+      "reading": "Đang đọc",
+      "coding": "Đang code",
+      "drinking": "Đang uống",
+      "listening": "Đang nghe",
+      "thinking": "Đang nghĩ",
+      "studying": "Đang học",
+      "planning": "Đang lên kế hoạch"
+    }
+  },
+  "uses": {
+    "title": "Công cụ",
+    "description": "Tổng hợp mọi thứ mình sử dụng hàng ngày. Trang này lấy cảm hứng từ",
+    "websiteDescription": "trang web nơi mọi người chia sẻ những thứ họ sử dụng hàng ngày trong công việc cũng như đời thường.",
+    "categories": {
+      "hardware": "Thiết bị",
+      "mobile": "Đồ di động",
+      "audio": "Tai nghe",
+      "os": "Hệ điều hành & Trình duyệt",
+      "development": "Lập trình",
+      "email": "Ứng dụng hiệu suất",
+      "privacy": "Bảo mật & Riêng tư",
+      "mobile_tools": "Táy máy tò mò với điện thoại",
+      "mapping": "Bản đồ",
+      "gaming": "Trò chơi",
+      "multimedia": "Đa phương tiện",
+      "design": "Thiết kế & Vẽ",
+      "photo": "Chỉnh sửa ảnh",
+      "video": "Video & Âm thanh",
+      "media": "Các dịch vụ phương tiện"
+    },
+    "subsections": {
+      "design": "Thiết kế & Vẽ",
+      "photo": "Chỉnh sửa ảnh",
+      "video": "Video & Âm thanh",
+      "media": "Các dịch vụ phương tiện"
+    },
+    "itemDescriptions": {
+      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "externalHDD": "Ổ cứng ngoài để sao lưu dữ liệu",
+      "mechanicalKeyboard": "Bàn phím cơ với switch đỏ",
+      "wirelessMouse": "Chuột chơi game không dây",
+      "mainPhone": "Điện thoại chính",
+      "secondaryPhone": "Điện thoại phụ",
+      "smartwatch": "Đồng hồ thông minh",
+      "primaryEarbuds": "Tai nghe không dây chính",
+      "backupEarbuds": "Tai nghe dự phòng",
+      "dualBoot": "Mình cài song song hai hệ điều hành",
+      "primaryBrowser": "Trình duyệt web chính",
+      "secondaryBrowser": "Trình duyệt web phụ",
+      "primaryCodeEditor": "Trình soạn thảo code chính",
+      "terminalEmulators": "Trình giả lập terminal",
+      "versionControl": "Hệ thống quản lý phiên bản",
+      "apiTesting": "Công cụ kiểm thử API",
+      "databaseManagement": "Quản lý cơ sở dữ liệu",
+      "codeHosting": "Lưu trữ code và hỗ trợ code nhóm",
+      "webHosting": "Nền tảng host web",
+      "ddosProtection": "Bảo vệ khỏi DDoS và cung cấp CDN",
+      "desktopEmail": "Ứng dụng email trên máy tính",
+      "emailClient": "Ứng dụng email trên máy tính & điện thoại",
+      "domainEmail": "Cung cấp email cho tên miền",
+      "taskManagement": "Quản lý công việc",
+      "calendar": "Lịch và lập kế hoạch",
+      "timeTracking": "Theo dõi thời gian",
+      "automationTool": "Công cụ tự động hóa",
+      "phoneLinking": "Kết nối điện thoại với máy tính",
+      "noteTaking": "Ứng dụng ghi chú",
+      "officeSuite": "Bộ ứng dụng văn phòng",
+      "cloudStorage": "Giải pháp lưu trữ đám mây",
+      "vpn": "VPN với cấu hình WireGuard",
+      "passwordManager": "Trình quản lý mật khẩu tự host",
+      "twoFactorAuth": "Ứng dụng xác thực hai yếu tố (2FA)",
+      "dnsProvider": "Nhà cung cấp DNS",
+      "privacySearch": "Công cụ tìm kiếm",
+      "networkVpn": "VPN kết nối mạng lưới thiết bị",
+      "lgFirmware": "Công cụ cài firmware LG",
+      "qualcommFlash": "Công cụ cài firmware Qualcomm",
+      "samsungFirmware": "Công cụ cài firmware Samsung",
+      "samsungDownload": "Trang tải firmware Samsung",
+      "iosManagement": "Quản lý thiết bị iOS",
+      "geographicSystem": "Hệ thống thông tin địa lý",
+      "webOpenstreetmap": "Trình sửa OpenStreetMap trên web",
+      "desktopOpenstreetmap": "Trình sửa OpenStreetMap trên máy tính",
+      "mobileOpenstreetmap": "Trình sửa OpenStreetMap trên điện thoại",
+      "mobileContributor": "Đóng góp OpenStreetMap trên điện thoại",
+      "communityNavigation": "Sửa bản đồ và điều hướng",
+      "minecraftClient": "Ứng dụng chơi Minecraft Java",
+      "minecraftServer": "Nền tảng máy chủ Minecraft",
+      "gameDistribution": "Nền tảng phân phối trò chơi",
+      "gameLauncher": "Cửa hàng trò chơi",
+      "indieMarketplace": "Cửa hàng trò chơi indie",
+      "vectorGraphics": "Trình vẽ đồ họa vector",
+      "uiUxDesign": "Công cụ thiết kế UI/UX",
+      "graphicDesign": "Thiết kế đồ họa cho nhóm",
+      "digitalPaintingDesktop": "Vẽ vời trên máy tính",
+      "digitalPaintingMobile": "Vẽ vời trên điện thoại",
+      "photoEditing": "Chỉnh sửa và xử lý ảnh",
+      "openSourceEditor": "Trình sửa ảnh mã nguồn mở",
+      "professionalEditor": "Trình sửa video chuyên nghiệp",
+      "professionalEditorDavinci": "Trình sửa video chuyên nghiệp",
+      "openSourceVideoEditor": "Trình sửa video mã nguồn mở",
+      "videoEditorCapcut": "Trình sửa video",
+      "subtitleEditor": "Trình tạo phụ đề",
+      "videoPlayer": "Trình phát video",
+      "audioEditor": "Trình sửa âm thanh",
+      "musicStreamingYoutube": "Dịch vụ phát nhạc trực tuyến",
+      "musicStreamingSpotify": "Dịch vụ phát nhạc trực tuyến",
+      "videoStreaming": "Nền tảng phát video trực tuyến",
+      "revancedDescription": "Mình có trả tiền cho YouTube Premium đó, nhưng cái app chính của YouTube mình không dùng nổi :))",
+      "stremioDescription": "đừng ai nói gì với Netflix nhé",
+      "clickToReveal": "Nhấn 5 lần để hiện",
+      "moreClicksToReveal": "(còn {count} lần nhấn nữa để hiện)",
+      "clicksRemaining": "lần nhấn nữa để hiện"
+    },
+    "hiddenPlatforms": {
+      "platform1": "Nền tảng bí mật số 1",
+      "platform2": "Nền tảng bí mật số 2",
+      "click5": "Nhấn 5 lần để hiện",
+      "moreClicks": "(còn 5 lần nhấn nữa để hiện)"
+    }
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "description": "Các phương thức liên lạc với mình.",
+    "message": "đừng ngại mình, hãy vào chào một câu nhé. hoặc cũng có thể đặt lịch 1:1 nếu bạn muốn chuyên nghiệp tí =))",
+    "disclaimer": "mình có trả lời email nha. ờm, chắc thế. trừ khi mình bị mèo hay gì đó làm phân tâm thôi :v",
+    "sections": {
+      "contactMe": "Liên hệ với mình",
+      "socialMedia": "Mình trên mạng xã hội",
+      "otherPlatforms": "Mình trên các nền tảng khác"
+    },
+    "sectionTitles": {
+      "contactMe": "Liên hệ với mình",
+      "socialMedia": "Mình trên mạng xã hội",
+      "otherPlatforms": "Mình trên các nền tảng khác"
+    },
+    "links": {
+      "universityEmail": "Email học viện",
+      "bookMeeting": "Đặt lịch 1:1 với mình",
+      "messengerNote": "Mình khá ít hoạt động trên Facebook và Messenger. Mình không thể đảm bảo được sẽ trả lời nhanh nếu bạn nhắn tin qua đây."
+    },
+    "secretButton": "Nút ấn bí hiểm"
+  },
+  "moodCat": {
+    "title": "Mèo của hôm nay",
+    "hover": "mèo âm thầm phán xét bạn",
+    "refresh": "Cho xem mèo mới đi",
+    "seeMore": "Xem thêm mèo khác",
+    "imageSource": "Nguồn ảnh"
+  },
+  "music": {
+    "play": "Phát nhạc nền",
+    "pause": "Tạm dừng nhạc nền"
+  },
+  "tetris": {
+    "title": "Tetris",
+    "description": "Trò chơi xếp hình cổ điển gắn liền với tuổi thơ của bao thế hệ.",
+    "gameInfo": "Thông tin màn chơi",
+    "score": "Điểm",
+    "level": "Cấp độ",
+    "status": "Trạng thái",
+    "gameOver": "Kết thúc",
+    "paused": "Tạm dừng",
+    "playing": "Đang chơi",
+    "controls": "Điều khiển",
+    "moveLeft": "Di chuyển sang trái",
+    "moveRight": "Di chuyển sang phải",
+    "moveDown": "Di chuyển xuống",
+    "rotate": "Xoay khối",
+    "hardDrop": "Thả nhanh",
+    "pauseGame": "Tạm dừng trò chơi",
+    "playAgain": "Chơi lại",
+    "resetGame": "Đặt lại về ban đầu",
+    "resume": "Tiếp tục",
+    "pause": "Tạm dừng",
+    "drop": "Thả",
+    "musicOn": "Bật nhạc",
+    "musicOff": "Tắt nhạc",
+    "gameOverMessage": "Trò chơi kết thúc!",
+    "finalScore": "Điểm cuối cùng của bạn:"
+  },
+  "404": {
+    "title": "Bạn đi lạc khỏi map mất rồi :))",
+    "description": "Mấy con mèo cũng chẳng biết đây là đâu.",
+    "button": "Quay về trang chủ",
+    "sitemap": "Xem sơ đồ trang web",
+    "enjoycat": "Trong lúc bạn đang lạc, hãy xem chú mèo này:"
+  },
+  "scrapbook": {
+    "title": "Devlog"
+  },
+  "colophon": {
+    "title": "Thông tin trang web",
+    "description": "Câu chuyện đằng sau trang web này",
+    "siteHistory": {
+      "title": "Lịch sử trang này",
+      "content1": "Mình mới đăng ký trang web này vào cuối năm 2023, nhưng thiết kế nó đã thay đổi rất nhiều trong suốt thời gian này. Phiên bản đầu tiên chỉ là một trang WordPress ở trên một cái hosting miễn phí nào đó, bản thứ hai thì là trang Carrd.co, và bản thứ ba được xây trên nền Astro. Phiên bản hiện tại là một bản mình thiết kế lại hoàn toàn mới và đập đi xây lại từ đầu.",
+      "content2": "Mỗi phiên bản đều là một sự tiến hóa nhất định, với bản mới nhất này tập trung vào độ nhanh nhạy, khả năng tiếp cận (accessibility), khả năng điều hướng hoàn toàn bằng bàn phím, và cũng như một cảm giác \"mình\" hơn một chút, thể hiện \"mình\" tốt hơn chút."
+    },
+    "technologyStack": {
+      "title": "Các nền công nghệ sử dụng",
+      "nextjs": "Framework React cho phép render (tạo ảnh) từ phía server và tạo trang web tĩnh",
+      "react": "Thư viện JavaScript xây dựng giao diện",
+      "tailwind": "Framework CSS theo phương pháp utility-first (viết CSS mà không cần viết quá nhiều CSS)",
+      "shadcn": "Thư viện component (thành phần) tái sử dụng được dựng với Radix UI và Tailwind",
+      "framer": "Thư viện animation (hoạt ảnh) cho React",
+      "i18next": "Framework hỗ trợ ngôn ngữ",
+      "typescript": "Ngôn ngữ lập trình mở rộng dựa trên JavaScript"
+    },
+    "hosting": {
+      "title": "Lưu trữ web (Hosting)",
+      "content1": "Trang web được lưu trên",
+      "content2": "hỗ trợ chạy code web thông suốt từ GitHub.",
+      "content3": "Tên miền này được quản lý bởi",
+      "content4": "và họ cũng giúp bảo mật trang web này cũng như hỗ trợ tăng hiệu năng."
+    },
+    "inspiration": {
+      "title": "Nguồn cảm hứng",
+      "content1": "Trang này lấy cảm hứng từ",
+      "content2": "mà lại có cảm hứng từ",
+      "content3": "Ý tưởng ban đầu ở trên"
+    }
+  },
+  "footer": {
+    "copyright": "mình không nhận quyền, hãy lấy những gì bạn cần và làm những gì bạn muốn :p",
+    "madeWith": "làm với mọi yêu thương",
+    "andChaos": "và vài tuần nghịch code"
+  },
+  "2048": {
+    "description": "Kết hợp các ô để đạt đến số 2048",
+    "score": "Điểm",
+    "best": "Cao nhất",
+    "gameOver": "Trò chơi kết thúc!",
+    "finalScore": "Điểm cuối cùng",
+    "tryAgain": "Chơi lại",
+    "youWin": "Bạn đã thắng!",
+    "currentScore": "Điểm hiện tại",
+    "keepPlaying": "Tiếp tục chơi",
+    "newGame": "Chơi ván mới",
+    "howToPlay": "Cách chơi",
+    "instructions1": "Sử dụng phím mũi tên hoặc WASD để di chuyển các ô. Khi hai ô có cùng số được gộp vào nhau, chúng sẽ kết hợp thành số tổng của hai số đó.",
+    "instructions2": "Sau mỗi lượt di chuyển, một ô mới (số 2 hoặc 4) xuất hiện.",
+    "instructions3": "Hãy tạo một ô với số 2048 để thắng trò chơi nhé!",
+    "controls": "Điều khiển",
+    "moveLeft": "Di chuyển sang trái",
+    "moveRight": "Di chuyển sang phải",
+    "moveUp": "Di chuyển lên",
+    "moveDown": "Di chuyển xuống",
+    "touchInstructions": "Trên điện thoại, hãy sử dụng các nút điều khiển ở trên màn hình.",
+    "undo": "Hoàn tác"
+  },
+  "keyboardShortcuts": {
+    "title": "Phím tắt",
+    "navigation": "Điều hướng",
+    "actions": "Hành động",
+    "close": "Đóng",
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "blog": "Blog",
+    "projects": "Dự án",
+    "now": "Hiện tại",
+    "uses": "Công cụ",
+    "contact": "Contact",
+    "colophon": "Thông tin",
+    "slashes": "Slashes",
+    "scrapbook": "Devlog",
+    "tetris": "Tetris",
+    "2048": "2048",
+    "cycleLanguage": "Chuyển đổi ngôn ngữ",
+    "cycleTheme": "Chuyển đổi chủ đề",
+    "refreshCat": "Thay đổi ảnh mèo",
+    "gamePageNotice": "Hầu hết các phím tắt ở các trang khác đều bị vô hiệu hóa ở các trang trò chơi để tránh xung đột với các phím điều hướng của các trò.",
+    "openShortcuts": "Mở bảng phím tắt",
+    "actionSearch": "Mở thanh tìm kiếm"
+  },
+  "actionSearch": {
+    "title": "Tìm kiếm hành động",
+    "placeholder": "Gõ để tìm hành động...",
+    "noResults": "Không tìm thấy hành động nào",
+    "goTo": "Chuyển đến trang",
+    "toggleTheme": "Chuyển đổi chủ đề",
+    "switchDarkMode": "Chuyển sang chế độ tối",
+    "switchLightMode": "Chuyển sang chế độ sáng",
+    "appearance": "Giao diện",
+    "cycleLanguage": "Chuyển đổi ngôn ngữ",
+    "refreshCat": "Xem mèo mới",
+    "playGame": "Chơi trò chơi",
+    "viewShortcuts": "Xem toàn bộ phím tắt",
+    "pressToOpen": "Nhấn . để mở thanh tìm kiếm",
+    "escToClose": "Nhấn ESC để thoát",
+    "fun": "Chơi vui",
+    "games": "Trò chơi",
+    "tetris": "Chơi Tetris",
+    "2048": "Chơi 2048",
+    "help": "Trợ giúp",
+    "projects": {
+      "category": "Điều hướng qua các dự án",
+      "closeCard": "Đóng dự án",
+      "closeCardDescription": "Đóng dự án hiện tại",
+      "left": "Điều hướng sang trái",
+      "leftDescription": "Điều hướng đến dự án trước đó",
+      "right": "Điều hướng sang phải",
+      "rightDescription": "Điều hướng đến dự án tiếp theo",
+      "up": "Điều hướng lên",
+      "upDescription": "Điều hướng lên",
+      "down": "Điều hướng xuống",
+      "downDescription": "Điều hướng xuống",
+      "flipCard": "Mở dự án {{title}}",
+      "flipCardDescription": "Mở dự án để xem chi tiết"
+    },
+    "blog": {
+      "category": "Điều hướng qua các bài viết",
+      "next": "Đến bài viết tiếp theo",
+      "nextDescription": "",
+      "prev": "Đến bài viết trước",
+      "prevDescription": "",
+      "search": "Tìm kiếm bài viết",
+      "searchDescription": "Tìm theo tiêu đề hoặc nội dung",
+      "filterTag": "Lọc bài viết",
+      "filterTagDescription": "Mở bộ lọc bài viết",
+      "jumpToPost": "Đi tới bài viết số {{i}}",
+      "jumpToPostDescription": "",
+      "back": "Quay lại danh sách bài viết",
+      "backDescription": ""
+    },
+    "about": {
+      "category": "Điều hướng qua các phần giới thiệu",
+      "jumpToChapter": "Đi đến chương {{i}}",
+      "jumpToChapterDescription": ""
+    },
+    "uses": {
+      "category": "Điều hướng qua các phần công cụ",
+      "jumpToCategory": "Đi đến mục {{category}}",
+      "jumpToCategoryDescription": ""
+    },
+    "now": {
+      "category": "Điều hướng qua các phần",
+      "jumpToCategory": "Đi đến mục {{category}}",
+      "jumpToCategoryDescription": ""
+    },
+    "colophon": {
+      "category": "Điều hướng qua các phần thông tin",
+      "jumpToSection": "Đi đến phần {{section}}",
+      "jumpToSectionDescription": ""
+    }
+  }
+}
