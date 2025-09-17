@@ -51,6 +51,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const [filterCatApproved, setFilterCatApproved] = useState<boolean | null>(null)
   const [filteredPosts, setFilteredPosts] = useState<BlogPostMetadata[]>([])
   const [mounted, setMounted] = useState(false)
+  const [currentLang, setCurrentLang] = useState<string>("en")
 
   const postRefs = useRef<(HTMLDivElement | null)[]>([])
   const router = useRouter()
@@ -58,7 +59,6 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
   // Ensure blogPosts is always an array
   const safeBlogPosts = Array.isArray(blogPosts) ? blogPosts : []
-  const currentLang = useCurrentLanguage()
 
   // Get unique values from all blog posts
   const uniqueMoods = Array.from(new Set(safeBlogPosts.map((post) => post.mood).filter(Boolean)))
@@ -161,9 +161,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     }
   }, [safeBlogPosts, i18n.language, mounted])
 
-  // Set mounted to true when the component mounts
+  // Set mounted to true when the component mounts and set currentLang
   useEffect(() => {
     setMounted(true)
+    setCurrentLang(useCurrentLanguage())
   }, [])
 
   // Handle keyboard navigation
@@ -281,6 +282,9 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     }
     return languageNames[code] || code || "Unknown"
   }
+
+  // Don't render until mounted to avoid hydration mismatch
+  if (!mounted) return null
 
   if (!Array.isArray(safeBlogPosts) || safeBlogPosts.length === 0) {
     return (
