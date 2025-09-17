@@ -248,7 +248,9 @@ export default function Home({ blogPosts = [] }) {
           {latestNow && (
             <div className="mb-12">
               <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
-                {t("home.latestNow", "What I'm up to now")}
+                <Link href="/now" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{ color: "inherit" }}>
+                  {t("home.latestNow", "What I'm up to now")}
+                </Link>
               </h2>
               <div className="border rounded-lg p-5 bg-card">
                 {latestNow.type === "lastfm" ? (
