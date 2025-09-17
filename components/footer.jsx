@@ -63,13 +63,13 @@ export function Footer() {
           <a href="https://jarema.me/" className="h-card" rel="me">
             Jarema
           </a>{" "}
-          • {t("footer.copyright")}
+          • {t("footer.copyright", "no rights reserved, take what you need and do what you want :p")}
         </p>
         <div className="flex items-center gap-1">
           <span className="hidden xl:inline text-sm text-muted-foreground">•</span>
-          <span className="text-sm text-muted-foreground">{t("footer.madeWith")}</span>
+          <span className="text-sm text-muted-foreground">{t("footer.madeWith", "made with love")}</span>
           <Heart className="h-4 w-4 text-red-500 animate-pulse" />
-          <span className="text-sm text-muted-foreground">{t("footer.andChaos")}</span>
+          <span className="text-sm text-muted-foreground">{t("footer.andChaos", "and a few weeks of screwing around")}</span>
         </div>
         {showKeyboardShortcuts && (
           <div className="absolute right-4">
