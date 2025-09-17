@@ -62,7 +62,7 @@ export const nowItems: NowItem[] = [
       tr: "Mixue'den biraz siyah şekerli baloncuklu çay",
       zh: "来自蜜雪的一些黑糖珍珠奶茶",
     },
-    date: "2025-09-15T:45:20+07:00",
+    date: "2025-09-15T16:45:20+07:00",
   },
   {
     id: 4,
