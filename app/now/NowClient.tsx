@@ -33,7 +33,7 @@ export default function NowClientPage() {
     const fetchLastfm = async () => {
       try {
         const res = await fetch(
-          "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jerryvu&api_key=c8526c48e3bd3c6f35e365480426f1be"
+          "https://fm.jarema.me"
         )
         if (!res.ok) throw new Error("Failed to fetch Last.fm")
         const xml = await res.text()
