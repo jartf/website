@@ -1,7 +1,7 @@
 ---
 title: "My personal Code of Conduct"
 excerpt: "This is my personal code of conduct. Nobody's forced to agree with it, but this is how I try to live. If you respect me, keep this in mind."
-date: "2025-08-15T08:25:19Z"
+date: "2025-07-15T08:25:19Z"
 mood: "neutral"
 catApproved: true
 readingTime: 2
