@@ -11,6 +11,7 @@ import { motion } from "framer-motion"
 import { useMounted } from "@/hooks/use-mounted"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslationReady } from "@/hooks/use-translation-ready"
+import { nowItems } from "@/content/now-items"
 
 /**
  * Home page client component
@@ -20,6 +21,9 @@ export default function Home({ blogPosts = [] }) {
   const { t, i18n } = useTranslation()
   const { theme } = useTheme()
   const [greeting, setGreeting] = useState("")
+  const [latestNow, setLatestNow] = useState(null)
+  const [lastfmTrack, setLastfmTrack] = useState(null)
+  const [lastfmError, setLastfmError] = useState(false)
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
   const isTranslationReady = useTranslationReady()
@@ -39,6 +43,112 @@ export default function Home({ blogPosts = [] }) {
       }
     }
   }, [t, mounted])
+
+  // Fetch Last.fm recent track
+  useEffect(() => {
+    let ignore = false
+    const fetchLastfm = async () => {
+      try {
+        const res = await fetch(
+          "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jerryvu&api_key=c8526c48e3bd3c6f35e365480426f1be"
+        )
+        if (!res.ok) throw new Error("Failed to fetch Last.fm")
+        const xml = await res.text()
+        const parser = new window.DOMParser()
+        const doc = parser.parseFromString(xml, "application/xml")
+        const tracks = doc.getElementsByTagName("track")
+        if (!tracks.length) return
+        let track = null
+        let nowplaying = false
+        for (let i = 0; i < tracks.length; i++) {
+          if (tracks[i].getAttribute("nowplaying") === "true") {
+            track = tracks[i]
+            nowplaying = true
+            break
+          }
+        }
+        if (!track) track = tracks[0]
+        if (!track) return
+        const name = track.getElementsByTagName("name")[0]?.textContent || ""
+        const artist = track.getElementsByTagName("artist")[0]?.textContent || ""
+        const url = track.getElementsByTagName("url")[0]?.textContent || ""
+        let date = undefined
+        let dateObj = undefined
+        if (!nowplaying) {
+          const dateElem = track.getElementsByTagName("date")[0]
+          if (dateElem) {
+            const uts = dateElem.getAttribute("uts")
+            if (uts) {
+              dateObj = new Date(Number(uts) * 1000)
+              date = dateObj.toLocaleString(undefined, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                timeZoneName: "short"
+              })
+            }
+          }
+        } else {
+          dateObj = new Date()
+        }
+        if (!ignore) {
+          setLastfmTrack({ name, artist, url, nowplaying, date, dateObj })
+          setLastfmError(false)
+        }
+      } catch (e) {
+        if (!ignore) setLastfmError(true)
+      }
+    }
+    fetchLastfm()
+    // Only fetch once on mount for homepage
+    return () => { ignore = true }
+  }, [])
+
+  // Compute latest now entry (compare with Last.fm)
+  useEffect(() => {
+    // Get current language
+    const currentLang = i18n.language?.split("-")[0] || "en"
+    // Filter nowItems by language
+    let filteredNow = nowItems.filter(item =>
+      (item.content && (item.content[currentLang] || item.content.en))
+    )
+    // Exclude listening if Last.fm is available
+    if (lastfmTrack && !lastfmError) {
+      filteredNow = filteredNow.filter(item => item.category !== "listening")
+    }
+    // Find latest now entry
+    let latest = null
+    for (const item of filteredNow) {
+      if (!latest || new Date(item.date) > new Date(latest.date)) {
+        latest = item
+      }
+    }
+    // Compare with Last.fm
+    if (lastfmTrack && lastfmTrack.dateObj && !lastfmError) {
+      if (!latest || lastfmTrack.dateObj > new Date(latest.date)) {
+        setLatestNow({
+          type: "lastfm",
+          name: lastfmTrack.name,
+          artist: lastfmTrack.artist,
+          url: lastfmTrack.url,
+          nowplaying: lastfmTrack.nowplaying,
+          date: lastfmTrack.date,
+          dateObj: lastfmTrack.dateObj
+        })
+        return
+      }
+    }
+    if (latest) {
+      setLatestNow({
+        type: "nowitem",
+        ...latest,
+        content: latest.content[currentLang] || latest.content.en
+      })
+    }
+  }, [i18n.language, lastfmTrack, lastfmError])
 
   if (!isTranslationReady) {
     return (
@@ -132,6 +242,52 @@ export default function Home({ blogPosts = [] }) {
               </motion.div>
             </div>
           </div>
+
+          {/* Latest Now Entry Section */}
+          {latestNow && (
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
+                {t("home.latestNow", "What I'm up to now")}
+              </h2>
+              <div className="border rounded-lg p-5 bg-card">
+                {latestNow.type === "lastfm" ? (
+                  <div>
+                    <span>
+                      <a
+                        href={latestNow.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline font-semibold"
+                      >
+                        {latestNow.name}
+                      </a>
+                      {" "}
+                      <span className="text-muted-foreground">by</span> {latestNow.artist}
+                      {latestNow.nowplaying && (
+                        <span className="ml-2 text-xs text-red-500 animate-pulse">Live</span>
+                      )}
+                    </span>
+                    {latestNow.date && (
+                      <div className="text-xs text-muted-foreground mt-1">{latestNow.date}</div>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <div className="mb-1">{latestNow.content}</div>
+                    <div className="text-xs text-muted-foreground">{new Date(latestNow.date).toLocaleString(i18n.language || "en", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                      timeZoneName: "short"
+                    })}</div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Recent Blog Posts Section */}
           {recentPosts && recentPosts.length > 0 && (
