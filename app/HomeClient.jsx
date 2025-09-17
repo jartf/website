@@ -13,17 +13,16 @@ import { useMounted } from "@/hooks/use-mounted"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslationReady } from "@/hooks/use-translation-ready"
 import { LatestBlogPosts } from "@/components/LatestBlogPosts"
-import { getAllBlogPosts } from "@/lib/blog-data"
 
 /**
  * Home page client component
+ * @param { blogPosts } - array of blog post metadata
  * @returns {JSX.Element} The home page component
  */
-export default function Home() {
+export default function Home({ blogPosts = [] }) {
   const { t, i18n } = useTranslation()
   const { theme } = useTheme()
   const [greeting, setGreeting] = useState("")
-  const [blogPosts, setBlogPosts] = useState([])
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
   const isTranslationReady = useTranslationReady()
@@ -44,19 +43,12 @@ export default function Home() {
     }
   }, [t, mounted])
 
-  useEffect(() => {
-    // Fetch blog posts on mount
-    async function fetchPosts() {
-      const posts = await getAllBlogPosts()
-      const lang = i18n.language?.split("-")[0] || "en"
-      let filtered = posts.filter((p) => (p.language || "en") === lang)
-      if (filtered.length === 0) {
-        filtered = posts.filter((p) => (p.language || "en") === "en")
-      }
-      setBlogPosts(filtered)
-    }
-    fetchPosts()
-  }, [i18n.language])
+  // Filter posts for current language, fallback to English
+  const lang = i18n.language?.split("-")[0] || "en"
+  let filteredPosts = blogPosts.filter((p) => (p.language || "en") === lang)
+  if (filteredPosts.length === 0) {
+    filteredPosts = blogPosts.filter((p) => (p.language || "en") === "en")
+  }
 
   if (!isTranslationReady) {
     return (
@@ -138,7 +130,7 @@ export default function Home() {
           </div>
 
           {/* Latest Blog Posts */}
-          <LatestBlogPosts blogPosts={blogPosts} />
+          <LatestBlogPosts blogPosts={filteredPosts} />
 
           <div className="mt-16">
             <MoodCat />
