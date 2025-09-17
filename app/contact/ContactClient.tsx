@@ -199,14 +199,6 @@ export default function ContactPageClient() {
       group: "social",
     },
     {
-      name: "Messenger",
-      icon: <Facebook className="h-6 w-6" />,
-      url: "https://m.me/jaremajarosz",
-      color: "hover:bg-blue-500 hover:text-white",
-      group: "social",
-      note: t("contact.links.messengerNote"),
-    },
-    {
       name: "Threads",
       icon: <AtSign className="h-6 w-6" />,
       url: "https://threads.net/@jarema.me",
@@ -219,6 +211,14 @@ export default function ContactPageClient() {
       url: "https://instagram.com/jarema.me",
       color: "hover:bg-pink-600 hover:text-white",
       group: "social",
+    },
+    {
+      name: "Messenger",
+      icon: <Facebook className="h-6 w-6" />,
+      url: "https://m.me/jaremajarosz",
+      color: "hover:bg-blue-500 hover:text-white",
+      group: "social",
+      note: t("contact.links.messengerNote"),
     },
     {
       name: i18n.language === "ru" ? "Pronouns.page (18+)" : "Pronouns.page",
