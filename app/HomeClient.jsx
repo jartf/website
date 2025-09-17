@@ -132,7 +132,6 @@ export default function Home({ blogPosts = [] }) {
             <div className="mt-12">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
                 {t("home.recentPosts", "Recent blog posts")}
-                <span className="text-base font-normal text-muted-foreground">({recentPosts.length})</span>
               </h2>
               <div className="space-y-6">
                 {recentPosts.map((post) => (
