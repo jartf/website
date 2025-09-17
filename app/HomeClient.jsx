@@ -51,7 +51,7 @@ export default function Home({ blogPosts = [] }) {
     const fetchLastfm = async () => {
       try {
         const res = await fetch(
-          "https://fm.jarema.me"
+          "https://fm.jarema.me/"
         )
         if (!res.ok) throw new Error("Failed to fetch Last.fm")
         const xml = await res.text()
