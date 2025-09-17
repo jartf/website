@@ -47,7 +47,7 @@ export const nowItems: NowItem[] = [
       tr: "Bu web sitesini React'e daha az bağımlı hale getirmek ve statik HTML'e dönmek için iyileştiriyorum",
       zh: "改进此网站以减少对React的依赖，回归静态HTML",
     },
-    date: "2025-09-17T00:26:17+07:00",
+    date: "2025-09-17T14:30:17+07:00",
   },
   {
     id: 3,
