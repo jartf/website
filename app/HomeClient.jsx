@@ -256,6 +256,9 @@ export default function Home({ blogPosts = [] }) {
                     <div className="flex items-center gap-2 font-semibold mb-1">
                       <LucideHeadphones className="w-5 h-5 text-primary" />
                       {t("now.categories.listening", "Listening")}
+                      {latestNow.nowplaying && (
+                        <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
+                      )}
                     </div>
                     <span>
                       <a
@@ -268,9 +271,6 @@ export default function Home({ blogPosts = [] }) {
                       </a>
                       {" "}
                       <span className="text-muted-foreground">by</span> {latestNow.artist}
-                      {latestNow.nowplaying && (
-                        <span className="ml-2 text-xs text-red-500 animate-pulse">Live</span>
-                      )}
                     </span>
                     {latestNow.date && (
                       <div className="text-xs text-muted-foreground mt-1">{latestNow.date}</div>
