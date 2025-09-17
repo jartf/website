@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import i18n from "i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
+import styles from "./BlogList.module.css"
 
 // Types for blog posts
 type BlogPostMetadata = {
@@ -272,6 +273,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     const languageNames: Record<string, string> = {
       en: t("language.en", "English"),
       vi: t("language.vi", "Vietnamese"),
+      et: t("language.et", "Estonian"),
       ru: t("language.ru", "Russian"),
       da: t("language.da", "Danish"),
       tr: t("language.tr", "Turkish"),
@@ -282,7 +284,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
   if (safeBlogPosts.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-16" style={{ opacity: 1, transform: "translateY(0px)" }}>
+      <div className={`container mx-auto px-4 py-16 ${styles.fadeIn}`}>
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold mb-6">{t("blog.title", "Blog")}</h1>
           <p className="text-muted-foreground mb-8">{t("blog.noPosts", "No posts yet. Check back soon!")}</p>
@@ -300,7 +302,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     (filterCatApproved !== null ? 1 : 0)
 
   return (
-    <div className="container mx-auto px-4 py-16" style={{ opacity: 1, transform: "translateY(0px)" }}>
+    <div className={`container mx-auto px-4 py-16 ${styles.fadeIn}`}>
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold">Blog</h1>
@@ -366,7 +368,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         </div>
 
         {/* Search and filter bar */}
-        <div className="mb-8 space-y-4" style={{ opacity: 1, transform: "translateY(0px)" }}>
+        <div className={`mb-8 space-y-4 ${styles.fadeIn}`}>
           <div className="flex gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -655,8 +657,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
         {filteredPosts.length === 0 ? (
           <div
-            className="text-center py-12 bg-muted/20 rounded-lg"
-            style={{ opacity: 1, transform: "translateY(0px)" }}
+            className={`text-center py-12 bg-muted/20 rounded-lg ${styles.fadeIn}`}
           >
             <p className="text-muted-foreground">
               {t("blog.filterNoMatch", "No posts match your filters. Try adjusting your search criteria.")}
@@ -666,30 +667,28 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
             </Button>
           </div>
         ) : (
-          <div className="space-y-6" style={{ opacity: 1, transform: "translateY(0px)" }}>
+          <div className={`space-y-6 ${styles.fadeIn}`}>
             {filteredPosts.map((post, index) => (
               <div
                 key={post.slug}
                 ref={el => { postRefs.current[index] = el }}
                 className={`relative transition-all duration-300 ${
-                  focusedPostIndex === index ? "ring-2 ring-primary ring-offset-2 scale-[1.02] shadow-lg" : ""
+                  focusedPostIndex === index ? styles.focusedPost : ""
                 }`}
-                style={{ opacity: 1, transform: "translateY(0px)" }}
               >
                 {/* Post number indicator for keyboard navigation */}
                 {index < 9 && (
-                  <div className="absolute -left-8 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs">
+                  <div className={`absolute -left-8 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs ${styles.postNumber}`}>
                     {index + 1}
                   </div>
                 )}
 
                 <Link href={`/blog/${post.slug}`} className="block group" passHref>
                   <Card
-                    className="transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50"
-                    style={{ opacity: 1 }}
+                    className={`transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50 ${styles.card}`}
                   >
                     {/* Hover effect background */}
-                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className={`absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${styles.cardHoverBg}`}></div>
 
                     {/* Card content */}
                     <CardContent className="p-6 relative z-10">
