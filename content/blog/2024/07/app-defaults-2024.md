@@ -1,8 +1,8 @@
 ---
 title: "App Defaults for 2024"
-summary: "Sharing my list of go-to apps, idea inspired by Robb Knight."
+excerpt: "Sharing my list of go-to apps, idea inspired by Robb Knight."
 date: "2024-07-21T00:00:00Z"
-mood: "optimistic"
+mood: "happy"
 catApproved: true
 readingTime: 2
 language: "en"
