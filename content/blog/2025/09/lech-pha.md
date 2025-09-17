@@ -9,6 +9,8 @@ language: "vi"
 alternates:
   - language: en
     slug: 2025/09/identity-mismatch
+  - language: et
+    slug: 2025/09/identiteedi-vastuolu
 ---
 
 Nhiều lúc tôi thấy cả cuộc đời mình là một sự lệch pha. Không phải kiểu lệch lộ liễu, mà chỉ là hơi khó chịu, kiểu như đang mặc quần áo chật vậy. Vẫn mặc được, vẫn đi đứng bình thường, nhưng suốt ngày cấn cấn, rồi cuối cùng lại tự hỏi tại sao lại chọn nhầm đồ. Đó chính là cảm giác của tôi với không chỉ ngành học của tôi, mà thực ra là cả với cái cách mà người khác nhìn tôi nữa.

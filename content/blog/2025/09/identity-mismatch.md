@@ -9,6 +9,8 @@ language: "en"
 alternates:
   - language: vi
     slug: 2025/09/lech-pha
+  - language: et
+    slug: 2025/09/identiteedi-vastuolu
 ---
 
 Sometimes I feel like my whole identity is one long mismatch. The kind of mismatch that doesn't blow up in your face, but quietly eats at you, like wearing shoes that are half a size too small. You can walk in them, you can even run in them if you need to, but by the end of the day your feet still ache, and you wonder why you settled for the wrong pair in the first place. That's how I feel about my major, and, honestly, about the way I'm seen in general.
