@@ -1,0 +1,213 @@
+"use client"
+
+import { useState, useEffect, useRef } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { useTranslation } from "react-i18next"
+import { motion } from "framer-motion"
+import { LanguageToggle } from "@/components/language-toggle"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { MusicToggle } from "@/components/music-toggle"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Menu, MoreHorizontal } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useViewport } from "@/hooks/use-viewport"
+import { useMounted } from "@/hooks/use-mounted"
+
+/**
+ * Header component with responsive navigation
+ * @returns {JSX.Element|null} The header component or null if not mounted
+ */
+export function Header() {
+  const pathname = usePathname()
+  const { t } = useTranslation()
+  const mounted = useMounted()
+  const [overflowIndex, setOverflowIndex] = useState<number | null>(null)
+  const navRef = useRef<HTMLDivElement>(null)
+  const itemsRef = useRef<(HTMLAnchorElement | null)[]>([])
+  const { windowWidth } = useViewport()
+
+  useEffect(() => {
+    if (!mounted) return
+
+    // Function to calculate overflow
+    const calculateOverflow = () => {
+      // Only apply overflow logic for tablet sizes (768px to 1279px)
+      if (windowWidth < 768 || windowWidth >= 1280 || !navRef.current) {
+        setOverflowIndex(null)
+        return
+      }
+
+      // Get container width and account for the logo, toggles, and some padding
+      const containerWidth = document.querySelector(".container")?.clientWidth || 0
+      const logoWidth = 120 // Approximate width of logo + padding
+      const togglesWidth = 150 // Approximate width of language/theme/music toggles
+      const moreButtonWidth = 48 // Width of the more button
+      const safetyMargin = 16 // Extra safety margin
+
+      // Calculate available width for nav items
+      const availableWidth = containerWidth - logoWidth - togglesWidth - moreButtonWidth - safetyMargin
+
+      if (availableWidth <= 0) {
+        setOverflowIndex(0) // No space for nav items, all in overflow
+        return
+      }
+
+      const navItems = Array.from(navRef.current.querySelectorAll('a[data-nav-item="true"]'))
+
+      let totalWidth = 0
+      let breakIndex = navItems.length
+
+      for (let i = 0; i < navItems.length; i++) {
+        const item = navItems[i] as HTMLElement
+        // Add gap between items
+        totalWidth += item.offsetWidth + (i > 0 ? 24 : 0)
+
+        if (totalWidth > availableWidth) {
+          breakIndex = i
+          break
+        }
+      }
+
+      // If all items fit, don't show overflow menu
+      if (totalWidth <= availableWidth) {
+        setOverflowIndex(null)
+      } else {
+        setOverflowIndex(breakIndex < navItems.length ? breakIndex : null)
+      }
+    }
+
+    // Initial calculation with a slight delay to ensure DOM is ready
+    const initialTimer = setTimeout(() => {
+      calculateOverflow()
+    }, 50)
+
+    // Recalculate on window resize
+    window.addEventListener("resize", calculateOverflow)
+
+    // Clean up
+    return () => {
+      clearTimeout(initialTimer)
+      window.removeEventListener("resize", calculateOverflow)
+    }
+  }, [mounted, windowWidth])
+
+  if (!mounted) return null
+
+  const navItems = [
+    { href: "/", label: t("nav.home", "Home") },
+    { href: "/about", label: t("nav.about", "About") },
+    { href: "/projects", label: t("nav.projects", "Projects") },
+    { href: "/blog", label: t("nav.blog", "Blog") },
+    { href: "/now", label: t("nav.now", "Now") },
+    { href: "/uses", label: t("nav.uses", "Uses") },
+    { href: "/contact", label: t("nav.contact", "Contact") },
+    { href: "/colophon", label: t("nav.colophon", "Colophon") },
+  ]
+
+  const isActive = (path: string) => {
+    if (path === "/" && pathname !== "/") return false
+    return pathname === path || pathname.startsWith(`${path}/`)
+  }
+
+  // Only apply overflow logic for tablet sizes
+  const isTabletSize = windowWidth >= 768 && windowWidth < 1280
+  const visibleItems = isTabletSize && overflowIndex !== null ? navItems.slice(0, overflowIndex) : navItems
+  const overflowItems = isTabletSize && overflowIndex !== null ? navItems.slice(overflowIndex) : []
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
+      <div className="container flex h-16 items-center justify-between overflow-hidden">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+            <div className="relative size-8 overflow-hidden">
+              <Image src="/favicons.svg" alt="Jarema Logo" width={32} height={32} className="size-8" />
+            </div>
+            <span className="font-heading font-bold text-lg hidden sm:inline-block">Jarema</span>
+          </Link>
+
+          <div ref={navRef} className="hidden md:flex items-center ml-6 overflow-hidden">
+            <div className="flex items-center gap-6 overflow-hidden">
+              {visibleItems.map((item, index) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  data-nav-item="true"
+                  ref={(el) => (itemsRef.current[index] = el)}
+                  className={`text-sm transition-colors hover:text-primary whitespace-nowrap ${
+                    isActive(item.href) ? "text-foreground font-medium" : "text-muted-foreground"
+                  }`}
+                >
+                  {item.label}
+                  {isActive(item.href) && (
+                    <motion.div
+                      className="h-0.5 bg-primary mt-0.5"
+                      layoutId="navbar-indicator"
+                      transition={{ type: "spring", duration: 0.6 }}
+                    />
+                  )}
+                </Link>
+              ))}
+            </div>
+
+            {overflowItems.length > 0 && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="ml-1 flex-shrink-0">
+                    <MoreHorizontal className="h-5 w-5" />
+                    <span className="sr-only">More pages</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="bg-background/95 backdrop-blur-sm">
+                  {overflowItems.map((item) => (
+                    <DropdownMenuItem key={item.href} asChild>
+                      <Link href={item.href} className={`w-full ${isActive(item.href) ? "font-medium" : ""}`}>
+                        {item.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1">
+            <LanguageToggle />
+            <ThemeToggle />
+            <MusicToggle />
+          </div>
+
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <div className="grid gap-6 py-6">
+                <div className="grid gap-3">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`text-sm transition-colors hover:text-primary ${
+                        isActive(item.href) ? "text-foreground font-medium" : "text-muted-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  )
+}
