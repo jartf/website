@@ -78,26 +78,6 @@ export function Footer() {
         )}
       </div>
 
-      {/* Social links */}
-      <div className="flex justify-center gap-4 mt-2 mb-6">
-        <a
-          href="https://github.com/jartf"
-          rel="me"
-          className="text-muted-foreground hover:text-foreground transition-colors"
-          aria-label="GitHub"
-        >
-          <Github className="h-5 w-5" />
-        </a>
-        <a
-          href="mailto:hello@jarema.me"
-          rel="me"
-          className="text-muted-foreground hover:text-foreground transition-colors"
-          aria-label="Email"
-        >
-          <Mail className="h-5 w-5" />
-        </a>
-      </div>
-
       {/* Badges */}
       <div className="flex justify-center flex-wrap gap-2 max-w-2xl mx-auto">
         {/* 1. Join Logo */}
