@@ -138,6 +138,8 @@
     "clearFilter": "Xoá tất cả bộ lọc",
     "mood": "Tâm trạng",
     "cat": "Được boss phê duyệt",
+    "prev": "Bài trước",
+    "next": "Bài sau",
     "jumpToPost": "Nhảy đến bài viết",
     "back": "Quay lại danh sách blog",
     "showingPosts": "Đang hiển thị {{current}} trên tổng số {{total}} bài viết",

@@ -105,9 +105,9 @@
       "activism": "Aktivism"
     },
     "details": {
-      "what": "What it is",
-      "learned": "What I learned",
-      "why": "Why it matters"
+      "what": "Mis see on",
+      "learned": "Mida ma õppisin",
+      "why": "Miks ma selle tegin"
     },
     "cardActions": {
       "clickForDetails": "Lisateabe saamiseks klõpsake",
@@ -120,7 +120,7 @@
   },
   "conduct": {
     "title": "Minu isiklik käitumisjuhend",
-    "description": "This is a sort of list of what I stand for and how I act towards others.",
+    "description": "See on omamoodi nimekiri sellest, mille eest ma seisan ja kuidas ma teistega käitun.",
     "content1": ""
   },
   "blog": {
@@ -130,28 +130,30 @@
     "languageFilter": "Filtreeri keele järgi",
     "tag": "Tag",
     "category": "Kategooria",
-    "noPosts": "No posts yet. Check back soon!",
+    "noPosts": "Blogipostitusi veel pole, vaadake varsti uuesti!",
     "search": "Otsi postitusi...",
     "sortNew": "Uusim esimesena",
     "sortOld": "Vanimad esimesena",
-    "sortReadTime": "Reading time",
+    "sortReadTime": "Lugemisaeg",
     "sortABC": "Tähestikuline",
     "filter": "Filter",
     "filterDescription": "Filtreeri blogipostitusi",
-    "activeFilter": "Active filters:",
-    "filterNoMatch": "No posts match your filters. Try adjusting your search criteria.",
+    "activeFilter": "Aktiivne filter:",
+    "filterNoMatch": "Ükski postitus ei vasta teie filtritele. Proovige otsingukriteeriume kohandada.",
     "clearFilter": "Tühjenda kõik filtrid",
-    "mood": "Mood",
+    "mood": "Tunne",
     "cat": "Cat Approved",
-    "jumpToPost": "Jump to post",
+    "prev": "Eelmine blogipostitus",
+    "next": "Järgmine blogipostitus",
+    "jumpToPost": "Hüppa postitusse",
     "back": "Tagasi blogide nimekirja",
-    "showingPosts": "Showing {{current}} of {{total}} posts",
+    "showingPosts": "Kuvatakse {{current}} blogipostitust {{total}}-st",
     "minRead": "minutit lugemist",
     "availableIn": "See leht on saadaval ka keeles"
   },
   "now": {
     "title": "Nüüd",
-    "description": "What I'm doing, thinking about, and focusing on right now.",
+    "description": "Mida ma praegu teen, millele mõtlen ja keskendun.",
     "lastUpdated": "Viimati uuendatud",
     "categories": {
       "reading": "Lugemine",
@@ -165,8 +167,8 @@
   },
   "uses": {
     "title": "Uses",
-    "description": "All the things I use on a daily basis. Also available on",
-    "websiteDescription": "a website where people share the stuff they use.",
+    "description": "Kõik asjad, mida ma iga päev kasutan. Saadaval ka aadressil",
+    "websiteDescription": ", mis on veebisait, kus inimesed jagavad oma kasutatavaid asju.",
     "categories": {
       "hardware": "Riistvara",
       "mobile": "Mobiil",
@@ -192,7 +194,7 @@
     },
     "itemDescriptions": {
       "ryzen": "Ryzen 5 5500U, 512GB SSD",
-      "externalHDD": "External HDD for backups",
+      "externalHDD": "Väline kõvaketas varundamiseks",
       "mechanicalKeyboard": "Mechanical keyboard with Red Switch",
       "wirelessMouse": "Juhtmevaba mänguhiir",
       "mainPhone": "Peamine telefon",
@@ -276,7 +278,7 @@
   },
   "contact": {
     "title": "Kontakt",
-    "description": "Ways to reach out and connect with me.",
+    "description": "Võimalused minuga ühendust võtta ja ühendust luua.",
     "message": "don't be shy. say hi. or book a 1:1 if you're feeling professional :)",
     "disclaimer": "i do respond to emails. probably. unless i get distracted by a bird or something idk",
     "sections": {
@@ -345,8 +347,8 @@
     "title": "Devlogi"
   },
   "colophon": {
-    "title": "Colophon",
-    "description": "The story behind this website and how it was built",
+    "title": "Kolofon",
+    "description": "Selle veebisaidi taga peituv lugu ja selle loomine",
     "siteHistory": {
       "title": "Saidi ajalugu",
       "content1": "This site was just registered in late 2023, yet the design has changed a lot over the span of its life. The first version was just a basic WordPress site hosted on a sketchy free hosting provider, the second was Carrd-based, and the third was built with Astro. This current iteration (the fourth version) is a complete redesign built from scratch with modern web technologies.",
@@ -377,9 +379,9 @@
     }
   },
   "footer": {
-    "copyright": "no rights reserved, take what you need and do what you want :p",
+    "copyright": "õigused puuduvad, võta, mida vajad, ja tee, mida tahad :p",
     "madeWith": "armastusega tehtud",
-    "andChaos": "and a few weeks of screwing around"
+    "andChaos": "ja paar nädalat mängimist"
   },
   "2048": {
     "description": "Join the tiles, get to 2048!",

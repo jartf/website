@@ -138,6 +138,8 @@
     "clearFilter": "Clear all filters",
     "mood": "Mood",
     "cat": "Cat Approved",
+    "prev": "Previous post",
+    "next": "Next post",
     "jumpToPost": "Jump to post",
     "back": "Back to blog list",
     "showingPosts": "Showing {{current}} of {{total}} posts",

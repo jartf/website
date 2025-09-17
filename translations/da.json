@@ -149,6 +149,8 @@
     "clearFilter": "Ryd alle filtre",
     "mood": "Humør",
     "cat": "Godkendt af katten selv",
+    "prev": "Forrige opslag",
+    "next": "Næste opslag",
     "jumpToPost": "Hop til opslag",
     "back": "Tilbage til bloglisten",
     "showingPosts": "Viser {{current}} ud af {{total}} opslag",

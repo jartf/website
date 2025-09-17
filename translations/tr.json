@@ -147,6 +147,8 @@
     "clearFilter": "Tüm filtreleri temizle",
     "mood": "Ruh hali",
     "cat": "Kedi mührünü bastı",
+    "prev": "Önceki gönderi",
+    "next": "Sonraki gönderi",
     "jumpToPost": "Gönderiye git",
     "back": "Blog listesine geri dön",
     "showingPosts": "{{total}} gönderiden {{current}} tanesi gösteriliyor",
