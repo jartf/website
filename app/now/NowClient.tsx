@@ -33,7 +33,7 @@ export default function NowClientPage() {
     const fetchLastfm = async () => {
       try {
         const res = await fetch(
-          "https://fm.jarema.me"
+          "/api/lastfm"
         )
         if (!res.ok) throw new Error("Failed to fetch Last.fm")
         const xml = await res.text()
