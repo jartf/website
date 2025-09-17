@@ -154,7 +154,9 @@ export default function Home({ blogPosts = [] }) {
               </div>
               <div className="mt-6 text-center">
                 <Link href="/blog">
-                  <Button variant="link">{t("home.blogButton", "Read my blog")}</Button>
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    {t("home.blogButton", "Read my blog")}
+                  </Button>
                 </Link>
               </div>
             </div>
