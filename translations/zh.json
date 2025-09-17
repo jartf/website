@@ -47,7 +47,8 @@
     "contactButton": "联系我",
     "aboutButton": "关于我",
     "blogButton": "看看我的博客",
-    "recentPosts": "最新博客文章"
+    "recentPosts": "最新博客文章",
+    "latestNow": "我现在在做什么"
   },
   "about": {
     "title": "关于我",

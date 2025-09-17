@@ -47,7 +47,8 @@
     "contactButton": "Связаться со мной",
     "aboutButton": "Обо мне",
     "blogButton": "Читать мой блог",
-    "recentPosts": "Последние посты в блоге"
+    "recentPosts": "Последние посты в блоге",
+    "latestNow": "Что я делаю сейчас"
   },
   "about": {
     "title": "Обо мне",

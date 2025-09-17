@@ -40,7 +40,8 @@
     "contactButton": "Contact me",
     "aboutButton": "About me",
     "blogButton": "Read my blog",
-    "recentPosts": "Recent blog posts"
+    "recentPosts": "Recent blog posts",
+    "latestNow": "What I'm up to now"
   },
   "about": {
     "title": "About me",

@@ -47,7 +47,8 @@
     "contactButton": "Kontakt mig",
     "aboutButton": "Om mig",
     "blogButton": "Læs min blog",
-    "recentPosts": "Seneste blogindlæg"
+    "recentPosts": "Seneste blogindlæg",
+    "latestNow": "Hvad jeg laver lige nu"
   },
   "about": {
     "title": "Om mig",

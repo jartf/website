@@ -40,7 +40,8 @@
     "contactButton": "Võta minuga ühendust",
     "aboutButton": "Loe minust",
     "blogButton": "Loe minu blogi",
-    "recentPosts": "Viimased blogipostitused"
+    "recentPosts": "Viimased blogipostitused",
+    "latestNow": "Mida ma praegu teen"
   },
   "about": {
     "title": "Minust",

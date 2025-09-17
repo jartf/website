@@ -47,7 +47,8 @@
     "contactButton": "Bana ulaş",
     "aboutButton": "Hakkımda",
     "blogButton": "Blogumu oku",
-    "recentPosts": "Son blog yazıları"
+    "recentPosts": "Son blog yazıları",
+    "latestNow": "Şu anda ne yapıyorum"
   },
   "about": {
     "title": "Hakkımda",
