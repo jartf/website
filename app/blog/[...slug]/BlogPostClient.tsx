@@ -11,7 +11,6 @@ import { RelatedPosts } from "@/components/blog/related-posts"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslation } from "react-i18next"
 import styles from "./BlogPostClient.module.css"
-
 import { formatDate } from "@/lib/utils"
 import { useCurrentLanguage } from "@/hooks/use-current-language"
 

@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 // Update the import to use next/navigation instead of directly manipulating window.location
 import { useRouter } from "next/navigation"
+import { useTranslation } from "react-i18next"
 
 type NavigationProps = {
   navigation: {
@@ -18,6 +19,7 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
   // Inside the BlogPostNavigation component, add the router
   const router = useRouter()
   const { prev, next } = navigation
+  const { t, i18n } = useTranslation()
 
   // Update the keyboard navigation to use router.push instead of window.location
   useEffect(() => {
@@ -62,7 +64,7 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
             <Button variant="ghost" className="flex items-center gap-2 group">
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
               <div className="text-left">
-                <div className="text-xs text-muted-foreground">Previous</div>
+                <div className="text-xs text-muted-foreground">{t("blog.prev", "Previous")}</div>
                 <div className="text-sm font-medium truncate max-w-[200px]">{prev.title}</div>
               </div>
             </Button>
@@ -75,7 +77,7 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
           <Link href={`/blog/${next.slug}`} passHref>
             <Button variant="ghost" className="flex items-center gap-2 group">
               <div className="text-right">
-                <div className="text-xs text-muted-foreground">Next</div>
+                <div className="text-xs text-muted-foreground">{t("blog.next", "Next")}</div>
                 <div className="text-sm font-medium truncate max-w-[200px]">{next.title}</div>
               </div>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -89,7 +91,7 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
       <div className="flex justify-center mt-4">
         <Link href="/blog" passHref>
           <Button variant="outline" size="sm">
-            Back to all posts
+            {t("blog.back", "Back to blog list")}
           </Button>
         </Link>
       </div>
