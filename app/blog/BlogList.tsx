@@ -272,6 +272,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     const languageNames: Record<string, string> = {
       en: t("language.en", "English"),
       vi: t("language.vi", "Vietnamese"),
+      et: t("language.et", "Estonian"),
       ru: t("language.ru", "Russian"),
       da: t("language.da", "Danish"),
       tr: t("language.tr", "Turkish"),
