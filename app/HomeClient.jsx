@@ -12,6 +12,7 @@ import { useMounted } from "@/hooks/use-mounted"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslationReady } from "@/hooks/use-translation-ready"
 import { nowItems } from "@/content/now-items"
+import { LucideHeadphones } from "lucide-react"
 
 /**
  * Home page client component
@@ -252,6 +253,10 @@ export default function Home({ blogPosts = [] }) {
               <div className="border rounded-lg p-5 bg-card">
                 {latestNow.type === "lastfm" ? (
                   <div>
+                    <div className="flex items-center gap-2 font-semibold mb-1">
+                      <LucideHeadphones className="w-5 h-5 text-primary" />
+                      {t("now.categories.listening", "Listening")}
+                    </div>
                     <span>
                       <a
                         href={latestNow.url}
@@ -273,6 +278,12 @@ export default function Home({ blogPosts = [] }) {
                   </div>
                 ) : (
                   <div>
+                    <div className="flex items-center gap-2 font-semibold mb-1">
+                      {latestNow.icon ? (
+                        <latestNow.icon className="w-5 h-5 text-primary" />
+                      ) : null}
+                      {latestNow.title}
+                    </div>
                     <div className="mb-1">{latestNow.content}</div>
                     <div className="text-xs text-muted-foreground">{new Date(latestNow.date).toLocaleString(i18n.language || "en", {
                       year: "numeric",
