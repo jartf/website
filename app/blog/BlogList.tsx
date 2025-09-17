@@ -271,23 +271,23 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   // Map language codes to full names
   const getLanguageName = (code: string): string => {
     const languageNames: Record<string, string> = {
-      en: t("language.en", "English"),
-      vi: t("language.vi", "Vietnamese"),
-      et: t("language.et", "Estonian"),
-      ru: t("language.ru", "Russian"),
-      da: t("language.da", "Danish"),
-      tr: t("language.tr", "Turkish"),
-      zh: t("language.zh", "Chinese"),
+      en: t("language.en", "English") || "English",
+      vi: t("language.vi", "Vietnamese") || "Vietnamese",
+      et: t("language.et", "Estonian") || "Estonian",
+      ru: t("language.ru", "Russian") || "Russian",
+      da: t("language.da", "Danish") || "Danish",
+      tr: t("language.tr", "Turkish") || "Turkish",
+      zh: t("language.zh", "Chinese") || "Chinese",
     }
-    return languageNames[code] || code
+    return languageNames[code] || code || "Unknown"
   }
 
-  if (safeBlogPosts.length === 0) {
+  if (!Array.isArray(safeBlogPosts) || safeBlogPosts.length === 0) {
     return (
-      <div className={`container mx-auto px-4 py-16 ${styles.fadeIn}`}>
+      <div className={`container mx-auto px-4 py-16 ${styles.fadeIn} bloglist-css-debug`}>
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-6">{t("blog.title", "Blog")}</h1>
-          <p className="text-muted-foreground mb-8">{t("blog.noPosts", "No posts yet. Check back soon!")}</p>
+          <h1 className="text-4xl font-bold mb-6">{t("blog.title", "Blog") || "Blog"}</h1>
+          <p className="text-muted-foreground mb-8">{t("blog.noPosts", "No posts yet. Check back soon!") || "No posts yet. Check back soon!"}</p>
         </div>
       </div>
     )
@@ -302,10 +302,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     (filterCatApproved !== null ? 1 : 0)
 
   return (
-    <div className={`container mx-auto px-4 py-16 ${styles.fadeIn}`}>
+    <div className={`container mx-auto px-4 py-16 ${styles.fadeIn} bloglist-css-debug`}>
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-4xl font-bold">Blog</h1>
+          <h1 className="text-4xl font-bold">{t("blog.title", "Blog") || "Blog"}</h1>
 
           {/* RSS Feed Links */}
           <div className="flex items-center space-x-2">
@@ -399,25 +399,25 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                 <SelectItem value="newest">
                   <div className="flex items-center">
                     <SortDesc className="mr-2 h-4 w-4" />
-                    <span>{t("blog.sortNew", "Newest first")}</span>
+                    <span>{t("blog.sortNew", "Newest first") || "Newest first"}</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="oldest">
                   <div className="flex items-center">
                     <SortAsc className="mr-2 h-4 w-4" />
-                    <span>{t("blog.sortOld", "Oldest first")}</span>
+                    <span>{t("blog.sortOld", "Oldest first") || "Oldest first"}</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="readingTime">
                   <div className="flex items-center">
                     <Clock className="mr-2 h-4 w-4" />
-                    <span>{t("blog.sortReadTime", "Reading time")}</span>
+                    <span>{t("blog.sortReadTime", "Reading time") || "Reading time"}</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="alphabetical">
                   <div className="flex items-center">
                     <SortAsc className="mr-2 h-4 w-4" />
-                    <span>{t("blog.sortABC", "Alphabetical")}</span>
+                    <span>{t("blog.sortABC", "Alphabetical") || "Alphabetical"}</span>
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -651,8 +651,8 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         {/* Results count */}
         <div className="mb-4 text-sm text-muted-foreground">
           {filteredPosts.length === 0
-            ? t("blog.noPosts", "No posts found")
-            : t("blog.showingPosts", { current: filteredPosts.length, total: safeBlogPosts.length })}
+            ? t("blog.noPosts", "No posts found") || "No posts found"
+            : t("blog.showingPosts", { current: filteredPosts.length, total: safeBlogPosts.length }) || `${filteredPosts.length} of ${safeBlogPosts.length} posts`}
         </div>
 
         {filteredPosts.length === 0 ? (
@@ -660,10 +660,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
             className={`text-center py-12 bg-muted/20 rounded-lg ${styles.fadeIn}`}
           >
             <p className="text-muted-foreground">
-              {t("blog.filterNoMatch", "No posts match your filters. Try adjusting your search criteria.")}
+              {t("blog.filterNoMatch", "No posts match your filters. Try adjusting your search criteria.") || "No posts match your filters. Try adjusting your search criteria."}
             </p>
             <Button variant="link" onClick={resetFilters} className="mt-2">
-              {t("blog.clearFilter", "Reset all filters")}
+              {t("blog.clearFilter", "Reset all filters") || "Reset all filters"}
             </Button>
           </div>
         ) : (
