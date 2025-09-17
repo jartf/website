@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next"
 import { useTheme } from "next-themes"
 
 // Define supported languages
-const SUPPORTED_LANGUAGES = ["en", "vi", "ru", "da", "tr", "zh"]
+const SUPPORTED_LANGUAGES = ["en", "vi", "et", "ru", "da", "tr", "zh"]
 
 // Define supported themes
 const SUPPORTED_THEMES = ["light", "dark", "system"]
