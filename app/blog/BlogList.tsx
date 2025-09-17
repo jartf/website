@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import i18n from "i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
-import styles from "./BlogList.module.css"
 
 // Types for blog posts
 type BlogPostMetadata = {
@@ -51,7 +50,6 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const [filterCatApproved, setFilterCatApproved] = useState<boolean | null>(null)
   const [filteredPosts, setFilteredPosts] = useState<BlogPostMetadata[]>([])
   const [mounted, setMounted] = useState(false)
-  const [currentLang, setCurrentLang] = useState<string>("en")
 
   const postRefs = useRef<(HTMLDivElement | null)[]>([])
   const router = useRouter()
@@ -59,6 +57,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
   // Ensure blogPosts is always an array
   const safeBlogPosts = Array.isArray(blogPosts) ? blogPosts : []
+  const currentLang = useCurrentLanguage()
 
   // Get unique values from all blog posts
   const uniqueMoods = Array.from(new Set(safeBlogPosts.map((post) => post.mood).filter(Boolean)))
@@ -161,10 +160,9 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     }
   }, [safeBlogPosts, i18n.language, mounted])
 
-  // Set mounted to true when the component mounts and set currentLang
+  // Set mounted to true when the component mounts
   useEffect(() => {
     setMounted(true)
-    setCurrentLang(useCurrentLanguage())
   }, [])
 
   // Handle keyboard navigation
@@ -272,26 +270,22 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   // Map language codes to full names
   const getLanguageName = (code: string): string => {
     const languageNames: Record<string, string> = {
-      en: t("language.en", "English") || "English",
-      vi: t("language.vi", "Vietnamese") || "Vietnamese",
-      et: t("language.et", "Estonian") || "Estonian",
-      ru: t("language.ru", "Russian") || "Russian",
-      da: t("language.da", "Danish") || "Danish",
-      tr: t("language.tr", "Turkish") || "Turkish",
-      zh: t("language.zh", "Chinese") || "Chinese",
+      en: t("language.en", "English"),
+      vi: t("language.vi", "Vietnamese"),
+      ru: t("language.ru", "Russian"),
+      da: t("language.da", "Danish"),
+      tr: t("language.tr", "Turkish"),
+      zh: t("language.zh", "Chinese"),
     }
-    return languageNames[code] || code || "Unknown"
+    return languageNames[code] || code
   }
 
-  // Don't render until mounted to avoid hydration mismatch
-  if (!mounted) return null
-
-  if (!Array.isArray(safeBlogPosts) || safeBlogPosts.length === 0) {
+  if (safeBlogPosts.length === 0) {
     return (
-      <div className={`container mx-auto px-4 py-16 ${styles.fadeIn} bloglist-css-debug`}>
+      <div className="container mx-auto px-4 py-16" style={{ opacity: 1, transform: "translateY(0px)" }}>
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-6">{t("blog.title", "Blog") || "Blog"}</h1>
-          <p className="text-muted-foreground mb-8">{t("blog.noPosts", "No posts yet. Check back soon!") || "No posts yet. Check back soon!"}</p>
+          <h1 className="text-4xl font-bold mb-6">{t("blog.title", "Blog")}</h1>
+          <p className="text-muted-foreground mb-8">{t("blog.noPosts", "No posts yet. Check back soon!")}</p>
         </div>
       </div>
     )
@@ -306,10 +300,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     (filterCatApproved !== null ? 1 : 0)
 
   return (
-    <div className={`container mx-auto px-4 py-16 ${styles.fadeIn} bloglist-css-debug`}>
+    <div className="container mx-auto px-4 py-16" style={{ opacity: 1, transform: "translateY(0px)" }}>
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-4xl font-bold">{t("blog.title", "Blog") || "Blog"}</h1>
+          <h1 className="text-4xl font-bold">Blog</h1>
 
           {/* RSS Feed Links */}
           <div className="flex items-center space-x-2">
@@ -372,7 +366,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         </div>
 
         {/* Search and filter bar */}
-        <div className={`mb-8 space-y-4 ${styles.fadeIn}`}>
+        <div className="mb-8 space-y-4" style={{ opacity: 1, transform: "translateY(0px)" }}>
           <div className="flex gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -403,25 +397,25 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                 <SelectItem value="newest">
                   <div className="flex items-center">
                     <SortDesc className="mr-2 h-4 w-4" />
-                    <span>{t("blog.sortNew", "Newest first") || "Newest first"}</span>
+                    <span>{t("blog.sortNew", "Newest first")}</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="oldest">
                   <div className="flex items-center">
                     <SortAsc className="mr-2 h-4 w-4" />
-                    <span>{t("blog.sortOld", "Oldest first") || "Oldest first"}</span>
+                    <span>{t("blog.sortOld", "Oldest first")}</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="readingTime">
                   <div className="flex items-center">
                     <Clock className="mr-2 h-4 w-4" />
-                    <span>{t("blog.sortReadTime", "Reading time") || "Reading time"}</span>
+                    <span>{t("blog.sortReadTime", "Reading time")}</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="alphabetical">
                   <div className="flex items-center">
                     <SortAsc className="mr-2 h-4 w-4" />
-                    <span>{t("blog.sortABC", "Alphabetical") || "Alphabetical"}</span>
+                    <span>{t("blog.sortABC", "Alphabetical")}</span>
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -655,44 +649,47 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         {/* Results count */}
         <div className="mb-4 text-sm text-muted-foreground">
           {filteredPosts.length === 0
-            ? t("blog.noPosts", "No posts found") || "No posts found"
-            : t("blog.showingPosts", { current: filteredPosts.length, total: safeBlogPosts.length }) || `${filteredPosts.length} of ${safeBlogPosts.length} posts`}
+            ? t("blog.noPosts", "No posts found")
+            : t("blog.showingPosts", { current: filteredPosts.length, total: safeBlogPosts.length })}
         </div>
 
         {filteredPosts.length === 0 ? (
           <div
-            className={`text-center py-12 bg-muted/20 rounded-lg ${styles.fadeIn}`}
+            className="text-center py-12 bg-muted/20 rounded-lg"
+            style={{ opacity: 1, transform: "translateY(0px)" }}
           >
             <p className="text-muted-foreground">
-              {t("blog.filterNoMatch", "No posts match your filters. Try adjusting your search criteria.") || "No posts match your filters. Try adjusting your search criteria."}
+              {t("blog.filterNoMatch", "No posts match your filters. Try adjusting your search criteria.")}
             </p>
             <Button variant="link" onClick={resetFilters} className="mt-2">
-              {t("blog.clearFilter", "Reset all filters") || "Reset all filters"}
+              {t("blog.clearFilter", "Reset all filters")}
             </Button>
           </div>
         ) : (
-          <div className={`space-y-6 ${styles.fadeIn}`}>
+          <div className="space-y-6" style={{ opacity: 1, transform: "translateY(0px)" }}>
             {filteredPosts.map((post, index) => (
               <div
                 key={post.slug}
                 ref={el => { postRefs.current[index] = el }}
                 className={`relative transition-all duration-300 ${
-                  focusedPostIndex === index ? styles.focusedPost : ""
+                  focusedPostIndex === index ? "ring-2 ring-primary ring-offset-2 scale-[1.02] shadow-lg" : ""
                 }`}
+                style={{ opacity: 1, transform: "translateY(0px)" }}
               >
                 {/* Post number indicator for keyboard navigation */}
                 {index < 9 && (
-                  <div className={`absolute -left-8 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs ${styles.postNumber}`}>
+                  <div className="absolute -left-8 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs">
                     {index + 1}
                   </div>
                 )}
 
                 <Link href={`/blog/${post.slug}`} className="block group" passHref>
                   <Card
-                    className={`transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50 ${styles.card}`}
+                    className="transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50"
+                    style={{ opacity: 1 }}
                   >
                     {/* Hover effect background */}
-                    <div className={`absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${styles.cardHoverBg}`}></div>
+                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                     {/* Card content */}
                     <CardContent className="p-6 relative z-10">
