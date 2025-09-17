@@ -131,7 +131,7 @@ export default function Home({ blogPosts = [] }) {
           {recentPosts && recentPosts.length > 0 && (
             <div className="mt-12">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                {t("home.recentPosts", "Recent Blog Posts")}
+                {t("home.recentPosts", "Recent blog posts")}
                 <span className="text-base font-normal text-muted-foreground">({recentPosts.length})</span>
               </h2>
               <div className="space-y-6">
@@ -139,11 +139,14 @@ export default function Home({ blogPosts = [] }) {
                   <Link key={post.slug} href={`/blog/${post.slug}`} className="block group" passHref>
                     <div className="border rounded-lg p-5 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
                       <h3 className="text-xl font-semibold mb-1 group-hover:text-primary transition-colors">{post.title}</h3>
-                      <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-2">
+                      <div className="flex flex-wrap gap-1 text-sm text-muted-foreground mb-2">
                         <span>{new Date(post.date).toLocaleDateString()}</span>
-                        <span>• {post.readingTime} {t("blog.minRead", "min read")}</span>
-                        {post.mood && <span>• {t("blog.mood", "Mood")}: {post.mood}</span>}
-                        {post.language && <span>• {post.language.toUpperCase()}</span>}
+                        <span>•</span>
+                        <span>{post.readingTime} {t("blog.minRead", "min read")}</span>
+                        <span>•</span>
+                        {post.mood && <span>{t("blog.mood", "Mood")}: {post.mood}</span>}
+                        <span>•</span>
+                        {post.language && <span>{post.language.toUpperCase()}</span>}
                       </div>
                       <p className="text-muted-foreground line-clamp-2">{post.excerpt}</p>
                     </div>

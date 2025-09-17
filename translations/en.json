@@ -39,7 +39,8 @@
     "subheading": "Economics major, sometimes coder, most times cat whisperer.",
     "contactButton": "Contact me",
     "aboutButton": "About me",
-    "blogButton": "Read my blog"
+    "blogButton": "Read my blog",
+    "recentPosts": "Recent blog posts"
   },
   "about": {
     "title": "About me",
