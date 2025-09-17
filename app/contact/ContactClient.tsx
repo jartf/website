@@ -201,7 +201,7 @@ export default function ContactPageClient() {
     {
       name: "Messenger",
       icon: <Facebook className="h-6 w-6" />,
-      url: "https://m.me/jarema.me",
+      url: "https://m.me/jaremajarosz",
       color: "hover:bg-blue-500 hover:text-white",
       group: "social",
       note: t("contact.links.messengerNote"),
