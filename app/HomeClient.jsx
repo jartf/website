@@ -9,7 +9,6 @@ import { EasterEgg } from "@/components/easter-egg"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useMounted } from "@/hooks/use-mounted"
-// Import the useReducedMotion hook
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslationReady } from "@/hooks/use-translation-ready"
 
@@ -17,8 +16,8 @@ import { useTranslationReady } from "@/hooks/use-translation-ready"
  * Home page client component
  * @returns {JSX.Element} The home page component
  */
-export default function Home() {
-  const { t } = useTranslation()
+export default function Home({ blogPosts = [] }) {
+  const { t, i18n } = useTranslation()
   const { theme } = useTheme()
   const [greeting, setGreeting] = useState("")
   const mounted = useMounted()
@@ -30,13 +29,13 @@ export default function Home() {
       const hour = new Date().getHours()
 
       if (hour >= 5 && hour < 12) {
-        setGreeting(t("greetings.morning"))
+        setGreeting(t("greetings.morning", "Good morning, traveler."))
       } else if (hour >= 12 && hour < 18) {
-        setGreeting(t("greetings.afternoon"))
+        setGreeting(t("greetings.afternoon", "Good afternoon, wanderer."))
       } else if (hour >= 18 && hour < 22) {
-        setGreeting(t("greetings.evening"))
+        setGreeting(t("greetings.evening", "Good evening, explorer."))
       } else {
-        setGreeting(t("greetings.night"))
+        setGreeting(t("greetings.night", "Still awake? Me too."))
       }
     }
   }, [t, mounted])
@@ -50,6 +49,14 @@ export default function Home() {
   }
 
   if (!mounted) return null
+
+  // Filter blog posts by current language (fallback to English)
+  const currentLang = i18n.language?.split("-")[0] || "en"
+  let filtered = blogPosts.filter(post => post.language === currentLang)
+  if (filtered.length === 0) {
+    filtered = blogPosts.filter(post => post.language === "en")
+  }
+  const recentPosts = filtered.slice(0, 3)
 
   // Define animation properties based on motion preference
   const animationProps = prefersReducedMotion ? { initial: {}, animate: {}, transition: {} } : {}
@@ -83,7 +90,7 @@ export default function Home() {
                 transition={prefersReducedMotion ? {} : { duration: 0.5, delay: 0.2 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
               >
-                {t("home.heading")}
+                {t("home.heading", "hi there, i'm Jarema")}
               </motion.h1>
 
               <motion.p
@@ -92,7 +99,7 @@ export default function Home() {
                 transition={prefersReducedMotion ? {} : { duration: 0.5, delay: 0.4 }}
                 className="text-lg md:text-xl text-muted-foreground mb-8"
               >
-                {t("home.subheading")}
+                {t("home.subheading", "Economics major, sometimes coder, most times cat whisperer.")}
               </motion.p>
 
               <motion.div
@@ -103,22 +110,53 @@ export default function Home() {
               >
                 <Link href="/contact">
                   <Button variant="default" size="lg" className="w-full sm:w-auto">
-                    {t("home.contactButton")}
+                    {t("home.contactButton", "Contact me")}
                   </Button>
                 </Link>
                 <Link href="/about">
                   <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    {t("home.aboutButton")}
+                    {t("home.aboutButton", "About me")}
                   </Button>
                 </Link>
                 <Link href="/blog">
                   <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    {t("home.blogButton")}
+                    {t("home.blogButton", "Read my blog")}
                   </Button>
                 </Link>
               </motion.div>
             </div>
           </div>
+
+          {/* Recent Blog Posts Section */}
+          {recentPosts && recentPosts.length > 0 && (
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                {t("home.recentPosts", "Recent Blog Posts")}
+                <span className="text-base font-normal text-muted-foreground">({recentPosts.length})</span>
+              </h2>
+              <div className="space-y-6">
+                {recentPosts.map((post) => (
+                  <Link key={post.slug} href={`/blog/${post.slug}`} className="block group" passHref>
+                    <div className="border rounded-lg p-5 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
+                      <h3 className="text-xl font-semibold mb-1 group-hover:text-primary transition-colors">{post.title}</h3>
+                      <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-2">
+                        <span>{new Date(post.date).toLocaleDateString()}</span>
+                        <span>• {post.readingTime} {t("blog.minRead", "min read")}</span>
+                        {post.mood && <span>• {t("blog.mood", "Mood")}: {post.mood}</span>}
+                        {post.language && <span>• {post.language.toUpperCase()}</span>}
+                      </div>
+                      <p className="text-muted-foreground line-clamp-2">{post.excerpt}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-6 text-center">
+                <Link href="/blog">
+                  <Button variant="link">{t("home.blogButton", "Read my blog")}</Button>
+                </Link>
+              </div>
+            </div>
+          )}
 
           <div className="mt-16">
             <MoodCat />
