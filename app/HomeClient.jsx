@@ -58,6 +58,12 @@ export default function Home({ blogPosts = [] }) {
   }
   const recentPosts = filtered.slice(0, 3)
 
+  // Helper for verbose date
+  const formatVerboseDate = (dateStr) => {
+    const date = new Date(dateStr)
+    return date.toLocaleDateString(i18n.language || "en", { year: 'numeric', month: 'long', day: 'numeric' })
+  }
+
   // Define animation properties based on motion preference
   const animationProps = prefersReducedMotion ? { initial: {}, animate: {}, transition: {} } : {}
 
@@ -139,7 +145,7 @@ export default function Home({ blogPosts = [] }) {
                     <div className="border rounded-lg p-5 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
                       <h3 className="text-xl font-semibold mb-1 group-hover:text-primary transition-colors">{post.title}</h3>
                       <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
-                        <span>{new Date(post.date).toLocaleDateString()}</span>
+                        <span>{formatVerboseDate(post.date)}</span>
                         <span>•</span>
                         <span>{post.readingTime} {t("blog.minRead", "min read")}</span>
                         <span>•</span>
