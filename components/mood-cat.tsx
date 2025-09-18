@@ -172,7 +172,7 @@ export function MoodCat() {
     <div className="relative">
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold relative inline-block group">
-          {t("moodCat.title"), "Cat of the day"}
+          {t("moodCat.title", "Cat of the day")}
           <span className="absolute left-0 -bottom-1 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
           <span className="absolute left-0 -top-6 w-full text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
             {t("moodCat.hover", "judging you softly")}

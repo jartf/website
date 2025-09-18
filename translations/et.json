@@ -11,7 +11,7 @@
     "scrapbook": "Arenduspäevik"
   },
   "languageNotice": {
-    "message": "Selle keele tõlked on veel ehitamisel. Mõni sisu võib olla puudulik või puududa.",
+    "message": "Selle keele tõlked on veel pooleli. Osa sisust võib olla puudulik või puudu.",
     "dismiss": "Sule"
   },
   "language": {
@@ -25,41 +25,41 @@
   },
   "greetings": {
     "morning": "Tere hommikust, rändur.",
-    "afternoon": "Tere päevast, rändur.",
-    "evening": "Tere õhtust, maadeavastaja.",
-    "night": "Endiselt ärkvel? Mina ka."
+    "afternoon": "Tere päevast, uitaja.",
+    "evening": "Tere õhtust, avastaja.",
+    "night": "Veel üleval? Mina ka."
   },
   "home": {
     "buttons": {
       "about": "Minust",
-      "projects": "Vaata minu projekte"
+      "projects": "Vaata mu projekte"
     },
-    "footer": "Tere tulemast minu digitaalsesse aeda. Tunne end vabalt ja avasta.",
+    "footer": "Tere tulemast minu digiaeda. Uuri vabalt ringi.",
     "heading": "tere, mina olen Jarema",
-    "subheading": "Majandusteaduse eriala, vahel kodeerija, enamasti kasside sosistaja.",
-    "contactButton": "Võta minuga ühendust",
+    "subheading": "Majandusteaduse tudeng, vahel koodija, enamasti kasside sosistaja.",
+    "contactButton": "Võta ühendust",
     "aboutButton": "Loe minust",
-    "blogButton": "Loe minu blogi",
-    "recentPosts": "Viimased blogipostitused",
-    "latestNow": "Mida ma praegu teen"
+    "blogButton": "Loe mu blogi",
+    "recentPosts": "Hiljutised blogipostitused",
+    "latestNow": "Mida ma hetkel teen"
   },
   "about": {
     "title": "Minust",
     "chapters": {
       "1": {
         "title": "kuidas ma sündisin",
-        "content1": "I was born in Vietnam in the mid-2000s, which technically makes me Gen Z, but I grew up with a kind of in-betweenness that doesn't quite fit any label. I was the quiet kid in the back of the room, but my mind was never really quiet. I was observing everything, whether that was people, patterns, or power dynamics, and quietly putting it all together.",
+        "content1": "Ma sündisin Vietnamis 2000ndate keskpaigas, mis teeb minust tehniliselt Gen Z, aga kasvasin üles pigem kuskil vahepealsuses, mis ei sobi hästi ühegi sildi alla. Ma olin see vaikne laps klassi taga, aga mu mõistus polnud kunagi vaikne. Ma jälgisin kõike, olgu see inimesed, mustrid või võimusuhted, ja panin seda kõike tasa ja targu kokku.",
         "content2": "My childhood was a strange mix of digital escapes and emotional landmines. I didn't have a perfect family. I won't even try to pretend I did. I had to grow up fast, emotionally speaking, and I learned early on that being sensitive meant being careful. You learn to listen more than you speak. You learn to code-switch, to hide pieces of yourself in plain sight. But you also learn resilience. You learn how to build a self from scratch when no one hands you the blueprint.",
         "content3": "This site is part of that blueprint. Not to explain everything or even try to, but to make peace with the chaos."
       },
       "2": {
-        "title": "kui ma avastasin, et maailm on vale",
+        "title": "kui ma avastasin, et maailm on kokku mängitud",
         "content1": "It didn't hit all at once. There wasn't some singular moment of revelation. It was more like a slow burn: the realization that the systems around me, from family to education to society at large, weren't built with people like me in mind. That stability could be a trap. That even love can be conditional, weaponized. That you could follow all the \"rules\" and still lose.",
         "content2": "So I did what a lot of us do: I adapted. I sharpened my mind, armored my heart, and started studying everything. Economics gave me the vocabulary to understand power. Coding gave me the tools to build power. Language gave me the freedom to express and escape. I realized I didn't want to just survive inside the system, I wanted to understand it, expose it, and maybe even subvert it a little.",
         "content3": "This site isn't just a portfolio. It's proof that I exist on my own terms, not the ones I was handed."
       },
       "3": {
-        "title": "kodeerimine, keeled ja ADHD-probleemid",
+        "title": "kood, keeled ja ADHD eripäradest tulenev eneseteostus",
         "content1": "I don't do well with rigid routines or neat timelines. ADHD means my brain moves fast, loops endlessly, hyperfocuses randomly at 2am, forgets to eat for a day straight, and sometimes drowns in noise. Sensitivity to noise also makes me go insane sometimes. But it also means I'm deeply curious. Obsessively so. I don't \"dabble\" in things, rather I throw myself in. I don't multitask, it's just that I live in parallel tabs.",
         "content2": "Coding, for me, is both chaos and comfort. It gives structure to thoughts that refuse to sit still. It gives me the power to make something that works, something that reflects a part of my mind that can never fully be verbalized. And language? That's the other half of the puzzle. I switch between Vietnamese, English, Russian, and sometimes Turkish or Danish, not because I want to show off, but because different languages unlock different selves. Different emotions. Different memories. English is my sharpest blade. Vietnamese is my heartbeat. Russian is my melancholy. Turkish is the thrill of newness. Danish is… well, still in progress.",
         "content3": "And yeah, I write messy, but I write real. I code imperfectly, but intentionally. Everything you see here was built with that same energy."
@@ -73,14 +73,14 @@
         "content3": "Sometimes I vanish for weeks. Sometimes I overshare at 3am. Sometimes I post a cat meme and follow it with a quote I randomly make up. I contain multitudes."
       },
       "5": {
-        "title": "kuhu ma suundun",
+        "title": "mis on mu järgmine samm",
         "content1": "I'm not here to sell you a personal brand or pretend I've got my life all figured out. Because I really don't. Most days, I'm just trying to balance being functional, being kind, and being honest. But I do know what matters to me.",
         "content2": "I want to keep creating. Keep writing. Keep learning languages that make my brain buzz. I want to build tools that matter, not just get likes. I want to travel to the places where history, language, and identity tangle together. I want to leave behind things that feel warm, useful, and human. Not polished perfection, but stories and scraps that make people feel less alone.",
         "content3": "I want peace. Not just the absence of chaos, but the kind of peace that comes from knowing who you are, what you've been through, and what you've chosen to leave behind.",
         "content4": "If you're here reading this, then part of you resonates with that. Welcome. Make yourself at home. Just watch your step, some of the thoughts on this site are still under construction."
       },
       "6": {
-        "title": "ma pole veel lõpetanud",
+        "title": "ma tahtsin veel midagi öelda",
         "content1": "so here's the part they weren't supposed to read.",
         "content2": "i'm still angry. still grieving a version of myself that was never allowed to exist. still waking up some days wondering why everything feels a few degrees off. sometimes i think about running away, just disappearing, new name, new city, new language. sometimes i almost do it.",
         "content3": "there are days i don't even feel human. more like a memory trying to solidify. more like an echo of something softer i can't reach anymore. other days, i'm electric. i feel every detail, sunlight on skin, quiet playlists, the way people's faces shift when they're finally safe enough to be themselves. it keeps me alive, somehow.",
@@ -90,16 +90,16 @@
   },
   "projects": {
     "title": "Minu projektid",
-    "description": "A collection of personal, academic, and activism projects I've worked on. Some finished, some still cooking.",
+    "description": "Kogumik isiklikest, akadeemilistest ja aktivismi projektidest, millega olen tegelenud. Mõned valmis, mõned veel valmimas.",
     "status": {
-      "completed": "Lõpetatud",
-      "inProgress": "Still cooking",
-      "planned": "Planeeritud"
+      "completed": "Valmis",
+      "inProgress": "Veel valmimas",
+      "planned": "Plaanitud"
     },
     "statusLabels": {
-      "completed": "Lõpetatud",
+      "completed": "Valmis",
       "inProgress": "Töös",
-      "planned": "Planeeritud"
+      "planned": "Plaanitud"
     },
     "categories": {
       "personal": "Isiklik",
@@ -109,53 +109,48 @@
     "details": {
       "what": "Mis see on",
       "learned": "Mida ma õppisin",
-      "why": "Miks ma selle tegin"
+      "why": "Miks see on minu jaoks oluline"
     },
     "cardActions": {
-      "clickForDetails": "Lisateabe saamiseks klõpsake",
-      "clickToClose": "Klõpsake sulgemiseks"
+      "clickForDetails": "Klõpsa detailide nägemiseks",
+      "clickToClose": "Klõpsa sulgemiseks"
     },
     "buttons": {
-      "showRandom": "Show more randomness",
-      "hideRandom": "Hide the chaos"
+      "showRandom": "Näita rohkem juhuslikkust",
+      "hideRandom": "Peida kaos"
     }
-  },
-  "conduct": {
-    "title": "Minu isiklik käitumisjuhend",
-    "description": "See on omamoodi nimekiri sellest, mille eest ma seisan ja kuidas ma teistega käitun.",
-    "content1": ""
   },
   "blog": {
     "title": "Blogi",
-    "description": "Thoughts, reflections, and occasional rants. Written at various hours and states of mind.",
+    "description": "Mõtteid, mõtisklusi ja aeg-ajalt ka pahameelehooge. Sündinud eri hetkedel ja meeleoludes.",
     "language": "Keel",
     "languageFilter": "Filtreeri keele järgi",
-    "tag": "Tag",
+    "tag": "Märksõnad",
     "category": "Kategooria",
-    "noPosts": "Blogipostitusi veel pole, vaadake varsti uuesti!",
+    "noPosts": "Blogipostitusi veel pole. Vaata varsti uuesti!",
     "search": "Otsi postitusi...",
-    "sortNew": "Uusim esimesena",
-    "sortOld": "Vanimad esimesena",
-    "sortReadTime": "Lugemisaeg",
-    "sortABC": "Tähestikuline",
-    "filter": "Filter",
+    "sortNew": "Kuupäeva järgi (uuemad ees)",
+    "sortOld": "Kuupäeva järgi (vanimad ees)",
+    "sortReadTime": "Lugemisaja järgi (lühemad ees)",
+    "sortABC": "Tähestikuline järjestus (A-Z)",
+    "filter": "Filtrid",
     "filterDescription": "Filtreeri blogipostitusi",
-    "activeFilter": "Aktiivne filter:",
-    "filterNoMatch": "Ükski postitus ei vasta teie filtritele. Proovige otsingukriteeriume kohandada.",
+    "activeFilter": "Aktiivsed filtrid:",
+    "filterNoMatch": "Sinu filtrid ei andnud tulemusi. Proovi mõnd filtrit muuta või eemaldada.",
     "clearFilter": "Tühjenda kõik filtrid",
-    "mood": "Tunne",
-    "cat": "Cat Approved",
+    "mood": "Meeleolu",
+    "cat": "Kassi heakskiit",
     "prev": "Eelmine blogipostitus",
     "next": "Järgmine blogipostitus",
     "jumpToPost": "Hüppa postitusse",
-    "back": "Tagasi blogide nimekirja",
+    "back": "Tagasi blogi nimekirja",
     "showingPosts": "Kuvatakse {{current}} blogipostitust {{total}}-st",
     "minRead": "minutit lugemist",
-    "availableIn": "See leht on saadaval ka keeles"
+    "availableIn": "Lehte saab lugeda ka keeltes"
   },
   "now": {
     "title": "Nüüd",
-    "description": "Mida ma praegu teen, millele mõtlen ja keskendun.",
+    "description": "Mida ma praegu teen, millest mõtlen ja millele keskendun.",
     "lastUpdated": "Viimati uuendatud",
     "categories": {
       "reading": "Lugemine",
@@ -168,31 +163,31 @@
     }
   },
   "uses": {
-    "title": "Uses",
-    "description": "Kõik asjad, mida ma iga päev kasutan. Saadaval ka aadressil",
-    "websiteDescription": ", mis on veebisait, kus inimesed jagavad oma kasutatavaid asju.",
+    "title": "Kasutused",
+    "description": "Kõik asjad, mida ma iga päev kasutan. Sarnaselt",
+    "websiteDescription": "lehele, mis kogub teiste kasutatavaid asju.",
     "categories": {
       "hardware": "Riistvara",
       "mobile": "Mobiil",
       "audio": "Heli",
       "os": "Operatsioonisüsteem ja brauserid",
-      "development": "Development",
-      "email": "E-post ja tootlikkus",
+      "development": "Arendustööriistad",
+      "email": "E-post ja produktiivsus",
       "privacy": "Privaatsus ja turvalisus",
       "mobile_tools": "Mobiilseadmete tarkvaratööriistad",
       "mapping": "Kaardistamine",
-      "gaming": "Mängud",
+      "gaming": "Mängimine",
       "multimedia": "Multimeedia",
-      "design": "Kujundus ja illustratsioon",
+      "design": "Disain ja illustratsioon",
       "photo": "Fototöötlus",
       "video": "Video ja heli",
-      "media": "Voogesitusteenused"
+      "media": "Voogedastusteenused"
     },
     "subsections": {
-      "design": "Kujundus ja illustratsioon",
+      "design": "Disain ja illustratsioon",
       "photo": "Fototöötlus",
       "video": "Video ja heli",
-      "media": "Meediateenused"
+      "media": "Voogedastusteenused"
     },
     "itemDescriptions": {
       "ryzen": "Ryzen 5 5500U, 512GB SSD",
