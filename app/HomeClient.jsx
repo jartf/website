@@ -29,6 +29,15 @@ export default function Home({ blogPosts = [] }) {
   const prefersReducedMotion = useReducedMotion()
   const isTranslationReady = useTranslationReady()
 
+  // Normalize full locale (e.g., pl-PL) to base (pl) if needed
+  useEffect(() => {
+    const current = i18n.language || "en"
+    const base = current.split("-")[0].toLowerCase()
+    if (current !== base) {
+      i18n.changeLanguage(base)
+    }
+  }, [i18n.language, i18n])
+
   useEffect(() => {
     if (mounted) {
       const hour = new Date().getHours()
