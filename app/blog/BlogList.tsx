@@ -277,6 +277,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
       da: t("language.da", "Danish"),
       tr: t("language.tr", "Turkish"),
       zh: t("language.zh", "Chinese"),
+      pl: t("language.pl", "Polish"),
+      sv: t("language.sv", "Swedish"),
+      fi: t("language.fi", "Finnish"),
+      tok: t("language.tok", "Toki Pona"),
     }
     return languageNames[code] || code
   }
