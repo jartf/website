@@ -1,8 +1,7 @@
-
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { format } from "date-fns"
-import { enUS, vi, et, ru, da, tr, zhCN } from "date-fns/locale"
+import { enUS, vi, et, ru, da, tr, zhCN, pl, sv, fi } from "date-fns/locale"
 import type { Locale } from "date-fns"
 
 // Map language code to date-fns locale
@@ -14,6 +13,10 @@ const LOCALE_MAP: Record<string, Locale> = {
   da,
   tr,
   zh: zhCN,
+  pl,
+  sv,
+  fi,
+  tok: enUS, // no dedicated locale; fall back to English
 }
 
 export function cn(...inputs: ClassValue[]) {
