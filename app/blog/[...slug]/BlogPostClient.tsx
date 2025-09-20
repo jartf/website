@@ -194,15 +194,3 @@ export default function BlogPostClient({
     </main>
   )
 }
-            {/* Related posts */}
-            {relatedPosts.length > 0 && (
-              <div className={prefersReducedMotion ? undefined : styles.animatedY}>
-                <RelatedPosts posts={relatedPosts} />
-              </div>
-            )}
-          </article>
-        </div>
-      </div>
-    </main>
-  )
-}
