@@ -1,0 +1,502 @@
+{
+  "nav": {
+    "home": "poka",
+    "about": "mi",
+    "projects": "pali",
+    "blog": "toki",
+    "now": "tenpo ni",
+    "uses": "ilo",
+    "contact": "toki e mi",
+    "colophon": "kama",
+    "scrapbook": "kule toki"
+  },
+  "languageNotice": {
+    "message": "toki ni li suli ala. toki ante li lon ala.",
+    "dismiss": "weka"
+  },
+  "language": {
+    "en": "Inli",
+    "vi": "Wietinam",
+    "ru": "Lusija",
+    "et": "Estonia",
+    "da": "Tanska",
+    "tr": "Turki",
+    "zh": "Sonko",
+    "tok": "Toki Pona"
+  },
+  "greetings": {
+    "morning": "suno pona, jan tawa.",
+    "afternoon": "suno suli, jan tawa.",
+    "evening": "suno pini, jan alasa.",
+    "night": "sina awen ala lape? mi kin."
+  },
+  "home": {
+    "buttons": {
+      "about": "mi",
+      "projects": "lukin e pali mi"
+    },
+    "footer": "o tawa tomo mi. o lukin pona.",
+    "heading": "mi Jarema",
+    "subheading": "jan sona mani, jan pali ilo, jan toki soweli.",
+    "contactButton": "toki e mi",
+    "aboutButton": "mi",
+    "blogButton": "lukin e toki mi",
+    "recentPosts": "toki sin",
+    "latestNow": "mi pali lon tenpo ni"
+  },
+  "about": {
+    "title": "mi",
+    "chapters": {
+      "1": {
+        "title": "mi kama",
+        "content1": "mi lon ma Wietinam. mi jan mute ala. mi lukin e jan, e nasin, e wawa. mi toki lili.",
+        "content2": "tenpo lili mi li suli. mi pilin ike. mi wile sona. mi awen. mi pali e mi.",
+        "content3": "tomo ni li pali mi. mi toki e mi."
+      },
+      "2": {
+        "title": "mi sona e nasin",
+        "content1": "mi sona ala lon tenpo wan. mi lukin e nasin pi jan ante. nasin li pona ala tawa mi.",
+        "content2": "mi wile sona. mi pali. sona mani li pana e sona wawa. sona ilo li pana e wawa. toki li pana e wawa.",
+        "content3": "tomo ni li ken toki e mi."
+      },
+      "3": {
+        "title": "ilo, toki, pilin ante",
+        "content1": "mi ken ala pali lon nasin sama. pilin mi li tawa. mi pilin ante. mi wile sona mute.",
+        "content2": "ilo li pona tawa mi. toki li pana e pilin ante. toki ante li pana e mi ante.",
+        "content3": "mi toki ike, taso mi toki pona. mi pali ike, taso mi wile pali."
+      },
+      "4": {
+        "title": "pali pona tawa jan",
+        "content1": "mi jan toki suli ala. mi wile pali pona tawa jan. mi wile e jan lukin pona.",
+        "content2": "mi toki e ike la mi pilin ike. mi toki tawa jan ante la mi pilin pona.",
+        "quote": "\"mi sona ala e ijo ale, taso mi wile pali.\"",
+        "quoteTooltip": "mi toki e ni",
+        "content3": "tenpo ale la mi ante. mi toki mute. mi pana e soweli."
+      },
+      "5": {
+        "title": "mi tawa seme",
+        "content1": "mi wile ala pana e nimi suli. mi wile awen pona. mi wile pali. mi wile toki. mi wile sona toki ante.",
+        "content2": "mi wile pali pona. mi wile tawa ma ante. mi wile pana e pona tawa jan.",
+        "content3": "mi wile awen. mi wile sona e mi.",
+        "content4": "sina lukin e ni la sina pona tawa mi. o awen. o lukin pona."
+      },
+      "6": {
+        "title": "mi pini ala",
+        "content1": "ni li toki pi mi lon insa.",
+        "content2": "mi pilin ike. mi pilin ala sama jan ante. mi wile tawa. mi wile ante nimi, ante toki.",
+        "content3": "tenpo la mi pilin ala sama jan. tenpo ante la mi pilin wawa. mi pilin e suno, e musi, e jan.",
+        "content4": "mi pini ala. mi wile toki."
+      }
+    }
+  },
+  "projects": {
+    "title": "pali mi",
+    "description": "pali mi li ante ante. pali sin li lon.",
+    "status": {
+      "completed": "pini",
+      "inProgress": "pali",
+      "planned": "wawa"
+    },
+    "statusLabels": {
+      "completed": "pini",
+      "inProgress": "pali",
+      "planned": "wawa"
+    },
+    "categories": {
+      "personal": "mi",
+      "academic": "sona",
+      "activism": "pali pona"
+    },
+    "details": {
+      "what": "seme",
+      "learned": "mi sona e seme",
+      "why": "ni li pona tawa mi"
+    },
+    "cardActions": {
+      "clickForDetails": "o lukin e ijo",
+      "clickToClose": "o pini"
+    },
+    "buttons": {
+      "showRandom": "o lukin e ante",
+      "hideRandom": "o pini e ante"
+    }
+  },
+  "blog": {
+    "title": "toki",
+    "description": "toki mi li ante ante. mi toki lon tenpo mute.",
+    "language": "toki",
+    "languageFilter": "o lukin e toki",
+    "tag": "nimi",
+    "category": "kule",
+    "noPosts": "toki ala. o tawa sin.",
+    "search": "alasa toki...",
+    "sortNew": "sin li lon open",
+    "sortOld": "kama li lon open",
+    "sortReadTime": "tenpo lukin",
+    "sortABC": "nimi pi toki",
+    "filter": "lukin",
+    "filterDescription": "o lukin e toki",
+    "activeFilter": "lukin li lon:",
+    "filterNoMatch": "toki ala li lon. o ante e lukin.",
+    "clearFilter": "weka e lukin ale",
+    "mood": "pilin",
+    "cat": "soweli li lukin pona",
+    "prev": "toki pini",
+    "next": "toki sin",
+    "jumpToPost": "tawa toki",
+    "back": "tawa toki ale",
+    "showingPosts": "mi lukin e {{current}} tan {{total}} toki",
+    "minRead": "tenpo lukin",
+    "availableIn": "toki ni li lon"
+  },
+  "now": {
+    "title": "tenpo ni",
+    "description": "mi pali e seme lon tenpo ni.",
+    "lastUpdated": "tenpo sin",
+    "categories": {
+      "reading": "lukin",
+      "coding": "pali ilo",
+      "drinking": "moku telo",
+      "listening": "kute",
+      "thinking": "pilin",
+      "studying": "sona",
+      "planning": "wawa"
+    }
+  },
+  "uses": {
+    "title": "ilo mi",
+    "description": "ilo ale mi li lon.",
+    "websiteDescription": "lipu pi jan kepeken ilo.",
+    "categories": {
+      "hardware": "ilo suli",
+      "mobile": "ilo tawa",
+      "audio": "ilo kute",
+      "os": "ilo lawa",
+      "development": "pali ilo",
+      "email": "toki toki",
+      "privacy": "pona pi jan",
+      "mobile_tools": "ilo tawa ante",
+      "mapping": "sitelen ma",
+      "gaming": "musi",
+      "multimedia": "ilo musi",
+      "design": "sitelen",
+      "photo": "sitelen ante",
+      "video": "sitelen tawa",
+      "media": "ilo musi"
+    },
+    "subsections": {
+      "design": "sitelen",
+      "photo": "sitelen ante",
+      "video": "sitelen tawa",
+      "media": "ilo musi"
+    },
+    "itemDescriptions": {
+      "ryzen": "ilo lawa suli",
+      "externalHDD": "ilo pi awen sona",
+      "mechanicalKeyboard": "ilo sitelen toki",
+      "wirelessMouse": "ilo tawa sitelen",
+      "mainPhone": "ilo toki suli",
+      "secondaryPhone": "ilo toki lili",
+      "smartwatch": "ilo tenpo",
+      "primaryEarbuds": "ilo kute suli",
+      "backupEarbuds": "ilo kute lili",
+      "dualBoot": "ilo lawa tu",
+      "primaryBrowser": "ilo lukin suli",
+      "secondaryBrowser": "ilo lukin lili",
+      "primaryCodeEditor": "ilo pali suli",
+      "terminalEmulators": "ilo toki lawa",
+      "versionControl": "ilo awen pali",
+      "apiTesting": "ilo alasa toki",
+      "databaseManagement": "ilo awen sona",
+      "codeHosting": "ilo awen pali",
+      "webHosting": "ilo awen lipu",
+      "ddosProtection": "ilo awen wawa",
+      "desktopEmail": "ilo toki lawa",
+      "emailClient": "ilo toki lawa",
+      "domainEmail": "ilo toki pi lipu nimi",
+      "taskManagement": "ilo pali",
+      "calendar": "ilo tenpo",
+      "timeTracking": "ilo awen tenpo",
+      "automationTool": "ilo pali sama",
+      "phoneLinking": "ilo toki tawa ilo lawa",
+      "noteTaking": "ilo sitelen",
+      "officeSuite": "ilo pali",
+      "cloudStorage": "ilo awen sona",
+      "vpn": "ilo awen toki",
+      "passwordManager": "ilo awen nimi",
+      "twoFactorAuth": "ilo awen toki tu",
+      "dnsProvider": "ilo toki nimi",
+      "privacySearch": "ilo alasa pi jan pona",
+      "networkVpn": "ilo awen toki mute",
+      "lgFirmware": "ilo ante ilo LG",
+      "qualcommFlash": "ilo ante ilo Qualcomm",
+      "samsungFirmware": "ilo ante ilo Samsung",
+      "samsungDownload": "lipu ante ilo Samsung",
+      "iosManagement": "ilo lawa ilo iOS",
+      "geographicSystem": "ilo sona ma",
+      "webOpenstreetmap": "ilo sitelen ma",
+      "desktopOpenstreetmap": "ilo sitelen ma lawa",
+      "mobileOpenstreetmap": "ilo sitelen ma tawa",
+      "mobileContributor": "jan pana ma tawa",
+      "communityNavigation": "ilo tawa ma pi jan mute",
+      "minecraftClient": "ilo musi Minecraft",
+      "minecraftServer": "ilo lawa musi Minecraft",
+      "gameDistribution": "ilo pana musi",
+      "gameLauncher": "ilo open musi",
+      "indieMarketplace": "ilo musi pi jan ante",
+      "vectorGraphics": "ilo sitelen linja",
+      "uiUxDesign": "ilo sitelen lawa",
+      "graphicDesign": "ilo sitelen pi jan mute",
+      "digitalPaintingDesktop": "ilo sitelen lawa",
+      "digitalPaintingMobile": "ilo sitelen tawa",
+      "photoEditing": "ilo ante sitelen",
+      "openSourceEditor": "ilo ante sitelen open",
+      "professionalEditor": "ilo ante sitelen suli",
+      "professionalEditorDavinci": "ilo ante sitelen suli",
+      "openSourceVideoEditor": "ilo ante sitelen tawa open",
+      "videoEditorCapcut": "ilo ante sitelen tawa",
+      "subtitleEditor": "ilo sitelen toki",
+      "videoPlayer": "ilo lukin sitelen tawa",
+      "audioEditor": "ilo ante kalama",
+      "musicStreamingYoutube": "ilo musi kalama",
+      "musicStreamingSpotify": "ilo musi kalama",
+      "videoStreaming": "ilo musi sitelen tawa",
+      "revancedDescription": "mi wile kepeken YouTube, taso ilo suli li ike",
+      "stremioDescription": "o toki ala tawa Netflix",
+      "clickToReveal": "o pilin luka luka",
+      "moreClicksToReveal": "({count} pilin sin)",
+      "clicksRemaining": "pilin sin"
+    },
+    "hiddenPlatforms": {
+      "platform1": "ilo pi toki ala 1",
+      "platform2": "ilo pi toki ala 2",
+      "click5": "o pilin luka luka",
+      "moreClicks": "(luka pilin sin)"
+    }
+  },
+  "contact": {
+    "title": "toki e mi",
+    "description": "nasin toki tawa mi.",
+    "message": "o toki. o pilin pona.",
+    "disclaimer": "mi ken toki e toki. taso mi ken weka.",
+    "sections": {
+      "contactMe": "toki e mi",
+      "socialMedia": "mi lon lipu",
+      "otherPlatforms": "mi lon ilo ante"
+    },
+    "sectionTitles": {
+      "contactMe": "toki e mi",
+      "socialMedia": "mi lon lipu",
+      "otherPlatforms": "mi lon ilo ante"
+    },
+    "links": {
+      "universityEmail": "toki pi tomo sona",
+      "bookMeeting": "o toki lon tenpo",
+      "messengerNote": "mi toki ala mute lon Facebook. toki li ken kama lili."
+    },
+    "secretButton": "ilo pi toki pi jan ala"
+  },
+  "moodCat": {
+    "title": "soweli tenpo ni",
+    "hover": "soweli li lukin sina",
+    "refresh": "soweli sin",
+    "seeMore": "lukin e soweli ante",
+    "imageSource": "nimi pi sitelen"
+  },
+  "music": {
+    "play": "pali kalama",
+    "pause": "pini kalama"
+  },
+  "tetris": {
+    "title": "Tetris",
+    "description": "musi pi palisa tawa",
+    "gameInfo": "sona musi",
+    "score": "nanpa",
+    "level": "kama",
+    "status": "kama",
+    "gameOver": "musi pini",
+    "paused": "pini lili",
+    "playing": "musi",
+    "controls": "ilo",
+    "moveLeft": "tawa lete",
+    "moveRight": "tawa anpa",
+    "moveDown": "tawa poka",
+    "rotate": "tawa sin",
+    "hardDrop": "tawa anpa suli",
+    "pauseGame": "pini musi",
+    "playAgain": "musi sin",
+    "resetGame": "pali sin",
+    "resume": "pali sin",
+    "pause": "pini",
+    "drop": "tawa anpa",
+    "musicOn": "kalama lon",
+    "musicOff": "kalama ala",
+    "gameOverMessage": "musi pini!",
+    "finalScore": "nanpa sina:"
+  },
+  "404": {
+    "title": "sina tawa ma ante",
+    "description": "soweli li sona ala e ma ni.",
+    "button": "tawa poka",
+    "sitemap": "lukin e ma ale",
+    "enjoycat": "lukin e soweli ni:"
+  },
+  "scrapbook": {
+    "title": "kule toki"
+  },
+  "colophon": {
+    "title": "kama",
+    "description": "toki pi tomo ni",
+    "siteHistory": {
+      "title": "kama pi tomo",
+      "content1": "tomo ni li kama lon 2023. tomo li ante ante.",
+      "content2": "tomo sin li pona tawa jan mute."
+    },
+    "technologyStack": {
+      "title": "ilo",
+      "nextjs": "ilo React pi pali lipu",
+      "react": "ilo pi pali lipu",
+      "tailwind": "ilo pi sitelen",
+      "shadcn": "ilo pi sitelen ante",
+      "framer": "ilo pi tawa sitelen",
+      "i18next": "ilo pi toki mute",
+      "typescript": "ilo pi toki suli"
+    },
+    "hosting": {
+      "title": "pali & awen",
+      "content1": "tomo li lon",
+      "content2": "ilo GitHub li pana e pali.",
+      "content3": "nimi tomo li awen lon",
+      "content4": "ilo li pana e awen."
+    },
+    "inspiration": {
+      "title": "kama sona",
+      "content1": "tomo ni li kama tan",
+      "content2": "ni li kama tan ante",
+      "content3": "sona open lon"
+    }
+  },
+  "footer": {
+    "copyright": "jan lawa ala. o kepeken pona.",
+    "madeWith": "pali kepeken pilin pona",
+    "andChaos": "en tenpo ante"
+  },
+  "2048": {
+    "description": "o ante e palisa. o kama 2048!",
+    "score": "nanpa",
+    "best": "nanpa suli",
+    "gameOver": "musi pini!",
+    "finalScore": "nanpa pini",
+    "tryAgain": "pali sin",
+    "youWin": "sina wile!",
+    "currentScore": "nanpa ni",
+    "keepPlaying": "pali sin",
+    "newGame": "musi sin",
+    "howToPlay": "nasin musi",
+    "instructions1": "kepeken nena tawa. palisa sama li kama wan.",
+    "instructions2": "palisa sin li kama.",
+    "instructions3": "o pali e palisa 2048!",
+    "controls": "ilo",
+    "moveLeft": "tawa lete",
+    "moveRight": "tawa anpa",
+    "moveUp": "tawa sewi",
+    "moveDown": "tawa anpa",
+    "touchInstructions": "kepeken nena tawa.",
+    "undo": "weka"
+  },
+  "keyboardShortcuts": {
+    "title": "ilo nena",
+    "navigation": "tawa",
+    "actions": "pali",
+    "close": "weka",
+    "home": "poka",
+    "about": "mi",
+    "blog": "toki",
+    "projects": "pali",
+    "now": "tenpo ni",
+    "uses": "ilo",
+    "contact": "toki e mi",
+    "colophon": "kama",
+    "slashes": "nena",
+    "scrapbook": "kule toki",
+    "tetris": "Tetris",
+    "2048": "2048",
+    "cycleLanguage": "toki ante",
+    "cycleTheme": "sitelen ante",
+    "refreshCat": "soweli sin",
+    "gamePageNotice": "ilo nena li pali ala lon musi.",
+    "openShortcuts": "o lukin e ilo nena",
+    "actionSearch": "o lukin e pali"
+  },
+  "actionSearch": {
+    "title": "alasa pali",
+    "placeholder": "alasa pali...",
+    "noResults": "pali ala",
+    "goTo": "tawa lipu",
+    "toggleTheme": "sitelen ante",
+    "switchDarkMode": "sitelen pimeja",
+    "switchLightMode": "sitelen walo",
+    "appearance": "sitelen",
+    "cycleLanguage": "toki ante",
+    "refreshCat": "soweli sin",
+    "playGame": "musi",
+    "viewShortcuts": "lukin e ilo nena",
+    "pressToOpen": "o pilin . tawa alasa",
+    "escToClose": "ESC tawa pini",
+    "fun": "musi",
+    "games": "musi",
+    "tetris": "musi Tetris",
+    "2048": "musi 2048",
+    "help": "kama sona",
+    "projects": {
+      "category": "tawa pali",
+      "closeCard": "weka pali",
+      "closeCardDescription": "weka pali ni",
+      "left": "tawa lete",
+      "leftDescription": "tawa pali pini",
+      "right": "tawa anpa",
+      "rightDescription": "tawa pali sin",
+      "up": "tawa sewi",
+      "upDescription": "tawa sewi",
+      "down": "tawa anpa",
+      "downDescription": "tawa anpa",
+      "flipCard": "lukin e pali: {{title}}",
+      "flipCardDescription": "lukin e pali"
+    },
+    "blog": {
+      "category": "tawa toki",
+      "next": "toki sin",
+      "nextDescription": "tawa toki sin",
+      "prev": "toki pini",
+      "prevDescription": "tawa toki pini",
+      "search": "alasa toki",
+      "searchDescription": "alasa toki",
+      "filterTag": "lukin toki",
+      "filterTagDescription": "open lukin",
+      "jumpToPost": "tawa toki {{i}}",
+      "jumpToPostDescription": "tawa toki {{i}}",
+      "back": "tawa toki ale",
+      "backDescription": "tawa toki ale"
+    },
+    "about": {
+      "category": "tawa toki mi",
+      "jumpToChapter": "tawa toki {{i}}",
+      "jumpToChapterDescription": "tawa toki {{i}}"
+    },
+    "uses": {
+      "category": "tawa ilo",
+      "jumpToCategory": "tawa {{category}}",
+      "jumpToCategoryDescription": "tawa {{category}}"
+    },
+    "now": {
+      "category": "tawa tenpo ni",
+      "jumpToCategory": "tawa {{category}}",
+      "jumpToCategoryDescription": "tawa {{category}}"
+    },
+    "colophon": {
+      "category": "tawa kama",
+      "jumpToSection": "tawa {{section}}",
+      "jumpToSectionDescription": "tawa {{section}}"
+    }
+  }
+}
