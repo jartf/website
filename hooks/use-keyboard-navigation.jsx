@@ -4,9 +4,7 @@ import { useEffect, useState, useCallback } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { useTheme } from "next-themes"
-
-// Define supported languages
-const SUPPORTED_LANGUAGES = ["en", "vi", "et", "ru", "da", "tr", "zh", "pl", "sv", "fi", "tok"]
+import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 
 // Define supported themes
 const SUPPORTED_THEMES = ["light", "dark", "system"]
