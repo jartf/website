@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { useTranslation } from "react-i18next"
+import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 
 const LANGUAGE_TRACKER_KEY = "language-tracker"
-const SUPPORTED_LANGUAGES = ["en", "vi", "ru", "da", "tr", "zh"]
 
 /**
  * Hook to track which languages a user has visited
