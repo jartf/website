@@ -50,8 +50,7 @@ export default function BlogPostClient({
       fi: t("language.fi", "Finnish"),
       tok: t("language.tok", "Toki Pona"),
     }
-
-    return languageMap[code.toLowerCase()] || code
+    return languageMap[code] || code
   }
 
   return (
