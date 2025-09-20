@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next"
 import styles from "./BlogPostClient.module.css"
 import { formatDate } from "@/lib/utils"
 import { useCurrentLanguage } from "@/hooks/use-current-language"
+import { LANGUAGE_NAMES } from "@/lib/constants"
 
 interface BlogPostClientProps {
   post: any
@@ -35,22 +36,9 @@ export default function BlogPostClient({
   const prefersReducedMotion = useReducedMotion()
   const { t, i18n } = useTranslation()
 
-  // Helper function to get full language name from code
+  // Helper function to get full language name from code (i18n + fallback to endonym)
   const getFullLanguageName = (code: string): string => {
-    const languageMap: Record<string, string> = {
-      en: t("language.en", "English"),
-      vi: t("language.vi", "Vietnamese"),
-      et: t("language.et", "Estonian"),
-      ru: t("language.ru", "Russian"),
-      da: t("language.da", "Danish"),
-      tr: t("language.tr", "Turkish"),
-      zh: t("language.zh", "Chinese"),
-      pl: t("language.pl", "Polish"),
-      sv: t("language.sv", "Swedish"),
-      fi: t("language.fi", "Finnish"),
-      tok: t("language.tok", "Toki Pona"),
-    }
-    return languageMap[code] || code
+    return t(`language.${code}`, LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code)
   }
 
   return (
@@ -94,9 +82,9 @@ export default function BlogPostClient({
                 </div>
                 <div className="flex items-center">
                   <Clock className="mr-1 h-4 w-4" />
-                  <span>{post.readingTime} min read</span>
+                  <span>{post.readingTime} {t("blog.minRead", "min read")}</span>
                 </div>
-                <Badge variant="outline">Mood: {post.mood}</Badge>
+                <Badge variant="outline">{t("blog.mood", "Mood")}: {post.mood}</Badge>
                 {post.catApproved && (
                   <div className="flex items-center text-amber-600 dark:text-amber-400">
                     <Cat className="h-4 w-4 mr-1" />
@@ -194,6 +182,18 @@ export default function BlogPostClient({
               <BlogPostNavigation navigation={navigation} />
             </div>
 
+            {/* Related posts */}
+            {relatedPosts.length > 0 && (
+              <div className={prefersReducedMotion ? undefined : styles.animatedY}>
+                <RelatedPosts posts={relatedPosts} />
+              </div>
+            )}
+          </article>
+        </div>
+      </div>
+    </main>
+  )
+}
             {/* Related posts */}
             {relatedPosts.length > 0 && (
               <div className={prefersReducedMotion ? undefined : styles.animatedY}>

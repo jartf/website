@@ -267,22 +267,9 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const isValidLanguage = SUPPORTED_LANGUAGES.includes(currentLanguage as any)
   const rssLanguage = isValidLanguage ? currentLanguage : "en"
 
-  // Map language codes to full names
+  // Map language codes to display names with i18n + safe fallback to endonyms
   const getLanguageName = (code: string): string => {
-    const languageNames: Record<string, string> = {
-      en: t("language.en", "English"),
-      vi: t("language.vi", "Vietnamese"),
-      et: t("language.et", "Estonian"),
-      ru: t("language.ru", "Russian"),
-      da: t("language.da", "Danish"),
-      tr: t("language.tr", "Turkish"),
-      zh: t("language.zh", "Chinese"),
-      pl: t("language.pl", "Polish"),
-      sv: t("language.sv", "Swedish"),
-      fi: t("language.fi", "Finnish"),
-      tok: t("language.tok", "Toki Pona"),
-    }
-    return languageNames[code] || code
+    return t(`language.${code}`, LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code)
   }
 
   if (safeBlogPosts.length === 0) {
@@ -308,7 +295,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     <div className="container mx-auto px-4 py-16" style={{ opacity: 1, transform: "translateY(0px)" }}>
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-4xl font-bold">Blog</h1>
+          <h1 className="text-4xl font-bold">{t("blog.title", "Blog")}</h1>
 
           {/* RSS Feed Links */}
           <div className="flex items-center space-x-2">
@@ -444,7 +431,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
                   {uniqueCategories.length > 0 && (
                     <div className="space-y-2">
-                      <h4 className="text-sm font-medium">Category</h4>
+                      <h4 className="text-sm font-medium">{t("blog.category", "Category")}</h4>
                       <div className="grid grid-cols-2 gap-2">
                         {uniqueCategories.map((category) => (
                           <div key={category} className="flex items-center space-x-2">
@@ -464,7 +451,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
                   {uniqueTags.length > 0 && (
                     <div className="space-y-2">
-                      <h4 className="text-sm font-medium">Tags</h4>
+                      <h4 className="text-sm font-medium">{t("blog.tag", "Tags")}</h4>
                       <div className="flex flex-wrap gap-2">
                         {uniqueTags.map((tag) => (
                           <Badge
