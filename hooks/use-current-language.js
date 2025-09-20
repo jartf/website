@@ -1,7 +1,9 @@
 "use client"
 
 import { useTranslation } from "react-i18next"
-import { SUPPORTED_LANGUAGES } from "@/lib/constants"
+
+// Supported language codes
+const SUPPORTED_LANGUAGES = ["en", "vi", "et", "ru", "da", "tr", "zh"]
 
 /**
  * Hook to get the current language
