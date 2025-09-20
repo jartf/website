@@ -21,7 +21,11 @@
     "ru": "Rusça",
     "da": "Danca",
     "tr": "Türkçe",
-    "zh": "Çince"
+    "zh": "Çince",
+    "pl": "Lehçe",
+    "sv": "İsveççe",
+    "fi": "Fince",
+    "tok": "Toki Pona"
   },
   "greetings": {
     "morning": "Günaydın gezgin.",

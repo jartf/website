@@ -21,7 +21,11 @@
     "et": "Estisk",
     "da": "Dansk",
     "tr": "Tyrkisk",
-    "zh": "Kinesisk"
+    "zh": "Kinesisk",
+    "pl": "Polsk",
+    "sv": "Svensk",
+    "fi": "Finsk",
+    "tok": "Toki Pona"
   },
   "greetings": {
     "morning": "Godmorgen, rejsende.",

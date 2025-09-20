@@ -22,7 +22,10 @@
     "da": "Duński",
     "tr": "Turecki",
     "zh": "Chiński",
-    "pl": "Polski"
+    "pl": "Polski",
+    "sv": "Szwedzki",
+    "fi": "Fiński",
+    "tok": "Toki Pona"
   },
   "greetings": {
     "morning": "Dzień dobry, podróżniku.",

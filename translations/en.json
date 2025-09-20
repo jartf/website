@@ -21,7 +21,11 @@
     "et": "Estonian",
     "da": "Danish",
     "tr": "Turkish",
-    "zh": "Chinese"
+    "zh": "Chinese",
+    "pl": "Polish",
+    "sv": "Swedish",
+    "fi": "Finnish",
+    "tok": "Toki Pona"
   },
   "greetings": {
     "morning": "Good morning, traveler.",

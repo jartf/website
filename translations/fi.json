@@ -23,7 +23,9 @@
     "tr": "Turkki",
     "zh": "Kiina",
     "sv": "Ruotsi",
-    "fi": "Suomi"
+    "fi": "Suomi",
+    "pl": "Puola",
+    "tok": "Toki Pona"
   },
   "greetings": {
     "morning": "Huomenta, matkaaja.",

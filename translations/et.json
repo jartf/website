@@ -21,7 +21,11 @@
     "ru": "Vene",
     "da": "Taani",
     "tr": "Türgi",
-    "zh": "Hiina"
+    "zh": "Hiina",
+    "pl": "Poola",
+    "sv": "Rootsi",
+    "fi": "Soome",
+    "tok": "Toki Pona"
   },
   "greetings": {
     "morning": "Tere hommikust, rändur.",

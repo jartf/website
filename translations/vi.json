@@ -21,7 +21,11 @@
     "ru": "Tiếng Nga",
     "da": "Tiếng Đan Mạch",
     "tr": "Tiếng Thổ Nhĩ Kỳ",
-    "zh": "Tiếng Trung"
+    "zh": "Tiếng Trung",
+    "sv": "Tiếng Thụy Điển",
+    "fi": "Tiếng Phần Lan",
+    "pl": "Tiếng Ba Lan",
+    "tok": "Toki Pona"
   },
   "greetings": {
     "morning": "Chào buổi sáng nhé, chú ong chăm chỉ",
