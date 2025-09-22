@@ -7,6 +7,7 @@ import LanguageDetector from "i18next-browser-languagedetector"
 // Import translations statically for instant availability
 import enTranslations from "@/translations/en.json"
 import viTranslations from "@/translations/vi.json"
+import viHaniTranslations from "@/translations/vi-Hani.json"
 import etTranslations from "@/translations/et.json"
 import ruTranslations from "@/translations/ru.json"
 import daTranslations from "@/translations/da.json"
@@ -20,6 +21,7 @@ import tokTranslations from "@/translations/tok.json"
 const bundledTranslations = {
   en: { translation: enTranslations },
   vi: { translation: viTranslations },
+  "vi-Hani": { translation: viHaniTranslations },
   et: { translation: etTranslations },
   ru: { translation: ruTranslations },
   da: { translation: daTranslations },
