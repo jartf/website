@@ -102,6 +102,14 @@
   html[lang="vih"] h6 {
     font-family: var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
   }
+
+  /* Ensure common text and UI elements use Han Nôm stack under vih */
+  html[lang="vih"] :where(
+    p, span, a, li, button, label, small, strong, em, div, blockquote,
+    input, textarea, select, option, summary, figcaption, code, kbd, samp
+  ) {
+    font-family: var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
+  }
 }
 
 @layer base {

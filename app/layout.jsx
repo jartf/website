@@ -44,9 +44,7 @@ const notoSansSC = Noto_Sans_SC({
 
 // Hán Nôm font
 const hanNom = localFont({
-  src: [
-    { path: "../public/fonts/Han-Nom-Gothic.otf", style: "normal" },
-  ],
+  src: "../public/fonts/Han-Nom-Gothic.otf",
   variable: "--font-han-nom",
   display: "swap",
   preload: false,
@@ -252,7 +250,7 @@ export default function RootLayout({ children }) {
           `}
         </style>
 
-        {/* JavaScript Detection Script */}
+        {/* JavaScript Detection + Early Language Bootstrapping */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -260,12 +258,27 @@ export default function RootLayout({ children }) {
                 // Mark that JavaScript is enabled
                 document.documentElement.classList.add('js-enabled');
 
+                // Normalize and set HTML lang ASAP
+                try {
+                  var supported = ['en','vi','vih','et','ru','da','tr','zh','pl','sv','fi','tok'];
+                  var raw =
+                    (typeof localStorage !== 'undefined' && localStorage.getItem('i18nextLng')) ||
+                    (navigator.language || '');
+                  raw = (raw || '').toLowerCase();
+                  var lang = 'en';
+                  for (var i=0;i<supported.length;i++) {
+                    var s = supported[i];
+                    if (raw === s || raw.indexOf(s + '-') === 0) { lang = s; break; }
+                  }
+                  document.documentElement.setAttribute('lang', lang);
+                } catch (e) {
+                  document.documentElement.setAttribute('lang', 'en');
+                }
+
                 // Hide the no-JS notice if it exists
                 document.addEventListener('DOMContentLoaded', function() {
                   var notice = document.querySelector('.js-disabled-notice');
-                  if (notice) {
-                    notice.style.display = 'none';
-                  }
+                  if (notice) notice.style.display = 'none';
                 });
               })();
             `,
