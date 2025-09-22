@@ -83,7 +83,7 @@ export const metadata = {
     languages: {
       en: "/",
       vi: "/",
-      "viHani": "/",
+      vih: "/",
       et: "/",
       ru: "/",
       da: "/",
