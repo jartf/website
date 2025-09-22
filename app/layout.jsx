@@ -9,6 +9,7 @@ import { Galaxy } from "@/components/galaxy/galaxy"
 import { KeyboardNavigation } from "@/components/keyboard-navigation"
 import { ActionSearchBar } from "@/components/action-search-bar"
 import { MotionProvider } from "@/components/motion-provider"
+import localFont from "next/font/local"
 
 // Latin + Cyrillic font for headings
 const spaceGrotesk = Space_Grotesk({
@@ -39,6 +40,19 @@ const notoSansSC = Noto_Sans_SC({
   variable: "--font-noto-sans-sc",
   display: "swap",
   preload: false, // Prevents preloading all weights which can cause build issues
+})
+
+// Hán Nôm (VIH) font - only loaded when used (preload: false)
+// Place your font files into /public/fonts and adjust names if needed.
+const hanNom = localFont({
+  src: [
+    { path: "../public/fonts/Han-Nom-Gothic.otf", weight: "400", style: "normal" },
+    { path: "../public/fonts/Han-Nom-Gothic.otf", weight: "500", style: "normal" },
+    { path: "../public/fonts/Han-Nom-Gothic.otf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-han-nom",
+  display: "swap",
+  preload: false,
 })
 
 // Update the metadata in the root layout
@@ -152,7 +166,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${lexend.variable} ${roboto.variable} ${notoSansSC.variable}`}
+      className={`${spaceGrotesk.variable} ${lexend.variable} ${roboto.variable} ${notoSansSC.variable} ${hanNom.variable}`}
     >
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
