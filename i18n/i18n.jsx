@@ -21,7 +21,7 @@ import tokTranslations from "@/translations/tok.json"
 const bundledTranslations = {
   en: { translation: enTranslations },
   vi: { translation: viTranslations },
-  "vi-Hani": { translation: viHaniTranslations },
+  "viHani": { translation: viHaniTranslations },
   et: { translation: etTranslations },
   ru: { translation: ruTranslations },
   da: { translation: daTranslations },
