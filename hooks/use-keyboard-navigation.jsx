@@ -84,7 +84,12 @@ export function useKeyboardNavigation() {
     let langIndex = SUPPORTED_LANGUAGES.findIndex((lang) => currentLang.startsWith(lang))
     if (langIndex === -1) langIndex = 0
     const nextLangIndex = (langIndex + 1) % SUPPORTED_LANGUAGES.length
-    i18n.changeLanguage(SUPPORTED_LANGUAGES[nextLangIndex])
+    const nextLang = SUPPORTED_LANGUAGES[nextLangIndex]
+    i18n.changeLanguage(nextLang)
+    // keep <html lang> in sync
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("lang", nextLang)
+    }
   }, [i18n])
 
   /**

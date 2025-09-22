@@ -42,6 +42,10 @@ export function LanguageToggle() {
 
   const handleLanguageChange = (code) => {
     i18n.changeLanguage(code)
+    // keep <html lang> in sync
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("lang", code)
+    }
     trackLanguage(code)
     checkAllLanguagesVisited()
   }
