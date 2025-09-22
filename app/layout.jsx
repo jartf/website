@@ -159,6 +159,16 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
+        {/* Prefer Twemoji Country Flags on platforms (like Windows) that lack native flag emoji support */}
+        <style>
+          {`
+            .emoji-flag {
+              font-family: "Twemoji Country Flags", "Twemoji Mozilla", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+              font-variant-emoji: emoji;
+            }
+          `}
+        </style>
+
         {/* Full screen notice for users without JavaScript */}
         <style>
           {`
