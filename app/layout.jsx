@@ -31,6 +31,7 @@ const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-roboto",
   display: "swap",
+  preload: false,
 })
 
 // Chinese (CJK) support font
