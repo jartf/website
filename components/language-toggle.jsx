@@ -12,7 +12,6 @@ import {
   SUPPORTED_LANGUAGES,
   LANGUAGE_NAMES,
   LANGUAGE_FLAGS,
-  LANGUAGE_COUNTRY_CODES,
   LANGUAGE_FONT_CLASSES,
 } from "@/lib/constants"
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill"
