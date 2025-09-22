@@ -39,16 +39,13 @@ const notoSansSC = Noto_Sans_SC({
   subsets: ["latin"],
   variable: "--font-noto-sans-sc",
   display: "swap",
-  preload: false, // Prevents preloading all weights which can cause build issues
+  preload: false,
 })
 
-// Hán Nôm (VIH) font - only loaded when used (preload: false)
-// Place your font files into /public/fonts and adjust names if needed.
+// Hán Nôm font
 const hanNom = localFont({
   src: [
-    { path: "../public/fonts/Han-Nom-Gothic.otf", weight: "400", style: "normal" },
-    { path: "../public/fonts/Han-Nom-Gothic.otf", weight: "500", style: "normal" },
-    { path: "../public/fonts/Han-Nom-Gothic.otf", weight: "700", style: "normal" },
+    { path: "../public/fonts/Han-Nom-Gothic.otf", style: "normal" },
   ],
   variable: "--font-han-nom",
   display: "swap",
