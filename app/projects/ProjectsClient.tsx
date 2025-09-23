@@ -59,7 +59,10 @@ export default function ProjectsPageClient() {
       if (projectId !== null) {
         const project = visibleProjects.find((p) => p.id === projectId)
         if (project) {
-          setAnnouncement(`Opened details for ${project.content[currentLang as keyof typeof project.content].title}`)
+          const content =
+            project.content[currentLang as keyof typeof project.content] ||
+            project.content.en
+          setAnnouncement(`Opened details for ${content.title}`)
         } else {
           setAnnouncement("Closed project details")
         }
@@ -337,144 +340,149 @@ export default function ProjectsPageClient() {
             initial="hidden"
             animate="show"
           >
-            {visibleProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="relative h-[350px] perspective-1000"
-                variants={item}
-                transition={{ type: "spring", stiffness: 300 }}
-                whileHover={{ scale: 1.03 }}
-              >
+            {visibleProjects.map((project, index) => {
+              const content =
+                project.content[currentLang as keyof typeof project.content] ||
+                project.content.en
+              return (
                 <motion.div
-                  className={`absolute w-full h-full rounded-xl transition-all duration-500 transform-style-3d ${
-                    flippedCard === project.id ? "rotate-y-180" : ""
-                  }`}
+                  key={project.id}
+                  className="relative h-[350px] perspective-1000"
+                  variants={item}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  whileHover={{ scale: 1.03 }}
                 >
-                  {/* Front of card */}
-                  <div
-                    id={`project-card-${project.id}`}
-                    ref={(el) => {
-                      cardRefs.current[index] = el
-                    }}
-                    className={`absolute w-full h-full backface-hidden rounded-xl border bg-card p-6 shadow-sm flex flex-col cursor-pointer overflow-hidden focus-visible:outline-none ${
-                      focusedCardIndex === index
-                        ? "ring-2 ring-primary ring-offset-2 dark:ring-offset-background"
-                        : "hover:ring-1 hover:ring-primary/50 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background"
+                  <motion.div
+                    className={`absolute w-full h-full rounded-xl transition-all duration-500 transform-style-3d ${
+                      flippedCard === project.id ? "rotate-y-180" : ""
                     }`}
-                    onClick={() => flipCard(project.id, index)}
-                    onFocus={() => setFocusedCardIndex(index)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault()
-                        flipCard(project.id, index)
-                      }
-                    }}
-                    tabIndex={0}
-                    role="button"
-                    aria-label={`${project.content[currentLang as keyof typeof project.content].title} card. Press Enter to view details. Press ${project.id} to flip. Use arrow keys to navigate between cards.`}
                   >
-                    <div className="mb-2">
-                      <h3 className="text-xl font-bold mb-2">
-                        {project.content[currentLang as keyof typeof project.content].title}
-                      </h3>
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        <Badge className={`${getCategoryColor(project.category)}`}>
-                          {t(`projects.categories.${project.category}`)}
-                        </Badge>
-                        <Badge className={getStatusColor(project.status)}>{getStatusLabel(project.status)}</Badge>
-                      </div>
-                    </div>
-
-                    <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">
-                      {project.content[currentLang as keyof typeof project.content].description}
-                    </p>
-
-                    <div className="mt-auto">
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map((tag) => (
-                          <Badge key={tag} variant="outline">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <div className="flex justify-center items-center gap-2">
-                        <KeyboardShortcut>{project.id <= 9 ? project.id : ""}</KeyboardShortcut>
-                        <span className="text-sm text-muted-foreground">
-                          {t("projects.cardActions.clickForDetails")}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Back of card */}
-                  <div
-                    id={`project-card-back-${project.id}`}
-                    className={`absolute w-full h-full backface-hidden rounded-xl border bg-card p-6 shadow-sm flex flex-col rotate-y-180 cursor-pointer overflow-hidden focus-visible:outline-none ${
-                      focusedCardIndex === index && flippedCard === project.id
-                        ? "ring-2 ring-primary ring-offset-2 dark:ring-offset-background"
-                        : ""
-                    }`}
-                    onClick={() => flipCard(null)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault()
-                        flipCard(null)
-                        // Restore focus to the card front
-                        setTimeout(() => {
-                          cardRefs.current[index]?.focus()
-                        }, 100)
-                      }
-                    }}
-                    tabIndex={flippedCard === project.id ? 0 : -1}
-                    role="button"
-                    aria-label={`${project.content[currentLang as keyof typeof project.content].title} details. Press Enter or Escape to close. Use up and down arrows to scroll content.`}
-                  >
-                    <h3 className="text-xl font-bold mb-2">
-                      {project.content[currentLang as keyof typeof project.content].title}
-                    </h3>
-                    <Badge className={`${getCategoryColor(project.category)} mb-4 w-fit`}>
-                      {t(`projects.categories.${project.category}`)}
-                    </Badge>
-
+                    {/* Front of card */}
                     <div
-                      id={`project-content-${project.id}`}
-                      ref={flippedCard === project.id ? flippedCardContentRef : null}
-                      className="space-y-4 flex-grow overflow-y-auto focus:outline-none"
-                      tabIndex={flippedCard === project.id ? 0 : -1}
-                      role="region"
-                      aria-label={`${project.content[currentLang as keyof typeof project.content].title} content`}
+                      id={`project-card-${project.id}`}
+                      ref={(el) => {
+                        cardRefs.current[index] = el
+                      }}
+                      className={`absolute w-full h-full backface-hidden rounded-xl border bg-card p-6 shadow-sm flex flex-col cursor-pointer overflow-hidden focus-visible:outline-none ${
+                        focusedCardIndex === index
+                          ? "ring-2 ring-primary ring-offset-2 dark:ring-offset-background"
+                          : "hover:ring-1 hover:ring-primary/50 focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background"
+                      }`}
+                      onClick={() => flipCard(project.id, index)}
+                      onFocus={() => setFocusedCardIndex(index)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault()
+                          flipCard(project.id, index)
+                        }
+                      }}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`${content.title} card. Press Enter to view details. Press ${project.id} to flip. Use arrow keys to navigate between cards.`}
                     >
-                      <div>
-                        <h4 className="font-medium">{t("projects.details.what")}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {project.content[currentLang as keyof typeof project.content].what}
-                        </p>
+                      <div className="mb-2">
+                        <h3 className="text-xl font-bold mb-2">
+                          {content.title}
+                        </h3>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <Badge className={`${getCategoryColor(project.category)}`}>
+                            {t(`projects.categories.${project.category}`)}
+                          </Badge>
+                          <Badge className={getStatusColor(project.status)}>{getStatusLabel(project.status)}</Badge>
+                        </div>
                       </div>
 
-                      <div>
-                        <h4 className="font-medium">{t("projects.details.learned")}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {project.content[currentLang as keyof typeof project.content].learned}
-                        </p>
-                      </div>
+                      <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">
+                        {content.description}
+                      </p>
 
-                      <div>
-                        <h4 className="font-medium">{t("projects.details.why")}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {project.content[currentLang as keyof typeof project.content].why}
-                        </p>
+                      <div className="mt-auto">
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.tags.map((tag) => (
+                            <Badge key={tag} variant="outline">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+
+                        <div className="flex justify-center items-center gap-2">
+                          <KeyboardShortcut>{project.id <= 9 ? project.id : ""}</KeyboardShortcut>
+                          <span className="text-sm text-muted-foreground">
+                            {t("projects.cardActions.clickForDetails")}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="mt-4 flex justify-center items-center gap-2">
-                      <KeyboardShortcut>Esc</KeyboardShortcut>
-                      <span className="text-sm text-muted-foreground">{t("projects.cardActions.clickToClose")}</span>
+                    {/* Back of card */}
+                    <div
+                      id={`project-card-back-${project.id}`}
+                      className={`absolute w-full h-full backface-hidden rounded-xl border bg-card p-6 shadow-sm flex flex-col rotate-y-180 cursor-pointer overflow-hidden focus-visible:outline-none ${
+                        focusedCardIndex === index && flippedCard === project.id
+                          ? "ring-2 ring-primary ring-offset-2 dark:ring-offset-background"
+                          : ""
+                      }`}
+                      onClick={() => flipCard(null)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault()
+                          flipCard(null)
+                          // Restore focus to the card front
+                          setTimeout(() => {
+                            cardRefs.current[index]?.focus()
+                          }, 100)
+                        }
+                      }}
+                      tabIndex={flippedCard === project.id ? 0 : -1}
+                      role="button"
+                      aria-label={`${content.title} details. Press Enter or Escape to close. Use up and down arrows to scroll content.`}
+                    >
+                      <h3 className="text-xl font-bold mb-2">
+                        {content.title}
+                      </h3>
+                      <Badge className={`${getCategoryColor(project.category)} mb-4 w-fit`}>
+                        {t(`projects.categories.${project.category}`)}
+                      </Badge>
+
+                      <div
+                        id={`project-content-${project.id}`}
+                        ref={flippedCard === project.id ? flippedCardContentRef : null}
+                        className="space-y-4 flex-grow overflow-y-auto focus:outline-none"
+                        tabIndex={flippedCard === project.id ? 0 : -1}
+                        role="region"
+                        aria-label={`${content.title} content`}
+                      >
+                        <div>
+                          <h4 className="font-medium">{t("projects.details.what")}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            {content.what}
+                          </p>
+                        </div>
+
+                        <div>
+                          <h4 className="font-medium">{t("projects.details.learned")}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            {content.learned}
+                          </p>
+                        </div>
+
+                        <div>
+                          <h4 className="font-medium">{t("projects.details.why")}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            {content.why}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 flex justify-center items-center gap-2">
+                        <KeyboardShortcut>Esc</KeyboardShortcut>
+                        <span className="text-sm text-muted-foreground">{t("projects.cardActions.clickToClose")}</span>
+                      </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
+              )
+            })}
           </motion.div>
 
           <div className="flex justify-center">
