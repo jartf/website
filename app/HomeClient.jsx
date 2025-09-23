@@ -172,9 +172,17 @@ export default function Home({ blogPosts = [] }) {
 
   // Filter blog posts by current language (fallback to English)
   const currentLang = i18n.language?.split("-")[0] || "en"
-  let filtered = blogPosts.filter(post => post.language === currentLang)
-  if (filtered.length === 0) {
-    filtered = blogPosts.filter(post => post.language === "en")
+  let filtered
+  if (currentLang === "vih") {
+    filtered = blogPosts.filter(post => post.language === "vi" || post.language === "vih")
+    if (filtered.length === 0) {
+      filtered = blogPosts.filter(post => post.language === "en")
+    }
+  } else {
+    filtered = blogPosts.filter(post => post.language === currentLang)
+    if (filtered.length === 0) {
+      filtered = blogPosts.filter(post => post.language === "en")
+    }
   }
   const recentPosts = filtered.slice(0, 3)
 
