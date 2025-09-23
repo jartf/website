@@ -152,7 +152,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         (post) => post.language === currentLang || post.language === baseLanguage,
       )
 
-      if (hasPostsInCurrentLanguage) {
+      // Special case: if currentLang or baseLanguage is "vih", include both "vi" and "vih"
+      if (baseLanguage === "vih" || currentLang === "vih") {
+        setFilterLanguages(["vi", "vih"])
+      } else if (hasPostsInCurrentLanguage) {
         setFilterLanguages([baseLanguage])
       } else {
         setFilterLanguages(["en"])
