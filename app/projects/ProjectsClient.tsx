@@ -59,9 +59,17 @@ export default function ProjectsPageClient() {
       if (projectId !== null) {
         const project = visibleProjects.find((p) => p.id === projectId)
         if (project) {
-          const content =
-            project.content[currentLang as keyof typeof project.content] ||
-            project.content.en
+          let content
+          if (currentLang === "vih") {
+            content =
+              project.content.vih ||
+              project.content.vi ||
+              project.content.en
+          } else {
+            content =
+              project.content[currentLang as keyof typeof project.content] ||
+              project.content.en
+          }
           setAnnouncement(`Opened details for ${content.title}`)
         } else {
           setAnnouncement("Closed project details")
@@ -341,9 +349,17 @@ export default function ProjectsPageClient() {
             animate="show"
           >
             {visibleProjects.map((project, index) => {
-              const content =
-                project.content[currentLang as keyof typeof project.content] ||
-                project.content.en
+              let content
+              if (currentLang === "vih") {
+                content =
+                  project.content.vih ||
+                  project.content.vi ||
+                  project.content.en
+              } else {
+                content =
+                  project.content[currentLang as keyof typeof project.content] ||
+                  project.content.en
+              }
               return (
                 <motion.div
                   key={project.id}

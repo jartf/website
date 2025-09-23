@@ -520,16 +520,24 @@ export function ActionSearchBar() {
     // Add project card flip actions
     const visibleProjects = projects.filter((p) => !p.hidden).slice(0, 9)
     visibleProjects.forEach((project) => {
-      const projectContent =
-        project.content[currentLanguage] || project.content.en
-      const projectTitle = projectContent?.title || "Untitled" // Resolve the project title dynamically
-      const flipCardLabel = t("actionSearch.projects.flipCard", { title: projectTitle }) // Resolve "Flip project card: <title>"
+      let projectContent
+      if (currentLanguage === "vih") {
+        projectContent =
+          project.content.vih ||
+          project.content.vi ||
+          project.content.en
+      } else {
+        projectContent =
+          project.content[currentLanguage] || project.content.en
+      }
+      const projectTitle = projectContent?.title || "Untitled"
+      const flipCardLabel = t("actionSearch.projects.flipCard", { title: projectTitle })
       if (project.id <= 9) {
         actions.push({
           id: `flip-card-${project.id}`,
-          label: flipCardLabel, // t("actionSearch.projects.flipCard", { id: project.id }),
+          label: flipCardLabel,
           icon: <FlipHorizontal className="h-4 w-4 text-indigo-500" />,
-          description: "", // `Flip project card: ${project.content.en.title}`,
+          description: "",
           shortcut: `${project.id}`,
           category: t("actionSearch.projects.category", "Navigate through project cards"),
           action: () => {
