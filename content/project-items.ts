@@ -41,6 +41,41 @@ export type ProjectContent = {
     learned: string
     why: string
   }
+  zh: {
+    title: string
+    description: string
+    what: string
+    learned: string
+    why: string
+  }
+  pl: {
+    title: string
+    description: string
+    what: string
+    learned: string
+    why: string
+  }
+  fi: {
+    title: string
+    description: string
+    what: string
+    learned: string
+    why: string
+  }
+  sv: {
+    title: string
+    description: string
+    what: string
+    learned: string
+    why: string
+  }
+  tok: {
+    title: string
+    description: string
+    what: string
+    learned: string
+    why: string
+  }
 }
 
 export type Project = {
@@ -98,6 +133,41 @@ export const projects: Project[] = [
         learned: "Gelişmiş istatistiksel modelleme ve karşılaştırmalı ekonomik analiz",
         why: "Eşitsizliği tetikleyen sistemik faktörleri anlamak ve politika çözümleri önermek",
       },
+      zh: {
+        title: "经济学研究论文",
+        description: "后工业经济体财富不平等趋势分析",
+        what: "一篇全面的研究论文，审视发达国家的财富分配模式",
+        learned: "高级统计建模和比较经济分析",
+        why: "理解推动不平等的系统性因素并提出政策解决方案",
+      },
+      pl: {
+        title: "Artykuł badawczy z ekonomii",
+        description: "Analiza trendów nierówności majątkowych w gospodarkach postindustrialnych",
+        what: "Kompleksowy artykuł badawczy analizujący wzorce dystrybucji majątku w krajach rozwiniętych",
+        learned: "Zaawansowane modelowanie statystyczne i porównawcza analiza ekonomiczna",
+        why: "Aby zrozumieć systemowe czynniki napędzające nierówności i zaproponować rozwiązania polityczne",
+      },
+      fi: {
+        title: "Taloustieteen tutkimuspaperi",
+        description: "Varallisuuserojen trendien analyysi jälkiteollisissa talouksissa",
+        what: "Kattava tutkimuspaperi, joka tarkastelee varallisuuden jakautumismalleja kehittyneissä maissa",
+        learned: "Edistynyt tilastollinen mallinnus ja vertaileva taloudellinen analyysi",
+        why: "Ymmärtää järjestelmällisiä tekijöitä, jotka ajavat eriarvoisuutta, ja ehdottaa poliittisia ratkaisuja",
+      },
+      sv: {
+        title: "Ekonomisk forskningsartikel",
+        description: "Analys av trender i förmögenhetsolikhet i postindustriella ekonomier",
+        what: "En omfattande forskningsartikel som undersöker mönster för förmögenhetsfördelning i utvecklade nationer",
+        learned: "Avancerad statistisk modellering och jämförande ekonomisk analys",
+        why: "För att förstå systemiska faktorer som driver ojämlikhet och föreslå politiska lösningar",
+      },
+      tok: {
+        title: "Economics research paper",
+        description: "Analysis of wealth inequality trends in post-industrial economies",
+        what: "A comprehensive research paper examining wealth distribution patterns across developed nations",
+        learned: "Advanced statistical modeling and comparative economic analysis",
+        why: "To understand systemic factors driving inequality and propose policy solutions",
+      },
     },
     tags: ["research", "economics", "data-analysis"],
     status: "completed",
@@ -147,6 +217,41 @@ export const projects: Project[] = [
         what: "Farklı diller konuşan kullanıcılar arasında mesajları gerçek zamanlı olarak çeviren bir sohbet uygulaması",
         learned: "WebSocket uygulaması, çeviri API'leri ve karmaşık uygulamalarda durum yönetimi",
         why: "Çevrimiçi iletişimde dil engellerini ortadan kaldırmak",
+      },
+      zh: {
+        title: "多语言聊天应用",
+        description: "跨文化对话的实时翻译",
+        what: "一款聊天应用，可以在说不同语言的用户之间实时翻译消息",
+        learned: "WebSocket实现、翻译API以及复杂应用中的状态管理",
+        why: "打破在线交流中的语言障碍",
+      },
+      pl: {
+        title: "Wielojęzyczna aplikacja czatu",
+        description: "Tłumaczenie w czasie rzeczywistym dla rozmów międzykulturowych",
+        what: "Aplikacja czatu, która tłumaczy wiadomości w czasie rzeczywistym między użytkownikami mówiącymi różnymi językami",
+        learned: "Implementacja WebSocket, interfejsy API tłumaczeń i zarządzanie stanem w złożonych aplikacjach",
+        why: "Aby przełamać bariery językowe w komunikacji online",
+      },
+      fi: {
+        title: "Monikielinen chat-sovellus",
+        description: "Reaaliaikainen käännös kulttuurienvälisiin keskusteluihin",
+        what: "Chat-sovellus, joka kääntää viestejä reaaliajassa eri kieliä puhuvien käyttäjien välillä",
+        learned: "WebSocketin toteutus, käännös-API:t ja tilanhallinta monimutkaisissa sovelluksissa",
+        why: "Rikkoutua kielimuurit verkkoviestinnässä",
+      },
+      sv: {
+        title: "Flerspråkig chattapp",
+        description: "Översättning i realtid för tvärkulturella konversationer",
+        what: "En chattapplikation som översätter meddelanden i realtid mellan användare som talar olika språk",
+        learned: "WebSocket-implementering, översättnings-API:er och tillståndshantering i komplexa applikationer",
+        why: "Att bryta ner språkbarriärer i onlinekommunikation",
+      },
+      tok: {
+        title: "Multilingual chat app",
+        description: "Real-time translation for cross-cultural conversations",
+        what: "A chat application that translates messages in real-time between users speaking different languages",
+        learned: "WebSocket implementation, translation APIs, and state management in complex applications",
+        why: "To break down language barriers in online communication",
       },
     },
     tags: ["react", "node", "i18n", "websockets"],
@@ -198,6 +303,41 @@ export const projects: Project[] = [
         learned: "Coğrafi konum API'leri, topluluk oluşturma özellikleri ve kullanıcı katılım stratejileri",
         why: "Yerel toplulukları anlamlı iklim eylemi gerçekleştirmeleri için güçlendirmek",
       },
+      zh: {
+        title: "气候行动平台",
+        description: "将活动家与当地的环境倡议联系起来",
+        what: "一个映射当地环境项目并将志愿者与倡议联系起来的平台",
+        learned: "地理定位API、社区建设功能和用户参与策略",
+        why: "赋予当地社区采取有意义的气候行动的能力",
+      },
+      pl: {
+        title: "Platforma działań na rzecz klimatu",
+        description: "Łączenie aktywistów z lokalnymi inicjatywami środowiskowymi",
+        what: "Platforma mapująca lokalne projekty środowiskowe i łącząca wolontariuszy z inicjatywami",
+        learned: "Interfejsy API geolokalizacji, funkcje budowania społeczności i strategie angażowania użytkowników",
+        why: "Aby umożliwić lokalnym społecznościom podejmowanie znaczących działań na rzecz klimatu",
+      },
+      fi: {
+        title: "Ilmastotoiminta-alusta",
+        description: "Yhdistää aktivistit paikallisiin ympäristöaloitteisiin",
+        what: "Alusta, joka kartoittaa paikallisia ympäristöprojekteja ja yhdistää vapaaehtoiset aloitteisiin",
+        learned: "Geopaikannus-API:t, yhteisön rakentamisen ominaisuudet ja käyttäjien sitouttamisstrategiat",
+        why: "Vahvistaa paikallisyhteisöjä ottamaan merkityksellisiä ilmastotoimia",
+      },
+      sv: {
+        title: "Klimataktionsplattform",
+        description: "Kopplar samman aktivister med lokala miljöinitiativ",
+        what: "En plattform som kartlägger lokala miljöprojekt och kopplar volontärer till initiativ",
+        learned: "Geolokaliserings-API:er, funktioner för att bygga gemenskaper och strategier för användarengagemang",
+        why: "För att stärka lokala samhällen att vidta meningsfulla klimatåtgärder",
+      },
+      tok: {
+        title: "Climate action platform",
+        description: "Connecting activists with local environmental initiatives",
+        what: "A platform that maps local environmental projects and connects volunteers with initiatives",
+        learned: "Geolocation APIs, community building features, and user engagement strategies",
+        why: "To empower local communities to take meaningful climate action",
+      },
     },
     tags: ["activism", "community", "react", "maps-api"],
     status: "completed",
@@ -247,6 +387,41 @@ export const projects: Project[] = [
         what: "Ekonomik kavramları ve savunuculuk stratejilerini açıklayan interaktif araçlar içeren bir eğitim kaynağı merkezi",
         learned: "Erişilebilir eğitim içeriği ve interaktif veri görselleştirmeleri oluşturma",
         why: "Ekonomik kavramları daha erişilebilir hale getirmek ve tabandan ekonomik adalet hareketlerini desteklemek",
+      },
+      zh: {
+        title: "经济正义工具包",
+        description: "理解和倡导经济平等的资源",
+        what: "一个教育资源中心，提供解释经济概念和倡导策略的互动工具",
+        learned: "创建易于访问的教育内容和互动数据可视化",
+        why: "使经济概念更易于理解，并支持基层经济正义运动",
+      },
+      pl: {
+        title: "Zestaw narzędzi sprawiedliwości ekonomicznej",
+        description: "Zasoby do zrozumienia i popierania równości ekonomicznej",
+        what: "Centrum zasobów edukacyjnych z interaktywnymi narzędziami wyjaśniającymi koncepcje ekonomiczne i strategie rzecznictwa",
+        learned: "Tworzenie dostępnych treści edukacyjnych i interaktywnych wizualizacji danych",
+        why: "Aby uczynić koncepcje ekonomiczne bardziej dostępnymi i wspierać oddolne ruchy na rzecz sprawiedliwości ekonomicznej",
+      },
+      fi: {
+        title: "Taloudellisen oikeudenmukaisuuden työkalupakki",
+        description: "Resursseja taloudellisen tasa-arvon ymmärtämiseen ja puolustamiseen",
+        what: "Koulutusresurssikeskus, jossa on interaktiivisia työkaluja taloudellisten käsitteiden ja puolustusstrategioiden selittämiseen",
+        learned: "Helposti lähestyttävän koulutussisällön ja interaktiivisten tietojen visualisointien luominen",
+        why: "Tehdä taloudellisista käsitteistä helpommin lähestyttäviä ja tukea ruohonjuuritason taloudellisen oikeudenmukaisuuden liikkeitä",
+      },
+      sv: {
+        title: "Verktygslåda för ekonomisk rättvisa",
+        description: "Resurser för att förstå och förespråka ekonomisk jämlikhet",
+        what: "Ett utbildningsresursnav med interaktiva verktyg som förklarar ekonomiska begrepp och påverkansstrategier",
+        learned: "Skapa tillgängligt utbildningsinnehåll och interaktiva datavisualiseringar",
+        why: "För att göra ekonomiska begrepp mer tillgängliga och stödja gräsrotsrörelser för ekonomisk rättvisa",
+      },
+      tok: {
+        title: "Economic justice toolkit",
+        description: "Resources for understanding and advocating for economic equality",
+        what: "An educational resource hub with interactive tools explaining economic concepts and advocacy strategies",
+        learned: "Creating accessible educational content and interactive data visualizations",
+        why: "To make economic concepts more accessible and support grassroots economic justice movements",
       },
     },
     tags: ["education", "activism", "economics"],
@@ -298,6 +473,41 @@ export const projects: Project[] = [
         learned: "Oyun tasarım ilkeleri, eğitim psikolojisi ve dil edinim teorisi",
         why: "Dil öğrenmeyi daha ilgi çekici ve etkili hale getirmek",
       },
+      zh: {
+        title: "语言学习游戏",
+        description: "通过游戏化方法学习多种语言的词汇",
+        what: "一款通过间隔重复和情境学习教授词汇的游戏",
+        learned: "游戏设计原则、教育心理学和语言习得理论",
+        why: "使语言学习更有趣和有效",
+      },
+      pl: {
+        title: "Gra do nauki języków",
+        description: "Grywalizowane podejście do nauki słownictwa w wielu językach",
+        what: "Gra, która uczy słownictwa poprzez powtarzanie z odstępami i naukę kontekstową",
+        learned: "Zasady projektowania gier, psychologia edukacyjna i teoria nabywania języków",
+        why: "Aby uczynić naukę języków bardziej angażującą i skuteczną",
+      },
+      fi: {
+        title: "Kielenoppimispeli",
+        description: "Pelaamiseen perustuva lähestymistapa sanaston oppimiseen useilla kielillä",
+        what: "Peli, joka opettaa sanastoa hajautetun toiston ja kontekstuaalisen oppimisen kautta",
+        learned: "Pelisuunnittelun periaatteet, kasvatustiede ja kielen omaksumisen teoria",
+        why: "Tehdä kielenoppimisesta kiinnostavampaa ja tehokkaampaa",
+      },
+      sv: {
+        title: "Språkinlärningsspel",
+        description: "Spelifierat tillvägagångssätt för att lära sig ordförråd på flera språk",
+        what: "Ett spel som lär ut ordförråd genom spridd repetition och kontextuellt lärande",
+        learned: "Speldesignprinciper, utbildningspsykologi och språkförvärvsteori",
+        why: "För att göra språkinlärning mer engagerande och effektiv",
+      },
+      tok: {
+        title: "Language learning game",
+        description: "Gamified approach to learning vocabulary in multiple languages",
+        what: "A game that teaches vocabulary through spaced repetition and contextual learning",
+        learned: "Game design principles, educational psychology, and language acquisition theory",
+        why: "To make language learning more engaging and effective",
+      }
     },
     tags: ["javascript", "linguistics", "education", "game"],
     status: "planned",
@@ -348,6 +558,41 @@ export const projects: Project[] = [
         learned: "Gelişmiş canvas manipülasyonu, matematiksel modelleme ve interaktif görselleştirme teknikleri",
         why: "Karmaşık matematiksel kavramları daha sezgisel ve erişilebilir hale getirmek",
       },
+      zh: {
+        title: "混沌理论可视化",
+        description: "混沌理论原理的互动探索",
+        what: "一个互动式网络应用，展示混沌理论概念，如蝴蝶效应",
+        learned: "高级画布操作、数学建模和互动可视化技术",
+        why: "使复杂的数学概念更直观和易于理解",
+      },
+      pl: {
+        title: "Wizualizacja teorii chaosu",
+        description: "Interaktywne badanie zasad teorii chaosu",
+        what: "Interaktywna aplikacja internetowa wizualizująca koncepcje teorii chaosu, takie jak efekt motyla",
+        learned: "Zaawansowana manipulacja płótnem, modelowanie matematyczne i techniki interaktywnej wizualizacji",
+        why: "Aby uczynić skomplikowane koncepcje matematyczne bardziej intuicyjnymi i dostępnymi",
+      },
+      fi: {
+        title: "Kaaosteorian visualisointi",
+        description: "Kaaosteorian periaatteiden interaktiivinen tutkiminen",
+        what: "Interaktiivinen verkkosovellus, joka visualisoi kaaosteorian käsitteitä, kuten perhosen vaikutusta",
+        learned: "Edistynyt canvas-manipulointi, matemaattinen mallinnus ja interaktiivisen visualisoinnin tekniikat",
+        why: "Tehdä monimutkaisista matemaattisista käsitteistä intuitiivisempia ja helpommin lähestyttäviä",
+      },
+      sv: {
+        title: "Visualisering av kaosteori",
+        description: "Interaktiv utforskning av kaosteoriprinciper",
+        what: "En interaktiv webbapplikation som visualiserar kaosteorikoncept som fjärilseffekten",
+        learned: "Avancerad canvas-manipulation, matematisk modellering och interaktiva visualiseringstekniker",
+        why: "För att göra komplexa matematiska koncept mer intuitiva och tillgängliga",
+      },
+      tok: {
+        title: "Chaos theory visualization",
+        description: "Interactive exploration of chaos theory principles",
+        what: "An interactive web application visualizing chaos theory concepts like the butterfly effect",
+        learned: "Advanced canvas manipulation, mathematical modeling, and interactive visualization techniques",
+        why: "To make complex mathematical concepts more intuitive and accessible",
+      },
     },
     tags: ["mathematics", "visualization", "canvas"],
     status: "in-progress",
@@ -397,6 +642,41 @@ export const projects: Project[] = [
         what: "Kedi ilhamlı algoritmaları keşfeden son derece deneysel bir proje",
         learned: "En son AI teknikleri ve alışılmadık problem çözme yaklaşımları",
         why: "Çünkü kediler kaos ve yaratıcılık için nihai ilham kaynağıdır",
+      },
+      zh: {
+        title: "秘密猫项目",
+        description: "涉及猫的神秘事物...",
+        what: "一个高度实验性的项目，探索受猫启发的算法",
+        learned: "尖端的人工智能技术和非常规的问题解决方法",
+        why: "因为猫是混沌和创造力的终极灵感",
+      },
+      pl: {
+        title: "Tajny projekt kotów",
+        description: "Coś tajemniczego związanego z kotami...",
+        what: "Wysoce eksperymentalny projekt eksplorujący algorytmy inspirowane kotami",
+        learned: "Nowatorskie techniki AI i niekonwencjonalne podejścia do rozwiązywania problemów",
+        why: "Ponieważ koty są ostateczną inspiracją dla chaosu i kreatywności",
+      },
+      fi: {
+        title: "Salainen kissaprojekti",
+        description: "Jotain salaperäistä, joka liittyy kissoihin...",
+        what: "Erittäin kokeellinen projekti, joka tutkii kissoista inspiroituja algoritmeja",
+        learned: "Huipputason tekoälytekniikat ja epätavalliset ongelmanratkaisumenetelmät",
+        why: "Koska kissat ovat kaaoksen ja luovuuden lopullinen inspiraatio",
+      },
+      sv: {
+        title: "Hemligt kattprojekt",
+        description: "Något mystiskt som involverar katter...",
+        what: "Ett mycket experimentellt projekt som utforskar kattinspirerade algoritmer",
+        learned: "Banbrytande AI-tekniker och okonventionella problemlösningsmetoder",
+        why: "För att katter är den ultimata inspirationen för kaos och kreativitet",
+      },
+      tok: {
+        title: "Secret cat project",
+        description: "Something mysterious involving cats...",
+        what: "A highly experimental project exploring feline-inspired algorithms",
+        learned: "Cutting-edge AI techniques and unconventional problem-solving approaches",
+        why: "Because cats are the ultimate inspiration for chaos and creativity",
       },
     },
     tags: ["experimental", "cats", "ai"],
