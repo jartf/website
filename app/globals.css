@@ -51,11 +51,11 @@
 
   /* Language-specific font settings */
   html[lang="ru"] {
-    font-family: var(--font-roboto), sans-serif;
+    font-family: var(--font-lexend), var(--font-roboto), sans-serif;
   }
 
   html[lang="ru"] body {
-    font-family: var(--font-roboto), sans-serif;
+    font-family: var(--font-lexend), var(--font-roboto), sans-serif;
   }
 
   html[lang="ru"] h1,
@@ -64,7 +64,15 @@
   html[lang="ru"] h4,
   html[lang="ru"] h5,
   html[lang="ru"] h6 {
-    font-family: var(--font-roboto), sans-serif;
+    font-family: var(--font-space-grotesk), var(--font-roboto), sans-serif;
+  }
+
+  /* Ensure common text and UI elements use Chinese stack under zh */
+  html[lang="ru"] :where(
+    p, span, a, li, button, label, small, strong, em, div, blockquote,
+    input, textarea, select, option, summary, figcaption, code, kbd, samp
+  ) {
+    font-family: var(--font-lexend), var(--font-roboto), sans-serif;
   }
 
   /* Chinese language font settings */
@@ -85,13 +93,21 @@
     font-family: var(--font-noto-sans-sc), sans-serif;
   }
 
+  /* Ensure common text and UI elements use Chinese stack under zh */
+  html[lang="zh"] :where(
+    p, span, a, li, button, label, small, strong, em, div, blockquote,
+    input, textarea, select, option, summary, figcaption, code, kbd, samp
+  ) {
+    font-family: var(--font-lexend), var(--font-noto-sans-sc), sans-serif;
+  }
+
   /* Hán Nôm (vih) language font settings */
   html[lang="vih"] {
-    font-family: var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
+    font-family: var(--font-lexend), var(--font-space-grotesk), var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
   }
 
   html[lang="vih"] body {
-    font-family: var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
+    font-family: var(--font-lexend), var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
   }
 
   html[lang="vih"] h1,
@@ -100,7 +116,7 @@
   html[lang="vih"] h4,
   html[lang="vih"] h5,
   html[lang="vih"] h6 {
-    font-family: var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
+    font-family: var(--font-space-grotesk), var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
   }
 
   /* Ensure common text and UI elements use Han Nôm stack under vih */
@@ -108,7 +124,7 @@
     p, span, a, li, button, label, small, strong, em, div, blockquote,
     input, textarea, select, option, summary, figcaption, code, kbd, samp
   ) {
-    font-family: var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
+    font-family:  var(--font-lexend), var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
   }
 }
 
