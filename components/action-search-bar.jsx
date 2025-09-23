@@ -52,6 +52,7 @@ import { useMounted } from "@/hooks/use-mounted"
 import { projects } from "@/content/project-items"
 import { nowItems } from "@/content/now-items"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"
+import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 
 /**
  * @typedef {Object} Action
@@ -64,10 +65,6 @@ import { KeyboardShortcut } from "@/components/keyboard-shortcut"
  * @property {Function} action - Function to execute when the action is selected
  * @property {string[]} [showOn] - Optional array of paths where this action should be shown
  */
-
-// Constants for supported languages and themes
-const SUPPORTED_LANGUAGES = ["en", "vi", "et", "ru", "da", "tr", "zh"]
-const SUPPORTED_THEMES = ["light", "dark", "system"]
 
 export function ActionSearchBar() {
   const router = useRouter()
