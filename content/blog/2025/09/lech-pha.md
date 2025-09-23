@@ -1,6 +1,6 @@
 ---
 title: "Lệch pha"
-excerpt: "Tôi học kinh té, nhưng ai cũng bảo tôi giống dân IT. Thực ra tôi thấy mình chẳng ăn khớp hoàn toàn với cả hai, và đó chính là cái \"lệch\" tôi muốn nói."
+excerpt: "Tôi học kinh tế, nhưng ai cũng bảo tôi giống dân IT. Thực ra tôi thấy mình chẳng ăn khớp hoàn toàn với cả hai, và đó chính là cái \"lệch\" tôi muốn nói."
 date: "2025-09-16T16:45:16Z"
 mood: "optimistic"
 catApproved: true
