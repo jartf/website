@@ -40,7 +40,12 @@ if (!i18next.isInitialized) {
     .use(initReactI18next)
     .init({
       resources: bundledTranslations,
-      fallbackLng: "en",
+      fallbackLng: (code) => {
+        // Special fallback: if "vih", fallback to "vi"
+        if (Array.isArray(code)) code = code[0]
+        if (code === "vih") return ["vi", "en"]
+        return ["en"]
+      },
       interpolation: { escapeValue: false },
       detection: {
         order: ["querystring", "cookie", "localStorage", "navigator", "htmlTag"],
