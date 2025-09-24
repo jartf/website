@@ -13,6 +13,7 @@ import localFont from "next/font/local"
 
 // Latin + Cyrillic font for headings
 const spaceGrotesk = Space_Grotesk({
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-space-grotesk",
   display: "swap",
@@ -20,6 +21,7 @@ const spaceGrotesk = Space_Grotesk({
 
 // Latin font for body text
 const lexend = Lexend({
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-lexend",
   display: "swap",
