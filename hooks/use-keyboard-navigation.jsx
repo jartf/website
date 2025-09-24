@@ -81,7 +81,12 @@ export function useKeyboardNavigation() {
    */
   const cycleLanguage = useCallback(() => {
     const currentLang = i18n.language || "en"
-    let langIndex = SUPPORTED_LANGUAGES.findIndex((lang) => currentLang.startsWith(lang))
+    // Try exact match first
+    let langIndex = SUPPORTED_LANGUAGES.indexOf(currentLang)
+    // If not found, fallback to prefix match
+    if (langIndex === -1) {
+      langIndex = SUPPORTED_LANGUAGES.findIndex((lang) => currentLang.startsWith(lang))
+    }
     if (langIndex === -1) langIndex = 0
     const nextLangIndex = (langIndex + 1) % SUPPORTED_LANGUAGES.length
     const nextLang = SUPPORTED_LANGUAGES[nextLangIndex]
