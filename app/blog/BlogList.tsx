@@ -272,7 +272,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
   // Map language codes to display names with i18n + safe fallback to endonyms
   const getLanguageName = (code: string): string => {
-    return t(`language.${code}`, LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code)
+    return t(`language.${code}`, LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code).toString()
   }
 
   if (safeBlogPosts.length === 0) {
