@@ -15,6 +15,7 @@ import {
   LANGUAGE_FONT_CLASSES,
 } from "@/lib/constants"
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill"
+import fuzzysort from "fuzzysort"
 
 /**
  * Language toggle component that allows switching between supported languages
@@ -64,13 +65,39 @@ export function LanguageToggle() {
     (lang) => !MAIN_LANGUAGES.includes(lang) && !OTHER_LANGUAGES.includes(lang)
   )
 
-  // Filter helper
-  const filterLanguages = (list) =>
-    list.filter(
-      (lang) =>
-        LANGUAGE_NAMES[lang].toLowerCase().includes(search.toLowerCase()) ||
-        lang.toLowerCase().includes(search.toLowerCase())
-    )
+  // Language aliases for search
+  const LANGUAGE_ALIASES = {
+    vi: ["Vietnamese", "Tieng Viet"],
+    et: ["Estonian"],
+    ru: ["Russian", "Russkiy"],
+    da: ["Danish"],
+    zh: ["Chinese", "Zhongwen", "Hanyu"],
+    tr: ["Turkish", "Turkce"],
+    pl: ["Polish"],
+    sv: ["Swedish"],
+    fi: ["Finnish"],
+    tok: ["language of the good"],
+    vih: ["Vietnamese", "Han Nom", "Hannom"],
+  }
+
+  // Build fuzzy search list
+  const buildSearchList = (list) =>
+    list.map(lang => ({
+      lang,
+      terms: [
+        LANGUAGE_NAMES[lang] || "",
+        lang,
+        ...(LANGUAGE_ALIASES[lang] || [])
+      ].join(" ")
+    }))
+
+  // Fuzzy filter helper
+  const filterLanguages = (list) => {
+    if (!search.trim()) return list
+    const searchList = buildSearchList(list)
+    const results = fuzzysort.go(search, searchList, { key: "terms" })
+    return results.map(r => r.obj.lang)
+  }
 
   // Helper to render a language item
   const renderLanguageItem = (language) => (
