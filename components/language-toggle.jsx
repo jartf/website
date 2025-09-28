@@ -104,7 +104,7 @@ export function LanguageToggle() {
         className="grid grid-cols-1 md:grid-cols-2 gap-1"
       >
         {/* Search bar */}
-        <div className="col-span-2 px-2 pb-2">
+        <div className="col-span-2 px-2 pt-1 pb-2">
           <input
             type="text"
             value={search}
