@@ -15,6 +15,10 @@
     "dismiss": "Kapat"
   },
   "language": {
+    "main": "Ana diller",
+    "beta": "Beta diller",
+    "other": "Diğer diller",
+    "auto": "Otomatik (tarayıcı dili)",
     "en": "İngilizce",
     "vi": "Vietnamca",
     "et": "Estonca",

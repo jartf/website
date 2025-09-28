@@ -15,6 +15,10 @@
     "dismiss": "Stäng"
   },
   "language": {
+    "main": "Huvudspråk",
+    "beta": "Språk i beta",
+    "other": "Andra språk",
+    "auto": "Auto (webbläsarspråk)",
     "en": "Engelska",
     "vi": "Vietnamesiska",
     "ru": "Ryska",

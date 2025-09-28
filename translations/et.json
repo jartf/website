@@ -15,6 +15,10 @@
     "dismiss": "Sule"
   },
   "language": {
+    "main": "Põhikeeled",
+    "beta": "Keeled beetaversioonis",
+    "other": "Teised keeled",
+    "auto": "Auto (brauseri keel)",
     "en": "Inglise",
     "vi": "Vietnami",
     "et": "Eesti",

@@ -15,6 +15,10 @@
     "dismiss": "Zamknij"
   },
   "language": {
+    "main": "Główne języki",
+    "beta": "Języki w wersji beta",
+    "other": "Inne języki",
+    "auto": "Auto (język przeglądarki)",
     "en": "Angielski",
     "vi": "Wietnamski",
     "ru": "Rosyjski",

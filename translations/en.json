@@ -15,6 +15,10 @@
     "dismiss": "Dismiss"
   },
   "language": {
+    "main": "Main languages",
+    "beta": "Languages in beta",
+    "other": "Other languages",
+    "auto": "Auto (browser language)",
     "en": "English",
     "vi": "Vietnamese",
     "ru": "Russian",

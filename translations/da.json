@@ -15,6 +15,10 @@
     "dismiss": "Afvis"
   },
   "language": {
+    "main": "Hovedsprog",
+    "beta": "Sprog i beta",
+    "other": "Andre sprog",
+    "auto": "Auto (browser-sprog)",
     "en": "Engelsk",
     "vi": "Vietnamesisk",
     "ru": "Russisk",

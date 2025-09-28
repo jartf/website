@@ -15,6 +15,10 @@
     "dismiss": "Đóng"
   },
   "language": {
+    "main": "Ngôn ngữ chính",
+    "beta": "Ngôn ngữ đang xây dựng",
+    "other": "Ngôn ngữ khác",
+    "auto": "Tự động chọn theo ngôn ngữ trình duyệt",
     "en": "Tiếng Anh",
     "vi": "Tiếng Việt",
     "et": "Tiếng Estonia",

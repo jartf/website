@@ -15,6 +15,10 @@
     "dismiss": "weka"
   },
   "language": {
+    "main": "toki suli",
+    "beta": "toki pi pali",
+    "other": "toki ante",
+    "auto": "Auto (toki pi ilo lukin)",
     "en": "toki Inli",
     "vi": "toki Wije",
     "ru": "toki Losi",
