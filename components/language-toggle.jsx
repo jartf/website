@@ -71,7 +71,10 @@ export function LanguageToggle() {
           <span className="sr-only">Toggle language</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent
+        align="end"
+        className="grid grid-cols-1 md:grid-cols-2 gap-1"
+      >
         {SUPPORTED_LANGUAGES.map((language) => (
           <DropdownMenuItem
             key={language}
