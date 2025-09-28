@@ -21,7 +21,7 @@ import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill"
  * @returns {JSX.Element|null} The language toggle dropdown or null if not mounted
  */
 export function LanguageToggle() {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const mounted = useMounted()
   const { trackLanguage, checkAllLanguagesVisited } = useLanguageTracker()
   const [isWindows, setIsWindows] = useState(false)
@@ -94,17 +94,17 @@ export function LanguageToggle() {
         align="end"
         className="grid grid-cols-1 md:grid-cols-2 gap-1"
       >
-        <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">Main languages</div>
+        <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">{t("language.main", "Main languages")}</div>
         {MAIN_LANGUAGES.map(renderLanguageItem)}
 
         {BETA_LANGUAGES.length > 0 && (
           <>
-            <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">Languages in beta</div>
+            <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">{t("language.beta", "Languages in beta")}</div>
             {BETA_LANGUAGES.map(renderLanguageItem)}
           </>
         )}
 
-        <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">Other languages</div>
+        <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">{t("language.other", "Other languages")}</div>
         {OTHER_LANGUAGES.map(renderLanguageItem)}
       </DropdownMenuContent>
     </DropdownMenu>
