@@ -56,6 +56,25 @@ export function LanguageToggle() {
     return <span className={`mr-2 ${isWindows ? "emoji-flag" : ""}`}>{LANGUAGE_FLAGS[language]}</span>
   }
 
+  // Language classification
+  const MAIN_LANGUAGES = ["en", "vi", "et", "ru", "da", "zh"]
+  const OTHER_LANGUAGES = ["tok", "vih"]
+  const BETA_LANGUAGES = SUPPORTED_LANGUAGES.filter(
+    (lang) => !MAIN_LANGUAGES.includes(lang) && !OTHER_LANGUAGES.includes(lang)
+  )
+
+  // Helper to render a language item
+  const renderLanguageItem = (language) => (
+    <DropdownMenuItem
+      key={language}
+      onClick={() => handleLanguageChange(language)}
+      className={`${currentLanguage === language ? "bg-accent text-accent-foreground" : ""} ${LANGUAGE_FONT_CLASSES[language]}`}
+    >
+      {renderFlag(language)}
+      {LANGUAGE_NAMES[language]}
+    </DropdownMenuItem>
+  )
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -75,16 +94,18 @@ export function LanguageToggle() {
         align="end"
         className="grid grid-cols-1 md:grid-cols-2 gap-1"
       >
-        {SUPPORTED_LANGUAGES.map((language) => (
-          <DropdownMenuItem
-            key={language}
-            onClick={() => handleLanguageChange(language)}
-            className={`${currentLanguage === language ? "bg-accent text-accent-foreground" : ""} ${LANGUAGE_FONT_CLASSES[language]}`}
-          >
-            {renderFlag(language)}
-            {LANGUAGE_NAMES[language]}
-          </DropdownMenuItem>
-        ))}
+        <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">Main languages</div>
+        {MAIN_LANGUAGES.map(renderLanguageItem)}
+
+        {BETA_LANGUAGES.length > 0 && (
+          <>
+            <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">Languages in beta</div>
+            {BETA_LANGUAGES.map(renderLanguageItem)}
+          </>
+        )}
+
+        <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">Other languages</div>
+        {OTHER_LANGUAGES.map(renderLanguageItem)}
       </DropdownMenuContent>
     </DropdownMenu>
   )
