@@ -28,6 +28,7 @@
     "date-fns": "latest",
     "framer-motion": "latest",
     "fs": "latest",
+    "fuzzysort": "^3.1.0",
     "gray-matter": "latest",
     "i18next": "latest",
     "i18next-browser-languagedetector": "latest",
