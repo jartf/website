@@ -115,18 +115,32 @@ export function LanguageToggle() {
           />
         </div>
 
-        <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">{t("language.main", "Main languages")}</div>
-        {filterLanguages(MAIN_LANGUAGES).map(renderLanguageItem)}
-
-        {BETA_LANGUAGES.length > 0 && (
+        {filterLanguages(MAIN_LANGUAGES).length > 0 && (
           <>
-            <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">{t("language.beta", "Languages in beta")}</div>
+            <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">
+              {t("language.main", "Main languages")}
+            </div>
+            {filterLanguages(MAIN_LANGUAGES).map(renderLanguageItem)}
+          </>
+        )}
+
+        {filterLanguages(BETA_LANGUAGES).length > 0 && (
+          <>
+            <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">
+              {t("language.beta", "Languages in beta")}
+            </div>
             {filterLanguages(BETA_LANGUAGES).map(renderLanguageItem)}
           </>
         )}
 
-        <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">{t("language.other", "Other languages")}</div>
-        {filterLanguages(OTHER_LANGUAGES).map(renderLanguageItem)}
+        {filterLanguages(OTHER_LANGUAGES).length > 0 && (
+          <>
+            <div className="col-span-2 px-2 py-1 text-xs font-semibold text-muted-foreground">
+              {t("language.other", "Other languages")}
+            </div>
+            {filterLanguages(OTHER_LANGUAGES).map(renderLanguageItem)}
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )
