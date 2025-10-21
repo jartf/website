@@ -71,4 +71,4 @@ If you come across an issue or notice something that could be improved, feel fre
 
 ## License
 
-This project is distributed under the Nolicense license. See the `LICENSE` file for more information.
+This project is distributed under the Unlicense license. See the `LICENSE` file for more information.
