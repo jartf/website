@@ -142,7 +142,6 @@ export default function TetrisGame() {
   const [completedRows, setCompletedRows] = useState([])
   const [isPaused, setIsPaused] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [showStatusBar, setShowStatusBar] = useState(true)
   const [isMobileView, setIsMobileView] = useState(false)
   const { isDesktop } = usePlatform()
   const audioRef = useRef(null)

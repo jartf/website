@@ -133,6 +133,10 @@ const moodCats: MoodCat[] = [
   },
 ]
 
+/**
+ * A component that displays a random "mood cat" with a caption and attribution.
+ * @returns {JSX.Element} The mood cat component.
+ */
 export function MoodCat() {
   const { t } = useTranslation()
   const [currentCat, setCurrentCat] = useState<MoodCat | null>(null)

@@ -9,6 +9,11 @@ import { nowItems } from "@/content/now-items"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
+/**
+ * The client-side component for the "Now" page.
+ * This component displays what the author is currently focused on, including their listening habits.
+ * @returns {JSX.Element | null} The rendered "Now" page client component.
+ */
 export default function NowClientPage() {
   const { t, i18n } = useTranslation()
   const { theme } = useTheme()
@@ -29,7 +34,6 @@ export default function NowClientPage() {
 
   // Fetch Last.fm recent tracks for "listening" section
   useEffect(() => {
-    let interval: NodeJS.Timeout
     const fetchLastfm = async () => {
       try {
         const res = await fetch(
@@ -82,11 +86,12 @@ export default function NowClientPage() {
         setLastfmTrack({ name, artist, url, nowplaying, date })
         setLastfmError(false)
       } catch (e) {
+        console.error("Failed to fetch Last.fm data:", e)
         setLastfmError(true)
       }
     }
     fetchLastfm()
-    interval = setInterval(fetchLastfm, 60000)
+    const interval = setInterval(fetchLastfm, 60000)
     return () => clearInterval(interval)
   }, [])
 
@@ -233,7 +238,7 @@ export default function NowClientPage() {
           </div>
 
           <motion.div className="space-y-8" variants={container} initial="hidden" animate="show">
-            {categories.map((category, index) => {
+            {categories.map((category) => {
               const Icon = category.icon
               return (
                 <motion.div

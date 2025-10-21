@@ -13,8 +13,13 @@ import type { Project } from "@/content/project-items"
 import { useCurrentLanguage } from "@/hooks/use-current-language"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"
 
+/**
+ * The client-side component for the projects page.
+ * This component displays a grid of projects and handles card flipping and keyboard navigation.
+ * @returns {JSX.Element | null} The rendered projects page client component.
+ */
 export default function ProjectsPageClient() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { theme } = useTheme()
   const [showHidden, setShowHidden] = useState(false)
   const [flippedCard, setFlippedCard] = useState<number | null>(null)

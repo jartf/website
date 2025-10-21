@@ -15,11 +15,16 @@ type NavigationProps = {
   }
 }
 
+/**
+ * A component that displays navigation links to the previous and next blog posts.
+ * @param {NavigationProps} props - The component props.
+ * @returns {JSX.Element | null} The rendered blog post navigation component.
+ */
 export function BlogPostNavigation({ navigation }: NavigationProps) {
   // Inside the BlogPostNavigation component, add the router
   const router = useRouter()
   const { prev, next } = navigation
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   // Update the keyboard navigation to use router.push instead of window.location
   useEffect(() => {

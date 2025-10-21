@@ -27,8 +27,7 @@ function readBlogPostFile(filePath: string): { content: string; data: any } | nu
   try {
     const fileContents = fs.readFileSync(filePath, "utf8")
     return matter(fileContents)
-  } catch (error) {
-    console.error(`Error reading blog post file ${filePath}:`, error)
+  } catch {
     return null
   }
 }
@@ -219,6 +218,7 @@ export async function generateMetadata({ params }: { params: { slug: string[] | 
       },
     }
   } catch (error) {
+    console.error("Error generating metadata for blog post:", error)
     return baseGenerateMetadata({ title: "Blog Post Not Found" })
   }
 }

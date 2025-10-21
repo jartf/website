@@ -4,7 +4,11 @@ import matter from "gray-matter"
 import { generateMetadata } from "@/lib/metadata"
 import HomeClient from "./HomeClient"
 
-// Helper to recursively get all .md files in a directory and its subdirectories
+/**
+ * Recursively gets all .md files in a directory and its subdirectories.
+ * @param {string} dir - The directory to search.
+ * @returns {string[]} - A list of all markdown files.
+ */
 function getAllMarkdownFiles(dir) {
   let results = []
   const list = fs.readdirSync(dir)
@@ -20,6 +24,10 @@ function getAllMarkdownFiles(dir) {
   return results
 }
 
+/**
+ * Gets all blog posts from the content/blog directory.
+ * @returns {Promise<Object[]>} - A promise that resolves to a list of all blog posts.
+ */
 async function getBlogPosts() {
   try {
     const postsDirectory = path.join(process.cwd(), "content/blog")
@@ -75,6 +83,10 @@ export const metadata = generateMetadata({
   isHomePage: true,
 })
 
+/**
+ * The home page component.
+ * @returns {JSX.Element} The home page component.
+ */
 export default async function Home() {
   const blogPosts = await getBlogPosts()
   return <HomeClient blogPosts={blogPosts} />

@@ -15,8 +15,16 @@ import { nowItems } from "@/content/now-items"
 import { LucideHeadphones } from "lucide-react"
 
 /**
- * Home page client component
- * @returns {JSX.Element} The home page component
+ * The client-side component for the home page.
+ * This component handles the dynamic aspects of the home page, such as:
+ * - Greeting the user based on the time of day.
+ * - Fetching and displaying the latest track from Last.fm.
+ * - Displaying the latest "now" entry.
+ * - Filtering and displaying recent blog posts based on the current language.
+ *
+ * @param {Object} props - The component props.
+ * @param {Array} [props.blogPosts=[]] - An array of blog post objects.
+ * @returns {JSX.Element} The rendered home page client component.
  */
 export default function Home({ blogPosts = [] }) {
   const { t, i18n } = useTranslation()
@@ -186,7 +194,11 @@ export default function Home({ blogPosts = [] }) {
   }
   const recentPosts = filtered.slice(0, 3)
 
-  // Helper for verbose date
+  /**
+   * Formats a date string into a verbose, human-readable format.
+   * @param {string} dateStr - The date string to format.
+   * @returns {string} The formatted date string.
+   */
   const formatVerboseDate = (dateStr) => {
     const date = new Date(dateStr)
     return date.toLocaleDateString(i18n.language || "en", { year: 'numeric', month: 'long', day: 'numeric' })

@@ -23,6 +23,12 @@ interface BlogPostClientProps {
   slug: string
   alternateLanguages?: { language: string; slug: string; title: string }[]
 }
+/**
+ * The client-side component for a blog post.
+ * This component displays the blog post content, metadata, and related posts.
+ * @param {BlogPostClientProps} props - The component props.
+ * @returns {JSX.Element} The rendered blog post client component.
+ */
 export default function BlogPostClient({
   post,
   date,
@@ -34,7 +40,7 @@ export default function BlogPostClient({
   const currentLang = useCurrentLanguage()
   const formattedDate = formatDate(date, currentLang)
   const prefersReducedMotion = useReducedMotion()
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   // Helper function to get full language name from code (i18n + fallback to endonym)
   const getFullLanguageName = (code: string): string => {

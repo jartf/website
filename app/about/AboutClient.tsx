@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { useTheme } from "next-themes"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useMounted } from "@/hooks/use-mounted"
@@ -14,9 +13,16 @@ import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 
 const chapters = [1, 2, 3, 4, 5, 6]
 
+/**
+ * The client-side component for the about page.
+ * This component handles the dynamic aspects of the about page, such as:
+ * - Tracking the active chapter based on scroll position.
+ * - Handling keyboard navigation to jump between chapters.
+ * - Displaying a hidden chapter when unlocked.
+ * @returns {JSX.Element | null} The rendered about page client component.
+ */
 export default function AboutPageClient() {
   const { t } = useTranslation()
-  const { theme } = useTheme()
   const [activeChapter, setActiveChapter] = useState(1)
   const [showHiddenChapter, setShowHiddenChapter] = useState(false)
   const chapterRefs = useRef<Array<HTMLDivElement | null>>([])
