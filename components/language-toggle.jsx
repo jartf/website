@@ -69,7 +69,7 @@ export function LanguageToggle() {
   const LANGUAGE_ALIASES = {
     vi: ["Vietnamese", "Tieng Viet"],
     et: ["Estonian"],
-    ru: ["Russian", "Russkiy"],
+    ru: ["Russian", "Russkii", "Russkiy"],
     da: ["Danish"],
     zh: ["Chinese", "Zhongwen", "Hanyu"],
     tr: ["Turkish", "Turkce"],
