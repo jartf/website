@@ -1,4 +1,5 @@
 import { Space_Grotesk, Lexend, Roboto, Noto_Sans_SC } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { I18nProvider } from "@/components/i18n-provider"
@@ -9,9 +10,9 @@ import { Galaxy } from "@/components/galaxy/galaxy"
 import { KeyboardNavigation } from "@/components/keyboard-navigation"
 import { ActionSearchBar } from "@/components/action-search-bar"
 import { MotionProvider } from "@/components/motion-provider"
-import localFont from "next/font/local"
+import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 
-// Latin + Cyrillic font for headings
+// Font configurations
 const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
@@ -19,7 +20,6 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 })
 
-// Latin font for body text
 const lexend = Lexend({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
@@ -27,7 +27,6 @@ const lexend = Lexend({
   display: "swap",
 })
 
-// Cyrillic support font
 const roboto = Roboto({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
@@ -36,7 +35,6 @@ const roboto = Roboto({
   preload: false,
 })
 
-// Chinese (CJK) support font
 const notoSansSC = Noto_Sans_SC({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
@@ -45,7 +43,6 @@ const notoSansSC = Noto_Sans_SC({
   preload: false,
 })
 
-// Hán Nôm font
 const hanNom = localFont({
   src: "../public/fonts/Han-Nom-Gothic.otf",
   variable: "--font-han-nom",
@@ -53,7 +50,19 @@ const hanNom = localFont({
   preload: false,
 })
 
-// Update the metadata in the root layout
+// Helper to generate feed URLs
+const generateFeedUrls = (type, ext, mimeType) => {
+  const baseTitle = "Jarema's digital garden"
+  return [
+    { url: `${type}.${ext}`, title: `${baseTitle} - ${type.toUpperCase()} Feed` },
+    ...SUPPORTED_LANGUAGES.map((lang) => ({
+      url: `${type}/${lang}.${ext}`,
+      title: `${baseTitle} - ${lang.charAt(0).toUpperCase() + lang.slice(1)} ${type.toUpperCase()} Feed`,
+      hreflang: lang,
+    })),
+  ]
+}
+
 export const metadata = {
   description:
     "A personal playground and digital garden for Jarema - featuring projects, blog posts, and multilingual content about economics, coding, and more.",
@@ -65,14 +74,7 @@ export const metadata = {
     locale: "en_US",
     url: "https://jarema.me/",
     siteName: "Jarema's digital garden",
-    images: [
-      {
-        url: "/android-chrome-512x512.png",
-        width: 512,
-        height: 512,
-        alt: "Jarema's digital garden",
-      },
-    ],
+    images: [{ url: "/android-chrome-512x512.png", width: 512, height: 512, alt: "Jarema's digital garden" }],
   },
   twitter: {
     card: "summary",
@@ -92,63 +94,11 @@ export const metadata = {
   metadataBase: new URL("https://jarema.me"),
   alternates: {
     canonical: "/",
-    languages: {
-      en: "/",
-      vi: "/",
-      vih: "/",
-      et: "/",
-      ru: "/",
-      da: "/",
-      tr: "/",
-      zh: "/",
-      pl: "/",
-      sv: "/",
-      fi: "/",
-      tok: "/",
-    },
+    languages: Object.fromEntries(SUPPORTED_LANGUAGES.map((lang) => [lang, "/"])),
     types: {
-      "application/rss+xml": [
-        { url: "rss.xml", title: "Jarema's digital garden - RSS Feed" },
-        { url: "rss/en.xml", title: "Jarema's digital garden - English RSS Feed", hreflang: "en" },
-        { url: "rss/vi.xml", title: "Jarema's digital garden - Vietnamese RSS Feed", hreflang: "vi" },
-        { url: "rss/et.xml", title: "Jarema's digital garden - Estonian RSS Feed", hreflang: "et" },
-        { url: "rss/ru.xml", title: "Jarema's digital garden - Russian RSS Feed", hreflang: "ru" },
-        { url: "rss/da.xml", title: "Jarema's digital garden - Danish RSS Feed", hreflang: "da" },
-        { url: "rss/tr.xml", title: "Jarema's digital garden - Turkish RSS Feed", hreflang: "tr" },
-        { url: "rss/zh.xml", title: "Jarema's digital garden - Chinese RSS Feed", hreflang: "zh" },
-        { url: "rss/pl.xml", title: "Jarema's digital garden - Polish RSS Feed", hreflang: "pl" },
-        { url: "rss/sv.xml", title: "Jarema's digital garden - Swedish RSS Feed", hreflang: "sv" },
-        { url: "rss/fi.xml", title: "Jarema's digital garden - Finnish RSS Feed", hreflang: "fi" },
-        { url: "rss/tok.xml", title: "Jarema's digital garden - Toki Pona RSS Feed", hreflang: "tok" },
-      ],
-      "application/json": [
-        { url: "feed.json", title: "Jarema's digital garden - JSON Feed" },
-        { url: "feed/en.json", title: "Jarema's digital garden - English JSON Feed", hreflang: "en" },
-        { url: "feed/vi.json", title: "Jarema's digital garden - Vietnamese JSON Feed", hreflang: "vi" },
-        { url: "feed/et.json", title: "Jarema's digital garden - Estonian JSON Feed", hreflang: "et" },
-        { url: "feed/ru.json", title: "Jarema's digital garden - Russian JSON Feed", hreflang: "ru" },
-        { url: "feed/da.json", title: "Jarema's digital garden - Danish JSON Feed", hreflang: "da" },
-        { url: "feed/tr.json", title: "Jarema's digital garden - Turkish JSON Feed", hreflang: "tr" },
-        { url: "feed/zh.json", title: "Jarema's digital garden - Chinese JSON Feed", hreflang: "zh" },
-        { url: "feed/pl.json", title: "Jarema's digital garden - Polish JSON Feed", hreflang: "pl" },
-        { url: "feed/sv.json", title: "Jarema's digital garden - Swedish JSON Feed", hreflang: "sv" },
-        { url: "feed/fi.json", title: "Jarema's digital garden - Finnish JSON Feed", hreflang: "fi" },
-        { url: "feed/tok.json", title: "Jarema's digital garden - Toki Pona JSON Feed", hreflang: "tok" },
-      ],
-      "application/atom+xml": [
-        { url: "atom.xml", title: "Jarema's digital garden - Atom Feed" },
-        { url: "atom/en.xml", title: "Jarema's digital garden - English Atom Feed", hreflang: "en" },
-        { url: "atom/vi.xml", title: "Jarema's digital garden - Vietnamese Atom Feed", hreflang: "vi" },
-        { url: "atom/et.xml", title: "Jarema's digital garden - Estonian Atom Feed", hreflang: "et" },
-        { url: "atom/ru.xml", title: "Jarema's digital garden - Russian Atom Feed", hreflang: "ru" },
-        { url: "atom/da.xml", title: "Jarema's digital garden - Danish Atom Feed", hreflang: "da" },
-        { url: "atom/tr.xml", title: "Jarema's digital garden - Turkish Atom Feed", hreflang: "tr" },
-        { url: "atom/zh.xml", title: "Jarema's digital garden - Chinese Atom Feed", hreflang: "zh" },
-        { url: "atom/pl.xml", title: "Jarema's digital garden - Polish Atom Feed", hreflang: "pl" },
-        { url: "atom/sv.xml", title: "Jarema's digital garden - Swedish Atom Feed", hreflang: "sv" },
-        { url: "atom/fi.xml", title: "Jarema's digital garden - Finnish Atom Feed", hreflang: "fi" },
-        { url: "atom/tok.xml", title: "Jarema's digital garden - Toki Pona Atom Feed", hreflang: "tok" },
-      ],
+      "application/rss+xml": generateFeedUrls("rss", "xml"),
+      "application/json": generateFeedUrls("feed", "json"),
+      "application/atom+xml": generateFeedUrls("atom", "xml"),
     },
   },
 }
@@ -258,27 +208,15 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                // Mark that JavaScript is enabled
                 document.documentElement.classList.add('js-enabled');
-
-                // Normalize and set HTML lang ASAP
                 try {
-                  var supported = ['en','vi','vih','et','ru','da','tr','zh','pl','sv','fi','tok'];
-                  var raw =
-                    (typeof localStorage !== 'undefined' && localStorage.getItem('i18nextLng')) ||
-                    (navigator.language || '');
-                  raw = (raw || '').toLowerCase();
-                  var lang = 'en';
-                  for (var i=0;i<supported.length;i++) {
-                    var s = supported[i];
-                    if (raw === s || raw.indexOf(s + '-') === 0) { lang = s; break; }
-                  }
+                  var supported = ${JSON.stringify(SUPPORTED_LANGUAGES)};
+                  var raw = (typeof localStorage !== 'undefined' && localStorage.getItem('i18nextLng')) || navigator.language || '';
+                  var lang = supported.find(function(s) { return raw.toLowerCase() === s || raw.toLowerCase().indexOf(s + '-') === 0; }) || 'en';
                   document.documentElement.setAttribute('lang', lang);
                 } catch (e) {
                   document.documentElement.setAttribute('lang', 'en');
                 }
-
-                // Hide the no-JS notice if it exists
                 document.addEventListener('DOMContentLoaded', function() {
                   var notice = document.querySelector('.js-disabled-notice');
                   if (notice) notice.style.display = 'none';

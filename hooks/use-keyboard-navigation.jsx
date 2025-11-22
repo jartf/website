@@ -4,25 +4,22 @@ import { useEffect, useState, useCallback } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { useTheme } from "next-themes"
-import { SUPPORTED_LANGUAGES } from "@/lib/constants"
+import { SUPPORTED_LANGUAGES, THEMES, KEYBOARD_SHORTCUTS, ROUTES } from "@/lib/constants"
 
-// Define supported themes
-const SUPPORTED_THEMES = ["light", "dark", "system"]
-
-// Define navigation shortcuts
+// Map keyboard shortcuts to routes
 const NAVIGATION_SHORTCUTS = {
-  h: "/",
-  a: "/about",
-  b: "/blog",
-  p: "/projects",
-  n: "/now",
-  u: "/uses",
-  c: "/contact",
-  l: "/colophon",
-  "/": "/slashes",
-  d: "/scrapbook",
-  z: "/2048",
-  t: "/tetris",
+  [KEYBOARD_SHORTCUTS.HOME]: ROUTES.HOME,
+  [KEYBOARD_SHORTCUTS.ABOUT]: ROUTES.ABOUT,
+  [KEYBOARD_SHORTCUTS.BLOG]: ROUTES.BLOG,
+  [KEYBOARD_SHORTCUTS.PROJECTS]: ROUTES.PROJECTS,
+  [KEYBOARD_SHORTCUTS.NOW]: ROUTES.NOW,
+  [KEYBOARD_SHORTCUTS.USES]: ROUTES.USES,
+  [KEYBOARD_SHORTCUTS.CONTACT]: ROUTES.CONTACT,
+  [KEYBOARD_SHORTCUTS.COLOPHON]: ROUTES.COLOPHON,
+  [KEYBOARD_SHORTCUTS.SLASHES]: ROUTES.SLASHES,
+  [KEYBOARD_SHORTCUTS.SCRAPBOOK]: ROUTES.SCRAPBOOK,
+  [KEYBOARD_SHORTCUTS.GAME_2048]: ROUTES.GAME_2048,
+  [KEYBOARD_SHORTCUTS.TETRIS]: ROUTES.TETRIS,
 }
 
 /**
@@ -71,8 +68,8 @@ export function useKeyboardNavigation() {
    */
   const cycleTheme = useCallback(() => {
     const currentTheme = theme || "system"
-    const themeIndex = SUPPORTED_THEMES.indexOf(currentTheme)
-    const nextTheme = SUPPORTED_THEMES[(themeIndex + 1) % SUPPORTED_THEMES.length]
+    const themeIndex = THEMES.indexOf(currentTheme)
+    const nextTheme = THEMES[(themeIndex + 1) % THEMES.length]
     setTheme(nextTheme)
   }, [theme, setTheme])
 
@@ -130,7 +127,7 @@ export function useKeyboardNavigation() {
       }
 
       // Check if we're in a game page
-      const isGamePage = pathname?.includes("/2048") || pathname?.includes("/tetris")
+      const isGamePage = pathname?.includes(ROUTES.GAME_2048) || pathname?.includes(ROUTES.TETRIS)
 
       // Only allow specific shortcuts in game pages
       if (isGamePage) {

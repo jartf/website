@@ -15,6 +15,7 @@ import { Menu, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useViewport } from "@/hooks/use-viewport"
 import { useMounted } from "@/hooks/use-mounted"
+import { NAV_ITEMS } from "@/lib/constants"
 
 /**
  * Header component with responsive navigation
@@ -32,80 +33,49 @@ export function Header() {
   useEffect(() => {
     if (!mounted) return
 
-    // Function to calculate overflow
     const calculateOverflow = () => {
-      // Only apply overflow logic for tablet sizes (768px to 1279px)
       if (windowWidth < 768 || windowWidth >= 1280 || !navRef.current) {
         setOverflowIndex(null)
         return
       }
 
-      // Get container width and account for the logo, toggles, and some padding
       const containerWidth = document.querySelector(".container")?.clientWidth || 0
-      const logoWidth = 120 // Approximate width of logo + padding
-      const togglesWidth = 150 // Approximate width of language/theme/music toggles
-      const moreButtonWidth = 48 // Width of the more button
-      const safetyMargin = 16 // Extra safety margin
-
-      // Calculate available width for nav items
-      const availableWidth = containerWidth - logoWidth - togglesWidth - moreButtonWidth - safetyMargin
+      const availableWidth = containerWidth - 120 - 150 - 48 - 16
 
       if (availableWidth <= 0) {
-        setOverflowIndex(0) // No space for nav items, all in overflow
+        setOverflowIndex(0)
         return
       }
 
       const navItems = Array.from(navRef.current.querySelectorAll('a[data-nav-item="true"]'))
-
       let totalWidth = 0
       let breakIndex = navItems.length
 
       for (let i = 0; i < navItems.length; i++) {
-        const item = navItems[i] as HTMLElement
-        // Add gap between items
-        totalWidth += item.offsetWidth + (i > 0 ? 24 : 0)
-
+        totalWidth += (navItems[i] as HTMLElement).offsetWidth + (i > 0 ? 24 : 0)
         if (totalWidth > availableWidth) {
           breakIndex = i
           break
         }
       }
 
-      // If all items fit, don't show overflow menu
-      if (totalWidth <= availableWidth) {
-        setOverflowIndex(null)
-      } else {
-        setOverflowIndex(breakIndex < navItems.length ? breakIndex : null)
-      }
+      setOverflowIndex(totalWidth <= availableWidth ? null : breakIndex < navItems.length ? breakIndex : null)
     }
 
-    // Initial calculation with a slight delay to ensure DOM is ready
-    const initialTimer = setTimeout(() => {
-      calculateOverflow()
-    }, 50)
-
-    // Recalculate on window resize
+    const timer = setTimeout(calculateOverflow, 50)
     window.addEventListener("resize", calculateOverflow)
-
-    // Clean up
     return () => {
-      clearTimeout(initialTimer)
+      clearTimeout(timer)
       window.removeEventListener("resize", calculateOverflow)
     }
   }, [mounted, windowWidth])
 
   if (!mounted) return null
 
-  const navItems = [
-    { href: "/", label: t("nav.home", "Home") },
-    { href: "/about", label: t("nav.about", "About") },
-    { href: "/projects", label: t("nav.projects", "Projects") },
-    { href: "/blog", label: t("nav.blog", "Blog") },
-    { href: "/now", label: t("nav.now", "Now") },
-    { href: "/uses", label: t("nav.uses", "Uses") },
-    { href: "/contact", label: t("nav.contact", "Contact") },
-    { href: "/colophon", label: t("nav.colophon", "Colophon") },
-  ]
+  const navItems = NAV_ITEMS.map((item) => ({
+    href: item.href,
+    label: t(`nav.${item.key}`, item.key.charAt(0).toUpperCase() + item.key.slice(1)),
+  }))
 
   const isActive = (path: string) => {
     if (path === "/" && pathname !== "/") return false
