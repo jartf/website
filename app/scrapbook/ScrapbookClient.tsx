@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import { Firefly } from "@/components/firefly"
 import { Calendar, Code, FileText } from "lucide-react"
+import { useMounted } from "@/hooks/use-mounted"
 
 type DevlogEntry = {
   date: string
@@ -24,11 +24,7 @@ interface ScrapbookClientProps {
  */
 export default function ScrapbookClient({ entries }: ScrapbookClientProps) {
   const { theme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   if (!mounted) return null
 

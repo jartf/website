@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import i18n from "i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
+import { useMounted } from "@/hooks/use-mounted"
 
 // Types for blog posts
 type BlogPostMetadata = {
@@ -49,7 +50,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const [filterLanguages, setFilterLanguages] = useState<string[]>([])
   const [filterCatApproved, setFilterCatApproved] = useState<boolean | null>(null)
   const [filteredPosts, setFilteredPosts] = useState<BlogPostMetadata[]>([])
-  const [mounted, setMounted] = useState(false)
+  const mounted = useMounted()
 
   const postRefs = useRef<(HTMLDivElement | null)[]>([])
   const router = useRouter()

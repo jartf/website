@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AlertCircle, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useMounted } from "@/hooks/use-mounted"
 
 /**
  * Component that displays a notice for non-English languages
@@ -12,11 +13,7 @@ import { motion, AnimatePresence } from "framer-motion"
 export function LanguageNotice() {
   const { i18n, t } = useTranslation()
   const [isVisible, setIsVisible] = useState(true)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   if (!mounted) return null
 

@@ -2,13 +2,13 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Firefly } from "@/components/firefly"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Slash, Home, User, Code, BookOpen, Clock, Mail, FileText, Wrench, Calendar } from "lucide-react"
+import { useMounted } from "@/hooks/use-mounted"
 
 type PageRoute = {
   path: string
@@ -24,11 +24,7 @@ type PageRoute = {
  */
 export default function SlashesPageClient() {
   const { theme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   if (!mounted) return null
 

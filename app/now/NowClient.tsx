@@ -8,6 +8,7 @@ import { Firefly } from "@/components/firefly"
 import { nowItems } from "@/content/now-items"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { useMounted } from "@/hooks/use-mounted"
 
 /**
  * The client-side component for the "Now" page.
@@ -17,7 +18,7 @@ import { Badge } from "@/components/ui/badge"
 export default function NowClientPage() {
   const { t, i18n } = useTranslation()
   const { theme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const mounted = useMounted()
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const [lastfmTrack, setLastfmTrack] = useState<{
     name: string
@@ -27,8 +28,6 @@ export default function NowClientPage() {
     date?: string
   } | null>(null)
   const [lastfmError, setLastfmError] = useState(false)
-
-  useEffect(() => {
     setMounted(true)
   }, [])
 

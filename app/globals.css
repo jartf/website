@@ -50,81 +50,37 @@
   }
 
   /* Language-specific font settings */
-  html[lang="ru"] {
+  html[lang="ru"],
+  html[lang="ru"] body,
+  html[lang="ru"] :where(p, span, a, li, button, label, small, strong, em, div, blockquote, input, textarea, select, option, summary, figcaption, code, kbd, samp) {
     font-family: var(--font-lexend), var(--font-roboto), sans-serif;
   }
 
-  html[lang="ru"] body {
-    font-family: var(--font-lexend), var(--font-roboto), sans-serif;
-  }
-
-  html[lang="ru"] h1,
-  html[lang="ru"] h2,
-  html[lang="ru"] h3,
-  html[lang="ru"] h4,
-  html[lang="ru"] h5,
-  html[lang="ru"] h6 {
+  html[lang="ru"] :where(h1, h2, h3, h4, h5, h6) {
     font-family: var(--font-space-grotesk), var(--font-roboto), sans-serif;
   }
 
-  /* Ensure common text and UI elements use Chinese stack under zh */
-  html[lang="ru"] :where(
-    p, span, a, li, button, label, small, strong, em, div, blockquote,
-    input, textarea, select, option, summary, figcaption, code, kbd, samp
-  ) {
-    font-family: var(--font-lexend), var(--font-roboto), sans-serif;
-  }
-
-  /* Chinese language font settings */
-  html[lang="zh"] {
-    font-family: var(--font-noto-sans-sc), sans-serif;
-  }
-
+  html[lang="zh"],
   html[lang="zh"] body {
     font-family: var(--font-noto-sans-sc), sans-serif;
   }
 
-  html[lang="zh"] h1,
-  html[lang="zh"] h2,
-  html[lang="zh"] h3,
-  html[lang="zh"] h4,
-  html[lang="zh"] h5,
-  html[lang="zh"] h6 {
+  html[lang="zh"] :where(h1, h2, h3, h4, h5, h6) {
     font-family: var(--font-noto-sans-sc), sans-serif;
   }
 
-  /* Ensure common text and UI elements use Chinese stack under zh */
-  html[lang="zh"] :where(
-    p, span, a, li, button, label, small, strong, em, div, blockquote,
-    input, textarea, select, option, summary, figcaption, code, kbd, samp
-  ) {
+  html[lang="zh"] :where(p, span, a, li, button, label, small, strong, em, div, blockquote, input, textarea, select, option, summary, figcaption, code, kbd, samp) {
     font-family: var(--font-lexend), var(--font-noto-sans-sc), sans-serif;
   }
 
-  /* Hán Nôm (vih) language font settings */
-  html[lang="vih"] {
-    font-family: var(--font-lexend), var(--font-space-grotesk), var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
-  }
-
-  html[lang="vih"] body {
+  html[lang="vih"],
+  html[lang="vih"] body,
+  html[lang="vih"] :where(p, span, a, li, button, label, small, strong, em, div, blockquote, input, textarea, select, option, summary, figcaption, code, kbd, samp) {
     font-family: var(--font-lexend), var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
   }
 
-  html[lang="vih"] h1,
-  html[lang="vih"] h2,
-  html[lang="vih"] h3,
-  html[lang="vih"] h4,
-  html[lang="vih"] h5,
-  html[lang="vih"] h6 {
+  html[lang="vih"] :where(h1, h2, h3, h4, h5, h6) {
     font-family: var(--font-space-grotesk), var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
-  }
-
-  /* Ensure common text and UI elements use Han Nôm stack under vih */
-  html[lang="vih"] :where(
-    p, span, a, li, button, label, small, strong, em, div, blockquote,
-    input, textarea, select, option, summary, figcaption, code, kbd, samp
-  ) {
-    font-family:  var(--font-lexend), var(--font-han-nom), var(--font-noto-sans-sc), sans-serif;
   }
 }
 
