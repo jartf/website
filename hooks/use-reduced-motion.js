@@ -11,13 +11,11 @@ export function useReducedMotion() {
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const handleChange = (e) => setPrefersReducedMotion(e.matches)
-    setPrefersReducedMotion(mediaQuery.matches)
-    
-    mediaQuery.addEventListener?.("change", handleChange) || mediaQuery.addListener?.(handleChange)
-    return () => mediaQuery.removeEventListener?.("change", handleChange) || mediaQuery.removeListener?.(handleChange)
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const handler = (e) => setPrefersReducedMotion(e.matches)
+    setPrefersReducedMotion(mq.matches)
+    mq.addEventListener?.("change", handler) || mq.addListener?.(handler)
+    return () => mq.removeEventListener?.("change", handler) || mq.removeListener?.(handler)
   }, [])
 
   return prefersReducedMotion
