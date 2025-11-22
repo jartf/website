@@ -18,7 +18,184 @@ type BlogPost = {
   tags?: string[]
   category?: string
   language?: string
-  alternates?: { language: string; slug: string }[]
+  alternates?: { language: string; slug: string }[] // <-- add this line
+}
+
+// Function to safely read a blog post file
+function readBlogPostFile(filePath: string): { content: string; data: any } | null {
+  try {
+    const fileContents = fs.readFileSync(filePath, "utf8")
+    return matter(fileContents)
+  } catch {
+    return null
+  }
+}
+
+// Helper to recursively get all .md files in a directory and its subdirectories
+function getAllMarkdownFiles(dir: string): string[] {
+  let results: string[] = []
+  const list = fs.readdirSync(dir)
+  list.forEach((file) => {
+    const filePath = path.join(dir, file)
+    const stat = fs.statSync(filePath)
+    if (stat && stat.isDirectory()) {
+      results = results.concat(getAllMarkdownFiles(filePath))
+    } else if (file.endsWith(".md")) {
+      results.push(filePath)
+    }
+  })
+  return results
+}
+
+// Function to get all blog posts for navigation
+async function getAllBlogPosts(): Promise<BlogPost[]> {
+  try {
+    const postsDirectory = path.join(process.cwd(), "content/blog")
+
+    if (!fs.existsSync(postsDirectory)) {
+      return []
+    }
+
+    // Get all .md files recursively
+    const filePaths = getAllMarkdownFiles(postsDirectory)
+
+    if (filePaths.length === 0) {
+      return []
+    }
+
+    const allPostsData = filePaths
+      .map((fullPath) => {
+        // Get slug relative to postsDirectory, remove .md extension, and replace backslashes with slashes
+        let slug = path.relative(postsDirectory, fullPath).replace(/\.md$/, "")
+        slug = slug.split(path.sep).join("/")
+
+        // Read markdown file as string
+        const matterResult = readBlogPostFile(fullPath)
+
+        if (!matterResult) return null
+
+        // Ensure all required metadata is present or provide defaults
+        return {
+          slug,
+          title: matterResult.data.title || "Untitled Post",
+          content: matterResult.content,
+          date: matterResult.data.date || new Date().toISOString(),
+          mood: matterResult.data.mood || "contemplative",
+          catApproved: matterResult.data.catApproved ?? true,
+          readingTime: matterResult.data.readingTime || 5,
+          tags: matterResult.data.tags || [],
+          category: matterResult.data.category || null,
+          language: matterResult.data.language || "en",
+          alternates: matterResult.data.alternates || [], // <-- add this line
+        } as BlogPost
+      })
+      .filter((post): post is BlogPost => post !== null)
+
+    // Sort posts by date
+    return allPostsData.sort((a, b) => {
+      if (a.date < b.date) {
+        return 1
+      } else {
+        return -1
+      }
+    })
+  } catch (error) {
+    console.error("Error fetching blog posts:", error)
+    return []
+  }
+}
+
+// Function to get a specific blog post
+async function getBlogPost(slugParam: string[] | string): Promise<BlogPost> {
+  try {
+    const postsDirectory = path.join(process.cwd(), "content/blog")
+    // Support slugs with subdirectories (e.g., 2024/07/app-defaults-2024)
+    const slugArr = Array.isArray(slugParam) ? slugParam : [slugParam]
+    const fullPath = path.join(postsDirectory, ...slugArr) + ".md"
+    const slug = slugArr.join("/")
+
+    const matterResult = readBlogPostFile(fullPath)
+
+    if (!matterResult) {
+      throw new Error(`Failed to read blog post: ${slug}`)
+    }
+
+    return {
+      slug,
+      title: matterResult.data.title || "Untitled Post",
+      content: matterResult.content,
+      date: matterResult.data.date || new Date().toISOString(),
+      mood: matterResult.data.mood || "contemplative",
+      catApproved: matterResult.data.catApproved ?? true,
+      readingTime: matterResult.data.readingTime || 5,
+      language: matterResult.data.language || "en",
+      tags: matterResult.data.tags || [],
+      category: matterResult.data.category || null,
+      alternates: matterResult.data.alternates || [], // <-- add this line
+    }
+  } catch (error) {
+    console.error(`Error getting blog post ${Array.isArray(slugParam) ? slugParam.join("/") : slugParam}:`, error)
+    throw error
+  }
+}
+
+// Function to get navigation links for previous and next posts
+async function getPostNavigation(currentSlug: string) {
+  const allPosts = await getAllBlogPosts()
+  const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug)
+
+  if (currentIndex === -1) {
+    return { prev: null, next: null }
+  }
+
+  const prev = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
+  const next = currentIndex > 0 ? allPosts[currentIndex - 1] : null
+
+  return {
+    prev: prev ? { slug: prev.slug, title: prev.title } : null,
+    next: next ? { slug: next.slug, title: next.title } : null,
+  }
+}
+
+// Add a function to get related posts based on tags and category
+async function getRelatedPosts(
+  currentSlug: string,
+  currentTags: string[] = [],
+  currentCategory: string | null = null,
+): Promise<BlogPost[]> {
+  const allPosts = await getAllBlogPosts()
+
+  // Filter out the current post
+  const otherPosts = allPosts.filter((post) => post.slug !== currentSlug)
+
+  if (!otherPosts.length) return []
+
+  // Score posts based on tag and category matches
+  const scoredPosts = otherPosts.map((post) => {
+    let score = 0
+
+    // Category match is worth more points
+    if (currentCategory && post.category === currentCategory) {
+      score += 3
+    }
+
+    // Each matching tag adds a point
+    if (currentTags.length && post.tags) {
+      currentTags.forEach((tag) => {
+        if (post.tags?.includes(tag)) {
+          score += 1
+        }
+      })
+    }
+
+    return { ...post, score }
+  })
+
+  // Sort by score (highest first) and take top 4
+  return scoredPosts
+    .sort((a, b) => b.score - a.score)
+    .filter((post) => post.score > 0)
+    .slice(0, 4)
 }
 
 // Generate metadata for the page
