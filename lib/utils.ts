@@ -39,29 +39,14 @@ export function formatDate(date: Date | string | number, lang: string = "en"): s
   return format(new Date(date), "PP", { locale })
 }
 
-/**
- * Converts a string to a slug.
- * @param {string} str - The string to slugify.
- * @returns {string} The slugified string.
- */
-export function slugify(str: string): string {
-  return str
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-}
+export const slugify = (str: string) => str
+  .toLowerCase()
+  .replace(/[^\w\s-]/g, "")
+  .replace(/[\s_-]+/g, "-")
+  .replace(/^-+|-+$/g, "")
 
-/**
- * Truncates a string to a specified length.
- * @param {string} str - The string to truncate.
- * @param {number} length - The maximum length of the string.
- * @returns {string} The truncated string.
- */
-export function truncate(str: string, length: number): string {
-  if (str.length <= length) return str
-  return str.slice(0, length) + "..."
-}
+export const truncate = (str: string, length: number) =>
+  str.length <= length ? str : str.slice(0, length) + "..."
 
 /**
  * Creates a debounced function that delays invoking `func` until after `wait` milliseconds have elapsed since the last time the debounced function was invoked.
@@ -77,48 +62,28 @@ export function debounce<T extends (...args: any[]) => any>(func: T, wait: numbe
   }
 }
 
-/**
- * Helper function to escape XML entities
- * @param {string} unsafe - The string to escape
- * @returns {string} - The escaped string
- */
-export function escapeXml(unsafe: string): string {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&apos;")
+const XML_ENTITIES: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&apos;'
 }
 
-/**
- * Smoothly scroll an element into view
- * @param {Element} element - The element to scroll to
- * @param {ScrollLogicalPosition} [block="start"] - The vertical alignment
- */
-export function smoothScrollTo(element: Element, block: ScrollLogicalPosition = "start"): void {
+export const escapeXml = (unsafe: string) =>
+  unsafe.replace(/[&<>"']/g, char => XML_ENTITIES[char])
+
+const HIGHLIGHT_CLASSES = ["ring-2", "ring-primary", "ring-offset-2"]
+
+export const smoothScrollTo = (element: Element, block: ScrollLogicalPosition = "start") =>
   element.scrollIntoView({ behavior: "smooth", block })
+
+export function highlightElement(element: Element, duration = 1000): void {
+  element.classList.add(...HIGHLIGHT_CLASSES)
+  setTimeout(() => element.classList.remove(...HIGHLIGHT_CLASSES), duration)
 }
 
-/**
- * Add a temporary highlight effect to an element
- * @param {Element} element - The element to highlight
- * @param {number} [duration=1000] - How long to show the highlight in ms
- */
-export function highlightElement(element: Element, duration: number = 1000): void {
-  element.classList.add("ring-2", "ring-primary", "ring-offset-2")
-  setTimeout(() => {
-    element.classList.remove("ring-2", "ring-primary", "ring-offset-2")
-  }, duration)
-}
-
-/**
- * Scroll to an element and add a highlight effect
- * @param {Element} element - The element to scroll to and highlight
- * @param {ScrollLogicalPosition} [block="start"] - The vertical alignment
- * @param {number} [duration=1000] - How long to show the highlight in ms
- */
-export function scrollAndHighlight(element: Element, block: ScrollLogicalPosition = "start", duration: number = 1000): void {
+export function scrollAndHighlight(element: Element, block: ScrollLogicalPosition = "start", duration = 1000): void {
   smoothScrollTo(element, block)
   highlightElement(element, duration)
 }

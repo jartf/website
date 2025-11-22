@@ -13,11 +13,6 @@ export function MusicToggle() {
   const [audioLoaded, setAudioLoaded] = useState(false)
   const mounted = useMounted()
   const audioRef = useRef(null)
-
-  const toggleMusic = () => {
-    setIsPlaying(!isPlaying)
-  }
-
   if (!mounted) return null
 
   return (
@@ -27,7 +22,7 @@ export function MusicToggle() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={toggleMusic}
+            onClick={() => setIsPlaying(!isPlaying)}
             disabled={!audioLoaded}
             className={!audioLoaded ? "opacity-50 cursor-not-allowed" : ""}
           >

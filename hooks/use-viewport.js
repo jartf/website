@@ -2,10 +2,6 @@
 
 import { useState, useEffect } from "react"
 
-/**
- * A hook that returns viewport information, including the current window width and whether the viewport is mobile, tablet, or desktop.
- * @returns {{isMobile: boolean, isTablet: boolean, isDesktop: boolean, windowWidth: number}} An object containing viewport information.
- */
 export function useViewport() {
   const [viewport, setViewport] = useState({
     isMobile: false,
@@ -24,7 +20,6 @@ export function useViewport() {
         isDesktop: width >= 1280,
       })
     }
-
     checkViewport()
     window.addEventListener("resize", checkViewport)
     return () => window.removeEventListener("resize", checkViewport)
