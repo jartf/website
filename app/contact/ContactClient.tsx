@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useTheme } from "next-themes"
 import Image from "next/image"
@@ -30,13 +30,13 @@ import {
   MessageCircle,
 } from "lucide-react"
 import Link from "next/link"
-// Update the import to use i18next directly
 import i18n from "i18next"
 import { motion } from "framer-motion"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Firefly } from "@/components/firefly"
+import { useMounted } from "@/hooks/use-mounted"
 
 interface SocialLink {
   name: string
@@ -57,7 +57,7 @@ interface SocialLink {
 export default function ContactPageClient() {
   const { t } = useTranslation()
   const { theme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const mounted = useMounted()
   const [secretRevealed, setSecretRevealed] = useState(false)
 
   const handleSecretButtonClick = () => {
@@ -67,10 +67,6 @@ export default function ContactPageClient() {
       window.open("https://ko-fi.com/jarema", "_blank")
     }
   }
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   if (!mounted) return null
 

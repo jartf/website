@@ -8,6 +8,7 @@ import { useTheme } from "next-themes"
 import { Firefly } from "@/components/firefly"
 import { useTranslation } from "react-i18next"
 import { usePlatform } from "@/hooks/use-platform"
+import { useMounted } from "@/hooks/use-mounted"
 
 const TETROMINOS = {
   I: { shape: [[1, 1, 1, 1]], color: "bg-cyan-500 dark:bg-cyan-400" },
@@ -141,7 +142,7 @@ export default function TetrisGame() {
   const [showNowPlaying, setShowNowPlaying] = useState(false)
   const [completedRows, setCompletedRows] = useState([])
   const [isPaused, setIsPaused] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const mounted = useMounted()
   const [isMobileView, setIsMobileView] = useState(false)
   const { isDesktop } = usePlatform()
   const audioRef = useRef(null)
@@ -167,10 +168,6 @@ export default function TetrisGame() {
     return () => {
       window.removeEventListener("resize", checkIfMobile)
     }
-  }, [])
-
-  useEffect(() => {
-    setMounted(true)
   }, [])
 
   const checkCollision = (x, y, shape) => {

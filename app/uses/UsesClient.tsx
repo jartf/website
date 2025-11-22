@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Firefly } from "@/components/firefly"
+import { useMounted } from "@/hooks/use-mounted"
 import {
   ExternalLink,
   Laptop,
@@ -52,14 +53,10 @@ type UsesCategory = {
 export default function UsesClientPage() {
   const { t } = useTranslation()
   const { theme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const mounted = useMounted()
   const [revancedClicks, setRevancedClicks] = useState(0)
   const [stremioClicks, setStremioClicks] = useState(0)
   const categoryRefs = useRef<(HTMLDivElement | null)[]>([])
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   useEffect(() => {
     if (mounted) {

@@ -12,11 +12,12 @@ import { useTranslation } from "react-i18next"
 import { usePlatform } from "@/hooks/use-platform"
 import { useViewport } from "@/hooks/use-viewport"
 import { useGame2048, getTileColor, getFontSize } from "@/hooks/use-game-2048"
+import { useMounted } from "@/hooks/use-mounted"
 
 function Game2048() {
   const { t } = useTranslation()
   const { theme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const mounted = useMounted()
   const [touchStart, setTouchStart] = useState({ x: 0, y: 0 })
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 })
   const { isMobile } = useViewport()
@@ -42,10 +43,6 @@ function Game2048() {
     resetGame,
     continueGame,
   } = useGame2048()
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   // Handle touch controls
   const handleTouchStart = (e: React.TouchEvent) => {

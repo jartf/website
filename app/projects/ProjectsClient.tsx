@@ -12,6 +12,7 @@ import { projects } from "@/content/project-items"
 import type { Project } from "@/content/project-items"
 import { useCurrentLanguage } from "@/hooks/use-current-language"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"
+import { useMounted } from "@/hooks/use-mounted"
 
 /**
  * The client-side component for the projects page.
@@ -24,19 +25,17 @@ export default function ProjectsPageClient() {
   const [showHidden, setShowHidden] = useState(false)
   const [flippedCard, setFlippedCard] = useState<number | null>(null)
   const [focusedCardIndex, setFocusedCardIndex] = useState<number | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const mounted = useMounted()
   const [lastFocusedCardIndex, setLastFocusedCardIndex] = useState<number | null>(null)
   const [announcement, setAnnouncement] = useState("")
   const currentLang = useCurrentLanguage()
 
   // Refs for DOM elements
-  const flippedCardContentRef = useRef<HTMLDivElement>(null)
+  const flippedCardContentRef = useRef<HTMLDivElement | null>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
-  const mainContentRef = useRef<HTMLDivElement>(null)
+  const mainContentRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    setMounted(true)
-
     // Set initial focus to the main content area when the page loads
     if (mainContentRef.current) {
       mainContentRef.current.focus()

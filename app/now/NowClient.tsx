@@ -28,8 +28,6 @@ export default function NowClientPage() {
     date?: string
   } | null>(null)
   const [lastfmError, setLastfmError] = useState(false)
-    setMounted(true)
-  }, [])
 
   // Fetch Last.fm recent tracks for "listening" section
   useEffect(() => {

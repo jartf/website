@@ -164,11 +164,6 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     }
   }, [safeBlogPosts, i18n.language, mounted])
 
-  // Set mounted to true when the component mounts
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
