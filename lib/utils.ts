@@ -87,3 +87,17 @@ export function debounce<T extends (...args: any[]) => any>(func: T, wait: numbe
     timeout = setTimeout(() => func(...args), wait)
   }
 }
+
+/**
+ * Helper function to escape XML entities
+ * @param {string} unsafe - The string to escape
+ * @returns {string} - The escaped string
+ */
+export function escapeXml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;")
+}
