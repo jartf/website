@@ -16,23 +16,17 @@ export function usePlatform() {
   })
 
   useEffect(() => {
-    const detectPlatform = () => {
-      const p = navigator.platform.toLowerCase()
-      const ua = navigator.userAgent.toLowerCase()
-      const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i
+    const p = navigator.platform.toLowerCase()
+    const ua = navigator.userAgent.toLowerCase()
+    const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i
 
-      setPlatform({
-        isMac: p.includes("mac"),
-        isWindows: p.includes("win"),
-        isLinux: p.includes("linux") || p.includes("x11"),
-        isMobile: mobileRegex.test(ua) || window.innerWidth < 768,
-        isTouch: "ontouchstart" in window || navigator.maxTouchPoints > 0,
-      })
-    }
-
-    detectPlatform()
-    window.addEventListener("resize", detectPlatform)
-    return () => window.removeEventListener("resize", detectPlatform)
+    setPlatform({
+      isMac: p.includes("mac"),
+      isWindows: p.includes("win"),
+      isLinux: p.includes("linux") || p.includes("x11"),
+      isMobile: mobileRegex.test(ua) || window.innerWidth < 768,
+      isTouch: "ontouchstart" in window || navigator.maxTouchPoints > 0,
+    })
   }, [])
 
   return platform

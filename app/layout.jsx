@@ -51,17 +51,14 @@ const hanNom = localFont({
 })
 
 // Helper to generate feed URLs
-const generateFeedUrls = (type, ext, mimeType) => {
-  const baseTitle = "Jarema's digital garden"
-  return [
-    { url: `${type}.${ext}`, title: `${baseTitle} - ${type.toUpperCase()} Feed` },
-    ...SUPPORTED_LANGUAGES.map((lang) => ({
-      url: `${type}/${lang}.${ext}`,
-      title: `${baseTitle} - ${lang.charAt(0).toUpperCase() + lang.slice(1)} ${type.toUpperCase()} Feed`,
-      hreflang: lang,
-    })),
-  ]
-}
+const generateFeedUrls = (type, ext) => [
+  { url: `${type}.${ext}`, title: `Jarema's digital garden - ${type.toUpperCase()} Feed` },
+  ...SUPPORTED_LANGUAGES.map((lang) => ({
+    url: `${type}/${lang}.${ext}`,
+    title: `Jarema's digital garden - ${lang.charAt(0).toUpperCase() + lang.slice(1)} ${type.toUpperCase()} Feed`,
+    hreflang: lang,
+  })),
+]
 
 export const metadata = {
   description:

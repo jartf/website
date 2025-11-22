@@ -25,13 +25,8 @@ export function useViewport() {
       })
     }
 
-    // Initial check
     checkViewport()
-
-    // Add event listener
     window.addEventListener("resize", checkViewport)
-
-    // Cleanup
     return () => window.removeEventListener("resize", checkViewport)
   }, [])
 

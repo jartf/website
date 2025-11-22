@@ -10,27 +10,10 @@ import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 export function useCurrentLanguage() {
   const { i18n } = useTranslation()
 
-  // Get the current language, default to English if not supported
-  const currentLang = (() => {
-    // Get the detected language
-    const detectedLang =
-      i18n.language || (typeof window !== "undefined" ? window.navigator.language?.split("-")[0] : null) || "en"
-
-    // Check if it's one of our supported languages
-    if (SUPPORTED_LANGUAGES.includes(detectedLang)) {
-      return detectedLang
-    }
-
-    // Handle language variants by checking the prefix
-    for (const lang of SUPPORTED_LANGUAGES) {
-      if (detectedLang.startsWith(lang)) {
-        return lang
-      }
-    }
-
-    // Default fallback
-    return "en"
-  })()
-
-  return currentLang
+  const detectedLang = i18n.language || (typeof window !== "undefined" ? window.navigator.language?.split("-")[0] : null) || "en"
+  
+  if (SUPPORTED_LANGUAGES.includes(detectedLang)) return detectedLang
+  
+  const matchedLang = SUPPORTED_LANGUAGES.find(lang => detectedLang.startsWith(lang))
+  return matchedLang || "en"
 }

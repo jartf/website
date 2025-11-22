@@ -32,17 +32,15 @@ export function Footer() {
   }, [tapCount, isAboutPage])
 
   const handleTap = () => {
-    if (isAboutPage) {
-      setTapCount((prev) => {
-        const newCount = prev + 1
-        if (newCount >= 5) {
-          sessionStorage.setItem("showHiddenChapter", "true")
-          window.location.reload()
-          return 0
-        }
-        return newCount
-      })
-    }
+    if (!isAboutPage) return
+    setTapCount((prev) => {
+      if (prev + 1 >= 5) {
+        sessionStorage.setItem("showHiddenChapter", "true")
+        window.location.reload()
+        return 0
+      }
+      return prev + 1
+    })
   }
 
   if (!mounted) return null

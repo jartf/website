@@ -13,10 +13,9 @@ export function useReducedMotion() {
     if (typeof window === "undefined" || !window.matchMedia) return
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setPrefersReducedMotion(mediaQuery.matches)
-
     const handleChange = (e) => setPrefersReducedMotion(e.matches)
-
+    setPrefersReducedMotion(mediaQuery.matches)
+    
     mediaQuery.addEventListener?.("change", handleChange) || mediaQuery.addListener?.(handleChange)
     return () => mediaQuery.removeEventListener?.("change", handleChange) || mediaQuery.removeListener?.(handleChange)
   }, [])
