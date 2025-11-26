@@ -171,14 +171,14 @@
     "description": "Şu anda ne yapıyorum, ne düşünüyorum ve neye odaklanıyorum.",
     "lastUpdated": "Son güncelleme",
     "categories": {
-      "reading": "okuyorum",
-      "coding": "kodluyorum",
-      "drinking": "içiyorum",
-      "listening": "dinliyorum",
-      "premid": "PreMID",
-      "thinking": "düşünüyorum",
-      "studying": "çalışıyorum",
-      "planning": "planlıyorum"
+      "reading": "Okuyorum",
+      "coding": "Kodluyorum",
+      "drinking": "İçiyorum",
+      "listening": "Dinliyorum",
+      "premid": "Discordetkinliği",
+      "thinking": "Düşünüyorum",
+      "studying": "Çalışıyorum",
+      "planning": "Planlıyorum"
     }
   },
   "uses": {

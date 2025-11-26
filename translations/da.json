@@ -173,14 +173,14 @@
     "description": "Hvad jeg laver, tænker på og fokuserer på lige nu.",
     "lastUpdated": "Sidst opdateret",
     "categories": {
-      "reading": "læser",
-      "coding": "koder",
-      "drinking": "drikker",
-      "listening": "lytter",
-      "premid": "PreMID",
-      "thinking": "tænker",
-      "studying": "studerer",
-      "planning": "planlægger"
+      "reading": "Læser",
+      "coding": "Koder",
+      "drinking": "Drikker",
+      "listening": "Lytter",
+      "premid": "Discord-aktivitet",
+      "thinking": "Tænker",
+      "studying": "Studerer",
+      "planning": "Planlægger"
     }
   },
   "uses": {

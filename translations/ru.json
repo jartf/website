@@ -169,14 +169,14 @@
     "description": "Что я делаю, о чем думаю и на чем фокусируюсь прямо сейчас.",
     "lastUpdated": "Последнее обновление",
     "categories": {
-      "reading": "читаю",
-      "coding": "кодирую",
-      "drinking": "пью",
-      "listening": "слушаю",
-      "premid": "PreMID",
-      "thinking": "думаю",
-      "studying": "изучаю",
-      "planning": "планирую"
+      "reading": "Читаю",
+      "coding": "Кодирую",
+      "drinking": "Пью",
+      "listening": "Слушаю",
+      "premid": "Активность в Discord/Дискорд",
+      "thinking": "Думаю",
+      "studying": "Изучаю",
+      "planning": "Планирую"
     }
   },
   "uses": {

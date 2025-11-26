@@ -162,14 +162,14 @@
     "description": "Czym się zajmuję, o czym myślę i na czym się skupiam w tej chwili.",
     "lastUpdated": "Ostatnia aktualizacja",
     "categories": {
-      "reading": "czytam",
-      "coding": "koduję",
-      "drinking": "piję",
-      "listening": "słucham",
-      "premid": "PreMID",
-      "thinking": "myślę",
-      "studying": "uczę się",
-      "planning": "planuję"
+      "reading": "Czytam",
+      "coding": "Koduję",
+      "drinking": "Piję",
+      "listening": "Słucham",
+      "premid": "Aktywność na Discordzie",
+      "thinking": "Myślę",
+      "studying": "Uczę się",
+      "planning": "Planuję"
     }
   },
   "uses": {
