@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "next lint",
+    "lint": "eslint",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
@@ -43,7 +43,7 @@
     "react-markdown": "latest",
     "rehype-raw": "latest",
     "remark-gfm": "latest",
-    "tailwind-merge": "^3.4.0",
+    "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "url": "latest"
   },
