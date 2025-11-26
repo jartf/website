@@ -77,7 +77,7 @@ export function Footer() {
       </div>
 
       {/* Badges */}
-      <div className="flex justify-center flex-wrap gap-2 max-w-2xl mx-auto">
+      <div className="flex justify-center flex-wrap gap-2 mx-auto" style={{ maxWidth: '664px' }}>
         {/* 1. Join Logo */}
         <Image src="/join_logo.gif" alt="Join Logo" width={88} height={31} />
 
