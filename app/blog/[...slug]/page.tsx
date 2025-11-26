@@ -106,9 +106,15 @@ async function getAllBlogPosts(): Promise<BlogPost[]> {
 }
 
 // Function to get a specific blog post
-async function getBlogPost(slugParam: string[] | string): Promise<BlogPost> {
+async function getBlogPost(slugParam: string[] | string | undefined): Promise<BlogPost> {
   try {
     const postsDirectory = path.join(process.cwd(), "content/blog")
+    
+    // Validate slugParam
+    if (!slugParam || (Array.isArray(slugParam) && slugParam.length === 0)) {
+      throw new Error("Invalid slug: slug is undefined or empty")
+    }
+    
     // Support slugs with subdirectories (e.g., 2024/07/app-defaults-2024)
     const slugArr = Array.isArray(slugParam) ? slugParam : [slugParam]
     const fullPath = path.join(postsDirectory, ...slugArr) + ".md"
@@ -199,9 +205,17 @@ async function getRelatedPosts(
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: { slug: string[] | string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string[] | string } | Promise<{ slug: string[] | string }> }): Promise<Metadata> {
   try {
-    const post = await getBlogPost(params.slug)
+    // Handle Next.js 15+ async params
+    const resolvedParams = await Promise.resolve(params)
+    
+    if (!resolvedParams?.slug) {
+      console.error("Error generating metadata: slug is undefined")
+      return baseGenerateMetadata({ title: "Blog Post Not Found" })
+    }
+    
+    const post = await getBlogPost(resolvedParams.slug)
     return {
       ...baseGenerateMetadata({
         title: post.title,
@@ -222,9 +236,17 @@ export async function generateMetadata({ params }: { params: { slug: string[] | 
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string[] | string } }) {
+export default async function BlogPostPage({ params }: { params: { slug: string[] | string } | Promise<{ slug: string[] | string }> }) {
   try {
-    const slugArr = Array.isArray(params.slug) ? params.slug : [params.slug]
+    // Handle Next.js 15+ async params
+    const resolvedParams = await Promise.resolve(params)
+    
+    if (!resolvedParams?.slug) {
+      console.error("Error: slug is undefined")
+      notFound()
+    }
+    
+    const slugArr = Array.isArray(resolvedParams.slug) ? resolvedParams.slug : [resolvedParams.slug]
     const slug = slugArr.join("/")
     const post = await getBlogPost(slugArr)
     const navigation = await getPostNavigation(slug)
