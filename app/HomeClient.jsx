@@ -12,7 +12,7 @@ import { useMounted } from "@/hooks/use-mounted"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useTranslationReady } from "@/hooks/use-translation-ready"
 import { nowItems } from "@/content/now-items"
-import { LucideHeadphones } from "lucide-react"
+import { LucideHeadphones, Activity } from "lucide-react"
 
 /**
  * The client-side component for the home page.
@@ -33,6 +33,8 @@ export default function Home({ blogPosts = [] }) {
   const [latestNow, setLatestNow] = useState(null)
   const [lastfmTrack, setLastfmTrack] = useState(null)
   const [lastfmError, setLastfmError] = useState(false)
+  const [premidActivity, setPremidActivity] = useState(null)
+  const [premidError, setPremidError] = useState(false)
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
   const isTranslationReady = useTranslationReady()
@@ -125,7 +127,32 @@ export default function Home({ blogPosts = [] }) {
     return () => { ignore = true }
   }, [])
 
-  // Compute latest now entry (compare with Last.fm)
+  // Fetch PreMID activity
+  useEffect(() => {
+    let ignore = false
+    const fetchPremid = async () => {
+      try {
+        const res = await fetch("/api/premid")
+        if (!res.ok) throw new Error("Failed to fetch PreMID")
+        const data = await res.json()
+        if (!ignore) {
+          if (data.activity) {
+            setPremidActivity(data.activity)
+            setPremidError(false)
+          } else {
+            setPremidActivity(null)
+          }
+        }
+      } catch (e) {
+        if (!ignore) setPremidError(true)
+      }
+    }
+    fetchPremid()
+    // Only fetch once on mount for homepage
+    return () => { ignore = true }
+  }, [])
+
+  // Compute latest now entry (compare with Last.fm and PreMID)
   useEffect(() => {
     // Get current language
     const currentLang = i18n.language?.split("-")[0] || "en"
@@ -137,6 +164,10 @@ export default function Home({ blogPosts = [] }) {
     if (lastfmTrack && !lastfmError) {
       filteredNow = filteredNow.filter(item => item.category !== "listening")
     }
+    // Exclude premid if PreMID is available
+    if (premidActivity && !premidError) {
+      filteredNow = filteredNow.filter(item => item.category !== "premid")
+    }
     // Find latest now entry
     let latest = null
     for (const item of filteredNow) {
@@ -144,6 +175,28 @@ export default function Home({ blogPosts = [] }) {
         latest = item
       }
     }
+    
+    // Check if both Last.fm and PreMID are live
+    const lastfmLive = lastfmTrack && lastfmTrack.nowplaying && !lastfmError
+    const premidLive = premidActivity && !premidError
+    
+    // If both are live, set latestNow to show both
+    if (lastfmLive && premidLive) {
+      setLatestNow({
+        type: "both-live",
+        lastfm: {
+          name: lastfmTrack.name,
+          artist: lastfmTrack.artist,
+          url: lastfmTrack.url,
+          nowplaying: lastfmTrack.nowplaying,
+          date: lastfmTrack.date,
+          dateObj: lastfmTrack.dateObj
+        },
+        premid: premidActivity
+      })
+      return
+    }
+    
     // Compare with Last.fm
     if (lastfmTrack && lastfmTrack.dateObj && !lastfmError) {
       if (!latest || lastfmTrack.dateObj > new Date(latest.date)) {
@@ -159,6 +212,19 @@ export default function Home({ blogPosts = [] }) {
         return
       }
     }
+    
+    // Compare with PreMID
+    if (premidActivity && !premidError) {
+      const premidDate = new Date() // PreMID activity is current
+      if (!latest || premidDate > new Date(latest.date)) {
+        setLatestNow({
+          type: "premid",
+          activity: premidActivity
+        })
+        return
+      }
+    }
+    
     if (latest) {
       setLatestNow({
         type: "nowitem",
@@ -166,7 +232,7 @@ export default function Home({ blogPosts = [] }) {
         content: latest.content[currentLang] || latest.content.en
       })
     }
-  }, [i18n.language, lastfmTrack, lastfmError])
+  }, [i18n.language, lastfmTrack, lastfmError, premidActivity, premidError])
 
   if (!isTranslationReady) {
     return (
@@ -281,8 +347,58 @@ export default function Home({ blogPosts = [] }) {
                   {t("home.latestNow", "What I'm up to now")}
                 </Link>
               </h2>
-              <div className="border rounded-lg p-5 bg-card">
-                {latestNow.type === "lastfm" ? (
+              <div className="border rounded-lg p-5 bg-card space-y-4">
+                {latestNow.type === "both-live" ? (
+                  <>
+                    {/* Last.fm Live */}
+                    <div className="border-b border-border pb-4">
+                      <div className="flex items-center gap-2 font-semibold mb-1">
+                        <LucideHeadphones className="w-5 h-5 text-primary" />
+                        {t("now.categories.listening", "Listening")}
+                        <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
+                      </div>
+                      <span>
+                        <a
+                          href={latestNow.lastfm.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline font-semibold"
+                        >
+                          {latestNow.lastfm.name}
+                        </a>
+                        {" "}
+                        <span className="text-muted-foreground">by</span> {latestNow.lastfm.artist}
+                      </span>
+                    </div>
+                    {/* PreMID Live */}
+                    <div>
+                      <div className="flex items-center gap-2 font-semibold mb-1">
+                        <Activity className="w-5 h-5 text-primary" />
+                        {t("now.categories.premid", "PreMID")}
+                        <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        {latestNow.premid.assets?.large_image && (
+                          <img 
+                            src={latestNow.premid.assets.large_image} 
+                            alt={latestNow.premid.assets.large_text || latestNow.premid.name}
+                            className="w-12 h-12 rounded-lg"
+                            title={latestNow.premid.assets.large_text}
+                          />
+                        )}
+                        <div className="flex-1">
+                          <span className="font-semibold">{latestNow.premid.name}</span>
+                          {latestNow.premid.details && (
+                            <p className="text-sm">{latestNow.premid.details}</p>
+                          )}
+                          {latestNow.premid.state && (
+                            <p className="text-sm text-muted-foreground">{latestNow.premid.state}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : latestNow.type === "lastfm" ? (
                   <div>
                     <div className="flex items-center gap-2 font-semibold mb-1">
                       <LucideHeadphones className="w-5 h-5 text-primary" />
@@ -306,6 +422,33 @@ export default function Home({ blogPosts = [] }) {
                     {latestNow.date && (
                       <div className="text-xs text-muted-foreground mt-1">{latestNow.date}</div>
                     )}
+                  </div>
+                ) : latestNow.type === "premid" ? (
+                  <div>
+                    <div className="flex items-center gap-2 font-semibold mb-1">
+                      <Activity className="w-5 h-5 text-primary" />
+                      {t("now.categories.premid", "PreMID")}
+                      <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      {latestNow.activity.assets?.large_image && (
+                        <img 
+                          src={latestNow.activity.assets.large_image} 
+                          alt={latestNow.activity.assets.large_text || latestNow.activity.name}
+                          className="w-12 h-12 rounded-lg"
+                          title={latestNow.activity.assets.large_text}
+                        />
+                      )}
+                      <div className="flex-1">
+                        <span className="font-semibold">{latestNow.activity.name}</span>
+                        {latestNow.activity.details && (
+                          <p className="text-sm">{latestNow.activity.details}</p>
+                        )}
+                        {latestNow.activity.state && (
+                          <p className="text-sm text-muted-foreground">{latestNow.activity.state}</p>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div>
