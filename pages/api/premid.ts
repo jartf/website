@@ -36,6 +36,22 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { active_activity, extension } = req.body
 
+    // Validate user_id if extension data is available
+    const AUTHORIZED_USER_ID = '490457129090547733'
+    
+    if (extension) {
+      // Extension data is available, validate user_id
+      if (extension.user_id !== AUTHORIZED_USER_ID) {
+        console.warn(`PreMID: Rejected unauthorized request from user_id: ${extension.user_id}`)
+        res.status(403).json({ error: 'Unauthorized user_id' })
+        return
+      }
+      console.log(`PreMID: Authenticated request from user_id: ${extension.user_id}`)
+    } else {
+      // Extension data not available, accept but warn
+      console.warn('PreMID: Accepting unauthenticated request (no extension data provided)')
+    }
+
     // Update the last activity time
     lastActivityTime = Date.now()
 
