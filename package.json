@@ -21,6 +21,7 @@
     "@radix-ui/react-slot": "latest",
     "@radix-ui/react-toast": "latest",
     "@radix-ui/react-tooltip": "latest",
+    "@tailwindcss/postcss": "^4.1.17",
     "@tailwindcss/typography": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
