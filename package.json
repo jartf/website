@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "next build --webpack",
     "dev": "next dev",
     "lint": "eslint",
     "start": "next start",
@@ -38,12 +38,12 @@
     "next-themes": "latest",
     "path": "latest",
     "react": "19.2.0",
-    "react-dom": "19.1.1",
+    "react-dom": "19.2.0",
     "react-i18next": "latest",
     "react-markdown": "latest",
     "rehype-raw": "latest",
     "remark-gfm": "latest",
-    "tailwind-merge": "^2.5.5",
+    "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "url": "latest"
   },
