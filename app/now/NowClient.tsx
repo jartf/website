@@ -28,6 +28,27 @@ export default function NowClientPage() {
     date?: string
   } | null>(null)
   const [lastfmError, setLastfmError] = useState(false)
+  const [premidActivity, setPremidActivity] = useState<{
+    name: string
+    details?: string
+    state?: string
+    type: number
+    timestamps?: {
+      start?: number
+      end?: number
+    }
+    assets?: {
+      large_image?: string
+      large_text?: string
+      small_image?: string
+      small_text?: string
+    }
+    buttons?: Array<{
+      label: string
+      url: string
+    }>
+  } | null>(null)
+  const [premidError, setPremidError] = useState(false)
 
   // Fetch Last.fm recent tracks for "listening" section
   useEffect(() => {
@@ -89,6 +110,29 @@ export default function NowClientPage() {
     }
     fetchLastfm()
     const interval = setInterval(fetchLastfm, 60000)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Fetch PreMID activity
+  useEffect(() => {
+    const fetchPremid = async () => {
+      try {
+        const res = await fetch("/api/premid")
+        if (!res.ok) throw new Error("Failed to fetch PreMID")
+        const data = await res.json()
+        if (data.activity) {
+          setPremidActivity(data.activity)
+          setPremidError(false)
+        } else {
+          setPremidActivity(null)
+        }
+      } catch (e) {
+        console.error("Failed to fetch PreMID data:", e)
+        setPremidError(true)
+      }
+    }
+    fetchPremid()
+    const interval = setInterval(fetchPremid, 10000) // Poll every 10 seconds
     return () => clearInterval(interval)
   }, [])
 
@@ -257,7 +301,62 @@ export default function NowClientPage() {
 
                   <Card className="border border-border bg-card/50 backdrop-blur-sm">
                     <CardContent className="p-6 space-y-4">
-                      {category.name === "listening" && lastfmTrack && !lastfmError ? (
+                      {category.name === "premid" && premidActivity && !premidError ? (
+                        <div className="border-b border-border last:border-0 pb-4 last:pb-0">
+                          <div className="flex flex-col gap-3">
+                            {/* Activity header */}
+                            <div className="flex items-start gap-3">
+                              {premidActivity.assets?.large_image && (
+                                <img
+                                  src={premidActivity.assets.large_image}
+                                  alt={premidActivity.assets.large_text || premidActivity.name}
+                                  className="w-16 h-16 rounded-lg"
+                                  title={premidActivity.assets.large_text}
+                                />
+                              )}
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="font-semibold">{premidActivity.name}</span>
+                                  <Badge variant="default" className="animate-pulse">Live</Badge>
+                                </div>
+                                {premidActivity.details && (
+                                  <p className="text-sm">{premidActivity.details}</p>
+                                )}
+                                {premidActivity.state && (
+                                  <p className="text-sm text-muted-foreground">{premidActivity.state}</p>
+                                )}
+                                {/* Timestamps */}
+                                {premidActivity.timestamps && (
+                                  <p className="text-xs text-muted-foreground mt-1">
+                                    {premidActivity.timestamps.start && (
+                                      <>Started: {new Date(premidActivity.timestamps.start).toLocaleTimeString()}</>
+                                    )}
+                                    {premidActivity.timestamps.end && (
+                                      <> • Ends: {new Date(premidActivity.timestamps.end).toLocaleTimeString()}</>
+                                    )}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                            {/* Buttons */}
+                            {premidActivity.buttons && premidActivity.buttons.length > 0 && (
+                              <div className="flex gap-2 flex-wrap">
+                                {premidActivity.buttons.map((button, idx) => (
+                                  <a
+                                    key={idx}
+                                    href={button.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center px-3 py-1 text-sm bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
+                                  >
+                                    {button.label}
+                                  </a>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ) : category.name === "listening" && lastfmTrack && !lastfmError ? (
                         <div className="border-b border-border last:border-0 pb-4 last:pb-0 flex flex-col gap-1">
                           <div className="flex items-center gap-2">
                             <span>
