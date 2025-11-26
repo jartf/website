@@ -62,4 +62,4 @@ const contact = defineCollection({
   }),
 })
 
-export const collections = { contact, work, blog, projects, legal }
+export const collections = { contact, work, blog, projects, legal, jobs }
