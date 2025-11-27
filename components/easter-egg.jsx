@@ -15,7 +15,10 @@ export function EasterEgg() {
 
   useEffect(() => {
     if (allLanguagesVisited) {
-      setShowEasterEgg(true)
+      // Defer to avoid cascading renders
+      queueMicrotask(() => {
+        setShowEasterEgg(true)
+      })
 
       const timer = setTimeout(() => {
         setShowEasterEgg(false)

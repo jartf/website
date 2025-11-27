@@ -23,20 +23,15 @@ export function Footer() {
   const mounted = useMounted()
   const [tapCount, setTapCount] = useState(0)
 
-  useEffect(() => {
-    if (isAboutPage && tapCount >= 5) {
-      setTapCount(0)
-      sessionStorage.setItem("showHiddenChapter", "true")
-      window.location.reload()
-    }
-  }, [tapCount, isAboutPage])
-
   const handleTap = () => {
     if (!isAboutPage) return
     setTapCount((prev) => {
       if (prev + 1 >= 5) {
-        sessionStorage.setItem("showHiddenChapter", "true")
-        window.location.reload()
+        // Defer to next tick to avoid cascading renders
+        queueMicrotask(() => {
+          sessionStorage.setItem("showHiddenChapter", "true")
+          window.location.reload()
+        })
         return 0
       }
       return prev + 1
