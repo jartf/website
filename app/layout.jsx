@@ -10,6 +10,7 @@ import { Galaxy } from "@/components/galaxy/galaxy"
 import { KeyboardNavigation } from "@/components/keyboard-navigation"
 import { ActionSearchBar } from "@/components/action-search-bar"
 import { MotionProvider } from "@/components/motion-provider"
+import { ErrorBoundary } from "@/components/error-boundary"
 import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 
 // Font configurations
@@ -244,16 +245,18 @@ export default function RootLayout({ children }) {
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <MotionProvider>
             <I18nProvider>
-              {/* Galaxy is now conditionally rendered in I18nProvider during loading */}
-              <Galaxy />
-              <div className="flex flex-col min-h-screen relative z-10">
-                <Header />
-                <LanguageNotice />
-                <main className="flex-1">{children}</main>
-                <Footer />
-                <KeyboardNavigation />
-              </div>
-              <ActionSearchBar />
+              <ErrorBoundary>
+                {/* Galaxy is now conditionally rendered in I18nProvider during loading */}
+                <Galaxy />
+                <div className="flex flex-col min-h-screen relative z-10">
+                  <Header />
+                  <LanguageNotice />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                  <KeyboardNavigation />
+                </div>
+                <ActionSearchBar />
+              </ErrorBoundary>
             </I18nProvider>
           </MotionProvider>
         </ThemeProvider>
