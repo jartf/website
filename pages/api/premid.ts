@@ -15,7 +15,6 @@ function setupActivityTimeout() {
   // Set a new timeout for 20 minutes (1200000 ms)
   activityTimeoutId = setTimeout(() => {
     if (Date.now() - lastActivityTime >= 1200000) {
-      console.log('PreMID activity timed out after 20 minutes of inactivity')
       currentActivity = null
     }
   }, 1200000)
@@ -42,14 +41,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if (extension) {
       // Extension data is available, validate user_id
       if (extension.user_id !== AUTHORIZED_USER_ID) {
-        console.warn(`PreMID: Rejected unauthorized request from user_id: ${extension.user_id}`)
         res.status(403).json({ error: 'Unauthorized user' })
         return
       }
-      console.log(`PreMID: Authenticated request from approved user_id`)
     } else {
       // Extension data not available, reject
-      console.warn('PreMID: Rejected unauthenticated request')
       res.status(401).json({ error: 'Unauthenticated request' })
       return
     }
