@@ -83,7 +83,8 @@ export function useLanguageTracker() {
   useEffect(() => {
     if (i18n.language && i18n.language !== lastTrackedLang.current) {
       lastTrackedLang.current = i18n.language
-      trackLanguage(i18n.language)
+      // Queue microtask to avoid synchronous setState in effect
+      queueMicrotask(() => trackLanguage(i18n.language))
     }
   }, [i18n.language, trackLanguage])
 

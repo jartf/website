@@ -23,7 +23,7 @@ export function TranslationFallback({ i18nKey, fallback, children }) {
       return t(i18nKey)
     }
     return ""
-  }, [i18nKey, t, i18n.isInitialized, i18n.language])
+  }, [i18nKey, t, i18n.isInitialized])
 
   useEffect(() => {
     // Check if i18n is ready
