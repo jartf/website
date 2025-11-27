@@ -1,7 +1,15 @@
 "use client"
 
-import { useRef, memo } from "react"
+import { useRef, memo, RefObject } from "react"
 import { motion } from "framer-motion"
+
+interface FireflyProps {
+  count?: number
+}
+
+interface FireflyDotProps {
+  containerRef: RefObject<HTMLDivElement | null>
+}
 
 /**
  * A component that creates a firefly effect with animated dots.
@@ -9,8 +17,8 @@ import { motion } from "framer-motion"
  * @param {number} [props.count=20] - The number of fireflies to render.
  * @returns {JSX.Element} The firefly effect component.
  */
-export const Firefly = memo(function Firefly({ count = 20 }) {
-  const containerRef = useRef(null)
+export const Firefly = memo(function Firefly({ count = 20 }: FireflyProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
 
   return (
     <div ref={containerRef} className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -29,7 +37,7 @@ Firefly.displayName = "Firefly"
  * @param {React.RefObject<HTMLDivElement>} props.containerRef - A reference to the container element.
  * @returns {JSX.Element} A single firefly dot.
  */
-const FireflyDot = memo(function FireflyDot({ containerRef }) {
+const FireflyDot = memo(function FireflyDot({ containerRef }: FireflyDotProps) {
   const getRandomPosition = () => {
     if (!containerRef.current) return { x: 0, y: 0 }
 
