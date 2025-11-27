@@ -197,6 +197,15 @@ export default function Home({ blogPosts = [] }) {
       return
     }
 
+    // If PreMID has activities, always show them (they're current/live)
+    if (premidLive) {
+      setLatestNow({
+        type: "premid",
+        activities: premidActivities
+      })
+      return
+    }
+
     // Compare with Last.fm
     if (lastfmTrack && lastfmTrack.dateObj && !lastfmError) {
       if (!latest || lastfmTrack.dateObj > new Date(latest.date)) {
@@ -208,18 +217,6 @@ export default function Home({ blogPosts = [] }) {
           nowplaying: lastfmTrack.nowplaying,
           date: lastfmTrack.date,
           dateObj: lastfmTrack.dateObj
-        })
-        return
-      }
-    }
-
-    // Compare with PreMID
-    if (premidActivities.length > 0 && !premidError) {
-      const premidDate = new Date() // PreMID activity is current
-      if (!latest || premidDate > new Date(latest.date)) {
-        setLatestNow({
-          type: "premid",
-          activities: premidActivities
         })
         return
       }
