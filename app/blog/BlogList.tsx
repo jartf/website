@@ -48,7 +48,6 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const [filterMoods, setFilterMoods] = useState<string[]>([])
   const [filterTags, setFilterTags] = useState<string[]>([])
   const [filterCategories, setFilterCategories] = useState<string[]>([])
-  const [filterLanguages, setFilterLanguages] = useState<string[]>([])
   const [filterCatApproved, setFilterCatApproved] = useState<boolean | null>(null)
   const mounted = useMounted()
 
@@ -59,6 +58,32 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   // Ensure blogPosts is always an array
   const safeBlogPosts = useMemo(() => Array.isArray(blogPosts) ? blogPosts : [], [blogPosts])
   const currentLang = useCurrentLanguage()
+
+  // Compute default language filter based on current language
+  const defaultLanguageFilter = useMemo(() => {
+    if (safeBlogPosts.length === 0) return ["en"]
+
+    const baseLanguage = currentLang.split("-")[0]
+    const hasPostsInCurrentLanguage = safeBlogPosts.some(
+      (post) => post.language === currentLang || post.language === baseLanguage,
+    )
+
+    // Special case: if currentLang or baseLanguage is "vih", include both "vi" and "vih"
+    if (baseLanguage === "vih" || currentLang === "vih") {
+      return ["vi", "vih"]
+    } else if (hasPostsInCurrentLanguage) {
+      return [baseLanguage]
+    } else {
+      return ["en"]
+    }
+  }, [currentLang, safeBlogPosts])
+
+  // Track if user has manually modified the language filter
+  const [userModifiedLanguageFilter, setUserModifiedLanguageFilter] = useState(false)
+  const [manualFilterLanguages, setManualFilterLanguages] = useState<string[]>([])
+
+  // Use manual filter if user modified it, otherwise use default
+  const filterLanguages = userModifiedLanguageFilter ? manualFilterLanguages : defaultLanguageFilter
 
   // Get unique values from all blog posts
   const uniqueMoods = Array.from(new Set(safeBlogPosts.map((post) => post.mood).filter(Boolean)))
@@ -137,36 +162,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     filterCatApproved,
   ])
 
-  // Reset focused post index when filtered posts change
-  useEffect(() => {
-    queueMicrotask(() => setFocusedPostIndex(-1))
-  }, [filteredPosts])
-
   // Initialize refs array
   useEffect(() => {
     postRefs.current = postRefs.current.slice(0, filteredPosts.length)
   }, [filteredPosts.length])
-
-  // Set default language filter on mount and when language changes
-  useEffect(() => {
-    if (mounted && safeBlogPosts.length > 0) {
-      const currentLang = i18n.language || "en"
-      const baseLanguage = currentLang.split("-")[0]
-
-      const hasPostsInCurrentLanguage = safeBlogPosts.some(
-        (post) => post.language === currentLang || post.language === baseLanguage,
-      )
-
-      // Special case: if currentLang or baseLanguage is "vih", include both "vi" and "vih"
-      if (baseLanguage === "vih" || currentLang === "vih") {
-        setFilterLanguages(["vi", "vih"])
-      } else if (hasPostsInCurrentLanguage) {
-        setFilterLanguages([baseLanguage])
-      } else {
-        setFilterLanguages(["en"])
-      }
-    }
-  }, [i18n.language, mounted, safeBlogPosts])
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -237,18 +236,28 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   // Handle filter toggles
   const toggleMoodFilter = (mood: string) => {
     setFilterMoods((prev) => (prev.includes(mood) ? prev.filter((m) => m !== mood) : [...prev, mood]))
+    setFocusedPostIndex(-1)
   }
 
   const toggleTagFilter = (tag: string) => {
     setFilterTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
+    setFocusedPostIndex(-1)
   }
 
   const toggleCategoryFilter = (category: string) => {
     setFilterCategories((prev) => (prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]))
+    setFocusedPostIndex(-1)
   }
 
   const toggleLanguageFilter = (language: string) => {
-    setFilterLanguages((prev) => (prev.includes(language) ? prev.filter((l) => l !== language) : [...prev, language]))
+    // If this is the first modification, start with current filter languages
+    if (!userModifiedLanguageFilter) {
+      setManualFilterLanguages((filterLanguages.includes(language) ? filterLanguages.filter((l) => l !== language) : [...filterLanguages, language]))
+    } else {
+      setManualFilterLanguages((prev) => (prev.includes(language) ? prev.filter((l) => l !== language) : [...prev, language]))
+    }
+    setUserModifiedLanguageFilter(true)
+    setFocusedPostIndex(-1)
   }
 
   // Reset all filters
@@ -258,8 +267,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     setFilterMoods([])
     setFilterTags([])
     setFilterCategories([])
-    setFilterLanguages([])
+    setManualFilterLanguages([])
+    setUserModifiedLanguageFilter(false)
     setFilterCatApproved(null)
+    setFocusedPostIndex(-1)
     if (searchInputRef.current) {
       searchInputRef.current.value = ""
     }
@@ -376,12 +387,18 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                 placeholder={t("blog.search", "Search posts...")}
                 className="pl-10"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  setFocusedPostIndex(-1)
+                }}
               />
               {searchQuery && (
                 <button
                   className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground"
-                  onClick={() => setSearchQuery("")}
+                  onClick={() => {
+                    setSearchQuery("")
+                    setFocusedPostIndex(-1)
+                  }}
                   aria-label="Clear search"
                 >
                   <X className="h-4 w-4" />
@@ -389,7 +406,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               )}
             </div>
 
-            <Select value={sortOption} onValueChange={(value) => setSortOption(value as SortOption)}>
+            <Select value={sortOption} onValueChange={(value) => {
+              setSortOption(value as SortOption)
+              setFocusedPostIndex(-1)
+            }}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
@@ -529,7 +549,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                         <Checkbox
                           id="cat-approved-yes"
                           checked={filterCatApproved === true}
-                          onCheckedChange={() => setFilterCatApproved(filterCatApproved === true ? null : true)}
+                          onCheckedChange={() => {
+                            setFilterCatApproved(filterCatApproved === true ? null : true)
+                            setFocusedPostIndex(-1)
+                          }}
                         />
                         <Label htmlFor="cat-approved-yes" className="text-sm">
                           Yes
@@ -539,7 +562,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                         <Checkbox
                           id="cat-approved-no"
                           checked={filterCatApproved === false}
-                          onCheckedChange={() => setFilterCatApproved(filterCatApproved === false ? null : false)}
+                          onCheckedChange={() => {
+                            setFilterCatApproved(filterCatApproved === false ? null : false)
+                            setFocusedPostIndex(-1)
+                          }}
                         />
                         <Label htmlFor="cat-approved-no" className="text-sm">
                           No
@@ -630,7 +656,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                   <span className="font-medium">{t("blog.cat", "Cat Approved")}:</span>{" "}
                   {filterCatApproved ? "Yes" : "No"}
                   <button
-                    onClick={() => setFilterCatApproved(null)}
+                    onClick={() => {
+                      setFilterCatApproved(null)
+                      setFocusedPostIndex(-1)
+                    }}
                     className="ml-1 hover:text-foreground"
                     aria-label="Remove cat approved filter"
                   >

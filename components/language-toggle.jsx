@@ -17,6 +17,39 @@ import {
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill"
 import fuzzysort from "fuzzysort"
 
+// Language classification (moved outside component to prevent recreation)
+const MAIN_LANGUAGES = ["en", "vi", "et", "ru", "da", "zh"]
+const OTHER_LANGUAGES = ["tok", "vih"]
+const BETA_LANGUAGES = SUPPORTED_LANGUAGES.filter(
+  (lang) => !MAIN_LANGUAGES.includes(lang) && !OTHER_LANGUAGES.includes(lang)
+)
+
+// Language aliases for search
+const LANGUAGE_ALIASES = {
+  vi: ["Vietnamese", "Tieng Viet"],
+  et: ["Estonian"],
+  ru: ["Russian", "Russkii", "Russkiy"],
+  da: ["Danish"],
+  zh: ["Chinese", "Zhongwen", "Hanyu"],
+  tr: ["Turkish", "Turkce"],
+  pl: ["Polish"],
+  sv: ["Swedish"],
+  fi: ["Finnish"],
+  tok: ["language of the good"],
+  vih: ["Vietnamese", "Han Nom", "Hannom"],
+}
+
+// Build fuzzy search list
+const buildSearchList = (list) =>
+  list.map(lang => ({
+    lang,
+    terms: [
+      LANGUAGE_NAMES[lang] || "",
+      lang,
+      ...(LANGUAGE_ALIASES[lang] || [])
+    ].join(" ")
+  }))
+
 /**
  * Language toggle component that allows switching between supported languages
  * @returns {JSX.Element|null} The language toggle dropdown or null if not mounted
@@ -35,39 +68,6 @@ export function LanguageToggle() {
   const dropdownContentRef = useRef(null)
   const languageItemsRef = useRef([])
 
-  // Language classification
-  const MAIN_LANGUAGES = ["en", "vi", "et", "ru", "da", "zh"]
-  const OTHER_LANGUAGES = ["tok", "vih"]
-  const BETA_LANGUAGES = SUPPORTED_LANGUAGES.filter(
-    (lang) => !MAIN_LANGUAGES.includes(lang) && !OTHER_LANGUAGES.includes(lang)
-  )
-
-  // Language aliases for search
-  const LANGUAGE_ALIASES = {
-    vi: ["Vietnamese", "Tieng Viet"],
-    et: ["Estonian"],
-    ru: ["Russian", "Russkii", "Russkiy"],
-    da: ["Danish"],
-    zh: ["Chinese", "Zhongwen", "Hanyu"],
-    tr: ["Turkish", "Turkce"],
-    pl: ["Polish"],
-    sv: ["Swedish"],
-    fi: ["Finnish"],
-    tok: ["language of the good"],
-    vih: ["Vietnamese", "Han Nom", "Hannom"],
-  }
-
-  // Build fuzzy search list
-  const buildSearchList = (list) =>
-    list.map(lang => ({
-      lang,
-      terms: [
-        LANGUAGE_NAMES[lang] || "",
-        lang,
-        ...(LANGUAGE_ALIASES[lang] || [])
-      ].join(" ")
-    }))
-
   // Fuzzy filter helper
   const filterLanguages = useCallback((list) => {
     if (!search.trim()) return list
@@ -82,7 +82,7 @@ export function LanguageToggle() {
     const betaLangs = filterLanguages(BETA_LANGUAGES)
     const otherLangs = filterLanguages(OTHER_LANGUAGES)
     return [...mainLangs, ...betaLangs, ...otherLangs]
-  }, [filterLanguages, MAIN_LANGUAGES, BETA_LANGUAGES, OTHER_LANGUAGES])
+  }, [filterLanguages])
 
   const handleLanguageChange = useCallback((code) => {
     i18n.changeLanguage(code)
@@ -227,7 +227,7 @@ export function LanguageToggle() {
     const mainLangs = filterLanguages(MAIN_LANGUAGES)
     const betaLangs = filterLanguages(BETA_LANGUAGES)
     const otherLangs = filterLanguages(OTHER_LANGUAGES)
-    
+
     let currentIndex = 0
     const sections = []
 
