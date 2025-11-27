@@ -59,7 +59,10 @@ async function getBlogPosts() {
             category: matterResult.data.category || null,
           }
         } catch (error) {
-          console.error(`Error processing blog post ${fullPath}:`, error)
+          // Skip invalid blog posts silently in production
+          if (process.env.NODE_ENV === 'development') {
+            console.error(`Error processing blog post ${fullPath}:`, error)
+          }
           return null
         }
       })
@@ -72,7 +75,10 @@ async function getBlogPosts() {
       }
     })
   } catch (error) {
-    console.error("Error fetching blog posts:", error)
+    // Return empty array if blog directory doesn't exist or has errors
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error fetching blog posts:", error)
+    }
     return []
   }
 }
