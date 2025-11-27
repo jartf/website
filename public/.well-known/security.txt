@@ -1,0 +1,35 @@
+Contact: mailto:security@jarema.me
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en, et, vi
+Canonical: https://jarema.me/.well-known/security.txt
+
+Thank you for helping keep this site safe. If you discover a security vulnerability, please report it by:
+
+1. Emailing security@jarema.me with:
+  - A description of the vulnerability
+  - Steps to reproduce the issue
+  - Potential impact
+  - Any suggested fixes (optional)
+
+2. Please do NOT publicly disclose the vulnerability until I've had a chance to address it.
+  - I aim to acknowledge receipt of vulnerability reports within 48 hours
+  - I will provide an estimated timeline for fixing the issue within 7 days
+  - I will keep you informed of progress throughout the resolution process
+
+I consider security research conducted in good faith and in accordance with this
+policy to be authorized and will not pursue legal action. This includes:
+  - Avoiding privacy violations or disruption of services
+  - Not accessing or modifying data beyond what's necessary to demonstrate the vulnerability
+  - Keeping vulnerability information confidential until I've addressed it
+
+With your permission, I'm happy to acknowledge your contribution in a security
+acknowledgments page or release notes.
+
+The following are generally considered out of scope:
+- Denial of Service (DoS) attacks
+- Social engineering attacks
+- Physical attacks
+- Issues in third-party services or dependencies
+- Non-security-impacting bugs
+
+Thank you for helping keep the site secure!
