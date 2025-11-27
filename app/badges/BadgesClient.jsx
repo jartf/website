@@ -243,9 +243,9 @@ export default function BadgesClient() {
           <h3 className="text-lg font-medium mb-2">HTML Code</h3>
           <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
             <code>{`<a href="https://jarema.me/">
-  <img src="https://jarema.me/badge.png" 
-       alt="Jarema's personal badge" 
-       width="88" height="31" 
+  <img src="https://jarema.me/badge.png"
+       alt="Jarema's personal badge"
+       width="88" height="31"
        style="image-rendering: pixelated;">
 </a>`}</code>
           </pre>
@@ -354,7 +354,7 @@ export default function BadgesClient() {
           </div>
         )}
       </section>
-      
+
       <style jsx global>{`
         .pixelated {
           image-rendering: pixelated;

@@ -17,7 +17,7 @@ import { useEffect, useState, useMemo } from "react"
 export function TranslationFallback({ i18nKey, fallback, children }) {
   const { t, i18n } = useTranslation()
   const [isLoaded, setIsLoaded] = useState(false)
-  
+
   const translatedText = useMemo(() => {
     if (i18n.isInitialized) {
       return t(i18nKey)

@@ -442,7 +442,7 @@ export function useGame2048() {
   useEffect(() => {
     const currentHasWon = hasWon(board)
     const currentHasValidMoves = hasValidMoves(board)
-    
+
     // Batch state updates to avoid cascading renders
     if (currentHasWon && !hasWonBefore) {
       // Use queueMicrotask to defer state updates
