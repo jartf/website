@@ -10,6 +10,28 @@ import { useTranslation } from "react-i18next"
 import { usePlatform } from "@/hooks/use-platform"
 import { useMounted } from "@/hooks/use-mounted"
 
+type TouchAction = 'left' | 'right' | 'down' | 'rotate' | 'drop' | 'pause'
+
+type TetrominoShape = number[][] | readonly (readonly number[])[]
+type TetrominoColor = string
+
+interface Tetromino {
+  shape: TetrominoShape
+  color: TetrominoColor
+}
+
+interface TetrominoWithKey extends Tetromino {
+  key: string
+}
+
+interface CurrentPiece {
+  x: number
+  y: number
+  tetromino: TetrominoWithKey
+}
+
+type BoardCell = number | string
+
 const TETROMINOS = {
   I: { shape: [[1, 1, 1, 1]], color: "bg-cyan-500 dark:bg-cyan-400" },
   J: {
@@ -54,7 +76,7 @@ const TETROMINOS = {
     ],
     color: "bg-red-500 dark:bg-red-400",
   },
-}
+} as const
 
 // Music playlist
 const SONGS = [
@@ -120,10 +142,10 @@ const INITIAL_DROP_TIME = 800
 const SPEED_INCREASE_FACTOR = 0.95
 const TOUCH_COOLDOWN = 200 // Cooldown in milliseconds
 
-const createEmptyBoard = () => Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(0))
+const createEmptyBoard = (): BoardCell[][] => Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(0))
 
-const randomTetromino = () => {
-  const keys = Object.keys(TETROMINOS)
+const randomTetromino = (): TetrominoWithKey => {
+  const keys = Object.keys(TETROMINOS) as Array<keyof typeof TETROMINOS>
   const randKey = keys[Math.floor(Math.random() * keys.length)]
   return { ...TETROMINOS[randKey], key: randKey }
 }
@@ -131,8 +153,8 @@ const randomTetromino = () => {
 export default function TetrisGame() {
   const { t } = useTranslation()
   const { theme } = useTheme()
-  const [board, setBoard] = useState(createEmptyBoard())
-  const [currentPiece, setCurrentPiece] = useState(null)
+  const [board, setBoard] = useState<BoardCell[][]>(createEmptyBoard())
+  const [currentPiece, setCurrentPiece] = useState<CurrentPiece | null>(null)
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(false)
   const [dropTime, setDropTime] = useState(INITIAL_DROP_TIME)
@@ -140,14 +162,14 @@ export default function TetrisGame() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [currentSongIndex, setCurrentSongIndex] = useState(0)
   const [showNowPlaying, setShowNowPlaying] = useState(false)
-  const [completedRows, setCompletedRows] = useState([])
+  const [completedRows, setCompletedRows] = useState<number[]>([])
   const [isPaused, setIsPaused] = useState(false)
   const mounted = useMounted()
   const [isMobileView, setIsMobileView] = useState(false)
   const { isDesktop } = usePlatform()
-  const audioRef = useRef(null)
-  const dropInterval = useRef(null)
-  const touchCooldowns = useRef({
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const dropInterval = useRef<NodeJS.Timeout | null>(null)
+  const touchCooldowns = useRef<Record<TouchAction, number>>({
     left: 0,
     right: 0,
     down: 0,
@@ -170,7 +192,7 @@ export default function TetrisGame() {
     }
   }, [])
 
-  const checkCollision = (x, y, shape) => {
+  const checkCollision = (x: number, y: number, shape: TetrominoShape): boolean => {
     for (let row = 0; row < shape.length; row++) {
       for (let col = 0; col < shape[row].length; col++) {
         if (shape[row][col] !== 0) {
@@ -185,24 +207,24 @@ export default function TetrisGame() {
     return false
   }
 
-  const isValidMove = (x, y, shape) => !checkCollision(x, y, shape)
+  const isValidMove = (x: number, y: number, shape: TetrominoShape): boolean => !checkCollision(x, y, shape)
 
   const moveLeft = useCallback(() => {
     if (currentPiece && !isPaused && isValidMove(currentPiece.x - 1, currentPiece.y, currentPiece.tetromino.shape)) {
-      setCurrentPiece((prev) => ({ ...prev, x: prev.x - 1 }))
+      setCurrentPiece((prev) => prev ? ({ ...prev, x: prev.x - 1 }) : null)
     }
   }, [currentPiece, board, isPaused])
 
   const moveRight = useCallback(() => {
     if (currentPiece && !isPaused && isValidMove(currentPiece.x + 1, currentPiece.y, currentPiece.tetromino.shape)) {
-      setCurrentPiece((prev) => ({ ...prev, x: prev.x + 1 }))
+      setCurrentPiece((prev) => prev ? ({ ...prev, x: prev.x + 1 }) : null)
     }
   }, [currentPiece, board, isPaused])
 
   const moveDown = useCallback(() => {
     if (!currentPiece || isPaused) return
     if (isValidMove(currentPiece.x, currentPiece.y + 1, currentPiece.tetromino.shape)) {
-      setCurrentPiece((prev) => ({ ...prev, y: prev.y + 1 }))
+      setCurrentPiece((prev) => prev ? ({ ...prev, y: prev.y + 1 }) : null)
     } else {
       placePiece()
     }
@@ -210,7 +232,7 @@ export default function TetrisGame() {
 
   const rotate = useCallback(() => {
     if (!currentPiece || isPaused) return
-    const rotated = currentPiece.tetromino.shape[0].map((_, i) =>
+    const rotated: TetrominoShape = currentPiece.tetromino.shape[0].map((_, i) =>
       currentPiece.tetromino.shape.map((row) => row[i]).reverse(),
     )
     let newX = currentPiece.x
@@ -236,19 +258,19 @@ export default function TetrisGame() {
       }
     }
 
-    setCurrentPiece((prev) => ({
+    setCurrentPiece((prev) => prev ? ({
       ...prev,
       x: newX,
       y: newY,
       tetromino: { ...prev.tetromino, shape: rotated },
-    }))
+    }) : null)
   }, [currentPiece, board, isPaused])
 
   const placePiece = useCallback(() => {
     if (!currentPiece) return
     const newBoard = board.map((row) => [...row])
-    currentPiece.tetromino.shape.forEach((row, y) => {
-      row.forEach((value, x) => {
+    currentPiece.tetromino.shape.forEach((row, y: number) => {
+      row.forEach((value: number, x: number) => {
         if (value !== 0) {
           const boardY = y + currentPiece.y
           const boardX = x + currentPiece.x
@@ -264,10 +286,10 @@ export default function TetrisGame() {
   }, [currentPiece, board])
 
   const clearLines = useCallback(
-    (newBoard) => {
-      const linesCleared = []
-      const updatedBoard = newBoard.filter((row, index) => {
-        if (row.every((cell) => cell !== 0)) {
+    (newBoard: BoardCell[][]) => {
+      const linesCleared: number[] = []
+      const updatedBoard = newBoard.filter((row: BoardCell[], index: number) => {
+        if (row.every((cell: BoardCell) => cell !== 0)) {
           linesCleared.push(index)
           return false
         }
@@ -318,16 +340,16 @@ export default function TetrisGame() {
     }
 
     // Update the piece position first
-    setCurrentPiece((prev) => ({ ...prev, y: newY }))
+    setCurrentPiece((prev) => prev ? ({ ...prev, y: newY }) : null)
 
     // Then immediately place the piece without waiting
     // We need to use the updated Y position directly rather than relying on state update
-    const updatedPiece = { ...currentPiece, y: newY }
+    const updatedPiece: CurrentPiece = { ...currentPiece, y: newY }
 
     // Create a new board with the piece placed at the bottom
     const newBoard = board.map((row) => [...row])
-    updatedPiece.tetromino.shape.forEach((row, y) => {
-      row.forEach((value, x) => {
+    updatedPiece.tetromino.shape.forEach((row, y: number) => {
+      row.forEach((value: number, x: number) => {
         if (value !== 0) {
           const boardY = y + updatedPiece.y
           const boardX = x + updatedPiece.x
@@ -347,7 +369,7 @@ export default function TetrisGame() {
   }, [currentPiece, isPaused, board, clearLines])
 
   // Touch control handlers with cooldown
-  const handleTouchAction = (action, actionType) => {
+  const handleTouchAction = (action: () => void, actionType: TouchAction) => {
     const now = Date.now()
     if (now - touchCooldowns.current[actionType] < TOUCH_COOLDOWN) {
       return // Still in cooldown period
@@ -370,13 +392,15 @@ export default function TetrisGame() {
     if (!gameOver && !isPaused) {
       dropInterval.current = setInterval(moveDown, dropTime)
     } else {
-      clearInterval(dropInterval.current)
+      if (dropInterval.current) clearInterval(dropInterval.current)
     }
-    return () => clearInterval(dropInterval.current)
+    return () => {
+      if (dropInterval.current) clearInterval(dropInterval.current)
+    }
   }, [moveDown, gameOver, isPaused, dropTime])
 
   useEffect(() => {
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: KeyboardEvent) => {
       // Ignore all game controls if Ctrl is held
       if (e.ctrlKey) {
         return
@@ -488,14 +512,14 @@ export default function TetrisGame() {
     setLevel(1)
     setCompletedRows([])
     setIsPaused(false)
-    clearInterval(dropInterval.current)
+    if (dropInterval.current) clearInterval(dropInterval.current)
   }
 
   const togglePause = () => {
     setIsPaused((prev) => !prev)
   }
 
-  const renderCell = (x, y) => {
+  const renderCell = (x: number, y: number): BoardCell => {
     if (
       currentPiece &&
       y >= currentPiece.y &&
