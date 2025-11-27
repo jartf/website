@@ -297,7 +297,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   }
 
   return (
-    <div className={`container mx-auto px-4 py-16 ${styles.visible}`}>
+    <div className={`container mx-auto px-4 py-16 ${styles.visible} ${styles.blogListContainer}`}>
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold">{t("blog.title", "Blog")}</h1>
@@ -669,7 +669,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                 ref={el => { postRefs.current[index] = el }}
                 className={`relative transition-all duration-300 ${
                   focusedPostIndex === index ? "ring-2 ring-primary ring-offset-2 scale-[1.02] shadow-lg" : ""
-                } ${styles.visible}`}
+                } ${styles.visible} ${styles.blogPost}`}
               >
                 {/* Post number indicator for keyboard navigation */}
                 {index < 9 && (
