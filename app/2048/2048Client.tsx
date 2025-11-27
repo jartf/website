@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { RotateCcw, Trophy, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Undo2 } from "lucide-react"
@@ -44,22 +44,22 @@ function Game2048() {
     continueGame,
   } = useGame2048()
 
-  // Handle touch controls
-  const handleTouchStart = (e: React.TouchEvent) => {
+  // Memoize touch handlers
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
     setTouchStart({
       x: e.touches[0].clientX,
       y: e.touches[0].clientY,
     })
-  }
+  }, [])
 
-  const handleTouchMove = (e: React.TouchEvent) => {
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
     setTouchEnd({
       x: e.touches[0].clientX,
       y: e.touches[0].clientY,
     })
-  }
+  }, [])
 
-  const handleTouchAction = (action: () => void, actionType: "left" | "right" | "up" | "down") => {
+  const handleTouchAction = useCallback((action: () => void, actionType: "left" | "right" | "up" | "down") => {
     const now = Date.now()
     if (now - touchCooldowns.current[actionType] < TOUCH_COOLDOWN) {
       return // Still in cooldown period
@@ -70,9 +70,9 @@ function Game2048() {
 
     // Execute the action
     action()
-  }
+  }, [])
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = useCallback(() => {
     if (gameOver || isAnimating) return
 
     const deltaX = touchEnd.x - touchStart.x
@@ -105,7 +105,7 @@ function Game2048() {
         handleTouchAction(() => processMove("up"), "up")
       }
     }
-  }
+  }, [gameOver, isAnimating, touchEnd.x, touchEnd.y, touchStart.x, touchStart.y, processMove, handleTouchAction])
 
   // Handle keyboard controls
   useEffect(() => {
