@@ -1,5 +1,9 @@
 .fadeIn {
-  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fadeInFast {
+  animation: fadeInFast 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes fadeIn {
@@ -7,43 +11,10 @@
   to { opacity: 1; transform: none; }
 }
 
-.blogListContainer {
-  animation: containerFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes containerFadeIn {
+@keyframes fadeInFast {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
-
-.blogPost {
-  opacity: 0;
-  animation: postFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes postFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Staggered animation delays */
-.blogPost:nth-child(1) { animation-delay: 0s; }
-.blogPost:nth-child(2) { animation-delay: 0.08s; }
-.blogPost:nth-child(3) { animation-delay: 0.16s; }
-.blogPost:nth-child(4) { animation-delay: 0.24s; }
-.blogPost:nth-child(5) { animation-delay: 0.32s; }
-.blogPost:nth-child(6) { animation-delay: 0.4s; }
-.blogPost:nth-child(7) { animation-delay: 0.48s; }
-.blogPost:nth-child(8) { animation-delay: 0.56s; }
-.blogPost:nth-child(9) { animation-delay: 0.64s; }
-.blogPost:nth-child(10) { animation-delay: 0.72s; }
-.blogPost:nth-child(n+11) { animation-delay: 0.8s; }
 
 .focusedPost {
   outline: 2px solid var(--primary);
