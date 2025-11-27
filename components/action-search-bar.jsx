@@ -754,7 +754,7 @@ export function ActionSearchBar() {
     })
 
     return actions
-  }, [isNowPage, t, jumpToCategory, nowItems])
+  }, [isNowPage, t, jumpToCategory])
 
   // Define uses page actions
   const createUsesPageActions = useCallback(() => {
