@@ -177,6 +177,7 @@ export default function NowClientPage() {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t])
 
   if (!mounted) return null
@@ -307,6 +308,7 @@ export default function NowClientPage() {
                             {/* Activity header */}
                             <div className="flex items-start gap-3">
                               {premidActivity.assets?.large_image && (
+                                // eslint-disable-next-line @next/next/no-img-element
                                 <img
                                   src={premidActivity.assets.large_image}
                                   alt={premidActivity.assets.large_text || premidActivity.name}

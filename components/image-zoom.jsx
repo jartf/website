@@ -103,6 +103,7 @@ export const ImageZoom = memo(function ImageZoom({ src, alt, onClose, isOpen }) 
 
         {/* Image */}
         <div className="overflow-auto max-h-[calc(90vh-4rem)] w-full flex items-center justify-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={imageRef}
             src={src || "/placeholder.svg"}

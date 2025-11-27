@@ -379,6 +379,7 @@ export default function Home({ blogPosts = [] }) {
                       </div>
                       <div className="flex items-start gap-3">
                         {latestNow.premid.assets?.large_image && (
+                          // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={latestNow.premid.assets.large_image}
                             alt={latestNow.premid.assets.large_text || latestNow.premid.name}
@@ -432,6 +433,7 @@ export default function Home({ blogPosts = [] }) {
                     </div>
                     <div className="flex items-start gap-3">
                       {latestNow.activity.assets?.large_image && (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={latestNow.activity.assets.large_image}
                           alt={latestNow.activity.assets.large_text || latestNow.activity.name}
