@@ -299,6 +299,7 @@ function Game2048() {
                     <button
                       className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center"
                       onClick={() => processMove("up")}
+                      aria-label="Move up"
                     >
                       <ArrowUp className="h-8 w-8" />
                     </button>
@@ -307,6 +308,7 @@ function Game2048() {
                     <button
                       className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center"
                       onClick={() => processMove("left")}
+                      aria-label="Move left"
                     >
                       <ArrowLeft className="h-8 w-8" />
                     </button>
@@ -315,6 +317,7 @@ function Game2048() {
                     <button
                       className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center"
                       onClick={() => processMove("down")}
+                      aria-label="Move down"
                     >
                       <ArrowDown className="h-8 w-8" />
                     </button>
@@ -323,6 +326,7 @@ function Game2048() {
                     <button
                       className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center"
                       onClick={() => processMove("right")}
+                      aria-label="Move right"
                     >
                       <ArrowRight className="h-8 w-8" />
                     </button>

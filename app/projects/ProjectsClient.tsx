@@ -64,9 +64,8 @@ export default function ProjectsPageClient() {
         const project = visibleProjects.find((p) => p.id === projectId)
         if (project) {
           let content
-          if (currentLang === "vih") {
+          if (currentLang === "vih" || currentLang === "vi") {
             content =
-              project.content.vih ||
               project.content.vi ||
               project.content.en
           } else {
@@ -354,9 +353,8 @@ export default function ProjectsPageClient() {
           >
             {visibleProjects.map((project, index) => {
               let content
-              if (currentLang === "vih") {
+              if (currentLang === "vih" || currentLang === "vi") {
                 content =
-                  project.content.vih ||
                   project.content.vi ||
                   project.content.en
               } else {

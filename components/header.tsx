@@ -43,6 +43,7 @@ export function Header() {
   // Memoize isActive function
   const isActive = useCallback(
     (path: string) => {
+      if (!pathname) return false
       if (path === "/" && pathname !== "/") return false
       return pathname === path || pathname.startsWith(`${path}/`)
     },
@@ -114,7 +115,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   data-nav-item="true"
-                  ref={(el) => (itemsRef.current[index] = el)}
+                  ref={(el) => { itemsRef.current[index] = el }}
                   className={`text-sm transition-colors hover:text-primary whitespace-nowrap ${
                     isActive(item.href) ? "text-foreground font-medium" : "text-muted-foreground"
                   }`}
