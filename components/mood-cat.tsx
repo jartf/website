@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import i18n from "@/i18n/i18n"
 import Image from "next/image"
@@ -144,7 +144,7 @@ export function MoodCat() {
   const mounted = useMounted()
   const refreshButtonRef = useRef<HTMLButtonElement>(null)
 
-  const getRandomCat = () => {
+  const getRandomCat = useCallback(() => {
     setIsLoading(true)
 
     // Get a random cat that's different from the current one
@@ -158,7 +158,7 @@ export function MoodCat() {
       setCurrentCat(newCat)
       setIsLoading(false)
     }, 100)
-  }
+  }, [currentCat])
 
   useEffect(() => {
     // Don't block initial render with a null cat
@@ -168,6 +168,7 @@ export function MoodCat() {
     }, 100)
 
     return () => clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!mounted) return null
