@@ -1,23 +1,61 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-// Store activity in memory
-let currentActivity: any = null
-let lastActivityTime = 0
-let activityTimeoutId: NodeJS.Timeout | null = null
+// Store activities in memory - key is a hash of the activity to deduplicate
+interface ActivityEntry {
+  activity: any
+  lastUpdate: number
+  timeoutId: NodeJS.Timeout | null
+}
 
-// Function to handle activity timeout (20 minutes)
-function setupActivityTimeout() {
+const activities = new Map<string, ActivityEntry>()
+
+// Function to create a unique key from an activity
+function getActivityKey(activity: any): string {
+  // Create a key from the essential parts of the activity
+  const key = JSON.stringify({
+    name: activity.name,
+    details: activity.details,
+    state: activity.state,
+    largeImageKey: activity.assets?.large_image,
+    smallImageKey: activity.assets?.small_image,
+  })
+  return key
+}
+
+// Function to setup timeout for a specific activity (20 minutes)
+function setupActivityTimeout(key: string) {
+  const entry = activities.get(key)
+  if (!entry) return
+
   // Clear any existing timeout
-  if (activityTimeoutId) {
-    clearTimeout(activityTimeoutId)
+  if (entry.timeoutId) {
+    clearTimeout(entry.timeoutId)
   }
 
   // Set a new timeout for 20 minutes (1200000 ms)
-  activityTimeoutId = setTimeout(() => {
-    if (Date.now() - lastActivityTime >= 1200000) {
-      currentActivity = null
+  entry.timeoutId = setTimeout(() => {
+    const currentEntry = activities.get(key)
+    if (currentEntry && Date.now() - currentEntry.lastUpdate >= 1200000) {
+      activities.delete(key)
     }
   }, 1200000)
+}
+
+// Function to clean up expired activities
+function cleanupExpiredActivities() {
+  const now = Date.now()
+  const expiredKeys: string[] = []
+
+  activities.forEach((entry, key) => {
+    if (now - entry.lastUpdate >= 1200000) {
+      if (entry.timeoutId) {
+        clearTimeout(entry.timeoutId)
+      }
+      expiredKeys.push(key)
+    }
+  })
+
+  expiredKeys.forEach(key => activities.delete(key))
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -50,23 +88,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
     }
 
-    // Update the last activity time
-    lastActivityTime = Date.now()
-
     if (active_activity) {
-      // Store the current activity
-      currentActivity = active_activity
+      const key = getActivityKey(active_activity)
+      const now = Date.now()
 
-      // Set up the timeout for activity clearing
-      setupActivityTimeout()
-    } else {
-      currentActivity = null
-
-      // Clear the timeout since activity was explicitly cleared
-      if (activityTimeoutId) {
-        clearTimeout(activityTimeoutId)
-        activityTimeoutId = null
+      // Update or add the activity
+      const existing = activities.get(key)
+      if (existing && existing.timeoutId) {
+        clearTimeout(existing.timeoutId)
       }
+
+      activities.set(key, {
+        activity: active_activity,
+        lastUpdate: now,
+        timeoutId: null,
+      })
+
+      // Set up the timeout for this activity
+      setupActivityTimeout(key)
+
+      // Clean up any expired activities
+      cleanupExpiredActivities()
+    } else {
+      // If no activity is sent, clear all activities (user went idle)
+      activities.forEach(entry => {
+        if (entry.timeoutId) {
+          clearTimeout(entry.timeoutId)
+        }
+      })
+      activities.clear()
     }
 
     res.status(200).json({ success: true })
@@ -90,9 +140,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Return current activity (only on production domain)
+    // Clean up expired activities before returning
+    cleanupExpiredActivities()
+
+    // Convert activities map to array
+    const activeActivities = Array.from(activities.values()).map(entry => ({
+      activity: entry.activity,
+      lastUpdate: entry.lastUpdate,
+    }))
+
     res.status(200).json({
-      activity: currentActivity,
-      lastUpdate: lastActivityTime,
+      activities: activeActivities,
+      count: activeActivities.length,
     })
   } else {
     res.status(405).json({ error: 'Method not allowed' })
