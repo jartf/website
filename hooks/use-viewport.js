@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { debounce } from "@/lib/utils"
 
 export function useViewport() {
   const [viewport, setViewport] = useState({
@@ -21,8 +22,10 @@ export function useViewport() {
       })
     }
     checkViewport()
-    window.addEventListener("resize", checkViewport)
-    return () => window.removeEventListener("resize", checkViewport)
+    // Debounce resize events to improve performance
+    const debouncedCheckViewport = debounce(checkViewport, 150)
+    window.addEventListener("resize", debouncedCheckViewport)
+    return () => window.removeEventListener("resize", debouncedCheckViewport)
   }, [])
 
   return viewport

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -29,6 +29,25 @@ export function Header() {
   const navRef = useRef<HTMLDivElement>(null)
   const itemsRef = useRef<(HTMLAnchorElement | null)[]>([])
   const { windowWidth } = useViewport()
+
+  // Memoize navigation items to prevent recreation on every render
+  const navItems = useMemo(
+    () =>
+      NAV_ITEMS.map((item) => ({
+        href: item.href,
+        label: t(`nav.${item.key}`, item.key.charAt(0).toUpperCase() + item.key.slice(1)),
+      })),
+    [t]
+  )
+
+  // Memoize isActive function
+  const isActive = useCallback(
+    (path: string) => {
+      if (path === "/" && pathname !== "/") return false
+      return pathname === path || pathname.startsWith(`${path}/`)
+    },
+    [pathname]
+  )
 
   useEffect(() => {
     if (!mounted) return
@@ -71,16 +90,6 @@ export function Header() {
   }, [mounted, windowWidth])
 
   if (!mounted) return null
-
-  const navItems = NAV_ITEMS.map((item) => ({
-    href: item.href,
-    label: t(`nav.${item.key}`, item.key.charAt(0).toUpperCase() + item.key.slice(1)),
-  }))
-
-  const isActive = (path: string) => {
-    if (path === "/" && pathname !== "/") return false
-    return pathname === path || pathname.startsWith(`${path}/`)
-  }
 
   // Only apply overflow logic for tablet sizes
   const isTabletSize = windowWidth >= 768 && windowWidth < 1280

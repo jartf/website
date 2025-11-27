@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback, memo } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
@@ -18,7 +18,7 @@ import { ImageZoom } from "./image-zoom"
  * @param {string} [props.dimensions] - Optional "widthxheight" format
  * @param {string} [props.caption] - Optional image caption
  */
-export function ProgressiveImage({ src, alt, width, height, className, priority = false, dimensions, caption }) {
+export const ProgressiveImage = memo(function ProgressiveImage({ src, alt, width, height, className, priority = false, dimensions, caption }) {
   const [isLoading, setIsLoading] = useState(true)
   const [isZoomed, setIsZoomed] = useState(false)
   const prefersReducedMotion = useReducedMotion()
@@ -28,20 +28,20 @@ export function ProgressiveImage({ src, alt, width, height, className, priority 
   const parsedWidth = parsedDimensions[0] || width || 1200
   const parsedHeight = parsedDimensions[1] || height || 630
 
-  // Handle image load complete
-  const handleImageLoad = () => {
+  // Handle image load complete - memoized to prevent recreation
+  const handleImageLoad = useCallback(() => {
     setIsLoading(false)
-  }
+  }, [])
 
-  // Toggle zoom
-  const toggleZoom = () => {
+  // Toggle zoom - memoized to prevent recreation
+  const toggleZoom = useCallback(() => {
     setIsZoomed(true)
-  }
+  }, [])
 
-  // Close zoom
-  const closeZoom = () => {
+  // Close zoom - memoized to prevent recreation
+  const closeZoom = useCallback(() => {
     setIsZoomed(false)
-  }
+  }, [])
 
   return (
     <>
@@ -90,4 +90,4 @@ export function ProgressiveImage({ src, alt, width, height, className, priority 
       <ImageZoom src={src || "/placeholder.svg"} alt={alt} isOpen={isZoomed} onClose={closeZoom} />
     </>
   )
-}
+})

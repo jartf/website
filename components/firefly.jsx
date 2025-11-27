@@ -1,15 +1,18 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, memo } from "react"
 import { motion } from "framer-motion"
 
 /**
- * A component that creates a firefly effect with animated dots.
- * @param {Object} props - The component props.
- * @param {number} [props.count=20] - The number of fireflies to render.
- * @returns {JSX.Element} The firefly effect component.
+ * @typedef {Object} FireflyProps
+ * @property {number} [count=20] - The number of fireflies to render
  */
-export function Firefly({ count = 20 }) {
+
+/**
+ * A component that creates a firefly effect with animated dots.
+ * @param {FireflyProps} props
+ */
+const FireflyComponent = memo(function Firefly({ count = 20 }) {
   const containerRef = useRef(null)
 
   return (
@@ -19,51 +22,56 @@ export function Firefly({ count = 20 }) {
       ))}
     </div>
   )
-}
+})
+
+FireflyComponent.displayName = "Firefly"
+
+export { FireflyComponent as Firefly }
 
 /**
  * A single firefly dot component.
- * @param {Object} props - The component props.
- * @param {React.RefObject<HTMLDivElement>} props.containerRef - A reference to the container element.
- * @returns {JSX.Element} A single firefly dot.
  */
-function FireflyDot({ containerRef }) {
-  const getRandomPosition = () => {
-    if (!containerRef.current) return { x: 0, y: 0 }
+const FireflyDot = memo(
+  /** @param {{ containerRef: React.RefObject<HTMLDivElement> }} props */
+  function FireflyDot({ containerRef }) {
+    const getRandomPosition = () => {
+      if (!containerRef.current) return { x: 0, y: 0 }
 
-    const width = containerRef.current.offsetWidth
-    const height = containerRef.current.offsetHeight
+      const width = containerRef.current.offsetWidth
+      const height = containerRef.current.offsetHeight
 
-    return {
-      x: Math.random() * width,
-      y: Math.random() * height,
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+      }
     }
+
+    const getRandomDuration = () => 15 + Math.random() * 30
+
+    const initialPosition = getRandomPosition()
+    const size = 2 + Math.random() * 3
+
+    return (
+      <motion.div
+        className="absolute rounded-full bg-primary/70 shadow-glow"
+        style={{
+          width: size,
+          height: size,
+          boxShadow: `0 0 ${size * 2}px ${size}px rgba(var(--primary), 0.3)`,
+          x: initialPosition.x,
+          y: initialPosition.y,
+          willChange: "transform, opacity",
+        }}
+        animate={{
+          opacity: [0.1, 0.5, 0.1],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: getRandomDuration(),
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
+      />
+    )
   }
-
-  const getRandomDuration = () => 15 + Math.random() * 30
-
-  const initialPosition = getRandomPosition()
-  const size = 2 + Math.random() * 3
-
-  return (
-    <motion.div
-      className="absolute rounded-full bg-primary/70 shadow-glow"
-      style={{
-        width: size,
-        height: size,
-        boxShadow: `0 0 ${size * 2}px ${size}px rgba(var(--primary), 0.3)`,
-        x: initialPosition.x,
-        y: initialPosition.y,
-      }}
-      animate={{
-        opacity: [0.1, 0.5, 0.1],
-        scale: [1, 1.2, 1],
-      }}
-      transition={{
-        duration: getRandomDuration(),
-        repeat: Number.POSITIVE_INFINITY,
-        ease: "easeInOut",
-      }}
-    />
-  )
-}
+)

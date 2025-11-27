@@ -1,5 +1,6 @@
 "use client"
 
+import { useCallback, memo } from "react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -12,9 +13,15 @@ const THEME_ICONS = {
   system: Laptop
 }
 
-export function ThemeToggle() {
+export const ThemeToggle = memo(function ThemeToggle() {
   const { setTheme, theme } = useTheme()
   const mounted = useMounted()
+
+  // Memoize theme change handlers
+  const handleLightTheme = useCallback(() => setTheme("light"), [setTheme])
+  const handleDarkTheme = useCallback(() => setTheme("dark"), [setTheme])
+  const handleSystemTheme = useCallback(() => setTheme("system"), [setTheme])
+
   if (!mounted) return null
 
   const Icon = THEME_ICONS[theme] || Laptop
@@ -28,19 +35,19 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem onClick={handleLightTheme}>
           <Sun className="mr-2 h-4 w-4" />
           <span>Light</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={handleDarkTheme}>
           <Moon className="mr-2 h-4 w-4" />
           <span>Dark</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem onClick={handleSystemTheme}>
           <Laptop className="mr-2 h-4 w-4" />
           <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
-}
+})
