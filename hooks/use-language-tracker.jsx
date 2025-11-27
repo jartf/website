@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 
@@ -17,25 +17,24 @@ const LANGUAGE_TRACKER_KEY = "language-tracker"
  */
 export function useLanguageTracker() {
   const { i18n } = useTranslation()
-  const [visitedLanguages, setVisitedLanguages] = useState(new Set())
-  const [allLanguagesVisited, setAllLanguagesVisited] = useState(false)
-
-  // Initialize from localStorage if available
-  useEffect(() => {
+  const [visitedLanguages, setVisitedLanguages] = useState(() => {
+    // Initialize from localStorage if available
     if (typeof window !== "undefined") {
       try {
         const stored = localStorage.getItem(LANGUAGE_TRACKER_KEY)
         if (stored) {
           const parsed = JSON.parse(stored)
           if (Array.isArray(parsed)) {
-            setVisitedLanguages(new Set(parsed))
+            return new Set(parsed)
           }
         }
       } catch (e) {
         console.error("Failed to parse language tracker data", e)
       }
     }
-  }, [])
+    return new Set()
+  })
+  const [allLanguagesVisited, setAllLanguagesVisited] = useState(false)
 
   // Save to localStorage when changed
   useEffect(() => {
@@ -79,9 +78,11 @@ export function useLanguageTracker() {
     }
   }, [])
 
-  // Track language changes automatically
+  // Track language changes automatically with ref to prevent cascading renders
+  const lastTrackedLang = useRef(null)
   useEffect(() => {
-    if (i18n.language) {
+    if (i18n.language && i18n.language !== lastTrackedLang.current) {
+      lastTrackedLang.current = i18n.language
       trackLanguage(i18n.language)
     }
   }, [i18n.language, trackLanguage])

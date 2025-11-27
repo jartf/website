@@ -10,29 +10,25 @@ import { SUPPORTED_LANGUAGES } from "@/lib/constants"
  */
 export function useLanguageDetection() {
   const { i18n } = useTranslation()
-  const [detectedLanguage, setDetectedLanguage] = useState("en")
-
-  useEffect(() => {
-    // Get the detected language
-    const rawLanguage = i18n.language || (typeof window !== "undefined" ? window.navigator.language : null) || "en"
+  const [detectedLanguage, setDetectedLanguage] = useState(() => {
+    // Get the detected language on initialization
+    const rawLanguage = (typeof window !== "undefined" && i18n.language) || (typeof window !== "undefined" ? window.navigator.language : null) || "en"
 
     // Try exact match first
     if (SUPPORTED_LANGUAGES.includes(rawLanguage)) {
-      setDetectedLanguage(rawLanguage)
-      return
+      return rawLanguage
     }
 
     // Try matching language code prefix (e.g., "en-US" should match "en")
     for (const lang of SUPPORTED_LANGUAGES) {
       if (rawLanguage.startsWith(lang)) {
-        setDetectedLanguage(lang)
-        return
+        return lang
       }
     }
 
     // Default to English if no match
-    setDetectedLanguage("en")
-  }, [i18n.language])
+    return "en"
+  })
 
   // keep <html lang> in sync with detection result
   useEffect(() => {
