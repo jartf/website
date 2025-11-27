@@ -310,14 +310,14 @@ export default function NowClientPage() {
                                 <img
                                   src={premidActivity.assets.large_image}
                                   alt={premidActivity.assets.large_text || premidActivity.name}
-                                  className="w-16 h-16 rounded-lg"
+                                  className="w-16 h-16 rounded-lg flex-shrink-0"
                                   title={premidActivity.assets.large_text}
                                 />
                               )}
-                              <div className="flex-1">
+                              <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <span className="font-semibold">{premidActivity.name}</span>
-                                  <Badge variant="default" className="animate-pulse">Live</Badge>
+                                  <span className="font-semibold break-words">{premidActivity.name}</span>
+                                  <Badge variant="default" className="animate-pulse flex-shrink-0">Live</Badge>
                                 </div>
                                 {premidActivity.details && (
                                   <p className="text-sm">{premidActivity.details}</p>

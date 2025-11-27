@@ -175,11 +175,11 @@ export default function Home({ blogPosts = [] }) {
         latest = item
       }
     }
-    
+
     // Check if both Last.fm and PreMID are live
     const lastfmLive = lastfmTrack && lastfmTrack.nowplaying && !lastfmError
     const premidLive = premidActivity && !premidError
-    
+
     // If both are live, set latestNow to show both
     if (lastfmLive && premidLive) {
       setLatestNow({
@@ -196,7 +196,7 @@ export default function Home({ blogPosts = [] }) {
       })
       return
     }
-    
+
     // Compare with Last.fm
     if (lastfmTrack && lastfmTrack.dateObj && !lastfmError) {
       if (!latest || lastfmTrack.dateObj > new Date(latest.date)) {
@@ -212,7 +212,7 @@ export default function Home({ blogPosts = [] }) {
         return
       }
     }
-    
+
     // Compare with PreMID
     if (premidActivity && !premidError) {
       const premidDate = new Date() // PreMID activity is current
@@ -224,7 +224,7 @@ export default function Home({ blogPosts = [] }) {
         return
       }
     }
-    
+
     if (latest) {
       setLatestNow({
         type: "nowitem",
@@ -379,20 +379,20 @@ export default function Home({ blogPosts = [] }) {
                       </div>
                       <div className="flex items-start gap-3">
                         {latestNow.premid.assets?.large_image && (
-                          <img 
-                            src={latestNow.premid.assets.large_image} 
+                          <img
+                            src={latestNow.premid.assets.large_image}
                             alt={latestNow.premid.assets.large_text || latestNow.premid.name}
-                            className="w-12 h-12 rounded-lg"
+                            className="w-12 h-12 rounded-lg flex-shrink-0"
                             title={latestNow.premid.assets.large_text}
                           />
                         )}
-                        <div className="flex-1">
-                          <span className="font-semibold">{latestNow.premid.name}</span>
+                        <div className="flex-1 min-w-0">
+                          <span className="font-semibold break-words">{latestNow.premid.name}</span>
                           {latestNow.premid.details && (
-                            <p className="text-sm">{latestNow.premid.details}</p>
+                            <p className="text-sm break-words">{latestNow.premid.details}</p>
                           )}
                           {latestNow.premid.state && (
-                            <p className="text-sm text-muted-foreground">{latestNow.premid.state}</p>
+                            <p className="text-sm text-muted-foreground break-words">{latestNow.premid.state}</p>
                           )}
                         </div>
                       </div>
@@ -432,20 +432,20 @@ export default function Home({ blogPosts = [] }) {
                     </div>
                     <div className="flex items-start gap-3">
                       {latestNow.activity.assets?.large_image && (
-                        <img 
-                          src={latestNow.activity.assets.large_image} 
+                        <img
+                          src={latestNow.activity.assets.large_image}
                           alt={latestNow.activity.assets.large_text || latestNow.activity.name}
-                          className="w-12 h-12 rounded-lg"
+                          className="w-12 h-12 rounded-lg flex-shrink-0"
                           title={latestNow.activity.assets.large_text}
                         />
                       )}
-                      <div className="flex-1">
-                        <span className="font-semibold">{latestNow.activity.name}</span>
+                      <div className="flex-1 min-w-0">
+                        <span className="font-semibold break-words">{latestNow.activity.name}</span>
                         {latestNow.activity.details && (
-                          <p className="text-sm">{latestNow.activity.details}</p>
+                          <p className="text-sm break-words">{latestNow.activity.details}</p>
                         )}
                         {latestNow.activity.state && (
-                          <p className="text-sm text-muted-foreground">{latestNow.activity.state}</p>
+                          <p className="text-sm text-muted-foreground break-words">{latestNow.activity.state}</p>
                         )}
                       </div>
                     </div>
