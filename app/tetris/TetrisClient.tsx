@@ -193,7 +193,7 @@ export default function TetrisGame() {
     }
   }, [])
 
-  const checkCollision = (x: number, y: number, shape: TetrominoShape): boolean => {
+  const checkCollision = useCallback((x: number, y: number, shape: TetrominoShape): boolean => {
     for (let row = 0; row < shape.length; row++) {
       for (let col = 0; col < shape[row].length; col++) {
         if (shape[row][col] !== 0) {
@@ -206,7 +206,7 @@ export default function TetrisGame() {
       }
     }
     return false
-  }
+  }, [board])
 
   const isValidMove = useCallback(
     (x: number, y: number, shape: TetrominoShape): boolean => !checkCollision(x, y, shape),
@@ -258,7 +258,7 @@ export default function TetrisGame() {
     } else {
       setCurrentPiece(newPiece)
     }
-  }, [board, checkCollision])
+  }, [checkCollision])
 
   const placePiece = useCallback(() => {
     if (!currentPiece) return
@@ -473,8 +473,9 @@ export default function TetrisGame() {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.5
-      audioRef.current.loop = false // Set to false since we'll handle song transitions
+      const audio = audioRef.current
+      audio.volume = 0.5
+      audio.loop = false // Set to false since we'll handle song transitions
 
       // Add event listener for when a song ends
       const handleSongEnd = () => {
@@ -482,11 +483,11 @@ export default function TetrisGame() {
         setCurrentSongIndex((prevIndex) => (prevIndex + 1) % SONGS.length)
       }
 
-      audioRef.current.addEventListener("ended", handleSongEnd)
+      audio.addEventListener("ended", handleSongEnd)
 
       if (!gameOver && isMusicPlaying && !isPaused) {
-        audioRef.current.src = SONGS[currentSongIndex].url
-        audioRef.current.play().catch((error) => console.error("Audio playback failed:", error))
+        audio.src = SONGS[currentSongIndex].url
+        audio.play().catch((error) => console.error("Audio playback failed:", error))
 
         // Show the now playing info for a few seconds - defer to avoid cascading renders
         const timer = setTimeout(() => {
@@ -498,14 +499,14 @@ export default function TetrisGame() {
 
         return () => {
           clearTimeout(timer)
-          audioRef.current?.removeEventListener("ended", handleSongEnd)
+          audio.removeEventListener("ended", handleSongEnd)
         }
       } else {
-        audioRef.current.pause()
+        audio.pause()
       }
 
       return () => {
-        audioRef.current?.removeEventListener("ended", handleSongEnd)
+        audio.removeEventListener("ended", handleSongEnd)
       }
     }
   }, [gameOver, isMusicPlaying, isPaused, currentSongIndex])
