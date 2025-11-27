@@ -43,11 +43,12 @@ export function MeteorShower() {
   const [meteors, setMeteors] = useState([])
   const mounted = useMounted()
   const nextIdRef = useRef(0)
-  const directions = ["ur", "dr", "dl", "ul"]
   const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     if (!mounted || resolvedTheme !== "dark") return
+
+    const directions = ["ur", "dr", "dl", "ul"]
 
     const generateMeteor = () => {
       // Skip meteor generation if user prefers reduced motion
