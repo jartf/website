@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext } from "react"
+import { createContext, useContext, useMemo } from "react"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 
 const MotionContext = createContext({ prefersReducedMotion: false })
@@ -13,7 +13,11 @@ const MotionContext = createContext({ prefersReducedMotion: false })
  */
 export function MotionProvider({ children }) {
   const prefersReducedMotion = useReducedMotion()
-  return <MotionContext.Provider value={{ prefersReducedMotion }}>{children}</MotionContext.Provider>
+  
+  // Memoize context value to prevent unnecessary re-renders
+  const value = useMemo(() => ({ prefersReducedMotion }), [prefersReducedMotion])
+  
+  return <MotionContext.Provider value={value}>{children}</MotionContext.Provider>
 }
 
 /**
