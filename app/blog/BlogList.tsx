@@ -290,6 +290,11 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     filterLanguages.length +
     (filterCatApproved !== null ? 1 : 0)
 
+  // Prevent hydration mismatch by not rendering translations until mounted
+  if (!mounted) {
+    return null
+  }
+
   return (
     <div className="container mx-auto px-4 py-16" style={{ opacity: 1, transform: "translateY(0px)" }}>
       <div className="max-w-3xl mx-auto">
