@@ -18,15 +18,11 @@ export default function NotFoundClient() {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const mounted = useMounted()
-  const [randomPosition, setRandomPosition] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
+  const [randomPosition] = useState(() => ({
     // Generate random position for the lost cat
-    setRandomPosition({
-      x: Math.random() * 40 - 20,
-      y: Math.random() * 40 - 20,
-    })
-  }, [])
+    x: Math.random() * 40 - 20,
+    y: Math.random() * 40 - 20,
+  }))
 
   if (!mounted) return null
 
