@@ -16,17 +16,31 @@ interface RateLimitConfig {
 
 /**
  * Simple in-memory rate limiter for API routes
- * For production, consider using Redis or a dedicated rate limiting service
+ *
+ * ⚠️ WARNING: This is an in-memory solution and has limitations:
+ * - Does not work across multiple server instances (lost during deployments)
+ * - Memory leaks if not cleaned up properly
+ * - No persistence across restarts
+ *
+ * For production with multiple instances, consider:
+ * - Redis-based rate limiting (e.g., @upstash/ratelimit)
+ * - Edge-based rate limiting (e.g., Vercel Edge Config, Cloudflare Workers KV)
+ * - Database-backed solutions for persistent tracking
  */
 export function rateLimit(config: RateLimitConfig) {
   const { interval, uniqueTokenPerInterval } = config
 
   return {
     check: (req: NextApiRequest, res: NextApiResponse, limit: number): boolean => {
-      // Get client identifier (IP address)
+      // Get client identifier (IP address) with better extraction
       const token =
+        // Cloudflare provides this header
+        (req.headers['cf-connecting-ip'] as string) ||
+        // Standard forwarding header (first IP in chain)
         (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ||
+        // Alternative real IP header
         (req.headers['x-real-ip'] as string) ||
+        // Fallback to socket address
         req.socket.remoteAddress ||
         'unknown'
 
