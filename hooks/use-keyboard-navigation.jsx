@@ -45,10 +45,12 @@ export function useKeyboardNavigation() {
     const themeToggle = document.querySelector('button[aria-label="Toggle theme"]')
     const refreshCat = document.querySelector('button[aria-label="Refresh mood cat"]')
 
-    setUIElements({
-      languageToggle: langToggle,
-      themeToggle: themeToggle,
-      refreshCat: refreshCat,
+    queueMicrotask(() => {
+      setUIElements({
+        languageToggle: langToggle,
+        themeToggle: themeToggle,
+        refreshCat: refreshCat,
+      })
     })
   }, [])
 
