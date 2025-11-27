@@ -230,7 +230,7 @@ export default function RootLayout({ children }) {
           <div className="js-disabled-notice" style={{ display: "flex" }}>
             <h1>JavaScript is required</h1>
             <p>
-              This site relies heavily on interactive features, and they won't function properly without JavaScript. Please enable JavaScript for this site, or use a modern browser (preferably Librewolf or Brave for added privacy, Firefox or Safari are also fine). If you're using Tor Browser, see below :D
+              This site relies heavily on interactive features, and they won&apos;t function properly without JavaScript. Please enable JavaScript for this site, or use a modern browser (preferably Librewolf or Brave for added privacy, Firefox or Safari are also fine). If you&apos;re using Tor Browser, see below :D
             </p>
             <p>
             Using Tor Browser? Prefer to keep JavaScript disabled? I have a static version of this site you can browse instead :D
@@ -238,7 +238,7 @@ export default function RootLayout({ children }) {
             <a href="https://hugo.jarema.me" rel="nofollow">
               Visit static site
             </a>
-            <p className="subtitle">I'd love to avoid JavaScript, but sadly large-scale scrapers and AI companies are mass scraping the internet and JS is the easiet way for me to slow that down right now. Using JS also means I can utilize interactive features with less hassle. That said, a no-JS solution without redirection is currently a work-in-progress.</p>
+            <p className="subtitle">I&apos;d love to avoid JavaScript, but sadly large-scale scrapers and AI companies are mass scraping the internet and JS is the easiet way for me to slow that down right now. Using JS also means I can utilize interactive features with less hassle. That said, a no-JS solution without redirection is currently a work-in-progress.</p>
           </div>
         </noscript>
 

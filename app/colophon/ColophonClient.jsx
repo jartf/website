@@ -13,11 +13,7 @@ export default function ColophonClientPage() {
   const { theme } = useTheme()
   const mounted = useMounted()
   const sectionRefs = useRef([])
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    setIsVisible(true)
-  }, [])
+  const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     if (mounted) {
@@ -243,7 +239,7 @@ export default function ColophonClientPage() {
                   rel="noopener noreferrer"
                   className="text-primary hover:underline inline-flex items-center"
                 >
-                  Binyamin Aron Green's Colophon
+                  Binyamin Aron Green&apos;s Colophon
                   <ExternalLink className="h-4 w-4 ml-1" />
                 </Link>
                 , {t("colophon.inspiration.content2")}{" "}
