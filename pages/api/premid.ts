@@ -20,7 +20,7 @@ function setupActivityTimeout() {
   }, 1200000)
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Enable CORS for PreMID extension
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
@@ -71,7 +71,25 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json({ success: true })
   } else if (req.method === 'GET') {
-    // Return current activity
+    // Get the host from the request
+    const host = req.headers.host || ''
+    const protocol = req.headers['x-forwarded-proto'] || 'http'
+    const baseUrl = `${protocol}://${host}`
+
+    // If not on production domain, fetch from production
+    if (baseUrl !== 'https://jarema.me') {
+      try {
+        const response = await fetch('https://jarema.me/api/premid')
+        const data = await response.json()
+        res.status(200).json(data)
+        return
+      } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch from production' })
+        return
+      }
+    }
+
+    // Return current activity (only on production domain)
     res.status(200).json({
       activity: currentActivity,
       lastUpdate: lastActivityTime,
