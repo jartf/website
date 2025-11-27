@@ -425,7 +425,6 @@ export function useGame2048() {
   const { i18n } = useTranslation()
   const [board, setBoard] = useState<GameBoard>(() => addRandomTile(createEmptyBoard()))
   const [score, setScore] = useState(0)
-  const [bestScore, setBestScore] = useState(0)
   const [gameOver, setGameOver] = useState(false)
   const [gameWon, setGameWon] = useState(false)
   const [hasWonBefore, setHasWonBefore] = useState(false) // Track if player has won before
@@ -433,32 +432,40 @@ export function useGame2048() {
   const [animatingTiles, setAnimatingTiles] = useState<TileAnimations>({})
   const [isAnimating, setIsAnimating] = useState(false)
 
-  // Load best score from localStorage
-  useEffect(() => {
+  const [bestScore, setBestScore] = useState<number>(() => {
+    if (typeof window === "undefined") return 0
     const savedBestScore = localStorage.getItem("2048-best-score")
-    if (savedBestScore) {
-      setBestScore(Number.parseInt(savedBestScore))
-    }
-  }, [])
+    return savedBestScore ? Number.parseInt(savedBestScore) : 0
+  })
 
   // Check for game over or win
   useEffect(() => {
-    // Only show win dialog if player hasn't won before in this session
-    if (hasWon(board) && !hasWonBefore) {
-      setGameWon(true)
-      setHasWonBefore(true)
+    const currentHasWon = hasWon(board)
+    const currentHasValidMoves = hasValidMoves(board)
+    
+    // Batch state updates to avoid cascading renders
+    if (currentHasWon && !hasWonBefore) {
+      // Use queueMicrotask to defer state updates
+      queueMicrotask(() => {
+        setGameWon(true)
+        setHasWonBefore(true)
+      })
     }
 
-    if (!hasValidMoves(board)) {
-      setGameOver(true)
+    if (!currentHasValidMoves) {
+      queueMicrotask(() => {
+        setGameOver(true)
+      })
     }
   }, [board, hasWonBefore])
 
   // Save best score to localStorage
   useEffect(() => {
     if (score > bestScore) {
-      setBestScore(score)
-      localStorage.setItem("2048-best-score", score.toString())
+      queueMicrotask(() => {
+        setBestScore(score)
+        localStorage.setItem("2048-best-score", score.toString())
+      })
     }
   }, [score, bestScore])
 

@@ -208,83 +208,10 @@ export default function TetrisGame() {
     return false
   }
 
-  const isValidMove = (x: number, y: number, shape: TetrominoShape): boolean => !checkCollision(x, y, shape)
-
-  const moveLeft = useCallback(() => {
-    if (currentPiece && !isPaused && isValidMove(currentPiece.x - 1, currentPiece.y, currentPiece.tetromino.shape)) {
-      setCurrentPiece((prev) => prev ? ({ ...prev, x: prev.x - 1 }) : null)
-    }
-  }, [currentPiece, board, isPaused])
-
-  const moveRight = useCallback(() => {
-    if (currentPiece && !isPaused && isValidMove(currentPiece.x + 1, currentPiece.y, currentPiece.tetromino.shape)) {
-      setCurrentPiece((prev) => prev ? ({ ...prev, x: prev.x + 1 }) : null)
-    }
-  }, [currentPiece, board, isPaused])
-
-  const moveDown = useCallback(() => {
-    if (!currentPiece || isPaused) return
-    if (isValidMove(currentPiece.x, currentPiece.y + 1, currentPiece.tetromino.shape)) {
-      setCurrentPiece((prev) => prev ? ({ ...prev, y: prev.y + 1 }) : null)
-    } else {
-      placePiece()
-    }
-  }, [currentPiece, board, isPaused])
-
-  const rotate = useCallback(() => {
-    if (!currentPiece || isPaused) return
-    const rotated: TetrominoShape = currentPiece.tetromino.shape[0].map((_, i) =>
-      currentPiece.tetromino.shape.map((row) => row[i]).reverse(),
-    )
-    let newX = currentPiece.x
-    let newY = currentPiece.y
-
-    // Try to rotate, if not possible, try to adjust position
-    if (!isValidMove(newX, newY, rotated)) {
-      // Try to move left
-      if (isValidMove(newX - 1, newY, rotated)) {
-        newX -= 1
-      }
-      // Try to move right
-      else if (isValidMove(newX + 1, newY, rotated)) {
-        newX += 1
-      }
-      // Try to move up
-      else if (isValidMove(newX, newY - 1, rotated)) {
-        newY -= 1
-      }
-      // If still not possible, don't rotate
-      else {
-        return
-      }
-    }
-
-    setCurrentPiece((prev) => prev ? ({
-      ...prev,
-      x: newX,
-      y: newY,
-      tetromino: { ...prev.tetromino, shape: rotated },
-    }) : null)
-  }, [currentPiece, board, isPaused])
-
-  const placePiece = useCallback(() => {
-    if (!currentPiece) return
-    const newBoard = board.map((row) => [...row])
-    currentPiece.tetromino.shape.forEach((row, y: number) => {
-      row.forEach((value: number, x: number) => {
-        if (value !== 0) {
-          const boardY = y + currentPiece.y
-          const boardX = x + currentPiece.x
-          if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH) {
-            newBoard[boardY][boardX] = currentPiece.tetromino.color
-          }
-        }
-      })
-    })
-    setBoard(newBoard)
-    clearLines(newBoard)
-    spawnNewPiece()
-  }, [currentPiece, board])
+  const isValidMove = useCallback(
+    (x: number, y: number, shape: TetrominoShape): boolean => !checkCollision(x, y, shape),
+    [checkCollision]
+  )
 
   const clearLines = useCallback(
     (newBoard: BoardCell[][]) => {
@@ -331,7 +258,84 @@ export default function TetrisGame() {
     } else {
       setCurrentPiece(newPiece)
     }
-  }, [board])
+  }, [board, checkCollision])
+
+  const placePiece = useCallback(() => {
+    if (!currentPiece) return
+    const newBoard = board.map((row) => [...row])
+    currentPiece.tetromino.shape.forEach((row, y: number) => {
+      row.forEach((value: number, x: number) => {
+        if (value !== 0) {
+          const boardY = y + currentPiece.y
+          const boardX = x + currentPiece.x
+          if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH) {
+            newBoard[boardY][boardX] = currentPiece.tetromino.color
+          }
+        }
+      })
+    })
+    setBoard(newBoard)
+    clearLines(newBoard)
+    spawnNewPiece()
+  }, [currentPiece, board, clearLines, spawnNewPiece])
+
+  const moveLeft = useCallback(() => {
+    if (currentPiece && !isPaused && isValidMove(currentPiece.x - 1, currentPiece.y, currentPiece.tetromino.shape)) {
+      setCurrentPiece((prev) => prev ? ({ ...prev, x: prev.x - 1 }) : null)
+    }
+  }, [currentPiece, isPaused, isValidMove])
+
+  const moveRight = useCallback(() => {
+    if (currentPiece && !isPaused && isValidMove(currentPiece.x + 1, currentPiece.y, currentPiece.tetromino.shape)) {
+      setCurrentPiece((prev) => prev ? ({ ...prev, x: prev.x + 1 }) : null)
+    }
+  }, [currentPiece, isPaused, isValidMove])
+
+  const moveDown = useCallback(() => {
+    if (!currentPiece || isPaused) return
+    if (isValidMove(currentPiece.x, currentPiece.y + 1, currentPiece.tetromino.shape)) {
+      setCurrentPiece((prev) => prev ? ({ ...prev, y: prev.y + 1 }) : null)
+    } else {
+      placePiece()
+    }
+  }, [currentPiece, isPaused, isValidMove, placePiece])
+
+  const rotate = useCallback(() => {
+    if (!currentPiece || isPaused) return
+    const rotated: TetrominoShape = currentPiece.tetromino.shape[0].map((_, i) =>
+      currentPiece.tetromino.shape.map((row) => row[i]).reverse(),
+    )
+    let newX = currentPiece.x
+    let newY = currentPiece.y
+
+    // Try to rotate, if not possible, try to adjust position
+    if (!isValidMove(newX, newY, rotated)) {
+      // Try to move left
+      if (isValidMove(newX - 1, newY, rotated)) {
+        newX -= 1
+      }
+      // Try to move right
+      else if (isValidMove(newX + 1, newY, rotated)) {
+        newX += 1
+      }
+      // Try to move up
+      else if (isValidMove(newX, newY - 1, rotated)) {
+        newY -= 1
+      }
+      // If still not possible, don't rotate
+      else {
+        return
+      }
+    }
+
+    setCurrentPiece((prev) => prev ? ({
+      ...prev,
+      x: newX,
+      y: newY,
+      tetromino: { ...prev.tetromino, shape: rotated },
+    }) : null)
+  }, [currentPiece, isPaused, isValidMove])
+
 
   const hardDrop = useCallback(() => {
     if (!currentPiece || isPaused) return
@@ -367,7 +371,7 @@ export default function TetrisGame() {
 
     // Spawn a new piece
     setCurrentPiece(null)
-  }, [currentPiece, isPaused, board, clearLines])
+  }, [currentPiece, isPaused, board, clearLines, isValidMove])
 
   // Touch control handlers with cooldown
   const handleTouchAction = (action: () => void, actionType: TouchAction) => {
@@ -385,7 +389,7 @@ export default function TetrisGame() {
 
   useEffect(() => {
     if (!currentPiece && !gameOver && !isPaused) {
-      spawnNewPiece()
+      queueMicrotask(() => spawnNewPiece())
     }
   }, [currentPiece, gameOver, isPaused, spawnNewPiece])
 
@@ -484,11 +488,13 @@ export default function TetrisGame() {
         audioRef.current.src = SONGS[currentSongIndex].url
         audioRef.current.play().catch((error) => console.error("Audio playback failed:", error))
 
-        // Show the now playing info for a few seconds
-        setShowNowPlaying(true)
+        // Show the now playing info for a few seconds - defer to avoid cascading renders
         const timer = setTimeout(() => {
-          setShowNowPlaying(false)
-        }, 5000)
+          setShowNowPlaying(true)
+          setTimeout(() => {
+            setShowNowPlaying(false)
+          }, 5000)
+        }, 0)
 
         return () => {
           clearTimeout(timer)

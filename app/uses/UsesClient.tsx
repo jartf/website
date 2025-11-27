@@ -17,7 +17,7 @@ export default function UsesClientPage() {
   const mounted = useMounted()
   const [revancedClicks, setRevancedClicks] = useState(0)
   const [stremioClicks, setStremioClicks] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const categoryRefs = useRef<(HTMLDivElement | null)[]>([])
 
   // Memoize categories to prevent recreation on every render
@@ -30,10 +30,6 @@ export default function UsesClientPage() {
 
   const handleStremioClick = useCallback(() => {
     setStremioClicks((prev) => prev + 1)
-  }, [])
-
-  useEffect(() => {
-    setIsVisible(true)
   }, [])
 
   useEffect(() => {

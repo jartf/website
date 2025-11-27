@@ -32,7 +32,9 @@ export default function AboutPageClient() {
     if (mounted) {
       // Check if the hidden chapter should be shown using sessionStorage instead of localStorage
       const shouldShowHiddenChapter = sessionStorage.getItem("showHiddenChapter") === "true"
-      setShowHiddenChapter(shouldShowHiddenChapter)
+      if (shouldShowHiddenChapter) {
+        queueMicrotask(() => setShowHiddenChapter(true))
+      }
 
       const handleScroll = () => {
         const scrollPosition = window.scrollY + window.innerHeight / 2

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import Link from "next/link"
 import { formatDate } from "@/lib/utils"
 import { useCurrentLanguage } from "@/hooks/use-current-language"
@@ -50,7 +50,6 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const [filterCategories, setFilterCategories] = useState<string[]>([])
   const [filterLanguages, setFilterLanguages] = useState<string[]>([])
   const [filterCatApproved, setFilterCatApproved] = useState<boolean | null>(null)
-  const [filteredPosts, setFilteredPosts] = useState<BlogPostMetadata[]>([])
   const mounted = useMounted()
 
   const postRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -58,7 +57,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   // Ensure blogPosts is always an array
-  const safeBlogPosts = Array.isArray(blogPosts) ? blogPosts : []
+  const safeBlogPosts = useMemo(() => Array.isArray(blogPosts) ? blogPosts : [], [blogPosts])
   const currentLang = useCurrentLanguage()
 
   // Get unique values from all blog posts
@@ -67,13 +66,8 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const uniqueCategories = Array.from(new Set(safeBlogPosts.map((post) => post.category).filter(Boolean) as string[]))
   const uniqueLanguages = Array.from(new Set(safeBlogPosts.map((post) => post.language || "en").filter(Boolean)))
 
-  // Initialize refs array
-  useEffect(() => {
-    postRefs.current = postRefs.current.slice(0, filteredPosts.length)
-  }, [filteredPosts.length])
-
-  // Filter and sort posts when dependencies change
-  useEffect(() => {
+  // Filter and sort posts using useMemo
+  const filteredPosts = useMemo(() => {
     let result = [...safeBlogPosts]
 
     // Apply search filter
@@ -131,8 +125,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         break
     }
 
-    setFilteredPosts(result)
-    setFocusedPostIndex(-1)
+    return result
   }, [
     safeBlogPosts,
     searchQuery,
@@ -144,9 +137,21 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     filterCatApproved,
   ])
 
-  // Set default language filter on mount
+  // Reset focused post index when filtered posts change
   useEffect(() => {
-    if (mounted && safeBlogPosts.length > 0) {
+    queueMicrotask(() => setFocusedPostIndex(-1))
+  }, [filteredPosts])
+
+  // Initialize refs array
+  useEffect(() => {
+    postRefs.current = postRefs.current.slice(0, filteredPosts.length)
+  }, [filteredPosts.length])
+
+  // Set default language filter on mount - using useRef to track if initialized
+  const initializedRef = useRef(false)
+  useEffect(() => {
+    if (mounted && safeBlogPosts.length > 0 && !initializedRef.current) {
+      initializedRef.current = true
       const currentLang = i18n.language || "en"
       const baseLanguage = currentLang.split("-")[0]
 
@@ -156,11 +161,11 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
       // Special case: if currentLang or baseLanguage is "vih", include both "vi" and "vih"
       if (baseLanguage === "vih" || currentLang === "vih") {
-        setFilterLanguages(["vi", "vih"])
+        queueMicrotask(() => setFilterLanguages(["vi", "vih"]))
       } else if (hasPostsInCurrentLanguage) {
-        setFilterLanguages([baseLanguage])
+        queueMicrotask(() => setFilterLanguages([baseLanguage]))
       } else {
-        setFilterLanguages(["en"])
+        queueMicrotask(() => setFilterLanguages(["en"]))
       }
     }
   }, [safeBlogPosts, i18n.language, mounted])
