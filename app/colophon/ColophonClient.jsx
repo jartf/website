@@ -2,12 +2,35 @@
 
 import { useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
-import { motion } from "framer-motion"
+import { motion, useInView } from "framer-motion"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Firefly } from "@/components/firefly"
 import { ExternalLink, Code, Server, Palette } from "lucide-react"
 import { useMounted } from "@/hooks/use-mounted"
+
+function Section({ children, onRefSet, id }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.3 })
+
+  return (
+    <motion.section
+      ref={(el) => {
+        ref.current = el
+        if (onRefSet) {
+          onRefSet(el)
+        }
+      }}
+      initial={{ opacity: 1, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 1, y: 50 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="prose dark:prose-invert max-w-none transition-all duration-300"
+      id={id}
+    >
+      {children}
+    </motion.section>
+  )
+}
 
 export default function ColophonClientPage() {
   const { t } = useTranslation()
@@ -63,23 +86,6 @@ export default function ColophonClientPage() {
     }
   }, [mounted])
 
-  if (!mounted) return null
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  }
-
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
       {theme === "dark" && <Firefly count={15} />}
@@ -94,11 +100,9 @@ export default function ColophonClientPage() {
           {/* Screen reader announcement */}
           <div className="sr-only" aria-live="polite" id="keyboard-announcement"></div>
 
-          <motion.div className="space-y-12" variants={container} initial="hidden" animate="show">
-            <motion.section
-              variants={item}
-              className="prose dark:prose-invert max-w-none transition-all duration-300"
-              ref={(el) => (sectionRefs.current[0] = el)}
+          <div className="space-y-12">
+            <Section
+              onRefSet={(el) => (sectionRefs.current[0] = el)}
               id="section-site-history"
             >
               <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
@@ -107,12 +111,10 @@ export default function ColophonClientPage() {
               </h2>
               <p>{t("colophon.siteHistory.content1")}</p>
               <p>{t("colophon.siteHistory.content2")}</p>
-            </motion.section>
+            </Section>
 
-            <motion.section
-              variants={item}
-              className="prose dark:prose-invert max-w-none transition-all duration-300"
-              ref={(el) => (sectionRefs.current[1] = el)}
+            <Section
+              onRefSet={(el) => (sectionRefs.current[1] = el)}
               id="section-technology-stack"
             >
               <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
@@ -205,12 +207,10 @@ export default function ColophonClientPage() {
                   - {t("colophon.technologyStack.typescript")}
                 </li>
               </ul>
-            </motion.section>
+            </Section>
 
-            <motion.section
-              variants={item}
-              className="prose dark:prose-invert max-w-none transition-all duration-300"
-              ref={(el) => (sectionRefs.current[2] = el)}
+            <Section
+              onRefSet={(el) => (sectionRefs.current[2] = el)}
               id="section-hosting"
             >
               <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
@@ -243,12 +243,10 @@ export default function ColophonClientPage() {
                 </Link>
                 , {t("colophon.hosting.content4")}
               </p>
-            </motion.section>
+            </Section>
 
-            <motion.section
-              variants={item}
-              className="prose dark:prose-invert max-w-none transition-all duration-300"
-              ref={(el) => (sectionRefs.current[3] = el)}
+            <Section
+              onRefSet={(el) => (sectionRefs.current[3] = el)}
               id="section-inspiration"
             >
               <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">{t("colophon.inspiration.title")}</h2>
@@ -285,8 +283,8 @@ export default function ColophonClientPage() {
                 </Link>
                 .
               </p>
-            </motion.section>
-          </motion.div>
+            </Section>
+          </div>
         </div>
       </div>
     </main>
