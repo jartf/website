@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "now",
 })
 
-export default () => <NowClient />
+export default function NowPage() {
+  return <NowClient />
+}

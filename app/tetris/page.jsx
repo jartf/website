@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "tetris",
 })
 
-export default () => <TetrisClient />
+export default function TetrisPage() {
+  return <TetrisClient />
+}

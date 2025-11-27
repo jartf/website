@@ -5,4 +5,6 @@ export const metadata = {
   description: "A collection of classic web badges and buttons used on my website.",
 }
 
-export default () => <BadgesClient />
+export default function BadgesPage() {
+  return <BadgesClient />
+}

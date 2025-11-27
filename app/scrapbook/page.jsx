@@ -8,4 +8,6 @@ export const metadata = generateMetadata({
   path: "scrapbook",
 })
 
-export default () => <ScrapbookClient entries={getScrapbookEntries()} />
+export default function ScrapbookPage() {
+  return <ScrapbookClient entries={getScrapbookEntries()} />
+}

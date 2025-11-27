@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "2048",
 })
 
-export default () => <Game2048Client />
+export default function Game2048Page() {
+  return <Game2048Client />
+}

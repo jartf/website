@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "about",
 })
 
-export default () => <AboutClient />
+export default function AboutPage() {
+  return <AboutClient />
+}

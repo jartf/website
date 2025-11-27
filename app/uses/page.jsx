@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "uses",
 })
 
-export default () => <UsesClient />
+export default function UsesPage() {
+  return <UsesClient />
+}

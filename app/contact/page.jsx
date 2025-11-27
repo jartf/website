@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "contact",
 })
 
-export default () => <ContactClient />
+export default function ContactPage() {
+  return <ContactClient />
+}

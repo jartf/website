@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "slashes",
 })
 
-export default () => <SlashesClient />
+export default function SlashesPage() {
+  return <SlashesClient />
+}

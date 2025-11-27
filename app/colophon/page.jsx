@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "colophon",
 })
 
-export default () => <ColophonClient />
+export default function ColophonPage() {
+  return <ColophonClient />
+}

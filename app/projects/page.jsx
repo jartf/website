@@ -7,4 +7,6 @@ export const metadata = generateMetadata({
   path: "projects",
 })
 
-export default () => <ProjectsClient />
+export default function ProjectsPage() {
+  return <ProjectsClient />
+}
