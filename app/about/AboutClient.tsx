@@ -329,7 +329,6 @@ const Chapter = React.forwardRef<
         initial={{ opacity: 0, y: 50 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5 }}
-        className={`transition-all duration-500 ${isActive ? "scale-100" : "scale-95 opacity-70"}`}
       >
         <div className="flex items-center mb-3">
           <div className="bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">
