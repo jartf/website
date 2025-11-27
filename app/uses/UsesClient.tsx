@@ -4,7 +4,6 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
-import { motion } from "framer-motion"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Firefly } from "@/components/firefly"
@@ -114,8 +113,6 @@ export default function UsesClientPage() {
     }
   }, [mounted])
 
-  if (!mounted) return null
-
   const handleRevancedClick = () => {
     setRevancedClicks((prev) => prev + 1)
   }
@@ -123,6 +120,12 @@ export default function UsesClientPage() {
   const handleStremioClick = () => {
     setStremioClicks((prev) => prev + 1)
   }
+
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
 
   const categories: UsesCategory[] = [
     {
@@ -563,24 +566,9 @@ export default function UsesClientPage() {
     },
   ]
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  }
-
   return (
-    <main className="relative min-h-screen w-full overflow-hidden">
-      {theme === "dark" && <Firefly count={15} />}
+    <main className={`relative min-h-screen w-full overflow-hidden transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {mounted && theme === "dark" && <Firefly count={15} />}
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -604,11 +592,10 @@ export default function UsesClientPage() {
           {/* Screen reader announcement */}
           <div className="sr-only" aria-live="polite" id="keyboard-announcement"></div>
 
-          <motion.div className="flex flex-col gap-12" variants={container} initial="hidden" animate="show">
+          <div className="flex flex-col gap-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[0] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[0] = el }}
                 id="category-hardware"
                 className="transition-all duration-300"
               >
@@ -641,11 +628,10 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[1] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[1] = el }}
                 id="category-mobile"
                 className="transition-all duration-300"
               >
@@ -678,13 +664,12 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[2] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[2] = el }}
                 id="category-audio"
                 className="transition-all duration-300"
               >
@@ -717,11 +702,10 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[3] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[3] = el }}
                 id="category-os"
                 className="transition-all duration-300"
               >
@@ -754,13 +738,12 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[4] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[4] = el }}
                 id="category-development"
                 className="transition-all duration-300"
               >
@@ -793,11 +776,10 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[5] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[5] = el }}
                 id="category-email"
                 className="transition-all duration-300"
               >
@@ -830,13 +812,12 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[6] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[6] = el }}
                 id="category-privacy"
                 className="transition-all duration-300"
               >
@@ -869,11 +850,10 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[7] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[7] = el }}
                 id="category-mobile_tools"
                 className="transition-all duration-300"
               >
@@ -906,13 +886,12 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[8] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[8] = el }}
                 id="category-mapping"
                 className="transition-all duration-300"
               >
@@ -945,11 +924,10 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                variants={item}
-                ref={(el) => (categoryRefs.current[9] = el)}
+              <div
+                ref={(el) => { categoryRefs.current[9] = el }}
                 id="category-gaming"
                 className="transition-all duration-300"
               >
@@ -982,13 +960,12 @@ export default function UsesClientPage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
 
-            <motion.div
-              variants={item}
+            <div
               className="lg:col-span-2 transition-all duration-300"
-              ref={(el) => (categoryRefs.current[10] = el)}
+              ref={(el) => { categoryRefs.current[10] = el }}
               id="category-multimedia"
             >
               <div className="flex items-center gap-3 mb-4">
@@ -1107,8 +1084,8 @@ export default function UsesClientPage() {
                   </div>
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
