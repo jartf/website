@@ -147,11 +147,9 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     postRefs.current = postRefs.current.slice(0, filteredPosts.length)
   }, [filteredPosts.length])
 
-  // Set default language filter on mount - using useRef to track if initialized
-  const initializedRef = useRef(false)
+  // Set default language filter on mount and when language changes
   useEffect(() => {
-    if (mounted && safeBlogPosts.length > 0 && !initializedRef.current) {
-      initializedRef.current = true
+    if (mounted && safeBlogPosts.length > 0) {
       const currentLang = i18n.language || "en"
       const baseLanguage = currentLang.split("-")[0]
 
@@ -161,14 +159,14 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
       // Special case: if currentLang or baseLanguage is "vih", include both "vi" and "vih"
       if (baseLanguage === "vih" || currentLang === "vih") {
-        queueMicrotask(() => setFilterLanguages(["vi", "vih"]))
+        setFilterLanguages(["vi", "vih"])
       } else if (hasPostsInCurrentLanguage) {
-        queueMicrotask(() => setFilterLanguages([baseLanguage]))
+        setFilterLanguages([baseLanguage])
       } else {
-        queueMicrotask(() => setFilterLanguages(["en"]))
+        setFilterLanguages(["en"])
       }
     }
-  }, [safeBlogPosts, i18n.language, mounted])
+  }, [i18n.language, mounted, safeBlogPosts])
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -268,7 +266,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   }
 
   // Get current language for RSS feed
-  const currentLanguage = i18n.language?.split("-")[0] || "en"
+  const currentLanguage = currentLang
   const isValidLanguage = SUPPORTED_LANGUAGES.includes(currentLanguage as any)
   const rssLanguage = isValidLanguage ? currentLanguage : "en"
 

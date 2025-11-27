@@ -30,6 +30,28 @@ export function useLanguageDetection() {
     return "en"
   })
 
+  // Update detected language when i18n.language changes
+  useEffect(() => {
+    const rawLanguage = i18n.language || "en"
+
+    // Try exact match first
+    if (SUPPORTED_LANGUAGES.includes(rawLanguage)) {
+      setDetectedLanguage(rawLanguage)
+      return
+    }
+
+    // Try matching language code prefix (e.g., "en-US" should match "en")
+    for (const lang of SUPPORTED_LANGUAGES) {
+      if (rawLanguage.startsWith(lang)) {
+        setDetectedLanguage(lang)
+        return
+      }
+    }
+
+    // Default to English if no match
+    setDetectedLanguage("en")
+  }, [i18n.language])
+
   // keep <html lang> in sync with detection result
   useEffect(() => {
     if (typeof document !== "undefined") {
