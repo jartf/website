@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
 // Types
@@ -470,7 +470,7 @@ export function useGame2048() {
   }, [score, bestScore])
 
   // Save the current state to history
-  const saveToHistory = (currentBoard: GameBoard, currentScore: number) => {
+  const saveToHistory = useCallback((currentBoard: GameBoard, currentScore: number) => {
     setHistory((prev) => {
       const newHistory = [...prev, { board: currentBoard.map((row) => [...row]), score: currentScore }]
       if (newHistory.length > 20) {
@@ -478,10 +478,10 @@ export function useGame2048() {
       }
       return newHistory
     })
-  }
+  }, [])
 
   // Undo the last move
-  const undoMove = () => {
+  const undoMove = useCallback(() => {
     if (history.length === 0 || isAnimating) return
 
     const previousState = history[history.length - 1]
@@ -491,10 +491,10 @@ export function useGame2048() {
 
     // Reset game state if we were in game over state
     if (gameOver) setGameOver(false)
-  }
+  }, [history, isAnimating, gameOver])
 
   // Process a move in a given direction
-  const processMove = (direction: "left" | "right" | "up" | "down") => {
+  const processMove = useCallback((direction: "left" | "right" | "up" | "down") => {
     if (gameOver || isAnimating) return
 
     let result: MoveResult | undefined
@@ -532,10 +532,10 @@ export function useGame2048() {
         setIsAnimating(false)
       }, 150) // Animation duration
     }
-  }
+  }, [gameOver, isAnimating, board, score, saveToHistory])
 
   // Reset the game
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     setBoard(addRandomTile(createEmptyBoard()))
     setScore(0)
     setGameOver(false)
@@ -543,13 +543,13 @@ export function useGame2048() {
     setHasWonBefore(false) // Reset win tracking
     setHistory([])
     setAnimatingTiles({})
-  }
+  }, [])
 
   // Continue playing after winning
-  const continueGame = () => {
+  const continueGame = useCallback(() => {
     setGameWon(false)
     // Don't reset hasWonBefore so the win dialog doesn't show again
-  }
+  }, [])
 
   // Force a re-render when language changes
   useEffect(() => {
