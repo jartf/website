@@ -55,12 +55,12 @@ function readBlogPostFile(filePath: string): ReturnType<typeof matter> | null {
  */
 function getAllMarkdownFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return []
-  
+
   return fs.readdirSync(dir).flatMap(file => {
     const filePath = path.join(dir, file)
     const stat = fs.statSync(filePath)
-    return stat?.isDirectory() 
-      ? getAllMarkdownFiles(filePath) 
+    return stat?.isDirectory()
+      ? getAllMarkdownFiles(filePath)
       : file.endsWith(".md") ? [filePath] : []
   })
 }
@@ -160,9 +160,9 @@ export async function getPostNavigation(currentSlug: string): Promise<BlogPostNa
  * Get related posts based on tags and category
  */
 export async function getRelatedPosts(
-  currentSlug: string, 
-  currentTags: string[] = [], 
-  currentCategory: string | null = null, 
+  currentSlug: string,
+  currentTags: string[] = [],
+  currentCategory: string | null = null,
   limit: number = 4
 ): Promise<BlogPostMetadata[]> {
   const allPosts = await getAllBlogPosts()

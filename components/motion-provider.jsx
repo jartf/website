@@ -13,10 +13,10 @@ const MotionContext = createContext({ prefersReducedMotion: false })
  */
 export function MotionProvider({ children }) {
   const prefersReducedMotion = useReducedMotion()
-  
+
   // Memoize context value to prevent unnecessary re-renders
   const value = useMemo(() => ({ prefersReducedMotion }), [prefersReducedMotion])
-  
+
   return <MotionContext.Provider value={value}>{children}</MotionContext.Provider>
 }
 
