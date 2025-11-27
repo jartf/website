@@ -54,16 +54,19 @@ export function Header() {
     if (!mounted) return
 
     const calculateOverflow = () => {
-      if (windowWidth < 768 || windowWidth >= 1280 || !navRef.current) {
-        setOverflowIndex(null)
+      // Early return for mobile or desktop sizes
+      if (windowWidth < 768 || windowWidth >= 1280) {
+        if (overflowIndex !== null) setOverflowIndex(null)
         return
       }
+
+      if (!navRef.current) return
 
       const containerWidth = document.querySelector(".container")?.clientWidth || 0
       const availableWidth = containerWidth - 120 - 150 - 48 - 16
 
       if (availableWidth <= 0) {
-        setOverflowIndex(0)
+        if (overflowIndex !== 0) setOverflowIndex(0)
         return
       }
 
@@ -79,16 +82,25 @@ export function Header() {
         }
       }
 
-      setOverflowIndex(totalWidth <= availableWidth ? null : breakIndex < navItems.length ? breakIndex : null)
+      const newIndex = totalWidth <= availableWidth ? null : breakIndex < navItems.length ? breakIndex : null
+      if (newIndex !== overflowIndex) setOverflowIndex(newIndex)
+    }
+
+    // Use requestAnimationFrame for better performance
+    let rafId: number | null = null
+    const debouncedCalculate = () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(calculateOverflow)
     }
 
     const timer = setTimeout(calculateOverflow, 50)
-    window.addEventListener("resize", calculateOverflow)
+    window.addEventListener("resize", debouncedCalculate)
     return () => {
       clearTimeout(timer)
-      window.removeEventListener("resize", calculateOverflow)
+      if (rafId) cancelAnimationFrame(rafId)
+      window.removeEventListener("resize", debouncedCalculate)
     }
-  }, [mounted, windowWidth])
+  }, [mounted, windowWidth, overflowIndex])
 
   if (!mounted) return null
 
