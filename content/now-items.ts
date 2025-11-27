@@ -18,7 +18,7 @@ export type NowItemContent = {
 export type NowItem = {
   id: number
   category: string
-  icon: any
+  icon: React.ComponentType<{ className?: string }>
   content: NowItemContent
   date: string
 }
@@ -58,7 +58,9 @@ export const nowItems: NowItem[] = [
       zh: "最近没有Discord活动",
       pl: "Brak ostatniej aktywności na Discordzie",
       fi: "Ei viimeaikaista Discord-toimintaa",
-      sv: "Ingen nylig Discord-aktivitet"
+      sv: "Ingen nylig Discord-aktivitet",
+      tok: "No recent Discord activity",
+      vih: "空固活動𨑗 Discord 𧵆低",
     },
     date: "2025-11-26T00:00:00+07:00",
   },
@@ -77,6 +79,8 @@ export const nowItems: NowItem[] = [
       pl: "Projekt badawczy dotyczący geogospodarki i tego, jak Wietnam wykorzystuje suwerenność informacyjną i cyberbezpieczeństwo jako dźwignię geogospodarczą w wyścigu o rozwój centrów danych",
       fi: "Tutkimusprojekti geoekonomiasta ja siitä, miten Vietnam hyödyntää tietosuvereniteettia ja kyberturvallisuutta geoekonomisena vipuna Vietnamin datakeskusten kehityskilpailussa",
       sv: "Ett forskningsprojekt om geoekonomi och hur Vietnam utnyttjar informationssuveränitet och cybersäkerhet som geoekonomisk hävstång i Vietnams datacenterutvecklingskapplöpning",
+      tok: "A research project on geoeconomics and how Vietnam leverages information sovereignty and cybersecurity as geoeconomic leverage in Vietnam's datacenter development race",
+      vih: "𠬠預案研究𧗱地經濟吧格越南盡用主權通信吧安寧數如𠬠杶㔥地經濟𥪝局𨅮發展中心與料",
     },
     date: "2025-11-26T10:36:00+07:00",
   },
