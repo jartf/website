@@ -34,3 +34,12 @@
   pointer-events: none;
   z-index: 1;
 }
+
+.visible {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.visibleOpacity {
+  opacity: 1;
+}
