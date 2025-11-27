@@ -109,7 +109,7 @@ export default function NowClientPage() {
       }
     }
     fetchLastfm()
-    const interval = setInterval(fetchLastfm, 60000)
+    const interval = setInterval(fetchLastfm, 15000)
     return () => clearInterval(interval)
   }, [])
 
