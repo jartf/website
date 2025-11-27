@@ -626,6 +626,7 @@ export default function TetrisGame() {
                         e.preventDefault()
                         handleTouchAction(rotate, "rotate")
                       }}
+                      aria-label="Rotate piece"
                     >
                       <ArrowUp className="h-8 w-8" />
                     </button>
@@ -641,6 +642,7 @@ export default function TetrisGame() {
                         e.preventDefault()
                         handleTouchAction(moveLeft, "left")
                       }}
+                      aria-label="Move left"
                     >
                       <ArrowLeft className="h-8 w-8" />
                     </button>
@@ -656,6 +658,7 @@ export default function TetrisGame() {
                         e.preventDefault()
                         handleTouchAction(moveDown, "down")
                       }}
+                      aria-label="Move down"
                     >
                       <ArrowDown className="h-8 w-8" />
                     </button>
@@ -671,6 +674,7 @@ export default function TetrisGame() {
                         e.preventDefault()
                         handleTouchAction(moveRight, "right")
                       }}
+                      aria-label="Move right"
                     >
                       <ArrowRight className="h-8 w-8" />
                     </button>
