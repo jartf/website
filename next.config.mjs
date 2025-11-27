@@ -32,7 +32,7 @@ const nextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'browsing-topics=()',
+            value: 'browsing-topics=(), camera=(), microphone=(), geolocation=(), interest-cohort=()',
           },
           {
             key: 'Cross-Origin-Embedder-Policy',
@@ -45,6 +45,28 @@ const nextConfig = {
           {
             key: 'Cross-Origin-Resource-Policy',
             value: 'cross-origin',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
+              "font-src 'self' fonts.gstatic.com data:",
+              "img-src 'self' data: https: blob: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com",
+              "media-src 'self' data: blob:",
+              "connect-src 'self' https://fm.jarema.me https://ws.audioscrobbler.com https://jarema.me",
+              "frame-src 'none'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'self'",
+              "upgrade-insecure-requests",
+            ].join('; '),
           },
         ],
       },
