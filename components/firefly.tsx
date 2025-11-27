@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, memo, RefObject } from "react"
+import { useRef, memo, RefObject, useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 interface FireflyProps {
@@ -38,32 +38,37 @@ Firefly.displayName = "Firefly"
  * @returns {JSX.Element} A single firefly dot.
  */
 const FireflyDot = memo(function FireflyDot({ containerRef }: FireflyDotProps) {
-  const getRandomPosition = () => {
-    if (!containerRef.current) return { x: 0, y: 0 }
-
-    const width = containerRef.current.offsetWidth
-    const height = containerRef.current.offsetHeight
-
+  const [randomValues] = useState(() => {
+    // Initialize with default values first
     return {
-      x: Math.random() * width,
-      y: Math.random() * height,
+      initialPosition: { x: 0, y: 0 },
+      size: 2 + Math.random() * 3,
+      duration: 15 + Math.random() * 30,
     }
-  }
+  })
 
-  const getRandomDuration = () => 15 + Math.random() * 30
-
-  const initialPosition = getRandomPosition()
-  const size = 2 + Math.random() * 3
+  // Update position after mount when container is available
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  useEffect(() => {
+    if (containerRef.current) {
+      const width = containerRef.current.offsetWidth
+      const height = containerRef.current.offsetHeight
+      setPosition({
+        x: Math.random() * width,
+        y: Math.random() * height,
+      })
+    }
+  }, [containerRef])
 
   return (
     <motion.div
       className="absolute rounded-full bg-primary/70 shadow-glow"
       style={{
-        width: size,
-        height: size,
-        boxShadow: `0 0 ${size * 2}px ${size}px rgba(var(--primary), 0.3)`,
-        x: initialPosition.x,
-        y: initialPosition.y,
+        width: randomValues.size,
+        height: randomValues.size,
+        boxShadow: `0 0 ${randomValues.size * 2}px ${randomValues.size}px rgba(var(--primary), 0.3)`,
+        x: position.x,
+        y: position.y,
         willChange: "transform, opacity",
       }}
       animate={{
@@ -71,7 +76,7 @@ const FireflyDot = memo(function FireflyDot({ containerRef }: FireflyDotProps) {
         scale: [1, 1.2, 1],
       }}
       transition={{
-        duration: getRandomDuration(),
+        duration: randomValues.duration,
         repeat: Number.POSITIVE_INFINITY,
         ease: "easeInOut",
       }}
