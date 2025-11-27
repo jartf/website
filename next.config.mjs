@@ -1,14 +1,33 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+  // Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
+
+  // Experimental features for better performance
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion', 'react-i18next', 'date-fns'],
+  },
+
+  // Output configuration
+  output: 'standalone',
+
+  // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     unoptimized: true,
+    minimumCacheTTL: 60,
   },
+
+  // Compression
+  compress: true,
+
+  // Production source maps (disable for smaller bundles)
+  productionBrowserSourceMaps: false,
+
   async headers() {
     return [
       {
