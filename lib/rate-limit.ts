@@ -24,7 +24,7 @@ export function rateLimit(config: RateLimitConfig) {
   return {
     check: (req: NextApiRequest, res: NextApiResponse, limit: number): boolean => {
       // Get client identifier (IP address)
-      const token = 
+      const token =
         (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ||
         (req.headers['x-real-ip'] as string) ||
         req.socket.remoteAddress ||

@@ -34,15 +34,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   // Enable CORS for PreMID extension (restricted in production)
-  const allowedOrigins = process.env.NODE_ENV === 'production' 
+  const allowedOrigins = process.env.NODE_ENV === 'production'
     ? ['https://jarema.me', 'chrome-extension://*', 'moz-extension://*']
     : ['*']
-  
+
   const origin = req.headers.origin || ''
-  const isAllowed = allowedOrigins.includes('*') || allowedOrigins.some(allowed => 
+  const isAllowed = allowedOrigins.includes('*') || allowedOrigins.some(allowed =>
     allowed.endsWith('*') ? origin.startsWith(allowed.slice(0, -1)) : origin === allowed
   )
-  
+
   if (isAllowed) {
     res.setHeader('Access-Control-Allow-Origin', origin || '*')
   }
@@ -87,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (typeof active_activity !== 'object') {
         return res.status(400).json({ error: 'Invalid activity data' })
       }
-      
+
       // Store the current activity (sanitize by creating new object)
       currentActivity = {
         name: String(active_activity.name || '').slice(0, 200),
