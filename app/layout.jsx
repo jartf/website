@@ -51,12 +51,30 @@ const hanNom = localFont({
   preload: false,
 })
 
-// Helper to generate feed URLs
-const generateFeedUrls = (type, ext) => [
-  { url: `${type}.${ext}`, title: `Jarema's digital garden - ${type.toUpperCase()} Feed` },
+// Pre-compute feed URLs at module level for better performance
+const FEED_URLS_RSS = [
+  { url: "rss.xml", title: "Jarema's digital garden - RSS Feed" },
   ...SUPPORTED_LANGUAGES.map((lang) => ({
-    url: `${type}/${lang}.${ext}`,
-    title: `Jarema's digital garden - ${lang.charAt(0).toUpperCase() + lang.slice(1)} ${type.toUpperCase()} Feed`,
+    url: `rss/${lang}.xml`,
+    title: `Jarema's digital garden - ${lang.charAt(0).toUpperCase() + lang.slice(1)} RSS Feed`,
+    hreflang: lang,
+  })),
+]
+
+const FEED_URLS_JSON = [
+  { url: "feed.json", title: "Jarema's digital garden - FEED Feed" },
+  ...SUPPORTED_LANGUAGES.map((lang) => ({
+    url: `feed/${lang}.json`,
+    title: `Jarema's digital garden - ${lang.charAt(0).toUpperCase() + lang.slice(1)} FEED Feed`,
+    hreflang: lang,
+  })),
+]
+
+const FEED_URLS_ATOM = [
+  { url: "atom.xml", title: "Jarema's digital garden - ATOM Feed" },
+  ...SUPPORTED_LANGUAGES.map((lang) => ({
+    url: `atom/${lang}.xml`,
+    title: `Jarema's digital garden - ${lang.charAt(0).toUpperCase() + lang.slice(1)} ATOM Feed`,
     hreflang: lang,
   })),
 ]
@@ -94,9 +112,9 @@ export const metadata = {
     canonical: "/",
     languages: Object.fromEntries(SUPPORTED_LANGUAGES.map((lang) => [lang, "/"])),
     types: {
-      "application/rss+xml": generateFeedUrls("rss", "xml"),
-      "application/json": generateFeedUrls("feed", "json"),
-      "application/atom+xml": generateFeedUrls("atom", "xml"),
+      "application/rss+xml": FEED_URLS_RSS,
+      "application/json": FEED_URLS_JSON,
+      "application/atom+xml": FEED_URLS_ATOM,
     },
   },
 }
