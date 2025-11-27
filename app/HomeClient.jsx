@@ -33,7 +33,7 @@ export default function Home({ blogPosts = [] }) {
   const [latestNow, setLatestNow] = useState(null)
   const [lastfmTrack, setLastfmTrack] = useState(null)
   const [lastfmError, setLastfmError] = useState(false)
-  const [premidActivity, setPremidActivity] = useState(null)
+  const [premidActivities, setPremidActivities] = useState([])
   const [premidError, setPremidError] = useState(false)
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
@@ -136,11 +136,11 @@ export default function Home({ blogPosts = [] }) {
         if (!res.ok) throw new Error("Failed to fetch PreMID")
         const data = await res.json()
         if (!ignore) {
-          if (data.activity) {
-            setPremidActivity(data.activity)
+          if (data.activities && data.activities.length > 0) {
+            setPremidActivities(data.activities.map((a) => a.activity))
             setPremidError(false)
           } else {
-            setPremidActivity(null)
+            setPremidActivities([])
           }
         }
       } catch (e) {
@@ -165,7 +165,7 @@ export default function Home({ blogPosts = [] }) {
       filteredNow = filteredNow.filter(item => item.category !== "listening")
     }
     // Exclude premid if PreMID is available
-    if (premidActivity && !premidError) {
+    if (premidActivities.length > 0 && !premidError) {
       filteredNow = filteredNow.filter(item => item.category !== "premid")
     }
     // Find latest now entry
@@ -178,7 +178,7 @@ export default function Home({ blogPosts = [] }) {
 
     // Check if both Last.fm and PreMID are live
     const lastfmLive = lastfmTrack && lastfmTrack.nowplaying && !lastfmError
-    const premidLive = premidActivity && !premidError
+    const premidLive = premidActivities.length > 0 && !premidError
 
     // If both are live, set latestNow to show both
     if (lastfmLive && premidLive) {
@@ -192,7 +192,7 @@ export default function Home({ blogPosts = [] }) {
           date: lastfmTrack.date,
           dateObj: lastfmTrack.dateObj
         },
-        premid: premidActivity
+        premid: premidActivities
       })
       return
     }
@@ -214,12 +214,12 @@ export default function Home({ blogPosts = [] }) {
     }
 
     // Compare with PreMID
-    if (premidActivity && !premidError) {
+    if (premidActivities.length > 0 && !premidError) {
       const premidDate = new Date() // PreMID activity is current
       if (!latest || premidDate > new Date(latest.date)) {
         setLatestNow({
           type: "premid",
-          activity: premidActivity
+          activities: premidActivities
         })
         return
       }
@@ -232,7 +232,7 @@ export default function Home({ blogPosts = [] }) {
         content: latest.content[currentLang] || latest.content.en
       })
     }
-  }, [i18n.language, lastfmTrack, lastfmError, premidActivity, premidError])
+  }, [i18n.language, lastfmTrack, lastfmError, premidActivities, premidError])
 
   if (!isTranslationReady) {
     return (
@@ -377,25 +377,29 @@ export default function Home({ blogPosts = [] }) {
                         {t("now.categories.premid", "PreMID")}
                         <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
                       </div>
-                      <div className="flex items-start gap-3">
-                        {latestNow.premid.assets?.large_image && (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={latestNow.premid.assets.large_image}
-                            alt={latestNow.premid.assets.large_text || latestNow.premid.name}
-                            className="w-12 h-12 rounded-lg flex-shrink-0"
-                            title={latestNow.premid.assets.large_text}
-                          />
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <span className="font-semibold break-words">{latestNow.premid.name}</span>
-                          {latestNow.premid.details && (
-                            <p className="text-sm break-words">{latestNow.premid.details}</p>
-                          )}
-                          {latestNow.premid.state && (
-                            <p className="text-sm text-muted-foreground break-words">{latestNow.premid.state}</p>
-                          )}
-                        </div>
+                      <div className="space-y-3">
+                        {latestNow.premid.map((activity, idx) => (
+                          <div key={idx} className="flex items-start gap-3">
+                            {activity.assets?.large_image && (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={activity.assets.large_image}
+                                alt={activity.assets.large_text || activity.name}
+                                className="w-12 h-12 rounded-lg flex-shrink-0"
+                                title={activity.assets.large_text}
+                              />
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <span className="font-semibold break-words">{activity.name}</span>
+                              {activity.details && (
+                                <p className="text-sm break-words">{activity.details}</p>
+                              )}
+                              {activity.state && (
+                                <p className="text-sm text-muted-foreground break-words">{activity.state}</p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </>
@@ -431,25 +435,29 @@ export default function Home({ blogPosts = [] }) {
                       {t("now.categories.premid", "PreMID")}
                       <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
                     </div>
-                    <div className="flex items-start gap-3">
-                      {latestNow.activity.assets?.large_image && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={latestNow.activity.assets.large_image}
-                          alt={latestNow.activity.assets.large_text || latestNow.activity.name}
-                          className="w-12 h-12 rounded-lg flex-shrink-0"
-                          title={latestNow.activity.assets.large_text}
-                        />
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <span className="font-semibold break-words">{latestNow.activity.name}</span>
-                        {latestNow.activity.details && (
-                          <p className="text-sm break-words">{latestNow.activity.details}</p>
-                        )}
-                        {latestNow.activity.state && (
-                          <p className="text-sm text-muted-foreground break-words">{latestNow.activity.state}</p>
-                        )}
-                      </div>
+                    <div className="space-y-3">
+                      {latestNow.activities.map((activity, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                          {activity.assets?.large_image && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={activity.assets.large_image}
+                              alt={activity.assets.large_text || activity.name}
+                              className="w-12 h-12 rounded-lg flex-shrink-0"
+                              title={activity.assets.large_text}
+                            />
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <span className="font-semibold break-words">{activity.name}</span>
+                            {activity.details && (
+                              <p className="text-sm break-words">{activity.details}</p>
+                            )}
+                            {activity.state && (
+                              <p className="text-sm text-muted-foreground break-words">{activity.state}</p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ) : (
