@@ -9,6 +9,7 @@ import { Firefly } from "@/components/firefly"
 import { useTranslation } from "react-i18next"
 import { usePlatform } from "@/hooks/use-platform"
 import { useMounted } from "@/hooks/use-mounted"
+import styles from "./Tetris.module.css"
 
 type TouchAction = 'left' | 'right' | 'down' | 'rotate' | 'drop' | 'pause'
 
@@ -590,15 +591,7 @@ export default function TetrisGame() {
                 </div>
               </div>
 
-              <div
-                className="grid bg-muted"
-                style={{
-                  gridTemplateColumns: `repeat(${BOARD_WIDTH}, 1fr)`,
-                  width: `${BOARD_WIDTH * 25}px`,
-                  height: `${BOARD_HEIGHT * 25}px`,
-                  border: "2px solid hsl(var(--border))",
-                }}
-              >
+              <div className={`${styles.gameBoard} bg-muted`}>
                 {board.map((row, y) =>
                   row.map((_, x) => (
                     <AnimatePresence key={`${y}-${x}`}>
@@ -609,8 +602,7 @@ export default function TetrisGame() {
                           scale: completedRows.includes(y) ? 1.1 : 1,
                         }}
                         transition={{ duration: 0.3 }}
-                        className={`w-6 h-6 ${renderCell(x, y) || "bg-background dark:bg-background/50"}`}
-                        style={{ border: "1px solid hsl(var(--border))" }}
+                        className={`${styles.cell} ${renderCell(x, y) || "bg-background dark:bg-background/50"}`}
                       />
                     </AnimatePresence>
                   )),
