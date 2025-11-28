@@ -376,7 +376,7 @@ export default function Home({ blogPosts = [] }) {
                       </div>
                       <div className="space-y-3">
                         {latestNow.premid.map((activity, idx) => (
-                          <div key={idx} className="flex items-start gap-3">
+                          <div key={idx} className="flex items-center gap-3">
                             {activity.assets?.large_image && (
                               // eslint-disable-next-line @next/next/no-img-element
                               <img
@@ -434,7 +434,7 @@ export default function Home({ blogPosts = [] }) {
                     </div>
                     <div className="space-y-3">
                       {latestNow.activities.map((activity, idx) => (
-                        <div key={idx} className="flex items-start gap-3">
+                        <div key={idx} className="flex items-center gap-3">
                           {activity.assets?.large_image && (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
