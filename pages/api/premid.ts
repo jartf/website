@@ -141,13 +141,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Clean up any expired activities
       cleanupExpiredActivities()
     } else {
-      // If no activity is sent, clear all activities (user went idle)
-      activities.forEach(entry => {
-        if (entry.timeoutId) {
-          clearTimeout(entry.timeoutId)
-        }
-      })
-      activities.clear()
+      // If no activity is sent, only clear if we haven't received any activity recently
+      // This prevents brief "idle" moments from clearing everything
+      const now = Date.now()
+      const recentActivityExists = Array.from(activities.values()).some(
+        entry => now - entry.lastUpdate < 30000 // Within last 30 seconds
+      )
+      
+      if (!recentActivityExists) {
+        // No recent activity, safe to clear
+        activities.forEach(entry => {
+          if (entry.timeoutId) {
+            clearTimeout(entry.timeoutId)
+          }
+        })
+        activities.clear()
+      }
+      // Otherwise, keep existing activities and let them expire naturally
     }
 
     res.status(200).json({ success: true })
