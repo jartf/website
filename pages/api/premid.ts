@@ -182,19 +182,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const isProduction = host === 'jarema.me' || host === 'www.jarema.me'
 
     if (!isProduction) {
-      // Not on production, fetch from production
+      // Not on production, try to fetch from production
       try {
         const response = await fetch('https://jarema.me/api/premid')
+        if (!response.ok) throw new Error('Production fetch failed')
         const data = await response.json()
         res.status(200).json(data)
         return
       } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch from production' })
-        return
+        // Failed to fetch from production, fall through to serve local data
+        console.log('Failed to fetch from production, serving local data')
       }
     }
 
-    // Return current activity (only on production domain)
+    // Return current activity (on production domain or dev fallback)
     // Clean up expired activities before returning
     cleanupExpiredActivities()
 
