@@ -11,15 +11,38 @@ const activities = new Map<string, ActivityEntry>()
 
 // Function to create a unique key from an activity
 function getActivityKey(activity: any): string {
-  // Create a key from the essential parts of the activity
+  // Create a key based only on visible content (name, details, state)
+  // This allows us to deduplicate activities with same content but different metadata
   const key = JSON.stringify({
     name: activity.name,
     details: activity.details,
     state: activity.state,
-    largeImageKey: activity.assets?.large_image,
-    smallImageKey: activity.assets?.small_image,
   })
   return key
+}
+
+// Function to score an activity based on how much detail it has
+function getActivityScore(activity: any): number {
+  let score = 0
+
+  // Has timestamps
+  if (activity.timestamps) {
+    if (activity.timestamps.start) score += 2
+    if (activity.timestamps.end) score += 2
+  }
+
+  // Has buttons/URLs
+  if (activity.buttons && activity.buttons.length > 0) {
+    score += activity.buttons.length * 3
+  }
+
+  // Has images
+  if (activity.assets) {
+    if (activity.assets.large_image) score += 1
+    if (activity.assets.small_image) score += 1
+  }
+
+  return score
 }
 
 // Function to setup timeout for a specific activity (20 minutes)
@@ -92,20 +115,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const key = getActivityKey(active_activity)
       const now = Date.now()
 
-      // Update or add the activity
+      // Check if we should update or skip this activity
       const existing = activities.get(key)
-      if (existing && existing.timeoutId) {
-        clearTimeout(existing.timeoutId)
+
+      // Only update if:
+      // 1. No existing activity with this key, OR
+      // 2. New activity has a higher score (more details)
+      const shouldUpdate = !existing || getActivityScore(active_activity) >= getActivityScore(existing.activity)
+
+      if (shouldUpdate) {
+        if (existing && existing.timeoutId) {
+          clearTimeout(existing.timeoutId)
+        }
+
+        activities.set(key, {
+          activity: active_activity,
+          lastUpdate: now,
+          timeoutId: null,
+        })
+
+        // Set up the timeout for this activity
+        setupActivityTimeout(key)
       }
-
-      activities.set(key, {
-        activity: active_activity,
-        lastUpdate: now,
-        timeoutId: null,
-      })
-
-      // Set up the timeout for this activity
-      setupActivityTimeout(key)
 
       // Clean up any expired activities
       cleanupExpiredActivities()
