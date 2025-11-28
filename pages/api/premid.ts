@@ -70,7 +70,10 @@ function cleanupExpiredActivities() {
   const expiredKeys: string[] = []
 
   activities.forEach((entry, key) => {
-    if (now - entry.lastUpdate >= 1200000) {
+    const isExpiredByTimeout = now - entry.lastUpdate >= 1200000
+    const isExpiredByEndTime = entry.activity.timestamps?.end && entry.activity.timestamps.end <= now
+
+    if (isExpiredByTimeout || isExpiredByEndTime) {
       if (entry.timeoutId) {
         clearTimeout(entry.timeoutId)
       }
@@ -193,22 +196,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Clean up expired activities before returning
     cleanupExpiredActivities()
 
-    const now = Date.now()
-
-    // Convert activities map to array and filter out ended activities
-    const activeActivities = Array.from(activities.values())
-      .filter(entry => {
-        // If the activity has an end timestamp, check if it's in the future
-        if (entry.activity.timestamps?.end) {
-          return entry.activity.timestamps.end > now
-        }
-        // If no end timestamp, keep it
-        return true
-      })
-      .map(entry => ({
-        activity: entry.activity,
-        lastUpdate: entry.lastUpdate,
-      }))
+    // Convert activities map to array
+    const activeActivities = Array.from(activities.values()).map(entry => ({
+      activity: entry.activity,
+      lastUpdate: entry.lastUpdate,
+    }))
 
     res.status(200).json({
       activities: activeActivities,
