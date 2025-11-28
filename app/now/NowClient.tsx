@@ -317,8 +317,8 @@ export default function NowClientPage() {
                                     title={premidActivity.assets.large_text}
                                   />
                                 )}
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2 mb-1">
+                                <div className="flex-1 min-w-0 -mt-1.5">
+                                  <div className="flex items-center gap-2 mb-0.5">
                                     <span className="font-semibold break-words">{premidActivity.name}</span>
                                     <Badge variant="default" className="animate-pulse flex-shrink-0">Live</Badge>
                                   </div>
