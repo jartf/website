@@ -3,8 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 // Configuration constants
 const AUTHORIZED_USER_ID = '490457129090547733'
 const ACTIVITY_TIMEOUT_MS = 20 * 60 * 1000 // 20 minutes
-const CACHE_DURATION_MS = 15 * 1000 // 15 seconds
-const RECENT_ACTIVITY_THRESHOLD_MS = 30 * 1000 // 30 seconds
+const CLEAR_THRESHOLD_MS = 5 * 60 * 1000 // 5 minutes - only clear if no updates for this long
 const PRODUCTION_HOSTS = new Set(['jarema.me', 'www.jarema.me'])
 const MAX_ACTIVITIES = 100 // Prevent unbounded memory growth
 
@@ -37,7 +36,6 @@ interface ActivityEntry {
   activity: Activity
   lastUpdate: number
   timeoutId: NodeJS.Timeout | null
-  cacheUntil: number
 }
 
 interface ExtensionData {
@@ -97,12 +95,12 @@ function setupActivityTimeout(key: string): void {
   }, ACTIVITY_TIMEOUT_MS)
 }
 
-// Clean up expired activities based on cache expiry
+// Clean up expired activities based on activity timeout
 function cleanupExpiredActivities(): void {
   const now = Date.now()
 
   for (const [key, entry] of activities.entries()) {
-    if (now > entry.cacheUntil) {
+    if (now - entry.lastUpdate >= ACTIVITY_TIMEOUT_MS) {
       if (entry.timeoutId) {
         clearTimeout(entry.timeoutId)
       }
@@ -170,14 +168,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           activity: active_activity,
           lastUpdate: now,
           timeoutId: null,
-          cacheUntil: now + CACHE_DURATION_MS,
         })
 
         setupActivityTimeout(key)
       } else if (existing) {
         // Keep existing activity but extend its lifetime
         existing.lastUpdate = now
-        existing.cacheUntil = now + CACHE_DURATION_MS
         if (existing.timeoutId) {
           clearTimeout(existing.timeoutId)
         }
@@ -185,12 +181,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         setupActivityTimeout(key)
       }
 
-      cleanupExpiredActivities()
+      // Don't run cleanup here - it might remove other valid activities
     } else {
-      // Clear activities only if no recent updates (prevents clearing during brief idle moments)
+      // Only clear activities if there's been no activity for a substantial time
+      // This prevents clearing during brief pauses or tab switches
       const now = Date.now()
       const hasRecentActivity = Array.from(activities.values()).some(
-        entry => now - entry.lastUpdate < RECENT_ACTIVITY_THRESHOLD_MS
+        entry => now - entry.lastUpdate < CLEAR_THRESHOLD_MS
       )
 
       if (!hasRecentActivity) {
@@ -201,6 +198,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         activities.clear()
       }
+      // Note: If there IS recent activity, we keep it even though this POST has no active_activity
+      // This handles cases where PreMID sends periodic heartbeats without activity data
     }
 
     res.status(200).json({ success: true })
