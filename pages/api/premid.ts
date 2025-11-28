@@ -176,11 +176,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else if (req.method === 'GET') {
     // Get the host from the request
     const host = req.headers.host || ''
-    const protocol = req.headers['x-forwarded-proto'] || 'http'
-    const baseUrl = `${protocol}://${host}`
 
-    // If not on production domain, fetch from production
-    if (baseUrl !== 'https://jarema.me') {
+    // Only serve activities if we're on the production domain
+    // (Don't redirect to production from production)
+    const isProduction = host === 'jarema.me' || host === 'www.jarema.me'
+
+    if (!isProduction) {
+      // Not on production, fetch from production
       try {
         const response = await fetch('https://jarema.me/api/premid')
         const data = await response.json()
