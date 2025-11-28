@@ -9,13 +9,15 @@ export default async function handler(req, res) {
     // Try to fetch from the proxy first
     const response = await fetch("https://fm.jarema.me/");
     if (!response.ok) {
-      throw new Error("Proxy failed");
+      console.log("Proxy failed, trying Last.fm API directly");
+    } else {
+      const xml = await response.text();
+      res.setHeader("Content-Type", "application/xml");
+      res.status(200).send(xml);
+      return;
     }
-    const xml = await response.text();
-    res.setHeader("Content-Type", "application/xml");
-    res.status(200).send(xml);
   } catch (error) {
-    console.error("Error fetching from proxy, trying Last.fm API directly:", error);
+    console.log("Error fetching from proxy, trying Last.fm API directly:", error);
 
     // Fallback to Last.fm API directly
     try {
@@ -23,15 +25,16 @@ export default async function handler(req, res) {
       const fallbackResponse = await fetch(fallbackUrl);
 
       if (!fallbackResponse.ok) {
-        return res.status(500).json({ error: "Failed to fetch Last.fm" });
+        console.log("Last.fm API also failed");
+        return res.status(200).json({ error: "Unable to fetch Last.fm directly" });
       }
 
       const xml = await fallbackResponse.text();
       res.setHeader("Content-Type", "application/xml");
       res.status(200).send(xml);
     } catch (fallbackError) {
-      console.error("Error fetching Last.fm data from API:", fallbackError);
-      res.status(500).json({ error: "Failed to fetch Last.fm" });
+      console.log("Error fetching Last.fm data from API:", fallbackError);
+      res.status(200).json({ error: "Unable to fetch Last.fm" });
     }
   }
 }
