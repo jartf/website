@@ -147,7 +147,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const recentActivityExists = Array.from(activities.values()).some(
         entry => now - entry.lastUpdate < 30000 // Within last 30 seconds
       )
-      
+
       if (!recentActivityExists) {
         // No recent activity, safe to clear
         activities.forEach(entry => {
