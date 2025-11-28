@@ -5,6 +5,7 @@ interface ActivityEntry {
   activity: any
   lastUpdate: number
   timeoutId: NodeJS.Timeout | null
+  cacheUntil: number // Timestamp when this activity can be removed
 }
 
 const activities = new Map<string, ActivityEntry>()
@@ -72,10 +73,10 @@ function cleanupExpiredActivities() {
   const expiredKeys: string[] = []
 
   activities.forEach((entry, key) => {
-    const isExpiredByTimeout = now - entry.lastUpdate >= 1200000
-    const isExpiredByEndTime = entry.activity.timestamps?.end && entry.activity.timestamps.end <= now
+    // Only remove if cache period has expired
+    const isCacheExpired = now > entry.cacheUntil
 
-    if (isExpiredByTimeout || isExpiredByEndTime) {
+    if (isCacheExpired) {
       if (entry.timeoutId) {
         clearTimeout(entry.timeoutId)
       }
@@ -133,18 +134,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           clearTimeout(existing.timeoutId)
         }
 
+        // Cache for 15 seconds from now
+        const cacheUntil = now + 15000
+
         activities.set(key, {
           activity: active_activity,
           lastUpdate: now,
           timeoutId: null,
+          cacheUntil: cacheUntil,
         })
 
         // Set up the timeout for this activity
         setupActivityTimeout(key)
       } else if (existing) {
-        // Keep the existing (more detailed) activity but update its timestamp
-        // This ensures it doesn't expire while still active
+        // Keep the existing (more detailed) activity but update its timestamp and cache
         existing.lastUpdate = now
+        existing.cacheUntil = now + 15000 // Extend cache for another 15 seconds
         if (existing.timeoutId) {
           clearTimeout(existing.timeoutId)
         }
