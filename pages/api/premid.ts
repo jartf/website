@@ -1,55 +1,85 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-// Store activities in memory - key is a hash of the activity to deduplicate
+// Configuration constants
+const AUTHORIZED_USER_ID = '490457129090547733'
+const ACTIVITY_TIMEOUT_MS = 20 * 60 * 1000 // 20 minutes
+const CACHE_DURATION_MS = 15 * 1000 // 15 seconds
+const RECENT_ACTIVITY_THRESHOLD_MS = 30 * 1000 // 30 seconds
+const PRODUCTION_HOSTS = new Set(['jarema.me', 'www.jarema.me'])
+const MAX_ACTIVITIES = 100 // Prevent unbounded memory growth
+
+// Type definitions
+interface ActivityAssets {
+  large_image?: string
+  small_image?: string
+}
+
+interface ActivityButton {
+  label: string
+  url: string
+}
+
+interface ActivityTimestamps {
+  start?: number
+  end?: number
+}
+
+interface Activity {
+  name: string
+  details?: string
+  state?: string
+  timestamps?: ActivityTimestamps
+  buttons?: ActivityButton[]
+  assets?: ActivityAssets
+}
+
 interface ActivityEntry {
-  activity: any
+  activity: Activity
   lastUpdate: number
   timeoutId: NodeJS.Timeout | null
-  cacheUntil: number // Timestamp when this activity can be removed
+  cacheUntil: number
+}
+
+interface ExtensionData {
+  user_id: string
+}
+
+interface PostRequestBody {
+  active_activity?: Activity
+  extension?: ExtensionData
 }
 
 const activities = new Map<string, ActivityEntry>()
 
-// Function to create a unique key from an activity
-function getActivityKey(activity: any): string {
-  // Create a key based on name and the most specific identifiers
-  // This allows us to:
-  // 1. Distinguish between different docs/videos/pages (via details/state)
-  // 2. Deduplicate the same content with different levels of detail
-  const key = JSON.stringify({
+// Create a unique key from an activity for deduplication
+function getActivityKey(activity: Activity): string {
+  return JSON.stringify({
     name: activity.name,
-    details: activity.details || '',
-    state: activity.state || '',
+    details: activity.details ?? '',
+    state: activity.state ?? '',
   })
-  return key
 }
 
-// Function to score an activity based on how much detail it has
-function getActivityScore(activity: any): number {
+// Score an activity based on detail richness (higher = more detailed)
+function getActivityScore(activity: Activity): number {
   let score = 0
 
-  // Has timestamps
-  if (activity.timestamps) {
-    if (activity.timestamps.start) score += 2
-    if (activity.timestamps.end) score += 2
-  }
+  // Timestamps: 2 points each
+  if (activity.timestamps?.start) score += 2
+  if (activity.timestamps?.end) score += 2
 
-  // Has buttons/URLs
-  if (activity.buttons && activity.buttons.length > 0) {
-    score += activity.buttons.length * 3
-  }
+  // Buttons: 3 points each
+  score += (activity.buttons?.length ?? 0) * 3
 
-  // Has images
-  if (activity.assets) {
-    if (activity.assets.large_image) score += 1
-    if (activity.assets.small_image) score += 1
-  }
+  // Images: 1 point each
+  if (activity.assets?.large_image) score += 1
+  if (activity.assets?.small_image) score += 1
 
   return score
 }
 
-// Function to setup timeout for a specific activity (20 minutes)
-function setupActivityTimeout(key: string) {
+// Setup timeout to auto-remove inactive activities
+function setupActivityTimeout(key: string): void {
   const entry = activities.get(key)
   if (!entry) return
 
@@ -58,33 +88,27 @@ function setupActivityTimeout(key: string) {
     clearTimeout(entry.timeoutId)
   }
 
-  // Set a new timeout for 20 minutes (1200000 ms)
+  // Remove activity after inactivity period
   entry.timeoutId = setTimeout(() => {
     const currentEntry = activities.get(key)
-    if (currentEntry && Date.now() - currentEntry.lastUpdate >= 1200000) {
+    if (currentEntry && Date.now() - currentEntry.lastUpdate >= ACTIVITY_TIMEOUT_MS) {
       activities.delete(key)
     }
-  }, 1200000)
+  }, ACTIVITY_TIMEOUT_MS)
 }
 
-// Function to clean up expired activities
-function cleanupExpiredActivities() {
+// Clean up expired activities based on cache expiry
+function cleanupExpiredActivities(): void {
   const now = Date.now()
-  const expiredKeys: string[] = []
 
-  activities.forEach((entry, key) => {
-    // Only remove if cache period has expired
-    const isCacheExpired = now > entry.cacheUntil
-
-    if (isCacheExpired) {
+  for (const [key, entry] of activities.entries()) {
+    if (now > entry.cacheUntil) {
       if (entry.timeoutId) {
         clearTimeout(entry.timeoutId)
       }
-      expiredKeys.push(key)
+      activities.delete(key)
     }
-  })
-
-  expiredKeys.forEach(key => activities.delete(key))
+  }
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -100,56 +124,60 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === 'POST') {
-    const { active_activity, extension } = req.body
+    const { active_activity, extension } = req.body as PostRequestBody
 
-    // Validate user_id if extension data is available
-    const AUTHORIZED_USER_ID = '490457129090547733'
-
-    if (extension) {
-      // Extension data is available, validate user_id
-      if (extension.user_id !== AUTHORIZED_USER_ID) {
-        res.status(403).json({ error: 'Unauthorized user' })
-        return
-      }
-    } else {
-      // Extension data not available, reject
+    // Validate user authentication
+    if (!extension) {
       res.status(401).json({ error: 'Unauthenticated request' })
       return
     }
 
+    if (extension.user_id !== AUTHORIZED_USER_ID) {
+      res.status(403).json({ error: 'Unauthorized user' })
+      return
+    }
+
     if (active_activity) {
+      // Prevent unbounded memory growth
+      if (activities.size >= MAX_ACTIVITIES) {
+        cleanupExpiredActivities()
+        // If still at max, remove oldest entry
+        if (activities.size >= MAX_ACTIVITIES) {
+          const oldestKey = activities.keys().next().value as string | undefined
+          if (oldestKey) {
+            const oldestEntry = activities.get(oldestKey)
+            if (oldestEntry?.timeoutId) {
+              clearTimeout(oldestEntry.timeoutId)
+            }
+            activities.delete(oldestKey)
+          }
+        }
+      }
+
       const key = getActivityKey(active_activity)
       const now = Date.now()
-
-      // Check if we should update or skip this activity
       const existing = activities.get(key)
 
-      // Only update if:
-      // 1. No existing activity with this key, OR
-      // 2. New activity has a higher score (more details)
+      // Update if: no existing activity OR new activity has more detail
       const shouldUpdate = !existing || getActivityScore(active_activity) >= getActivityScore(existing.activity)
 
       if (shouldUpdate) {
-        if (existing && existing.timeoutId) {
+        if (existing?.timeoutId) {
           clearTimeout(existing.timeoutId)
         }
-
-        // Cache for 15 seconds from now
-        const cacheUntil = now + 15000
 
         activities.set(key, {
           activity: active_activity,
           lastUpdate: now,
           timeoutId: null,
-          cacheUntil: cacheUntil,
+          cacheUntil: now + CACHE_DURATION_MS,
         })
 
-        // Set up the timeout for this activity
         setupActivityTimeout(key)
       } else if (existing) {
-        // Keep the existing (more detailed) activity but update its timestamp and cache
+        // Keep existing activity but extend its lifetime
         existing.lastUpdate = now
-        existing.cacheUntil = now + 15000 // Extend cache for another 15 seconds
+        existing.cacheUntil = now + CACHE_DURATION_MS
         if (existing.timeoutId) {
           clearTimeout(existing.timeoutId)
         }
@@ -157,39 +185,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         setupActivityTimeout(key)
       }
 
-      // Clean up any expired activities
       cleanupExpiredActivities()
     } else {
-      // If no activity is sent, only clear if we haven't received any activity recently
-      // This prevents brief "idle" moments from clearing everything
+      // Clear activities only if no recent updates (prevents clearing during brief idle moments)
       const now = Date.now()
-      const recentActivityExists = Array.from(activities.values()).some(
-        entry => now - entry.lastUpdate < 30000 // Within last 30 seconds
+      const hasRecentActivity = Array.from(activities.values()).some(
+        entry => now - entry.lastUpdate < RECENT_ACTIVITY_THRESHOLD_MS
       )
 
-      if (!recentActivityExists) {
-        // No recent activity, safe to clear
-        activities.forEach(entry => {
+      if (!hasRecentActivity) {
+        for (const entry of activities.values()) {
           if (entry.timeoutId) {
             clearTimeout(entry.timeoutId)
           }
-        })
+        }
         activities.clear()
       }
-      // Otherwise, keep existing activities and let them expire naturally
     }
 
     res.status(200).json({ success: true })
   } else if (req.method === 'GET') {
-    // Get the host from the request
-    const host = req.headers.host || ''
+    const host = req.headers.host ?? ''
+    const isProduction = PRODUCTION_HOSTS.has(host)
 
-    // Only serve activities if we're on the production domain
-    // (Don't redirect to production from production)
-    const isProduction = host === 'jarema.me' || host === 'www.jarema.me'
-
+    // Fetch from production if on dev environment
     if (!isProduction) {
-      // Not on production, try to fetch from production
       try {
         const response = await fetch('https://jarema.me/api/premid')
         if (!response.ok) throw new Error('Production fetch failed')
@@ -197,19 +217,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json(data)
         return
       } catch (error) {
-        // Failed to fetch from production, fall through to serve local data
         console.log('Failed to fetch from production, serving local data')
       }
     }
 
-    // Return current activity (on production domain or dev fallback)
-    // Clean up expired activities before returning
+    // Clean up and return current activities
     cleanupExpiredActivities()
 
-    // Convert activities map to array
-    const activeActivities = Array.from(activities.values()).map(entry => ({
-      activity: entry.activity,
-      lastUpdate: entry.lastUpdate,
+    const activeActivities = Array.from(activities.values()).map(({ activity, lastUpdate }) => ({
+      activity,
+      lastUpdate,
     }))
 
     res.status(200).json({
