@@ -11,12 +11,14 @@ const activities = new Map<string, ActivityEntry>()
 
 // Function to create a unique key from an activity
 function getActivityKey(activity: any): string {
-  // Create a key based only on visible content (name, details, state)
-  // This allows us to deduplicate activities with same content but different metadata
+  // Create a key based on name and the most specific identifiers
+  // This allows us to:
+  // 1. Distinguish between different docs/videos/pages (via details/state)
+  // 2. Deduplicate the same content with different levels of detail
   const key = JSON.stringify({
     name: activity.name,
-    details: activity.details,
-    state: activity.state,
+    details: activity.details || '',
+    state: activity.state || '',
   })
   return key
 }
