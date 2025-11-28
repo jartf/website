@@ -136,6 +136,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Set up the timeout for this activity
         setupActivityTimeout(key)
+      } else if (existing) {
+        // Keep the existing (more detailed) activity but update its timestamp
+        // This ensures it doesn't expire while still active
+        existing.lastUpdate = now
+        if (existing.timeoutId) {
+          clearTimeout(existing.timeoutId)
+        }
+        existing.timeoutId = null
+        setupActivityTimeout(key)
       }
 
       // Clean up any expired activities
