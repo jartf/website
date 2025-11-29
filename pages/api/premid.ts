@@ -223,10 +223,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Clean up and return current activities
     cleanupExpiredActivities()
 
-    const activeActivities = Array.from(activities.values()).map(({ activity, lastUpdate }) => ({
-      activity,
-      lastUpdate,
-    }))
+    const now = Date.now()
+    const activeActivities = Array.from(activities.values())
+      .filter(({ activity }) => {
+        // Filter out activities that have ended
+        if (activity.timestamps?.end) {
+          return activity.timestamps.end > now
+        }
+        return true
+      })
+      .map(({ activity, lastUpdate }) => ({
+        activity,
+        lastUpdate,
+      }))
 
     res.status(200).json({
       activities: activeActivities,
