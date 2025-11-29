@@ -76,6 +76,96 @@ function getActivityScore(activity: Activity): number {
   return score
 }
 
+// Validate activity data structure and content
+function validateActivity(activity: any): activity is Activity {
+  if (!activity || typeof activity !== 'object') {
+    return false
+  }
+
+  // Required field: name must be a non-empty string
+  if (typeof activity.name !== 'string' || activity.name.trim().length === 0) {
+    return false
+  }
+
+  // Name length limit to prevent abuse
+  if (activity.name.length > 128) {
+    return false
+  }
+
+  // Validate optional fields if present
+  if (activity.details !== undefined && (typeof activity.details !== 'string' || activity.details.length > 128)) {
+    return false
+  }
+
+  if (activity.state !== undefined && (typeof activity.state !== 'string' || activity.state.length > 128)) {
+    return false
+  }
+
+  // Validate timestamps if present
+  if (activity.timestamps) {
+    if (typeof activity.timestamps !== 'object') {
+      return false
+    }
+    if (activity.timestamps.start !== undefined && typeof activity.timestamps.start !== 'number') {
+      return false
+    }
+    if (activity.timestamps.end !== undefined && typeof activity.timestamps.end !== 'number') {
+      return false
+    }
+  }
+
+  // Validate buttons if present
+  if (activity.buttons !== undefined) {
+    if (!Array.isArray(activity.buttons) || activity.buttons.length > 2) {
+      return false
+    }
+    for (const button of activity.buttons) {
+      if (
+        !button ||
+        typeof button !== 'object' ||
+        typeof button.label !== 'string' ||
+        typeof button.url !== 'string' ||
+        button.label.length === 0 ||
+        button.label.length > 32 ||
+        button.url.length > 512
+      ) {
+        return false
+      }
+    }
+  }
+
+  // Validate assets if present
+  if (activity.assets) {
+    if (typeof activity.assets !== 'object') {
+      return false
+    }
+    if (
+      activity.assets.large_image !== undefined &&
+      (typeof activity.assets.large_image !== 'string' || activity.assets.large_image.length > 256)
+    ) {
+      return false
+    }
+    if (
+      activity.assets.small_image !== undefined &&
+      (typeof activity.assets.small_image !== 'string' || activity.assets.small_image.length > 256)
+    ) {
+      return false
+    }
+  }
+
+  return true
+}
+
+// Validate extension data
+function validateExtension(extension: any): extension is ExtensionData {
+  return (
+    extension &&
+    typeof extension === 'object' &&
+    typeof extension.user_id === 'string' &&
+    extension.user_id.length > 0
+  )
+}
+
 // Clean up expired activities based on activity timeout
 function cleanupExpiredActivities(): void {
   const now = Date.now()
@@ -105,9 +195,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     const { active_activity, extension } = req.body as PostRequestBody
 
-    // Validate user authentication
-    if (!extension) {
-      res.status(401).json({ error: 'Unauthenticated request' })
+    // Validate extension data
+    if (!validateExtension(extension)) {
+      res.status(401).json({ error: 'Invalid or missing extension data' })
       return
     }
 
@@ -116,7 +206,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
     }
 
-    if (active_activity) {
+    // Validate activity data if present
+    if (active_activity !== undefined && active_activity !== null) {
+      if (!validateActivity(active_activity)) {
+        res.status(400).json({ error: 'Invalid activity data' })
+        return
+      }
       // Prevent unbounded memory growth
       if (activities.size >= MAX_ACTIVITIES) {
         cleanupExpiredActivities()
@@ -176,6 +271,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       // Don't run cleanup here - it might remove other valid activities
     } else {
+      // active_activity is null/undefined - this is a heartbeat or clear signal
       // Only clear activities if there's been no activity for a substantial time
       // This prevents clearing during brief pauses or tab switches
       const now = Date.now()
