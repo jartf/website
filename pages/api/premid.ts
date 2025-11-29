@@ -209,12 +209,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Validate extension data
     if (!validateExtension(extension)) {
-      res.status(401).json({ error: 'Invalid or missing extension data' })
+      res.status(400).json({ error: 'Invalid or missing extension data' })
       return
     }
 
     if (extension.user_id !== AUTHORIZED_USER_ID) {
-      res.status(403).json({ error: 'Unauthorized user' })
+      res.status(403).json({ error: 'Unauthorized' })
       return
     }
 
