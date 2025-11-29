@@ -3,9 +3,9 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 // Configuration constants
 const AUTHORIZED_USER_ID = '490457129090547733'
 const ACTIVITY_TIMEOUT_MS = 20 * 60 * 1000 // 20 minutes
-const CLEAR_THRESHOLD_MS = 5 * 60 * 1000 // 5 minutes - only clear if no updates for this long
+const CLEAR_THRESHOLD_MS = 2 * 60 * 1000 // 2 minutes - only clear if no updates for this long
 const PRODUCTION_HOSTS = new Set(['jarema.me', 'www.jarema.me'])
-const MAX_ACTIVITIES = 100 // Prevent unbounded memory growth
+const MAX_ACTIVITIES = 20 // Prevent unbounded memory growth
 
 // Type definitions
 interface ActivityAssets {
