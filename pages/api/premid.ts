@@ -76,25 +76,6 @@ function getActivityScore(activity: Activity): number {
   return score
 }
 
-// Setup timeout to auto-remove inactive activities
-function setupActivityTimeout(key: string): void {
-  const entry = activities.get(key)
-  if (!entry) return
-
-  // Clear any existing timeout
-  if (entry.timeoutId) {
-    clearTimeout(entry.timeoutId)
-  }
-
-  // Remove activity after inactivity period
-  entry.timeoutId = setTimeout(() => {
-    const currentEntry = activities.get(key)
-    if (currentEntry && Date.now() - currentEntry.lastUpdate >= ACTIVITY_TIMEOUT_MS) {
-      activities.delete(key)
-    }
-  }, ACTIVITY_TIMEOUT_MS)
-}
-
 // Clean up expired activities based on activity timeout
 function cleanupExpiredActivities(): void {
   const now = Date.now()
@@ -164,21 +145,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           clearTimeout(existing.timeoutId)
         }
 
+        // Create timeout to auto-remove activity
+        const timeoutId = setTimeout(() => {
+          const currentEntry = activities.get(key)
+          if (currentEntry && Date.now() - currentEntry.lastUpdate >= ACTIVITY_TIMEOUT_MS) {
+            activities.delete(key)
+          }
+        }, ACTIVITY_TIMEOUT_MS)
+
         activities.set(key, {
           activity: active_activity,
           lastUpdate: now,
-          timeoutId: null,
+          timeoutId,
         })
-
-        setupActivityTimeout(key)
       } else if (existing) {
         // Keep existing activity but extend its lifetime
         existing.lastUpdate = now
         if (existing.timeoutId) {
           clearTimeout(existing.timeoutId)
         }
-        existing.timeoutId = null
-        setupActivityTimeout(key)
+
+        // Create new timeout immediately
+        existing.timeoutId = setTimeout(() => {
+          const currentEntry = activities.get(key)
+          if (currentEntry && Date.now() - currentEntry.lastUpdate >= ACTIVITY_TIMEOUT_MS) {
+            activities.delete(key)
+          }
+        }, ACTIVITY_TIMEOUT_MS)
       }
 
       // Don't run cleanup here - it might remove other valid activities
