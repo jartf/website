@@ -328,6 +328,9 @@ export default function NowClientPage() {
                                   {premidActivity.state && (
                                     <p className="text-sm text-muted-foreground">{premidActivity.state}</p>
                                   )}
+                                  {premidActivity.assets?.small_text && (
+                                    <p className="text-xs text-muted-foreground italic">{premidActivity.assets.small_text}</p>
+                                  )}
                                   {/* Timestamps */}
                                   {premidActivity.timestamps && (
                                     <p className="text-xs text-muted-foreground mt-1">
