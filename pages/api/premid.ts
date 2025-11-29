@@ -192,6 +192,13 @@ function cleanupExpiredActivities(): void {
   }
 }
 
+// Create a timeout to remove an activity after ACTIVITY_TIMEOUT_MS
+function createActivityTimeout(key: string): NodeJS.Timeout {
+  return setTimeout(() => {
+    activities.delete(key)
+  }, ACTIVITY_TIMEOUT_MS)
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Enable CORS for PreMID extension
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -253,18 +260,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           clearTimeout(existing.timeoutId)
         }
 
-        // Create timeout to auto-remove activity
-        const timeoutId = setTimeout(() => {
-          const currentEntry = activities.get(key)
-          if (currentEntry && Date.now() - currentEntry.lastUpdate >= ACTIVITY_TIMEOUT_MS) {
-            activities.delete(key)
-          }
-        }, ACTIVITY_TIMEOUT_MS)
-
         activities.set(key, {
           activity: active_activity,
           lastUpdate: now,
-          timeoutId,
+          timeoutId: createActivityTimeout(key),
         })
       } else if (existing) {
         // Keep existing activity but extend its lifetime
@@ -272,14 +271,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (existing.timeoutId) {
           clearTimeout(existing.timeoutId)
         }
-
-        // Create new timeout immediately
-        existing.timeoutId = setTimeout(() => {
-          const currentEntry = activities.get(key)
-          if (currentEntry && Date.now() - currentEntry.lastUpdate >= ACTIVITY_TIMEOUT_MS) {
-            activities.delete(key)
-          }
-        }, ACTIVITY_TIMEOUT_MS)
+        existing.timeoutId = createActivityTimeout(key)
       }
 
     } else {
