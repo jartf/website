@@ -49,6 +49,17 @@ interface PostRequestBody {
 
 const activities = new Map<string, ActivityEntry>()
 
+// Validate URL is well-formed and uses safe protocols
+function isValidUrl(url: string): boolean {
+  try {
+    const parsedUrl = new URL(url)
+    // Only allow http and https protocols
+    return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:'
+  } catch {
+    return false
+  }
+}
+
 // Create a unique key from an activity for deduplication
 function getActivityKey(activity: Activity): string {
   return JSON.stringify({
@@ -127,7 +138,8 @@ function validateActivity(activity: any): activity is Activity {
         typeof button.url !== 'string' ||
         button.label.length === 0 ||
         button.label.length > 32 ||
-        button.url.length > 512
+        button.url.length > 512 ||
+        !isValidUrl(button.url)
       ) {
         return false
       }
