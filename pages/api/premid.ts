@@ -215,16 +215,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Prevent unbounded memory growth
       if (activities.size >= MAX_ACTIVITIES) {
         cleanupExpiredActivities()
-        // If still at max, remove oldest entry
+        // If still at max, remove oldest entry by lastUpdate timestamp
         if (activities.size >= MAX_ACTIVITIES) {
-          const oldestKey = activities.keys().next().value as string | undefined
-          if (oldestKey) {
-            const oldestEntry = activities.get(oldestKey)
-            if (oldestEntry?.timeoutId) {
-              clearTimeout(oldestEntry.timeoutId)
-            }
-            activities.delete(oldestKey)
+          const entries = Array.from(activities.entries())
+          const [oldestKey, oldestEntry] = entries.reduce((oldest, current) =>
+            current[1].lastUpdate < oldest[1].lastUpdate ? current : oldest
+          )
+
+          if (oldestEntry.timeoutId) {
+            clearTimeout(oldestEntry.timeoutId)
           }
+          activities.delete(oldestKey)
         }
       }
 
@@ -269,10 +270,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }, ACTIVITY_TIMEOUT_MS)
       }
 
-      // Don't run cleanup here - it might remove other valid activities
     } else {
       // active_activity is null/undefined - this is a heartbeat or clear signal
-      // Only clear activities if there's been no activity for a substantial time
+      // Always clean up expired activities first
+      cleanupExpiredActivities()
+
+      // Only clear ALL activities if there's been no activity for a substantial time
       // This prevents clearing during brief pauses or tab switches
       const now = Date.now()
       const hasRecentActivity = Array.from(activities.values()).some(
@@ -280,6 +283,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       )
 
       if (!hasRecentActivity) {
+        // Clear any remaining activities (shouldn't be many after cleanup)
         for (const entry of activities.values()) {
           if (entry.timeoutId) {
             clearTimeout(entry.timeoutId)
