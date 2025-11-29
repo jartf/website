@@ -378,13 +378,24 @@ export default function Home({ blogPosts = [] }) {
                         {latestNow.premid.map((activity, idx) => (
                           <div key={idx} className="flex items-center gap-3">
                             {activity.assets?.large_image && (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img
-                                src={activity.assets.large_image}
-                                alt={activity.assets.large_text || activity.name}
-                                className="w-12 h-12 rounded-lg flex-shrink-0"
-                                title={activity.assets.large_text}
-                              />
+                              <div className="relative w-12 h-12 flex-shrink-0">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={activity.assets.large_image}
+                                  alt={activity.assets.large_text || activity.name}
+                                  className="w-12 h-12 rounded-lg"
+                                  title={activity.assets.large_text}
+                                />
+                                {activity.assets?.small_image && (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img
+                                    src={activity.assets.small_image}
+                                    alt={activity.assets.small_text || ""}
+                                    className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background"
+                                    title={activity.assets.small_text}
+                                  />
+                                )}
+                              </div>
                             )}
                             <div className="flex-1 min-w-0">
                               <span className="font-semibold break-words">{activity.name}</span>
@@ -436,13 +447,24 @@ export default function Home({ blogPosts = [] }) {
                       {latestNow.activities.map((activity, idx) => (
                         <div key={idx} className="flex items-center gap-3">
                           {activity.assets?.large_image && (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={activity.assets.large_image}
-                              alt={activity.assets.large_text || activity.name}
-                              className="w-12 h-12 rounded-lg flex-shrink-0"
-                              title={activity.assets.large_text}
-                            />
+                            <div className="relative w-12 h-12 flex-shrink-0">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={activity.assets.large_image}
+                                alt={activity.assets.large_text || activity.name}
+                                className="w-12 h-12 rounded-lg"
+                                title={activity.assets.large_text}
+                              />
+                              {activity.assets?.small_image && (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                  src={activity.assets.small_image}
+                                  alt={activity.assets.small_text || ""}
+                                  className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background"
+                                  title={activity.assets.small_text}
+                                />
+                              )}
+                            </div>
                           )}
                           <div className="flex-1 min-w-0">
                             <span className="font-semibold break-words">{activity.name}</span>
