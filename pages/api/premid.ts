@@ -303,13 +303,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Fetch from production if on dev environment
     if (!isProduction) {
       try {
-        const response = await fetch('https://jarema.me/api/premid')
-        if (!response.ok) throw new Error('Production fetch failed')
+        const response = await fetch('https://jarema.me/api/premid', {
+          signal: AbortSignal.timeout(5000), // 5 second timeout
+        })
+        if (!response.ok) {
+          throw new Error(`API returned ${response.status}: ${response.statusText}`)
+        }
         const data = await response.json()
         res.status(200).json(data)
         return
       } catch (error) {
-        console.log('Failed to fetch from production, serving local data')
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+        console.error('Serving local data, failed to fetch from PreMID API:', {
+          error: errorMessage,
+          timestamp: new Date().toISOString(),
+          host,
+        })
+        // Continue to serve local data - don't return error to client
       }
     }
 
