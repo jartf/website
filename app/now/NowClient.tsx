@@ -309,13 +309,24 @@ export default function NowClientPage() {
                               {/* Activity header */}
                               <div className="flex items-start gap-3">
                                 {premidActivity.assets?.large_image && (
-                                  // eslint-disable-next-line @next/next/no-img-element
-                                  <img
-                                    src={premidActivity.assets.large_image}
-                                    alt={premidActivity.assets.large_text || premidActivity.name}
-                                    className="w-16 h-16 rounded-lg flex-shrink-0"
-                                    title={premidActivity.assets.large_text}
-                                  />
+                                  <div className="relative w-16 h-16 flex-shrink-0">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={premidActivity.assets.large_image}
+                                      alt={premidActivity.assets.large_text || premidActivity.name}
+                                      className="w-16 h-16 rounded-lg"
+                                      title={premidActivity.assets.large_text}
+                                    />
+                                    {premidActivity.assets.small_image && (
+                                      // eslint-disable-next-line @next/next/no-img-element
+                                      <img
+                                        src={premidActivity.assets.small_image}
+                                        alt={premidActivity.assets.small_text || ""}
+                                        className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full border-1 border-background bg-background"
+                                        title={premidActivity.assets.small_text}
+                                      />
+                                    )}
+                                  </div>
                                 )}
                                 <div className="flex-1 min-w-0 -mt-1.5">
                                   <div className="flex items-center gap-2 mb-0.5">
