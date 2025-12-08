@@ -60,7 +60,7 @@ The main scripts are straightforward:
 -   `pnpm lint`: Lints the codebase with ESLint
 -   `pnpm type-check`: Validates TypeScript
 
-## Project Structure
+## Project structure
 
 The project follows the Next.js 16 app router architecture:
 
