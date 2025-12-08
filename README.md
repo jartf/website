@@ -5,20 +5,20 @@ I originally made it for myself to share what I am learning, share my thoughts, 
 
 ## Features
 
--   **Blog**: Where I write long-form posts about technology, economics, culture, and personal experiences
-    -   Markdown-based with frontmatter support
-    -   Nested directory structure
-    -   Reading time estimates and mood indicators
--   **Projects**: Portfolio showcasing open-source work and personal projects
--   **Multilingual support**: Fully internationalized using `react-i18next`
-    -   12 languages: English, Vietnamese, Vietnamese Hán-Nôm, Estonian, Russian, Danish, Turkish, Chinese, Polish, Swedish, Finnish, and Toki Pona
-    -   Language detection and toggle
-    -   Synchronous i18n loading
--   **Dark mode by default**: Eye-friendly theming with `next-themes`, because nobody wants to burn their eyes at 2 am
--   **Responsive design**: Optimized for all screen sizes
--   **Keyboard navigation**: Global shortcuts for quick navigation
--   **Live activity**: Real-time Last.fm listening status and Discord presence via PreMID
--   **Security**: Comprehensive security headers configured in `next.config.mjs`
+- **Blog**: Where I write long-form posts about technology, economics, culture, and personal experiences
+  - Markdown-based with frontmatter support
+  - Nested directory structure
+  - Reading time estimates and mood indicators
+- **Projects**: Portfolio showcasing open-source work and personal projects
+- **Multilingual support**: Fully internationalized using `react-i18next`
+  - 12 languages: English, Vietnamese, Vietnamese Hán-Nôm, Estonian, Russian, Danish, Turkish, Chinese, Polish, Swedish, Finnish, and Toki Pona
+  - Language detection and toggle
+  - Synchronous i18n loading
+- **Dark mode by default**: Eye-friendly theming with `next-themes`, because nobody wants to burn their eyes at 2 am
+- **Responsive design**: Optimized for all screen sizes
+- **Keyboard navigation**: Global shortcuts for quick navigation
+- **Live activity**: Real-time Last.fm listening status and Discord presence via PreMID
+- **Security**: Comprehensive security headers configured in `next.config.mjs`
 
 ## Getting started
 
@@ -26,27 +26,34 @@ If you want to run this project locally, it only takes a few steps.
 
 ### Prerequisites
 
--   Node.js (v18 or higher)
--   `pnpm` (or `npm`, or any other package manager you prefer)
+- Node.js (v18 or higher)
+- `pnpm` (or `npm`, or any other package manager you prefer)
 
 ### Installation
 
-1.  Clone the repo
-    ```sh
-    git clone https://github.com/jartf/website-v4.git
-    ```
-2.  Navigate to the project directory (if not already in it)
-    ```sh
-    cd website-v4
-    ```
-3.  Install dependencies
-    ```sh
-    pnpm install
-    ```
-4.  Start the development server
-    ```sh
-    pnpm dev
-    ```
+1. Clone the repo
+
+   ```sh
+   git clone https://github.com/jartf/website-v4.git
+   ```
+
+2. Navigate to the project directory (if not already in it)
+
+   ```sh
+   cd website-v4
+   ```
+
+3. Install dependencies
+
+   ```sh
+   pnpm install
+   ```
+
+4. Start the development server
+
+   ```sh
+   pnpm dev
+   ```
 
 The website should now be running at `http://localhost:3000`.
 
@@ -54,17 +61,17 @@ The website should now be running at `http://localhost:3000`.
 
 The main scripts are straightforward:
 
--   `pnpm dev`: Runs the development server at `http://localhost:3000`
--   `pnpm build`: Builds the project for production
--   `pnpm start`: Starts the production server
--   `pnpm lint`: Lints the codebase with ESLint
--   `pnpm type-check`: Validates TypeScript
+- `pnpm dev`: Runs the development server at `http://localhost:3000`
+- `pnpm build`: Builds the project for production
+- `pnpm start`: Starts the production server
+- `pnpm lint`: Lints the codebase with ESLint
+- `pnpm type-check`: Validates TypeScript
 
 ## Project structure
 
 The project follows the Next.js 16 app router architecture:
 
-```
+```text
 website-v4/
 ├── app/                      # Next.js App Router pages and layouts
 │   ├── layout.jsx           # Root layout with providers, fonts, security headers
@@ -123,6 +130,7 @@ website-v4/
 
 1. Create a markdown file in `content/blog/` (supports nested folders)
 2. Add frontmatter with required fields:
+
    ```yaml
    ---
    title: "Post title"
@@ -136,6 +144,7 @@ website-v4/
    category: "tech"
    ---
    ```
+
 3. Posts auto-sort by date (descending)
 
 ### Adding translations
