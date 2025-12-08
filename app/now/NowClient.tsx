@@ -11,6 +11,46 @@ import { Badge } from "@/components/ui/badge"
 import { useMounted } from "@/hooks/use-mounted"
 
 /**
+ * Progress bar component for activities with start and end times
+ */
+function ProgressBar({ start, end, currentTime }: { start: number; end: number; currentTime: number }) {
+  const total = end - start
+  const elapsed = currentTime - start
+  const progress = Math.min(Math.max((elapsed / total) * 100, 0), 100)
+
+  const timeRemaining = end - currentTime
+  const formatTime = (ms: number) => {
+    const seconds = Math.floor(ms / 1000)
+    const minutes = Math.floor(seconds / 60)
+    const hours = Math.floor(minutes / 60)
+
+    if (hours > 0) {
+      return `${hours}h ${minutes % 60}m`
+    } else if (minutes > 0) {
+      return `${minutes}m ${seconds % 60}s`
+    } else {
+      return `${seconds}s`
+    }
+  }
+
+  return (
+    <div className="space-y-1">
+      <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+        <div
+          className="bg-primary h-full transition-all duration-1000 ease-linear"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+      <div className="flex justify-between text-xs text-muted-foreground">
+        <span>{formatTime(elapsed)}</span>
+        {timeRemaining > 0 && <span>{formatTime(timeRemaining)} remaining</span>}
+        {timeRemaining <= 0 && <span>Completed</span>}
+      </div>
+    </div>
+  )
+}
+
+/**
  * The client-side component for the "Now" page.
  * This component displays what the author is currently focused on, including their listening habits.
  * @returns {JSX.Element | null} The rendered "Now" page client component.
@@ -49,6 +89,15 @@ export default function NowClientPage() {
     }>
   }>>([])
   const [premidError, setPremidError] = useState(false)
+  const [currentTime, setCurrentTime] = useState(Date.now())
+
+  // Update current time every second for progress bars
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   // Fetch Last.fm recent tracks for "listening" section
   useEffect(() => {
@@ -355,6 +404,14 @@ export default function NowClientPage() {
                                   )}
                                 </div>
                               </div>
+                              {/* Progress bar for activities with start and end times */}
+                              {premidActivity.timestamps?.start && premidActivity.timestamps?.end && (
+                                <ProgressBar
+                                  start={premidActivity.timestamps.start}
+                                  end={premidActivity.timestamps.end}
+                                  currentTime={currentTime}
+                                />
+                              )}
                               {/* Buttons */}
                               {premidActivity.buttons && premidActivity.buttons.length > 0 && (
                                 <div className="flex gap-2 flex-wrap">
