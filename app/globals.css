@@ -238,7 +238,7 @@
     :root {
       --ring: 195 100% 50%;
     }
-    
+
     :focus-visible {
       outline: 3px solid hsl(var(--ring));
       outline-offset: 2px;

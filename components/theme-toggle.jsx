@@ -29,9 +29,9 @@ export const ThemeToggle = memo(function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button 
-          variant="ghost" 
-          size="icon" 
+        <Button
+          variant="ghost"
+          size="icon"
           aria-label="Toggle theme"
           aria-haspopup="menu"
         >
