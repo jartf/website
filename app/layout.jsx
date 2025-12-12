@@ -125,7 +125,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${lexend.variable} ${roboto.variable} ${hanNom.variable}`}
+      className={`dark ${spaceGrotesk.variable} ${lexend.variable} ${roboto.variable} ${hanNom.variable}`}
     >
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -239,17 +239,23 @@ export default function RootLayout({ children }) {
                     theme = 'dark'; // default fallback
                   }
 
-                  // Remove any existing theme classes and add the correct one
+                  // Remove existing theme classes (SSR may have set 'dark' as default)
                   document.documentElement.classList.remove('light', 'dark');
                   document.documentElement.classList.add(theme);
 
                   // Also set the color-scheme property for native form elements
                   document.documentElement.style.colorScheme = theme;
                 } catch (e) {
-                  // Fallback to system preference if localStorage fails
+                  // If JS fails, keep the default 'dark' class from SSR
+                  // Only change if system preference indicates light mode
                   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  document.documentElement.classList.add(prefersDark ? 'dark' : 'light');
-                  document.documentElement.style.colorScheme = prefersDark ? 'dark' : 'light';
+                  if (!prefersDark) {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                    document.documentElement.style.colorScheme = 'light';
+                  } else {
+                    document.documentElement.style.colorScheme = 'dark';
+                  }
                 }
               })();
             `,
