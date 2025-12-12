@@ -1,14 +1,5 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import { Heart, Mail, Github } from "lucide-react"
-import { usePathname } from "next/navigation"
-import { useTranslation } from "react-i18next"
-import { KeyboardShortcutsHelp } from "@/components/keyboard-shortcuts-help"
-import { usePlatform } from "@/hooks/use-platform"
-import { useViewport } from "@/hooks/use-viewport"
-import { useMounted } from "@/hooks/use-mounted"
 import Image from "next/image"
+import { FooterClient } from "@/components/footer-client"
 
 // Static fallback text for no-JS rendering
 const STATIC_FOOTER = {
@@ -19,68 +10,18 @@ const STATIC_FOOTER = {
 
 /**
  * Footer component that displays copyright information, social links, and retro badges
- * Renders static content first for no-JS support, then enhances with JS
+ * Server component with client-side interactive parts for translation and easter eggs
  * @returns {JSX.Element} The footer component
  */
 export function Footer() {
-  const { t } = useTranslation()
-  const pathname = usePathname()
-  const isAboutPage = pathname === "/about"
-  const { isDesktop } = usePlatform()
-  const { isMobile } = useViewport()
-  const mounted = useMounted()
-  const [tapCount, setTapCount] = useState(0)
-
-  const handleTap = () => {
-    if (!isAboutPage || !mounted) return
-    setTapCount((prev) => {
-      if (prev + 1 >= 5) {
-        // Defer to next tick to avoid cascading renders
-        queueMicrotask(() => {
-          sessionStorage.setItem("showHiddenChapter", "true")
-          window.location.reload()
-        })
-        return 0
-      }
-      return prev + 1
-    })
-  }
-
-  // Use translated text when mounted, static fallback otherwise
-  const copyrightText = mounted ? t("footer.copyright", STATIC_FOOTER.copyright) : STATIC_FOOTER.copyright
-  const madeWithText = mounted ? t("footer.madeWith", STATIC_FOOTER.madeWith) : STATIC_FOOTER.madeWith
-  const andChaosText = mounted ? t("footer.andChaos", STATIC_FOOTER.andChaos) : STATIC_FOOTER.andChaos
-
-  // Show keyboard shortcuts button only if mounted and:
-  // 1. Not on mobile viewport, OR
-  // 2. On desktop platform (regardless of viewport size)
-  const showKeyboardShortcuts = mounted && (!isMobile || isDesktop)
-
   return (
     <footer className="w-full border-t py-6 xl:py-0" role="contentinfo">
-      <div
-        className="container flex flex-col items-center justify-center gap-2 py-2 xl:flex-row xl:gap-1"
-        onClick={handleTap}
-      >
-        <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-          <span className="mr-1" aria-label="Copyleft">🄯</span> 2025{" "}
-          <a href="https://jarema.me/" className="h-card hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded" rel="me">
-            Jarema
-          </a>{" "}
-          • {copyrightText}
-        </p>
-        <div className="flex items-center gap-1">
-          <span className="hidden xl:inline text-sm text-muted-foreground">•</span>
-          <span className="text-sm text-muted-foreground">{madeWithText}</span>
-          <Heart className="h-4 w-4 text-red-500 animate-pulse" aria-hidden="true" />
-          <span className="sr-only">love</span>
-          <span className="text-sm text-muted-foreground">{andChaosText}</span>
-        </div>
-        {showKeyboardShortcuts && (
-          <div className="absolute right-4">
-            <KeyboardShortcutsHelp />
-          </div>
-        )}
+      <div className="container flex flex-col items-center justify-center gap-2 py-2 xl:flex-row xl:gap-1 relative">
+        <FooterClient
+          staticCopyright={STATIC_FOOTER.copyright}
+          staticMadeWith={STATIC_FOOTER.madeWith}
+          staticAndChaos={STATIC_FOOTER.andChaos}
+        />
       </div>
 
       {/* Badges */}
