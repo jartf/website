@@ -294,6 +294,45 @@
     transform: rotateY(180deg);
   }
 
+  /* CSS-first theme detection utilities */
+  /* These allow theme-dependent rendering without JavaScript */
+
+  /* Show only in dark mode (using .dark class from theme-provider) */
+  .dark-only {
+    display: none;
+  }
+  .dark .dark-only {
+    display: block;
+  }
+
+  /* Show only in light mode */
+  .light-only {
+    display: block;
+  }
+  .dark .light-only {
+    display: none;
+  }
+
+  /* Fallback for system preference when no JS class is set */
+  /* This ensures theme works before JS hydrates */
+  @media (prefers-color-scheme: dark) {
+    html:not(.light):not(.dark) .dark-only {
+      display: block;
+    }
+    html:not(.light):not(.dark) .light-only {
+      display: none;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    html:not(.light):not(.dark) .light-only {
+      display: block;
+    }
+    html:not(.light):not(.dark) .dark-only {
+      display: none;
+    }
+  }
+
   /* Card hover effects */
   .card-hover-effect {
     @apply transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border hover:border-primary/50;

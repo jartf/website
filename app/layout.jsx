@@ -251,6 +251,46 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+
+        {/*
+          CSS-First Theme Detection Script
+          This runs synchronously BEFORE first paint to prevent flash of wrong theme.
+          Priority: localStorage > system preference > default (dark)
+          Sets the .dark or .light class on <html> element for CSS to use.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var stored = localStorage.getItem('theme');
+                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var theme;
+
+                  if (stored === 'dark' || stored === 'light') {
+                    theme = stored;
+                  } else if (stored === 'system' || !stored) {
+                    theme = prefersDark ? 'dark' : 'light';
+                  } else {
+                    theme = 'dark'; // default fallback
+                  }
+
+                  // Remove any existing theme classes and add the correct one
+                  document.documentElement.classList.remove('light', 'dark');
+                  document.documentElement.classList.add(theme);
+
+                  // Also set the color-scheme property for native form elements
+                  document.documentElement.style.colorScheme = theme;
+                } catch (e) {
+                  // Fallback to system preference if localStorage fails
+                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  document.documentElement.classList.add(prefersDark ? 'dark' : 'light');
+                  document.documentElement.style.colorScheme = prefersDark ? 'dark' : 'light';
+                }
+              })();
+            `,
+          }}
+        />
       </head>
       <body className="font-sans min-h-screen bg-background">
         {/* Full screen notice for users without JavaScript */}
@@ -270,7 +310,7 @@ export default function RootLayout({ children }) {
           </div>
         </noscript>
 
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="theme" disableTransitionOnChange>
           <MotionProvider>
             <I18nProvider>
               <ErrorBoundary>

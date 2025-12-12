@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { useTheme } from "next-themes"
 import { motion, AnimatePresence } from "framer-motion"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { useMounted } from "@/hooks/use-mounted"
@@ -77,15 +76,20 @@ const TwinkleStar = ({ id, left, top, size }) => {
   )
 }
 
+/**
+ * TwinklingStars component - renders animated twinkling stars.
+ * Visibility is controlled via CSS (parent #galaxy element),
+ * so this component doesn't need to check theme state.
+ */
 export function TwinklingStars() {
-  const { resolvedTheme } = useTheme()
   const [stars, setStars] = useState([])
   const mounted = useMounted()
   const nextIdRef = useRef(0)
   const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
-    if (!mounted || resolvedTheme !== "dark") return
+    // Wait for mount to access window dimensions
+    if (!mounted) return
 
     const generateStar = () => {
       // Skip star generation if user prefers reduced motion
@@ -112,10 +116,10 @@ export function TwinklingStars() {
 
     const interval = setInterval(generateStar, 5000)
     return () => clearInterval(interval)
-  }, [mounted, resolvedTheme, prefersReducedMotion])
+  }, [mounted, prefersReducedMotion])
 
-  if (!mounted || resolvedTheme !== "dark") return null
-
+  // Render immediately - CSS controls visibility based on theme
+  // This prevents the component from being completely absent during SSR
   return (
     <div className="fixed inset-0 pointer-events-none">
       <AnimatePresence>
