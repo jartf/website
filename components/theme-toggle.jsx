@@ -1,10 +1,11 @@
 "use client"
 
-import { useCallback, memo, useEffect, useState } from "react"
+import { useCallback, memo } from "react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Moon, Sun, Laptop } from "lucide-react"
+import { useMounted } from "@/hooks/use-mounted"
 
 const THEME_ICONS = {
   dark: Moon,
@@ -23,12 +24,7 @@ const THEME_ICONS = {
  */
 export const ThemeToggle = memo(function ThemeToggle() {
   const { setTheme, theme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  // Use useEffect to handle mounting state
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   // Memoize theme change handlers
   const handleLightTheme = useCallback(() => setTheme("light"), [setTheme])
