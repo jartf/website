@@ -41,11 +41,11 @@ export default function ColophonPage() {
                   <span data-i18n="colophon.siteHistory.title">Site History</span>
                 </h2>
                 <p data-i18n="colophon.siteHistory.content1">
-                  This is version 4 of my personal website. The first version was a simple HTML page, 
+                  This is version 4 of my personal website. The first version was a simple HTML page,
                   the second was a WordPress site, and the third was built with Next.js Pages Router.
                 </p>
                 <p data-i18n="colophon.siteHistory.content2">
-                  I decided to rebuild the site with Next.js App Router to take advantage of React Server 
+                  I decided to rebuild the site with Next.js App Router to take advantage of React Server
                   Components and the improved developer experience.
                 </p>
               </section>
