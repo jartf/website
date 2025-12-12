@@ -1,39 +1,24 @@
 "use client"
 
-import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useMounted } from "@/hooks/use-mounted"
 
+interface ColophonTranslationsProps {
+  staticTitle: string
+  staticDescription: string
+}
+
 /**
- * Client component that translates the colophon page content
- * Uses data-i18n attributes to find and replace text content
+ * Client component that renders translated colophon page header
+ * Uses useMounted pattern to avoid hydration mismatch
  */
-export function ColophonTranslations() {
+export function ColophonTranslations({ staticTitle, staticDescription }: ColophonTranslationsProps) {
   const { t } = useTranslation()
   const mounted = useMounted()
 
-  useEffect(() => {
-    if (!mounted) return
-
-    // Find all elements with data-i18n attribute and translate them
-    const elements = document.querySelectorAll("[data-i18n]")
-    elements.forEach((el) => {
-      const key = el.getAttribute("data-i18n")
-      if (key) {
-        const translation = t(key)
-        // Only update if translation exists and is different from key
-        if (translation && translation !== key) {
-          el.textContent = translation
-        }
-      }
-    })
-  }, [mounted, t])
-
-  // Render the page header
-  const title = mounted ? t("colophon.title") : "Colophon"
-  const description = mounted
-    ? t("colophon.description")
-    : "Curious about how this site was built? Here's the behind-the-scenes."
+  // Use static content for SSR, translated content when mounted
+  const title = mounted ? t("colophon.title", staticTitle) : staticTitle
+  const description = mounted ? t("colophon.description", staticDescription) : staticDescription
 
   return (
     <div className="text-center mb-12">
@@ -41,4 +26,20 @@ export function ColophonTranslations() {
       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{description}</p>
     </div>
   )
+}
+
+interface TranslatedTextProps {
+  i18nKey: string
+  fallback: string
+}
+
+/**
+ * Client component for translating individual text elements
+ * Uses useMounted pattern to avoid hydration mismatch
+ */
+export function TranslatedText({ i18nKey, fallback }: TranslatedTextProps) {
+  const { t } = useTranslation()
+  const mounted = useMounted()
+
+  return <>{mounted ? t(i18nKey, fallback) : fallback}</>
 }
