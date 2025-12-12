@@ -49,21 +49,21 @@ const iconComponents = {
 // Extract icon name from React element
 function getIconNameFromElement(element: React.ReactNode): string {
   if (!element || typeof element !== "object") return "ImageIcon"
-  
+
   const el = element as React.ReactElement
   if (!el.type) return "ImageIcon"
-  
+
   // Get the component function/class name
   const type = el.type as any
   const typeName = type.displayName || type.name || ""
-  
+
   // Match against known icons
   for (const [name, component] of Object.entries(iconComponents)) {
     if (type === component || typeName === name) {
       return name
     }
   }
-  
+
   return "ImageIcon"
 }
 

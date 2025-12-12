@@ -157,7 +157,7 @@ export default function ContactClientWrapper({ socialLinksData }: ContactClientW
     if (link.pronounsPageUrls) {
       const url = link.pronounsPageUrls[currentLang] || link.pronounsPageUrls.default
       const name = currentLang === "ru" ? "Pronouns.page (18+)" : "Pronouns.page"
-      const note = currentLang === "ru" 
+      const note = currentLang === "ru"
         ? "Этот сайт имеет возрастное ограничение 18+. Оставаясь на сайте, вы подтверждаете, что достигли совершеннолетия, и самостоятельно несёте ответственность за свои действия."
         : undefined
 
