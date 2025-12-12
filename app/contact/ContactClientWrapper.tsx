@@ -95,7 +95,129 @@ export default function ContactClientWrapper({ socialLinksData }: ContactClientW
     }
   }
 
-  if (!mounted) return null
+  // Static content for no-JS users
+  const staticContent = {
+    title: mounted ? t("contact.title") : "Contact",
+    description: mounted ? t("contact.description") : "Want to get in touch? Here's how you can reach me.",
+    message: mounted ? t("contact.message") : "feel free to reach out",
+    disclaimer: mounted ? t("contact.disclaimer") : "response time varies based on my spoons",
+    contactMe: mounted ? t("contact.sectionTitles.contactMe") : "Contact Me",
+    socialMedia: mounted ? t("contact.sectionTitles.socialMedia") : "Social Media",
+    otherPlatforms: mounted ? t("contact.sectionTitles.otherPlatforms") : "Other Platforms",
+    secretButton: mounted ? t("contact.secretButton") : "???",
+  }
+
+  // Static link renderer for no-JS users (simplified, no tooltips/QR codes)
+  const renderStaticLink = (link: SocialLinkData) => {
+    const icon = iconMap[link.iconName]
+    const displayName = link.name
+
+    // Skip QR code links in static mode
+    if (link.isQRCode) {
+      return (
+        <div
+          key={link.name}
+          className={`flex items-center justify-center gap-3 p-4 rounded-lg border ${link.color}`}
+        >
+          {icon}
+          <span>{displayName}</span>
+        </div>
+      )
+    }
+
+    // Handle pronouns.page
+    if (link.pronounsPageUrls) {
+      const url = link.pronounsPageUrls.default || Object.values(link.pronounsPageUrls)[0]
+      return (
+        <Link
+          key={link.name}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${link.color}`}
+        >
+          {icon}
+          <span>Pronouns.page</span>
+          <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
+        </Link>
+      )
+    }
+
+    // Regular links
+    if (!link.url) {
+      return (
+        <div
+          key={link.name}
+          className={`flex items-center justify-center gap-3 p-4 rounded-lg border ${link.color}`}
+        >
+          {icon}
+          <span>{displayName}</span>
+        </div>
+      )
+    }
+
+    return (
+      <Link
+        key={link.name}
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${link.color}`}
+      >
+        {icon}
+        <span>{displayName}</span>
+        <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
+      </Link>
+    )
+  }
+
+  // Static content for no-JS users
+  if (!mounted) {
+    return (
+      <main className="relative min-h-screen w-full overflow-hidden">
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{staticContent.title}</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{staticContent.description}</p>
+            </div>
+
+            <div className="grid gap-8">
+              <div className="text-center">
+                <p className="text-xl mb-2 lowercase">{staticContent.message}</p>
+                <p className="text-muted-foreground italic mb-8 lowercase">{staticContent.disclaimer}</p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">{staticContent.contactMe}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+                  {socialLinksData.contact.map((link) => renderStaticLink(link))}
+                </div>
+
+                <h2 className="text-2xl font-bold mb-4">{staticContent.socialMedia}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+                  {socialLinksData.social.map((link) => renderStaticLink(link))}
+                </div>
+
+                <h2 className="text-2xl font-bold mb-4">{staticContent.otherPlatforms}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {socialLinksData.other.map((link) => renderStaticLink(link))}
+
+                  {/* Secret Ko-fi Button */}
+                  <div
+                    className="flex items-center justify-center gap-3 p-4 rounded-lg border bg-background"
+                  >
+                    <Coffee className="h-6 w-6" />
+                    <span>{staticContent.secretButton}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
 
   const currentLang = i18n.language
 

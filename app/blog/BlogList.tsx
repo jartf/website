@@ -20,6 +20,16 @@ import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
 import { useMounted } from "@/hooks/use-mounted"
 import styles from "./BlogList.module.css"
 
+// Static fallback content for SSR
+const STATIC_CONTENT = {
+  title: "Blog",
+  noPosts: "No posts yet. Check back soon!",
+  search: "Search posts...",
+  minRead: "min read",
+  mood: "Mood",
+  cat: "Cat Approved",
+}
+
 // Types for blog posts
 type BlogPostMetadata = {
   slug: string
@@ -283,15 +293,23 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
   // Map language codes to display names with i18n + safe fallback to endonyms
   const getLanguageName = (code: string): string => {
+    if (!mounted) return LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code
     return t(`language.${code}`, LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code).toString()
+  }
+
+  // Helper to format date consistently
+  const formatPostDate = (dateStr: string) => {
+    const date = new Date(dateStr)
+    const locale = mounted ? currentLang : "en"
+    return date.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })
   }
 
   if (safeBlogPosts.length === 0) {
     return (
       <div className={`container mx-auto px-4 py-16 ${styles.visible}`}>
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-6">{t("blog.title", "Blog")}</h1>
-          <p className="text-muted-foreground mb-8">{t("blog.noPosts", "No posts yet. Check back soon!")}</p>
+          <h1 className="text-4xl font-bold mb-6">{mounted ? t("blog.title", STATIC_CONTENT.title) : STATIC_CONTENT.title}</h1>
+          <p className="text-muted-foreground mb-8">{mounted ? t("blog.noPosts", STATIC_CONTENT.noPosts) : STATIC_CONTENT.noPosts}</p>
         </div>
       </div>
     )
@@ -305,9 +323,94 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     filterLanguages.length +
     (filterCatApproved !== null ? 1 : 0)
 
-  // Prevent hydration mismatch by not rendering translations until mounted
+  // Static fallback for no-JS: render a simple list of all English posts sorted by date
   if (!mounted) {
-    return null
+    // Filter to English posts for SSR, sorted by date
+    const staticPosts = safeBlogPosts
+      .filter(post => post.language === "en")
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+    return (
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-4xl font-bold">{STATIC_CONTENT.title}</h1>
+            {/* Simple RSS link for no-JS users */}
+            <a
+              href="/rss.xml"
+              className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1"
+            >
+              <Rss className="h-4 w-4" />
+              RSS
+            </a>
+          </div>
+
+          {/* No-JS notice */}
+          <noscript>
+            <div className="mb-6 p-4 rounded-lg bg-muted/50 border">
+              <p className="text-sm text-muted-foreground">
+                Enable JavaScript for search, filtering, and language selection features.
+              </p>
+            </div>
+          </noscript>
+
+          {/* Static blog post list */}
+          <div className="space-y-6">
+            {staticPosts.map((post) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
+                <Card className="transition-all duration-300 hover:shadow-md border border-border group-hover:border-primary/50">
+                  <CardContent className="p-6">
+                    <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                      {post.title}
+                    </h2>
+                    <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
+                      <div className="flex items-center">
+                        <Calendar className="mr-1 h-4 w-4" />
+                        <span>{formatPostDate(post.date)}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Clock className="mr-1 h-4 w-4" />
+                        <span>{post.readingTime} {STATIC_CONTENT.minRead}</span>
+                      </div>
+                      <Badge variant="outline">
+                        {STATIC_CONTENT.mood}: {post.mood}
+                      </Badge>
+                      {post.language && (
+                        <Badge variant="outline" className="flex items-center gap-1">
+                          <Globe className="h-3 w-3 mr-1" />
+                          {getLanguageName(post.language)}
+                        </Badge>
+                      )}
+                      {post.catApproved && (
+                        <div className="flex items-center text-amber-600 dark:text-amber-400">
+                          <Cat className="h-4 w-4 mr-1" />
+                          <span>{STATIC_CONTENT.cat}</span>
+                        </div>
+                      )}
+                    </div>
+                    {/* Category and Tags */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {post.category && (
+                        <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
+                          {post.category}
+                        </Badge>
+                      )}
+                      {post.tags?.map((tag) => (
+                        <Badge key={tag} variant="outline" className="flex items-center gap-1 text-xs">
+                          <Tag className="h-3 w-3 mr-1" />
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    <p className="text-muted-foreground">{post.excerpt}</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (

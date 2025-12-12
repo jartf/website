@@ -17,9 +17,22 @@ import { useViewport } from "@/hooks/use-viewport"
 import { useMounted } from "@/hooks/use-mounted"
 import { NAV_ITEMS } from "@/lib/constants"
 
+// Static fallback labels for when JS is disabled
+const STATIC_NAV_LABELS: Record<string, string> = {
+  home: "Home",
+  about: "About",
+  projects: "Projects",
+  blog: "Blog",
+  now: "Now",
+  uses: "Uses",
+  contact: "Contact",
+  colophon: "Colophon",
+}
+
 /**
  * Header component with responsive navigation
- * @returns {JSX.Element|null} The header component or null if not mounted
+ * Renders static content first for no-JS support, then enhances with JS
+ * @returns {JSX.Element} The header component
  */
 export function Header() {
   const pathname = usePathname()
@@ -30,14 +43,16 @@ export function Header() {
   const itemsRef = useRef<(HTMLAnchorElement | null)[]>([])
   const { windowWidth } = useViewport()
 
-  // Memoize navigation items to prevent recreation on every render
+  // Memoize navigation items - use translated labels when mounted, static labels otherwise
   const navItems = useMemo(
     () =>
       NAV_ITEMS.map((item) => ({
         href: item.href,
-        label: t(`nav.${item.key}`, item.key.charAt(0).toUpperCase() + item.key.slice(1)),
+        label: mounted
+          ? t(`nav.${item.key}`, STATIC_NAV_LABELS[item.key] || item.key.charAt(0).toUpperCase() + item.key.slice(1))
+          : STATIC_NAV_LABELS[item.key] || item.key.charAt(0).toUpperCase() + item.key.slice(1),
       })),
-    [t]
+    [t, mounted]
   )
 
   // Memoize isActive function
@@ -102,10 +117,8 @@ export function Header() {
     }
   }, [mounted, windowWidth, overflowIndex])
 
-  if (!mounted) return null
-
-  // Only apply overflow logic for tablet sizes
-  const isTabletSize = windowWidth >= 768 && windowWidth < 1280
+  // Only apply overflow logic for tablet sizes when mounted
+  const isTabletSize = mounted && windowWidth >= 768 && windowWidth < 1280
   const visibleItems = isTabletSize && overflowIndex !== null ? navItems.slice(0, overflowIndex) : navItems
   const overflowItems = isTabletSize && overflowIndex !== null ? navItems.slice(overflowIndex) : []
 
@@ -134,7 +147,7 @@ export function Header() {
                   aria-current={isActive(item.href) ? "page" : undefined}
                 >
                   {item.label}
-                  {isActive(item.href) && (
+                  {mounted && isActive(item.href) && (
                     <motion.div
                       className="h-0.5 bg-primary mt-0.5"
                       layoutId="navbar-indicator"
@@ -146,7 +159,7 @@ export function Header() {
               ))}
             </div>
 
-            {overflowItems.length > 0 && (
+            {mounted && overflowItems.length > 0 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="ml-1 flex-shrink-0" aria-label="More navigation pages" aria-haspopup="menu">
@@ -172,37 +185,66 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="flex items-center gap-1">
-            <LanguageToggle />
-            <ThemeToggle />
-            <MusicToggle />
-          </div>
+          {/* JS-only interactive controls */}
+          {mounted && (
+            <div className="flex items-center gap-1">
+              <LanguageToggle />
+              <ThemeToggle />
+              <MusicToggle />
+            </div>
+          )}
 
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open navigation menu" aria-haspopup="dialog">
-                <Menu className="h-5 w-5" aria-hidden="true" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" aria-label="Navigation menu">
-              <nav className="grid gap-6 py-6" aria-label="Mobile navigation">
-                <div className="grid gap-3">
+          {/* Mobile menu - only show when mounted since Sheet requires JS */}
+          {mounted && (
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open navigation menu" aria-haspopup="dialog">
+                  <Menu className="h-5 w-5" aria-hidden="true" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" aria-label="Navigation menu">
+                <nav className="grid gap-6 py-6" aria-label="Mobile navigation">
+                  <div className="grid gap-3">
+                    {navItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`text-sm transition-colors hover:text-primary ${
+                          isActive(item.href) ? "text-foreground font-medium" : "text-muted-foreground"
+                        }`}
+                        aria-current={isActive(item.href) ? "page" : undefined}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          )}
+
+          {/* No-JS mobile navigation fallback */}
+          <noscript>
+            <nav className="md:hidden" aria-label="Mobile navigation">
+              <details className="relative">
+                <summary className="list-none cursor-pointer p-2 rounded hover:bg-muted">
+                  <Menu className="h-5 w-5" aria-hidden="true" />
+                  <span className="sr-only">Open navigation menu</span>
+                </summary>
+                <div className="absolute right-0 top-full mt-2 bg-background border rounded-md shadow-lg p-4 min-w-[160px] z-50">
                   {navItems.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`text-sm transition-colors hover:text-primary ${
-                        isActive(item.href) ? "text-foreground font-medium" : "text-muted-foreground"
-                      }`}
-                      aria-current={isActive(item.href) ? "page" : undefined}
+                      className="block py-2 text-sm hover:text-primary"
                     >
                       {item.label}
                     </Link>
                   ))}
                 </div>
-              </nav>
-            </SheetContent>
-          </Sheet>
+              </details>
+            </nav>
+          </noscript>
         </div>
       </div>
     </header>

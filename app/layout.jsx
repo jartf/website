@@ -143,72 +143,36 @@ export default function RootLayout({ children }) {
           `}
         </style>
 
-        {/* Full screen notice for users without JavaScript */}
+        {/* Banner notice for users without JavaScript - non-blocking */}
         <style>
           {`
-            .js-disabled-notice {
+            .js-disabled-banner {
               display: none;
-              position: fixed;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+              background: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%);
               color: #ffffff;
-              z-index: 99999;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
+              padding: 1rem;
               text-align: center;
-              padding: 2rem;
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+              border-bottom: 1px solid rgba(255,255,255,0.1);
             }
-            .js-disabled-notice h1 {
-              font-size: 3rem;
-              font-weight: 700;
-              margin-bottom: 1rem;
-              background: linear-gradient(45deg, #60a5fa, #a78bfa);
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              background-clip: text;
+            .js-disabled-banner p {
+              margin: 0;
+              font-size: 0.875rem;
+              line-height: 1.5;
             }
-            .js-disabled-notice p {
-              font-size: 1.25rem;
-              line-height: 1.6;
-              margin-bottom: 2rem;
-              max-width: 600px;
-              opacity: 0.9;
+            .js-disabled-banner a {
+              color: #60a5fa;
+              text-decoration: underline;
             }
-            .js-disabled-notice a {
-              display: inline-block;
-              background: linear-gradient(45deg, #60a5fa, #a78bfa);
-              color: white;
-              padding: 1rem 2rem;
-              border-radius: 0.5rem;
-              text-decoration: none;
-              font-weight: 600;
-              font-size: 1.125rem;
-              transition: transform 0.2s ease, box-shadow 0.2s ease;
+            .js-disabled-banner a:hover {
+              color: #93c5fd;
             }
-            .js-disabled-notice a:hover {
-              transform: translateY(-2px);
-              box-shadow: 0 10px 25px rgba(96, 165, 250, 0.3);
-            }
-            .js-disabled-notice .subtitle {
-              font-size: 1rem;
-              opacity: 0.7;
-              margin-top: 2rem;
-            }
-            @media (max-width: 768px) {
-              .js-disabled-notice h1 {
-                font-size: 2rem;
+            @media (max-width: 640px) {
+              .js-disabled-banner {
+                padding: 0.75rem;
               }
-              .js-disabled-notice p {
-                font-size: 1.125rem;
-              }
-              .js-disabled-notice {
-                padding: 1rem;
+              .js-disabled-banner p {
+                font-size: 0.8rem;
               }
             }
           `}
@@ -293,20 +257,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-sans min-h-screen bg-background">
-        {/* Full screen notice for users without JavaScript */}
+        {/* Non-blocking banner notice for users without JavaScript */}
         <noscript>
-          <div className="js-disabled-notice" style={{ display: "flex" }}>
-            <h1>JavaScript is required</h1>
+          <div className="js-disabled-banner" style={{ display: "block" }}>
             <p>
-              This site relies heavily on interactive features, and they won&apos;t function properly without JavaScript. Please enable JavaScript for this site, or use a modern browser (preferably Librewolf or Brave for added privacy, Firefox or Safari are also fine). If you&apos;re using Tor Browser, see below :D
+              You&apos;re browsing without JavaScript. The site works, but some interactive features like toggles or search won&apos;t be available, and content will be limited to prevent scraping from bots and AI.
             </p>
-            <p>
-            Using Tor Browser? Prefer to keep JavaScript disabled? I have a static version of this site you can browse instead :D
-            </p>
-            <a href="https://hugo.jarema.me" rel="nofollow">
-              Visit static site
-            </a>
-            <p className="subtitle">I&apos;d love to avoid JavaScript, but sadly large-scale scrapers and AI companies are mass scraping the internet and JS is the easiet way for me to slow that down right now. Using JS also means I can utilize interactive features with less hassle. That said, a no-JS solution without redirection is currently a work-in-progress.</p>
           </div>
         </noscript>
 

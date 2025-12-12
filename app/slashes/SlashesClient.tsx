@@ -51,8 +51,6 @@ interface SlashesClientProps {
 export default function SlashesPageClient({ routes: serializedRoutes }: SlashesClientProps) {
   const mounted = useMounted()
 
-  if (!mounted) return null
-
   // Resolve icons from names
   const routes: PageRoute[] = serializedRoutes.map((route) => {
     const IconComponent = iconMap[route.iconName] || Slash
@@ -75,6 +73,46 @@ export default function SlashesPageClient({ routes: serializedRoutes }: SlashesC
   const item = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
+  }
+
+  // Static content for no-JS users
+  if (!mounted) {
+    return (
+      <main className="relative min-h-screen w-full overflow-hidden">
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Site Directory</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                A complete list of all accessible pages on this website
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {routes.map((route) => (
+                <div key={route.path}>
+                  <Link href={route.path} className="block group">
+                    <Card className="transition-all duration-300 group-hover:shadow-md h-full">
+                      <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                        <div className="bg-primary/10 p-2 rounded-full">{route.icon}</div>
+                        <CardTitle className="group-hover:text-primary transition-colors">{route.name}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center gap-2 text-muted-foreground mb-2">
+                          <Slash className="h-4 w-4" />
+                          <code className="bg-muted px-1.5 py-0.5 rounded text-sm">{route.path}</code>
+                        </div>
+                        <p className="text-muted-foreground">{route.description}</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
+    )
   }
 
   return (

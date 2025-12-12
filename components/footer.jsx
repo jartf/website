@@ -10,8 +10,16 @@ import { useViewport } from "@/hooks/use-viewport"
 import { useMounted } from "@/hooks/use-mounted"
 import Image from "next/image"
 
+// Static fallback text for no-JS rendering
+const STATIC_FOOTER = {
+  copyright: "no rights reserved, take what you need and do what you want :p",
+  madeWith: "made with love",
+  andChaos: "and a few weeks of screwing around",
+}
+
 /**
  * Footer component that displays copyright information, social links, and retro badges
+ * Renders static content first for no-JS support, then enhances with JS
  * @returns {JSX.Element} The footer component
  */
 export function Footer() {
@@ -24,7 +32,7 @@ export function Footer() {
   const [tapCount, setTapCount] = useState(0)
 
   const handleTap = () => {
-    if (!isAboutPage) return
+    if (!isAboutPage || !mounted) return
     setTapCount((prev) => {
       if (prev + 1 >= 5) {
         // Defer to next tick to avoid cascading renders
@@ -38,12 +46,15 @@ export function Footer() {
     })
   }
 
-  if (!mounted) return null
+  // Use translated text when mounted, static fallback otherwise
+  const copyrightText = mounted ? t("footer.copyright", STATIC_FOOTER.copyright) : STATIC_FOOTER.copyright
+  const madeWithText = mounted ? t("footer.madeWith", STATIC_FOOTER.madeWith) : STATIC_FOOTER.madeWith
+  const andChaosText = mounted ? t("footer.andChaos", STATIC_FOOTER.andChaos) : STATIC_FOOTER.andChaos
 
-  // Show keyboard shortcuts button only if:
+  // Show keyboard shortcuts button only if mounted and:
   // 1. Not on mobile viewport, OR
   // 2. On desktop platform (regardless of viewport size)
-  const showKeyboardShortcuts = !isMobile || isDesktop
+  const showKeyboardShortcuts = mounted && (!isMobile || isDesktop)
 
   return (
     <footer className="w-full border-t py-6 xl:py-0" role="contentinfo">
@@ -56,14 +67,14 @@ export function Footer() {
           <a href="https://jarema.me/" className="h-card hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded" rel="me">
             Jarema
           </a>{" "}
-          • {t("footer.copyright", "no rights reserved, take what you need and do what you want :p")}
+          • {copyrightText}
         </p>
         <div className="flex items-center gap-1">
           <span className="hidden xl:inline text-sm text-muted-foreground">•</span>
-          <span className="text-sm text-muted-foreground">{t("footer.madeWith", "made with love")}</span>
+          <span className="text-sm text-muted-foreground">{madeWithText}</span>
           <Heart className="h-4 w-4 text-red-500 animate-pulse" aria-hidden="true" />
           <span className="sr-only">love</span>
-          <span className="text-sm text-muted-foreground">{t("footer.andChaos", "and a few weeks of screwing around")}</span>
+          <span className="text-sm text-muted-foreground">{andChaosText}</span>
         </div>
         {showKeyboardShortcuts && (
           <div className="absolute right-4">

@@ -218,7 +218,103 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
     }
   }, [flippedCard, visibleProjects])
 
-  if (!mounted) return null
+  if (!mounted) {
+    // Static content for no-JS users
+    const visibleProjects: Project[] = projects.filter((project) => !project.hidden)
+
+    // Static category/status labels
+    const staticCategoryLabels: Record<string, string> = {
+      personal: "Personal",
+      academic: "Academic",
+      activism: "Activism",
+    }
+
+    const staticStatusLabels: Record<string, string> = {
+      completed: "Completed",
+      "in-progress": "In Progress",
+      planned: "Planned",
+    }
+
+    const getCategoryColor = (category: string) => {
+      switch (category) {
+        case "personal":
+          return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100"
+        case "academic":
+          return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
+        case "activism":
+          return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+        default:
+          return ""
+      }
+    }
+
+    const getStatusColor = (status: string) => {
+      switch (status) {
+        case "completed":
+          return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+        case "in-progress":
+          return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
+        case "planned":
+          return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
+        default:
+          return ""
+      }
+    }
+
+    return (
+      <main className="relative min-h-screen w-full overflow-hidden">
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Projects</h1>
+            <p className="text-lg text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
+              A collection of personal, academic, and activism projects.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {visibleProjects.map((project) => {
+                const content = project.content.en
+                return (
+                  <div
+                    key={project.id}
+                    className="rounded-xl border bg-card p-6 shadow-sm flex flex-col"
+                  >
+                    <div className="mb-2">
+                      <h3 className="text-xl font-bold mb-2">{content.title}</h3>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <Badge className={getCategoryColor(project.category)}>
+                          {staticCategoryLabels[project.category] || project.category}
+                        </Badge>
+                        <Badge className={getStatusColor(project.status)}>
+                          {staticStatusLabels[project.status] || project.status}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">{content.description}</p>
+
+                    <div className="mt-auto">
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag) => (
+                          <Badge key={tag} variant="outline">{tag}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            <div className="flex justify-center">
+              <Button variant="outline" className="group" disabled>
+                <Sparkles className="mr-2 h-4 w-4" />
+                Show Random Projects
+              </Button>
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
 
   const getStatusLabel = (status: string) => {
     switch (status) {

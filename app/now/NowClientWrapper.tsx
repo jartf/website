@@ -270,7 +270,91 @@ export default function NowClientWrapper({
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [t, groupedItems])
 
-  if (!mounted) return null
+  if (!mounted) {
+    // Static content for no-JS users
+    const staticCategoryNames: Record<string, string> = {
+      reading: "Reading",
+      learning: "Learning",
+      thinking: "Thinking",
+      working: "Working",
+      listening: "Listening",
+      premid: "Activity",
+      other: "Other",
+    }
+
+    // Compute latest last updated date for static display
+    const getStaticLastUpdatedDate = () => {
+      const latest = items.reduce((acc, item) => {
+        const d = new Date(item.date)
+        return d > acc ? d : acc
+      }, new Date(0))
+      return latest.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    }
+
+    return (
+      <main className="relative min-h-screen w-full overflow-hidden">
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Now</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                What I'm currently doing, thinking about, and focusing on.
+              </p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Last updated: {getStaticLastUpdatedDate()}
+              </p>
+            </div>
+
+            <div className="space-y-8">
+              {categories.map((category) => {
+                const Icon = iconMap[category.iconName]
+                return (
+                  <div key={category.name} className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      {Icon && (
+                        <div className="bg-primary text-primary-foreground p-2 rounded-full">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                      )}
+                      <h2 className="text-2xl font-bold">
+                        {staticCategoryNames[category.name] || category.name}
+                      </h2>
+                    </div>
+
+                    <Card className="border border-border bg-card/50 backdrop-blur-sm">
+                      <CardContent className="p-6 space-y-4">
+                        {groupedItems[category.name]?.map((item) => (
+                          <div
+                            key={item.id}
+                            className="border-b border-border last:border-0 pb-4 last:pb-0"
+                          >
+                            <p className="mb-2">
+                              {item.content.en}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {new Date(item.date).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })}
+                            </p>
+                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
 
   // Get the current language, default to English if not supported
   const currentLang = (() => {

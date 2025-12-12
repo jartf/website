@@ -147,6 +147,161 @@ export default function UsesClientWrapper({
     return <ImageIcon className={className} />
   }
 
+  // Static category titles for no-JS users
+  const staticCategoryTitles: Record<string, string> = {
+    hardware: "Hardware",
+    mobile: "Mobile",
+    audio: "Audio",
+    os: "Operating System",
+    development: "Development",
+    email: "Email",
+    privacy: "Privacy",
+    mobile_tools: "Mobile Tools",
+    mapping: "Mapping",
+    gaming: "Gaming",
+    multimedia: "Multimedia",
+    photography: "Photography",
+    video: "Video",
+    music: "Music",
+  }
+
+  // Static item renderer for no-JS users
+  const renderStaticCategoryItems = (items: SerializableUsesCategory["items"]) => (
+    <div className="grid gap-6 ml-4">
+      {items.map((item, index) => (
+        <div key={index} className="flex items-start gap-3">
+          <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary"></div>
+          <div>
+            <h3 className="text-xl font-medium">
+              {item.link ? (
+                <Link
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary inline-flex items-center"
+                >
+                  {item.name}
+                  <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
+                </Link>
+              ) : (
+                item.name
+              )}
+            </h3>
+            {item.description && (
+              <p className="text-muted-foreground">{item.description}</p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+
+  // Static content for no-JS users
+  if (!mounted) {
+    return (
+      <main className="relative min-h-screen w-full overflow-hidden">
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Uses</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                A list of my tools, gadgets and software. Inspired by{" "}
+                <Link
+                  href="https://uses.tech"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline inline-flex items-center"
+                >
+                  uses.tech
+                  <ExternalLink className="h-4 w-4 ml-1" />
+                </Link>
+                , a directory of /uses pages.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-12">
+              {/* Render all categories statically */}
+              {categories.slice(0, 10).map((category, index) => (
+                <div key={category.title} id={`category-${category.title}`}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-primary/10 p-2 rounded-full">
+                      {renderIcon(category.iconName)}
+                    </div>
+                    <h2 className="text-2xl font-bold">
+                      {staticCategoryTitles[category.title] || category.title}
+                    </h2>
+                  </div>
+                  {renderStaticCategoryItems(category.items)}
+                </div>
+              ))}
+
+              {/* Multimedia section */}
+              {categories[10] && (
+                <div id="category-multimedia">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-primary/10 p-2 rounded-full">
+                      {renderIcon(categories[10].iconName)}
+                    </div>
+                    <h2 className="text-2xl font-bold">
+                      {staticCategoryTitles[categories[10].title] || categories[10].title}
+                    </h2>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ml-4">
+                    {categories[10].subsections?.map((subsection, subIndex) => (
+                      <div key={subIndex} className="space-y-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          {subsection.iconName && (
+                            <div className="bg-primary/5 p-1.5 rounded-full">
+                              {renderIcon(subsection.iconName, "h-5 w-5")}
+                            </div>
+                          )}
+                          <h3 className="text-xl font-medium">
+                            {staticCategoryTitles[subsection.title] || subsection.title}
+                          </h3>
+                        </div>
+
+                        <div className="grid gap-6 ml-4">
+                          {subsection.items
+                            .filter((item) => item.name !== "Unspeakable Platform 1" && item.name !== "Unspeakable Platform 2")
+                            .map((item, itemIndex) => (
+                              <div key={itemIndex} className="flex items-start gap-3">
+                                <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary"></div>
+                                <div>
+                                  <h4 className="text-lg font-medium">
+                                    {item.link ? (
+                                      <Link
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:text-primary inline-flex items-center"
+                                      >
+                                        {item.name}
+                                        <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
+                                      </Link>
+                                    ) : (
+                                      item.name
+                                    )}
+                                  </h4>
+                                  {item.description && (
+                                    <p className="text-muted-foreground">{item.description}</p>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
+
   // Helper to render a category's items
   const renderCategoryItems = (
     items: SerializableUsesCategory["items"]

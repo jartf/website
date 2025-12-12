@@ -23,9 +23,11 @@ import { LucideHeadphones, Activity } from "lucide-react"
  *
  * @param {Object} props - The component props.
  * @param {Array} [props.blogPosts=[]] - An array of blog post objects.
+ * @param {Object} props.staticContent - Static fallback content for SSR.
+ * @param {Array} [props.staticPosts=[]] - Static English posts for SSR.
  * @returns {JSX.Element} The rendered home page client component.
  */
-export default function Home({ blogPosts = [] }) {
+export default function Home({ blogPosts = [], staticContent = {}, staticPosts = [] }) {
   const { t, i18n } = useTranslation()
   const [greeting, setGreeting] = useState("")
   const [latestNow, setLatestNow] = useState(null)
@@ -229,20 +231,25 @@ export default function Home({ blogPosts = [] }) {
     }
   }, [i18n.language, lastfmTrack, lastfmError, premidActivities, premidError])
 
-  if (!isTranslationReady) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-      </div>
-    )
-  }
-
-  if (!mounted) return null
+  // Use static content when not mounted/ready, translated content when ready
+  const content = mounted && isTranslationReady ? {
+    heading: t("home.heading", staticContent.heading),
+    subheading: t("home.subheading", staticContent.subheading),
+    contactButton: t("home.contactButton", staticContent.contactButton),
+    aboutButton: t("home.aboutButton", staticContent.aboutButton),
+    blogButton: t("home.blogButton", staticContent.blogButton),
+    recentPosts: t("home.recentPosts", staticContent.recentPosts),
+    minRead: t("blog.minRead", staticContent.minRead),
+    mood: t("blog.mood", staticContent.mood),
+  } : staticContent
 
   // Filter blog posts by current language (fallback to English)
-  const currentLang = i18n.language?.split("-")[0] || "en"
+  const currentLang = mounted ? (i18n.language?.split("-")[0] || "en") : "en"
   let filtered
-  if (currentLang === "vih") {
+  if (!mounted) {
+    // Use static English posts for SSR
+    filtered = staticPosts
+  } else if (currentLang === "vih") {
     filtered = blogPosts.filter(post => post.language === "vi" || post.language === "vih")
     if (filtered.length === 0) {
       filtered = blogPosts.filter(post => post.language === "en")
@@ -262,11 +269,21 @@ export default function Home({ blogPosts = [] }) {
    */
   const formatVerboseDate = (dateStr) => {
     const date = new Date(dateStr)
-    return date.toLocaleDateString(i18n.language || "en", { year: 'numeric', month: 'long', day: 'numeric' })
+    const locale = mounted ? (i18n.language || "en") : "en"
+    return date.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })
   }
 
   // Define animation properties based on motion preference
   const animationProps = prefersReducedMotion ? { initial: {}, animate: {}, transition: {} } : {}
+
+  // Show loading spinner only when mounted but translations not ready yet
+  if (mounted && !isTranslationReady) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+      </div>
+    )
+  }
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
@@ -280,60 +297,98 @@ export default function Home({ blogPosts = [] }) {
             </div>
 
             <div className="text-center">
-              <motion.p
-                initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                transition={prefersReducedMotion ? {} : { duration: 0.5 }}
-                className="text-lg md:text-xl text-muted-foreground mb-4"
-              >
-                {greeting}
-              </motion.p>
+              {mounted ? (
+                <motion.p
+                  initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                  transition={prefersReducedMotion ? {} : { duration: 0.5 }}
+                  className="text-lg md:text-xl text-muted-foreground mb-4"
+                >
+                  {greeting}
+                </motion.p>
+              ) : (
+                <p className="text-lg md:text-xl text-muted-foreground mb-4">
+                  Welcome, traveler.
+                </p>
+              )}
 
-              <motion.h1
-                initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                transition={prefersReducedMotion ? {} : { duration: 0.5, delay: 0.2 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
-              >
-                {t("home.heading", "hi there, i'm Jarema")}
-              </motion.h1>
+              {mounted ? (
+                <motion.h1
+                  initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                  transition={prefersReducedMotion ? {} : { duration: 0.5, delay: 0.2 }}
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
+                >
+                  {content.heading}
+                </motion.h1>
+              ) : (
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                  {content.heading}
+                </h1>
+              )}
 
-              <motion.p
-                initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                transition={prefersReducedMotion ? {} : { duration: 0.5, delay: 0.4 }}
-                className="text-lg md:text-xl text-muted-foreground mb-8"
-              >
-                {t("home.subheading", "Economics major, sometimes coder, most times cat whisperer.")}
-              </motion.p>
+              {mounted ? (
+                <motion.p
+                  initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                  transition={prefersReducedMotion ? {} : { duration: 0.5, delay: 0.4 }}
+                  className="text-lg md:text-xl text-muted-foreground mb-8"
+                >
+                  {content.subheading}
+                </motion.p>
+              ) : (
+                <p className="text-lg md:text-xl text-muted-foreground mb-8">
+                  {content.subheading}
+                </p>
+              )}
 
-              <motion.div
-                initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                transition={prefersReducedMotion ? {} : { duration: 0.5, delay: 0.6 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
-              >
-                <Link href="/contact">
-                  <Button variant="default" size="lg" className="w-full sm:w-auto">
-                    {t("home.contactButton", "Contact me")}
-                  </Button>
-                </Link>
-                <Link href="/about">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    {t("home.aboutButton", "About me")}
-                  </Button>
-                </Link>
-                <Link href="/blog">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    {t("home.blogButton", "Read my blog")}
-                  </Button>
-                </Link>
-              </motion.div>
+              {mounted ? (
+                <motion.div
+                  initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                  transition={prefersReducedMotion ? {} : { duration: 0.5, delay: 0.6 }}
+                  className="flex flex-col sm:flex-row gap-4 justify-center"
+                >
+                  <Link href="/contact">
+                    <Button variant="default" size="lg" className="w-full sm:w-auto">
+                      {content.contactButton}
+                    </Button>
+                  </Link>
+                  <Link href="/about">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                      {content.aboutButton}
+                    </Button>
+                  </Link>
+                  <Link href="/blog">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                      {content.blogButton}
+                    </Button>
+                  </Link>
+                </motion.div>
+              ) : (
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/contact">
+                    <Button variant="default" size="lg" className="w-full sm:w-auto">
+                      {content.contactButton}
+                    </Button>
+                  </Link>
+                  <Link href="/about">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                      {content.aboutButton}
+                    </Button>
+                  </Link>
+                  <Link href="/blog">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                      {content.blogButton}
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Latest Now Entry Section */}
-          {latestNow && (
+          {/* Latest Now Entry Section - only show when mounted (requires JS for API fetching) */}
+          {mounted && latestNow && (
             <div className="mb-12">
               <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
                 <Link href="/now" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{ color: "inherit" }}>
@@ -503,7 +558,7 @@ export default function Home({ blogPosts = [] }) {
           {recentPosts && recentPosts.length > 0 && (
             <div className="mt-12">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                {t("home.recentPosts", "Recent blog posts")}
+                {content.recentPosts}
               </h2>
               <div className="space-y-6">
                 {recentPosts.map((post) => (
@@ -513,9 +568,9 @@ export default function Home({ blogPosts = [] }) {
                       <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
                         <span>{formatVerboseDate(post.date)}</span>
                         <span>•</span>
-                        <span>{post.readingTime} {t("blog.minRead", "min read")}</span>
+                        <span>{post.readingTime} {content.minRead}</span>
                         <span>•</span>
-                        {post.mood && <span>{t("blog.mood", "Mood")}: {post.mood}</span>}
+                        {post.mood && <span>{content.mood}: {post.mood}</span>}
                         <span>•</span>
                         {post.language && <span>{post.language.toUpperCase()}</span>}
                       </div>
@@ -527,20 +582,22 @@ export default function Home({ blogPosts = [] }) {
               <div className="mt-6 text-center">
                 <Link href="/blog">
                   <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    {t("home.blogButton", "Read my blog")}
+                    {content.blogButton}
                   </Button>
                 </Link>
               </div>
             </div>
           )}
 
-          <div className="mt-16">
-            <MoodCat />
-          </div>
+          {mounted && (
+            <div className="mt-16">
+              <MoodCat />
+            </div>
+          )}
         </div>
       </div>
 
-      <EasterEgg />
+      {mounted && <EasterEgg />}
     </main>
   )
 }

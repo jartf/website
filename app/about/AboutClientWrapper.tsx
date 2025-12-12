@@ -13,6 +13,9 @@ type ChapterData = {
   contentKeys: string[]
   hasQuote?: boolean
   hidden?: boolean
+  staticTitle?: string
+  staticContent?: string[]
+  staticQuote?: string
 }
 
 interface AboutClientWrapperProps {
@@ -85,7 +88,52 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
 
   const visibleChapters = showHiddenChapter ? chapters : chapters.filter(c => !c.hidden)
 
-  if (!mounted) return null
+  // Static fallback for no-JS: render all chapters with static content
+  if (!mounted) {
+    const staticVisibleChapters = chapters.filter(c => !c.hidden)
+
+    return (
+      <div className="container mx-auto px-4 py-16 relative z-10">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">About me</h1>
+
+          {/* h-card from server */}
+          {hCard}
+
+          <div className="space-y-8">
+            {staticVisibleChapters.map((chapter) => (
+              <div key={chapter.number} className="py-2" id={`chapter-${chapter.number}`}>
+                <div className="flex items-center mb-3">
+                  <div className="bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">
+                    {chapter.number}
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold">{chapter.staticTitle}</h2>
+                </div>
+
+                <div className="mt-4 text-lg leading-relaxed">
+                  {chapter.staticContent?.map((content, index) => {
+                    if (chapter.hasQuote && index === 1) {
+                      return (
+                        <p key={index} className="mt-4">
+                          {content}
+                          <span className="italic ml-1">{chapter.staticQuote}</span>
+                        </p>
+                      )
+                    }
+                    return (
+                      <p key={index} className={index > 0 ? "mt-4" : ""}>
+                        {content}
+                      </p>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -154,9 +202,12 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
                 <Chapter
                   ref={(el) => { chapterRefs.current[chapter.number - 1] = el }}
                   number={chapter.number}
-                  title={t(chapter.titleKey)}
+                  titleKey={chapter.titleKey}
+                  staticTitle={chapter.staticTitle}
                   contentKeys={chapter.contentKeys}
+                  staticContent={chapter.staticContent}
                   hasQuote={chapter.hasQuote}
+                  staticQuote={chapter.staticQuote}
                   isActive={activeChapter === chapter.number}
                 />
               </AnimatePresence>
@@ -172,15 +223,20 @@ const Chapter = React.forwardRef<
   HTMLDivElement,
   {
     number: number
-    title: string
+    titleKey: string
+    staticTitle?: string
     contentKeys: string[]
+    staticContent?: string[]
     hasQuote?: boolean
+    staticQuote?: string
     isActive: boolean
   }
->(({ number, title, contentKeys, hasQuote, isActive }, ref) => {
+>(({ number, titleKey, staticTitle, contentKeys, staticContent, hasQuote, staticQuote, isActive }, ref) => {
   const { t } = useTranslation()
   const chapterRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(chapterRef, { once: true, amount: 0.3 })
+
+  const title = staticTitle ? t(titleKey, { defaultValue: staticTitle }) : t(titleKey)
 
   return (
     <div ref={ref as React.RefObject<HTMLDivElement>} className="py-2" id={`chapter-${number}`}>
@@ -199,17 +255,18 @@ const Chapter = React.forwardRef<
 
         <div className="mt-4 text-lg leading-relaxed">
           {contentKeys.map((key, index) => {
+            const defaultVal = staticContent?.[index]
             if (hasQuote && index === 1) {
               return (
                 <p key={key} className="mt-4">
-                  {t(`about.chapters.${number}.content2`)}
+                  {defaultVal ? t(`about.chapters.${number}.content2`, { defaultValue: defaultVal }) : t(`about.chapters.${number}.content2`)}
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger className="italic ml-1 hover:text-primary transition-colors">
-                        {t(`about.chapters.${number}.quote`)}
+                        {staticQuote ? t(`about.chapters.${number}.quote`, { defaultValue: staticQuote }) : t(`about.chapters.${number}.quote`)}
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>{t(`about.chapters.${number}.quoteTooltip`)}</p>
+                        <p>{t(`about.chapters.${number}.quoteTooltip`, { defaultValue: "yeah I said it lol" })}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -218,7 +275,7 @@ const Chapter = React.forwardRef<
             }
             return (
               <p key={key} className={index > 0 ? "mt-4" : ""}>
-                {t(key)}
+                {defaultVal ? t(key, { defaultValue: defaultVal }) : t(key)}
               </p>
             )
           })}

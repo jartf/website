@@ -22,7 +22,61 @@ export default function NotFoundClient() {
     y: Math.random() * 40 - 20,
   }))
 
-  if (!mounted) return null
+  // Static text content
+  const staticContent = {
+    title: mounted ? t("404.title") : "Page Not Found",
+    description: mounted ? t("404.description") : "The page you're looking for doesn't exist or has been moved.",
+    button: mounted ? t("404.button") : "Go Home",
+    sitemap: mounted ? t("404.sitemap") : "Site Directory",
+    enjoycat: mounted ? t("404.enjoycat") : "Here's a cat to cheer you up",
+  }
+
+  // Static content for no-JS users
+  if (!mounted) {
+    return (
+      <main className="relative min-h-screen w-full overflow-hidden">
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          <div className="max-w-md mx-auto text-center">
+            <div className="mb-8 flex justify-center">
+              <div className="bg-primary rounded-full p-6">
+                <Cat className="h-16 w-16 text-primary-foreground" />
+              </div>
+            </div>
+
+            <h1 className="text-4xl font-bold mb-4">{staticContent.title}</h1>
+
+            <p className="text-muted-foreground mb-8">{staticContent.description}</p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/">
+                <Button>
+                  <Home className="mr-2 h-4 w-4" />
+                  {staticContent.button}
+                </Button>
+              </Link>
+              <Link href="/slashes">
+                <Button variant="outline">
+                  <Map className="mr-2 h-4 w-4" />
+                  {staticContent.sitemap}
+                </Button>
+              </Link>
+            </div>
+
+            <div className="mt-12 flex justify-center">
+              <Compass className="h-12 w-12 text-muted-foreground/50" />
+            </div>
+
+            <div className="mt-16">
+              <div className="max-w-md mx-auto">
+                <h2 className="text-2xl font-bold mb-4">{staticContent.enjoycat}</h2>
+                <MoodCat />
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
