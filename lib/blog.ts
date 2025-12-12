@@ -2,9 +2,9 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 
-/**
- * Blog post metadata interface
- */
+// ============================================================================
+// Types
+// ============================================================================
 export interface BlogPostMetadata {
   slug: string
   title: string
@@ -18,22 +18,26 @@ export interface BlogPostMetadata {
   category?: string | null
 }
 
-/**
- * Complete blog post with content
- */
 export interface BlogPost extends BlogPostMetadata {
   content: string
 }
 
-/**
- * Blog post navigation
- */
 export interface BlogPostNavigation {
   prev: { slug: string; title: string } | null
   next: { slug: string; title: string } | null
 }
 
+export interface ScrapbookEntry {
+  date: string
+  content: string
+  slug: string
+}
+
+// ============================================================================
+// Constants
+// ============================================================================
 const BLOG_DIRECTORY = path.join(process.cwd(), "content/blog")
+const SCRAPBOOK_DIRECTORY = path.join(process.cwd(), "content/scrapbook")
 
 /**
  * Read and parse a blog post file
@@ -182,4 +186,18 @@ export async function getRelatedPosts(
     .sort((a, b) => b.score - a.score)
     .filter(post => post.score > 0)
     .slice(0, limit)
+}
+
+// ============================================================================
+// Scrapbook Utilities
+// ============================================================================
+export function getScrapbookEntries(): ScrapbookEntry[] {
+  if (!fs.existsSync(SCRAPBOOK_DIRECTORY)) return []
+
+  return fs.readdirSync(SCRAPBOOK_DIRECTORY)
+    .map(filename => {
+      const { data, content } = matter(fs.readFileSync(path.join(SCRAPBOOK_DIRECTORY, filename), "utf8"))
+      return { date: data.date, content: content.trim(), slug: filename.replace(/\.md$/, "") }
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
