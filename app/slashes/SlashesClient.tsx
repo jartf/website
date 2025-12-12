@@ -7,9 +7,18 @@ import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Firefly } from "@/components/firefly"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Slash, Home, User, Code, BookOpen, Clock, Mail, FileText, Wrench, Calendar } from "lucide-react"
+import { Slash, Home, User, Code, BookOpen, Clock, Mail, FileText, Wrench, Calendar, type LucideIcon } from "lucide-react"
 import { useMounted } from "@/hooks/use-mounted"
 
+// Serializable route type (passed from server)
+export type SerializableRoute = {
+  path: string
+  name: string
+  description: string
+  iconName: string
+}
+
+// Internal route type with resolved icon
 type PageRoute = {
   path: string
   name: string
@@ -17,103 +26,43 @@ type PageRoute = {
   icon: React.ReactNode
 }
 
+// Map icon names to components
+const iconMap: Record<string, LucideIcon> = {
+  Home,
+  User,
+  Code,
+  BookOpen,
+  Clock,
+  Mail,
+  FileText,
+  Wrench,
+  Calendar,
+  Slash,
+}
+
+interface SlashesClientProps {
+  routes: SerializableRoute[]
+}
+
 /**
  * The client-side component for the slashes page.
  * This component displays a directory of all accessible pages on the site.
  * @returns {JSX.Element | null} The rendered slashes page client component.
  */
-export default function SlashesPageClient() {
+export default function SlashesPageClient({ routes: serializedRoutes }: SlashesClientProps) {
   const { theme } = useTheme()
   const mounted = useMounted()
 
   if (!mounted) return null
 
-  const routes: PageRoute[] = [
-    {
-      path: "/",
-      name: "Home",
-      description: "The main landing page of the website",
-      icon: <Home className="h-5 w-5" />,
-    },
-    {
-      path: "/about",
-      name: "About",
-      description: "Learn more about me and my background",
-      icon: <User className="h-5 w-5" />,
-    },
-    {
-      path: "/projects",
-      name: "Projects",
-      description: "Explore my personal, academic, and activism projects",
-      icon: <Code className="h-5 w-5" />,
-    },
-    {
-      path: "/blog",
-      name: "Blog",
-      description: "Read my thoughts, reflections, and occasional rants",
-      icon: <BookOpen className="h-5 w-5" />,
-    },
-    {
-      path: "/now",
-      name: "Now",
-      description: "See what I'm currently doing, thinking about, and focusing on",
-      icon: <Clock className="h-5 w-5" />,
-    },
-    {
-      path: "/uses",
-      name: "Uses",
-      description: "Discover the tools, gadgets, and software I use daily",
-      icon: <Wrench className="h-5 w-5" />,
-    },
-    {
-      path: "/scrapbook",
-      name: "Scrapbook",
-      description: "Behind-the-scenes devlog of building this site",
-      icon: <Calendar className="h-5 w-5" />,
-    },
-    {
-      path: "/contact",
-      name: "Contact",
-      description: "Find ways to reach out and connect with me",
-      icon: <Mail className="h-5 w-5" />,
-    },
-    {
-      path: "/colophon",
-      name: "Colophon",
-      description: "The story behind this website and how it was built",
-      icon: <FileText className="h-5 w-5" />,
-    },
-    {
-      path: "/tetris",
-      name: "Shhhh...",
-      description: "What could this page be?",
-      icon: <Slash className="h-5 w-5" />,
-    },
-    {
-      path: "/2048",
-      name: "The Forbidden Math",
-      description: "A mysterious game where numbers double but sanity halves",
-      icon: <Slash className="h-5 w-5" />,
-    },
-    {
-      path: "/404",
-      name: "404 - Not Found",
-      description: "The page that appears when you try to access a non-existent page",
-      icon: <FileText className="h-5 w-5" />,
-    },
-    {
-      path: "/slashes",
-      name: "Slashes",
-      description: "This page - a directory of all accessible pages on the site",
-      icon: <Slash className="h-5 w-5" />,
-    },
-    {
-      path: "/badges",
-      name: "Badges",
-      description: "A collection of classic web badges and buttons used on my website",
-      icon: <FileText className="h-5 w-5" />,
-    },
-  ]
+  // Resolve icons from names
+  const routes: PageRoute[] = serializedRoutes.map((route) => {
+    const IconComponent = iconMap[route.iconName] || Slash
+    return {
+      ...route,
+      icon: <IconComponent className="h-5 w-5" />,
+    }
+  })
 
   const container = {
     hidden: { opacity: 0 },
