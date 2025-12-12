@@ -13,9 +13,6 @@ interface FireflyDotProps {
 
 /**
  * A component that creates a firefly effect with animated dots.
- * @param {Object} props - The component props.
- * @param {number} [props.count=20] - The number of fireflies to render.
- * @returns {JSX.Element} The firefly effect component.
  */
 export const Firefly = memo(function Firefly({ count = 20 }: FireflyProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -32,30 +29,35 @@ export const Firefly = memo(function Firefly({ count = 20 }: FireflyProps) {
 Firefly.displayName = "Firefly"
 
 /**
+ * Component that renders fireflies only in dark mode.
+ * Uses CSS-first approach: visibility controlled via .firefly-container CSS rules.
+ */
+export const DarkModeFirefly = memo(function DarkModeFirefly({ count = 15 }: FireflyProps) {
+  return (
+    <div className="firefly-container">
+      <Firefly count={count} />
+    </div>
+  )
+})
+
+DarkModeFirefly.displayName = "DarkModeFirefly"
+
+/**
  * A single firefly dot component.
- * @param {Object} props - The component props.
- * @param {React.RefObject<HTMLDivElement>} props.containerRef - A reference to the container element.
- * @returns {JSX.Element} A single firefly dot.
  */
 const FireflyDot = memo(function FireflyDot({ containerRef }: FireflyDotProps) {
-  const [randomValues] = useState(() => {
-    // Initialize with default values first
-    return {
-      initialPosition: { x: 0, y: 0 },
-      size: 2 + Math.random() * 3,
-      duration: 15 + Math.random() * 30,
-    }
-  })
+  const [randomValues] = useState(() => ({
+    size: 2 + Math.random() * 3,
+    duration: 15 + Math.random() * 30,
+  }))
 
-  // Update position after mount when container is available
   const [position, setPosition] = useState({ x: 0, y: 0 })
+
   useEffect(() => {
     if (containerRef.current) {
-      const width = containerRef.current.offsetWidth
-      const height = containerRef.current.offsetHeight
       setPosition({
-        x: Math.random() * width,
-        y: Math.random() * height,
+        x: Math.random() * containerRef.current.offsetWidth,
+        y: Math.random() * containerRef.current.offsetHeight,
       })
     }
   }, [containerRef])
@@ -71,15 +73,8 @@ const FireflyDot = memo(function FireflyDot({ containerRef }: FireflyDotProps) {
         y: position.y,
         willChange: "transform, opacity",
       }}
-      animate={{
-        opacity: [0.1, 0.5, 0.1],
-        scale: [1, 1.2, 1],
-      }}
-      transition={{
-        duration: randomValues.duration,
-        repeat: Number.POSITIVE_INFINITY,
-        ease: "easeInOut",
-      }}
+      animate={{ opacity: [0.1, 0.5, 0.1], scale: [1, 1.2, 1] }}
+      transition={{ duration: randomValues.duration, repeat: Infinity, ease: "easeInOut" }}
     />
   )
 })
