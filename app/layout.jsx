@@ -267,9 +267,16 @@ export default function RootLayout({ children }) {
                 {/* Galaxy is now conditionally rendered in I18nProvider during loading */}
                 <Galaxy />
                 <div className="flex flex-col min-h-screen relative z-10">
+                  {/* Skip to main content link for keyboard users (WCAG 2.4.1) */}
+                  <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-ring focus:outline-none"
+                  >
+                    Skip to main content
+                  </a>
                   <Header />
                   <LanguageNotice />
-                  <main className="flex-1">{children}</main>
+                  <main id="main-content" className="flex-1" tabIndex={-1}>{children}</main>
                   <Footer />
                   <KeyboardNavigation />
                 </div>
