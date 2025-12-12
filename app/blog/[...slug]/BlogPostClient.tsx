@@ -47,26 +47,32 @@ export default function BlogPostClient({
     return String(t(`language.${code}`, LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code))
   }
 
-  // Prevent hydration mismatch by not rendering translations until mounted
-  if (!mounted) {
-    return null
+  // Static fallback values for SSR (no-JS support)
+  const staticFallbacks = {
+    back: "Back to blog list",
+    minRead: "min read",
+    mood: "Mood",
+    cat: "Cat approved",
+    availableIn: "This page is also available in",
   }
+
+  // Use translated text when mounted, fallback to static for SSR
+  const getText = (key: string, fallback: string) => mounted ? t(key, fallback) : fallback
+
+  // Use animations only when mounted and user doesn't prefer reduced motion
+  const shouldAnimate = mounted && !prefersReducedMotion
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      <ReadingProgress />
+      {mounted && <ReadingProgress />}
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">
           <div
-            className={
-              prefersReducedMotion
-                ? undefined
-                : styles.animatedX
-            }
+            className={shouldAnimate ? styles.animatedX : undefined}
           >
             <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              {t("blog.back", "Back to blog list")}
+              {getText("blog.back", staticFallbacks.back)}
             </Link>
           </div>
 
@@ -74,9 +80,9 @@ export default function BlogPostClient({
             <header className="mb-10">
               <h1
                 className={
-                  prefersReducedMotion
-                    ? "text-4xl md:text-5xl font-bold mb-6"
-                    : `text-4xl md:text-5xl font-bold mb-6 ${styles.animatedY}`
+                  shouldAnimate
+                    ? `text-4xl md:text-5xl font-bold mb-6 ${styles.animatedY}`
+                    : "text-4xl md:text-5xl font-bold mb-6"
                 }
               >
                 {post.title}
@@ -84,7 +90,7 @@ export default function BlogPostClient({
 
               <div
                 className={`flex flex-wrap gap-4 text-sm text-muted-foreground mb-4 ${
-                  prefersReducedMotion ? "" : styles.animatedY
+                  shouldAnimate ? styles.animatedY : ""
                 }`}
               >
                 <div className="flex items-center">
@@ -93,13 +99,13 @@ export default function BlogPostClient({
                 </div>
                 <div className="flex items-center">
                   <Clock className="mr-1 h-4 w-4" />
-                  <span>{post.readingTime} {t("blog.minRead", "min read")}</span>
+                  <span>{post.readingTime} {getText("blog.minRead", staticFallbacks.minRead)}</span>
                 </div>
-                <Badge variant="outline">{t("blog.mood", "Mood")}: {post.mood}</Badge>
+                <Badge variant="outline">{getText("blog.mood", staticFallbacks.mood)}: {post.mood}</Badge>
                 {post.catApproved && (
                   <div className="flex items-center text-amber-600 dark:text-amber-400">
                     <Cat className="h-4 w-4 mr-1" />
-                    <span>{t("blog.cat", "Cat approved")}</span>
+                    <span>{getText("blog.cat", staticFallbacks.cat)}</span>
                   </div>
                 )}
                 {post.language && (
@@ -108,7 +114,7 @@ export default function BlogPostClient({
                     className="flex items-center gap-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100"
                   >
                     <Globe className="h-3 w-3 mr-1" />
-                    {getFullLanguageName(post.language)}
+                    {mounted ? getFullLanguageName(post.language) : (LANGUAGE_NAMES[post.language as keyof typeof LANGUAGE_NAMES] || post.language)}
                   </Badge>
                 )}
               </div>
@@ -116,7 +122,7 @@ export default function BlogPostClient({
               {/* Category and Tags */}
               <div
                 className={`flex flex-wrap gap-2 mb-4 ${
-                  prefersReducedMotion ? "" : styles.animatedY
+                  shouldAnimate ? styles.animatedY : ""
                 }`}
               >
                 {post.category && (
@@ -146,19 +152,21 @@ export default function BlogPostClient({
                 )}
               </div>
 
-              {/* Share buttons */}
-              <div
-                className={`mb-8 mt-4 ${
-                  prefersReducedMotion ? "" : styles.animatedY
-                }`}
-              >
-                <SharePost title={post.title} url={`https://jarema.me/blog/${slug}`} />
-              </div>
+              {/* Share buttons - only render when JS is available */}
+              {mounted && (
+                <div
+                  className={`mb-8 mt-4 ${
+                    shouldAnimate ? styles.animatedY : ""
+                  }`}
+                >
+                  <SharePost title={post.title} url={`https://jarema.me/blog/${slug}`} />
+                </div>
+              )}
 
               {/* Alternate language notice */}
               {alternateLanguages.length > 0 && (
                 <div className="mb-6 text-sm text-muted-foreground">
-                  {t("blog.availableIn", "This page is also available in")}{" "}
+                  {getText("blog.availableIn", staticFallbacks.availableIn)}{" "}
                   {alternateLanguages.map((alt, idx) => {
                     const isLast = idx === alternateLanguages.length - 1
                     const isSecondLast = idx === alternateLanguages.length - 2
@@ -168,7 +176,7 @@ export default function BlogPostClient({
                           href={`/blog/${alt.slug}`}
                           className="underline hover:text-primary"
                         >
-                          {getFullLanguageName(alt.language)}
+                          {mounted ? getFullLanguageName(alt.language) : (LANGUAGE_NAMES[alt.language as keyof typeof LANGUAGE_NAMES] || alt.language)}
                         </Link>
                         {alternateLanguages.length > 2 && !isLast && !isSecondLast && ", "}
                         {isSecondLast && " and "}
@@ -182,20 +190,20 @@ export default function BlogPostClient({
 
             <div
               className={`text-justify ${
-                prefersReducedMotion ? "" : styles.animatedY
+                shouldAnimate ? styles.animatedY : ""
               }`}
             >
               <MarkdownRenderer content={post.content} />
             </div>
 
             {/* Add post navigation */}
-            <div className={prefersReducedMotion ? undefined : styles.animatedY}>
+            <div className={shouldAnimate ? styles.animatedY : undefined}>
               <BlogPostNavigation navigation={navigation} />
             </div>
 
             {/* Related posts */}
             {relatedPosts.length > 0 && (
-              <div className={prefersReducedMotion ? undefined : styles.animatedY}>
+              <div className={shouldAnimate ? styles.animatedY : undefined}>
                 <RelatedPosts posts={relatedPosts} />
               </div>
             )}
