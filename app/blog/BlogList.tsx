@@ -377,16 +377,19 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         </div>
 
         {/* Search and filter bar */}
-        <div className={`mb-8 space-y-4 ${styles.visible}`}>
+        <div className={`mb-8 space-y-4 ${styles.visible}`} role="search" aria-label={t("blog.searchAndFilter", "Search and filter blog posts")}>
           <div className="flex gap-2">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <label htmlFor="blog-search" className="sr-only">{t("blog.search", "Search posts")}</label>
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
               <Input
                 ref={searchInputRef}
-                type="text"
+                id="blog-search"
+                type="search"
                 placeholder={t("blog.search", "Search posts...")}
                 className="pl-10"
                 value={searchQuery}
+                aria-describedby="search-results-count"
                 onChange={(e) => {
                   setSearchQuery(e.target.value)
                   setFocusedPostIndex(-1)
@@ -394,14 +397,15 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               />
               {searchQuery && (
                 <button
-                  className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground"
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
                   onClick={() => {
                     setSearchQuery("")
                     setFocusedPostIndex(-1)
                   }}
-                  aria-label="Clear search"
+                  aria-label={t("blog.clearSearch", "Clear search")}
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               )}
             </div>
@@ -676,7 +680,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         </div>
 
         {/* Results count */}
-        <div className="mb-4 text-sm text-muted-foreground">
+        <div id="search-results-count" className="mb-4 text-sm text-muted-foreground" aria-live="polite" aria-atomic="true">
           {filteredPosts.length === 0
             ? t("blog.noPosts", "No posts found")
             : t("blog.showingPosts", { current: filteredPosts.length, total: safeBlogPosts.length })}
