@@ -43,7 +43,10 @@ const hanNom = localFont({
   preload: false,
 })
 
-// Pre-compute feed URLs at module level for better performance
+
+// Exclude 'tok' and 'vih' from hreflang/language alternates
+const HREFLANG_LANGUAGES = SUPPORTED_LANGUAGES.filter((lang) => lang !== 'tok' && lang !== 'vih')
+
 const FEED_URLS_RSS = [
   { url: "rss.xml", title: "Jarema's digital garden - RSS Feed" },
   ...SUPPORTED_LANGUAGES.map((lang) => ({
@@ -102,7 +105,7 @@ export const metadata = {
   metadataBase: new URL("https://jarema.me"),
   alternates: {
     canonical: "/",
-    languages: Object.fromEntries(SUPPORTED_LANGUAGES.map((lang) => [lang, "/"])),
+    languages: Object.fromEntries(HREFLANG_LANGUAGES.map((lang) => [lang, "/"])),
     types: {
       "application/rss+xml": FEED_URLS_RSS,
       "application/json": FEED_URLS_JSON,
