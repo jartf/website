@@ -1,5 +1,7 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
+import Image from "next/image"
 import BadgesClientWrapper from "./BadgesClientWrapper"
+import "./badges.css"
 
 export const metadata = generateMeta({
   title: "Web Badges Collection",
@@ -189,6 +191,71 @@ const BADGES = [
 
 const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "software", "web", "misc"]
 
+// Find personal badge for the server-rendered section
+const personalBadge = BADGES.find((badge) => badge.category === "personal")
+
 export default function BadgesPage() {
-  return <BadgesClientWrapper badges={BADGES} categories={CATEGORIES} />
+  return (
+    <div className="container max-w-4xl py-8">
+      <h1 className="text-3xl font-bold mb-6">Classic web badges collection</h1>
+
+      <p className="text-muted-foreground mb-8">
+        A collection of classic web badges and buttons used on my website. These nostalgic 88x31 pixel badges from the time of Geocities represent the spirit of the early web. The badges listed here represent various things I support or use.
+      </p>
+
+      {/* Personal Badge Section - Server rendered */}
+      {personalBadge && (
+        <section className="mb-12 border p-6 rounded-lg bg-muted/30">
+          <h2 className="text-2xl font-semibold mb-4" id="my-badge">
+            My badge
+          </h2>
+          <p className="mb-4">Feel free to use this badge to link to my website:</p>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
+            <div className="border p-2 bg-background rounded-md">
+              <Image
+                src={personalBadge.src}
+                alt={personalBadge.alt}
+                width={personalBadge.width}
+                height={personalBadge.height}
+                className="pixelated"
+              />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Right-click and save this image to use it on your site.</p>
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-lg font-medium mb-2">HTML Code</h3>
+            <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
+              <code>{`<a href="https://jarema.me/">
+  <img src="https://jarema.me/badge.png"
+       alt="Jarema's personal badge"
+       width="88" height="31"
+       style="image-rendering: pixelated;">
+</a>`}</code>
+            </pre>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-medium mb-2">Suggestions for embedding</h3>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                Use <code className="bg-muted px-1 rounded">image-rendering: pixelated;</code> in your CSS to preserve the
+                pixel art style.
+              </li>
+              <li>
+                Please link directly to my homepage at <code className="bg-muted px-1 rounded">https://jarema.me/</code>
+              </li>
+              <li>The badge is 88×31 pixels, double the width and height in your HTML to <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> to make them easier to read on higher-resolution screens.</li>
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* Badge collection with search/filter - Client rendered for interactivity */}
+      <BadgesClientWrapper badges={BADGES} categories={CATEGORIES} />
+    </div>
+  )
 }
