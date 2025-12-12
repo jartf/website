@@ -89,6 +89,26 @@ export function LanguageToggle() {
     // keep <html lang> in sync
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("lang", code)
+
+      // Conditionally load Noto Sans SC font for Chinese (zh) or Hán-Nôm (vih)
+      if (code === "zh" || code === "vih") {
+        // Check if font is already loaded
+        if (!document.getElementById("noto-sans-sc-font")) {
+          const link = document.createElement("link")
+          link.id = "noto-sans-sc-font"
+          link.rel = "stylesheet"
+          link.href = "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
+          document.head.appendChild(link)
+
+          // Add CSS variable for the font if not already present
+          if (!document.getElementById("noto-sans-sc-var")) {
+            const style = document.createElement("style")
+            style.id = "noto-sans-sc-var"
+            style.textContent = ':root { --font-noto-sans-sc: "Noto Sans SC", sans-serif; }'
+            document.head.appendChild(style)
+          }
+        }
+      }
     }
     trackLanguage(code)
     checkAllLanguagesVisited()

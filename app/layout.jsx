@@ -1,4 +1,4 @@
-import { Space_Grotesk, Lexend, Roboto, Noto_Sans_SC } from "next/font/google"
+import { Space_Grotesk, Lexend, Roboto } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -32,14 +32,6 @@ const roboto = Roboto({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-roboto",
-  display: "swap",
-  preload: false,
-})
-
-const notoSansSC = Noto_Sans_SC({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-  variable: "--font-noto-sans-sc",
   display: "swap",
   preload: false,
 })
@@ -130,7 +122,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${lexend.variable} ${roboto.variable} ${notoSansSC.variable} ${hanNom.variable}`}
+      className={`${spaceGrotesk.variable} ${lexend.variable} ${roboto.variable} ${hanNom.variable}`}
     >
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -230,6 +222,21 @@ export default function RootLayout({ children }) {
                   var raw = (typeof localStorage !== 'undefined' && localStorage.getItem('i18nextLng')) || navigator.language || '';
                   var lang = supported.find(function(s) { return raw.toLowerCase() === s || raw.toLowerCase().indexOf(s + '-') === 0; }) || 'en';
                   document.documentElement.setAttribute('lang', lang);
+
+                  // Only load Noto Sans SC font for Chinese (zh) or Hán-Nôm (vih)
+                  if (lang === 'zh' || lang === 'vih') {
+                    var link = document.createElement('link');
+                    link.id = 'noto-sans-sc-font';
+                    link.rel = 'stylesheet';
+                    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap';
+                    document.head.appendChild(link);
+
+                    // Add CSS variable for the font
+                    var style = document.createElement('style');
+                    style.id = 'noto-sans-sc-var';
+                    style.textContent = ':root { --font-noto-sans-sc: "Noto Sans SC", sans-serif; }';
+                    document.head.appendChild(style);
+                  }
                 } catch (e) {
                   document.documentElement.setAttribute('lang', 'en');
                 }
