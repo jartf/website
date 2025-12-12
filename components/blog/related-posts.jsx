@@ -1,7 +1,5 @@
 import Link from "next/link"
 import { Calendar, Clock } from "lucide-react"
-import { formatDate } from "@/lib/utils"
-import { useCurrentLanguage } from "@/hooks/use-current-language"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
@@ -9,19 +7,27 @@ import { Badge } from "@/components/ui/badge"
  * @typedef {Object} RelatedPost
  * @property {string} slug - The post slug
  * @property {string} title - The post title
- * @property {string} date - The post date
+ * @property {string} date - The post date (ISO string or pre-formatted)
  * @property {number} readingTime - The post reading time in minutes
  * @property {string[]} [tags] - Optional post tags
  * @property {string} [category] - Optional post category
  */
 
 /**
+ * Formats date for display - simple server-safe formatting
+ */
+function formatDateSimple(dateStr) {
+  const date = new Date(dateStr)
+  return date.toLocaleDateString("en", { year: 'numeric', month: 'short', day: 'numeric' })
+}
+
+/**
  * Related Posts component that displays a grid of related blog posts
+ * Server-renderable component - no client-side hooks required
  * @param {Object} props - Component props
  * @param {RelatedPost[]} props.posts - Array of related posts
  */
 export function RelatedPosts({ posts }) {
-  const currentLang = useCurrentLanguage()
   if (!posts.length) return null
 
   return (
@@ -38,7 +44,7 @@ export function RelatedPosts({ posts }) {
                 <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
                   <div className="flex items-center">
                     <Calendar className="mr-1 h-3 w-3" />
-                    <span>{formatDate(post.date, currentLang)}</span>
+                    <span>{formatDateSimple(post.date)}</span>
                   </div>
                   <div className="flex items-center">
                     <Clock className="mr-1 h-3 w-3" />

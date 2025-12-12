@@ -1,12 +1,12 @@
 "use client"
 
-import { useEffect } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-// Update the import to use next/navigation instead of directly manipulating window.location
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
+import { useMounted } from "@/hooks/use-mounted"
+import { useEffect } from "react"
 
 type NavigationProps = {
   navigation: {
@@ -15,21 +15,28 @@ type NavigationProps = {
   }
 }
 
+// Static fallback labels
+const STATIC_LABELS = {
+  prev: "Previous",
+  next: "Next",
+  back: "Back to blog list",
+}
+
 /**
  * A component that displays navigation links to the previous and next blog posts.
- * @param {NavigationProps} props - The component props.
- * @returns {JSX.Element | null} The rendered blog post navigation component.
+ * Server-rendered UI with client-side keyboard navigation.
  */
 export function BlogPostNavigation({ navigation }: NavigationProps) {
-  // Inside the BlogPostNavigation component, add the router
   const router = useRouter()
   const { prev, next } = navigation
   const { t } = useTranslation()
+  const mounted = useMounted()
 
-  // Update the keyboard navigation to use router.push instead of window.location
+  // Keyboard navigation - client-side only
   useEffect(() => {
+    if (!mounted) return
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Skip if inside an input or textarea
       if (
         e.target instanceof HTMLInputElement ||
         e.target instanceof HTMLTextAreaElement ||
@@ -38,18 +45,13 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
         return
       }
 
-      // Navigate to previous post with 'h'
       if (e.key === "h" && prev) {
         e.preventDefault()
         router.push(`/blog/${prev.slug}`)
-      }
-      // Navigate to next post with 'l'
-      else if (e.key === "l" && next) {
+      } else if (e.key === "l" && next) {
         e.preventDefault()
         router.push(`/blog/${next.slug}`)
-      }
-      // Back to blog list with 'b'
-      else if (e.key === "b") {
+      } else if (e.key === "b") {
         e.preventDefault()
         router.push("/blog")
       }
@@ -57,9 +59,16 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [prev, next, router])
+  }, [prev, next, router, mounted])
 
   if (!prev && !next) return null
+
+  // Get translated labels or fallback to static
+  const labels = {
+    prev: mounted ? t("blog.prev", STATIC_LABELS.prev) : STATIC_LABELS.prev,
+    next: mounted ? t("blog.next", STATIC_LABELS.next) : STATIC_LABELS.next,
+    back: mounted ? t("blog.back", STATIC_LABELS.back) : STATIC_LABELS.back,
+  }
 
   return (
     <nav className="mt-12 pt-8 border-t">
@@ -69,7 +78,7 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
             <Button variant="ghost" className="flex items-center gap-2 group">
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
               <div className="text-left">
-                <div className="text-xs text-muted-foreground">{t("blog.prev", "Previous")}</div>
+                <div className="text-xs text-muted-foreground">{labels.prev}</div>
                 <div className="text-sm font-medium truncate max-w-[200px]">{prev.title}</div>
               </div>
             </Button>
@@ -82,7 +91,7 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
           <Link href={`/blog/${next.slug}`} passHref>
             <Button variant="ghost" className="flex items-center gap-2 group">
               <div className="text-right">
-                <div className="text-xs text-muted-foreground">{t("blog.next", "Next")}</div>
+                <div className="text-xs text-muted-foreground">{labels.next}</div>
                 <div className="text-sm font-medium truncate max-w-[200px]">{next.title}</div>
               </div>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -96,7 +105,7 @@ export function BlogPostNavigation({ navigation }: NavigationProps) {
       <div className="flex justify-center mt-4">
         <Link href="/blog" passHref>
           <Button variant="outline" size="sm">
-            {t("blog.back", "Back to blog list")}
+            {labels.back}
           </Button>
         </Link>
       </div>
