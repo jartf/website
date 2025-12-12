@@ -352,7 +352,7 @@ export default function Home({ blogPosts = [] }) {
                       <div className="flex items-center gap-2 font-semibold mb-1">
                         <LucideHeadphones className="w-5 h-5 text-primary" />
                         {t("now.categories.listening", "Listening")}
-                        <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
+                        <span className="ml-2 text-s text-red-500">Live</span>
                       </div>
                       <span>
                         <a
@@ -372,7 +372,7 @@ export default function Home({ blogPosts = [] }) {
                       <div className="flex items-center gap-2 font-semibold mb-1">
                         <Activity className="w-5 h-5 text-primary" />
                         {t("now.categories.premid", "PreMID")}
-                        <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
+                        <span className="ml-2 text-s text-red-500">Live</span>
                       </div>
                       <div className="space-y-3">
                         {latestNow.premid.map((activity, idx) => (
@@ -417,7 +417,7 @@ export default function Home({ blogPosts = [] }) {
                       <LucideHeadphones className="w-5 h-5 text-primary" />
                       {t("now.categories.listening", "Listening")}
                       {latestNow.nowplaying && (
-                        <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
+                        <span className="ml-2 text-s text-red-500">Live</span>
                       )}
                     </div>
                     <span>
@@ -441,7 +441,7 @@ export default function Home({ blogPosts = [] }) {
                     <div className="flex items-center gap-2 font-semibold mb-1">
                       <Activity className="w-5 h-5 text-primary" />
                       {t("now.categories.premid", "PreMID")}
-                      <span className="ml-2 text-s text-red-500 animate-pulse">Live</span>
+                      <span className="ml-2 text-s text-red-500">Live</span>
                     </div>
                     <div className="space-y-3">
                       {latestNow.activities.map((activity, idx) => (
