@@ -302,7 +302,7 @@ export default function NowClientWrapper({
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Now</h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                What I'm currently doing, thinking about, and focusing on.
+                What I&apos;m currently doing, thinking about, and focusing on.
               </p>
               <p className="text-sm text-muted-foreground mt-2">
                 Last updated: {getStaticLastUpdatedDate()}
