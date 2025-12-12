@@ -2,9 +2,24 @@ import { notFound } from "next/navigation"
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
+import Link from "next/link"
 import type { Metadata } from "next"
+import { Calendar, Clock, Cat, ArrowLeft, Tag, Globe } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { MarkdownRenderer } from "@/components/markdown-renderer"
+import { BlogPostNavigation } from "./BlogPostNavigation"
+import { RelatedPosts } from "@/components/blog/related-posts"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
-import BlogPostClient from "./BlogPostClient"
+import { LANGUAGE_NAMES } from "@/lib/constants"
+import {
+  BlogReadingProgress,
+  BlogShareButtons,
+  FormattedDate,
+  TranslatedText,
+  LanguageName,
+  AnimatedSection,
+} from "./BlogPostInteractive"
+import styles from "./BlogPostClient.module.css"
 
 // Types for blog posts
 type BlogPost = {
@@ -109,12 +124,12 @@ async function getAllBlogPosts(): Promise<BlogPost[]> {
 async function getBlogPost(slugParam: string[] | string | undefined): Promise<BlogPost> {
   try {
     const postsDirectory = path.join(process.cwd(), "content/blog")
-    
+
     // Validate slugParam
     if (!slugParam || (Array.isArray(slugParam) && slugParam.length === 0)) {
       throw new Error("Invalid slug: slug is undefined or empty")
     }
-    
+
     // Support slugs with subdirectories (e.g., 2024/07/app-defaults-2024)
     const slugArr = Array.isArray(slugParam) ? slugParam : [slugParam]
     const fullPath = path.join(postsDirectory, ...slugArr) + ".md"
@@ -209,12 +224,12 @@ export async function generateMetadata({ params }: { params: { slug: string[] | 
   try {
     // Handle Next.js 15+ async params
     const resolvedParams = await Promise.resolve(params)
-    
+
     if (!resolvedParams?.slug) {
       console.error("Error generating metadata: slug is undefined")
       return baseGenerateMetadata({ title: "Blog Post Not Found" })
     }
-    
+
     const post = await getBlogPost(resolvedParams.slug)
     return {
       ...baseGenerateMetadata({
@@ -240,12 +255,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
   try {
     // Handle Next.js 15+ async params
     const resolvedParams = await Promise.resolve(params)
-    
+
     if (!resolvedParams?.slug) {
       console.error("Error: slug is undefined")
       notFound()
     }
-    
+
     const slugArr = Array.isArray(resolvedParams.slug) ? resolvedParams.slug : [resolvedParams.slug]
     const slug = slugArr.join("/")
     const post = await getBlogPost(slugArr)
@@ -295,16 +310,146 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
 
   // Pass the raw date to the client; let the client format it using the user's language
 
-    // Pass all the data to the client component
+    // Format date for SSR fallback (English)
+    const formattedDateFallback = new Date(post.date).toLocaleDateString("en", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+
+    // Render the blog post content server-side
     return (
-      <BlogPostClient
-        post={post}
-        date={post.date}
-        navigation={navigation}
-        relatedPosts={relatedPosts}
-        slug={slug}
-        alternateLanguages={alternateLanguages}
-      />
+      <main className="relative min-h-screen w-full overflow-hidden">
+        <BlogReadingProgress />
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          <div className="max-w-3xl mx-auto">
+            <AnimatedSection animationClass={styles.animatedX}>
+              <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                <TranslatedText i18nKey="blog.back" fallback="Back to blog list" />
+              </Link>
+            </AnimatedSection>
+
+            <article>
+              <header className="mb-10">
+                <AnimatedSection className="text-4xl md:text-5xl font-bold mb-6" animationClass={styles.animatedY}>
+                  <h1>{post.title}</h1>
+                </AnimatedSection>
+
+                <AnimatedSection className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4" animationClass={styles.animatedY}>
+                  <div className="flex items-center">
+                    <Calendar className="mr-1 h-4 w-4" />
+                    <span>
+                      <FormattedDate date={post.date} fallback={formattedDateFallback} />
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="mr-1 h-4 w-4" />
+                    <span>
+                      {post.readingTime} <TranslatedText i18nKey="blog.minRead" fallback="min read" />
+                    </span>
+                  </div>
+                  <Badge variant="outline">
+                    <TranslatedText i18nKey="blog.mood" fallback="Mood" />: {post.mood}
+                  </Badge>
+                  {post.catApproved && (
+                    <div className="flex items-center text-amber-600 dark:text-amber-400">
+                      <Cat className="h-4 w-4 mr-1" />
+                      <span>
+                        <TranslatedText i18nKey="blog.cat" fallback="Cat approved" />
+                      </span>
+                    </div>
+                  )}
+                  {post.language && (
+                    <Badge
+                      variant="outline"
+                      className="flex items-center gap-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100"
+                    >
+                      <Globe className="h-3 w-3 mr-1" />
+                      <LanguageName code={post.language} />
+                    </Badge>
+                  )}
+                </AnimatedSection>
+
+                {/* Category and Tags */}
+                <AnimatedSection className="flex flex-wrap gap-2 mb-4" animationClass={styles.animatedY}>
+                  {post.category && (
+                    <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
+                      <Badge
+                        variant="secondary"
+                        className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-800 cursor-pointer"
+                      >
+                        {post.category}
+                      </Badge>
+                    </Link>
+                  )}
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.map((tag: string) => (
+                        <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                          <Badge
+                            variant="outline"
+                            className="flex items-center gap-1 text-xs hover:bg-muted cursor-pointer"
+                          >
+                            <Tag className="h-3 w-3 mr-1" />
+                            {tag}
+                          </Badge>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </AnimatedSection>
+
+                {/* Share buttons - client component, only renders with JS */}
+                <AnimatedSection className="mb-8 mt-4" animationClass={styles.animatedY}>
+                  <BlogShareButtons title={post.title} slug={slug} />
+                </AnimatedSection>
+
+                {/* Alternate language notice */}
+                {alternateLanguages.length > 0 && (
+                  <div className="mb-6 text-sm text-muted-foreground">
+                    <TranslatedText i18nKey="blog.availableIn" fallback="This page is also available in" />{" "}
+                    {alternateLanguages.map((alt, idx) => {
+                      const isLast = idx === alternateLanguages.length - 1
+                      const isSecondLast = idx === alternateLanguages.length - 2
+                      return (
+                        <span key={alt.language}>
+                          <Link
+                            href={`/blog/${alt.slug}`}
+                            className="underline hover:text-primary"
+                          >
+                            <LanguageName code={alt.language} />
+                          </Link>
+                          {alternateLanguages.length > 2 && !isLast && !isSecondLast && ", "}
+                          {isSecondLast && " and "}
+                        </span>
+                      )
+                    })}
+                    .
+                  </div>
+                )}
+              </header>
+
+              {/* Blog content - server rendered */}
+              <AnimatedSection className="text-justify" animationClass={styles.animatedY}>
+                <MarkdownRenderer content={post.content} />
+              </AnimatedSection>
+
+              {/* Post navigation */}
+              <AnimatedSection animationClass={styles.animatedY}>
+                <BlogPostNavigation navigation={navigation} />
+              </AnimatedSection>
+
+              {/* Related posts */}
+              {relatedPosts.length > 0 && (
+                <AnimatedSection animationClass={styles.animatedY}>
+                  <RelatedPosts posts={relatedPosts} />
+                </AnimatedSection>
+              )}
+            </article>
+          </div>
+        </div>
+      </main>
     )
   } catch (error) {
     console.error("Error rendering blog post:", error)
