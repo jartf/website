@@ -12,13 +12,13 @@ export const metadata = generateMeta({
 
 // Technology stack data - server defined
 const technologyStack = [
-  { name: "Next.js", key: "nextjs", url: "https://nextjs.org/", description: "The React framework for production-grade applications" },
-  { name: "React", key: "react", url: "https://reactjs.org/", description: "A JavaScript library for building user interfaces" },
-  { name: "Tailwind CSS", key: "tailwind", url: "https://tailwindcss.com/", description: "A utility-first CSS framework" },
-  { name: "shadcn/ui", key: "shadcn", url: "https://ui.shadcn.com/", description: "Re-usable components built with Radix UI and Tailwind CSS" },
-  { name: "Framer Motion", key: "framer", url: "https://www.framer.com/motion/", description: "A motion library for React" },
-  { name: "react-i18next", key: "i18next", url: "https://react.i18next.com/", description: "Internationalization for React applications" },
-  { name: "TypeScript", key: "typescript", url: "https://www.typescriptlang.org/", description: "JavaScript with syntax for types" },
+  { name: "Next.js", key: "nextjs", url: "https://nextjs.org/", description: "React framework that enables server-side rendering and static site generation" },
+  { name: "React", key: "react", url: "https://reactjs.org/", description: "JavaScript library for building user interfaces" },
+  { name: "Tailwind CSS", key: "tailwind", url: "https://tailwindcss.com/", description: "Utility-first CSS framework" },
+  { name: "shadcn/ui", key: "shadcn", url: "https://ui.shadcn.com/", description: "Reusable component library built with Radix UI and Tailwind" },
+  { name: "Framer Motion", key: "framer", url: "https://www.framer.com/motion/", description: "Animation library for React" },
+  { name: "react-i18next", key: "i18next", url: "https://react.i18next.com/", description: "Internationalization framework" },
+  { name: "TypeScript", key: "typescript", url: "https://www.typescriptlang.org/", description: "Strongly typed programming language that builds on JavaScript" },
 ]
 
 export default function ColophonPage() {
@@ -46,18 +46,18 @@ export default function ColophonPage() {
                 <p>
                   <TranslatedText
                     i18nKey="colophon.siteHistory.content1"
-                    fallback="This is version 4 of my personal website. The first version was a simple HTML page, the second was a WordPress site, and the third was built with Next.js Pages Router."
+                    fallback="This site was just registered in late 2023, yet the design has changed a lot over the span of its life. The first version was just a basic WordPress site hosted on a sketchy free hosting provider, the second was Carrd-based, and the third was built with Astro. This current iteration (the fourth version) is a complete redesign built from scratch with modern web technologies."
                   />
                 </p>
                 <p>
                   <TranslatedText
                     i18nKey="colophon.siteHistory.content2"
-                    fallback="I decided to rebuild the site with Next.js App Router to take advantage of React Server Components and the improved developer experience."
+                    fallback="Each version has been an evolution, with this latest one focusing on performance, accessibility, full keyboard navigation, and a more personal touch that better represents who I am and what I care about."
                   />
                 </p>
               </section>
 
-              {/* Technology Stack */}
+              {/* Technology stack */}
               <section
                 id="section-2"
                 className="prose dark:prose-invert max-w-none transition-all duration-300"
