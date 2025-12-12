@@ -27,7 +27,7 @@
     "clsx": "^2.1.1",
     "country-flag-emoji-polyfill": "^0.1.8",
     "date-fns": "^4.1.0",
-    "framer-motion": "^12.23.25",
+    "framer-motion": "^12.23.26",
     "fs": "latest",
     "fuzzysort": "^3.1.0",
     "gray-matter": "^4.0.3",
