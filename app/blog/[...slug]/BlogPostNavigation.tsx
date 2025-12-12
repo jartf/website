@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
-import { useMounted } from "@/hooks/use-mounted"
+import { useMounted } from "@/hooks"
 import { useEffect } from "react"
 
 type NavigationProps = {

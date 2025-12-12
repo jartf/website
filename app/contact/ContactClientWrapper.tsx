@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { DarkModeFirefly } from "@/components/dark-mode-firefly"
+import { DarkModeFirefly } from "@/components/firefly"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -34,7 +34,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Firefly } from "@/components/firefly"
-import { useMounted } from "@/hooks/use-mounted"
+import { useMounted } from "@/hooks"
 import i18n from "i18next"
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -99,12 +99,12 @@ export default function ContactClientWrapper({ socialLinksData }: ContactClientW
   const staticContent = {
     title: mounted ? t("contact.title") : "Contact",
     description: mounted ? t("contact.description") : "Want to get in touch? Here's how you can reach me.",
-    message: mounted ? t("contact.message") : "feel free to reach out",
-    disclaimer: mounted ? t("contact.disclaimer") : "response time varies based on my spoons",
-    contactMe: mounted ? t("contact.sectionTitles.contactMe") : "Contact Me",
-    socialMedia: mounted ? t("contact.sectionTitles.socialMedia") : "Social Media",
-    otherPlatforms: mounted ? t("contact.sectionTitles.otherPlatforms") : "Other Platforms",
-    secretButton: mounted ? t("contact.secretButton") : "???",
+    message: mounted ? t("contact.message") : "don't be shy. say hi. or book a 1:1 if you're feeling professional :)",
+    disclaimer: mounted ? t("contact.disclaimer") : "i do respond to emails. probably. unless i get distracted by a bird or something idk",
+    contactMe: mounted ? t("contact.sectionTitles.contactMe") : "Contact me",
+    socialMedia: mounted ? t("contact.sectionTitles.socialMedia") : "Me on social media",
+    otherPlatforms: mounted ? t("contact.sectionTitles.otherPlatforms") : "Me on other platforms",
+    secretButton: mounted ? t("contact.secretButton") : "Secret button",
   }
 
   // Static link renderer for no-JS users (simplified, no tooltips/QR codes)

@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { DarkModeFirefly } from "@/components/dark-mode-firefly"
-import { useMounted } from "@/hooks/use-mounted"
+import { DarkModeFirefly } from "@/components/firefly"
+import { useMounted } from "@/hooks"
 import type { ReactNode } from "react"
 
 interface NotFoundAnimationProps {

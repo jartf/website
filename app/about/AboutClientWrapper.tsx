@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { useMounted } from "@/hooks/use-mounted"
-import { DarkModeFirefly } from "@/components/dark-mode-firefly"
+import { useMounted } from "@/hooks"
+import { DarkModeFirefly } from "@/components/firefly"
 
 type ChapterData = {
   number: number

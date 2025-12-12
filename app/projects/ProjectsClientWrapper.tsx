@@ -3,14 +3,13 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
-import { DarkModeFirefly } from "@/components/dark-mode-firefly"
+import { DarkModeFirefly } from "@/components/firefly"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
 import type { Project } from "@/content/project-items"
-import { useCurrentLanguage } from "@/hooks/use-current-language"
+import { useCurrentLanguage, useMounted } from "@/hooks"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"
-import { useMounted } from "@/hooks/use-mounted"
 
 interface ProjectsClientWrapperProps {
   projects: Project[]

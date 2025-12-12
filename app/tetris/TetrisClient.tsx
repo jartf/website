@@ -4,10 +4,9 @@ import { useState, useEffect, useCallback, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { Music, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, RotateCcw } from "lucide-react"
-import { DarkModeFirefly } from "@/components/dark-mode-firefly"
+import { DarkModeFirefly } from "@/components/firefly"
 import { useTranslation } from "react-i18next"
-import { usePlatform } from "@/hooks/use-platform"
-import { useMounted } from "@/hooks/use-mounted"
+import { usePlatform, useMounted } from "@/hooks"
 import styles from "./Tetris.module.css"
 
 type TouchAction = 'left' | 'right' | 'down' | 'rotate' | 'drop' | 'pause'

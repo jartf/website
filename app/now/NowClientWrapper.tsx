@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
-import { DarkModeFirefly } from "@/components/dark-mode-firefly"
+import { DarkModeFirefly } from "@/components/firefly"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useMounted } from "@/hooks/use-mounted"
+import { useMounted } from "@/hooks"
 import {
   BookOpen,
   Code,
@@ -276,6 +276,10 @@ export default function NowClientWrapper({
       reading: "Reading",
       learning: "Learning",
       thinking: "Thinking",
+      planning: "Planning",
+      coding: "Coding",
+      drinking: "Drinking",
+      studying: "Studying",
       working: "Working",
       listening: "Listening",
       premid: "Activity",

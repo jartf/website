@@ -7,12 +7,10 @@ import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { RotateCcw, Trophy, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Undo2 } from "lucide-react"
 import { useTheme } from "next-themes"
-import { DarkModeFirefly } from "@/components/dark-mode-firefly"
+import { DarkModeFirefly } from "@/components/firefly"
 import { useTranslation } from "react-i18next"
-import { usePlatform } from "@/hooks/use-platform"
-import { useViewport } from "@/hooks/use-viewport"
+import { usePlatform, useViewport, useMounted } from "@/hooks"
 import { useGame2048, getTileColor, getFontSize } from "@/hooks/use-game-2048"
-import { useMounted } from "@/hooks/use-mounted"
 
 function Game2048() {
   const { t } = useTranslation()

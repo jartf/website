@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react"
 import Image from "next/image"
 import { Search, Filter } from "lucide-react"
-import { useMounted } from "@/hooks/use-mounted"
+import { useMounted } from "@/hooks"
 
 interface Badge {
   id: string

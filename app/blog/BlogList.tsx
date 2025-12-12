@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react"
 import Link from "next/link"
 import { formatDate } from "@/lib/utils"
-import { useCurrentLanguage } from "@/hooks/use-current-language"
+import { useCurrentLanguage, useMounted } from "@/hooks"
 import { Calendar, Clock, Cat, Search, Filter, SortDesc, SortAsc, X, Tag, Globe, Rss } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import i18n from "i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
-import { useMounted } from "@/hooks/use-mounted"
 import styles from "./BlogList.module.css"
 
 // Static fallback content for SSR

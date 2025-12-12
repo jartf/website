@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { generateMetadata } from "@/lib/metadata"
-import { getAllBlogPosts } from "@/lib/blog-utils"
+import { getAllBlogPosts } from "@/lib/blog"
 import { Button } from "@/components/ui/button"
 import { MoodCat } from "@/components/mood-cat"
 import { EasterEgg } from "@/components/easter-egg"

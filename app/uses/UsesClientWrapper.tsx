@@ -4,8 +4,8 @@ import type React from "react"
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import Link from "next/link"
-import { DarkModeFirefly } from "@/components/dark-mode-firefly"
-import { useMounted } from "@/hooks/use-mounted"
+import { DarkModeFirefly } from "@/components/firefly"
+import { useMounted } from "@/hooks"
 import {
   ExternalLink,
   Lock,
@@ -152,16 +152,19 @@ export default function UsesClientWrapper({
     hardware: "Hardware",
     mobile: "Mobile",
     audio: "Audio",
-    os: "Operating System",
+    os: "Operating system",
     development: "Development",
     email: "Email",
     privacy: "Privacy",
-    mobile_tools: "Mobile Tools",
+    mobile_tools: "Mobile tools",
     mapping: "Mapping",
     gaming: "Gaming",
     multimedia: "Multimedia",
     photography: "Photography",
     video: "Video",
+    design: "Design",
+    media: "Media",
+    photo: "Photo",
     music: "Music",
   }
 
@@ -205,7 +208,7 @@ export default function UsesClientWrapper({
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Uses</h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                A list of my tools, gadgets and software. Inspired by{" "}
+                All the things I use on a daily basis. Also available on{" "}
                 <Link
                   href="https://uses.tech"
                   target="_blank"
@@ -215,7 +218,7 @@ export default function UsesClientWrapper({
                   uses.tech
                   <ExternalLink className="h-4 w-4 ml-1" />
                 </Link>
-                , a directory of /uses pages.
+                , a website where people share the stuff they use.
               </p>
             </div>
 

@@ -1,5 +1,5 @@
 import { generateMetadata } from "@/lib/metadata"
-import { getScrapbookEntries } from "@/lib/scrapbook-utils"
+import { getScrapbookEntries } from "@/lib/blog"
 import { Calendar, Code, FileText } from "lucide-react"
 import { ScrapbookAnimation, AnimatedEntry, AnimatedSection } from "./ScrapbookAnimation"
 

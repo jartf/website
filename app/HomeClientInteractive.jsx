@@ -3,9 +3,7 @@
 import { useEffect, useState, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
-import { useMounted } from "@/hooks/use-mounted"
-import { useReducedMotion } from "@/hooks/use-reduced-motion"
-import { useTranslationReady } from "@/hooks/use-translation-ready"
+import { useMounted, useReducedMotion } from "@/hooks"
 import { nowItems } from "@/content/now-items"
 import { LucideHeadphones, Activity } from "lucide-react"
 
@@ -399,9 +397,8 @@ export function AnimatedHeroContent({ children, delay = 0 }) {
 export function TranslatedText({ i18nKey, fallback }) {
   const { t } = useTranslation()
   const mounted = useMounted()
-  const isTranslationReady = useTranslationReady()
 
-  if (!mounted || !isTranslationReady) {
+  if (!mounted) {
     return <>{fallback}</>
   }
 
@@ -413,14 +410,8 @@ export function TranslatedText({ i18nKey, fallback }) {
  */
 export function TranslationLoadingSpinner() {
   const mounted = useMounted()
-  const isTranslationReady = useTranslationReady()
 
   if (!mounted) return null
-  if (isTranslationReady) return null
 
-  return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-    </div>
-  )
+  return null // Translations load synchronously, no spinner needed
 }

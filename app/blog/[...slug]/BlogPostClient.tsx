@@ -8,12 +8,10 @@ import { BlogPostNavigation } from "./BlogPostNavigation"
 import { ReadingProgress } from "@/components/blog/reading-progress"
 import { SharePost } from "@/components/blog/share-post"
 import { RelatedPosts } from "@/components/blog/related-posts"
-import { useReducedMotion } from "@/hooks/use-reduced-motion"
+import { useReducedMotion, useMounted, useCurrentLanguage } from "@/hooks"
 import { useTranslation } from "react-i18next"
-import { useMounted } from "@/hooks/use-mounted"
 import styles from "./BlogPostClient.module.css"
 import { formatDate } from "@/lib/utils"
-import { useCurrentLanguage } from "@/hooks/use-current-language"
 import { LANGUAGE_NAMES } from "@/lib/constants"
 
 interface BlogPostClientProps {
