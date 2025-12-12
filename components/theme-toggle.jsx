@@ -29,22 +29,27 @@ export const ThemeToggle = memo(function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Toggle theme">
-          <Icon className="h-5 w-5" />
-          <span className="sr-only">Toggle theme</span>
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          aria-label="Toggle theme"
+          aria-haspopup="menu"
+        >
+          <Icon className="h-5 w-5" aria-hidden="true" />
+          <span className="sr-only">Toggle theme, current: {theme}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={handleLightTheme}>
-          <Sun className="mr-2 h-4 w-4" />
+      <DropdownMenuContent align="end" role="menu" aria-label="Theme options">
+        <DropdownMenuItem onClick={handleLightTheme} role="menuitemradio" aria-checked={theme === "light"}>
+          <Sun className="mr-2 h-4 w-4" aria-hidden="true" />
           <span>Light</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleDarkTheme}>
-          <Moon className="mr-2 h-4 w-4" />
+        <DropdownMenuItem onClick={handleDarkTheme} role="menuitemradio" aria-checked={theme === "dark"}>
+          <Moon className="mr-2 h-4 w-4" aria-hidden="true" />
           <span>Dark</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleSystemTheme}>
-          <Laptop className="mr-2 h-4 w-4" />
+        <DropdownMenuItem onClick={handleSystemTheme} role="menuitemradio" aria-checked={theme === "system"}>
+          <Laptop className="mr-2 h-4 w-4" aria-hidden="true" />
           <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

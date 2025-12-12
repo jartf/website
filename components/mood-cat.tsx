@@ -256,16 +256,18 @@ export function MoodCat() {
           onClick={getRandomCat}
           disabled={isLoading}
           className="group"
-          aria-label="Refresh mood cat"
+          aria-label={t("moodCat.refreshLabel", "Get a new random cat image")}
+          aria-busy={isLoading}
           id="refresh-mood-cat-button"
         >
-          <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : "group-hover:animate-spin"}`} />
-          {t("moodCat.refresh", "New cat, who dis?")}
+          <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : "group-hover:animate-spin"}`} aria-hidden="true" />
+          <span>{t("moodCat.refresh", "New cat, who dis?")}</span>
         </Button>
         <Button variant="outline" size="sm" asChild className="group">
           <a href="https://www.reddit.com/r/Catswithjobs/" target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="mr-2 h-4 w-4 group-hover:animate-pulse" />
-            {t("moodCat.seeMore", "See more cats")}
+            <ExternalLink className="mr-2 h-4 w-4 group-hover:animate-pulse" aria-hidden="true" />
+            <span>{t("moodCat.seeMore", "See more cats")}</span>
+            <span className="sr-only"> (opens in new tab)</span>
           </a>
         </Button>
       </div>

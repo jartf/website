@@ -279,16 +279,20 @@ export function LanguageToggle() {
           size="icon"
           className="relative"
           aria-label="Toggle language"
+          aria-haspopup="menu"
+          aria-expanded={isOpen}
           id="language-toggle-button"
         >
-          <Globe className="h-5 w-5" />
-          <span className="sr-only">Toggle language</span>
+          <Globe className="h-5 w-5" aria-hidden="true" />
+          <span className="sr-only">Toggle language, current: {LANGUAGE_NAMES[currentLanguage] || currentLanguage}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         ref={dropdownContentRef}
         align="end"
         className="grid grid-cols-1 md:grid-cols-2 gap-1"
+        role="menu"
+        aria-label={t("language.selectLanguage", "Select language")}
         onCloseAutoFocus={(e) => {
           // Return focus to button when closing
           e.preventDefault()
@@ -297,14 +301,18 @@ export function LanguageToggle() {
       >
         {/* Search bar */}
         <div className="col-span-2 px-2 pt-1 pb-2">
+          <label htmlFor="language-search" className="sr-only">{t("language.search", "Search languages")}</label>
           <input
             ref={searchInputRef}
-            type="text"
+            id="language-search"
+            type="search"
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder={t("language.search", "Search languages...")}
-            className="w-full px-2 py-1 rounded border border-input bg-background text-sm"
+            className="w-full px-2 py-1 rounded border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1"
             autoFocus
+            aria-label={t("language.search", "Search languages")}
+            aria-controls="language-list"
             onKeyDown={(e) => {
               // Let global handler manage navigation
               if (["ArrowDown", "ArrowUp", "Enter", "Escape", "Tab"].includes(e.key)) {
