@@ -4,8 +4,7 @@ import type React from "react"
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Slash, Home, User, Code, BookOpen, Clock, Mail, FileText, Wrench, Calendar, type LucideIcon } from "lucide-react"
 import { useMounted } from "@/hooks/use-mounted"
@@ -50,7 +49,6 @@ interface SlashesClientProps {
  * @returns {JSX.Element | null} The rendered slashes page client component.
  */
 export default function SlashesPageClient({ routes: serializedRoutes }: SlashesClientProps) {
-  const { theme } = useTheme()
   const mounted = useMounted()
 
   if (!mounted) return null
@@ -81,7 +79,7 @@ export default function SlashesPageClient({ routes: serializedRoutes }: SlashesC
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {theme === "dark" && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-4xl mx-auto">

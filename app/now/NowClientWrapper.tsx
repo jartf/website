@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
-import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useMounted } from "@/hooks/use-mounted"
@@ -96,7 +95,6 @@ export default function NowClientWrapper({
   categories,
 }: NowClientWrapperProps) {
   const { t, i18n } = useTranslation()
-  const { theme } = useTheme()
   const mounted = useMounted()
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const [lastfmTrack, setLastfmTrack] = useState<{
@@ -335,7 +333,7 @@ export default function NowClientWrapper({
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {theme === "dark" && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       {/* Screen reader announcement */}
       <div

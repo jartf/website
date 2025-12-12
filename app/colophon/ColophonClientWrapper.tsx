@@ -3,8 +3,7 @@
 import { useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import Link from "next/link"
-import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { ExternalLink, Code, Server, Palette } from "lucide-react"
 import { useMounted } from "@/hooks/use-mounted"
 
@@ -37,7 +36,6 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export default function ColophonClientWrapper({ sections, technologyStack }: ColophonClientWrapperProps) {
   const { t } = useTranslation()
-  const { theme } = useTheme()
   const mounted = useMounted()
   const sectionRefs = useRef<(HTMLElement | null)[]>([])
 
@@ -88,7 +86,7 @@ export default function ColophonClientWrapper({ sections, technologyStack }: Col
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {theme === "dark" && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">

@@ -4,8 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { Music, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, RotateCcw } from "lucide-react"
-import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { useTranslation } from "react-i18next"
 import { usePlatform } from "@/hooks/use-platform"
 import { useMounted } from "@/hooks/use-mounted"
@@ -153,7 +152,6 @@ const randomTetromino = (): TetrominoWithKey => {
 
 export default function TetrisGame() {
   const { t } = useTranslation()
-  const { theme } = useTheme()
   const [board, setBoard] = useState<BoardCell[][]>(createEmptyBoard())
   const [currentPiece, setCurrentPiece] = useState<CurrentPiece | null>(null)
   const [score, setScore] = useState(0)
@@ -570,7 +568,7 @@ export default function TetrisGame() {
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {theme === "dark" && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="max-w-4xl mx-auto">

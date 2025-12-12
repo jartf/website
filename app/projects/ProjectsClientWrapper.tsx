@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
-import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
@@ -19,7 +18,6 @@ interface ProjectsClientWrapperProps {
 
 export default function ProjectsClientWrapper({ projects }: ProjectsClientWrapperProps) {
   const { t } = useTranslation()
-  const { theme } = useTheme()
   const [showHidden, setShowHidden] = useState(false)
   const [flippedCard, setFlippedCard] = useState<number | null>(null)
   const [focusedCardIndex, setFocusedCardIndex] = useState<number | null>(null)
@@ -280,7 +278,7 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
         {announcement}
       </div>
 
-      {theme === "dark" && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-5xl mx-auto">

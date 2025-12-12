@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useTheme } from "next-themes"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -84,7 +84,6 @@ interface ContactClientWrapperProps {
 
 export default function ContactClientWrapper({ socialLinksData }: ContactClientWrapperProps) {
   const { t } = useTranslation()
-  const { theme } = useTheme()
   const mounted = useMounted()
   const [secretRevealed, setSecretRevealed] = useState(false)
 
@@ -258,7 +257,7 @@ export default function ContactClientWrapper({ socialLinksData }: ContactClientW
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {theme === "dark" && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">

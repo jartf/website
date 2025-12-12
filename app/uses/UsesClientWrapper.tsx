@@ -4,8 +4,7 @@ import type React from "react"
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import Link from "next/link"
-import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { useMounted } from "@/hooks/use-mounted"
 import {
   ExternalLink,
@@ -56,7 +55,6 @@ export default function UsesClientWrapper({
   categories,
 }: UsesClientWrapperProps) {
   const { t } = useTranslation()
-  const { theme } = useTheme()
   const mounted = useMounted()
   const [revancedClicks, setRevancedClicks] = useState(0)
   const [stremioClicks, setStremioClicks] = useState(0)
@@ -212,7 +210,7 @@ export default function UsesClientWrapper({
     <main
       className={`relative min-h-screen w-full overflow-hidden transition-opacity duration-300 ${mounted && isVisible ? "opacity-100" : "opacity-0"}`}
     >
-      {mounted && theme === "dark" && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-6xl mx-auto">

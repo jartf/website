@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { RotateCcw, Trophy, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Undo2 } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { useTranslation } from "react-i18next"
 import { usePlatform } from "@/hooks/use-platform"
 import { useViewport } from "@/hooks/use-viewport"
@@ -16,7 +16,7 @@ import { useMounted } from "@/hooks/use-mounted"
 
 function Game2048() {
   const { t } = useTranslation()
-  const { theme, resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const mounted = useMounted()
   const [touchStart, setTouchStart] = useState({ x: 0, y: 0 })
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 })
@@ -153,12 +153,12 @@ function Game2048() {
 
   if (!mounted) return null
 
-  const isDark = theme === "dark" || resolvedTheme === "dark"
+  const isDark = resolvedTheme === "dark"
   const showKeyboardControls = isDesktop || !isMobile
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {isDark && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="max-w-4xl mx-auto">

@@ -4,8 +4,7 @@ import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { MoodCat } from "@/components/mood-cat"
 import { Button } from "@/components/ui/button"
 import { Cat, Home, Map, Compass } from "lucide-react"
@@ -16,7 +15,6 @@ import { useMounted } from "@/hooks/use-mounted"
  */
 export default function NotFoundClient() {
   const { t } = useTranslation()
-  const { theme } = useTheme()
   const mounted = useMounted()
   const [randomPosition] = useState(() => ({
     // Generate random position for the lost cat
@@ -28,7 +26,7 @@ export default function NotFoundClient() {
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {theme === "dark" && <Firefly count={25} />}
+      <DarkModeFirefly count={25} />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-md mx-auto text-center">

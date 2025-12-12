@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useTheme } from "next-themes"
 import Link from "next/link"
 import { MoodCat } from "@/components/mood-cat"
 import { EasterEgg } from "@/components/easter-egg"
@@ -28,7 +27,6 @@ import { LucideHeadphones, Activity } from "lucide-react"
  */
 export default function Home({ blogPosts = [] }) {
   const { t, i18n } = useTranslation()
-  const { theme } = useTheme()
   const [greeting, setGreeting] = useState("")
   const [latestNow, setLatestNow] = useState(null)
   const [lastfmTrack, setLastfmTrack] = useState(null)
@@ -276,12 +274,10 @@ export default function Home({ blogPosts = [] }) {
         <div className="max-w-3xl mx-auto">
           {/* Hero Section with Curved Shape */}
           <div className="relative pt-16 pb-24 mb-12">
-            {/* Curved shape for light mode */}
-            {theme === "light" && (
-              <div className="absolute top-0 left-0 right-0 h-64 -z-10 overflow-hidden">
-                <div className="w-full h-[500px] bg-gray-100 rounded-[100%] transform translate-y-[-70%]"></div>
-              </div>
-            )}
+            {/* Curved shape for light mode - CSS controls visibility */}
+            <div className="absolute top-0 left-0 right-0 h-64 -z-10 overflow-hidden light-only">
+              <div className="w-full h-[500px] bg-gray-100 rounded-[100%] transform translate-y-[-70%]"></div>
+            </div>
 
             <div className="text-center">
               <motion.p

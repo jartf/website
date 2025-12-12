@@ -1,8 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useTheme } from "next-themes"
-import { Firefly } from "@/components/firefly"
+import { DarkModeFirefly } from "@/components/dark-mode-firefly"
 import { Calendar, Code, FileText } from "lucide-react"
 import { useMounted } from "@/hooks/use-mounted"
 
@@ -23,7 +22,6 @@ interface ScrapbookClientProps {
  * @returns {JSX.Element | null} The rendered scrapbook page client component.
  */
 export default function ScrapbookClient({ entries }: ScrapbookClientProps) {
-  const { theme } = useTheme()
   const mounted = useMounted()
 
   if (!mounted) return null
@@ -45,7 +43,7 @@ export default function ScrapbookClient({ entries }: ScrapbookClientProps) {
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {theme === "dark" && <Firefly count={15} />}
+      <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">
