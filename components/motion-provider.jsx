@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useMemo } from "react"
-import { useReducedMotion } from "@/hooks/use-reduced-motion"
+import { useReducedMotion } from "@/hooks"
 
 const MotionContext = createContext({ prefersReducedMotion: false })
 

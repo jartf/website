@@ -13,8 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { useViewport } from "@/hooks/use-viewport"
-import { useMounted } from "@/hooks/use-mounted"
+import { useViewport, useMounted } from "@/hooks"
 import { NAV_ITEMS } from "@/lib/constants"
 
 // Static fallback labels for when JS is disabled

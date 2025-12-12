@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Volume2, VolumeX } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { useMounted } from "@/hooks/use-mounted"
+import { useMounted } from "@/hooks"
 
 export function MusicToggle() {
   const { t } = useTranslation()

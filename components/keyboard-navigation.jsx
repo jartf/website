@@ -1,4 +1,4 @@
 "use client"
-import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation"
+import { useKeyboardNavigation } from "@/hooks"
 
 export const KeyboardNavigation = () => (useKeyboardNavigation(), null)

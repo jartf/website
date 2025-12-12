@@ -5,9 +5,7 @@ import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Globe } from "lucide-react"
-import { useLanguageTracker } from "@/hooks/use-language-tracker"
-import { useMounted } from "@/hooks/use-mounted"
-import { useLanguageDetection } from "@/hooks/use-language-detection"
+import { useLanguageTracker, useMounted, useCurrentLanguage } from "@/hooks"
 import {
   SUPPORTED_LANGUAGES,
   LANGUAGE_NAMES,
@@ -60,7 +58,7 @@ export function LanguageToggle() {
   const { trackLanguage, checkAllLanguagesVisited } = useLanguageTracker()
   const [isWindows, setIsWindows] = useState(false)
   const buttonRef = useRef(null)
-  const currentLanguage = useLanguageDetection()
+  const currentLanguage = useCurrentLanguage(true) // syncHtmlLang=true
   const [search, setSearch] = useState("")
   const [isOpen, setIsOpen] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)

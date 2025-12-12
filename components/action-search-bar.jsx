@@ -7,7 +7,7 @@ import { useTheme } from "next-themes"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import useDebounce from "@/hooks/use-debounce"
+import { useMounted, useDebounce } from "@/hooks"
 import {
   Search,
   Home,
@@ -48,7 +48,6 @@ import {
   Server,
   Tag,
 } from "lucide-react"
-import { useMounted } from "@/hooks/use-mounted"
 import { projects } from "@/content/project-items"
 import { nowItems } from "@/content/now-items"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"

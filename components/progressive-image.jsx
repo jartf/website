@@ -3,7 +3,7 @@
 import { useState, useCallback, memo } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { useReducedMotion } from "@/hooks/use-reduced-motion"
+import { useReducedMotion } from "@/hooks"
 import { ImageZoom } from "./image-zoom"
 
 /**

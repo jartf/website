@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useLanguageTracker } from "@/hooks/use-language-tracker"
+import { useLanguageTracker } from "@/hooks"
 import { Cat } from "lucide-react"
 
 /**

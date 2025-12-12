@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useReducedMotion } from "@/hooks/use-reduced-motion"
-import { useMounted } from "@/hooks/use-mounted"
+import { useReducedMotion, useMounted } from "@/hooks"
 
 /**
  * @typedef {Object} TwinkleStarProps

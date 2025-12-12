@@ -7,7 +7,7 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { RefreshCw, ExternalLink } from "lucide-react"
-import { useMounted } from "@/hooks/use-mounted"
+import { useMounted } from "@/hooks"
 
 type MoodCat = {
   id: number

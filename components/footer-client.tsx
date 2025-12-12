@@ -5,9 +5,7 @@ import { useTranslation } from "react-i18next"
 import { usePathname } from "next/navigation"
 import { Heart } from "lucide-react"
 import { KeyboardShortcutsHelp } from "@/components/keyboard-shortcuts-help"
-import { usePlatform } from "@/hooks/use-platform"
-import { useViewport } from "@/hooks/use-viewport"
-import { useMounted } from "@/hooks/use-mounted"
+import { usePlatform, useViewport, useMounted } from "@/hooks"
 
 interface FooterClientProps {
   staticCopyright: string

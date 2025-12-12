@@ -5,7 +5,7 @@ import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Moon, Sun, Laptop } from "lucide-react"
-import { useMounted } from "@/hooks/use-mounted"
+import { useMounted } from "@/hooks"
 
 const THEME_ICONS = {
   dark: Moon,

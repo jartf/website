@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AlertCircle, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useMounted } from "@/hooks/use-mounted"
+import { useMounted } from "@/hooks"
 
 /**
  * Component that displays a notice for non-English languages
