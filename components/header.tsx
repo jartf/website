@@ -113,14 +113,14 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
       <div className="container flex h-16 items-center justify-between overflow-hidden">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+          <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="Homepage">
             <div className="relative size-8 overflow-hidden">
-              <Image src="/favicons.svg" alt="Jarema Logo" width={32} height={32} className="size-8" />
+              <Image src="/favicons.svg" alt="Logo" width={32} height={32} className="size-8" aria-hidden="true" />
             </div>
             <span className="font-heading font-bold text-lg hidden sm:inline-block">Jarema</span>
           </Link>
 
-          <div ref={navRef} className="hidden md:flex items-center ml-6 overflow-hidden">
+          <nav ref={navRef} className="hidden md:flex items-center ml-6 overflow-hidden" aria-label="Main navigation">
             <div className="flex items-center gap-6 overflow-hidden">
               {visibleItems.map((item, index) => (
                 <Link
@@ -131,6 +131,7 @@ export function Header() {
                   className={`text-sm transition-colors hover:text-primary whitespace-nowrap ${
                     isActive(item.href) ? "text-foreground font-medium" : "text-muted-foreground"
                   }`}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                 >
                   {item.label}
                   {isActive(item.href) && (
@@ -138,6 +139,7 @@ export function Header() {
                       className="h-0.5 bg-primary mt-0.5"
                       layoutId="navbar-indicator"
                       transition={{ type: "spring", duration: 0.6 }}
+                      aria-hidden="true"
                     />
                   )}
                 </Link>
@@ -147,15 +149,18 @@ export function Header() {
             {overflowItems.length > 0 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="ml-1 flex-shrink-0">
-                    <MoreHorizontal className="h-5 w-5" />
-                    <span className="sr-only">More pages</span>
+                  <Button variant="ghost" size="icon" className="ml-1 flex-shrink-0" aria-label="More navigation pages" aria-haspopup="menu">
+                    <MoreHorizontal className="h-5 w-5" aria-hidden="true" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-background/95 backdrop-blur-sm">
+                <DropdownMenuContent align="end" className="bg-background/95 backdrop-blur-sm" role="menu" aria-label="Additional pages">
                   {overflowItems.map((item) => (
-                    <DropdownMenuItem key={item.href} asChild>
-                      <Link href={item.href} className={`w-full ${isActive(item.href) ? "font-medium" : ""}`}>
+                    <DropdownMenuItem key={item.href} asChild role="menuitem">
+                      <Link
+                        href={item.href}
+                        className={`w-full ${isActive(item.href) ? "font-medium" : ""}`}
+                        aria-current={isActive(item.href) ? "page" : undefined}
+                      >
                         {item.label}
                       </Link>
                     </DropdownMenuItem>
@@ -163,7 +168,7 @@ export function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-          </div>
+          </nav>
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -175,13 +180,12 @@ export function Header() {
 
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
+              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open navigation menu" aria-haspopup="dialog">
+                <Menu className="h-5 w-5" aria-hidden="true" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
-              <div className="grid gap-6 py-6">
+            <SheetContent side="right" aria-label="Navigation menu">
+              <nav className="grid gap-6 py-6" aria-label="Mobile navigation">
                 <div className="grid gap-3">
                   {navItems.map((item) => (
                     <Link
@@ -190,12 +194,13 @@ export function Header() {
                       className={`text-sm transition-colors hover:text-primary ${
                         isActive(item.href) ? "text-foreground font-medium" : "text-muted-foreground"
                       }`}
+                      aria-current={isActive(item.href) ? "page" : undefined}
                     >
                       {item.label}
                     </Link>
                   ))}
                 </div>
-              </div>
+              </nav>
             </SheetContent>
           </Sheet>
         </div>
