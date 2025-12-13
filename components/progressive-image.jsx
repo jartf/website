@@ -1,72 +1,93 @@
 "use client"
 
-import { useState, useCallback, memo } from "react"
+import { useState, useCallback, memo, useEffect, useRef } from "react"
 import Image from "next/image"
+import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useReducedMotion } from "@/hooks"
-import { ImageZoom } from "./image-zoom"
 
-/**
- * Progressive image component with zoom capability
- * @param {Object} props
- * @param {string} props.src - Image source URL
- * @param {string} props.alt - Image alt text
- * @param {number} [props.width] - Image width
- * @param {number} [props.height] - Image height
- * @param {string} [props.className] - Additional CSS classes
- * @param {boolean} [props.priority] - Whether to prioritize loading
- * @param {string} [props.dimensions] - Optional "widthxheight" format
- * @param {string} [props.caption] - Optional image caption
- */
+/** Image zoom modal component */
+const ImageZoom = memo(function ImageZoom({ src, alt, onClose, isOpen }) {
+  const [scale, setScale] = useState(1)
+  const modalRef = useRef(null)
+  const prefersReducedMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKey = (e) => e.key === "Escape" && onClose()
+    window.addEventListener("keydown", handleKey)
+    modalRef.current?.focus()
+    return () => window.removeEventListener("keydown", handleKey)
+  }, [isOpen, onClose])
+
+  if (!isOpen) return null
+
+  return (
+    <div
+      ref={modalRef}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4 md:p-8"
+      onClick={(e) => e.target === modalRef.current && onClose()}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Image: ${alt}`}
+      tabIndex={-1}
+    >
+      <div className="relative max-w-7xl w-full max-h-[90vh] flex flex-col items-center">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 z-10 p-2 rounded-full bg-background/80 text-foreground hover:bg-background transition-colors"
+          aria-label="Close image"
+        >
+          <X size={24} />
+        </button>
+        <div className="overflow-auto max-h-[calc(90vh-4rem)] w-full flex items-center justify-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            alt={alt}
+            className={cn(
+              "max-w-full max-h-[calc(90vh-4rem)] object-contain",
+              !prefersReducedMotion && "transition-transform duration-300",
+              scale > 1 ? "cursor-zoom-out" : "cursor-zoom-in"
+            )}
+            style={{ transform: `scale(${scale})` }}
+            onClick={() => setScale(s => s === 1 ? 1.5 : 1)}
+          />
+        </div>
+        <div className="mt-4 text-center text-sm text-muted-foreground">
+          <p>{alt}</p>
+          <p className="text-xs mt-1">Click image to zoom in/out, or press ESC to close</p>
+        </div>
+      </div>
+    </div>
+  )
+})
+
+/** Progressive image component with zoom capability */
 export const ProgressiveImage = memo(function ProgressiveImage({ src, alt, width, height, className, priority = false, dimensions, caption }) {
   const [isLoading, setIsLoading] = useState(true)
   const [isZoomed, setIsZoomed] = useState(false)
   const prefersReducedMotion = useReducedMotion()
 
-  // Parse dimensions if provided
-  const parsedDimensions = dimensions?.split("x").map(Number) || []
-  const parsedWidth = parsedDimensions[0] || width || 1200
-  const parsedHeight = parsedDimensions[1] || height || 630
+  const [parsedWidth, parsedHeight] = dimensions?.split("x").map(Number) || [width || 1200, height || 630]
+  const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${parsedWidth}" height="${parsedHeight}" viewBox="0 0 ${parsedWidth} ${parsedHeight}"><rect width="100%" height="100%" fill="#e2e8f0"/></svg>`
+  ).toString("base64")}`
 
-  // Handle image load complete - memoized to prevent recreation
-  const handleImageLoad = useCallback(() => {
-    setIsLoading(false)
-  }, [])
-
-  // Toggle zoom - memoized to prevent recreation
-  const toggleZoom = useCallback(() => {
-    setIsZoomed(true)
-  }, [])
-
-  // Close zoom - memoized to prevent recreation
-  const closeZoom = useCallback(() => {
-    setIsZoomed(false)
-  }, [])
+  const openZoom = useCallback(() => setIsZoomed(true), [])
+  const closeZoom = useCallback(() => setIsZoomed(false), [])
 
   return (
     <>
       <div
-        className={cn("relative overflow-hidden", className, "cursor-zoom-in")}
-        onClick={toggleZoom}
+        className={cn("relative overflow-hidden cursor-zoom-in", className)}
+        onClick={openZoom}
         role="button"
         tabIndex={0}
         aria-label={`View ${alt} in full size`}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault()
-            toggleZoom()
-          }
-        }}
+        onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), openZoom())}
       >
-        {/* Low quality placeholder */}
-        {isLoading && !priority && (
-          <div
-            className={cn("absolute inset-0 bg-muted", prefersReducedMotion ? "" : "animate-pulse")}
-            aria-hidden="true"
-          />
-        )}
-
-        {/* Main image */}
+        {isLoading && !priority && <div className={cn("absolute inset-0 bg-muted", !prefersReducedMotion && "animate-pulse")} aria-hidden="true" />}
         <Image
           src={src || "/placeholder.svg"}
           alt={alt}
@@ -75,19 +96,17 @@ export const ProgressiveImage = memo(function ProgressiveImage({ src, alt, width
           className={cn(
             "w-full h-auto",
             isLoading && !prefersReducedMotion && !priority ? "scale-[1.02] blur-sm" : "scale-100 blur-none",
-            prefersReducedMotion ? "" : "transition-all duration-700",
+            !prefersReducedMotion && "transition-all duration-700"
           )}
-          onLoad={handleImageLoad}
+          onLoad={() => setIsLoading(false)}
           priority={priority}
           placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${Buffer.from(
-            `<svg xmlns="http://www.w3.org/2000/svg" width="${parsedWidth}" height="${parsedHeight}" viewBox="0 0 ${parsedWidth} ${parsedHeight}"><rect width="100%" height="100%" fill="#e2e8f0"/></svg>`,
-          ).toString("base64")}`}
+          blurDataURL={blurDataURL}
         />
       </div>
-
-      {/* Image zoom modal */}
       <ImageZoom src={src || "/placeholder.svg"} alt={alt} isOpen={isZoomed} onClose={closeZoom} />
     </>
   )
 })
+
+export { ImageZoom }

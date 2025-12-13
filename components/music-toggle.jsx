@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Volume2, VolumeX } from "lucide-react"
 import { useTranslation } from "react-i18next"
@@ -10,10 +10,12 @@ import { useMounted } from "@/hooks"
 export function MusicToggle() {
   const { t } = useTranslation()
   const [isPlaying, setIsPlaying] = useState(false)
-  const [audioLoaded, setAudioLoaded] = useState(false)
+  const [audioLoaded] = useState(false) // Music currently unavailable
   const mounted = useMounted()
-  const audioRef = useRef(null)
+
   if (!mounted) return null
+
+  const tooltipText = !audioLoaded ? "Music currently unavailable" : isPlaying ? t("music.pause") : t("music.play")
 
   return (
     <TooltipProvider>
@@ -30,9 +32,7 @@ export function MusicToggle() {
             <span className="sr-only">Toggle music</span>
           </Button>
         </TooltipTrigger>
-        <TooltipContent>
-          {!audioLoaded ? "Music currently unavailable" : isPlaying ? t("music.pause") : t("music.play")}
-        </TooltipContent>
+        <TooltipContent>{tooltipText}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   )
