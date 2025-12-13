@@ -1,11 +1,6 @@
 import { getAllBlogPosts, type BlogPostMetadata } from "./blog"
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "./constants"
-
-// ============================================================================
-// XML Escaping
-// ============================================================================
-const XML_ENTITIES: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }
-const escapeXml = (str: string) => str.replace(/[&<>"']/g, c => XML_ENTITIES[c])
+import { escapeXml } from "./utils"
 
 // ============================================================================
 // Feed Generation Types
