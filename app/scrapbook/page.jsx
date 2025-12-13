@@ -1,7 +1,7 @@
 import { generateMetadata } from "@/lib/metadata"
 import { getScrapbookEntries } from "@/lib/blog"
 import { Calendar, Code, FileText } from "lucide-react"
-import { ScrapbookAnimation, AnimatedEntry, AnimatedSection } from "./ScrapbookAnimation"
+import { PageAnimation, AnimatedEntry, AnimatedSection } from "@/components/page-animation"
 
 export const metadata = generateMetadata({
   title: "Devlog",
@@ -14,7 +14,7 @@ export default function ScrapbookPage() {
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      <ScrapbookAnimation>
+      <PageAnimation>
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-3xl mx-auto">
             {/* Page header - server rendered */}
@@ -94,7 +94,7 @@ export default function ScrapbookPage() {
             </div>
           </div>
         </div>
-      </ScrapbookAnimation>
+      </PageAnimation>
     </main>
   )
 }
