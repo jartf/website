@@ -3,19 +3,8 @@ import Link from "next/link"
 import { Cat, Home, Map, Compass } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MoodCat } from "@/components/mood-cat"
-import {
-  NotFoundAnimation,
-  AnimatedCatIcon,
-  AnimatedCompass,
-  AnimatedSection,
-} from "./not-found/NotFoundAnimation"
-import {
-  NotFoundTitle,
-  NotFoundDescription,
-  NotFoundButtonText,
-  NotFoundSitemapText,
-  NotFoundEnjoycatText,
-} from "./not-found/NotFoundTranslations"
+import { PageAnimation, AnimatedCatIcon, AnimatedCompass, AnimatedSection } from "@/components/page-animation"
+import { TranslatedText } from "@/components/translated-text"
 
 export const metadata = generateMetadata({
   title: "404 - Page Not Found",
@@ -26,7 +15,7 @@ export const metadata = generateMetadata({
 export default function NotFound() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      <NotFoundAnimation>
+      <PageAnimation fireflyCount={25}>
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-md mx-auto text-center">
             {/* Animated cat icon */}
@@ -43,24 +32,24 @@ export default function NotFound() {
             {/* Main content */}
             <AnimatedSection delay={0.3}>
               <h1 className="text-4xl font-bold mb-4">
-                <NotFoundTitle fallback="Page Not Found" />
+                <TranslatedText i18nKey="404.title" fallback="Page Not Found" />
               </h1>
 
               <p className="text-muted-foreground mb-8">
-                <NotFoundDescription fallback="The page you're looking for doesn't exist or has been moved." />
+                <TranslatedText i18nKey="404.description" fallback="The page you're looking for doesn't exist or has been moved." />
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/">
                   <Button>
                     <Home className="mr-2 h-4 w-4" />
-                    <NotFoundButtonText fallback="Go Home" />
+                    <TranslatedText i18nKey="404.button" fallback="Go Home" />
                   </Button>
                 </Link>
                 <Link href="/slashes">
                   <Button variant="outline">
                     <Map className="mr-2 h-4 w-4" />
-                    <NotFoundSitemapText fallback="Site Directory" />
+                    <TranslatedText i18nKey="404.sitemap" fallback="Site Directory" />
                   </Button>
                 </Link>
               </div>
@@ -80,7 +69,7 @@ export default function NotFound() {
               <div className="mt-16">
                 <div className="max-w-md mx-auto">
                   <h2 className="text-2xl font-bold mb-4">
-                    <NotFoundEnjoycatText fallback="Here's a cat to cheer you up" />
+                    <TranslatedText i18nKey="404.enjoycat" fallback="Here's a cat to cheer you up" />
                   </h2>
                   <MoodCat />
                 </div>
@@ -88,7 +77,7 @@ export default function NotFound() {
             </AnimatedSection>
           </div>
         </div>
-      </NotFoundAnimation>
+      </PageAnimation>
     </main>
   )
 }
