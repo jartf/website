@@ -1,8 +1,8 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
 import Link from "next/link"
 import { ExternalLink, Code, Server, Palette } from "lucide-react"
-import { ColophonAnimation } from "./ColophonAnimation"
-import { ColophonTranslations, TranslatedText } from "./ColophonTranslations"
+import { PageAnimation } from "@/components/page-animation"
+import { TranslatedText, TranslatedPageHeader } from "@/components/translated-text"
 
 export const metadata = generateMeta({
   title: "Colophon",
@@ -24,11 +24,13 @@ const technologyStack = [
 export default function ColophonPage() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      <ColophonAnimation sectionCount={4}>
+      <PageAnimation sectionNavigation={{ count: 4 }}>
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-3xl mx-auto">
             {/* Page header - translated on client with proper pattern */}
-            <ColophonTranslations
+            <TranslatedPageHeader
+              titleKey="colophon.title"
+              descriptionKey="colophon.description"
               staticTitle="Colophon"
               staticDescription="The story behind this website and how it was built"
             />
@@ -166,7 +168,7 @@ export default function ColophonPage() {
             </div>
           </div>
         </div>
-      </ColophonAnimation>
+      </PageAnimation>
     </main>
   )
 }
