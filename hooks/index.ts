@@ -38,28 +38,39 @@ export function useReducedMotion() {
 }
 
 // ============================================================================
-// useViewport - Responsive breakpoints with debounced resize
+// useViewport - Responsive breakpoints with debounced resize + platform detection
 // ============================================================================
 export function useViewport() {
-  const [viewport, setViewport] = useState({
-    isMobile: false,
-    isTablet: false,
-    isDesktop: false,
-    windowWidth: 0,
+  const [viewport, setViewport] = useState(() => {
+    if (typeof window === "undefined") {
+      return { isMobile: false, isTablet: false, isDesktop: false, windowWidth: 0, isTouch: false, isMac: false, isWindows: false, isLinux: false }
+    }
+    const width = window.innerWidth
+    const p = navigator.platform.toLowerCase()
+    return {
+      windowWidth: width,
+      isMobile: width < 768,
+      isTablet: width >= 768 && width < 1280,
+      isDesktop: width >= 1280,
+      isTouch: "ontouchstart" in window || navigator.maxTouchPoints > 0,
+      isMac: p.includes("mac"),
+      isWindows: p.includes("win"),
+      isLinux: p.includes("linux") || p.includes("x11"),
+    }
   })
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
     const checkViewport = () => {
       const width = window.innerWidth
-      setViewport({
+      setViewport(prev => ({
+        ...prev,
         windowWidth: width,
         isMobile: width < 768,
         isTablet: width >= 768 && width < 1280,
         isDesktop: width >= 1280,
-      })
+      }))
     }
-    checkViewport()
     const debouncedCheck = () => {
       clearTimeout(timeout)
       timeout = setTimeout(checkViewport, 150)
@@ -74,29 +85,8 @@ export function useViewport() {
   return viewport
 }
 
-// ============================================================================
-// usePlatform - OS and device detection
-// ============================================================================
-export function usePlatform() {
-  const [platform] = useState(() => {
-    if (typeof window === "undefined") {
-      return { isMac: false, isWindows: false, isLinux: false, isMobile: false, isTouch: false, isDesktop: false }
-    }
-    const p = navigator.platform.toLowerCase()
-    const ua = navigator.userAgent.toLowerCase()
-    const width = window.innerWidth
-    const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i.test(ua) || width < 768
-    return {
-      isMac: p.includes("mac"),
-      isWindows: p.includes("win"),
-      isLinux: p.includes("linux") || p.includes("x11"),
-      isMobile,
-      isTouch: "ontouchstart" in window || navigator.maxTouchPoints > 0,
-      isDesktop: width >= 1280,
-    }
-  })
-  return platform
-}
+/** @deprecated Use useViewport instead - kept for backwards compatibility */
+export const usePlatform = useViewport
 
 // ============================================================================
 // useCurrentLanguage - Normalized language detection (replaces useLanguageDetection and useCurrentLanguage)
