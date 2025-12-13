@@ -3,30 +3,9 @@ import { Calendar, Clock } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-/**
- * @typedef {Object} RelatedPost
- * @property {string} slug - The post slug
- * @property {string} title - The post title
- * @property {string} date - The post date (ISO string or pre-formatted)
- * @property {number} readingTime - The post reading time in minutes
- * @property {string[]} [tags] - Optional post tags
- * @property {string} [category] - Optional post category
- */
+const formatDate = (dateStr) => new Date(dateStr).toLocaleDateString("en", { year: 'numeric', month: 'short', day: 'numeric' })
 
-/**
- * Formats date for display - simple server-safe formatting
- */
-function formatDateSimple(dateStr) {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString("en", { year: 'numeric', month: 'short', day: 'numeric' })
-}
-
-/**
- * Related Posts component that displays a grid of related blog posts
- * Server-renderable component - no client-side hooks required
- * @param {Object} props - Component props
- * @param {RelatedPost[]} props.posts - Array of related posts
- */
+/** Related posts grid - server-renderable */
 export function RelatedPosts({ posts }) {
   if (!posts.length) return null
 
@@ -42,33 +21,13 @@ export function RelatedPosts({ posts }) {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
-                  <div className="flex items-center">
-                    <Calendar className="mr-1 h-3 w-3" />
-                    <span>{formatDateSimple(post.date)}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="mr-1 h-3 w-3" />
-                    <span>{post.readingTime} min read</span>
-                  </div>
+                  <div className="flex items-center"><Calendar className="mr-1 h-3 w-3" />{formatDate(post.date)}</div>
+                  <div className="flex items-center"><Clock className="mr-1 h-3 w-3" />{post.readingTime} min read</div>
                 </div>
-
                 <div className="flex flex-wrap gap-1 mt-2">
-                  {post.category && (
-                    <Badge variant="secondary" className="text-xs">
-                      {post.category}
-                    </Badge>
-                  )}
-                  {post.tags &&
-                    post.tags.slice(0, 2).map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  {post.tags && post.tags.length > 2 && (
-                    <Badge variant="outline" className="text-xs">
-                      +{post.tags.length - 2} more
-                    </Badge>
-                  )}
+                  {post.category && <Badge variant="secondary" className="text-xs">{post.category}</Badge>}
+                  {post.tags?.slice(0, 2).map((tag) => <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>)}
+                  {post.tags?.length > 2 && <Badge variant="outline" className="text-xs">+{post.tags.length - 2} more</Badge>}
                 </div>
               </CardContent>
             </Card>
