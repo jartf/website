@@ -2,7 +2,7 @@ import { generateMetadata } from "@/lib/metadata"
 import Link from "next/link"
 import { Slash, Home, User, Code, BookOpen, Clock, Mail, FileText, Wrench, Calendar } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { SlashesAnimation, AnimatedSlashCard } from "./SlashesAnimation"
+import { PageAnimation, AnimatedEntry } from "@/components/page-animation"
 
 export const metadata = generateMetadata({
   title: "Slashes",
@@ -115,7 +115,7 @@ const routes = [
 export default function SlashesPage() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      <SlashesAnimation>
+      <PageAnimation>
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -129,7 +129,7 @@ export default function SlashesPage() {
               {routes.map((route, index) => {
                 const IconComponent = iconMap[route.iconName] || Slash
                 return (
-                  <AnimatedSlashCard key={route.path} index={index}>
+                  <AnimatedEntry key={route.path} index={index} className="">
                     <Link href={route.path} className="block group">
                       <Card className="transition-all duration-300 group-hover:shadow-md h-full">
                         <CardHeader className="flex flex-row items-center gap-4 pb-2">
@@ -149,13 +149,13 @@ export default function SlashesPage() {
                         </CardContent>
                       </Card>
                     </Link>
-                  </AnimatedSlashCard>
+                  </AnimatedEntry>
                 )
               })}
             </div>
           </div>
         </div>
-      </SlashesAnimation>
+      </PageAnimation>
     </main>
   )
 }
