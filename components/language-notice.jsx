@@ -6,28 +6,19 @@ import { AlertCircle, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useMounted } from "@/hooks"
 
-/**
- * Component that displays a notice for non-English languages
- * @returns {JSX.Element|null} Language notice component or null if not needed
- */
+const COMPLETED_LANGUAGES = ["en", "vi", "ru", "da"]
+
+/** Notice for non-complete translation languages */
 export function LanguageNotice() {
   const { i18n, t } = useTranslation()
-  const [isVisible, setIsVisible] = useState(true)
+  const [visible, setVisible] = useState(true)
   const mounted = useMounted()
 
-  if (!mounted) return null
+  if (!mounted || !visible) return null
 
-  // Exclude completed languages
-  const excludedLanguages = ["en", "vi", "ru", "da"]
-  const baseLanguage = i18n.language?.split("-")[0]
-
-  if (
-    excludedLanguages.includes(i18n.language) ||
-    i18n.language?.startsWith("en-") ||
-    excludedLanguages.includes(baseLanguage) ||
-    !isVisible
-  )
-    return null
+  const baseLang = i18n.language?.split("-")[0]
+  const isComplete = COMPLETED_LANGUAGES.some(l => i18n.language === l || i18n.language?.startsWith(l + "-") || baseLang === l)
+  if (isComplete) return null
 
   return (
     <AnimatePresence>
@@ -39,11 +30,9 @@ export function LanguageNotice() {
       >
         <div className="bg-amber-100 dark:bg-amber-900 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-100 px-4 py-3 rounded-lg shadow-md flex items-center max-w-xl">
           <AlertCircle className="h-5 w-5 mr-3 flex-shrink-0" />
-          <div className="text-sm">
-            <p>{t("languageNotice.message")}</p>
-          </div>
+          <p className="text-sm">{t("languageNotice.message")}</p>
           <button
-            onClick={() => setIsVisible(false)}
+            onClick={() => setVisible(false)}
             className="ml-4 p-1 rounded-full hover:bg-amber-200 dark:hover:bg-amber-800 transition-colors"
             aria-label={t("languageNotice.dismiss")}
           >
