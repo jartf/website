@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { DarkModeFirefly } from "@/components/firefly"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useMounted } from "@/hooks"
+import { useMounted, useCurrentLanguage } from "@/hooks"
 import {
   BookOpen,
   Code,
@@ -94,8 +94,9 @@ export default function NowClientWrapper({
   groupedItems,
   categories,
 }: NowClientWrapperProps) {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const mounted = useMounted()
+  const currentLang = useCurrentLanguage()
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const [lastfmTrack, setLastfmTrack] = useState<{
     name: string
@@ -359,37 +360,6 @@ export default function NowClientWrapper({
       </main>
     )
   }
-
-  // Get the current language, default to English if not supported
-  const currentLang = (() => {
-    // Get the detected language
-    const detectedLang =
-      i18n.language || window.navigator.language?.split("-")[0] || "en"
-
-    // Check if it's one of our supported languages
-    if (
-      ["en", "vi", "et", "ru", "da", "tr", "zh", "pl", "sv", "fi", "tok", "vih"].includes(
-        detectedLang
-      )
-    ) {
-      return detectedLang
-    }
-
-    // Handle language variants (e.g., en-US, en-GB)
-    if (detectedLang.startsWith("en")) return "en"
-    if (detectedLang.startsWith("vi")) return "vi"
-    if (detectedLang.startsWith("et")) return "et"
-    if (detectedLang.startsWith("ru")) return "ru"
-    if (detectedLang.startsWith("da")) return "da"
-    if (detectedLang.startsWith("tr")) return "tr"
-    if (detectedLang.startsWith("zh")) return "zh"
-    if (detectedLang.startsWith("pl")) return "pl"
-    if (detectedLang.startsWith("sv")) return "sv"
-    if (detectedLang.startsWith("fi")) return "fi"
-
-    // Default fallback
-    return "en"
-  })()
 
   const container = {
     hidden: { opacity: 0 },
