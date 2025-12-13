@@ -135,6 +135,12 @@ export default function RootLayout({ children }) {
         {/* rel=me links for identity verification */}
         <link rel="me" href="https://github.com/jartf" />
         <link rel="me" href="https://pronouns.page/@jerryv" />
+
+        {/* IndieAuth endpoints */}
+        <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+        <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+
+        {/* Webmention endpoint */}
         <link rel="webmention" href="https://webmention.io/jarema.me/webmention" />
 
         {/* Prefer Twemoji Country Flags on platforms (like Windows) that lack native flag emoji support */}
