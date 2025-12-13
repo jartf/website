@@ -330,18 +330,18 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
               </Link>
             </AnimatedSection>
 
-            <article>
+            <article className="h-entry">
               <header className="mb-10">
                 <AnimatedSection className="text-4xl md:text-5xl font-bold mb-6" animationClass={styles.animatedY}>
-                  <h1>{post.title}</h1>
+                  <h1 className="p-name">{post.title}</h1>
                 </AnimatedSection>
 
                 <AnimatedSection className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4" animationClass={styles.animatedY}>
                   <div className="flex items-center">
                     <Calendar className="mr-1 h-4 w-4" />
-                    <span>
+                    <time className="dt-published" dateTime={post.date}>
                       <FormattedDate date={post.date} fallback={formattedDateFallback} />
-                    </span>
+                    </time>
                   </div>
                   <div className="flex items-center">
                     <Clock className="mr-1 h-4 w-4" />
@@ -389,7 +389,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
                         <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
                           <Badge
                             variant="outline"
-                            className="flex items-center gap-1 text-xs hover:bg-muted cursor-pointer"
+                            className="p-category flex items-center gap-1 text-xs hover:bg-muted cursor-pointer"
                           >
                             <Tag className="h-3 w-3 mr-1" />
                             {tag}
@@ -431,9 +431,17 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
               </header>
 
               {/* Blog content - server rendered */}
-              <AnimatedSection className="text-justify" animationClass={styles.animatedY}>
+              <AnimatedSection className="text-justify e-content" animationClass={styles.animatedY}>
                 <MarkdownRenderer content={post.content} />
               </AnimatedSection>
+
+              {/* Hidden h-card for author information */}
+              <div className="p-author h-card" style={{ display: 'none' }}>
+                <a className="p-name u-url" href="https://jarema.me">Jarema</a>
+              </div>
+
+              {/* Hidden permalink for h-entry */}
+              <a className="u-url" href={`https://jarema.me/blog/${slug}`} style={{ display: 'none' }}>Permalink</a>
 
               {/* Post navigation */}
               <AnimatedSection animationClass={styles.animatedY}>
