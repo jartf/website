@@ -127,7 +127,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="Homepage">
             <div className="relative size-8 overflow-hidden">
-              <Image src="/favicons.svg" alt="Logo" width={32} height={32} className="size-8" aria-hidden="true" />
+              <Image src="/favicons.svg" alt="Logo" width={32} height={32} className="size-8 u-photo" aria-hidden="true" />
             </div>
             <span className="font-heading font-bold text-lg hidden sm:inline-block">Jarema</span>
           </Link>
