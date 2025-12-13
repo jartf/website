@@ -2,6 +2,7 @@ import { generateMetadata } from "@/lib/metadata"
 import { nowItems } from "@/content/now-items"
 import NowClientWrapper from "./NowClientWrapper"
 import type { SerializableNowItem, CategoryData } from "./types"
+import { generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import {
   BookOpen,
   Code,
@@ -69,11 +70,22 @@ export default function NowPage() {
     }
   )
 
+  // Generate structured data
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Now", url: "/now" },
+  ])
+
   return (
-    <NowClientWrapper
-      items={serializableItems}
-      groupedItems={groupedItems}
-      categories={categories}
-    />
+    <>
+      {/* Structured Data for Google Rich Results */}
+      {renderJsonLd([breadcrumbSchema])}
+
+      <NowClientWrapper
+        items={serializableItems}
+        groupedItems={groupedItems}
+        categories={categories}
+      />
+    </>
   )
 }

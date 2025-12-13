@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { generateMetadata as generateMeta } from "@/lib/metadata"
 import AboutClientWrapper from "./AboutClientWrapper"
+import { generatePersonSchema, generateProfilePageSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 
 export const metadata = generateMeta({
   title: "About Me",
@@ -86,6 +87,14 @@ const chapters = [
 ]
 
 export default function AboutPage() {
+  // Generate structured data for About page
+  const personSchema = generatePersonSchema()
+  const profilePageSchema = generateProfilePageSchema()
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about" },
+  ])
+
   // h-card content is passed as children to be rendered by server within client wrapper
   const hCardContent = (
     <div className="h-card mb-8 p-4 border rounded-lg bg-muted/10">
@@ -114,5 +123,12 @@ export default function AboutPage() {
     </div>
   )
 
-  return <AboutClientWrapper chapters={chapters} hCard={hCardContent} />
+  return (
+    <>
+      {/* Structured Data for Google Rich Results */}
+      {renderJsonLd([personSchema, profilePageSchema, breadcrumbSchema])}
+
+      <AboutClientWrapper chapters={chapters} hCard={hCardContent} />
+    </>
+  )
 }

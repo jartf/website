@@ -11,6 +11,7 @@ import { BlogPostNavigation } from "./BlogPostNavigation"
 import { RelatedPosts } from "@/components/blog/related-posts"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
 import { LANGUAGE_NAMES } from "@/lib/constants"
+import { generateBlogPostSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import {
   BlogReadingProgress,
   BlogShareButtons,
@@ -317,9 +318,30 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
       day: "numeric",
     })
 
+    // Generate structured data for Google Rich Results
+    const blogPostSchema = generateBlogPostSchema({
+      title: post.title,
+      description: post.content.substring(0, 160),
+      slug,
+      date: post.date,
+      tags: post.tags,
+      category: post.category || undefined,
+      language: post.language,
+      readingTime: post.readingTime,
+    })
+
+    const breadcrumbSchema = generateBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Blog", url: "/blog" },
+      { name: post.title, url: `/blog/${slug}` },
+    ])
+
     // Render the blog post content server-side
     return (
       <main className="relative min-h-screen w-full overflow-hidden">
+        {/* Structured Data for Google Rich Results */}
+        {renderJsonLd([blogPostSchema, breadcrumbSchema])}
+
         <BlogReadingProgress />
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-3xl mx-auto">

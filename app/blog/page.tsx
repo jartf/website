@@ -3,6 +3,8 @@ import path from "path"
 import matter from "gray-matter"
 import BlogList from "./BlogList"
 import { generateMetadata } from "@/lib/metadata"
+import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
+import { SITE_URL } from "@/lib/constants"
 
 // Types for blog posts
 type BlogPostMetadata = {
@@ -107,5 +109,29 @@ export const metadata = generateMetadata({
 
 export default async function BlogPage() {
   const blogPosts = await getBlogPosts()
-  return <BlogList blogPosts={blogPosts} />
+
+  // Generate structured data for blog list page
+  const itemListSchema = generateItemListSchema(
+    "Blog posts",
+    "Thoughts, reflections, and occasional rants by Jarema",
+    blogPosts.map(post => ({
+      title: post.title,
+      description: post.excerpt,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      date: post.date,
+    }))
+  )
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+  ])
+
+  return (
+    <>
+      {/* Structured Data for Google Rich Results */}
+      {renderJsonLd([itemListSchema, breadcrumbSchema])}
+      <BlogList blogPosts={blogPosts} />
+    </>
+  )
 }

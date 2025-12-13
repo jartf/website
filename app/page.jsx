@@ -11,6 +11,7 @@ import {
   TranslatedText,
   TranslationLoadingSpinner,
 } from "./HomeClientInteractive"
+import { generateWebSiteSchema, generatePersonSchema, renderJsonLd } from "@/lib/structured-data"
 
 export const metadata = generateMetadata({
   title: "Home",
@@ -47,8 +48,15 @@ export default async function Home() {
   // Get English posts for SSR display
   const recentPosts = blogPosts.filter(post => post.language === "en").slice(0, 3)
 
+  // Generate structured data for homepage
+  const webSiteSchema = generateWebSiteSchema()
+  const personSchema = generatePersonSchema()
+
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
+      {/* Structured Data for Google Rich Results */}
+      {renderJsonLd([webSiteSchema, personSchema])}
+
       {/* Loading spinner for translations - client */}
       <TranslationLoadingSpinner />
 
@@ -115,21 +123,28 @@ export default async function Home() {
               </h2>
               <div className="space-y-6">
                 {recentPosts.map((post) => (
-                  <Link key={post.slug} href={`/blog/${post.slug}`} className="block group" passHref>
-                    <div className="border rounded-lg p-5 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
-                      <h3 className="text-xl font-semibold mb-1 group-hover:text-primary transition-colors">{post.title}</h3>
-                      <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
-                        <span>{formatVerboseDate(post.date)}</span>
-                        <span>•</span>
-                        <span>{post.readingTime} {STATIC_CONTENT.minRead}</span>
-                        <span>•</span>
-                        {post.mood && <span>{STATIC_CONTENT.mood}: {post.mood}</span>}
-                        <span>•</span>
-                        {post.language && <span>{post.language.toUpperCase()}</span>}
+                  <div key={post.slug} className="h-entry">
+                    <Link href={`/blog/${post.slug}`} className="block group u-url" passHref>
+                      <div className="border rounded-lg p-5 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
+                        <h3 className="text-xl font-semibold mb-1 group-hover:text-primary transition-colors p-name">{post.title}</h3>
+                        <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
+                          <time className="dt-published" dateTime={post.date}>{formatVerboseDate(post.date)}</time>
+                          <span>•</span>
+                          <span>{post.readingTime} {STATIC_CONTENT.minRead}</span>
+                          <span>•</span>
+                          {post.mood && <span>{STATIC_CONTENT.mood}: {post.mood}</span>}
+                          <span>•</span>
+                          {post.language && <span>{post.language.toUpperCase()}</span>}
+                        </div>
+                        <p className="text-muted-foreground line-clamp-2 p-summary">{post.excerpt}</p>
+
+                        {/* Hidden h-card for author information */}
+                        <div className="p-author h-card" style={{ display: 'none' }}>
+                          <a className="p-name u-url" href="https://jarema.me">Jarema</a>
+                        </div>
                       </div>
-                      <p className="text-muted-foreground line-clamp-2">{post.excerpt}</p>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 ))}
               </div>
               <div className="mt-6 text-center">

@@ -356,17 +356,18 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
           {/* Static blog post list */}
           <div className="space-y-6">
             {staticPosts.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
-                <Card className="transition-all duration-300 hover:shadow-md border border-border group-hover:border-primary/50">
-                  <CardContent className="p-6">
-                    <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
-                      {post.title}
-                    </h2>
-                    <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
-                      <div className="flex items-center">
-                        <Calendar className="mr-1 h-4 w-4" />
-                        <span>{formatPostDate(post.date)}</span>
-                      </div>
+              <div key={post.slug} className="h-entry">
+                <Link href={`/blog/${post.slug}`} className="block group u-url">
+                  <Card className="transition-all duration-300 hover:shadow-md border border-border group-hover:border-primary/50">
+                    <CardContent className="p-6">
+                      <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors p-name">
+                        {post.title}
+                      </h2>
+                      <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
+                        <div className="flex items-center">
+                          <Calendar className="mr-1 h-4 w-4" />
+                          <time className="dt-published" dateTime={post.date}>{formatPostDate(post.date)}</time>
+                        </div>
                       <div className="flex items-center">
                         <Clock className="mr-1 h-4 w-4" />
                         <span>{post.readingTime} {STATIC_CONTENT.minRead}</span>
@@ -390,21 +391,27 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                     {/* Category and Tags */}
                     <div className="flex flex-wrap gap-2 mb-3">
                       {post.category && (
-                        <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
+                        <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 p-category">
                           {post.category}
                         </Badge>
                       )}
                       {post.tags?.map((tag) => (
-                        <Badge key={tag} variant="outline" className="flex items-center gap-1 text-xs">
+                        <Badge key={tag} variant="outline" className="flex items-center gap-1 text-xs p-category">
                           <Tag className="h-3 w-3 mr-1" />
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    <p className="text-muted-foreground">{post.excerpt}</p>
+                    <p className="text-muted-foreground p-summary">{post.excerpt}</p>
+
+                    {/* Hidden h-card for author information */}
+                    <div className="p-author h-card" style={{ display: 'none' }}>
+                      <a className="p-name u-url" href="https://jarema.me">Jarema</a>
+                    </div>
                   </CardContent>
                 </Card>
               </Link>
+              </div>
             ))}
           </div>
         </div>
@@ -805,7 +812,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               <div
                 key={post.slug}
                 ref={el => { postRefs.current[index] = el }}
-                className={`relative transition-all duration-300 ${
+                className={`relative transition-all duration-300 h-entry ${
                   focusedPostIndex === index ? "ring-2 ring-primary ring-offset-2 scale-[1.02] shadow-lg" : ""
                 } ${styles.visible}`}
               >
@@ -816,7 +823,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                   </div>
                 )}
 
-                <Link href={`/blog/${post.slug}`} className="block group" passHref>
+                <Link href={`/blog/${post.slug}`} className="block group u-url" passHref>
                   <Card
                     className={`transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50 ${styles.visibleOpacity}`}
                   >
@@ -825,13 +832,13 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
                     {/* Card content */}
                     <CardContent className="p-6 relative z-10">
-                      <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                      <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors p-name">
                         {post.title}
                       </h2>
                       <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center">
                           <Calendar className="mr-1 h-4 w-4" />
-                          <span>{formatDate(post.date, currentLang)}</span>
+                          <span><time className="dt-published" dateTime={post.date}>{formatDate(post.date, currentLang)}</time></span>
                         </div>
                         <div className="flex items-center">
                           <Clock className="mr-1 h-4 w-4" />
@@ -878,7 +885,12 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                           ))}
                       </div>
 
-                      <p className="text-muted-foreground">{post.excerpt}</p>
+                      <p className="text-muted-foreground p-summary">{post.excerpt}</p>
+
+                      {/* Hidden h-card for author information */}
+                      <div className="p-author h-card" style={{ display: 'none' }}>
+                        <a className="p-name u-url" href="https://jarema.me">Jarema</a>
+                      </div>
                     </CardContent>
                   </Card>
                 </Link>

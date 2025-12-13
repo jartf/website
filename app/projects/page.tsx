@@ -1,6 +1,8 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
 import { projects, type Project } from "@/content/project-items"
 import ProjectsClientWrapper from "./ProjectsClientWrapper"
+import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
+import { SITE_URL } from "@/lib/constants"
 
 export const metadata = generateMeta({
   title: "Projects",
@@ -9,6 +11,29 @@ export const metadata = generateMeta({
 })
 
 export default function ProjectsPage() {
+  // Generate structured data for projects page
+  const itemListSchema = generateItemListSchema(
+    "Projects by Jarema",
+    "A showcase of my personal projects, experiments, and work",
+    projects.map((project) => ({
+      title: project.content.en.title,
+      description: project.content.en.description,
+      url: `${SITE_URL}/projects`,
+    }))
+  )
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Projects", url: "/projects" },
+  ])
+
   // Pass projects data from server to minimal client wrapper
-  return <ProjectsClientWrapper projects={projects} />
+  return (
+    <>
+      {/* Structured Data for Google Rich Results */}
+      {renderJsonLd([itemListSchema, breadcrumbSchema])}
+
+      <ProjectsClientWrapper projects={projects} />
+    </>
+  )
 }

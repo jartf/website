@@ -2,6 +2,8 @@ import { generateMetadata } from "@/lib/metadata"
 import { USES_CATEGORIES } from "@/content/uses-items"
 import UsesClientWrapper from "./UsesClientWrapper"
 import type { SerializableUsesCategory, SerializableSubsection, SerializableUsesItem } from "./types"
+import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
+import { SITE_URL } from "@/lib/constants"
 import {
   Laptop,
   Headphones,
@@ -91,5 +93,31 @@ export default function UsesPage() {
     })
   )
 
-  return <UsesClientWrapper categories={serializableCategories} />
+  // Generate structured data
+  const allItems = serializableCategories.flatMap((cat) =>
+    cat.items.map((item) => ({
+      title: item.name,
+      url: item.link || `${SITE_URL}/uses`,
+    }))
+  )
+
+  const itemListSchema = generateItemListSchema(
+    "Tools and software I use",
+    "Hardware and software I use for development, productivity, and daily work",
+    allItems
+  )
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Uses", url: "/uses" },
+  ])
+
+  return (
+    <>
+      {/* Structured Data for Google Rich Results */}
+      {renderJsonLd([itemListSchema, breadcrumbSchema])}
+
+      <UsesClientWrapper categories={serializableCategories} />
+    </>
+  )
 }
