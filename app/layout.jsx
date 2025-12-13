@@ -132,6 +132,10 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
+        {/* rel=me links for identity verification */}
+        <link rel="me" href="https://github.com/jartf" />
+        <link rel="me" href="https://pronouns.page/@jerryv" />
+
         {/* Prefer Twemoji Country Flags on platforms (like Windows) that lack native flag emoji support */}
         <style>
           {`
