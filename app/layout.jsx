@@ -135,6 +135,7 @@ export default function RootLayout({ children }) {
         {/* rel=me links for identity verification */}
         <link rel="me" href="https://github.com/jartf" />
         <link rel="me" href="https://pronouns.page/@jerryv" />
+        <link rel="webmention" href="https://webmention.io/jarema.me/webmention" />
 
         {/* Prefer Twemoji Country Flags on platforms (like Windows) that lack native flag emoji support */}
         <style>
