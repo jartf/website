@@ -40,14 +40,6 @@ export function useReducedMotion() {
 // ============================================================================
 // useViewport - Responsive breakpoints with debounced resize
 // ============================================================================
-function debounce<T extends (...args: unknown[]) => unknown>(func: T, wait: number) {
-  let timeout: NodeJS.Timeout
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), wait)
-  }
-}
-
 export function useViewport() {
   const [viewport, setViewport] = useState({
     isMobile: false,
@@ -57,6 +49,7 @@ export function useViewport() {
   })
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout
     const checkViewport = () => {
       const width = window.innerWidth
       setViewport({
@@ -67,9 +60,15 @@ export function useViewport() {
       })
     }
     checkViewport()
-    const debouncedCheck = debounce(checkViewport, 150)
+    const debouncedCheck = () => {
+      clearTimeout(timeout)
+      timeout = setTimeout(checkViewport, 150)
+    }
     window.addEventListener("resize", debouncedCheck)
-    return () => window.removeEventListener("resize", debouncedCheck)
+    return () => {
+      clearTimeout(timeout)
+      window.removeEventListener("resize", debouncedCheck)
+    }
   }, [])
 
   return viewport
