@@ -137,13 +137,12 @@ export default async function Home() {
                           {post.language && <span>{post.language.toUpperCase()}</span>}
                         </div>
                         <p className="text-muted-foreground line-clamp-2 p-summary">{post.excerpt}</p>
-
-                        {/* Hidden h-card for author information */}
-                        <div className="p-author h-card" style={{ display: 'none' }}>
-                          <a className="p-name u-url" href="https://jarema.me">Jarema</a>
-                        </div>
                       </div>
                     </Link>
+                    {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
+                    <div className="p-author h-card" style={{ display: 'none' }}>
+                      <span className="p-name" data-url="https://jarema.me">Jarema</span>
+                    </div>
                   </div>
                 ))}
               </div>

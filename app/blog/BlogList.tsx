@@ -403,14 +403,13 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                       ))}
                     </div>
                     <p className="text-muted-foreground p-summary">{post.excerpt}</p>
-
-                    {/* Hidden h-card for author information */}
-                    <div className="p-author h-card" style={{ display: 'none' }}>
-                      <a className="p-name u-url" href="https://jarema.me">Jarema</a>
-                    </div>
                   </CardContent>
                 </Card>
               </Link>
+              {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
+              <div className="p-author h-card" style={{ display: 'none' }}>
+                <span className="p-name" data-url="https://jarema.me">Jarema</span>
+              </div>
               </div>
             ))}
           </div>
@@ -886,14 +885,13 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                       </div>
 
                       <p className="text-muted-foreground p-summary">{post.excerpt}</p>
-
-                      {/* Hidden h-card for author information */}
-                      <div className="p-author h-card" style={{ display: 'none' }}>
-                        <a className="p-name u-url" href="https://jarema.me">Jarema</a>
-                      </div>
                     </CardContent>
                   </Card>
                 </Link>
+                {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
+                <div className="p-author h-card" style={{ display: 'none' }}>
+                  <span className="p-name" data-url="https://jarema.me">Jarema</span>
+                </div>
               </div>
             ))}
           </div>
