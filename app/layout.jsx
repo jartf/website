@@ -142,6 +142,7 @@ export default function RootLayout({ children }) {
 
         {/* Webmention endpoint */}
         <link rel="webmention" href="https://webmention.io/jarema.me/webmention" />
+        <link rel="microsub" href="https://aperture.p3k.io/microsub/1060" />
 
         {/* Prefer Twemoji Country Flags on platforms (like Windows) that lack native flag emoji support */}
         <style>
