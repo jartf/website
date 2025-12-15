@@ -273,7 +273,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="font-sans min-h-screen bg-background">
+      <body className="font-sans min-h-screen bg-background" suppressHydrationWarning>
         {/* Non-blocking banner notice for users without JavaScript */}
         <noscript>
           <div className="js-disabled-banner" style={{ display: "block" }}>
