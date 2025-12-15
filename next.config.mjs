@@ -50,8 +50,12 @@ const nextConfig = {
             value: 'strict-origin-when-cross-origin',
           },
           {
+            key: 'Feature-Policy',
+            value: "geolocation 'none'; microphone 'none'; camera 'none'",
+          },
+          {
             key: 'Permissions-Policy',
-            value: 'browsing-topics=(), camera=(), microphone=(), geolocation=(), interest-cohort=()',
+            value: 'interest-cohort=(), browsing-topics=(), camera=(), microphone=(), geolocation=()',
           },
           {
             key: 'Cross-Origin-Embedder-Policy',
@@ -64,6 +68,14 @@ const nextConfig = {
           {
             key: 'Cross-Origin-Resource-Policy',
             value: 'cross-origin',
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://kagi.com',
+          },
+          {
+            key: 'clear-site-data',
+            value: '"storage"',
           },
           {
             key: 'Strict-Transport-Security',
@@ -83,9 +95,13 @@ const nextConfig = {
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
-              "frame-ancestors 'self'",
+              "frame-ancestors 'self' https://kagi.com",
               "upgrade-insecure-requests",
             ].join('; '),
+          },
+          {
+            key: 'Server',
+            value: 'Jarema',
           },
         ],
       },
