@@ -7,7 +7,7 @@ const nextConfig = {
 
   // Experimental features for better performance
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion', 'react-i18next', 'date-fns'],
+    optimizePackageImports: ['lucide-react', 'react-i18next', 'date-fns'],
   },
 
   // Output configuration
