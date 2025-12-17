@@ -1,7 +1,6 @@
 "use client"
 
-import { useEffect, useState, type ReactNode } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useState, type ReactNode, memo } from "react"
 import { DarkModeFirefly } from "@/components/firefly"
 import { useMounted, useReducedMotion } from "@/hooks"
 
@@ -24,7 +23,7 @@ interface PageAnimationProps {
  *
  * Replaces: ScrapbookAnimation, SlashesAnimation, ColophonAnimation base functionality
  */
-export function PageAnimation({ children, fireflyCount = 15, sectionNavigation }: PageAnimationProps) {
+export const PageAnimation = memo(function PageAnimation({ children, fireflyCount = 15, sectionNavigation }: PageAnimationProps) {
   const mounted = useMounted()
 
   useEffect(() => {
@@ -63,10 +62,10 @@ export function PageAnimation({ children, fireflyCount = 15, sectionNavigation }
       {children}
     </>
   )
-}
+})
 
 // ============================================================================
-// Animated Section - Fade-in animation wrapper
+// Animated Section - Fade-in animation wrapper (CSS-first)
 // ============================================================================
 
 interface AnimatedSectionProps {
@@ -76,10 +75,10 @@ interface AnimatedSectionProps {
 }
 
 /**
- * Animated section with fade-in-up effect
+ * Animated section with fade-in-up effect using CSS
  * Falls back to static content when unmounted or user prefers reduced motion
  */
-export function AnimatedSection({ children, delay = 0, className }: AnimatedSectionProps) {
+export const AnimatedSection = memo(function AnimatedSection({ children, delay = 0, className }: AnimatedSectionProps) {
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
 
@@ -88,19 +87,20 @@ export function AnimatedSection({ children, delay = 0, className }: AnimatedSect
   }
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
+    <div
+      className={`${className || ''} animate-fade-in-up`}
+      style={{
+        animationDelay: `${delay}s`,
+        animationFillMode: "both",
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   )
-}
+})
 
 // ============================================================================
-// Animated Entry - Staggered list item animation
+// Animated Entry - Staggered list item animation (CSS-first)
 // ============================================================================
 
 interface AnimatedEntryProps {
@@ -110,9 +110,9 @@ interface AnimatedEntryProps {
 }
 
 /**
- * Animated entry for list items with staggered fade-in
+ * Animated entry for list items with staggered fade-in using CSS
  */
-export function AnimatedEntry({ children, index, className = "relative" }: AnimatedEntryProps) {
+export const AnimatedEntry = memo(function AnimatedEntry({ children, index, className = "relative" }: AnimatedEntryProps) {
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
 
@@ -121,19 +121,20 @@ export function AnimatedEntry({ children, index, className = "relative" }: Anima
   }
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
+    <div
+      className={`${className} animate-fade-in-up`}
+      style={{
+        animationDelay: `${index * 0.1}s`,
+        animationFillMode: "both",
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   )
-}
+})
 
 // ============================================================================
-// 404 Page Specific Animations (kept separate due to unique effects)
+// 404 Page Specific Animations (CSS-first approach)
 // ============================================================================
 
 interface AnimatedCatIconProps {
@@ -142,39 +143,47 @@ interface AnimatedCatIconProps {
 
 /**
  * Animated floating cat icon with wandering effect - specific to 404 page
+ * Uses CSS keyframes for smooth animation
  */
-export function AnimatedCatIcon({ children }: AnimatedCatIconProps) {
+export const AnimatedCatIcon = memo(function AnimatedCatIcon({ children }: AnimatedCatIconProps) {
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
-  const [pos] = useState(() => ({ x: Math.random() * 40 - 20, y: Math.random() * 40 - 20 }))
 
   if (!mounted || prefersReducedMotion) {
     return <div className="relative">{children}</div>
   }
 
   return (
-    <motion.div
-      className="relative"
-      animate={{ x: [pos.x, -pos.x, pos.x], y: [pos.y, -pos.y, pos.y] }}
-      transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
-    >
+    <div className="relative animate-wander">
+      <style jsx>{`
+        @keyframes wander {
+          0%, 100% { transform: translate(0, 0); }
+          25% { transform: translate(20px, -10px); }
+          50% { transform: translate(-10px, 20px); }
+          75% { transform: translate(-20px, -20px); }
+        }
+        @keyframes pulse-ring {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.2); }
+        }
+        @keyframes wobble {
+          0%, 100% { transform: rotate(-5deg); }
+          50% { transform: rotate(5deg); }
+        }
+        .animate-wander { animation: wander 10s ease-in-out infinite; }
+        .pulse-ring { animation: pulse-ring 2s ease-in-out infinite; }
+        .wobble { animation: wobble 1s ease-in-out infinite; }
+      `}</style>
       {children}
-      <motion.div
-        className="absolute top-0 right-0 w-full h-full rounded-full border-2 border-primary/30"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+      <div
+        className="absolute top-0 right-0 w-full h-full rounded-full border-2 border-primary/30 pulse-ring"
       />
-      <motion.div
-        className="absolute -top-4 -right-4 bg-muted-foreground text-background text-xs px-2 py-1 rounded-full"
-        initial={{ rotate: -5 }}
-        animate={{ rotate: 5 }}
-        transition={{ repeat: Infinity, repeatType: "reverse", duration: 1 }}
-      >
+      <div className="absolute -top-4 -right-4 bg-muted-foreground text-background text-xs px-2 py-1 rounded-full wobble">
         ?!?
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   )
-}
+})
 
 interface AnimatedCompassProps {
   children: ReactNode
@@ -182,8 +191,9 @@ interface AnimatedCompassProps {
 
 /**
  * Animated compass with spinning needle - specific to 404 page
+ * Uses CSS keyframes for smooth animation
  */
-export function AnimatedCompass({ children }: AnimatedCompassProps) {
+export const AnimatedCompass = memo(function AnimatedCompass({ children }: AnimatedCompassProps) {
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
 
@@ -193,14 +203,17 @@ export function AnimatedCompass({ children }: AnimatedCompassProps) {
 
   return (
     <div className="relative">
+      <style jsx>{`
+        @keyframes spin-compass {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .spin-compass { animation: spin-compass 10s linear infinite; }
+      `}</style>
       {children}
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      >
-        <div className="w-1 h-6 bg-gradient-to-b from-primary to-transparent rounded-full transform translate-y-[-4px]" />
-      </motion.div>
+      <div className="absolute inset-0 flex items-center justify-center spin-compass">
+        <div className="w-1 h-6 bg-gradient-to-b from-primary to-transparent rounded-full transform -translate-y-1" />
+      </div>
     </div>
   )
-}
+})
