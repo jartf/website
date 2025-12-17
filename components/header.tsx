@@ -1,11 +1,10 @@
 "use client"
 
-import { useState, useEffect, useRef, useMemo, useCallback } from "react"
+import { useState, useEffect, useRef, useMemo, useCallback, memo } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useTranslation } from "react-i18next"
-import { motion } from "framer-motion"
 import { LanguageToggle } from "@/components/language-toggle"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { MusicToggle } from "@/components/music-toggle"
@@ -28,6 +27,38 @@ const STATIC_NAV_LABELS: Record<string, string> = {
   colophon: "Colophon",
 }
 
+// Memoized nav link component to prevent re-renders
+const NavLink = memo(function NavLink({
+  href,
+  label,
+  isActive,
+  showIndicator,
+}: {
+  href: string
+  label: string
+  isActive: boolean
+  showIndicator: boolean
+}) {
+  return (
+    <Link
+      href={href}
+      data-nav-item="true"
+      className={`text-sm transition-colors hover:text-primary whitespace-nowrap ${
+        isActive ? "text-foreground font-medium" : "text-muted-foreground"
+      }`}
+      aria-current={isActive ? "page" : undefined}
+    >
+      {label}
+      {showIndicator && isActive && (
+        <div
+          className="h-0.5 bg-primary mt-0.5 animate-nav-indicator"
+          aria-hidden="true"
+        />
+      )}
+    </Link>
+  )
+})
+
 /**
  * Header component with responsive navigation
  * Renders static content first for no-JS support, then enhances with JS
@@ -39,7 +70,6 @@ export function Header() {
   const mounted = useMounted()
   const [overflowIndex, setOverflowIndex] = useState<number | null>(null)
   const navRef = useRef<HTMLDivElement>(null)
-  const itemsRef = useRef<(HTMLAnchorElement | null)[]>([])
   const { windowWidth } = useViewport()
 
   // Memoize navigation items - use translated labels when mounted, static labels otherwise
@@ -64,16 +94,19 @@ export function Header() {
     [pathname]
   )
 
+  // Simplified overflow calculation using ResizeObserver
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted || !navRef.current) return
+
+    // Skip for mobile or large desktop
+    if (windowWidth < 768 || windowWidth >= 1280) {
+      queueMicrotask(() => {
+        if (overflowIndex !== null) setOverflowIndex(null)
+      })
+      return
+    }
 
     const calculateOverflow = () => {
-      // Early return for mobile or desktop sizes
-      if (windowWidth < 768 || windowWidth >= 1280) {
-        if (overflowIndex !== null) setOverflowIndex(null)
-        return
-      }
-
       if (!navRef.current) return
 
       const containerWidth = document.querySelector(".container")?.clientWidth || 0
@@ -84,36 +117,24 @@ export function Header() {
         return
       }
 
-      const navItems = Array.from(navRef.current.querySelectorAll('a[data-nav-item="true"]'))
+      const items = Array.from(navRef.current.querySelectorAll('a[data-nav-item="true"]'))
       let totalWidth = 0
-      let breakIndex = navItems.length
+      let breakIndex = items.length
 
-      for (let i = 0; i < navItems.length; i++) {
-        totalWidth += (navItems[i] as HTMLElement).offsetWidth + (i > 0 ? 24 : 0)
+      for (let i = 0; i < items.length; i++) {
+        totalWidth += (items[i] as HTMLElement).offsetWidth + (i > 0 ? 24 : 0)
         if (totalWidth > availableWidth) {
           breakIndex = i
           break
         }
       }
 
-      const newIndex = totalWidth <= availableWidth ? null : breakIndex < navItems.length ? breakIndex : null
+      const newIndex = totalWidth <= availableWidth ? null : breakIndex < items.length ? breakIndex : null
       if (newIndex !== overflowIndex) setOverflowIndex(newIndex)
     }
 
-    // Use requestAnimationFrame for better performance
-    let rafId: number | null = null
-    const debouncedCalculate = () => {
-      if (rafId) cancelAnimationFrame(rafId)
-      rafId = requestAnimationFrame(calculateOverflow)
-    }
-
-    const timer = setTimeout(calculateOverflow, 50)
-    window.addEventListener("resize", debouncedCalculate)
-    return () => {
-      clearTimeout(timer)
-      if (rafId) cancelAnimationFrame(rafId)
-      window.removeEventListener("resize", debouncedCalculate)
-    }
+    // Initial calculation
+    calculateOverflow()
   }, [mounted, windowWidth, overflowIndex])
 
   // Only apply overflow logic for tablet sizes when mounted
@@ -134,27 +155,14 @@ export function Header() {
 
           <nav ref={navRef} className="hidden md:flex items-center ml-6 overflow-hidden" aria-label="Main navigation">
             <div className="flex items-center gap-6 overflow-hidden">
-              {visibleItems.map((item, index) => (
-                <Link
+              {visibleItems.map((item) => (
+                <NavLink
                   key={item.href}
                   href={item.href}
-                  data-nav-item="true"
-                  ref={(el) => { itemsRef.current[index] = el }}
-                  className={`text-sm transition-colors hover:text-primary whitespace-nowrap ${
-                    isActive(item.href) ? "text-foreground font-medium" : "text-muted-foreground"
-                  }`}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                >
-                  {item.label}
-                  {mounted && isActive(item.href) && (
-                    <motion.div
-                      className="h-0.5 bg-primary mt-0.5"
-                      layoutId="navbar-indicator"
-                      transition={{ type: "spring", duration: 0.6 }}
-                      aria-hidden="true"
-                    />
-                  )}
-                </Link>
+                  label={item.label}
+                  isActive={isActive(item.href)}
+                  showIndicator={mounted}
+                />
               ))}
             </div>
 

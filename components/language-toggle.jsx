@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, memo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -52,7 +52,7 @@ const buildSearchList = (list) =>
  * Language toggle component that allows switching between supported languages
  * @returns {JSX.Element|null} The language toggle dropdown or null if not mounted
  */
-export function LanguageToggle() {
+export const LanguageToggle = memo(function LanguageToggle() {
   const { t, i18n } = useTranslation()
   const mounted = useMounted()
   const { trackLanguage, checkAllLanguagesVisited } = useLanguageTracker()
@@ -344,4 +344,4 @@ export function LanguageToggle() {
       </DropdownMenuContent>
     </DropdownMenu>
   )
-}
+})

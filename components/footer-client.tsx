@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, memo } from "react"
 import { useTranslation } from "react-i18next"
 import { usePathname } from "next/navigation"
 import { Heart } from "lucide-react"
@@ -14,7 +14,7 @@ interface FooterClientProps {
 }
 
 /** Client-side interactive footer with translations and easter egg */
-export function FooterClient({ copyright, madeWith, andChaos }: FooterClientProps) {
+export const FooterClient = memo(function FooterClient({ copyright, madeWith, andChaos }: FooterClientProps) {
   const { t } = useTranslation()
   const pathname = usePathname()
   const { isDesktop } = usePlatform()
@@ -23,19 +23,19 @@ export function FooterClient({ copyright, madeWith, andChaos }: FooterClientProp
   const [tapCount, setTapCount] = useState(0)
   const isAboutPage = pathname === "/about"
 
-  const handleTap = useCallback(() => {
-    if (!isAboutPage || !mounted) return
-    setTapCount((prev) => {
-      if (prev + 1 >= 5) {
-        queueMicrotask(() => {
-          sessionStorage.setItem("showHiddenChapter", "true")
-          window.location.reload()
-        })
-        return 0
-      }
-      return prev + 1
-    })
-  }, [isAboutPage, mounted])
+  const handleTap = useCallback((e: React.MouseEvent) => {
+    // Don't trigger on link clicks
+    if ((e.target as HTMLElement).tagName === 'A') return
+    if (!isAboutPage) return
+
+    const newCount = tapCount + 1
+    if (newCount >= 5) {
+      sessionStorage.setItem("showHiddenChapter", "true")
+      window.location.reload()
+    } else {
+      setTapCount(newCount)
+    }
+  }, [isAboutPage, tapCount])
 
   const text = {
     copyright: mounted ? t("footer.copyright", copyright) : copyright,
@@ -45,16 +45,18 @@ export function FooterClient({ copyright, madeWith, andChaos }: FooterClientProp
 
   return (
     <>
-      <p
-        className={`text-center text-sm leading-loose text-muted-foreground md:text-left ${isAboutPage ? "cursor-pointer" : ""}`}
+      <div
+        className={`${isAboutPage ? "cursor-pointer select-none" : ""}`}
         onClick={handleTap}
       >
-        <span className="mr-1" aria-label="Copyleft">🄯</span> 2025{" "}
-        <a href="https://jarema.me/" className="h-card hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded" rel="me" onClick={(e) => e.stopPropagation()}>
-          Jarema
-        </a>{" "}
-        • {text.copyright}
-      </p>
+        <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+          <span className="mr-1" aria-label="Copyleft">🄯</span> 2025{" "}
+          <a href="https://jarema.me/" className="h-card hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded" rel="me">
+            Jarema
+          </a>{" "}
+          • {text.copyright}
+        </p>
+      </div>
       <div className="flex items-center gap-1">
         <span className="hidden xl:inline text-sm text-muted-foreground">•</span>
         <span className="text-sm text-muted-foreground">{text.madeWith}</span>
@@ -69,4 +71,4 @@ export function FooterClient({ copyright, madeWith, andChaos }: FooterClientProp
       )}
     </>
   )
-}
+})
