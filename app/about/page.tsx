@@ -124,11 +124,11 @@ export default function AboutPage() {
   )
 
   return (
-    <>
+    <div>
       {/* Structured Data for Google Rich Results */}
       {renderJsonLd([personSchema, profilePageSchema, breadcrumbSchema])}
 
       <AboutClientWrapper chapters={chapters} hCard={hCardContent} />
-    </>
+    </div>
   )
 }
