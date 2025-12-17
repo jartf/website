@@ -1,4 +1,5 @@
 # Disallow utility pages
+User-agent: *
 Disallow: /404
 Disallow: /slashes
 Disallow: /api
