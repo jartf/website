@@ -97,7 +97,7 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
           <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">About me</h1>
 
           {/* h-card from server */}
-          {hCard}
+          <div key="hcard-container">{hCard}</div>
 
           <div className="space-y-8">
             {staticVisibleChapters.map((chapter) => (
@@ -135,7 +135,7 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
   }
 
   return (
-    <>
+    <div>
       <DarkModeFirefly />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
@@ -193,12 +193,12 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
           </div>
 
           {/* h-card from server */}
-          {hCard}
+          <div key="hcard-container">{hCard}</div>
 
           <div className="space-y-8">
-            {visibleChapters.map((chapter, index) => (
+            {visibleChapters.map((chapter) => (
               <Chapter
-                key={chapter.number}
+                key={`chapter-${chapter.number}`}
                 ref={(el) => { chapterRefs.current[chapter.number - 1] = el }}
                 number={chapter.number}
                 titleKey={chapter.titleKey}
@@ -213,7 +213,7 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
