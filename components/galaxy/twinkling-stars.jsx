@@ -1,32 +1,28 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useRef, useState, useId, memo } from "react"
 import { useReducedMotion, useMounted } from "@/hooks"
 
 /**
- * @typedef {Object} TwinkleStarProps
- * @property {number} id - Unique identifier for the star
- * @property {number} left - Left position in pixels
- * @property {number} top - Top position in pixels
- * @property {number} size - Size of the star in pixels
+ * Individual twinkling star component using CSS animations
  */
-
-const TwinkleStar = ({ id, left, top, size }) => {
+const TwinkleStar = memo(function TwinkleStar({ id, left, top, size, styleId }) {
   return (
-    <motion.svg
+    <svg
       key={id}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: [0, 1, 0.5, 1, 0], scale: [0, 1, 0.8, 1, 0] }}
-      exit={{ opacity: 0, scale: 0 }}
-      transition={{ duration: 2.5, ease: "easeInOut" }}
-      style={{ position: "absolute", left: `${left}px`, top: `${top}px`, width: `${size}px`, height: `${size}px` }}
+      className="twinkle-star absolute"
+      style={{
+        left: `${left}px`,
+        top: `${top}px`,
+        width: `${size}px`,
+        height: `${size}px`,
+        animation: `twinkle-star-${styleId} 2.5s ease-in-out forwards`,
+      }}
       width="149"
       height="149"
       viewBox="0 0 149 149"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="twinkle-star"
     >
       <circle cx="74" cy="74" r="11" fill="white" />
       <rect
@@ -71,12 +67,12 @@ const TwinkleStar = ({ id, left, top, size }) => {
           <stop offset="1" stopColor="#1E1E1E" />
         </linearGradient>
       </defs>
-    </motion.svg>
+    </svg>
   )
-}
+})
 
 /**
- * TwinklingStars component - renders animated twinkling stars.
+ * TwinklingStars component - renders animated twinkling stars using CSS.
  * Visibility is controlled via CSS (parent #galaxy element),
  * so this component doesn't need to check theme state.
  */
@@ -85,15 +81,14 @@ export function TwinklingStars() {
   const mounted = useMounted()
   const nextIdRef = useRef(0)
   const prefersReducedMotion = useReducedMotion()
+  const baseId = useId()
+  const styleId = baseId.replace(/:/g, '')
 
   useEffect(() => {
     // Wait for mount to access window dimensions
-    if (!mounted) return
+    if (!mounted || prefersReducedMotion) return
 
     const generateStar = () => {
-      // Skip star generation if user prefers reduced motion
-      if (prefersReducedMotion) return
-
       const id = nextIdRef.current++
       const left = Math.floor(Math.random() * window.innerWidth)
       const top = Math.floor(Math.random() * (window.innerHeight / 3))
@@ -110,22 +105,31 @@ export function TwinklingStars() {
       }, 2500)
     }
 
-    // Don't set interval if user prefers reduced motion
-    if (prefersReducedMotion) return
-
     const interval = setInterval(generateStar, 5000)
     return () => clearInterval(interval)
   }, [mounted, prefersReducedMotion])
 
-  // Render immediately - CSS controls visibility based on theme
-  // This prevents the component from being completely absent during SSR
+  // Don't render anything if user prefers reduced motion
+  if (prefersReducedMotion) {
+    return <div className="fixed inset-0 pointer-events-none" />
+  }
+
   return (
-    <div className="fixed inset-0 pointer-events-none">
-      <AnimatePresence>
+    <>
+      <style>{`
+        @keyframes twinkle-star-${styleId} {
+          0% { opacity: 0; transform: scale(0); }
+          20% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(0.8); }
+          80% { opacity: 1; transform: scale(1); }
+          100% { opacity: 0; transform: scale(0); }
+        }
+      `}</style>
+      <div className="fixed inset-0 pointer-events-none">
         {stars.map((star) => (
-          <TwinkleStar key={star.id} {...star} />
+          <TwinkleStar key={star.id} {...star} styleId={styleId} />
         ))}
-      </AnimatePresence>
-    </div>
+      </div>
+    </>
   )
 }

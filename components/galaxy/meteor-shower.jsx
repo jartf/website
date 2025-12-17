@@ -1,19 +1,13 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useRef, useState, useId, memo } from "react"
 import { cn } from "@/lib/utils"
 import { useReducedMotion, useMounted } from "@/hooks"
 
 /**
- * @typedef {Object} MeteorProps
- * @property {number} id - Unique identifier for the meteor
- * @property {number} left - Left position in pixels
- * @property {number} top - Top position in pixels
- * @property {'ur'|'dr'|'dl'|'ul'} direction - Direction of the meteor (up-right, down-right, down-left, up-left)
+ * Individual meteor component using CSS animations
  */
-
-const Meteor = ({ id, left, top, direction }) => {
+const Meteor = memo(function Meteor({ id, left, top, direction, styleId }) {
   const directionClasses = {
     ur: "rotate-45",
     dr: "rotate-[135deg]",
@@ -22,22 +16,23 @@ const Meteor = ({ id, left, top, direction }) => {
   }
 
   return (
-    <motion.div
+    <div
       key={id}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: [0, 1, 0] }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 3.5, ease: "easeOut" }}
-      style={{ position: "absolute", left: `${left}px`, top: `${top}px` }}
+      style={{
+        position: "absolute",
+        left: `${left}px`,
+        top: `${top}px`,
+        animation: `meteor-fade-${styleId} 3.5s ease-out forwards`,
+      }}
       className={cn("meteor", directionClasses[direction])}
     >
       <div className="meteor-body"></div>
-    </motion.div>
+    </div>
   )
-}
+})
 
 /**
- * MeteorShower component - renders animated meteors.
+ * MeteorShower component - renders animated meteors using CSS.
  * Visibility is controlled via CSS (parent #galaxy element),
  * so this component doesn't need to check theme state.
  */
@@ -46,17 +41,16 @@ export function MeteorShower() {
   const mounted = useMounted()
   const nextIdRef = useRef(0)
   const prefersReducedMotion = useReducedMotion()
+  const baseId = useId()
+  const styleId = baseId.replace(/:/g, '')
 
   useEffect(() => {
     // Wait for mount to access window dimensions
-    if (!mounted) return
+    if (!mounted || prefersReducedMotion) return
 
     const directions = ["ur", "dr", "dl", "ul"]
 
     const generateMeteor = () => {
-      // Skip meteor generation if user prefers reduced motion
-      if (prefersReducedMotion) return
-
       const id = nextIdRef.current++
       const left = Math.round(Math.random() * window.innerWidth)
       const top = Math.round(Math.random() * window.innerHeight)
@@ -70,22 +64,30 @@ export function MeteorShower() {
       }, 3500)
     }
 
-    // Don't set interval if user prefers reduced motion
-    if (prefersReducedMotion) return
-
     const interval = setInterval(generateMeteor, 1500)
     return () => clearInterval(interval)
   }, [mounted, prefersReducedMotion])
 
-  // Render immediately - CSS controls visibility based on theme
-  // This prevents the component from being completely absent during SSR
+  // Don't render anything if user prefers reduced motion
+  if (prefersReducedMotion) {
+    return <div className="fixed inset-0 pointer-events-none" />
+  }
+
   return (
-    <div className="fixed inset-0 pointer-events-none">
-      <AnimatePresence>
+    <>
+      <style>{`
+        @keyframes meteor-fade-${styleId} {
+          0% { opacity: 0; }
+          15% { opacity: 1; }
+          85% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+      `}</style>
+      <div className="fixed inset-0 pointer-events-none">
         {meteors.map((meteor) => (
-          <Meteor key={meteor.id} {...meteor} />
+          <Meteor key={meteor.id} {...meteor} styleId={styleId} />
         ))}
-      </AnimatePresence>
-    </div>
+      </div>
+    </>
   )
 }
