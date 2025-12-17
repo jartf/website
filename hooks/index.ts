@@ -1,88 +1,123 @@
 "use client"
 
-import { useState, useEffect, useMemo, useCallback, useRef } from "react"
+import { useState, useEffect, useMemo, useCallback, useRef, useSyncExternalStore } from "react"
 import { useTranslation } from "react-i18next"
 import { useRouter, usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { SUPPORTED_LANGUAGES, THEMES, KEYBOARD_SHORTCUTS, ROUTES } from "@/lib/constants"
 
 // ============================================================================
-// useMounted - Hydration-safe mounting detection
+// useMounted - Hydration-safe mounting detection using useSyncExternalStore
 // ============================================================================
+const mountedSubscribe = () => () => {}
+const getMountedSnapshot = () => true
+const getMountedServerSnapshot = () => false
+
 export function useMounted() {
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => {
-    queueMicrotask(() => setMounted(true))
-  }, [])
-  return mounted
+  return useSyncExternalStore(mountedSubscribe, getMountedSnapshot, getMountedServerSnapshot)
 }
 
 // ============================================================================
-// useReducedMotion - Respects user's motion preferences
+// useReducedMotion - Respects user's motion preferences (optimized)
 // ============================================================================
+const getReducedMotionSnapshot = () => {
+  if (typeof window === "undefined" || !window.matchMedia) return false
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+}
+
+const subscribeReducedMotion = (callback: () => void) => {
+  if (typeof window === "undefined" || !window.matchMedia) return () => {}
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+  mq.addEventListener("change", callback)
+  return () => mq.removeEventListener("change", callback)
+}
+
 export function useReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return false
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  })
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
-    mq.addEventListener("change", handler)
-    return () => mq.removeEventListener("change", handler)
-  }, [])
-
-  return prefersReducedMotion
+  return useSyncExternalStore(subscribeReducedMotion, getReducedMotionSnapshot, () => false)
 }
 
 // ============================================================================
-// useViewport - Responsive breakpoints with debounced resize + platform detection
+// useViewport - Responsive breakpoints with debounced resize + platform detection (optimized)
 // ============================================================================
+type ViewportState = {
+  windowWidth: number
+  isMobile: boolean
+  isTablet: boolean
+  isDesktop: boolean
+  isTouch: boolean
+  isMac: boolean
+  isWindows: boolean
+  isLinux: boolean
+}
+
+// Singleton state for viewport - prevents multiple subscriptions
+let viewportState: ViewportState | null = null
+let viewportListeners = new Set<() => void>()
+let resizeTimeout: NodeJS.Timeout | null = null
+
+const getViewportState = (): ViewportState => {
+  if (typeof window === "undefined") {
+    return { isMobile: false, isTablet: false, isDesktop: false, windowWidth: 0, isTouch: false, isMac: false, isWindows: false, isLinux: false }
+  }
+  if (viewportState) return viewportState
+
+  const width = window.innerWidth
+  const p = navigator.platform.toLowerCase()
+  viewportState = {
+    windowWidth: width,
+    isMobile: width < 768,
+    isTablet: width >= 768 && width < 1280,
+    isDesktop: width >= 1280,
+    isTouch: "ontouchstart" in window || navigator.maxTouchPoints > 0,
+    isMac: p.includes("mac"),
+    isWindows: p.includes("win"),
+    isLinux: p.includes("linux") || p.includes("x11"),
+  }
+  return viewportState
+}
+
+const updateViewportState = () => {
+  if (typeof window === "undefined") return
+  const width = window.innerWidth
+  viewportState = {
+    ...viewportState!,
+    windowWidth: width,
+    isMobile: width < 768,
+    isTablet: width >= 768 && width < 1280,
+    isDesktop: width >= 1280,
+  }
+  viewportListeners.forEach(listener => listener())
+}
+
+const subscribeViewport = (callback: () => void) => {
+  viewportListeners.add(callback)
+
+  // Set up resize listener once
+  if (viewportListeners.size === 1 && typeof window !== "undefined") {
+    const handleResize = () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(updateViewportState, 150)
+    }
+    window.addEventListener("resize", handleResize, { passive: true })
+  }
+
+  return () => {
+    viewportListeners.delete(callback)
+    if (viewportListeners.size === 0 && resizeTimeout) {
+      clearTimeout(resizeTimeout)
+      resizeTimeout = null
+    }
+  }
+}
+
+// Cached server snapshot to avoid infinite loop
+const SERVER_VIEWPORT_STATE: ViewportState = {
+  isMobile: false, isTablet: false, isDesktop: false, windowWidth: 0,
+  isTouch: false, isMac: false, isWindows: false, isLinux: false
+}
+
 export function useViewport() {
-  const [viewport, setViewport] = useState(() => {
-    if (typeof window === "undefined") {
-      return { isMobile: false, isTablet: false, isDesktop: false, windowWidth: 0, isTouch: false, isMac: false, isWindows: false, isLinux: false }
-    }
-    const width = window.innerWidth
-    const p = navigator.platform.toLowerCase()
-    return {
-      windowWidth: width,
-      isMobile: width < 768,
-      isTablet: width >= 768 && width < 1280,
-      isDesktop: width >= 1280,
-      isTouch: "ontouchstart" in window || navigator.maxTouchPoints > 0,
-      isMac: p.includes("mac"),
-      isWindows: p.includes("win"),
-      isLinux: p.includes("linux") || p.includes("x11"),
-    }
-  })
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout
-    const checkViewport = () => {
-      const width = window.innerWidth
-      setViewport(prev => ({
-        ...prev,
-        windowWidth: width,
-        isMobile: width < 768,
-        isTablet: width >= 768 && width < 1280,
-        isDesktop: width >= 1280,
-      }))
-    }
-    const debouncedCheck = () => {
-      clearTimeout(timeout)
-      timeout = setTimeout(checkViewport, 150)
-    }
-    window.addEventListener("resize", debouncedCheck)
-    return () => {
-      clearTimeout(timeout)
-      window.removeEventListener("resize", debouncedCheck)
-    }
-  }, [])
-
-  return viewport
+  return useSyncExternalStore(subscribeViewport, getViewportState, () => SERVER_VIEWPORT_STATE)
 }
 
 /** @deprecated Use useViewport instead - kept for backwards compatibility */
@@ -132,11 +167,22 @@ export function useLanguageTracker() {
 
   const [allLanguagesVisited, setAllLanguagesVisited] = useState(false)
 
+  // Persist visited languages to localStorage
   useEffect(() => {
     if (visitedLanguages.size > 0 && typeof window !== "undefined") {
       localStorage.setItem(LANGUAGE_TRACKER_KEY, JSON.stringify([...visitedLanguages]))
     }
   }, [visitedLanguages])
+
+  // Check if all languages visited whenever visitedLanguages changes
+  useEffect(() => {
+    if (visitedLanguages.size >= SUPPORTED_LANGUAGES.length) {
+      const allVisited = SUPPORTED_LANGUAGES.every(lang => visitedLanguages.has(lang))
+      if (allVisited && !allLanguagesVisited) {
+        queueMicrotask(() => setAllLanguagesVisited(true))
+      }
+    }
+  }, [visitedLanguages, allLanguagesVisited])
 
   const trackLanguage = useCallback((code: string) => {
     if (!code) return
@@ -145,9 +191,8 @@ export function useLanguageTracker() {
 
   const checkAllLanguagesVisited = useCallback(() => {
     const allVisited = SUPPORTED_LANGUAGES.every(lang => visitedLanguages.has(lang))
-    if (allVisited && !allLanguagesVisited) setAllLanguagesVisited(true)
     return allVisited
-  }, [visitedLanguages, allLanguagesVisited])
+  }, [visitedLanguages])
 
   const resetLanguageTracker = useCallback(() => {
     setVisitedLanguages(new Set())
