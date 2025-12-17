@@ -10,7 +10,6 @@ import { MarkdownRenderer } from "@/components/markdown-renderer"
 import { BlogPostNavigation } from "./BlogPostNavigation"
 import { RelatedPosts } from "@/components/blog/related-posts"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
-import { LANGUAGE_NAMES } from "@/lib/constants"
 import { generateBlogPostSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import {
   BlogReadingProgress,
