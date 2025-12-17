@@ -225,15 +225,19 @@ export function renderJsonLd(data: object | object[]): React.JSX.Element {
 
   return (
     <>
-      {schemaArray.map((schema: object, index: number) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schema, null, 0), // Minified for production
-          }}
-        />
-      ))}
+      {schemaArray.map((schema: object, index: number) => {
+        const jsonString = JSON.stringify(schema, null, 0)
+
+        return (
+          <script
+            key={index}
+            type="application/ld+json"
+            suppressHydrationWarning
+          >
+            {jsonString}
+          </script>
+        )
+      })}
     </>
   )
 }
