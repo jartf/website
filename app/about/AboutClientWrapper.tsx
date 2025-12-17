@@ -1,10 +1,9 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import React, { useEffect, useRef, useState, memo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { useMounted } from "@/hooks"
+import { useMounted, useReducedMotion } from "@/hooks"
 import { DarkModeFirefly } from "@/components/firefly"
 
 type ChapterData = {
@@ -198,19 +197,18 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
 
           <div className="space-y-8">
             {visibleChapters.map((chapter, index) => (
-              <AnimatePresence key={chapter.number}>
-                <Chapter
-                  ref={(el) => { chapterRefs.current[chapter.number - 1] = el }}
-                  number={chapter.number}
-                  titleKey={chapter.titleKey}
-                  staticTitle={chapter.staticTitle}
-                  contentKeys={chapter.contentKeys}
-                  staticContent={chapter.staticContent}
-                  hasQuote={chapter.hasQuote}
-                  staticQuote={chapter.staticQuote}
-                  isActive={activeChapter === chapter.number}
-                />
-              </AnimatePresence>
+              <Chapter
+                key={chapter.number}
+                ref={(el) => { chapterRefs.current[chapter.number - 1] = el }}
+                number={chapter.number}
+                titleKey={chapter.titleKey}
+                staticTitle={chapter.staticTitle}
+                contentKeys={chapter.contentKeys}
+                staticContent={chapter.staticContent}
+                hasQuote={chapter.hasQuote}
+                staticQuote={chapter.staticQuote}
+                isActive={activeChapter === chapter.number}
+              />
             ))}
           </div>
         </div>
@@ -219,7 +217,7 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
   )
 }
 
-const Chapter = React.forwardRef<
+const Chapter = memo(React.forwardRef<
   HTMLDivElement,
   {
     number: number
@@ -234,17 +232,39 @@ const Chapter = React.forwardRef<
 >(({ number, titleKey, staticTitle, contentKeys, staticContent, hasQuote, staticQuote, isActive }, ref) => {
   const { t } = useTranslation()
   const chapterRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(chapterRef, { once: true, amount: 0.3 })
+  const [isVisible, setIsVisible] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
+
+  // Use IntersectionObserver for visibility detection
+  useEffect(() => {
+    const element = chapterRef.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [])
 
   const title = staticTitle ? t(titleKey, { defaultValue: staticTitle }) : t(titleKey)
 
   return (
     <div ref={ref as React.RefObject<HTMLDivElement>} className="py-2" id={`chapter-${number}`}>
-      <motion.div
+      <div
         ref={chapterRef}
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
+        className={`${prefersReducedMotion ? '' : 'transition-all duration-500'}`}
+        style={{
+          opacity: isVisible || prefersReducedMotion ? 1 : 0,
+          transform: isVisible || prefersReducedMotion ? 'translateY(0)' : 'translateY(50px)',
+        }}
       >
         <div className="flex items-center mb-3">
           <div className="bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">
@@ -280,9 +300,9 @@ const Chapter = React.forwardRef<
             )
           })}
         </div>
-      </motion.div>
+      </div>
     </div>
   )
-})
+}))
 
 Chapter.displayName = "Chapter"

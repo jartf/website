@@ -1,12 +1,11 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, memo } from "react"
 import { useTranslation } from "react-i18next"
-import { motion } from "framer-motion"
 import { DarkModeFirefly } from "@/components/firefly"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useMounted, useCurrentLanguage } from "@/hooks"
+import { useMounted, useCurrentLanguage, useReducedMotion } from "@/hooks"
 import {
   BookOpen,
   Code,
@@ -89,7 +88,7 @@ function ProgressBar({
  * The client-side wrapper component for the "Now" page.
  * Handles live API polling, animations, and keyboard navigation.
  */
-export default function NowClientWrapper({
+export default memo(function NowClientWrapper({
   items,
   groupedItems,
   categories,
@@ -97,6 +96,7 @@ export default function NowClientWrapper({
   const { t } = useTranslation()
   const mounted = useMounted()
   const currentLang = useCurrentLanguage()
+  const prefersReducedMotion = useReducedMotion()
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const [lastfmTrack, setLastfmTrack] = useState<{
     name: string
@@ -361,21 +361,6 @@ export default function NowClientWrapper({
     )
   }
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariant = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  }
-
   // Compute latest last updated date, excluding "listening" if Lastfm is active
   const getLastUpdatedDate = () => {
     let filteredItems = items
@@ -423,24 +408,21 @@ export default function NowClientWrapper({
             </p>
           </div>
 
-          <motion.div
-            className="space-y-8"
-            variants={container}
-            initial="hidden"
-            animate="show"
-          >
-            {categories.map((category) => {
+          <div className="space-y-8">
+            {categories.map((category, categoryIndex) => {
               const Icon = iconMap[category.iconName]
               return (
-                <motion.div
+                <div
                   key={category.name}
-                  variants={itemVariant}
                   className="space-y-4"
                   ref={(el) => {
                     categoryRefs.current[category.name] = el
                   }}
                   id={`category-${category.name}`}
                   tabIndex={0}
+                  style={{
+                    animation: prefersReducedMotion ? "none" : `fadeInUp 0.5s ease-out ${categoryIndex * 0.1}s both`,
+                  }}
                 >
                   <div className="flex items-center gap-3">
                     {Icon && (
@@ -656,12 +638,12 @@ export default function NowClientWrapper({
                       )}
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               )
             })}
-          </motion.div>
+          </div>
         </div>
       </div>
     </main>
   )
-}
+})

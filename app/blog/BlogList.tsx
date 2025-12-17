@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useMemo } from "react"
+import { useState, useEffect, useRef, useMemo, useCallback, memo } from "react"
 import Link from "next/link"
 import { formatDate } from "@/lib/utils"
 import { useCurrentLanguage, useMounted } from "@/hooks"
@@ -47,6 +47,109 @@ type BlogListProps = {
 }
 
 type SortOption = "newest" | "oldest" | "readingTime" | "alphabetical"
+
+// Memoized blog post card to prevent re-renders when list changes
+const BlogPostCard = memo(function BlogPostCard({
+  post,
+  index,
+  isFocused,
+  currentLang,
+  getLanguageName,
+  t,
+}: {
+  post: BlogPostMetadata
+  index: number
+  isFocused: boolean
+  currentLang: string
+  getLanguageName: (code: string) => string
+  t: ReturnType<typeof useTranslation>['t']
+}) {
+  return (
+    <div
+      className={`relative transition-all duration-300 h-entry ${
+        isFocused ? "ring-2 ring-primary ring-offset-2 scale-[1.02] shadow-lg" : ""
+      } ${styles.visible}`}
+    >
+      {/* Post number indicator for keyboard navigation */}
+      {index < 9 && (
+        <div className="absolute -left-8 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs">
+          {index + 1}
+        </div>
+      )}
+
+      <Link href={`/blog/${post.slug}`} className="block group u-url" passHref>
+        <Card
+          className={`transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50 ${styles.visibleOpacity}`}
+        >
+          {/* Hover effect background */}
+          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+          {/* Card content */}
+          <CardContent className="p-6 relative z-10">
+            <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors p-name">
+              {post.title}
+            </h2>
+            <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
+              <div className="flex items-center">
+                <Calendar className="mr-1 h-4 w-4" />
+                <span><time className="dt-published" dateTime={post.date}>{formatDate(post.date, currentLang)}</time></span>
+              </div>
+              <div className="flex items-center">
+                <Clock className="mr-1 h-4 w-4" />
+                <span>
+                  {post.readingTime} {t("blog.minRead", "min read")}
+                </span>
+              </div>
+              <Badge variant="outline" className="group-hover:bg-muted/80 transition-colors">
+                {t("blog.mood", "Mood")}: {post.mood}
+              </Badge>
+              {post.language && (
+                <Badge
+                  variant="outline"
+                  className="flex items-center gap-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100"
+                >
+                  <Globe className="h-3 w-3 mr-1" />
+                  {getLanguageName(post.language)}
+                </Badge>
+              )}
+              {post.catApproved && (
+                <div className="flex items-center text-amber-600 dark:text-amber-400">
+                  <Cat className="h-4 w-4 mr-1" />
+                  <span>{t("blog.cat", "Cat Approved")}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Category and Tags */}
+            <div className="flex flex-wrap gap-2 mb-3">
+              {post.category && (
+                <Badge
+                  variant="secondary"
+                  className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
+                >
+                  {post.category}
+                </Badge>
+              )}
+              {post.tags &&
+                post.tags.map((tag) => (
+                  <Badge key={tag} variant="outline" className="flex items-center gap-1 text-xs">
+                    <Tag className="h-3 w-3 mr-1" />
+                    {tag}
+                  </Badge>
+                ))}
+            </div>
+
+            <p className="text-muted-foreground p-summary">{post.excerpt}</p>
+          </CardContent>
+        </Card>
+      </Link>
+      {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
+      <div className="p-author h-card" style={{ display: 'none' }}>
+        <span className="p-name" data-url="https://jarema.me">Jarema</span>
+      </div>
+    </div>
+  )
+})
 
 export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const { t } = useTranslation()
@@ -241,35 +344,42 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     }
   }, [focusedPostIndex, filteredPosts])
 
-  // Handle filter toggles
-  const toggleMoodFilter = (mood: string) => {
+  // Handle filter toggles with useCallback for stable references
+  const toggleMoodFilter = useCallback((mood: string) => {
     setFilterMoods((prev) => (prev.includes(mood) ? prev.filter((m) => m !== mood) : [...prev, mood]))
     setFocusedPostIndex(-1)
-  }
+  }, [])
 
-  const toggleTagFilter = (tag: string) => {
+  const toggleTagFilter = useCallback((tag: string) => {
     setFilterTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
     setFocusedPostIndex(-1)
-  }
+  }, [])
 
-  const toggleCategoryFilter = (category: string) => {
+  const toggleCategoryFilter = useCallback((category: string) => {
     setFilterCategories((prev) => (prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]))
     setFocusedPostIndex(-1)
-  }
+  }, [])
 
-  const toggleLanguageFilter = (language: string) => {
+  const toggleLanguageFilter = useCallback((language: string) => {
     // If this is the first modification, start with current filter languages
-    if (!userModifiedLanguageFilter) {
-      setManualFilterLanguages((filterLanguages.includes(language) ? filterLanguages.filter((l) => l !== language) : [...filterLanguages, language]))
-    } else {
-      setManualFilterLanguages((prev) => (prev.includes(language) ? prev.filter((l) => l !== language) : [...prev, language]))
-    }
-    setUserModifiedLanguageFilter(true)
+    setUserModifiedLanguageFilter((wasModified) => {
+      if (!wasModified) {
+        setManualFilterLanguages((prev) => {
+          const currentFilters = prev.length > 0 ? prev : defaultLanguageFilter
+          return currentFilters.includes(language)
+            ? currentFilters.filter((l) => l !== language)
+            : [...currentFilters, language]
+        })
+      } else {
+        setManualFilterLanguages((prev) => (prev.includes(language) ? prev.filter((l) => l !== language) : [...prev, language]))
+      }
+      return true
+    })
     setFocusedPostIndex(-1)
-  }
+  }, [defaultLanguageFilter])
 
-  // Reset all filters
-  const resetFilters = () => {
+  // Reset all filters with useCallback
+  const resetFilters = useCallback(() => {
     setSearchQuery("")
     setSortOption("newest")
     setFilterMoods([])
@@ -282,7 +392,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
     if (searchInputRef.current) {
       searchInputRef.current.value = ""
     }
-  }
+  }, [])
 
   // Get current language for RSS feed
   const currentLanguage = currentLang
@@ -290,10 +400,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   const rssLanguage = isValidLanguage ? currentLanguage : "en"
 
   // Map language codes to display names with i18n + safe fallback to endonyms
-  const getLanguageName = (code: string): string => {
+  const getLanguageName = useCallback((code: string): string => {
     if (!mounted) return LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code
     return t(`language.${code}`, LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code).toString()
-  }
+  }, [mounted, t])
 
   // Helper to format date consistently
   const formatPostDate = (dateStr: string) => {
@@ -810,87 +920,15 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               <div
                 key={post.slug}
                 ref={el => { postRefs.current[index] = el }}
-                className={`relative transition-all duration-300 h-entry ${
-                  focusedPostIndex === index ? "ring-2 ring-primary ring-offset-2 scale-[1.02] shadow-lg" : ""
-                } ${styles.visible}`}
               >
-                {/* Post number indicator for keyboard navigation */}
-                {index < 9 && (
-                  <div className="absolute -left-8 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs">
-                    {index + 1}
-                  </div>
-                )}
-
-                <Link href={`/blog/${post.slug}`} className="block group u-url" passHref>
-                  <Card
-                    className={`transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50 ${styles.visibleOpacity}`}
-                  >
-                    {/* Hover effect background */}
-                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                    {/* Card content */}
-                    <CardContent className="p-6 relative z-10">
-                      <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors p-name">
-                        {post.title}
-                      </h2>
-                      <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
-                        <div className="flex items-center">
-                          <Calendar className="mr-1 h-4 w-4" />
-                          <span><time className="dt-published" dateTime={post.date}>{formatDate(post.date, currentLang)}</time></span>
-                        </div>
-                        <div className="flex items-center">
-                          <Clock className="mr-1 h-4 w-4" />
-                          <span>
-                            {post.readingTime} {t("blog.minRead", "min read")}
-                          </span>
-                        </div>
-                        <Badge variant="outline" className="group-hover:bg-muted/80 transition-colors">
-                          {t("blog.mood", "Mood")}: {post.mood}
-                        </Badge>
-                        {post.language && (
-                          <Badge
-                            variant="outline"
-                            className="flex items-center gap-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100"
-                          >
-                            <Globe className="h-3 w-3 mr-1" />
-                            {getLanguageName(post.language)}
-                          </Badge>
-                        )}
-                        {post.catApproved && (
-                          <div className="flex items-center text-amber-600 dark:text-amber-400">
-                            <Cat className="h-4 w-4 mr-1" />
-                            <span>{t("blog.cat", "Cat Approved")}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Category and Tags */}
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {post.category && (
-                          <Badge
-                            variant="secondary"
-                            className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
-                          >
-                            {post.category}
-                          </Badge>
-                        )}
-                        {post.tags &&
-                          post.tags.map((tag) => (
-                            <Badge key={tag} variant="outline" className="flex items-center gap-1 text-xs">
-                              <Tag className="h-3 w-3 mr-1" />
-                              {tag}
-                            </Badge>
-                          ))}
-                      </div>
-
-                      <p className="text-muted-foreground p-summary">{post.excerpt}</p>
-                    </CardContent>
-                  </Card>
-                </Link>
-                {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
-                <div className="p-author h-card" style={{ display: 'none' }}>
-                  <span className="p-name" data-url="https://jarema.me">Jarema</span>
-                </div>
+                <BlogPostCard
+                  post={post}
+                  index={index}
+                  isFocused={focusedPostIndex === index}
+                  currentLang={currentLang}
+                  getLanguageName={getLanguageName}
+                  t={t}
+                />
               </div>
             ))}
           </div>

@@ -1,11 +1,45 @@
 "use client"
 
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, memo } from "react"
 import { useTranslation } from "react-i18next"
-import { motion } from "framer-motion"
 import { useMounted, useReducedMotion } from "@/hooks"
 import { nowItems } from "@/content/now-items"
 import { LucideHeadphones, Activity } from "lucide-react"
+
+// Memoized activity card component to prevent re-renders
+const ActivityCard = memo(function ActivityCard({ activity }) {
+  return (
+    <div className="flex items-center gap-3">
+      {activity.assets?.large_image && (
+        <div className="relative w-12 h-12 flex-shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={activity.assets.large_image}
+            alt={activity.assets.large_text || activity.name}
+            className="w-12 h-12 rounded-lg"
+            title={activity.assets.large_text}
+            loading="lazy"
+          />
+          {activity.assets?.small_image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={activity.assets.small_image}
+              alt={activity.assets.small_text || ""}
+              className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background"
+              title={activity.assets.small_text}
+              loading="lazy"
+            />
+          )}
+        </div>
+      )}
+      <div className="flex-1 min-w-0">
+        <span className="font-semibold break-words">{activity.name}</span>
+        {activity.details && <p className="text-sm break-words">{activity.details}</p>}
+        {activity.state && <p className="text-sm text-muted-foreground break-words">{activity.state}</p>}
+      </div>
+    </div>
+  )
+})
 
 /**
  * Client component for the "What I'm up to now" section that requires API fetching
@@ -20,18 +54,23 @@ export function NowSection() {
   const [premidError, setPremidError] = useState(false)
   const mounted = useMounted()
 
-  // Fetch Last.fm recent track
+  // Fetch Last.fm recent track with AbortController for cleanup
   useEffect(() => {
+    if (!mounted) return
+
     let ignore = false
+    const controller = new AbortController()
+
     const fetchLastfm = async () => {
       try {
-        const res = await fetch("/api/lastfm")
+        const res = await fetch("/api/lastfm", { signal: controller.signal })
         if (!res.ok) throw new Error("Failed to fetch Last.fm")
         const xml = await res.text()
         const parser = new window.DOMParser()
         const doc = parser.parseFromString(xml, "application/xml")
         const tracks = doc.getElementsByTagName("track")
         if (!tracks.length) return
+
         let track = null
         let nowplaying = false
         for (let i = 0; i < tracks.length; i++) {
@@ -43,11 +82,13 @@ export function NowSection() {
         }
         if (!track) track = tracks[0]
         if (!track) return
+
         const name = track.getElementsByTagName("name")[0]?.textContent || ""
         const artist = track.getElementsByTagName("artist")[0]?.textContent || ""
         const url = track.getElementsByTagName("url")[0]?.textContent || ""
         let date = undefined
         let dateObj = undefined
+
         if (!nowplaying) {
           const dateElem = track.getElementsByTagName("date")[0]
           if (dateElem) {
@@ -55,39 +96,44 @@ export function NowSection() {
             if (uts) {
               dateObj = new Date(Number(uts) * 1000)
               date = dateObj.toLocaleString(undefined, {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                timeZoneName: "short"
+                year: "numeric", month: "long", day: "numeric",
+                hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short"
               })
             }
           }
         } else {
           dateObj = new Date()
         }
+
         if (!ignore) {
           setLastfmTrack({ name, artist, url, nowplaying, date, dateObj })
           setLastfmError(false)
         }
       } catch (e) {
-        if (!ignore) setLastfmError(true)
+        if (!ignore && e.name !== 'AbortError') setLastfmError(true)
       }
     }
-    fetchLastfm()
-    return () => { ignore = true }
-  }, [])
 
-  // Fetch PreMID activity
+    fetchLastfm()
+    return () => {
+      ignore = true
+      controller.abort()
+    }
+  }, [mounted])
+
+  // Fetch PreMID activity with AbortController for cleanup
   useEffect(() => {
+    if (!mounted) return
+
     let ignore = false
+    const controller = new AbortController()
+
     const fetchPremid = async () => {
       try {
-        const res = await fetch("/api/premid")
+        const res = await fetch("/api/premid", { signal: controller.signal })
         if (!res.ok) throw new Error("Failed to fetch PreMID")
         const data = await res.json()
+
         if (!ignore) {
           if (data.activities && data.activities.length > 0) {
             setPremidActivities(data.activities.map((a) => a.activity))
@@ -97,15 +143,21 @@ export function NowSection() {
           }
         }
       } catch (e) {
-        if (!ignore) setPremidError(true)
+        if (!ignore && e.name !== 'AbortError') setPremidError(true)
       }
     }
+
     fetchPremid()
-    return () => { ignore = true }
-  }, [])
+    return () => {
+      ignore = true
+      controller.abort()
+    }
+  }, [mounted])
 
   // Compute latest now entry (compare with Last.fm and PreMID)
   useEffect(() => {
+    if (!mounted) return
+
     const currentLang = i18n.language?.split("-")[0] || "en"
     let filteredNow = nowItems.filter(item =>
       (item.content && (item.content[currentLang] || item.content.en))
@@ -116,6 +168,7 @@ export function NowSection() {
     if (premidActivities.length > 0 && !premidError) {
       filteredNow = filteredNow.filter(item => item.category !== "premid")
     }
+
     let latest = null
     for (const item of filteredNow) {
       if (!latest || new Date(item.date) > new Date(latest.date)) {
@@ -172,7 +225,7 @@ export function NowSection() {
         content: latest.content[currentLang] || latest.content.en
       })
     }
-  }, [i18n.language, lastfmTrack, lastfmError, premidActivities, premidError])
+  }, [mounted, i18n.language, lastfmTrack, lastfmError, premidActivities, premidError])
 
   if (!mounted || !latestNow) {
     return null
@@ -215,37 +268,7 @@ export function NowSection() {
               </div>
               <div className="space-y-3">
                 {latestNow.premid.map((activity, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
-                    {activity.assets?.large_image && (
-                      <div className="relative w-12 h-12 flex-shrink-0">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={activity.assets.large_image}
-                          alt={activity.assets.large_text || activity.name}
-                          className="w-12 h-12 rounded-lg"
-                          title={activity.assets.large_text}
-                        />
-                        {activity.assets?.small_image && (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={activity.assets.small_image}
-                            alt={activity.assets.small_text || ""}
-                            className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background"
-                            title={activity.assets.small_text}
-                          />
-                        )}
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <span className="font-semibold break-words">{activity.name}</span>
-                      {activity.details && (
-                        <p className="text-sm break-words">{activity.details}</p>
-                      )}
-                      {activity.state && (
-                        <p className="text-sm text-muted-foreground break-words">{activity.state}</p>
-                      )}
-                    </div>
-                  </div>
+                  <ActivityCard key={idx} activity={activity} />
                 ))}
               </div>
             </div>
@@ -284,57 +307,20 @@ export function NowSection() {
             </div>
             <div className="space-y-3">
               {latestNow.activities.map((activity, idx) => (
-                <div key={idx} className="flex items-center gap-3">
-                  {activity.assets?.large_image && (
-                    <div className="relative w-12 h-12 flex-shrink-0">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={activity.assets.large_image}
-                        alt={activity.assets.large_text || activity.name}
-                        className="w-12 h-12 rounded-lg"
-                        title={activity.assets.large_text}
-                      />
-                      {activity.assets?.small_image && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={activity.assets.small_image}
-                          alt={activity.assets.small_text || ""}
-                          className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background"
-                          title={activity.assets.small_text}
-                        />
-                      )}
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <span className="font-semibold break-words">{activity.name}</span>
-                    {activity.details && (
-                      <p className="text-sm break-words">{activity.details}</p>
-                    )}
-                    {activity.state && (
-                      <p className="text-sm text-muted-foreground break-words">{activity.state}</p>
-                    )}
-                  </div>
-                </div>
+                <ActivityCard key={idx} activity={activity} />
               ))}
             </div>
           </div>
         ) : (
           <div>
             <div className="flex items-center gap-2 font-semibold mb-1">
-              {latestNow.icon ? (
-                <latestNow.icon className="w-5 h-5 text-primary" />
-              ) : null}
+              {latestNow.icon && <latestNow.icon className="w-5 h-5 text-primary" />}
               {latestNow.title}
             </div>
             <div className="mb-1">{latestNow.content}</div>
             <div className="text-xs text-muted-foreground">{new Date(latestNow.date).toLocaleString(i18n.language || "en", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit",
-              timeZoneName: "short"
+              year: "numeric", month: "long", day: "numeric",
+              hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short"
             })}</div>
           </div>
         )}
@@ -346,7 +332,7 @@ export function NowSection() {
 /**
  * Client component for greeting that depends on time of day
  */
-export function Greeting() {
+export const Greeting = memo(function Greeting() {
   const { t } = useTranslation()
   const mounted = useMounted()
 
@@ -367,12 +353,12 @@ export function Greeting() {
   }, [t, mounted])
 
   return <p className="text-lg md:text-xl text-muted-foreground mb-4">{greeting}</p>
-}
+})
 
 /**
- * Client component for animated hero section elements
+ * Client component for animated hero section elements - uses CSS animations instead of framer-motion
  */
-export function AnimatedHeroContent({ children, delay = 0 }) {
+export const AnimatedHeroContent = memo(function AnimatedHeroContent({ children, delay = 0 }) {
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
 
@@ -381,20 +367,22 @@ export function AnimatedHeroContent({ children, delay = 0 }) {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
+    <div
+      className="animate-fade-in-up"
+      style={{
+        animationDelay: `${delay}s`,
+        animationFillMode: "both",
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   )
-}
+})
 
 /**
  * Client component for translated text with hydration safety
  */
-export function TranslatedText({ i18nKey, fallback }) {
+export const TranslatedText = memo(function TranslatedText({ i18nKey, fallback }) {
   const { t } = useTranslation()
   const mounted = useMounted()
 
@@ -403,7 +391,7 @@ export function TranslatedText({ i18nKey, fallback }) {
   }
 
   return <>{t(i18nKey, fallback)}</>
-}
+})
 
 /**
  * Loading spinner for translation loading state

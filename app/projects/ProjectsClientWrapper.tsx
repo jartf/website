@@ -1,14 +1,13 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, memo } from "react"
 import { useTranslation } from "react-i18next"
-import { motion, AnimatePresence } from "framer-motion"
 import { DarkModeFirefly } from "@/components/firefly"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
 import type { Project } from "@/content/project-items"
-import { useCurrentLanguage, useMounted } from "@/hooks"
+import { useCurrentLanguage, useMounted, useReducedMotion } from "@/hooks"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"
 
 interface ProjectsClientWrapperProps {
@@ -21,6 +20,7 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
   const [flippedCard, setFlippedCard] = useState<number | null>(null)
   const [focusedCardIndex, setFocusedCardIndex] = useState<number | null>(null)
   const mounted = useMounted()
+  const prefersReducedMotion = useReducedMotion()
   const [lastFocusedCardIndex, setLastFocusedCardIndex] = useState<number | null>(null)
   const [announcement, setAnnouncement] = useState("")
   const currentLang = useCurrentLanguage()
@@ -354,19 +354,6 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
     }
   }
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  }
-
   return (
     <main className="relative min-h-screen w-full overflow-hidden" ref={mainContentRef} tabIndex={-1}>
       <div className="sr-only" aria-live="polite" aria-atomic="true">
@@ -382,12 +369,7 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
             {t("projects.description")}
           </p>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
-            variants={container}
-            initial="hidden"
-            animate="show"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {visibleProjects.map((project, index) => {
               let content
               if (currentLang === "vih" || currentLang === "vi") {
@@ -396,14 +378,15 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
                 content = project.content[currentLang as keyof typeof project.content] || project.content.en
               }
               return (
-                <motion.div
+                <div
                   key={project.id}
-                  className="relative h-[350px] perspective-1000"
-                  variants={item}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  whileHover={{ scale: 1.03 }}
+                  className={`relative h-[350px] perspective-1000 ${prefersReducedMotion ? '' : 'transition-transform duration-300 hover:scale-[1.03]'}`}
+                  style={{
+                    opacity: 1,
+                    animation: prefersReducedMotion ? 'none' : `fadeInUp 0.5s ease-out ${index * 0.1}s both`,
+                  }}
                 >
-                  <motion.div
+                  <div
                     className={`absolute w-full h-full rounded-xl transition-all duration-500 transform-style-3d ${
                       flippedCard === project.id ? "rotate-y-180" : ""
                     }`}
@@ -511,11 +494,11 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
                         <span className="text-sm text-muted-foreground">{t("projects.cardActions.clickToClose")}</span>
                       </div>
                     </div>
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
               )
             })}
-          </motion.div>
+          </div>
 
           <div className="flex justify-center">
             <Button

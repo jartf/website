@@ -1,12 +1,11 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, memo } from "react"
 import { useTranslation } from "react-i18next"
 import { DarkModeFirefly } from "@/components/firefly"
 import Image from "next/image"
 import Link from "next/link"
-import { motion } from "framer-motion"
 import {
   Mail,
   GraduationCap,
@@ -34,7 +33,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Firefly } from "@/components/firefly"
-import { useMounted } from "@/hooks"
+import { useMounted, useReducedMotion } from "@/hooks"
 import i18n from "i18next"
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -82,9 +81,10 @@ interface ContactClientWrapperProps {
   }
 }
 
-export default function ContactClientWrapper({ socialLinksData }: ContactClientWrapperProps) {
+export default memo(function ContactClientWrapper({ socialLinksData }: ContactClientWrapperProps) {
   const { t } = useTranslation()
   const mounted = useMounted()
+  const prefersReducedMotion = useReducedMotion()
   const [secretRevealed, setSecretRevealed] = useState(false)
 
   const handleSecretButtonClick = () => {
@@ -220,16 +220,6 @@ export default function ContactClientWrapper({ socialLinksData }: ContactClientW
   }
 
   const currentLang = i18n.language
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.1 } },
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  }
 
   const renderLink = (link: SocialLinkData, isFullWidth?: boolean) => {
     const icon = iconMap[link.iconName]
@@ -388,13 +378,27 @@ export default function ContactClientWrapper({ socialLinksData }: ContactClientW
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("contact.description")}</p>
           </div>
 
-          <motion.div className="grid gap-8" variants={container} initial="hidden" animate="show">
-            <motion.div variants={item} className="text-center">
+          <div
+            className="grid gap-8"
+            style={{
+              animation: prefersReducedMotion ? "none" : "fadeInUp 0.5s ease-out",
+            }}
+          >
+            <div
+              className="text-center"
+              style={{
+                animation: prefersReducedMotion ? "none" : "fadeInUp 0.5s ease-out 0.1s both",
+              }}
+            >
               <p className="text-xl mb-2 lowercase">{t("contact.message")}</p>
               <p className="text-muted-foreground italic mb-8 lowercase">{t("contact.disclaimer")}</p>
-            </motion.div>
+            </div>
 
-            <motion.div variants={item}>
+            <div
+              style={{
+                animation: prefersReducedMotion ? "none" : "fadeInUp 0.5s ease-out 0.2s both",
+              }}
+            >
               <h2 className="text-2xl font-bold mb-4">{t("contact.sectionTitles.contactMe")}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
                 {socialLinksData.contact
@@ -427,10 +431,10 @@ export default function ContactClientWrapper({ socialLinksData }: ContactClientW
                   {secretRevealed && <ExternalLink className="h-4 w-4 ml-1 opacity-70" />}
                 </button>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
   )
-}
+})
