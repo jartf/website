@@ -1,10 +1,9 @@
 "use client"
 
-import { useState, useEffect, useRef, useMemo } from "react"
+import { useState, useEffect, useRef, useMemo, memo } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { useTheme } from "next-themes"
-import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { useMounted, useDebounce } from "@/hooks"
@@ -34,7 +33,7 @@ const CATEGORY_ICONS = { reading: BookOpen, coding: Code, drinking: Coffee, list
 const USES_ICONS = [Laptop, Smartphone, Headphones, Globe, Code, Coffee, Shield, Settings, Map, Gamepad2, ImageIcon]
 const COLOPHON_ICONS = [Palette, Code, Server, BookOpen]
 
-export function ActionSearchBar() {
+export const ActionSearchBar = memo(function ActionSearchBar() {
   const router = useRouter()
   const pathname = usePathname()
   const { t, i18n } = useTranslation()
@@ -219,36 +218,35 @@ export function ActionSearchBar() {
           </div>
         </div>
         <div className="max-h-[60vh] overflow-y-auto">
-          <AnimatePresence mode="wait">
-            {filteredActions.length > 0 ? (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pb-2">
-                {Object.entries(groupedActions).map(([category, actions]) => (
-                  <div key={category} className="px-2">
-                    <div className="text-xs font-medium text-muted-foreground px-2 py-1.5">{category}</div>
-                    {actions.map((a) => {
-                      const idx = filteredActions.findIndex(x => x.id === a.id)
-                      return (
-                        <motion.div key={a.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                          className={`px-2 py-1.5 flex items-center justify-between rounded-md cursor-pointer ${idx === selectedIndex ? "bg-muted" : "hover:bg-muted/50"}`}
-                          onClick={() => a.action()} onMouseEnter={() => setSelectedIndex(idx)}>
-                          <div className="flex items-center gap-2">
-                            <span className="flex-shrink-0">{a.icon}</span>
-                            <span className="text-sm font-medium">{a.label}</span>
-                            {a.description && <span className="text-xs text-muted-foreground">{a.description}</span>}
-                          </div>
-                          {a.shortcut && <KeyboardShortcut>{a.shortcut}</KeyboardShortcut>}
-                        </motion.div>
-                      )
-                    })}
-                  </div>
-                ))}
-              </motion.div>
-            ) : (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-4 py-8 text-center">
-                <p className="text-muted-foreground">No actions found</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {filteredActions.length > 0 ? (
+            <div className="pb-2 animate-in fade-in duration-200">
+              {Object.entries(groupedActions).map(([category, actions]) => (
+                <div key={category} className="px-2">
+                  <div className="text-xs font-medium text-muted-foreground px-2 py-1.5">{category}</div>
+                  {actions.map((a, i) => {
+                    const idx = filteredActions.findIndex(x => x.id === a.id)
+                    return (
+                      <div key={a.id}
+                        className={`px-2 py-1.5 flex items-center justify-between rounded-md cursor-pointer transition-colors ${idx === selectedIndex ? "bg-muted" : "hover:bg-muted/50"}`}
+                        style={{ animation: `fadeInUp 0.2s ease-out ${i * 0.02}s both` }}
+                        onClick={() => a.action()} onMouseEnter={() => setSelectedIndex(idx)}>
+                        <div className="flex items-center gap-2">
+                          <span className="flex-shrink-0">{a.icon}</span>
+                          <span className="text-sm font-medium">{a.label}</span>
+                          {a.description && <span className="text-xs text-muted-foreground">{a.description}</span>}
+                        </div>
+                        {a.shortcut && <KeyboardShortcut>{a.shortcut}</KeyboardShortcut>}
+                      </div>
+                    )
+                  })}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="px-4 py-8 text-center animate-in fade-in duration-200">
+              <p className="text-muted-foreground">No actions found</p>
+            </div>
+          )}
         </div>
         <div className="p-2 border-t">
           <div className="flex items-center justify-between text-xs text-muted-foreground px-2">
@@ -259,4 +257,4 @@ export function ActionSearchBar() {
       </DialogContent>
     </Dialog>
   )
-}
+})

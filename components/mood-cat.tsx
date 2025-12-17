@@ -1,13 +1,12 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, memo } from "react"
 import { useTranslation } from "react-i18next"
 import i18n from "@/i18n/i18n"
 import Image from "next/image"
-import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { RefreshCw, ExternalLink } from "lucide-react"
-import { useMounted } from "@/hooks"
+import { useMounted, useReducedMotion } from "@/hooks"
 
 type MoodCat = {
   id: number
@@ -134,18 +133,79 @@ const moodCats: MoodCat[] = [
 ]
 
 /**
+ * Memoized cat image component with CSS transitions
+ */
+const CatImage = memo(function CatImage({ cat, isVisible }: { cat: MoodCat; isVisible: boolean }) {
+  const currentLang = i18n.language
+  const prefersReducedMotion = useReducedMotion()
+
+  return (
+    <div
+      className={`relative h-full w-full ${prefersReducedMotion ? '' : 'transition-opacity duration-300'}`}
+      style={{ opacity: isVisible ? 1 : 0 }}
+    >
+      <Image
+        src={cat.image || "/placeholder.svg"}
+        alt={`Mood cat: ${cat.caption}`}
+        fill
+        className="object-cover"
+        loading="lazy"
+        priority={false}
+      />
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <p className="text-white text-xl font-medium text-center">
+          {currentLang === "vi" && cat.captionVi ? cat.captionVi : cat.caption}
+        </p>
+        {cat.attribution && (
+          <p className="text-white/70 text-xs text-center mt-1">
+            <a
+              href={cat.attribution}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white/90 transition-colors"
+              title={
+                currentLang === "vi" && cat.attributionNoteVi
+                  ? cat.attributionNoteVi
+                  : cat.attributionNote
+              }
+            >
+              Image source
+            </a>
+            {((currentLang === "vi" && cat.attributionNoteVi) ||
+              (currentLang !== "vi" && cat.attributionNote)) && (
+              <span className="block mt-0.5 text-[10px] opacity-70">
+                {currentLang === "vi" && cat.attributionNoteVi
+                  ? cat.attributionNoteVi
+                  : cat.attributionNote}
+              </span>
+            )}
+          </p>
+        )}
+      </div>
+    </div>
+  )
+})
+
+/**
  * A component that displays a random "mood cat" with a caption and attribution.
  * @returns {JSX.Element} The mood cat component.
  */
 export function MoodCat() {
   const { t } = useTranslation()
   const [currentCat, setCurrentCat] = useState<MoodCat | null>(null)
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const mounted = useMounted()
+  const prefersReducedMotion = useReducedMotion()
   const refreshButtonRef = useRef<HTMLButtonElement>(null)
 
   const getRandomCat = useCallback(() => {
     setIsLoading(true)
+
+    // Start fade out
+    if (!prefersReducedMotion) {
+      setIsTransitioning(true)
+    }
 
     // Get a random cat that's different from the current one
     let newCat
@@ -153,12 +213,14 @@ export function MoodCat() {
       newCat = moodCats[Math.floor(Math.random() * moodCats.length)]
     } while (newCat && currentCat && newCat.id === currentCat.id)
 
-    // Use a shorter timeout to improve perceived performance
+    // Use a shorter timeout for reduced motion, otherwise wait for fade
+    const delay = prefersReducedMotion ? 50 : 150
     setTimeout(() => {
       setCurrentCat(newCat)
+      setIsTransitioning(false)
       setIsLoading(false)
-    }, 100)
-  }, [currentCat])
+    }, delay)
+  }, [currentCat, prefersReducedMotion])
 
   useEffect(() => {
     // Don't block initial render with a null cat
@@ -186,66 +248,18 @@ export function MoodCat() {
       </div>
 
       <div className="relative rounded-xl overflow-hidden bg-muted">
-        <AnimatePresence mode="wait">
-          <div className="relative aspect-[4/3] w-full">
-            {currentCat ? (
-              <motion.div
-                key={currentCat.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="relative h-full w-full"
-              >
-                <Image
-                  src={currentCat.image || "/placeholder.svg"}
-                  alt={`Mood cat: ${currentCat.caption}`}
-                  fill
-                  className="object-cover"
-                  loading="lazy"
-                  priority={false}
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                  <p className="text-white text-xl font-medium text-center">
-                    {i18n.language === "vi" && currentCat.captionVi ? currentCat.captionVi : currentCat.caption}
-                  </p>
-                  {currentCat.attribution && (
-                    <p className="text-white/70 text-xs text-center mt-1">
-                      <a
-                        href={currentCat.attribution}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-white/90 transition-colors"
-                        title={
-                          i18n.language === "vi" && currentCat.attributionNoteVi
-                            ? currentCat.attributionNoteVi
-                            : currentCat.attributionNote
-                        }
-                      >
-                        {t("moodCat.imageSource", "Image source")}
-                      </a>
-                      {((i18n.language === "vi" && currentCat.attributionNoteVi) ||
-                        (i18n.language !== "vi" && currentCat.attributionNote)) && (
-                        <span className="block mt-0.5 text-[10px] opacity-70">
-                          {i18n.language === "vi" && currentCat.attributionNoteVi
-                            ? currentCat.attributionNoteVi
-                            : currentCat.attributionNote}
-                        </span>
-                      )}
-                    </p>
-                  )}
-                </div>
-              </motion.div>
-            ) : (
-              <div className="h-full w-full bg-muted flex items-center justify-center">
-                <div className="animate-pulse flex flex-col items-center">
-                  <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
-                  <p className="text-sm text-muted-foreground mt-2">{t("moodCat.loading", "Loading...")}</p>
-                </div>
+        <div className="relative aspect-[4/3] w-full">
+          {currentCat ? (
+            <CatImage cat={currentCat} isVisible={!isTransitioning} />
+          ) : (
+            <div className="h-full w-full bg-muted flex items-center justify-center">
+              <div className="animate-pulse flex flex-col items-center">
+                <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
+                <p className="text-sm text-muted-foreground mt-2">{t("moodCat.loading", "Loading...")}</p>
               </div>
-            )}
-          </div>
-        </AnimatePresence>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="mt-4 flex justify-center gap-3">
@@ -256,7 +270,7 @@ export function MoodCat() {
           onClick={getRandomCat}
           disabled={isLoading}
           className="group"
-          aria-label={t("moodCat.refreshLabel", "Get a new random cat image")}
+          aria-label="Refresh mood cat"
           aria-busy={isLoading}
           id="refresh-mood-cat-button"
         >
