@@ -10,8 +10,13 @@ const STATIC_FOOTER = {
 
 // Badge data for cleaner rendering
 const BADGES = [
+  { src: "/sweet.png", alt: "Sweet badge" },
+  { src: "/dumbass.gif", alt: "Dumbass badge" },
   { src: "/join_logo.gif", alt: "Join Logo badge" },
   { src: "/bannars.gif", alt: "The March of Bannars badge" },
+  { src: "/button2019.gif", alt: "Button 2019 badge" },
+  { src: "/imagine.gif", alt: "Imagine badge" },
+  { src: "/graphicdesign.png", alt: "Graphic Design badge" },
   { src: "/best_viewed_with_eyes.gif", alt: "Best Viewed With Eyes badge" },
   { src: "/valid-rss-rogers.png", alt: "Valid RSS Feed - Subscribe to blog updates", href: "https://jarema.me/rss.xml" },
   { src: "/valid-atom.png", alt: "Valid Atom Feed - Subscribe to blog updates", href: "https://jarema.me/atom.xml" },
@@ -21,9 +26,16 @@ const BADGES = [
   { src: "/saynotoweb3_88x31.gif", alt: "Say No to Web3", href: "https://yesterweb.org/no-to-web3/" },
   { src: "/got_html.gif", alt: "Got HTML? badge" },
   { src: "/js-warning.gif", alt: "JavaScript Warning badge" },
+  { src: "/linux_powered.gif", alt: "Linux Powered" },
   { src: "/fedora.gif", alt: "Powered by Fedora Linux", href: "https://fedoraproject.org/" },
   { src: "/firefox4.gif", alt: "Firefox Browser", href: "https://www.mozilla.org/en-US/firefox/new/" },
   { src: "/anythingbut.gif", alt: "Anything But Chrome", href: "https://jarema.me/blog/2025/08/anything-but-chrome" },
+  { src: "/bitwarden.gif", alt: "Bitwarden Password Manager" },
+  { src: "/perfectclear.gif", alt: "Perfect Clear badge", href: "https://jarema.me/tetris" },
+  { src: "/porygon2.gif", alt: "Porygon2 badge" },
+  { src: "/teto.gif", alt: "Teto badge" },
+  { src: "/tomandjerry.gif", alt: "Tom and Jerry badge" },
+  { src: "/milktea.gif", alt: "Milk Tea badge" },
 ]
 
 const linkClass = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
