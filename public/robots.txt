@@ -18,9 +18,14 @@ User-agent: Perplexity-User
 User-agent: TerraCotta
 Disallow: /
 
+# Specially allowed bots (peak dev tools, thanks!)
+User-agent: Google-InspectionTool
+Allow: /
+
 # GenAI training bots
 User-agent: AI2Bot
 User-agent: AI2Bot-Dolma
+User-agent: AliyunSecBot
 User-agent: Amazonbot
 User-agent: amazon-kendra
 User-agent: Anchor Browser
@@ -58,6 +63,7 @@ User-agent: GoogleAgent-Mariner
 User-agent: GoogleOther
 User-agent: GPTBot
 User-agent: Groq-Bot
+User-agent: heritrix
 User-agent: HuggingFace-Bot
 User-agent: iAskBot
 User-agent: iaskspider
@@ -67,23 +73,29 @@ User-agent: imageSpider
 User-agent: ImagesiftBot
 User-agent: img2dataset
 User-agent: imgproxy
+User-agent: Jetslide
 User-agent: KunatoCrawler
 User-agent: laion-huggingface-processor
 User-agent: LCC
 User-agent: LinerBot
 User-agent: MachineLearningForPeaceBot
+User-agent: magpie-crawler
 User-agent: Manus-User
 User-agent: Meltwater
+User-agent: meta-webindexer
 User-agent: meta-externalagent
 User-agent: meta-externalfetcher
+User-agent: MyCentralAIScraperBot
 User-agent: netEstate Imprint Crawler
 User-agent: Nicecrawler
 User-agent: NovaAct
 User-agent: Novellum AI Crawl
 User-agent: omgili
 User-agent: omgilibot
+User-agent: peer39_crawler
 User-agent: PetalBot
 User-agent: PiplBot
+User-agent: Poseidon Research Crawler
 User-agent: ProRataInc
 User-agent: QualifiedBot
 User-agent: Replicate-Bot
@@ -91,13 +103,16 @@ User-agent: RunPod-Bot
 User-agent: SBIntuitionsBot
 User-agent: Scoop.it
 User-agent: Seekr
+User-agent: SeekrBot
 User-agent: Sidetrade indexer bot
 User-agent: Spider
+User-agent: TaraGroup Intelligent Bot
 User-agent: TikTokSpider
 User-agent: Timpibot
 User-agent: Together-Bot
 User-agent: TwinAgent
 User-agent: VelenPublicWebCrawler
+User-agent: Webzio
 User-agent: Webzio-Extended
 User-agent: WRTNBot
 User-agent: xAI-Bot
@@ -132,9 +147,9 @@ User-agent: deepcrawl.com
 User-agent: DomainStatsBot
 User-agent: DotBot
 User-agent: Dragonbot
+User-agent: EchoboxBot
 User-agent: Google Digital Asset Links
 User-agent: Google StoreBot
-User-agent: Google-Structured-Data-Testing
 User-agent: Huckabot
 User-agent: Huckabuy Bot
 User-agent: hypestat
