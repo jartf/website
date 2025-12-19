@@ -29,6 +29,7 @@ const STATIC_CONTENT = {
   recentPosts: "Recent blog posts",
   minRead: "min read",
   mood: "Mood",
+  webrings: "Webrings",
 }
 
 /**
@@ -159,6 +160,41 @@ export default async function Home() {
           {/* MoodCat - client component */}
           <div className="mt-16">
             <MoodCat />
+          </div>
+
+          {/* Webrings Section */}
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold mb-4">
+              <TranslatedText i18nKey="home.webrings" fallback={STATIC_CONTENT.webrings} />
+            </h2>
+            <div className="border rounded-lg p-6 bg-card text-center">
+              <div className="flex items-center justify-center gap-3 text-base">
+                <a
+                  href="https://xn--sr8hvo.ws/previous"
+                  className="text-primary hover:underline font-semibold text-xl"
+                  aria-label="Previous site in IndieWeb webring"
+                >
+                  ←
+                </a>
+                <span>
+                  An <a
+                    href="https://xn--sr8hvo.ws"
+                    className="text-primary hover:underline font-medium"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    IndieWeb Webring
+                  </a> 🕸💍
+                </span>
+                <a
+                  href="https://xn--sr8hvo.ws/next"
+                  className="text-primary hover:underline font-semibold text-xl"
+                  aria-label="Next site in IndieWeb webring"
+                >
+                  →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
