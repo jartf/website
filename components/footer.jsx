@@ -10,32 +10,32 @@ const STATIC_FOOTER = {
 
 // Badge data for cleaner rendering
 const BADGES = [
-  { src: "/sweet.png", alt: "Sweet badge" },
-  { src: "/dumbass.gif", alt: "Dumbass badge" },
-  { src: "/join_logo.gif", alt: "Join Logo badge" },
-  { src: "/bannars.gif", alt: "The March of Bannars badge" },
-  { src: "/button2019.gif", alt: "Button 2019 badge" },
-  { src: "/imagine.gif", alt: "Imagine badge" },
-  { src: "/graphicdesign.png", alt: "Graphic Design badge" },
-  { src: "/best_viewed_with_eyes.gif", alt: "Best Viewed With Eyes badge" },
-  { src: "/valid-rss-rogers.png", alt: "Valid RSS Feed - Subscribe to blog updates", href: "https://jarema.me/rss.xml" },
-  { src: "/valid-atom.png", alt: "Valid Atom Feed - Subscribe to blog updates", href: "https://jarema.me/atom.xml" },
-  { src: "/humanstxt.png", alt: "Humans.txt - Site credits and acknowledgments", href: "https://jarema.me/humans.txt" },
-  { src: "/people_pledge_badge_party_cream_pink_88x31.png", alt: "People Pledge", href: "https://people.pledge.party/" },
-  { src: "/internetprivacy.gif", alt: "Internet Privacy Now badge" },
-  { src: "/saynotoweb3_88x31.gif", alt: "Say No to Web3", href: "https://yesterweb.org/no-to-web3/" },
-  { src: "/got_html.gif", alt: "Got HTML? badge" },
-  { src: "/js-warning.gif", alt: "JavaScript Warning badge" },
-  { src: "/linux_powered.gif", alt: "Linux Powered" },
+  { src: "/sweet.png", alt: "Sweet homepage" },
+  { src: "/dumbass.gif", alt: "Dumbass webmaster ahead" },
+  { src: "/join_logo.gif", alt: "Miaow" },
+  { src: "/bannars.gif", alt: "The realm of dreams" },
+  { src: "/button2019.gif", alt: "Still using buttons in 2019!" },
+  { src: "/imagine.gif", alt: "This site is powered by imagination!" },
+  { src: "/graphicdesign.png", alt: "Graphic design is my passion" },
+  { src: "/best_viewed_with_eyes.gif", alt: "Best viewed with Eyes" },
+  { src: "/valid-rss-rogers.png", alt: "Valid RSS feed, subscribe to blog updates!", href: "/rss.xml" },
+  { src: "/valid-atom.png", alt: "Valid Atom feed, subscribe to blog updates!", href: "/atom.xml" },
+  { src: "/humanstxt.png", alt: "Humans.txt (site credits and acknowledgments)", href: "/humans.txt" },
+  { src: "/people_pledge_badge_party_cream_pink_88x31.png", alt: "The People Pledge", href: "https://people.pledge.party/" },
+  { src: "/internetprivacy.gif", alt: "Internet privacy now!" },
+  { src: "/saynotoweb3_88x31.gif", alt: "Keep the web free, say no to Web3", href: "https://yesterweb.org/no-to-web3/" },
+  { src: "/got_html.gif", alt: "Got HTML?" },
+  { src: "/js-warning.gif", alt: "Warning: Page contains JavaScript!" },
+  { src: "/linux_powered.gif", alt: "Linux powered" },
   { src: "/fedora.gif", alt: "Powered by Fedora Linux", href: "https://fedoraproject.org/" },
-  { src: "/firefox4.gif", alt: "Firefox Browser", href: "https://www.mozilla.org/en-US/firefox/new/" },
+  { src: "/firefox4.gif", alt: "Tested on Firefox", href: "https://www.mozilla.org/en-US/firefox/new/" },
   { src: "/anythingbut.gif", alt: "Anything But Chrome", href: "https://jarema.me/blog/2025/08/anything-but-chrome" },
-  { src: "/bitwarden.gif", alt: "Bitwarden Password Manager" },
-  { src: "/perfectclear.gif", alt: "Perfect Clear badge", href: "https://jarema.me/tetris" },
-  { src: "/porygon2.gif", alt: "Porygon2 badge" },
-  { src: "/teto.gif", alt: "Teto badge" },
-  { src: "/tomandjerry.gif", alt: "Tom and Jerry badge" },
-  { src: "/milktea.gif", alt: "Milk Tea badge" },
+  { src: "/bitwarden.gif", alt: "Bitwarden password manager" },
+  { src: "/perfectclear.gif", alt: "Tetris perfect clear~", href: "/tetris" },
+  { src: "/porygon2.gif", alt: "Porygon2" },
+  { src: "/teto.gif", alt: "Kasane Teto" },
+  { src: "/tomandjerry.gif", alt: "Tom and Jerry" },
+  { src: "/milktea.gif", alt: "Milk tea now!" },
 ]
 
 const linkClass = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
@@ -59,9 +59,9 @@ export function Footer() {
         )}
       </nav>
 
-      <div className="flex justify-center mt-2 pb-4">
-        <Image src="/badge.png" alt="Jarema personal badge" width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" />
-      </div>
+      <a className="flex justify-center mt-2 pb-4" href="/badges">
+        <Image src="/badge.png" alt="Jarema's personal badge" width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" />
+      </a>
     </footer>
   )
 }
