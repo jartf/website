@@ -9,7 +9,6 @@ import { LanguageNotice } from "@/components/language-notice"
 import { Galaxy } from "@/components/galaxy/galaxy"
 import { KeyboardNavigation } from "@/components/keyboard-navigation"
 import { ActionSearchBar } from "@/components/action-search-bar"
-import { ErrorBoundary } from "@/components/error-boundary"
 import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 
 // Font configurations
@@ -285,25 +284,23 @@ export default function RootLayout({ children }) {
 
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="theme" disableTransitionOnChange>
           <I18nProvider>
-            <ErrorBoundary>
-              {/* Galaxy is now conditionally rendered in I18nProvider during loading */}
-              <Galaxy />
-              <div className="flex flex-col min-h-screen relative z-10">
-                {/* Skip to main content link for keyboard users (WCAG 2.4.1) */}
-                <a
-                  href="#main-content"
-                  className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-ring focus:outline-none"
-                >
-                  Skip to main content
-                </a>
-                <Header />
-                <LanguageNotice />
-                <main id="main-content" className="flex-1" tabIndex={-1}>{children}</main>
-                <Footer />
-                <KeyboardNavigation />
-              </div>
-              <ActionSearchBar />
-            </ErrorBoundary>
+            {/* Galaxy is now conditionally rendered in I18nProvider during loading */}
+            <Galaxy />
+            <div className="flex flex-col min-h-screen relative z-10">
+              {/* Skip to main content link for keyboard users (WCAG 2.4.1) */}
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-ring focus:outline-none"
+              >
+                Skip to main content
+              </a>
+              <Header />
+              <LanguageNotice />
+              <main id="main-content" className="flex-1" tabIndex={-1}>{children}</main>
+              <Footer />
+              <KeyboardNavigation />
+            </div>
+            <ActionSearchBar />
           </I18nProvider>
         </ThemeProvider>
       </body>
