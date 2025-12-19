@@ -230,6 +230,37 @@ export default async function Home() {
                 </div>
               </div>
 
+              {/* Webmaster Webring */}
+              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+                <a
+                  href="https://webmasterwebring.netlify.app/"
+                  className="text-primary hover:underline font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Hotline Webring
+                </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://webmasterwebring.netlify.app?jarema-previous"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Previous site in Webmaster webring"
+                    title="Previous"
+                  >
+                    ←
+                  </a>
+                  <span className="px-2 py-1 invisible" aria-hidden="true">🎲</span>
+                  <a
+                    href="https://webmasterwebring.netlify.app?jarema-next"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Next site in Webmaster webring"
+                    title="Next"
+                  >
+                    →
+                  </a>
+                </div>
+              </div>
+
               {/* Meta Ring */}
               <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
