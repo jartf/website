@@ -50,7 +50,7 @@ export function Footer() {
       <nav className="flex justify-center flex-wrap gap-2 mx-auto" style={{ maxWidth: '664px' }} aria-label="Web badges and external links">
         {BADGES.map(({ src, alt, href }) =>
           href ? (
-            <a key={src} href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+            <a key={src} href={href} target="_blank" rel="noopener" className={linkClass}>
               <Image src={src} alt={alt} width={88} height={31} className="hover:opacity-90 transition-opacity" />
             </a>
           ) : (
