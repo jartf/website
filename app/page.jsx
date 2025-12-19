@@ -238,7 +238,7 @@ export default async function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Webmaster Webring
+                  ☆ Webmaster Webring ☆
                 </a>
                 <div className="flex items-center gap-2">
                   <a
@@ -249,7 +249,14 @@ export default async function Home() {
                   >
                     ←
                   </a>
-                  <span className="px-2 py-1 invisible" aria-hidden="true">🎲</span>
+                  <a
+                    href="https://webmasterwebring.netlify.app?jarema-random"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Random site in Webmaster webring"
+                    title="Random"
+                  >
+                    🎲
+                  </a>
                   <a
                     href="https://webmasterwebring.netlify.app?jarema-next"
                     className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
