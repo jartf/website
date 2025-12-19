@@ -199,6 +199,37 @@ export default async function Home() {
                 </div>
               </div>
 
+              {/* Hotline Webring */}
+              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+                <a
+                  href="https://hotlinewebring.club/"
+                  className="text-primary hover:underline font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Hotline Webring
+                </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://hotlinewebring.club/previous"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Previous site in Hotline webring"
+                    title="Previous"
+                  >
+                    ←
+                  </a>
+                  <span className="px-2 py-1 invisible" aria-hidden="true">🎲</span>
+                  <a
+                    href="https://hotlinewebring.club/next"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Next site in Hotline webring"
+                    title="Next"
+                  >
+                    →
+                  </a>
+                </div>
+              </div>
+
               {/* Meta Ring */}
               <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
