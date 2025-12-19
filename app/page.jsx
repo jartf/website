@@ -167,32 +167,74 @@ export default async function Home() {
             <h2 className="text-2xl font-bold mb-4">
               <TranslatedText i18nKey="home.webrings" fallback={STATIC_CONTENT.webrings} />
             </h2>
-            <div className="border rounded-lg p-6 bg-card text-center">
-              <div className="flex items-center justify-center gap-3 text-base">
+            <div className="border rounded-lg p-6 bg-card divide-y">
+              {/* IndieWeb Webring */}
+              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
-                  href="https://xn--sr8hvo.ws/previous"
-                  className="text-primary hover:underline font-semibold text-xl"
-                  aria-label="Previous site in IndieWeb webring"
+                  href="https://xn--sr8hvo.ws"
+                  className="text-primary hover:underline font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  ←
+                  IndieWeb Webring 🕸💍
                 </a>
-                <span>
-                  An <a
-                    href="https://xn--sr8hvo.ws"
-                    className="text-primary hover:underline font-medium"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://xn--sr8hvo.ws/previous"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Previous site in IndieWeb webring"
+                    title="Previous"
                   >
-                    IndieWeb Webring
-                  </a> 🕸💍
-                </span>
+                    ←
+                  </a>
+                  <span className="px-2 py-1 invisible" aria-hidden="true">🎲</span>
+                  <a
+                    href="https://xn--sr8hvo.ws/next"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Next site in IndieWeb webring"
+                    title="Next"
+                  >
+                    →
+                  </a>
+                </div>
+              </div>
+
+              {/* Meta Ring */}
+              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
-                  href="https://xn--sr8hvo.ws/next"
-                  className="text-primary hover:underline font-semibold text-xl"
-                  aria-label="Next site in IndieWeb webring"
+                  href="https://meta-ring.hedy.dev/"
+                  className="text-primary hover:underline font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  →
+                  Meta Ring
                 </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://meta-ring.hedy.dev/previous"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Previous site in Meta Ring"
+                    title="Previous"
+                  >
+                    ←
+                  </a>
+                  <a
+                    href="https://meta-ring.hedy.dev/random"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Random site in Meta Ring"
+                    title="Random"
+                  >
+                    🎲
+                  </a>
+                  <a
+                    href="https://meta-ring.hedy.dev/next"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Next site in Meta Ring"
+                    title="Next"
+                  >
+                    →
+                  </a>
+                </div>
               </div>
             </div>
           </div>
