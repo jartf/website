@@ -9,13 +9,13 @@ export const metadata = generateMeta({
   path: "badges",
 })
 
-// Badge data - defined on server
+// Badge data
 const BADGES = [
   {
-    id: "personal-badge",
-    name: "Jarema Badge",
+    id: "personal",
+    name: "Jarema's badge",
     src: "/badge.png",
-    alt: "Jarema personal badge",
+    alt: "A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars.",
     category: "personal",
     width: 88,
     height: 31,
@@ -23,21 +23,21 @@ const BADGES = [
     description: "My personal web badge",
   },
   {
-    id: "humans-txt",
+    id: "humanstxt",
     name: "humans.txt",
     src: "/humanstxt.png",
-    alt: "humans.txt",
+    alt: "A banner showing the humans.txt wordmark",
     category: "validation",
     width: 88,
     height: 31,
     url: "https://jarema.me/humans.txt",
-    description: "Information about the humans behind this website",
+    description: "Information about the human behind this website",
   },
   {
     id: "valid-rss",
     name: "Valid RSS",
     src: "/valid-rss-rogers.png",
-    alt: "Valid RSS",
+    alt: "A banner showing the RSS logo next to the text Valid RSS and a green checkmark",
     category: "validation",
     width: 88,
     height: 31,
@@ -48,7 +48,7 @@ const BADGES = [
     id: "valid-atom",
     name: "Valid Atom",
     src: "/valid-atom.png",
-    alt: "Valid Atom Feed",
+    alt: "A banner showing the Atom logo next to the text Valid and a white checkmark",
     category: "validation",
     width: 88,
     height: 31,
@@ -56,54 +56,54 @@ const BADGES = [
     description: "Valid Atom feed",
   },
   {
-    id: "join-logo",
-    name: "Join Logo",
+    id: "miaow",
+    name: "Miaow",
     src: "/join_logo.gif",
-    alt: "Join Logo",
+    alt: "An animated pixel art banner with a thin black border of a white cat sleeping on a red pillow, next to the word miaow in a blocky pixel font alternating between pink and orange. The background is white and has two small pink stars.",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "Classic web badge",
+    description: "Sleeping cat on a pillow, miaow!",
   },
   {
-    id: "bannars",
-    name: "Bannars",
+    id: "realm",
+    name: "The Realm of Dream",
     src: "/bannars.gif",
-    alt: "The March of Bannars",
+    alt: "An animated pixel art banner with a thin pink border. The background is a rainbow and has ten small white stars. On the background is the text The Realm of Dream in a blocky pixel font alternating between black and orange, with a white outline. Above the text is five hearts with different colors.",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "The March of Bannars",
+    description: "This is a cute realm :D",
   },
   {
     id: "best-viewed",
-    name: "Best Viewed With Eyes",
+    name: "Best viewed with Eyes",
     src: "/best_viewed_with_eyes.gif",
-    alt: "Best Viewed With Eyes",
+    alt: "An animated pixel art banner with the word Best in vertical and red background, next to the text viewed with Eyes in horizontal and gray background. At the right is a blinking pair of eyes emoji in black background.",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "Best viewed with eyes",
+    description: "This site is, of course, best viewed with eyes!",
   },
   {
     id: "people-pledge",
     name: "People Pledge",
     src: "/people_pledge_badge_party_cream_pink_88x31.png",
-    alt: "People Pledge",
+    alt: "A banner with a thin light pink border, showing the text People Pledge next to a party popper icon, both are in pink. The background is light yellow.",
     category: "web",
     width: 88,
     height: 31,
     url: "https://people.pledge.party/",
-    description: "People Pledge badge",
+    description: "I pledge to the People Pledge. For more info, see the website https://people.pledge.party",
   },
   {
     id: "internet-privacy",
-    name: "Internet Privacy Now",
+    name: "Internet privacy Now!",
     src: "/internetprivacy.gif",
-    alt: "Internet Privacy Now",
+    alt: "An animated pixel art banner with a spinning globe, next to the words Internet privacy in black, and Now! in red.",
     category: "privacy",
     width: 88,
     height: 31,
@@ -112,212 +112,212 @@ const BADGES = [
   },
   {
     id: "no-web3",
-    name: "Say No to Web3",
+    name: "Keep the web free, say no to Web3",
     src: "/saynotoweb3_88x31.gif",
-    alt: "Say No to Web3",
+    alt: "An animated black banner showing the text Keep the web free, say no to Web3 in green.",
     category: "web",
     width: 88,
     height: 31,
     url: "https://yesterweb.org/no-to-web3/",
-    description: "Say No to Web3",
+    description: "We can make a better, free, decentralized internet without crypto, NFT or Web3 crap.",
   },
   {
     id: "got-html",
-    name: "Got HTML",
+    name: "Got HTML?",
     src: "/got_html.gif",
-    alt: "Got HTML?",
+    alt: "A banner showing the text Got HTML? in black",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "Got HTML?",
+    description: "Give me some of that HTML",
   },
   {
     id: "js-warning",
-    name: "JavaScript Warning",
+    name: "JavaScript warning",
     src: "/js-warning.gif",
-    alt: "JavaScript Warning",
+    alt: "A banner showing a caution sign next to the text Warning: Page contains JavaScript!",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "JavaScript Warning",
+    description: "Careful, the floor has JS!",
   },
   {
     id: "fedora",
     name: "Fedora",
     src: "/fedora.gif",
-    alt: "Powered by Fedora",
+    alt: "A banner showing the text Powered by in black with white background, above the Fedora Linux wordmark with dark blue background.",
     category: "software",
     width: 88,
     height: 31,
     url: "https://fedoraproject.org/",
-    description: "Powered by Fedora",
+    description: "This user is proudly powered by Fedora Linux",
   },
   {
     id: "firefox",
     name: "Firefox",
     src: "/firefox4.gif",
-    alt: "Firefox Browser",
+    alt: "An animated banner with a dark blue background and orange border, showing the Firefox logo next to the text alternating between Tested on and Firefox, both texts in orange.",
     category: "browsers",
     width: 88,
     height: 31,
     url: "https://www.mozilla.org/en-US/firefox/new/",
-    description: "Firefox Browser",
+    description: "This website is tested on the Firefox browser",
   },
   {
     id: "anything-but",
     name: "Anything But Chrome",
     src: "/anythingbut.gif",
-    alt: "Anything But Chrome",
+    alt: "A banner showing the Chrome logo crossed out with a No sign, next to the words Anything But Chrome in black.",
     category: "browsers",
     width: 88,
     height: 31,
     url: null,
-    description: "Anything But Chrome",
+    description: "I'm willing to use anything EXCEPT Chrome. NEVER Chrome.",
   },
   {
     id: "bitwarden",
     name: "Bitwarden",
     src: "/bitwarden.gif",
-    alt: "Bitwarden Password Manager",
+    alt: "A banner showing the Bitwarden logo, next to the word Bitwarden",
     category: "software",
     width: 88,
     height: 31,
     url: null,
-    description: "Bitwarden Password Manager",
+    description: "Bitwarden the password manager is peak",
   },
   {
     id: "linux-powered",
-    name: "Linux Powered",
+    name: "Linux powered",
     src: "/linux_powered.gif",
-    alt: "Linux Powered",
+    alt: "An animated banner showing the text Linux powered next to the Tux logo",
     category: "software",
     width: 88,
     height: 31,
     url: null,
-    description: "Linux Powered",
+    description: "This user is powered by Linux, and so is the server for this website.",
   },
   {
     id: "button-2019",
     name: "Still using buttons in 2019!",
     src: "/button2019.gif",
-    alt: "Still using buttons in 2019!",
+    alt: "A banner showing the text Still using buttons in 2019!",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "Still using buttons in 2019!",
+    description: "Yes, I'm still using buttons in... *checks calendar* 2025 now!",
   },
   {
     id: "button-webdesign",
-    name: "Neocities - Web Design is my passion",
+    name: "Web design is my passion",
     src: "/buttonwebdesign.gif",
-    alt: "Neocities - Web Design is my passion",
+    alt: "An animated banner showing the flashing text web design is my passion, with an orange cat holding art brushes in the background.",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "Neocities - Web Design is my passion",
+    description: "Neocities is my love, web design is my passion",
   },
   {
     id: "dumbass",
     name: "Dumbass webmaster ahead",
     src: "/dumbass.gif",
-    alt: "Dumbass webmaster ahead",
+    alt: "An animated banner showing the text Danger in red background and vertical, next to the words Dumbass webmaster ahead in horizontal. The word ahead is flashing. Next to the words, there is a girl in braided hairs.",
     category: "misc",
     width: 88,
     height: 31,
     url: null,
-    description: "Dumbass webmaster ahead",
+    description: "Beware! This webmaster is dumbass.",
   },
   {
     id: "imagine",
     name: "This site is powered by imagination",
     src: "/imagine.gif",
-    alt: "This site is powered by imagination",
+    alt: "An animated banner showing the text This site is powered by in one frame and imagination in the other frame.",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "This site is powered by imagination",
+    description: "Well, my imagination sure is terrible it seems...",
   },
   {
     id: "perfect-clear",
-    name: "Tetris perfect clear!",
+    name: "Perfect clear!",
     src: "/perfectclear.gif",
-    alt: "Tetris perfect clear!",
+    alt: "An animated banner showing a Tetris gameplay, next to the words Perfect clear in white.",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "Tetris perfect clear!",
+    description: "Tetris, anyone?",
   },
   {
     id: "porygon2",
     name: "Porygon2",
     src: "/porygon2.gif",
-    alt: "Porygon2",
+    alt: "A banner showing the text Porygon2! and a squeaking Porygon2",
     category: "misc",
     width: 88,
     height: 31,
     url: null,
-    description: "Porygon2",
+    description: "Man I'm just like Porygon2",
   },
   {
     id: "teto",
-    name: "Teto",
+    name: "Kasane Teto",
     src: "/teto.gif",
-    alt: "Teto",
+    alt: "An animated banner showing Kasane Teto dancing left and right",
     category: "misc",
     width: 88,
     height: 31,
     url: null,
-    description: "Teto",
+    description: "Teto teto teto *explodes*",
   },
   {
     id: "tom-and-jerry",
     name: "Tom and Jerry",
     src: "/tomandjerry.gif",
-    alt: "Tom and Jerry",
+    alt: "An animated banner showing Tom and Jerry",
     category: "misc",
     width: 88,
     height: 31,
     url: null,
-    description: "Tom and Jerry",
+    description: "This was peak and you can't convince me otherwise",
   },
   {
     id: "milktea",
-    name: "Milk Tea Now!",
+    name: "Milk tea Now!",
     src: "/milktea.gif",
-    alt: "Milk Tea Now!",
+    alt: "A banner showing a cup of bubble tea, next to the words Milk tea Now!",
     category: "misc",
     width: 88,
     height: 31,
     url: null,
-    description: "Milk Tea Now!",
+    description: "I crave some boba now, brb",
   },
   {
     id: "sweet",
     name: "Sweet homepage",
     src: "/sweet.png",
-    alt: "Sweet homepage",
+    alt: "A blue banner showing the text Sweet homepage in all caps, next to the word weet is a moon and two stars.",
     category: "misc",
     width: 88,
     height: 31,
     url: null,
-    description: "Sweet homepage",
+    description: "Isn't this page sweet?",
   },
   {
     id: "graphic-design",
-    name: "Graphic Design is my passion",
+    name: "Graphic design is my passion",
     src: "/graphicdesign.png",
-    alt: "Graphic Design is my passion",
+    alt: "A cyan banner showing a frog in white background signifying an image without transparency, with the text graphic design is my passion in blood red.",
     category: "web",
     width: 88,
     height: 31,
     url: null,
-    description: "Graphic Design is my passion",
+    description: "Yes I love graphic design! I'm very capable of it! Totally!",
   },
 ]
 
@@ -332,7 +332,7 @@ export default function BadgesPage() {
       <h1 className="text-3xl font-bold mb-6">Classic web badges collection</h1>
 
       <p className="text-muted-foreground mb-8">
-        A collection of classic web badges and buttons used on my website. These nostalgic 88x31 pixel badges from the time of Geocities represent the spirit of the early web. The badges listed here represent various things I support or use.
+        I've collected these 88x31 badges to show what I and this site actually care about. They're a throwback to the Geocities era when the internet was less corporate/AI slop. If you have a badge you'd like me to add here, just ask me.
       </p>
 
       {/* Personal Badge Section - Server rendered */}
@@ -341,29 +341,27 @@ export default function BadgesPage() {
           <h2 className="text-2xl font-semibold mb-4" id="my-badge">
             My badge
           </h2>
-          <p className="mb-4">Feel free to use this badge to link to my website:</p>
+          <p className="mb-4">Use this badge to link to my website:</p>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
-            <div className="border p-2 bg-background rounded-md">
-              <Image
-                src={personalBadge.src}
-                alt={personalBadge.alt}
-                width={personalBadge.width}
-                height={personalBadge.height}
-                className="pixelated"
-              />
-            </div>
+            <Image
+              src={personalBadge.src}
+              alt={personalBadge.alt}
+              width={personalBadge.width * 2}
+              height={personalBadge.height * 2}
+              className="pixelated"
+            />
             <div>
-              <p className="text-sm text-muted-foreground">Right-click and save this image to use it on your site.</p>
+              <p className="text-m text-muted-foreground">Hotlink URL: <code>https://jarema.me/badge.png</code></p>
             </div>
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-medium mb-2">HTML Code</h3>
+            <h3 className="text-lg font-medium mb-2">HTML code</h3>
             <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
               <code>{`<a href="https://jarema.me/">
   <img src="https://jarema.me/badge.png"
-       alt="Jarema's personal badge"
+       alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars."
        width="88" height="31"
        style="image-rendering: pixelated;">
 </a>`}</code>
@@ -378,9 +376,9 @@ export default function BadgesPage() {
                 pixel art style.
               </li>
               <li>
-                Please link directly to my homepage at <code className="bg-muted px-1 rounded">https://jarema.me/</code>
+                Link directly to my homepage at <code className="bg-muted px-1 rounded">https://jarema.me/</code>
               </li>
-              <li>The badge is 88×31 pixels, double the width and height in your HTML to <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> to make them easier to read on higher-resolution screens.</li>
+              <li>The badge is 88x31 pixels, double the width and height in your HTML to <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> to make them easier to read on higher-resolution screens.</li>
             </ul>
           </div>
         </section>
