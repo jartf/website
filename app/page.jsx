@@ -238,7 +238,7 @@ export default async function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Hotline Webring
+                  Webmaster Webring
                 </a>
                 <div className="flex items-center gap-2">
                   <a
