@@ -199,6 +199,37 @@ export default async function Home() {
                 </div>
               </div>
 
+              {/* Retronaut Webring */}
+              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+                <a
+                  href="https://webring.dinhe.net/"
+                  className="text-primary hover:underline font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  The retronaut webring
+                </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://webring.dinhe.net/prev/https://jarema.me"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Previous site in the retronaut webring"
+                    title="Previous"
+                  >
+                    ←
+                  </a>
+                  <span className="px-2 py-1 invisible" aria-hidden="true">🎲</span>
+                  <a
+                    href="https://webring.dinhe.net/next/https://jarema.me"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Next site in the retronaut webring"
+                    title="Next"
+                  >
+                    →
+                  </a>
+                </div>
+              </div>
+
               {/* Hotline Webring */}
               <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
