@@ -69,7 +69,7 @@ export function Header() {
   const { t } = useTranslation()
   const mounted = useMounted()
   const [overflowIndex, setOverflowIndex] = useState<number | null>(null)
-  const navRef = useRef<HTMLDivElement>(null)
+  const measureRef = useRef<HTMLDivElement>(null)
   const { windowWidth } = useViewport()
 
   // Memoize navigation items - use translated labels when mounted, static labels otherwise
@@ -94,48 +94,52 @@ export function Header() {
     [pathname]
   )
 
-  // Simplified overflow calculation using ResizeObserver
+  // Stable overflow calculation using hidden measurement container
+  // This prevents loops by always measuring the same set of items
   useEffect(() => {
-    if (!mounted || !navRef.current) return
+    if (!mounted || !measureRef.current) return
 
     // Skip for mobile or large desktop
     if (windowWidth < 768 || windowWidth >= 1280) {
-      queueMicrotask(() => {
-        if (overflowIndex !== null) setOverflowIndex(null)
-      })
+      setOverflowIndex(prev => prev === null ? null : null)
       return
     }
 
-    const calculateOverflow = () => {
-      if (!navRef.current) return
+    // Use requestAnimationFrame to ensure DOM is ready
+    const rafId = requestAnimationFrame(() => {
+      if (!measureRef.current) return
 
       const containerWidth = document.querySelector(".container")?.clientWidth || 0
+      // Logo (~120px) + toggles (~150px) + dropdown button (~48px) + gaps (~16px)
       const availableWidth = containerWidth - 120 - 150 - 48 - 16
 
       if (availableWidth <= 0) {
-        if (overflowIndex !== 0) setOverflowIndex(0)
+        setOverflowIndex(0)
         return
       }
 
-      const items = Array.from(navRef.current.querySelectorAll('a[data-nav-item="true"]'))
+      // Measure ALL items from the hidden measurement container (always renders all items)
+      const items = Array.from(measureRef.current.querySelectorAll('[data-measure-item="true"]'))
       let totalWidth = 0
-      let breakIndex = items.length
+      let breakIndex: number | null = null
 
       for (let i = 0; i < items.length; i++) {
-        totalWidth += (items[i] as HTMLElement).offsetWidth + (i > 0 ? 24 : 0)
-        if (totalWidth > availableWidth) {
+        const itemWidth = (items[i] as HTMLElement).offsetWidth
+        totalWidth += itemWidth + (i > 0 ? 24 : 0) // 24px = gap-6
+        if (totalWidth > availableWidth && breakIndex === null) {
           breakIndex = i
-          break
         }
       }
 
-      const newIndex = totalWidth <= availableWidth ? null : breakIndex < items.length ? breakIndex : null
-      if (newIndex !== overflowIndex) setOverflowIndex(newIndex)
-    }
+      // Only update if value actually changed
+      setOverflowIndex(prev => {
+        const newIndex = breakIndex
+        return prev === newIndex ? prev : newIndex
+      })
+    })
 
-    // Initial calculation
-    calculateOverflow()
-  }, [mounted, windowWidth, overflowIndex])
+    return () => cancelAnimationFrame(rafId)
+  }, [mounted, windowWidth, navItems]) // Include navItems since labels affect widths
 
   // Only apply overflow logic for tablet sizes when mounted
   const isTabletSize = mounted && windowWidth >= 768 && windowWidth < 1280
@@ -144,6 +148,20 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
+      {/* Hidden measurement container - always renders ALL items for stable measurement */}
+      <div
+        ref={measureRef}
+        aria-hidden="true"
+        className="absolute -left-[9999px] flex items-center gap-6 text-sm whitespace-nowrap"
+        style={{ visibility: 'hidden', pointerEvents: 'none' }}
+      >
+        {navItems.map((item) => (
+          <span key={item.href} data-measure-item="true">
+            {item.label}
+          </span>
+        ))}
+      </div>
+
       <div className="container flex h-16 items-center justify-between overflow-hidden">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="Homepage">
@@ -153,7 +171,7 @@ export function Header() {
             <span className="font-heading font-bold text-lg hidden sm:inline-block">Jarema</span>
           </Link>
 
-          <nav ref={navRef} className="hidden md:flex items-center ml-6 overflow-hidden" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center ml-6 overflow-hidden" aria-label="Main navigation">
             <div className="flex items-center gap-6 overflow-hidden">
               {visibleItems.map((item) => (
                 <NavLink

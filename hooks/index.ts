@@ -53,7 +53,8 @@ type ViewportState = {
 // Singleton state for viewport - prevents multiple subscriptions
 let viewportState: ViewportState | null = null
 let viewportListeners = new Set<() => void>()
-let resizeTimeout: NodeJS.Timeout | null = null
+let resizeTimeout: ReturnType<typeof setTimeout> | null = null
+let resizeHandler: (() => void) | null = null
 
 const getViewportState = (): ViewportState => {
   if (typeof window === "undefined") {
@@ -79,33 +80,49 @@ const getViewportState = (): ViewportState => {
 const updateViewportState = () => {
   if (typeof window === "undefined") return
   const width = window.innerWidth
-  viewportState = {
+  const prev = viewportState
+  const newState = {
     ...viewportState!,
     windowWidth: width,
     isMobile: width < 768,
     isTablet: width >= 768 && width < 1280,
     isDesktop: width >= 1280,
   }
-  viewportListeners.forEach(listener => listener())
+  // Only update and notify if values actually changed
+  if (!prev || prev.windowWidth !== newState.windowWidth ||
+      prev.isMobile !== newState.isMobile ||
+      prev.isTablet !== newState.isTablet ||
+      prev.isDesktop !== newState.isDesktop) {
+    viewportState = newState
+    // Use a copy of listeners to avoid issues if listeners modify the set
+    const listeners = [...viewportListeners]
+    listeners.forEach(listener => listener())
+  }
 }
 
 const subscribeViewport = (callback: () => void) => {
   viewportListeners.add(callback)
 
   // Set up resize listener once
-  if (viewportListeners.size === 1 && typeof window !== "undefined") {
-    const handleResize = () => {
+  if (viewportListeners.size === 1 && typeof window !== "undefined" && !resizeHandler) {
+    resizeHandler = () => {
       if (resizeTimeout) clearTimeout(resizeTimeout)
       resizeTimeout = setTimeout(updateViewportState, 150)
     }
-    window.addEventListener("resize", handleResize, { passive: true })
+    window.addEventListener("resize", resizeHandler, { passive: true })
   }
 
   return () => {
     viewportListeners.delete(callback)
-    if (viewportListeners.size === 0 && resizeTimeout) {
-      clearTimeout(resizeTimeout)
-      resizeTimeout = null
+    if (viewportListeners.size === 0) {
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout)
+        resizeTimeout = null
+      }
+      if (resizeHandler) {
+        window.removeEventListener("resize", resizeHandler)
+        resizeHandler = null
+      }
     }
   }
 }
