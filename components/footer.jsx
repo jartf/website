@@ -60,7 +60,7 @@ export function Footer() {
       </nav>
 
       <a className="flex justify-center mt-2 pb-4" href="/badges">
-        <Image src="/badge.png" alt="Jarema's personal badge" width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" />
+        <Image src="/badge.png" alt="Jarema\'s personal badge" width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" />
       </a>
     </footer>
   )
