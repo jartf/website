@@ -211,7 +211,7 @@ export default async function Home() {
                 </a>
                 <div className="flex items-center gap-2">
                   <a
-                    href="https://hotlinewebring.club/previous"
+                    href="https://hotlinewebring.club/jar/previous"
                     className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
                     aria-label="Previous site in Hotline webring"
                     title="Previous"
@@ -220,7 +220,7 @@ export default async function Home() {
                   </a>
                   <span className="px-2 py-1 invisible" aria-hidden="true">🎲</span>
                   <a
-                    href="https://hotlinewebring.club/next"
+                    href="https://hotlinewebring.club/jar/next"
                     className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
                     aria-label="Next site in Hotline webring"
                     title="Next"
