@@ -230,27 +230,27 @@ export default async function Home() {
                 </div>
               </div>
 
-              {/* Webmaster Webring */}
+              {/* Bucket Webring */}
               <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
-                  href="https://webmasterwebring.netlify.app/"
+                  href="https://webring.bucketfish.me"
                   className="text-primary hover:underline font-medium"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  ☆ Webmaster Webring ☆
+                  Bucket webring
                 </a>
                 <div className="flex items-center gap-2">
                   <a
-                    href="https://webmasterwebring.netlify.app?jarema-previous"
+                    href="https://webring.bucketfish.me/redirect.html?to=prev&name=Jarema"
                     className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
-                    aria-label="Previous site in Webmaster webring"
+                    aria-label="Previous site in Bucket webring"
                     title="Previous"
                   >
                     ←
                   </a>
                   <a
-                    href="https://webmasterwebring.netlify.app?jarema-random"
+                    href="https://webring.bucketfish.me/redirect.html?to=random&name=Jarema"
                     className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
                     aria-label="Random site in Webmaster webring"
                     title="Random"
@@ -258,9 +258,9 @@ export default async function Home() {
                     🎲
                   </a>
                   <a
-                    href="https://webmasterwebring.netlify.app?jarema-next"
+                    href="https://webring.bucketfish.me/redirect.html?to=next&name=Jarema"
                     className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
-                    aria-label="Next site in Webmaster webring"
+                    aria-label="Next site in Bucket webring"
                     title="Next"
                   >
                     →
@@ -299,6 +299,44 @@ export default async function Home() {
                     href="https://meta-ring.hedy.dev/next"
                     className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
                     aria-label="Next site in Meta Ring"
+                    title="Next"
+                  >
+                    →
+                  </a>
+                </div>
+              </div>
+
+              {/* Webmaster Webring */}
+              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+                <a
+                  href="https://webmasterwebring.netlify.app/"
+                  className="text-primary hover:underline font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ☆ Webmaster Webring ☆
+                </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://webmasterwebring.netlify.app?jarema-previous"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Previous site in Webmaster webring"
+                    title="Previous"
+                  >
+                    ←
+                  </a>
+                  <a
+                    href="https://webmasterwebring.netlify.app?jarema-random"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Random site in Webmaster webring"
+                    title="Random"
+                  >
+                    🎲
+                  </a>
+                  <a
+                    href="https://webmasterwebring.netlify.app?jarema-next"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Next site in Webmaster webring"
                     title="Next"
                   >
                     →
