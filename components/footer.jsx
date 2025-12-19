@@ -42,12 +42,12 @@ const linkClass = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ri
 
 export function Footer() {
   return (
-    <footer className="w-full border-t py-6 xl:py-0" role="contentinfo">
+    <footer className="w-full border-t pt-1 xl:py-0" role="contentinfo">
       <div className="container flex flex-col items-center justify-center gap-2 py-2 xl:flex-row xl:gap-1 relative">
         <FooterClient {...STATIC_FOOTER} />
       </div>
 
-      <nav className="flex justify-center flex-wrap gap-2 mx-auto" style={{ maxWidth: '664px' }} aria-label="Web badges and external links">
+      <nav className="pt-1 flex justify-center flex-wrap gap-2 mx-auto" style={{ maxWidth: '664px' }} aria-label="Web badges and external links">
         {BADGES.map(({ src, alt, href }) =>
           href ? (
             <a key={src} href={href} target="_blank" rel="noopener" className={linkClass}>
