@@ -71,7 +71,7 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://kagi.com',
+            value: '*',
           },
           {
             key: 'Strict-Transport-Security',
