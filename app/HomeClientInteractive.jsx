@@ -45,7 +45,7 @@ const ActivityCard = memo(function ActivityCard({ activity }) {
  * Client component for the "What I'm up to now" section that requires API fetching
  * This is separated from the main Home page to keep the parent server-rendered
  */
-export function NowSection() {
+export function NowSection({ initialData }) {
   const { t, i18n } = useTranslation()
   const [latestNow, setLatestNow] = useState(null)
   const [lastfmTrack, setLastfmTrack] = useState(null)
@@ -154,7 +154,7 @@ export function NowSection() {
     }
   }, [mounted])
 
-  // Compute latest now entry (compare with Last.fm and PreMID)
+  // Compute latest 3 now entries (compare with Last.fm and PreMID)
   useEffect(() => {
     if (!mounted) return
 
@@ -169,65 +169,93 @@ export function NowSection() {
       filteredNow = filteredNow.filter(item => item.category !== "premid")
     }
 
-    let latest = null
-    for (const item of filteredNow) {
-      if (!latest || new Date(item.date) > new Date(latest.date)) {
-        latest = item
-      }
-    }
+    // Get latest 3 items sorted by date
+    const latestItems = filteredNow
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 3)
+      .map(item => ({
+        type: "nowitem",
+        icon: item.icon,
+        title: item.category.charAt(0).toUpperCase() + item.category.slice(1),
+        content: item.content[currentLang] || item.content.en,
+        date: item.date,
+      }))
 
+    const items = []
     const lastfmLive = lastfmTrack && lastfmTrack.nowplaying && !lastfmError
     const premidLive = premidActivities.length > 0 && !premidError
 
-    if (lastfmLive && premidLive) {
-      setLatestNow({
-        type: "both-live",
-        lastfm: {
-          name: lastfmTrack.name,
-          artist: lastfmTrack.artist,
-          url: lastfmTrack.url,
-          nowplaying: lastfmTrack.nowplaying,
-          date: lastfmTrack.date,
-          dateObj: lastfmTrack.dateObj
-        },
-        premid: premidActivities
+    // Add live Last.fm if available
+    if (lastfmLive) {
+      items.push({
+        type: "lastfm",
+        name: lastfmTrack.name,
+        artist: lastfmTrack.artist,
+        url: lastfmTrack.url,
+        nowplaying: lastfmTrack.nowplaying,
+        date: lastfmTrack.date,
+        dateObj: lastfmTrack.dateObj
       })
-      return
+    } else if (lastfmTrack && lastfmTrack.dateObj && !lastfmError) {
+      // Add recent Last.fm track if not live
+      items.push({
+        type: "lastfm",
+        name: lastfmTrack.name,
+        artist: lastfmTrack.artist,
+        url: lastfmTrack.url,
+        nowplaying: false,
+        date: lastfmTrack.date,
+        dateObj: lastfmTrack.dateObj
+      })
     }
 
+    // Add live PreMID if available
     if (premidLive) {
-      setLatestNow({
+      items.push({
         type: "premid",
         activities: premidActivities
       })
-      return
     }
 
-    if (lastfmTrack && lastfmTrack.dateObj && !lastfmError) {
-      if (!latest || lastfmTrack.dateObj > new Date(latest.date)) {
-        setLatestNow({
-          type: "lastfm",
-          name: lastfmTrack.name,
-          artist: lastfmTrack.artist,
-          url: lastfmTrack.url,
-          nowplaying: lastfmTrack.nowplaying,
-          date: lastfmTrack.date,
-          dateObj: lastfmTrack.dateObj
-        })
-        return
-      }
-    }
+    // Add the latest now items
+    items.push(...latestItems)
 
-    if (latest) {
-      setLatestNow({
-        type: "nowitem",
-        ...latest,
-        content: latest.content[currentLang] || latest.content.en
-      })
-    }
+    // Take only the first 3 items
+    setLatestNow(items.slice(0, 3))
   }, [mounted, i18n.language, lastfmTrack, lastfmError, premidActivities, premidError])
 
-  if (!mounted || !latestNow) {
+  // Display server-rendered content before JavaScript loads
+  if (!mounted) {
+    if (!initialData || !Array.isArray(initialData) || initialData.length === 0) return null
+
+    return (
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-4 text-center">
+          <a href="/now" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{ color: "inherit" }}>
+            What I'm up to now
+          </a>
+        </h2>
+        <div className="border rounded-lg p-5 bg-card space-y-4">
+          {initialData.map((item, index) => (
+            <div key={index} className={index < initialData.length - 1 ? "border-b border-border pb-4" : ""}>
+              <div className="flex items-center gap-2 font-semibold mb-1">
+                {item.title}
+              </div>
+              <div className="mb-1">{item.content}</div>
+              <div className="text-xs text-muted-foreground">
+                {new Date(item.date).toLocaleString("en", {
+                  year: "numeric", month: "long", day: "numeric",
+                  hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short"
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (!latestNow || !Array.isArray(latestNow) || latestNow.length === 0) {
     return null
   }
 
@@ -239,91 +267,69 @@ export function NowSection() {
         </a>
       </h2>
       <div className="border rounded-lg p-5 bg-card space-y-4">
-        {latestNow.type === "both-live" ? (
-          <>
-            <div className="border-b border-border pb-4">
-              <div className="flex items-center gap-2 font-semibold mb-1">
-                <LucideHeadphones className="w-5 h-5 text-primary" />
-                {t("now.categories.listening", "Listening")}
-                <span className="ml-2 text-s text-red-500">Live</span>
+        {latestNow.map((item, index) => {
+          const isLast = index === latestNow.length - 1
+
+          if (item.type === "lastfm") {
+            return (
+              <div key={index} className={!isLast ? "border-b border-border pb-4" : ""}>
+                <div className="flex items-center gap-2 font-semibold mb-1">
+                  <LucideHeadphones className="w-5 h-5 text-primary" />
+                  {t("now.categories.listening", "Listening")}
+                  {item.nowplaying && (
+                    <span className="ml-2 text-s text-red-500">Live</span>
+                  )}
+                </div>
+                <span>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline font-semibold"
+                  >
+                    {item.name}
+                  </a>
+                  {" "}
+                  <span className="text-muted-foreground">by</span> {item.artist}
+                </span>
+                {item.date && !item.nowplaying && (
+                  <div className="text-xs text-muted-foreground mt-1">{item.date}</div>
+                )}
               </div>
-              <span>
-                <a
-                  href={latestNow.lastfm.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline font-semibold"
-                >
-                  {latestNow.lastfm.name}
-                </a>
-                {" "}
-                <span className="text-muted-foreground">by</span> {latestNow.lastfm.artist}
-              </span>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 font-semibold mb-1">
-                <Activity className="w-5 h-5 text-primary" />
-                {t("now.categories.premid", "PreMID")}
-                <span className="ml-2 text-s text-red-500">Live</span>
+            )
+          } else if (item.type === "premid") {
+            return (
+              <div key={index} className={!isLast ? "border-b border-border pb-4" : ""}>
+                <div className="flex items-center gap-2 font-semibold mb-1">
+                  <Activity className="w-5 h-5 text-primary" />
+                  {t("now.categories.premid", "PreMID")}
+                  <span className="ml-2 text-s text-red-500">Live</span>
+                </div>
+                <div className="space-y-3">
+                  {item.activities.map((activity, idx) => (
+                    <ActivityCard key={idx} activity={activity} />
+                  ))}
+                </div>
               </div>
-              <div className="space-y-3">
-                {latestNow.premid.map((activity, idx) => (
-                  <ActivityCard key={idx} activity={activity} />
-                ))}
+            )
+          } else {
+            return (
+              <div key={index} className={!isLast ? "border-b border-border pb-4" : ""}>
+                <div className="flex items-center gap-2 font-semibold mb-1">
+                  {item.icon && <item.icon className="w-5 h-5 text-primary" />}
+                  {item.title}
+                </div>
+                <div className="mb-1">{item.content}</div>
+                <div className="text-xs text-muted-foreground">
+                  {new Date(item.date).toLocaleString(i18n.language || "en", {
+                    year: "numeric", month: "long", day: "numeric",
+                    hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short"
+                  })}
+                </div>
               </div>
-            </div>
-          </>
-        ) : latestNow.type === "lastfm" ? (
-          <div>
-            <div className="flex items-center gap-2 font-semibold mb-1">
-              <LucideHeadphones className="w-5 h-5 text-primary" />
-              {t("now.categories.listening", "Listening")}
-              {latestNow.nowplaying && (
-                <span className="ml-2 text-s text-red-500">Live</span>
-              )}
-            </div>
-            <span>
-              <a
-                href={latestNow.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline font-semibold"
-              >
-                {latestNow.name}
-              </a>
-              {" "}
-              <span className="text-muted-foreground">by</span> {latestNow.artist}
-            </span>
-            {latestNow.date && (
-              <div className="text-xs text-muted-foreground mt-1">{latestNow.date}</div>
-            )}
-          </div>
-        ) : latestNow.type === "premid" ? (
-          <div>
-            <div className="flex items-center gap-2 font-semibold mb-1">
-              <Activity className="w-5 h-5 text-primary" />
-              {t("now.categories.premid", "PreMID")}
-              <span className="ml-2 text-s text-red-500">Live</span>
-            </div>
-            <div className="space-y-3">
-              {latestNow.activities.map((activity, idx) => (
-                <ActivityCard key={idx} activity={activity} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div className="flex items-center gap-2 font-semibold mb-1">
-              {latestNow.icon && <latestNow.icon className="w-5 h-5 text-primary" />}
-              {latestNow.title}
-            </div>
-            <div className="mb-1">{latestNow.content}</div>
-            <div className="text-xs text-muted-foreground">{new Date(latestNow.date).toLocaleString(i18n.language || "en", {
-              year: "numeric", month: "long", day: "numeric",
-              hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short"
-            })}</div>
-          </div>
-        )}
+            )
+          }
+        })}
       </div>
     </div>
   )

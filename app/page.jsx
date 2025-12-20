@@ -12,6 +12,7 @@ import {
   TranslationLoadingSpinner,
 } from "./HomeClientInteractive"
 import { generateWebSiteSchema, generatePersonSchema, renderJsonLd } from "@/lib/structured-data"
+import { nowItems } from "@/content/now-items"
 
 export const metadata = generateMetadata({
   title: "Home",
@@ -50,6 +51,20 @@ export default async function Home() {
   const blogPosts = await getAllBlogPosts()
   // Get English posts for SSR display
   const recentPosts = blogPosts.filter(post => post.language === "en").slice(0, 3)
+
+  // Get latest 3 now items for SSR (English content)
+  const latestNowItems = nowItems
+    .filter(item => item.content && (item.content.en || item.content.en))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3)
+    .map(item => ({
+      category: item.category,
+      title: item.category.charAt(0).toUpperCase() + item.category.slice(1),
+      content: item.content.en || item.content.en,
+      date: item.date,
+    }))
+
+  const staticNowData = latestNowItems.length > 0 ? latestNowItems : null
 
   // Generate structured data for homepage
   const webSiteSchema = generateWebSiteSchema()
@@ -124,7 +139,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
             {/* Latest Now Entry Section - client component (API fetching) */}
             <div className="lg:order-2">
-              <NowSection />
+              <NowSection initialData={staticNowData} />
             </div>
 
             {/* Recent Blog Posts Section - server rendered */}
