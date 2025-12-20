@@ -80,7 +80,7 @@ export default async function Home() {
       <div className="container mx-auto px-2 sm:px-4 lg:px-6 py-8 lg:py-12 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Hero Section with Curved Shape */}
-          <div className="relative pt-8 lg:pt-12 pb-16 lg:pb-20 mb-8">
+          <div className="relative pt-10 pb-10 mb-8">
             {/* Curved shape for light mode - CSS controls visibility */}
             <div className="absolute top-0 left-0 right-0 h-64 -z-10 overflow-hidden light-only">
               <div className="w-full h-[500px] bg-gray-100 rounded-[100%] transform translate-y-[-70%]"></div>
@@ -127,7 +127,7 @@ export default async function Home() {
           </div>
 
           {/* Desktop: Two-column layout for Now + Blog Posts */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 items-start">
             {/* Latest Now Entry Section - client component (API fetching) */}
             <div className="lg:order-2">
               <NowSection initialData={staticNowData} />
@@ -172,7 +172,7 @@ export default async function Home() {
           </div>
 
           {/* Desktop: Two-column layout for MoodCat + Webrings */}
-          <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+          <div className="mt-10 lg:mt-0 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
             {/* MoodCat - client component */}
             <div>
               <MoodCat />
@@ -467,21 +467,6 @@ export default async function Home() {
                 </div>
               </div>
               </div>
-            </div>
-          </div>
-
-          {/* Guestbook Section - full width below the two-column layout */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-4 text-center">
-              <TranslatedText i18nKey="guestbook.title" fallback={STATIC_CONTENT.guestbook} />
-            </h2>
-            <div className="w-full border rounded-lg overflow-hidden shadow-lg bg-card">
-              <iframe
-                src="https://jarema.atabook.org"
-                className="w-full h-[400px] lg:h-[500px] border-0"
-                title="Guestbook"
-                loading="lazy"
-              />
             </div>
           </div>
         </div>

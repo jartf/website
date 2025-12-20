@@ -9,7 +9,7 @@ import { LucideHeadphones, Activity } from "lucide-react"
 // Memoized activity card component to prevent re-renders
 const ActivityCard = memo(function ActivityCard({ activity }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 overflow-hidden">
       {activity.assets?.large_image && (
         <div className="relative w-12 h-12 flex-shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -32,10 +32,10 @@ const ActivityCard = memo(function ActivityCard({ activity }) {
           )}
         </div>
       )}
-      <div className="flex-1 min-w-0">
-        <span className="font-semibold break-words">{activity.name}</span>
-        {activity.details && <p className="text-sm break-words">{activity.details}</p>}
-        {activity.state && <p className="text-sm text-muted-foreground break-words">{activity.state}</p>}
+      <div className="flex-1 min-w-0 overflow-hidden">
+        <span className="font-semibold break-words overflow-wrap-anywhere block">{activity.name}</span>
+        {activity.details && <p className="text-sm break-words overflow-wrap-anywhere">{activity.details}</p>}
+        {activity.state && <p className="text-sm text-muted-foreground break-words overflow-wrap-anywhere">{activity.state}</p>}
       </div>
     </div>
   )
@@ -235,7 +235,7 @@ export function NowSection({ initialData }) {
             What I&apos;m up to now
           </a>
         </h2>
-        <div className="border rounded-lg p-5 bg-card space-y-4">
+        <div className="border rounded-lg p-5 bg-card space-y-4 overflow-hidden">
           {initialData.map((item, index) => (
             <div key={index} className={index < initialData.length - 1 ? "border-b border-border pb-4" : ""}>
               <div className="flex items-center gap-2 font-semibold mb-1">
@@ -264,7 +264,7 @@ export function NowSection({ initialData }) {
           {t("home.latestNow", "What I&apos;m up to now")}
         </a>
       </h2>
-      <div className="border rounded-lg p-5 bg-card space-y-4 max-h-[415px] lg:overflow-y-auto">
+      <div className="border rounded-lg p-5 bg-card space-y-4 lg:max-h-[415px] overflow-y-auto overflow-x-hidden">
         {latestNow.map((item, index) => {
           const isLast = index === latestNow.length - 1
 
