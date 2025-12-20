@@ -56,8 +56,13 @@
     "contactButton": "Bana ulaş",
     "aboutButton": "Hakkımda",
     "blogButton": "Blogumu oku",
+    "guestbookButton": "Ziyaretçi defterime yaz",
     "recentPosts": "Son blog yazıları",
     "latestNow": "Şu anda ne yapıyorum"
+  },
+  "guestbook": {
+    "title": "Ziyaretçi Defteri",
+    "description": "Ziyaretçi defterime bir mesaj bırak!"
   },
   "about": {
     "title": "Hakkımda",

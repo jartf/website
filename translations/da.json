@@ -56,8 +56,13 @@
     "contactButton": "Kontakt mig",
     "aboutButton": "Om mig",
     "blogButton": "Læs min blog",
+    "guestbookButton": "Skriv i min gæstebog",
     "recentPosts": "Seneste blogindlæg",
     "latestNow": "Hvad jeg laver lige nu"
+  },
+  "guestbook": {
+    "title": "Gæstebog",
+    "description": "Skriv en hilsen i min gæstebog!"
   },
   "about": {
     "title": "Om mig",

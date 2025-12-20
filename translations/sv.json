@@ -49,8 +49,13 @@
     "contactButton": "Kontakta mig",
     "aboutButton": "Om mig",
     "blogButton": "Läs min blogg",
+    "guestbookButton": "Skriv i min gästbok",
     "recentPosts": "Senaste blogginlägg",
     "latestNow": "Vad jag gör just nu"
+  },
+  "guestbook": {
+    "title": "Gästbok",
+    "description": "Lämna ett meddelande i min gästbok!"
   },
   "about": {
     "title": "Om mig",

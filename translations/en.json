@@ -49,8 +49,13 @@
     "contactButton": "Contact me",
     "aboutButton": "About me",
     "blogButton": "Read my blog",
+    "guestbookButton": "Sign my guestbook",
     "recentPosts": "Recent blog posts",
     "latestNow": "What I'm up to now"
+  },
+  "guestbook": {
+    "title": "Guestbook",
+    "description": "Leave a message on my guestbook!"
   },
   "about": {
     "title": "About me",

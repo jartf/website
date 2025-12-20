@@ -49,8 +49,13 @@
     "contactButton": "Ota yhteyttä",
     "aboutButton": "Minusta",
     "blogButton": "Lue blogiani",
+    "guestbookButton": "Kirjoita vieraskirjaani",
     "recentPosts": "Viimeisimmät blogikirjoitukset",
     "latestNow": "Mitä teen nyt"
+  },
+  "guestbook": {
+    "title": "Vieraskirja",
+    "description": "Jätä viesti vieraskirjaani!"
   },
   "about": {
     "title": "Minusta",

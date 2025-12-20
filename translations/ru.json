@@ -56,8 +56,13 @@
     "contactButton": "Связаться со мной",
     "aboutButton": "Обо мне",
     "blogButton": "Читать мой блог",
+    "guestbookButton": "Оставь запись в гостевой книге",
     "recentPosts": "Последние посты в блоге",
     "latestNow": "Что я делаю сейчас"
+  },
+  "guestbook": {
+    "title": "Гостевая книга",
+    "description": "Оставь сообщение в моей гостевой книге!"
   },
   "about": {
     "title": "Обо мне",

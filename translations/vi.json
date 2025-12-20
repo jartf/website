@@ -49,8 +49,13 @@
     "contactButton": "Liên hệ mình",
     "aboutButton": "Về mình",
     "blogButton": "Đọc blog của mình",
+    "guestbookButton": "Để lại lưu bút cho mình",
     "recentPosts": "Bài blog gần đây",
     "latestNow": "Bây giờ mình đang làm gì?"
+  },
+  "guestbook": {
+    "title": "Sổ lưu bút",
+    "description": "Hãy để lại lời nhắn trong sổ lưu bút của mình nhé!"
   },
   "about": {
     "title": "Về mình",

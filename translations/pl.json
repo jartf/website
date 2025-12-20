@@ -49,8 +49,13 @@
     "contactButton": "Skontaktuj się ze mną",
     "aboutButton": "O mnie",
     "blogButton": "Czytaj mojego bloga",
+    "guestbookButton": "Wpisz się do księgi gości",
     "recentPosts": "Ostatnie wpisy na blogu",
     "latestNow": "Co robię teraz"
+  },
+  "guestbook": {
+    "title": "Księga gości",
+    "description": "Zostaw wpis w mojej księdze gości!"
   },
   "about": {
     "title": "O mnie",

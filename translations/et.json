@@ -49,8 +49,13 @@
     "contactButton": "Võta ühendust",
     "aboutButton": "Loe minust",
     "blogButton": "Loe mu blogi",
+    "guestbookButton": "Kirjuta mu külalisteraamatusse",
     "recentPosts": "Hiljutised blogipostitused",
     "latestNow": "Mida ma hetkel teen"
+  },
+  "guestbook": {
+    "title": "Külalisteraamat",
+    "description": "Jäta teade minu külalisteraamatusse"
   },
   "about": {
     "title": "Minust",

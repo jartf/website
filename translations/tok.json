@@ -49,8 +49,13 @@
     "contactButton": "toki tawa mi",
     "aboutButton": "sona mi",
     "blogButton": "o lukin e lipu toki mi",
+    "guestbookButton": "o sitelen lon lipu pi jan kama",
     "recentPosts": "lipu toki sin",
     "latestNow": "seme li lon mi lon tenpo ni"
+  },
+  "guestbook": {
+    "title": "lipu pi jan kama",
+    "description": "o sitelen lon lipu pi jan kama mi!"
   },
   "about": {
     "title": "sona mi",

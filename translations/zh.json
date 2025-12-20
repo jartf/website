@@ -56,8 +56,13 @@
     "contactButton": "联系我",
     "aboutButton": "关于我",
     "blogButton": "看看我的博客",
+    "guestbookButton": "签写留言簿",
     "recentPosts": "最新博客文章",
     "latestNow": "我现在在做什么"
+  },
+  "guestbook": {
+    "title": "留言簿",
+    "description": "在我的留言簿上留言吧！"
   },
   "about": {
     "title": "关于我",
