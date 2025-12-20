@@ -332,7 +332,7 @@ export default function BadgesPage() {
       <h1 className="text-3xl font-bold mb-6">Classic web badges collection</h1>
 
       <p className="text-muted-foreground mb-8">
-        I've collected these 88x31 badges to show what I and this site actually care about. They're a throwback to the Geocities era when the internet was less corporate/AI slop. If you have a badge you'd like me to add here, just ask me.
+        I&apos;ve collected these 88x31 badges to show what I and this site actually care about. They&apos;re a throwback to the Geocities era when the internet was less corporate/AI slop. If you have a badge you&apos;d like me to add here, just ask me.
       </p>
 
       {/* Personal Badge Section - Server rendered */}
