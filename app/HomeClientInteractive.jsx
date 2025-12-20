@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useMemo, memo } from "react"
+import { useEffect, useState, memo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMounted, useReducedMotion } from "@/hooks"
 import { nowItems } from "@/content/now-items"
@@ -341,21 +341,24 @@ export function NowSection({ initialData }) {
 export const Greeting = memo(function Greeting() {
   const { t } = useTranslation()
   const mounted = useMounted()
+  const [greeting, setGreeting] = useState("Welcome, traveler.")
 
-  // Compute greeting based on current hour - this is synchronous and safe
-  const greeting = useMemo(() => {
-    if (!mounted) return "Welcome, traveler."
+  // Update greeting after mount to avoid hydration mismatch
+  useEffect(() => {
+    if (!mounted) return
 
     const hour = new Date().getHours()
+    let newGreeting
     if (hour >= 5 && hour < 12) {
-      return t("greetings.morning", "Good morning, traveler.")
+      newGreeting = t("greetings.morning", "Good morning, traveler.")
     } else if (hour >= 12 && hour < 18) {
-      return t("greetings.afternoon", "Good afternoon, wanderer.")
+      newGreeting = t("greetings.afternoon", "Good afternoon, wanderer.")
     } else if (hour >= 18 && hour < 22) {
-      return t("greetings.evening", "Good evening, explorer.")
+      newGreeting = t("greetings.evening", "Good evening, explorer.")
     } else {
-      return t("greetings.night", "Still awake? Me too.")
+      newGreeting = t("greetings.night", "Still awake? Me too.")
     }
+    setGreeting(newGreeting)
   }, [t, mounted])
 
   return <p className="text-lg md:text-xl text-muted-foreground mb-4">{greeting}</p>
