@@ -264,7 +264,7 @@ export function NowSection({ initialData }) {
           {t("home.latestNow", "What I&apos;m up to now")}
         </a>
       </h2>
-      <div className="border rounded-lg p-5 bg-card space-y-4">
+      <div className="border rounded-lg p-5 bg-card space-y-4 max-h-[415px] lg:overflow-y-auto">
         {latestNow.map((item, index) => {
           const isLast = index === latestNow.length - 1
 
