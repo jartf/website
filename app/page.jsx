@@ -26,9 +26,11 @@ const STATIC_CONTENT = {
   contactButton: "Contact me",
   aboutButton: "About me",
   blogButton: "Read my blog",
+  guestbookButton: "Sign my guestbook",
   recentPosts: "Recent blog posts",
   minRead: "min read",
   mood: "Mood",
+  guestbook: "Guestbook",
   webrings: "Webrings",
 }
 
@@ -108,6 +110,11 @@ export default async function Home() {
                       <TranslatedText i18nKey="home.blogButton" fallback={STATIC_CONTENT.blogButton} />
                     </Button>
                   </Link>
+                  <Link href="/guestbook">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                      <TranslatedText i18nKey="home.guestbookButton" fallback={STATIC_CONTENT.guestbookButton} />
+                    </Button>
+                  </Link>
                 </div>
               </AnimatedHeroContent>
             </div>
@@ -160,6 +167,21 @@ export default async function Home() {
           {/* MoodCat - client component */}
           <div className="mt-16">
             <MoodCat />
+          </div>
+
+          {/* Guestbook Section */}
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold mb-4">
+              <TranslatedText i18nKey="guestbook.title" fallback={STATIC_CONTENT.guestbook.title} />
+            </h2>
+            <div className="w-full border rounded-lg overflow-hidden shadow-lg bg-card">
+              <iframe
+                src="https://jarema.atabook.org"
+                className="w-full h-[600px] border-0"
+                title="Guestbook"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           {/* Webrings Section */}
