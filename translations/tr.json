@@ -7,6 +7,7 @@
     "now": "Şimdi",
     "uses": "Kullandıklarım",
     "contact": "İletişim",
+    "guestbook": "Ziyaretçi defteri",
     "colophon": "Künye",
     "scrapbook": "Karalama defteri"
   },
@@ -61,7 +62,7 @@
     "latestNow": "Şu anda ne yapıyorum"
   },
   "guestbook": {
-    "title": "Ziyaretçi Defteri",
+    "title": "Ziyaretçi defteri",
     "description": "Ziyaretçi defterime bir mesaj bırak!"
   },
   "about": {

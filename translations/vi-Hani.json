@@ -7,6 +7,7 @@
     "now": "現在",
     "uses": "工具",
     "contact": "聯繫",
+    "guestbook": "數留筆",
     "colophon": "通信",
     "scrapbook": "𥱬劄"
   },
@@ -51,6 +52,10 @@
     "blogButton": "讀 blog 𧵑𨉟",
     "recentPosts": "Blog 𧵆低",
     "latestNow": "𣊾𣇞𨉟當𫜵之？"
+  },
+  "guestbook": {
+    "title": "數留筆",
+    "description": "唉抵吏唎𠴍𥪝數留筆𧵑𨉟唲！"
   },
   "about": {
     "title": "介紹",
