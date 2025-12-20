@@ -238,6 +238,7 @@ const NAVIGATION_SHORTCUTS: Record<string, string> = {
   [KEYBOARD_SHORTCUTS.NOW]: ROUTES.NOW,
   [KEYBOARD_SHORTCUTS.USES]: ROUTES.USES,
   [KEYBOARD_SHORTCUTS.CONTACT]: ROUTES.CONTACT,
+  [KEYBOARD_SHORTCUTS.GUESTBOOK]: ROUTES.GUESTBOOK,
   [KEYBOARD_SHORTCUTS.COLOPHON]: ROUTES.COLOPHON,
   [KEYBOARD_SHORTCUTS.SLASHES]: ROUTES.SLASHES,
   [KEYBOARD_SHORTCUTS.SCRAPBOOK]: ROUTES.SCRAPBOOK,
@@ -285,7 +286,7 @@ export function useKeyboardNavigation() {
       if (isGame) {
         if (e.key === "h" && !e.metaKey && !e.altKey) { e.preventDefault(); router.push("/") }
         else if (e.key === "m" && !e.metaKey && !e.altKey) { e.preventDefault(); cycleTheme() }
-        else if (e.key === "g" && !e.metaKey && !e.altKey) { e.preventDefault(); cycleLanguage() }
+        else if (e.key === "y" && !e.metaKey && !e.altKey) { e.preventDefault(); cycleLanguage() }
         return
       }
 
@@ -296,7 +297,7 @@ export function useKeyboardNavigation() {
           return
         }
         if (e.key === "m") { e.preventDefault(); cycleTheme() }
-        else if (e.key === "g") { e.preventDefault(); cycleLanguage() }
+        else if (e.key === "y") { e.preventDefault(); cycleLanguage() }
         else if (e.key === "r" && refreshCatEl) { e.preventDefault(); (refreshCatEl as HTMLButtonElement).click() }
       }
     }

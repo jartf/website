@@ -11,7 +11,7 @@ import {
   Search, Home, User, Code, BookOpen, Clock, Wrench, Mail, FileText, Calendar, Moon, Sun, Languages,
   RefreshCw, Gamepad2, Slash, KeyRound, FlipHorizontal, ArrowLeft, ArrowRight, ArrowUp, ArrowDown,
   X, Coffee, Headphones, Brain, GraduationCap, Lightbulb, Laptop, Smartphone, Globe, Shield,
-  Settings, Map, ImageIcon, Palette, Server, Tag,
+  Settings, Map, ImageIcon, Palette, Server, Tag, MessagesSquare,
 } from "lucide-react"
 import { projects } from "@/content/project-items"
 import { nowItems } from "@/content/now-items"
@@ -61,6 +61,7 @@ export const ActionSearchBar = memo(function ActionSearchBar() {
       ["now", "nav.now", Clock, "/now", "n"],
       ["uses", "nav.uses", Wrench, "/uses", "u"],
       ["contact", "nav.contact", Mail, "/contact", "c"],
+      ["guestbook", "nav.guestbook", MessagesSquare, "/guestbook", "g"],
       ["colophon", "nav.colophon", FileText, "/colophon", "l"],
       ["scrapbook", "nav.scrapbook", Calendar, "/scrapbook", "d"],
       ["slashes", "Slashes", Slash, "/slashes", "/"],
@@ -82,7 +83,7 @@ export const ActionSearchBar = memo(function ActionSearchBar() {
       },
       {
         id: "language-toggle", label: t("actionSearch.cycleLanguage", "Change language"),
-        icon: <Languages className="h-4 w-4 text-green-500" />, shortcut: "g", category: t("blog.language", "Language"),
+        icon: <Languages className="h-4 w-4 text-green-500" />, shortcut: "y", category: t("blog.language", "Language"),
         action: () => {
           const idx = Math.max(0, SUPPORTED_LANGUAGES.findIndex(l => lang.startsWith(l)))
           i18n.changeLanguage(SUPPORTED_LANGUAGES[(idx + 1) % SUPPORTED_LANGUAGES.length]); close()

@@ -24,6 +24,7 @@ const STATIC_NAV_LABELS: Record<string, string> = {
   now: "Now",
   uses: "Uses",
   contact: "Contact",
+  guestbook: "Guestbook",
   colophon: "Colophon",
 }
 
