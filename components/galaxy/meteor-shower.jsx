@@ -64,7 +64,7 @@ export function MeteorShower() {
       }, 3500)
     }
 
-    const interval = setInterval(generateMeteor, 1500)
+    const interval = setInterval(generateMeteor, 4000)
     return () => clearInterval(interval)
   }, [mounted, prefersReducedMotion])
 

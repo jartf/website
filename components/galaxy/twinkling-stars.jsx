@@ -104,7 +104,7 @@ export function TwinklingStars() {
       }, 2500)
     }
 
-    const interval = setInterval(generateStar, 5000)
+    const interval = setInterval(generateStar, 8000)
     return () => clearInterval(interval)
   }, [mounted, prefersReducedMotion])
 
