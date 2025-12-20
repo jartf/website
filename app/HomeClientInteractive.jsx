@@ -243,7 +243,7 @@ export function NowSection({ initialData }) {
               </div>
               <div className="mb-1">{item.content}</div>
               <div className="text-xs text-muted-foreground">
-                {new Date(item.date).toLocaleString("en", {
+                {new Date(item.date).toLocaleString(i18n.language || "en", {
                   year: "numeric", month: "long", day: "numeric",
                   hour: "2-digit", minute: "2-digit", second: "2-digit", timeZoneName: "short"
                 })}
