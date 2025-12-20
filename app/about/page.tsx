@@ -6,7 +6,7 @@ import AboutClientWrapper from "./AboutClientWrapper"
 import { generatePersonSchema, generateProfilePageSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 
 export const metadata = generateMeta({
-  title: "About Me",
+  title: "About me",
   description: "Learn more about me, my background, and my journey.",
   path: "about",
 })
