@@ -95,22 +95,26 @@ export function Header() {
     [pathname]
   )
 
-  // Stable overflow calculation using hidden measurement container
+  // Stable overflow calculation using ResizeObserver to avoid forced reflows
   // This prevents loops by always measuring the same set of items
   useEffect(() => {
     if (!mounted || !measureRef.current) return
 
     // Skip for mobile or large desktop
     if (windowWidth < 768 || windowWidth >= 1280) {
-      queueMicrotask(() => setOverflowIndex(prev => prev === null ? null : null))
+      setOverflowIndex(null)
       return
     }
 
-    // Use requestAnimationFrame to ensure DOM is ready
-    const rafId = requestAnimationFrame(() => {
+    const container = document.querySelector(".container")
+    if (!container) return
+
+    let rafId: number | null = null
+
+    const calculateOverflow = () => {
       if (!measureRef.current) return
 
-      const containerWidth = document.querySelector(".container")?.clientWidth || 0
+      const containerWidth = container.getBoundingClientRect().width
       // Logo (~120px) + toggles (~150px) + dropdown button (~48px) + gaps (~16px)
       const availableWidth = containerWidth - 120 - 150 - 48 - 16
 
@@ -125,7 +129,7 @@ export function Header() {
       let breakIndex: number | null = null
 
       for (let i = 0; i < items.length; i++) {
-        const itemWidth = (items[i] as HTMLElement).offsetWidth
+        const itemWidth = (items[i] as HTMLElement).getBoundingClientRect().width
         totalWidth += itemWidth + (i > 0 ? 24 : 0) // 24px = gap-6
         if (totalWidth > availableWidth && breakIndex === null) {
           breakIndex = i
@@ -133,13 +137,28 @@ export function Header() {
       }
 
       // Only update if value actually changed
-      setOverflowIndex(prev => {
-        const newIndex = breakIndex
-        return prev === newIndex ? prev : newIndex
-      })
+      setOverflowIndex(prev => (prev === breakIndex ? prev : breakIndex))
+    }
+
+    // Use ResizeObserver to avoid forced reflows during initial load
+    const resizeObserver = new ResizeObserver(() => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
+      rafId = requestAnimationFrame(calculateOverflow)
     })
 
-    return () => cancelAnimationFrame(rafId)
+    resizeObserver.observe(container)
+
+    // Initial calculation after a slight delay to avoid blocking initial render
+    setTimeout(calculateOverflow, 0)
+
+    return () => {
+      resizeObserver.disconnect()
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
+    }
   }, [mounted, windowWidth, navItems]) // Include navItems since labels affect widths
 
   // Only apply overflow logic for tablet sizes when mounted
