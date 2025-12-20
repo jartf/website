@@ -1,14 +1,9 @@
-"use client"
-
-import { useState, useEffect, useRef, useCallback, memo } from "react"
-import { useTranslation } from "react-i18next"
-import i18n from "@/i18n/i18n"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { RefreshCw, ExternalLink } from "lucide-react"
-import { useMounted, useReducedMotion } from "@/hooks"
+import { ExternalLink } from "lucide-react"
+import { MoodCatClient } from "./mood-cat-client"
 
-type MoodCat = {
+export type MoodCat = {
   id: number
   image: string
   caption: string
@@ -18,7 +13,7 @@ type MoodCat = {
   attributionNoteVi?: string
 }
 
-const moodCats: MoodCat[] = [
+export const moodCats: MoodCat[] = [
   {
     id: 1,
     image: "/coding-cat.png",
@@ -133,158 +128,86 @@ const moodCats: MoodCat[] = [
 ]
 
 /**
- * Memoized cat image component with CSS transitions
+ * Get a random cat from the list
  */
-const CatImage = memo(function CatImage({ cat, isVisible }: { cat: MoodCat; isVisible: boolean }) {
-  const currentLang = i18n.language
-  const prefersReducedMotion = useReducedMotion()
-
-  return (
-    <div
-      className={`relative h-full w-full ${prefersReducedMotion ? '' : 'transition-opacity duration-300'}`}
-      style={{ opacity: isVisible ? 1 : 0 }}
-    >
-      <Image
-        src={cat.image || "/placeholder.svg"}
-        alt={`Mood cat: ${cat.caption}`}
-        fill
-        className="object-cover"
-        loading="lazy"
-        priority={false}
-      />
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-        <p className="text-white text-xl font-medium text-center">
-          {currentLang === "vi" && cat.captionVi ? cat.captionVi : cat.caption}
-        </p>
-        {cat.attribution && (
-          <p className="text-white/70 text-xs text-center mt-1">
-            <a
-              href={cat.attribution}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white/90 transition-colors"
-              title={
-                currentLang === "vi" && cat.attributionNoteVi
-                  ? cat.attributionNoteVi
-                  : cat.attributionNote
-              }
-            >
-              Image source
-            </a>
-            {((currentLang === "vi" && cat.attributionNoteVi) ||
-              (currentLang !== "vi" && cat.attributionNote)) && (
-              <span className="block mt-0.5 text-[10px] opacity-70">
-                {currentLang === "vi" && cat.attributionNoteVi
-                  ? cat.attributionNoteVi
-                  : cat.attributionNote}
-              </span>
-            )}
-          </p>
-        )}
-      </div>
-    </div>
-  )
-})
+function getRandomCat(): MoodCat {
+  return moodCats[Math.floor(Math.random() * moodCats.length)]
+}
 
 /**
- * A component that displays a random "mood cat" with a caption and attribution.
- * @returns {JSX.Element} The mood cat component.
+ * Server component that renders a mood cat with progressive enhancement
  */
 export function MoodCat() {
-  const { t } = useTranslation()
-  const [currentCat, setCurrentCat] = useState<MoodCat | null>(null)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const mounted = useMounted()
-  const prefersReducedMotion = useReducedMotion()
-  const refreshButtonRef = useRef<HTMLButtonElement>(null)
-
-  const getRandomCat = useCallback(() => {
-    setIsLoading(true)
-
-    // Start fade out
-    if (!prefersReducedMotion) {
-      setIsTransitioning(true)
-    }
-
-    // Get a random cat that's different from the current one
-    let newCat
-    do {
-      newCat = moodCats[Math.floor(Math.random() * moodCats.length)]
-    } while (newCat && currentCat && newCat.id === currentCat.id)
-
-    // Use a shorter timeout for reduced motion, otherwise wait for fade
-    const delay = prefersReducedMotion ? 50 : 150
-    setTimeout(() => {
-      setCurrentCat(newCat)
-      setIsTransitioning(false)
-      setIsLoading(false)
-    }, delay)
-  }, [currentCat, prefersReducedMotion])
-
-  useEffect(() => {
-    // Don't block initial render with a null cat
-    // Instead, show loading state and set cat asynchronously
-    const timer = setTimeout(() => {
-      getRandomCat()
-    }, 100)
-
-    return () => clearTimeout(timer)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  if (!mounted) return null
+  // Pick a random cat on the server
+  const initialCat = getRandomCat()
 
   return (
     <div className="relative">
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold relative inline-block group">
-          {t("moodCat.title", "Cat of the day")}
+          Cat of the day
           <span className="absolute left-0 -bottom-1 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-          <span className="absolute left-0 -top-6 w-full text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            {t("moodCat.hover", "judging you softly")}
+          <noscript>
+            <style>{`
+              .mood-cat-hover-text { display: none; }
+            `}</style>
+          </noscript>
+          <span className="mood-cat-hover-text absolute left-0 -top-6 w-full text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            judging you softly
           </span>
         </h2>
       </div>
 
-      <div className="relative rounded-xl overflow-hidden bg-muted">
+      <div className="relative rounded-xl overflow-hidden bg-muted" data-server-cat>
         <div className="relative aspect-[4/3] w-full">
-          {currentCat ? (
-            <CatImage cat={currentCat} isVisible={!isTransitioning} />
-          ) : (
-            <div className="h-full w-full bg-muted flex items-center justify-center">
-              <div className="animate-pulse flex flex-col items-center">
-                <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
-                <p className="text-sm text-muted-foreground mt-2">{t("moodCat.loading", "Loading...")}</p>
-              </div>
+          <div className="relative h-full w-full">
+            <Image
+              src={initialCat.image}
+              alt={`Mood cat: ${initialCat.caption}`}
+              fill
+              className="object-cover"
+              loading="lazy"
+              priority={false}
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+              <p className="text-white text-xl font-medium text-center">
+                {initialCat.caption}
+              </p>
+              {initialCat.attribution && (
+                <p className="text-white/70 text-xs text-center mt-1">
+                  <a
+                    href={initialCat.attribution}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white/90 transition-colors"
+                    title={initialCat.attributionNote}
+                  >
+                    Image source
+                  </a>
+                  {initialCat.attributionNote && (
+                    <span className="block mt-0.5 text-[10px] opacity-70">
+                      {initialCat.attributionNote}
+                    </span>
+                  )}
+                </p>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
 
-      <div className="mt-4 flex justify-center gap-3">
-        <Button
-          ref={refreshButtonRef}
-          variant="outline"
-          size="sm"
-          onClick={getRandomCat}
-          disabled={isLoading}
-          className="group"
-          aria-label="Refresh mood cat"
-          aria-busy={isLoading}
-          id="refresh-mood-cat-button"
-        >
-          <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : "group-hover:animate-spin"}`} aria-hidden="true" />
-          <span>{t("moodCat.refresh", "New cat, who dis?")}</span>
-        </Button>
+      <div className="mt-4 flex justify-center gap-3" data-server-buttons>
         <Button variant="outline" size="sm" asChild className="group">
           <a href="https://www.reddit.com/r/Catswithjobs/" target="_blank" rel="noopener noreferrer">
             <ExternalLink className="mr-2 h-4 w-4 group-hover:animate-pulse" aria-hidden="true" />
-            <span>{t("moodCat.seeMore", "See more cats")}</span>
+            <span>See more cats</span>
             <span className="sr-only"> (opens in new tab)</span>
           </a>
         </Button>
       </div>
+
+      {/* Progressive enhancement - add client interactivity */}
+      <MoodCatClient initialCat={initialCat} />
     </div>
   )
 }
