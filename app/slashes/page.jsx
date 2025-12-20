@@ -1,6 +1,6 @@
 import { generateMetadata } from "@/lib/metadata"
 import Link from "next/link"
-import { Slash, Home, User, Code, BookOpen, Clock, Mail, FileText, Wrench, Calendar } from "lucide-react"
+import { Slash, Home, User, Code, BookOpen, Clock, Mail, FileText, Wrench, Calendar, MessagesSquare } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PageAnimation, AnimatedEntry } from "@/components/page-animation"
 
@@ -21,6 +21,7 @@ const iconMap = {
   FileText,
   Wrench,
   Calendar,
+  MessagesSquare,
   Slash,
 }
 
@@ -73,6 +74,12 @@ const routes = [
     name: "Contact",
     description: "Find ways to reach out and connect with me",
     iconName: "Mail",
+  },
+  {
+    path: "/guestbook",
+    name: "Guestbook",
+    description: "Sign my guestbook and leave a message",
+    iconName: "MessagesSquare",
   },
   {
     path: "/colophon",
