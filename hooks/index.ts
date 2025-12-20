@@ -7,14 +7,16 @@ import { useTheme } from "next-themes"
 import { SUPPORTED_LANGUAGES, THEMES, KEYBOARD_SHORTCUTS, ROUTES } from "@/lib/constants"
 
 // ============================================================================
-// useMounted - Hydration-safe mounting detection using useSyncExternalStore
+// useMounted - Hydration-safe mounting detection
 // ============================================================================
-const mountedSubscribe = () => () => {}
-const getMountedSnapshot = () => true
-const getMountedServerSnapshot = () => false
-
 export function useMounted() {
-  return useSyncExternalStore(mountedSubscribe, getMountedSnapshot, getMountedServerSnapshot)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  return mounted
 }
 
 // ============================================================================
