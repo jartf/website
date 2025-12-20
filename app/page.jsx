@@ -315,6 +315,44 @@ export default async function Home() {
                 </div>
               </div>
 
+              {/* Fediring */}
+              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+                <a
+                  href="https://fediring.net/"
+                  className="text-primary hover:underline font-medium"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Fediring
+                </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://fediring.net/previous?host=jarema.me"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Previous site in Fediring"
+                    title="Previous"
+                  >
+                    ←
+                  </a>
+                  <a
+                    href="https://fediring.net/random"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Random site in Fediring"
+                    title="Random"
+                  >
+                    🎲
+                  </a>
+                  <a
+                    href="https://fediring.net/next?host=jarema.me"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Next site in Fediring"
+                    title="Next"
+                  >
+                    →
+                  </a>
+                </div>
+              </div>
+
               {/* The Online Webring */}
               <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
