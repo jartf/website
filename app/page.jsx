@@ -185,7 +185,7 @@ export default async function Home() {
               </h2>
               <div className="border rounded-lg p-4 bg-card divide-y text-sm">
               {/* IndieWeb Webring */}
-              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                 <a
                   href="https://xn--sr8hvo.ws"
                   className="text-primary hover:underline font-medium"
@@ -216,7 +216,7 @@ export default async function Home() {
               </div>
 
               {/* Retronaut Webring */}
-              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                 <a
                   href="https://webring.dinhe.net/"
                   className="text-primary hover:underline font-medium"
@@ -247,7 +247,7 @@ export default async function Home() {
               </div>
 
               {/* Hotline Webring */}
-              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                 <a
                   href="https://hotlinewebring.club/"
                   className="text-primary hover:underline font-medium"
@@ -278,7 +278,7 @@ export default async function Home() {
               </div>
 
               {/* Bucket Webring */}
-              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                 <a
                   href="https://webring.bucketfish.me"
                   className="text-primary hover:underline font-medium"
@@ -316,7 +316,7 @@ export default async function Home() {
               </div>
 
               {/* Fediring */}
-              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                 <a
                   href="https://fediring.net/"
                   className="text-primary hover:underline font-medium"
@@ -354,7 +354,7 @@ export default async function Home() {
               </div>
 
               {/* The Online Webring */}
-              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                 <a
                   href="https://webring.ghostk.id/online/"
                   className="text-primary hover:underline font-medium"
@@ -392,7 +392,7 @@ export default async function Home() {
               </div>
 
               {/* Meta Ring */}
-              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                 <a
                   href="https://meta-ring.hedy.dev/"
                   className="text-primary hover:underline font-medium"
@@ -430,7 +430,7 @@ export default async function Home() {
               </div>
 
               {/* Webmaster Webring */}
-              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                 <a
                   href="https://webmasterwebring.netlify.app/"
                   className="text-primary hover:underline font-medium"
