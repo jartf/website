@@ -199,7 +199,7 @@ export default async function Home() {
                   href="https://xn--sr8hvo.ws"
                   className="text-primary hover:underline font-medium"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                 >
                   IndieWeb Webring 🕸💍
                 </a>
@@ -230,7 +230,7 @@ export default async function Home() {
                   href="https://webring.dinhe.net/"
                   className="text-primary hover:underline font-medium"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                 >
                   The retronaut webring
                 </a>
@@ -261,7 +261,7 @@ export default async function Home() {
                   href="https://hotlinewebring.club/"
                   className="text-primary hover:underline font-medium"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                 >
                   Hotline Webring
                 </a>
@@ -292,7 +292,7 @@ export default async function Home() {
                   href="https://webring.bucketfish.me"
                   className="text-primary hover:underline font-medium"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                 >
                   Bucket webring
                 </a>
@@ -324,13 +324,51 @@ export default async function Home() {
                 </div>
               </div>
 
+              {/* The Online Webring */}
+              <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+                <a
+                  href="https://webring.ghostk.id/online/"
+                  className="text-primary hover:underline font-medium"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  The Online webring
+                </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://webring.ghostk.id/online/jarema/previous"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Previous site in The Online webring"
+                    title="Previous"
+                  >
+                    ←
+                  </a>
+                  <a
+                    href="https://webring.ghostk.id/online/random"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Random site in The Online webring"
+                    title="Random"
+                  >
+                    🎲
+                  </a>
+                  <a
+                    href="https://webring.ghostk.id/online/jarema/next"
+                    className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
+                    aria-label="Next site in The Online webring"
+                    title="Next"
+                  >
+                    →
+                  </a>
+                </div>
+              </div>
+
               {/* Meta Ring */}
               <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
                   href="https://meta-ring.hedy.dev/"
                   className="text-primary hover:underline font-medium"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                 >
                   Meta Ring
                 </a>
@@ -368,7 +406,7 @@ export default async function Home() {
                   href="https://webmasterwebring.netlify.app/"
                   className="text-primary hover:underline font-medium"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                 >
                   ☆ Webmaster Webring ☆
                 </a>
