@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, useId, memo } from "react"
+import { useEffect, useRef, useState, memo } from "react"
 import { useReducedMotion, useMounted } from "@/hooks"
 
 /**
@@ -81,8 +81,7 @@ export function TwinklingStars() {
   const mounted = useMounted()
   const nextIdRef = useRef(0)
   const prefersReducedMotion = useReducedMotion()
-  const baseId = useId()
-  const styleId = baseId.replace(/:/g, '')
+  const styleId = 'twinkle-animation'
 
   useEffect(() => {
     // Wait for mount to access window dimensions
