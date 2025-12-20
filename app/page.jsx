@@ -299,7 +299,7 @@ export default async function Home() {
                   <a
                     href="https://webring.bucketfish.me/redirect.html?to=random&name=Jarema"
                     className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors"
-                    aria-label="Random site in Webmaster webring"
+                    aria-label="Random site in Bucket webring"
                     title="Random"
                   >
                     🎲
