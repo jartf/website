@@ -42,7 +42,7 @@ export const nowItems: NowItem[] = [
       tok: '"Hanataba" (kulupu kasi kule) tan HoneyComeBear',
       vih: '「花束」𧵑 HoneyComeBear'
     },
-    date: "2025-12-14T00:15:36+00:00",
+    date: "2025-12-20T00:15:36+00:00",
   },
   {
     id: 2,
@@ -82,7 +82,7 @@ export const nowItems: NowItem[] = [
       tok: "alasa sona pi mani ma, en nasin ni: ma Wije li kepeken lawa sona tawa wawa mani lon utala pi pali tomo ilo.",
       vih: "𠬠預案研究𧗱地經濟吧格越南盡用主權通信吧安寧數𫜵杶㔥地經濟𥪝局𨅮發展中心與料",
     },
-    date: "2025-12-13T19:05:05+00:00",
+    date: "2025-12-20T15:05:05+00:00",
   },
   {
     id: 4,
@@ -122,7 +122,7 @@ export const nowItems: NowItem[] = [
       tok: "mi pona e lipu ni: mi wile weka e ilo React, mi wile kepeken nasin HTML taso",
       vih: "改善張䇼尼抵𠃣附屬𠓨 React 欣吧𢮿吏使用 HTML 靜",
     },
-    date: "2025-12-13T19:07:36+00:00",
+    date: "2025-12-20T17:09:36+00:00",
   },
   {
     id: 6,
@@ -142,7 +142,7 @@ export const nowItems: NowItem[] = [
       tok: "telo lete pona",
       vih: "𠬠𡭧渃𠖾冷",
     },
-    date: "2025-12-13T00:10:18+00:00",
+    date: "2025-12-19T00:10:18+00:00",
   },
   {
     id: 7,
@@ -162,7 +162,7 @@ export const nowItems: NowItem[] = [
       tok: 'toki pi nasin ni: mi ken pali mute e ijo olin mi',
       vih: "𧗱格𨉟固体𫜵仍條𨉟㤇適常川欣",
     },
-    date: "2025-12-13T22:30:00+07:00",
+    date: "2025-12-18T22:30:00+07:00",
   },
   {
     id: 8,
@@ -182,6 +182,6 @@ export const nowItems: NowItem[] = [
       tok: 'sona mani pi ma ale',
       vih: "經濟對外",
     },
-    date: "2025-12-11T11:18:08+07:00",
+    date: "2025-12-18T11:18:08+07:00",
   },
 ]
