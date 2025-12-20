@@ -7,7 +7,6 @@ import { EasterEgg } from "@/components/easter-egg"
 import {
   NowSection,
   Greeting,
-  AnimatedHeroContent,
   TranslatedText,
   TranslationLoadingSpinner,
 } from "./HomeClientInteractive"
@@ -89,49 +88,41 @@ export default async function Home() {
 
             <div className="text-center">
               {/* Greeting - client component (time-based) */}
-              <AnimatedHeroContent>
-                <Greeting />
-              </AnimatedHeroContent>
+              <Greeting />
 
               {/* Heading - server rendered with client translation */}
-              <AnimatedHeroContent delay={0.2}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                  <TranslatedText i18nKey="home.heading" fallback={STATIC_CONTENT.heading} />
-                </h1>
-              </AnimatedHeroContent>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                <TranslatedText i18nKey="home.heading" fallback={STATIC_CONTENT.heading} />
+              </h1>
 
               {/* Subheading - server rendered with client translation */}
-              <AnimatedHeroContent delay={0.4}>
-                <p className="text-lg md:text-xl text-muted-foreground mb-8">
-                  <TranslatedText i18nKey="home.subheading" fallback={STATIC_CONTENT.subheading} />
-                </p>
-              </AnimatedHeroContent>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8">
+                <TranslatedText i18nKey="home.subheading" fallback={STATIC_CONTENT.subheading} />
+              </p>
 
               {/* CTA Buttons - server rendered structure */}
-              <AnimatedHeroContent delay={0.6}>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/contact">
-                    <Button variant="default" size="lg" className="w-full sm:w-auto">
-                      <TranslatedText i18nKey="home.contactButton" fallback={STATIC_CONTENT.contactButton} />
-                    </Button>
-                  </Link>
-                  <Link href="/about">
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                      <TranslatedText i18nKey="home.aboutButton" fallback={STATIC_CONTENT.aboutButton} />
-                    </Button>
-                  </Link>
-                  <Link href="/blog">
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                      <TranslatedText i18nKey="home.blogButton" fallback={STATIC_CONTENT.blogButton} />
-                    </Button>
-                  </Link>
-                  <Link href="/guestbook">
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                      <TranslatedText i18nKey="home.guestbookButton" fallback={STATIC_CONTENT.guestbookButton} />
-                    </Button>
-                  </Link>
-                </div>
-              </AnimatedHeroContent>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/contact">
+                  <Button variant="default" size="lg" className="w-full sm:w-auto">
+                    <TranslatedText i18nKey="home.contactButton" fallback={STATIC_CONTENT.contactButton} />
+                  </Button>
+                </Link>
+                <Link href="/about">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    <TranslatedText i18nKey="home.aboutButton" fallback={STATIC_CONTENT.aboutButton} />
+                  </Button>
+                </Link>
+                <Link href="/blog">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    <TranslatedText i18nKey="home.blogButton" fallback={STATIC_CONTENT.blogButton} />
+                  </Button>
+                </Link>
+                <Link href="/guestbook">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    <TranslatedText i18nKey="home.guestbookButton" fallback={STATIC_CONTENT.guestbookButton} />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
 
