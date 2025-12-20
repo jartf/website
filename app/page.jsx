@@ -127,7 +127,7 @@ export default async function Home() {
           </div>
 
           {/* Desktop: Two-column layout for Now + Blog Posts */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 items-start lg:min-h-[490px]">
             {/* Latest Now Entry Section - client component (API fetching) */}
             <div className="lg:order-2">
               <NowSection initialData={staticNowData} />
