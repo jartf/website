@@ -233,7 +233,7 @@ export function NowSection() {
 
   return (
     <div className="mb-12">
-      <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
+      <h2 className="text-2xl font-bold mb-4 text-center">
         <a href="/now" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{ color: "inherit" }}>
           {t("home.latestNow", "What I'm up to now")}
         </a>

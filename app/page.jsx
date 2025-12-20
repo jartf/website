@@ -63,10 +63,10 @@ export default async function Home() {
       {/* Loading spinner for translations - client */}
       <TranslationLoadingSpinner />
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="max-w-3xl mx-auto">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-6 py-8 lg:py-12 relative z-10">
+        <div className="max-w-6xl mx-auto">
           {/* Hero Section with Curved Shape */}
-          <div className="relative pt-16 pb-24 mb-12">
+          <div className="relative pt-8 lg:pt-12 pb-16 lg:pb-20 mb-8">
             {/* Curved shape for light mode - CSS controls visibility */}
             <div className="absolute top-0 left-0 right-0 h-64 -z-10 overflow-hidden light-only">
               <div className="w-full h-[500px] bg-gray-100 rounded-[100%] transform translate-y-[-70%]"></div>
@@ -120,76 +120,64 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* Latest Now Entry Section - client component (API fetching) */}
-          <NowSection />
+          {/* Desktop: Two-column layout for Now + Blog Posts */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+            {/* Latest Now Entry Section - client component (API fetching) */}
+            <div className="lg:order-2">
+              <NowSection />
+            </div>
 
-          {/* Recent Blog Posts Section - server rendered */}
-          {recentPosts && recentPosts.length > 0 && (
-            <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                <TranslatedText i18nKey="home.recentPosts" fallback={STATIC_CONTENT.recentPosts} />
-              </h2>
-              <div className="space-y-6">
-                {recentPosts.map((post) => (
-                  <div key={post.slug} className="h-entry">
-                    <Link href={`/blog/${post.slug}`} className="block group u-url" passHref>
-                      <div className="border rounded-lg p-5 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
-                        <h3 className="text-xl font-semibold mb-1 group-hover:text-primary transition-colors p-name">{post.title}</h3>
-                        <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
-                          <time className="dt-published" dateTime={post.date}>{formatVerboseDate(post.date)}</time>
-                          <span>•</span>
-                          <span>{post.readingTime} {STATIC_CONTENT.minRead}</span>
-                          <span>•</span>
-                          {post.mood && <span>{STATIC_CONTENT.mood}: {post.mood}</span>}
-                          <span>•</span>
-                          {post.language && <span>{post.language.toUpperCase()}</span>}
+            {/* Recent Blog Posts Section - server rendered */}
+            {recentPosts && recentPosts.length > 0 && (
+              <div className="lg:order-1">
+                <h2 className="text-2xl font-bold mb-4 text-center">
+                  <TranslatedText i18nKey="home.recentPosts" fallback={STATIC_CONTENT.recentPosts} />
+                </h2>
+                <div className="space-y-4">
+                  {recentPosts.map((post) => (
+                    <div key={post.slug} className="h-entry">
+                      <Link href={`/blog/${post.slug}`} className="block group u-url" passHref>
+                        <div className="border rounded-lg p-4 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
+                          <h3 className="text-lg font-semibold mb-1 group-hover:text-primary transition-colors p-name">{post.title}</h3>
+                          <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
+                            <time className="dt-published" dateTime={post.date}>{formatVerboseDate(post.date)}</time>
+                            <span>•</span>
+                            <span>{post.readingTime} {STATIC_CONTENT.minRead}</span>
+                          </div>
+                          <p className="text-muted-foreground line-clamp-2 text-sm p-summary">{post.excerpt}</p>
                         </div>
-                        <p className="text-muted-foreground line-clamp-2 p-summary">{post.excerpt}</p>
+                      </Link>
+                      {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
+                      <div className="p-author h-card" style={{ display: 'none' }}>
+                        <span className="p-name" data-url="https://jarema.me">Jarema</span>
                       </div>
-                    </Link>
-                    {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
-                    <div className="p-author h-card" style={{ display: 'none' }}>
-                      <span className="p-name" data-url="https://jarema.me">Jarema</span>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div className="mt-4 text-center lg:hidden">
+                  <Link href="/blog">
+                    <Button variant="outline" size="default" className="w-full sm:w-auto">
+                      <TranslatedText i18nKey="home.blogButton" fallback={STATIC_CONTENT.blogButton} />
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              <div className="mt-6 text-center">
-                <Link href="/blog">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    <TranslatedText i18nKey="home.blogButton" fallback={STATIC_CONTENT.blogButton} />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          )}
-
-          {/* MoodCat - client component */}
-          <div className="mt-16">
-            <MoodCat />
+            )}
           </div>
 
-          {/* Guestbook Section */}
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold mb-4">
-              <TranslatedText i18nKey="guestbook.title" fallback={STATIC_CONTENT.guestbook.title} />
-            </h2>
-            <div className="w-full border rounded-lg overflow-hidden shadow-lg bg-card">
-              <iframe
-                src="https://jarema.atabook.org"
-                className="w-full h-[600px] border-0"
-                title="Guestbook"
-                loading="lazy"
-              />
+          {/* Desktop: Two-column layout for MoodCat + Webrings */}
+          <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+            {/* MoodCat - client component */}
+            <div>
+              <MoodCat />
             </div>
-          </div>
 
-          {/* Webrings Section */}
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold mb-4">
-              <TranslatedText i18nKey="home.webrings" fallback={STATIC_CONTENT.webrings} />
-            </h2>
-            <div className="border rounded-lg p-6 bg-card divide-y">
+            {/* Webrings Section */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                <TranslatedText i18nKey="home.webrings" fallback={STATIC_CONTENT.webrings} />
+              </h2>
+              <div className="border rounded-lg p-4 bg-card divide-y text-sm">
               {/* IndieWeb Webring */}
               <div className="flex items-center justify-between py-3 first:pt-0 last:pb-0">
                 <a
@@ -396,6 +384,22 @@ export default async function Home() {
                   </a>
                 </div>
               </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Guestbook Section - full width below the two-column layout */}
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              <TranslatedText i18nKey="guestbook.title" fallback={STATIC_CONTENT.guestbook} />
+            </h2>
+            <div className="w-full border rounded-lg overflow-hidden shadow-lg bg-card">
+              <iframe
+                src="https://jarema.atabook.org"
+                className="w-full h-[400px] lg:h-[500px] border-0"
+                title="Guestbook"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
