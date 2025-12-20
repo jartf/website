@@ -232,7 +232,7 @@ export function NowSection({ initialData }) {
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-4 text-center">
           <a href="/now" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{ color: "inherit" }}>
-            What I'm up to now
+            What I&apos;m up to now
           </a>
         </h2>
         <div className="border rounded-lg p-5 bg-card space-y-4">
@@ -261,7 +261,7 @@ export function NowSection({ initialData }) {
     <div className="mb-12">
       <h2 className="text-2xl font-bold mb-4 text-center">
         <a href="/now" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{ color: "inherit" }}>
-          {t("home.latestNow", "What I'm up to now")}
+          {t("home.latestNow", "What I&apos;m up to now")}
         </a>
       </h2>
       <div className="border rounded-lg p-5 bg-card space-y-4">
@@ -356,7 +356,7 @@ export const Greeting = memo(function Greeting() {
     } else {
       newGreeting = t("greetings.night", "Still awake? Me too.")
     }
-    setGreeting(newGreeting)
+    queueMicrotask(() => setGreeting(newGreeting))
   }, [t, mounted])
 
   return <p className="text-lg md:text-xl text-muted-foreground mb-4">{greeting}</p>
