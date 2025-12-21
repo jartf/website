@@ -43,6 +43,16 @@ function formatVerboseDate(dateStr) {
 }
 
 /**
+ * Formats a date string into a verbose, human-readable format including time.
+ */
+function formatVerboseDateTime(dateStr) {
+  const date = new Date(dateStr)
+  const datePart = date.toLocaleDateString("en", { year: 'numeric', month: 'long', day: 'numeric' })
+  const timePart = date.toLocaleTimeString("en", { hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'short' })
+  return `${datePart} at ${timePart}`
+}
+
+/**
  * The home page component - server-rendered with minimal client interactivity
  * @returns {JSX.Element} The home page component.
  */
@@ -60,7 +70,7 @@ export default async function Home() {
       category: item.category,
       title: item.category.charAt(0).toUpperCase() + item.category.slice(1),
       content: item.content.en || item.content.en,
-      date: item.date,
+      date: formatVerboseDateTime(item.date),
     }))
 
   const staticNowData = latestNowItems.length > 0 ? latestNowItems : null
