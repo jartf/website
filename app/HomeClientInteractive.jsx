@@ -173,7 +173,7 @@ export function NowSection({ initialData }) {
               <div className="flex items-center gap-2 font-semibold mb-1">
                 <LucideHeadphones className="w-5 h-5 text-primary" />
                 {t("now.categories.listening", "Listening")}
-                {item.nowplaying && <span className="ml-2 text-sm font-bold text-red-600 dark:text-red-400">Live</span>}
+                {item.nowplaying && <span className="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>}
               </div>
               <span>
                 <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline font-semibold">{item.name}</a>
@@ -188,7 +188,7 @@ export function NowSection({ initialData }) {
               <div className="flex items-center gap-2 font-semibold mb-1">
                 <Activity className="w-5 h-5 text-primary" />
                 {t("now.categories.premid", "PreMID")}
-                <span className="ml-2 text-sm font-bold text-red-600 dark:text-red-400">Live</span>
+                <span className="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>
               </div>
               <div className="space-y-3">
                 {item.activities.map((a, idx) => <ActivityCard key={idx} activity={a} />)}

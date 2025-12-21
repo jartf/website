@@ -39,9 +39,9 @@ export default function ColophonPage() {
               {/* Site History */}
               <section
                 id="section-1"
-                className="prose dark:prose-invert max-w-none transition-all duration-300"
+                className="prose text-foreground dark:prose-invert max-w-none transition-all duration-300"
               >
-                <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
+                <h2 className="flex text-foreground items-center gap-2 text-2xl font-bold mb-4">
                   <Palette className="h-6 w-6 text-primary" />
                   <TranslatedText i18nKey="colophon.siteHistory.title" fallback="Site History" />
                 </h2>
@@ -62,9 +62,9 @@ export default function ColophonPage() {
               {/* Technology stack */}
               <section
                 id="section-2"
-                className="prose dark:prose-invert max-w-none transition-all duration-300"
+                className="prose text-foreground dark:prose-invert max-w-none transition-all duration-300"
               >
-                <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
+                <h2 className="flex text-foreground items-center gap-2 text-2xl font-bold mb-4">
                   <Code className="h-6 w-6 text-primary" />
                   <TranslatedText i18nKey="colophon.technologyStack.title" fallback="Technology Stack" />
                 </h2>
@@ -89,9 +89,9 @@ export default function ColophonPage() {
               {/* Hosting */}
               <section
                 id="section-3"
-                className="prose dark:prose-invert max-w-none transition-all duration-300"
+                className="prose text-foreground dark:prose-invert max-w-none transition-all duration-300"
               >
-                <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
+                <h2 className="flex text-foreground items-center gap-2 text-2xl font-bold mb-4">
                   <Server className="h-6 w-6 text-primary" />
                   <TranslatedText i18nKey="colophon.hosting.title" fallback="Hosting" />
                 </h2>
@@ -126,9 +126,9 @@ export default function ColophonPage() {
               {/* Inspiration */}
               <section
                 id="section-4"
-                className="prose dark:prose-invert max-w-none transition-all duration-300"
+                className="prose text-foreground dark:prose-invert max-w-none transition-all duration-300"
               >
-                <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
+                <h2 className="flex text-foreground items-center gap-2 text-2xl font-bold mb-4">
                   <TranslatedText i18nKey="colophon.inspiration.title" fallback="Inspiration" />
                 </h2>
                 <p>

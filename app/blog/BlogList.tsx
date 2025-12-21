@@ -113,10 +113,13 @@ const BlogPostCard = memo(function BlogPostCard({
                 </Badge>
               )}
               {post.catApproved && (
-                <div className="flex items-center text-amber-600 dark:text-amber-400">
-                  <Cat className="h-4 w-4 mr-1" />
-                  <span>{t("blog.cat", "Cat Approved")}</span>
-                </div>
+                <Badge
+                  variant="outline"
+                  className="flex items-center gap-1 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100"
+                >
+                  <Cat className="h-3 w-3" />
+                  {t("blog.cat", "Cat Approved")}
+                </Badge>
               )}
             </div>
 
@@ -491,10 +494,10 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                         </Badge>
                       )}
                       {post.catApproved && (
-                        <div className="flex items-center text-amber-600 dark:text-amber-400">
-                          <Cat className="h-4 w-4 mr-1" />
+                        <Badge variant="outline" className="flex items-center gap-1 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100">
+                          <Cat className="h-3 w-3" />
                           <span>{STATIC_CONTENT.cat}</span>
-                        </div>
+                        </Badge>
                       )}
                     </div>
                     {/* Category and Tags */}
@@ -811,8 +814,8 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               {filterCategories.map((category) => (
                 <Badge
                   key={`cat-${category}`}
-                  variant="secondary"
-                  className="flex items-center gap-1 bg-blue-100 dark:bg-blue-900"
+                  variant="outline"
+                  className="flex items-center gap-1 text-foreground"
                 >
                   <span className="font-medium">{t("blog.category", "Category")}:</span> {category}
                   <button
@@ -828,8 +831,8 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               {filterTags.map((tag) => (
                 <Badge
                   key={`tag-${tag}`}
-                  variant="secondary"
-                  className="flex items-center gap-1 bg-green-100 dark:bg-green-900"
+                  variant="outline"
+                  className="flex items-center gap-1 text-foreground"
                 >
                   <span className="font-medium">{t("blog.tag", "Tag")}:</span> {tag}
                   <button
@@ -843,7 +846,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               ))}
 
               {filterMoods.map((mood) => (
-                <Badge key={`mood-${mood}`} variant="secondary" className="flex items-center gap-1">
+                <Badge key={`mood-${mood}`} variant="outline" className="flex items-center gap-1 text-foreground">
                   <span className="font-medium">{t("blog.mood", "Mood")}:</span> {mood}
                   <button
                     onClick={() => toggleMoodFilter(mood)}
@@ -858,8 +861,8 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               {filterLanguages.map((language) => (
                 <Badge
                   key={`lang-${language}`}
-                  variant="secondary"
-                  className="flex items-center gap-1 bg-indigo-100 dark:bg-indigo-900"
+                  variant="outline"
+                  className="flex items-center gap-1 text-foreground"
                 >
                   <span className="font-medium">{t("blog.language", "Language")}:</span> {getLanguageName(language)}
                   <button
@@ -873,7 +876,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
               ))}
 
               {filterCatApproved !== null && (
-                <Badge variant="secondary" className="flex items-center gap-1 bg-amber-100 dark:bg-amber-900">
+                <Badge variant="outline" className="flex items-center gap-1 text-foreground">
                   <span className="font-medium">{t("blog.cat", "Cat Approved")}:</span>{" "}
                   {filterCatApproved ? "Yes" : "No"}
                   <button
