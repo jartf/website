@@ -41,36 +41,27 @@ const hanNom = localFont({
   preload: false,
 })
 
+const HREFLANG_LANGUAGES = SUPPORTED_LANGUAGES.filter(l => l !== 'tok' && l !== 'vih')
 
-// Exclude 'tok' and 'vih' from hreflang/language alternates
-const HREFLANG_LANGUAGES = SUPPORTED_LANGUAGES.filter((lang) => lang !== 'tok' && lang !== 'vih')
-
-const FEED_URLS_RSS = [
-  { url: "rss.xml", title: "Jarema's digital garden - RSS Feed" },
-  ...SUPPORTED_LANGUAGES.map((lang) => ({
-    url: `rss/${lang}.xml`,
-    title: `Jarema's digital garden - ${lang.charAt(0).toUpperCase() + lang.slice(1)} RSS Feed`,
+const genFeeds = (types) => types.map(t => [
+  { url: `${t[0]}.xml`, title: `Jarema's digital garden - ${t[1]} Feed` },
+  ...SUPPORTED_LANGUAGES.map(lang => ({
+    url: `${t[0]}/${lang}.xml`,
+    title: `Jarema's digital garden - ${lang.toUpperCase()} ${t[1]} Feed`,
     hreflang: lang,
-  })),
-]
+  }))
+]).flat()
 
+const FEED_URLS_RSS = genFeeds([['rss', 'RSS']])
 const FEED_URLS_JSON = [
   { url: "feed.json", title: "Jarema's digital garden - FEED Feed" },
-  ...SUPPORTED_LANGUAGES.map((lang) => ({
+  ...SUPPORTED_LANGUAGES.map(lang => ({
     url: `feed/${lang}.json`,
-    title: `Jarema's digital garden - ${lang.charAt(0).toUpperCase() + lang.slice(1)} FEED Feed`,
+    title: `Jarema's digital garden - ${lang.toUpperCase()} FEED Feed`,
     hreflang: lang,
-  })),
+  }))
 ]
-
-const FEED_URLS_ATOM = [
-  { url: "atom.xml", title: "Jarema's digital garden - ATOM Feed" },
-  ...SUPPORTED_LANGUAGES.map((lang) => ({
-    url: `atom/${lang}.xml`,
-    title: `Jarema's digital garden - ${lang.charAt(0).toUpperCase() + lang.slice(1)} ATOM Feed`,
-    hreflang: lang,
-  })),
-]
+const FEED_URLS_ATOM = genFeeds([['atom', 'ATOM']])
 
 export const metadata = {
   description:
@@ -143,155 +134,24 @@ export default function RootLayout({ children }) {
         <link rel="webmention" href="https://webmention.io/jarema.me/webmention" />
         <link rel="microsub" href="https://aperture.p3k.io/microsub/1060" />
 
-        {/* Prefer Twemoji Country Flags on platforms (like Windows) that lack native flag emoji support */}
-        <style>
-          {`
-            .emoji-flag {
-              font-family: "Twemoji Country Flags", "Twemoji Mozilla", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-              font-variant-emoji: emoji;
-            }
-          `}
-        </style>
+        <style>{`.emoji-flag{font-family:"Twemoji Country Flags","Twemoji Mozilla","Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;font-variant-emoji:emoji}.js-disabled-banner{display:none;background:linear-gradient(135deg,#1e3a5f 0%,#2d4a6f 100%);color:#fff;padding:1rem;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;border-bottom:1px solid rgba(255,255,255,0.1)}.js-disabled-banner p{margin:0;font-size:0.875rem;line-height:1.5}.js-disabled-banner a{color:#60a5fa;text-decoration:underline}.js-disabled-banner a:hover{color:#93c5fd}@media(max-width:640px){.js-disabled-banner{padding:0.75rem}.js-disabled-banner p{font-size:0.8rem}}`}</style>
 
-        {/* Banner notice for users without JavaScript - non-blocking */}
-        <style>
-          {`
-            .js-disabled-banner {
-              display: none;
-              background: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%);
-              color: #ffffff;
-              padding: 1rem;
-              text-align: center;
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-              border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            .js-disabled-banner p {
-              margin: 0;
-              font-size: 0.875rem;
-              line-height: 1.5;
-            }
-            .js-disabled-banner a {
-              color: #60a5fa;
-              text-decoration: underline;
-            }
-            .js-disabled-banner a:hover {
-              color: #93c5fd;
-            }
-            @media (max-width: 640px) {
-              .js-disabled-banner {
-                padding: 0.75rem;
-              }
-              .js-disabled-banner p {
-                font-size: 0.8rem;
-              }
-            }
-          `}
-        </style>
+        <script dangerouslySetInnerHTML={{__html:`(function(){document.documentElement.classList.add('js-enabled');try{var s=${JSON.stringify(SUPPORTED_LANGUAGES)},r=(typeof localStorage!=='undefined'&&localStorage.getItem('i18nextLng'))||navigator.language||'',l=s.find(function(x){return r.toLowerCase()===x||r.toLowerCase().indexOf(x+'-')===0})||'en';document.documentElement.setAttribute('lang',l);if(l==='zh'||l==='vih'){var k=document.createElement('link');k.id='noto-sans-sc-font';k.rel='stylesheet';k.href='https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap';document.head.appendChild(k);var t=document.createElement('style');t.id='noto-sans-sc-var';t.textContent=':root{--font-noto-sans-sc:"Noto Sans SC",sans-serif}';document.head.appendChild(t)}}catch(e){document.documentElement.setAttribute('lang','en')}document.addEventListener('DOMContentLoaded',function(){var n=document.querySelector('.js-disabled-notice');if(n)n.style.display='none'})})();`}} />
 
-        {/* JavaScript Detection + Early Language Bootstrapping */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                document.documentElement.classList.add('js-enabled');
-                try {
-                  var supported = ${JSON.stringify(SUPPORTED_LANGUAGES)};
-                  var raw = (typeof localStorage !== 'undefined' && localStorage.getItem('i18nextLng')) || navigator.language || '';
-                  var lang = supported.find(function(s) { return raw.toLowerCase() === s || raw.toLowerCase().indexOf(s + '-') === 0; }) || 'en';
-                  document.documentElement.setAttribute('lang', lang);
-
-                  // Only load Noto Sans SC font for Chinese (zh) or Hán-Nôm (vih)
-                  if (lang === 'zh' || lang === 'vih') {
-                    var link = document.createElement('link');
-                    link.id = 'noto-sans-sc-font';
-                    link.rel = 'stylesheet';
-                    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap';
-                    document.head.appendChild(link);
-
-                    // Add CSS variable for the font
-                    var style = document.createElement('style');
-                    style.id = 'noto-sans-sc-var';
-                    style.textContent = ':root { --font-noto-sans-sc: "Noto Sans SC", sans-serif; }';
-                    document.head.appendChild(style);
-                  }
-                } catch (e) {
-                  document.documentElement.setAttribute('lang', 'en');
-                }
-                document.addEventListener('DOMContentLoaded', function() {
-                  var notice = document.querySelector('.js-disabled-notice');
-                  if (notice) notice.style.display = 'none';
-                });
-              })();
-            `,
-          }}
-        />
-
-        {/*
-          CSS-First Theme Detection Script
-          This runs synchronously BEFORE first paint to prevent flash of wrong theme.
-          Priority: localStorage > system preference > default (dark)
-          Sets the .dark or .light class on <html> element for CSS to use.
-        */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var stored = localStorage.getItem('theme');
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var theme;
-
-                  if (stored === 'dark' || stored === 'light') {
-                    theme = stored;
-                  } else if (stored === 'system' || !stored) {
-                    theme = prefersDark ? 'dark' : 'light';
-                  } else {
-                    theme = 'dark'; // default fallback
-                  }
-
-                  // Remove existing theme classes (SSR may have set 'dark' as default)
-                  document.documentElement.classList.remove('light', 'dark');
-                  document.documentElement.classList.add(theme);
-
-                  // Also set the color-scheme property for native form elements
-                  document.documentElement.style.colorScheme = theme;
-                } catch (e) {
-                  // If JS fails, keep the default 'dark' class from SSR
-                  // Only change if system preference indicates light mode
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (!prefersDark) {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.classList.add('light');
-                    document.documentElement.style.colorScheme = 'light';
-                  } else {
-                    document.documentElement.style.colorScheme = 'dark';
-                  }
-                }
-              })();
-            `,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{__html:`(function(){try{var s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches,t=s==='dark'||s==='light'?s:(s==='system'||!s)?(p?'dark':'light'):'dark';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);document.documentElement.style.colorScheme=t}catch(e){var p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(!p){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.style.colorScheme='light'}else{document.documentElement.style.colorScheme='dark'}}})();`}} />
       </head>
       <body className="font-sans min-h-screen bg-background" suppressHydrationWarning>
-        {/* Non-blocking banner notice for users without JavaScript */}
         <noscript>
-          <div className="js-disabled-banner" style={{ display: "block" }}>
-            <p>
-              You&apos;re browsing without JavaScript. The site works, but some interactive features like toggles or search won&apos;t be available, and content will be limited to prevent scraping from bots and AI.
-            </p>
+          <div className="js-disabled-banner" style={{display:"block"}}>
+            <p>You&apos;re browsing without JavaScript. The site works, but some interactive features like toggles or search won&apos;t be available, and content will be limited to prevent scraping from bots and AI.</p>
           </div>
         </noscript>
 
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="theme" disableTransitionOnChange>
           <I18nProvider>
-            {/* Galaxy is now conditionally rendered in I18nProvider during loading */}
             <Galaxy />
             <div className="flex flex-col min-h-screen relative z-10">
-              {/* Skip to main content link for keyboard users (WCAG 2.4.1) */}
-              <a
-                href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-ring focus:outline-none"
-              >
+              <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-ring focus:outline-none">
                 Skip to main content
               </a>
               <Header />
