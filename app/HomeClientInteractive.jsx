@@ -401,6 +401,68 @@ export const TranslatedText = memo(function TranslatedText({ i18nKey, fallback }
 })
 
 /**
+ * Client wrapper for blog post date and reading time with localization
+ */
+export const BlogPostMeta = memo(function BlogPostMeta({ date, readingTime, initialDateText, initialMinReadText }) {
+  const { t, i18n } = useTranslation()
+  const mounted = useMounted()
+  const [dateText, setDateText] = useState(initialDateText)
+  const [minReadText, setMinReadText] = useState(initialMinReadText)
+
+  useEffect(() => {
+    if (!mounted) return
+
+    // Update date formatting when language changes
+    const updateTexts = () => {
+      const currentLang = i18n.language?.split("-")[0] || "en"
+
+      // Import date-fns dynamically based on language
+      import("date-fns").then(({ format }) => {
+        import("date-fns/locale").then((locales) => {
+          const localeMap = {
+            en: locales.enUS,
+            vi: locales.vi,
+            et: locales.et,
+            ru: locales.ru,
+            da: locales.da,
+            tr: locales.tr,
+            zh: locales.zhCN,
+            pl: locales.pl,
+            sv: locales.sv,
+            fi: locales.fi,
+            tok: locales.enUS,
+            vih: locales.vi,
+          }
+
+          const locale = localeMap[currentLang] || locales.enUS
+          const formattedDate = format(new Date(date), "PP", { locale })
+          setDateText(formattedDate)
+        })
+      })
+
+      setMinReadText(t("blog.minRead", "min read"))
+    }
+
+    updateTexts()
+
+    // Listen for language changes
+    i18n.on('languageChanged', updateTexts)
+
+    return () => {
+      i18n.off('languageChanged', updateTexts)
+    }
+  }, [mounted, i18n, t, date])
+
+  return (
+    <>
+      <time className="dt-published" dateTime={date}>{dateText}</time>
+      <span>•</span>
+      <span>{readingTime} {minReadText}</span>
+    </>
+  )
+})
+
+/**
  * Loading spinner for translation loading state
  */
 export function TranslationLoadingSpinner() {

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { cookies, headers } from "next/headers"
 import { generateMetadata } from "@/lib/metadata"
 import { getAllBlogPosts } from "@/lib/blog"
 import { Button } from "@/components/ui/button"
@@ -9,9 +10,11 @@ import {
   Greeting,
   TranslatedText,
   TranslationLoadingSpinner,
+  BlogPostMeta,
 } from "./HomeClientInteractive"
 import { generateWebSiteSchema, generatePersonSchema, renderJsonLd } from "@/lib/structured-data"
 import { nowItems } from "@/content/now-items"
+import { formatDate } from "@/lib/utils"
 
 export const metadata = generateMetadata({
   title: "Home",
@@ -35,20 +38,53 @@ const STATIC_CONTENT = {
 }
 
 /**
- * Formats a date string into a verbose, human-readable format.
+ * Detect user's language from cookies or headers server-side
  */
-function formatVerboseDate(dateStr) {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString("en", { year: 'numeric', month: 'long', day: 'numeric' })
+function detectServerLanguage() {
+  try {
+    const cookieStore = cookies()
+    const i18nextCookie = cookieStore.get('i18next')
+    if (i18nextCookie?.value) {
+      return i18nextCookie.value.split('-')[0]
+    }
+  } catch (e) {
+    // Cookie access might fail in some contexts
+  }
+
+  try {
+    const headersList = headers()
+    const acceptLanguage = headersList.get('accept-language')
+    if (acceptLanguage) {
+      const lang = acceptLanguage.split(',')[0].split('-')[0].toLowerCase()
+      return lang
+    }
+  } catch (e) {
+    // Header access might fail in some contexts
+  }
+
+  return 'en'
 }
 
 /**
- * Formats a date string into a verbose, human-readable format including time.
+ * Load translations for a given language
  */
-function formatVerboseDateTime(dateStr) {
+async function loadTranslations(lang) {
+  try {
+    const translations = await import(`@/translations/${lang}.json`)
+    return translations.default
+  } catch (e) {
+    const fallback = await import('@/translations/en.json')
+    return fallback.default
+  }
+}
+
+/**
+ * Formats a date string into a verbose, human-readable format with time.
+ */
+function formatVerboseDateTime(dateStr, lang = 'en') {
   const date = new Date(dateStr)
-  const datePart = date.toLocaleDateString("en", { year: 'numeric', month: 'long', day: 'numeric' })
-  const timePart = date.toLocaleTimeString("en", { hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'short' })
+  const datePart = formatDate(date, lang)
+  const timePart = date.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'short' })
   return `${datePart} at ${timePart}`
 }
 
@@ -57,20 +93,27 @@ function formatVerboseDateTime(dateStr) {
  * @returns {JSX.Element} The home page component.
  */
 export default async function Home() {
-  const blogPosts = await getAllBlogPosts()
-  // Get English posts for SSR display
-  const recentPosts = blogPosts.filter(post => post.language === "en").slice(0, 3)
+  // Detect language server-side
+  const detectedLang = detectServerLanguage()
+  const translations = await loadTranslations(detectedLang)
 
-  // Get latest 3 now items for SSR (English content)
+  const blogPosts = await getAllBlogPosts()
+  // Get posts in detected language, fallback to English
+  let recentPosts = blogPosts.filter(post => post.language === detectedLang).slice(0, 3)
+  if (recentPosts.length === 0) {
+    recentPosts = blogPosts.filter(post => post.language === "en").slice(0, 3)
+  }
+
+  // Get latest 3 now items for SSR in detected language
   const latestNowItems = nowItems
-    .filter(item => item.content && (item.content.en || item.content.en))
+    .filter(item => item.content && (item.content[detectedLang] || item.content.en))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3)
     .map(item => ({
       category: item.category,
       title: item.category.charAt(0).toUpperCase() + item.category.slice(1),
-      content: item.content.en || item.content.en,
-      date: formatVerboseDateTime(item.date),
+      content: item.content[detectedLang] || item.content.en,
+      date: formatVerboseDateTime(item.date, detectedLang),
     }))
 
   const staticNowData = latestNowItems.length > 0 ? latestNowItems : null
@@ -78,6 +121,9 @@ export default async function Home() {
   // Generate structured data for homepage
   const webSiteSchema = generateWebSiteSchema()
   const personSchema = generatePersonSchema()
+
+  // Get localized text
+  const minReadText = translations.blog?.minRead || STATIC_CONTENT.minRead
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
@@ -156,9 +202,12 @@ export default async function Home() {
                         <div className="border rounded-lg p-4 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
                           <h3 className="text-lg font-semibold mb-1 group-hover:text-primary transition-colors p-name">{post.title}</h3>
                           <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
-                            <time className="dt-published" dateTime={post.date}>{formatVerboseDate(post.date)}</time>
-                            <span>•</span>
-                            <span>{post.readingTime} {STATIC_CONTENT.minRead}</span>
+                            <BlogPostMeta
+                              date={post.date}
+                              readingTime={post.readingTime}
+                              initialDateText={formatDate(post.date, detectedLang)}
+                              initialMinReadText={minReadText}
+                            />
                           </div>
                           <p className="text-muted-foreground line-clamp-2 text-sm p-summary">{post.excerpt}</p>
                         </div>
