@@ -68,9 +68,6 @@ export default async function Home() {
       <div className="container mx-auto px-2 sm:px-4 lg:px-6 py-8 lg:py-12 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="relative pt-10 pb-10 mb-8">
-            <div className="absolute top-0 left-0 right-0 h-64 -z-10 overflow-hidden light-only">
-              <div className="w-full h-[500px] bg-gray-100 rounded-[100%] transform translate-y-[-70%]"></div>
-            </div>
             <div className="text-center">
               <Greeting />
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
