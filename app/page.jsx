@@ -53,7 +53,7 @@ export default async function Home() {
 
   const webrings = [
     ['IndieWeb Webring 🕸💍', 'https://xn--sr8hvo.ws', 'https://xn--sr8hvo.ws/previous', 'https://xn--sr8hvo.ws/random', 'https://xn--sr8hvo.ws/next'],
-    ['The retronaut webring', 'https://webring.dinhe.net/', 'https://webring.dinhe.net/prev/https://jarema.me', null, 'https://webring.dinhe.net/next/https://jarema.me'],
+    ['The retronaut webring', 'https://webring.dinhe.net/', 'https://webring.dinhe.net/prev/https://jarema.me', 'https://webring.dinhe.net/random', 'https://webring.dinhe.net/next/https://jarema.me'],
     ['Hotline Webring', 'https://hotlinewebring.club/', 'https://hotlinewebring.club/jar/previous', null, 'https://hotlinewebring.club/jar/next'],
     ['Bucket webring', 'https://webring.bucketfish.me', 'https://webring.bucketfish.me/redirect.html?to=prev&name=Jarema', 'https://webring.bucketfish.me/redirect.html?to=random&name=Jarema', 'https://webring.bucketfish.me/redirect.html?to=next&name=Jarema'],
     ['Fediring', 'https://fediring.net/', 'https://fediring.net/previous?host=jarema.me', 'https://fediring.net/random', 'https://fediring.net/next?host=jarema.me'],
