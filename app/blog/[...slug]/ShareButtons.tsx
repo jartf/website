@@ -4,8 +4,9 @@ import { useState } from "react"
 import { Twitter, Facebook, LinkIcon, Check, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useMounted } from "@/hooks"
 
-// Icon components as constants
+// Social media icons
 const BlueSkyIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="currentColor" className="h-4 w-4">
     <path d="M111.8 62.2C170.2 105.9 233 194.7 256 242.4c23-47.6 85.8-136.4 144.2-180.2c42.1-31.6 110.3-56 110.3 21.8c0 15.5-8.9 130.5-14.1 149.2C478.2 298 412 314.6 353.1 304.5c102.9 17.5 129.1 75.5 72.5 133.5c-107.4 110.2-154.3-27.6-166.3-62.9l0 0c-1.7-4.9-2.6-7.8-3.3-7.8s-1.6 3-3.3 7.8l0 0c-12 35.3-59 173.1-166.3 62.9c-56.5-58-30.4-116 72.5-133.5C100 314.6 33.8 298 15.7 233.1C10.4 214.4 1.5 99.4 1.5 83.9c0-77.8 68.2-53.4 110.3-21.8z" />
@@ -35,36 +36,49 @@ const MastodonIcon = () => (
   </svg>
 )
 
-// Share button configuration
-const shareButtons = (encodedTitle, encodedUrl, twitterUrl, blueskyUrl, threadsUrl, redditUrl, mastodonUrl, facebookUrl, mailUrl) => [
-  { url: twitterUrl, icon: Twitter, label: "Share on Twitter" },
-  { url: blueskyUrl, icon: BlueSkyIcon, label: "Share on Bluesky" },
-  { url: threadsUrl, icon: ThreadsIcon, label: "Share on Threads" },
-  { url: redditUrl, icon: RedditIcon, label: "Share on Reddit" },
-  { url: mastodonUrl, icon: MastodonIcon, label: "Share on Mastodon" },
-  { url: facebookUrl, icon: Facebook, label: "Share on Facebook" },
-  { url: mailUrl, icon: Mail, label: "Share via Email" },
-]
-
-/**
- * SharePost component for sharing blog posts on social media
- * @param {Object} props - Component props
- * @param {string} props.title - The post title
- * @param {string} props.url - The post URL
- */
-export function SharePost({ title, url }) {
-  const [copied, setCopied] = useState(false)
-
+function getShareLinks(title: string, url: string) {
   const encodedTitle = encodeURIComponent(title)
   const encodedUrl = encodeURIComponent(url)
 
-  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`
-  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
-  const blueskyUrl = `https://bsky.app/intent/compose?text=${encodedTitle}%20${encodedUrl}`
-  const threadsUrl = `https://threads.net/intent/post?text=${encodedTitle}%20${encodedUrl}`
-  const redditUrl = `https://reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`
-  const mastodonUrl = `https://mastodon.social/share?text=${encodedTitle}%20${encodedUrl}`
-  const mailUrl = `mailto:?subject=${encodedTitle}&body=${encodedUrl}`
+  return [
+    { url: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`, icon: Twitter, label: "Share on Twitter" },
+    { url: `https://bsky.app/intent/compose?text=${encodedTitle}%20${encodedUrl}`, icon: BlueSkyIcon, label: "Share on Bluesky" },
+    { url: `https://threads.net/intent/post?text=${encodedTitle}%20${encodedUrl}`, icon: ThreadsIcon, label: "Share on Threads" },
+    { url: `https://reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`, icon: RedditIcon, label: "Share on Reddit" },
+    { url: `https://mastodon.social/share?text=${encodedTitle}%20${encodedUrl}`, icon: MastodonIcon, label: "Share on Mastodon" },
+    { url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, icon: Facebook, label: "Share on Facebook" },
+    { url: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`, icon: Mail, label: "Share via Email" },
+  ]
+}
+
+type ShareButtonProps = {
+  href: string
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+  withTooltip: boolean
+}
+
+function ShareButton({ href, label, icon: Icon, withTooltip }: ShareButtonProps) {
+  const button = (
+    <Button variant="outline" size="icon" asChild title={!withTooltip ? label : undefined}>
+      <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+        <Icon className="h-4 w-4" />
+      </a>
+    </Button>
+  )
+
+  if (!withTooltip) return button
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>{button}</TooltipTrigger>
+      <TooltipContent><p>{label}</p></TooltipContent>
+    </Tooltip>
+  )
+}
+
+function CopyButton({ url, withTooltip }: { url: string; withTooltip: boolean }) {
+  const [copied, setCopied] = useState(false)
 
   const copyToClipboard = async () => {
     try {
@@ -72,39 +86,63 @@ export function SharePost({ title, url }) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
-      console.error("Failed to copy: ", err)
+      console.error("Failed to copy:", err)
     }
   }
 
-  const buttons = shareButtons(encodedTitle, encodedUrl, twitterUrl, blueskyUrl, threadsUrl, redditUrl, mastodonUrl, facebookUrl, mailUrl)
+  const label = copied ? "Copied!" : "Copy link"
+
+  const button = (
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={copyToClipboard}
+      aria-label="Copy link"
+      title={!withTooltip ? label : undefined}
+    >
+      {copied ? <Check className="h-4 w-4 text-green-500" /> : <LinkIcon className="h-4 w-4" />}
+    </Button>
+  )
+
+  if (!withTooltip) return button
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>{button}</TooltipTrigger>
+      <TooltipContent><p>{label}</p></TooltipContent>
+    </Tooltip>
+  )
+}
+
+/**
+ * Share buttons component with progressive enhancement.
+ * - Without JS: renders clickable link buttons with title attributes
+ * - With JS: adds tooltips and copy-to-clipboard button
+ */
+export function ShareButtons({ title, url }: { title: string; url: string }) {
+  const mounted = useMounted()
+  const shareLinks = getShareLinks(title, url)
+
+  const content = (
+    <>
+      {/* Copy button only shows when JS is available */}
+      {mounted && <CopyButton url={url} withTooltip={mounted} />}
+
+      {shareLinks.map(({ url: shareUrl, icon, label }) => (
+        <ShareButton
+          key={label}
+          href={shareUrl}
+          label={label}
+          icon={icon}
+          withTooltip={mounted}
+        />
+      ))}
+    </>
+  )
 
   return (
     <div className="flex flex-wrap gap-2">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" onClick={copyToClipboard} aria-label="Copy link" className="relative">
-              {copied ? <Check className="h-4 w-4 text-green-500" /> : <LinkIcon className="h-4 w-4" />}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{copied ? "Copied!" : "Copy link"}</p>
-          </TooltipContent>
-        </Tooltip>
-
-        {buttons.map(({ url, icon: Icon, label }) => (
-          <Tooltip key={label}>
-            <TooltipTrigger asChild>
-              <Button variant="outline" size="icon" onClick={() => window.open(url, "_blank")} aria-label={label}>
-                <Icon className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{label}</p>
-            </TooltipContent>
-          </Tooltip>
-        ))}
-      </TooltipProvider>
+      {mounted ? <TooltipProvider>{content}</TooltipProvider> : content}
     </div>
   )
 }

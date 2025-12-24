@@ -1,244 +1,53 @@
 import { notFound } from "next/navigation"
-import fs from "fs"
-import path from "path"
-import matter from "gray-matter"
 import Link from "next/link"
 import type { Metadata } from "next"
 import { Calendar, Clock, Cat, ArrowLeft, Tag, Globe } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
-import { BlogPostNavigation } from "./BlogPostNavigation"
 import { RelatedPosts } from "@/components/blog/related-posts"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
 import { generateBlogPostSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
+
+import {
+  getAllBlogPosts,
+  getBlogPost,
+  getPostNavigation,
+  getRelatedPosts,
+  getAlternateLanguages,
+  formatDateFallback,
+} from "./lib"
+import { BlogPostNavigation } from "./BlogPostNavigation"
+import { ShareButtons } from "./ShareButtons"
 import {
   BlogReadingProgress,
-  BlogShareButtons,
   FormattedDate,
   TranslatedText,
   LanguageName,
   AnimatedSection,
-} from "./BlogPostInteractive"
+} from "./ClientComponents"
 import styles from "./BlogPostClient.module.css"
 
-// Types for blog posts
-type BlogPost = {
-  slug: string
-  title: string
-  content: string
-  date: string
-  mood: string
-  catApproved: boolean
-  readingTime: number
-  tags?: string[]
-  category?: string
-  language?: string
-  alternates?: { language: string; slug: string }[] // <-- add this line
-}
+const SITE_URL = "https://jarema.me"
 
-// Function to safely read a blog post file
-function readBlogPostFile(filePath: string): { content: string; data: any } | null {
-  try {
-    const fileContents = fs.readFileSync(filePath, "utf8")
-    return matter(fileContents)
-  } catch {
-    return null
-  }
-}
-
-// Helper to recursively get all .md files in a directory and its subdirectories
-function getAllMarkdownFiles(dir: string): string[] {
-  let results: string[] = []
-  const list = fs.readdirSync(dir)
-  list.forEach((file) => {
-    const filePath = path.join(dir, file)
-    const stat = fs.statSync(filePath)
-    if (stat && stat.isDirectory()) {
-      results = results.concat(getAllMarkdownFiles(filePath))
-    } else if (file.endsWith(".md")) {
-      results.push(filePath)
-    }
-  })
-  return results
-}
-
-// Function to get all blog posts for navigation
-async function getAllBlogPosts(): Promise<BlogPost[]> {
-  try {
-    const postsDirectory = path.join(process.cwd(), "content/blog")
-
-    if (!fs.existsSync(postsDirectory)) {
-      return []
-    }
-
-    // Get all .md files recursively
-    const filePaths = getAllMarkdownFiles(postsDirectory)
-
-    if (filePaths.length === 0) {
-      return []
-    }
-
-    const allPostsData = filePaths
-      .map((fullPath) => {
-        // Get slug relative to postsDirectory, remove .md extension, and replace backslashes with slashes
-        let slug = path.relative(postsDirectory, fullPath).replace(/\.md$/, "")
-        slug = slug.split(path.sep).join("/")
-
-        // Read markdown file as string
-        const matterResult = readBlogPostFile(fullPath)
-
-        if (!matterResult) return null
-
-        // Ensure all required metadata is present or provide defaults
-        return {
-          slug,
-          title: matterResult.data.title || "Untitled Post",
-          content: matterResult.content,
-          date: matterResult.data.date || new Date().toISOString(),
-          mood: matterResult.data.mood || "contemplative",
-          catApproved: matterResult.data.catApproved ?? true,
-          readingTime: matterResult.data.readingTime || 5,
-          tags: matterResult.data.tags || [],
-          category: matterResult.data.category || null,
-          language: matterResult.data.language || "en",
-          alternates: matterResult.data.alternates || [], // <-- add this line
-        } as BlogPost
-      })
-      .filter((post): post is BlogPost => post !== null)
-
-    // Sort posts by date
-    return allPostsData.sort((a, b) => {
-      if (a.date < b.date) {
-        return 1
-      } else {
-        return -1
-      }
-    })
-  } catch (error) {
-    console.error("Error fetching blog posts:", error)
-    return []
-  }
-}
-
-// Function to get a specific blog post
-async function getBlogPost(slugParam: string[] | string | undefined): Promise<BlogPost> {
-  try {
-    const postsDirectory = path.join(process.cwd(), "content/blog")
-
-    // Validate slugParam
-    if (!slugParam || (Array.isArray(slugParam) && slugParam.length === 0)) {
-      throw new Error("Invalid slug: slug is undefined or empty")
-    }
-
-    // Support slugs with subdirectories (e.g., 2024/07/app-defaults-2024)
-    const slugArr = Array.isArray(slugParam) ? slugParam : [slugParam]
-    const fullPath = path.join(postsDirectory, ...slugArr) + ".md"
-    const slug = slugArr.join("/")
-
-    const matterResult = readBlogPostFile(fullPath)
-
-    if (!matterResult) {
-      throw new Error(`Failed to read blog post: ${slug}`)
-    }
-
-    return {
-      slug,
-      title: matterResult.data.title || "Untitled Post",
-      content: matterResult.content,
-      date: matterResult.data.date || new Date().toISOString(),
-      mood: matterResult.data.mood || "contemplative",
-      catApproved: matterResult.data.catApproved ?? true,
-      readingTime: matterResult.data.readingTime || 5,
-      language: matterResult.data.language || "en",
-      tags: matterResult.data.tags || [],
-      category: matterResult.data.category || null,
-      alternates: matterResult.data.alternates || [], // <-- add this line
-    }
-  } catch (error) {
-    console.error(`Error getting blog post ${Array.isArray(slugParam) ? slugParam.join("/") : slugParam}:`, error)
-    throw error
-  }
-}
-
-// Function to get navigation links for previous and next posts
-async function getPostNavigation(currentSlug: string) {
-  const allPosts = await getAllBlogPosts()
-  const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug)
-
-  if (currentIndex === -1) {
-    return { prev: null, next: null }
-  }
-
-  const prev = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
-  const next = currentIndex > 0 ? allPosts[currentIndex - 1] : null
-
-  return {
-    prev: prev ? { slug: prev.slug, title: prev.title } : null,
-    next: next ? { slug: next.slug, title: next.title } : null,
-  }
-}
-
-// Add a function to get related posts based on tags and category
-async function getRelatedPosts(
-  currentSlug: string,
-  currentTags: string[] = [],
-  currentCategory: string | null = null,
-): Promise<BlogPost[]> {
-  const allPosts = await getAllBlogPosts()
-
-  // Filter out the current post
-  const otherPosts = allPosts.filter((post) => post.slug !== currentSlug)
-
-  if (!otherPosts.length) return []
-
-  // Score posts based on tag and category matches
-  const scoredPosts = otherPosts.map((post) => {
-    let score = 0
-
-    // Category match is worth more points
-    if (currentCategory && post.category === currentCategory) {
-      score += 3
-    }
-
-    // Each matching tag adds a point
-    if (currentTags.length && post.tags) {
-      currentTags.forEach((tag) => {
-        if (post.tags?.includes(tag)) {
-          score += 1
-        }
-      })
-    }
-
-    return { ...post, score }
-  })
-
-  // Sort by score (highest first) and take top 4
-  return scoredPosts
-    .sort((a, b) => b.score - a.score)
-    .filter((post) => post.score > 0)
-    .slice(0, 4)
-}
+type PageParams = { slug: string[] | string } | Promise<{ slug: string[] | string }>
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: { slug: string[] | string } | Promise<{ slug: string[] | string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
   try {
-    // Handle Next.js 15+ async params
     const resolvedParams = await Promise.resolve(params)
 
     if (!resolvedParams?.slug) {
-      console.error("Error generating metadata: slug is undefined")
       return baseGenerateMetadata({ title: "Blog Post Not Found" })
     }
 
     const post = await getBlogPost(resolvedParams.slug)
+    const description = post.content.substring(0, 160)
+
     return {
-      ...baseGenerateMetadata({
-        title: post.title,
-        description: post.content.substring(0, 160),
-      }),
+      ...baseGenerateMetadata({ title: post.title, description }),
       openGraph: {
         title: post.title,
-        description: post.content.substring(0, 160),
+        description,
         type: "article",
         publishedTime: post.date,
         authors: ["Jarema"],
@@ -246,78 +55,37 @@ export async function generateMetadata({ params }: { params: { slug: string[] | 
       },
     }
   } catch (error) {
-    console.error("Error generating metadata for blog post:", error)
+    console.error("Error generating metadata:", error)
     return baseGenerateMetadata({ title: "Blog Post Not Found" })
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string[] | string } | Promise<{ slug: string[] | string }> }) {
+export default async function BlogPostPage({ params }: { params: PageParams }) {
   try {
-    // Handle Next.js 15+ async params
     const resolvedParams = await Promise.resolve(params)
 
     if (!resolvedParams?.slug) {
-      console.error("Error: slug is undefined")
       notFound()
     }
 
     const slugArr = Array.isArray(resolvedParams.slug) ? resolvedParams.slug : [resolvedParams.slug]
     const slug = slugArr.join("/")
-    const post = await getBlogPost(slugArr)
-    const navigation = await getPostNavigation(slug)
-    const relatedPosts =
-      post.tags?.length || post.category ? await getRelatedPosts(slug, post.tags, post.category) : []
 
-    // Find alternate language versions
-    const allPosts = await getAllBlogPosts()
-    // Remove language from slug for base comparison (assume last part is language if matches post.language)
-    const baseSlugParts = [...slugArr]
-    if (baseSlugParts[baseSlugParts.length - 1] === post.language) {
-      baseSlugParts.pop()
-    }
-    const baseSlug = baseSlugParts.join("/")
+    // Fetch all required data
+    const [post, navigation, allPosts] = await Promise.all([
+      getBlogPost(slugArr),
+      getPostNavigation(slug),
+      getAllBlogPosts(),
+    ])
 
-    // Prefer alternates from frontmatter if present
-    let alternateLanguages = []
-    if (post.alternates && Array.isArray(post.alternates) && post.alternates.length > 0) {
-      alternateLanguages = post.alternates
-        .filter((alt: any) => alt.language !== post.language)
-        .map((alt: any) => ({
-          language: alt.language,
-          slug: alt.slug,
-          title: allPosts.find(p => p.slug === alt.slug)?.title || alt.slug,
-        }))
-    } else {
-      alternateLanguages = allPosts
-        .filter(p => {
-          // Remove language from candidate slug for base comparison
-          const pSlugParts = p.slug.split("/")
-          if (pSlugParts[pSlugParts.length - 1] === p.language) {
-            pSlugParts.pop()
-          }
-          const pBaseSlug = pSlugParts.join("/")
-          return (
-            pBaseSlug === baseSlug &&
-            p.language !== post.language
-          )
-        })
-        .map(p => ({
-          language: p.language,
-          slug: p.slug,
-          title: p.title,
-        }))
-    }
+    const relatedPosts = post.tags?.length || post.category
+      ? await getRelatedPosts(slug, post.tags, post.category)
+      : []
 
-  // Pass the raw date to the client; let the client format it using the user's language
+    const alternateLanguages = await getAlternateLanguages(slugArr, post, allPosts)
+    const postUrl = `${SITE_URL}/blog/${slug}`
 
-    // Format date for SSR fallback (English)
-    const formattedDateFallback = new Date(post.date).toLocaleDateString("en", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-
-    // Generate structured data for Google Rich Results
+    // Structured data for Google
     const blogPostSchema = generateBlogPostSchema({
       title: post.title,
       description: post.content.substring(0, 160),
@@ -335,17 +103,19 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
       { name: post.title, url: `/blog/${slug}` },
     ])
 
-    // Render the blog post content server-side
     return (
       <main className="relative min-h-screen w-full overflow-hidden">
-        {/* Structured Data for Google Rich Results */}
         {renderJsonLd([blogPostSchema, breadcrumbSchema])}
-
         <BlogReadingProgress />
+
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-3xl mx-auto">
+            {/* Back link */}
             <AnimatedSection animationClass={styles.animatedX}>
-              <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8">
+              <Link
+                href="/blog"
+                className="inline-flex items-center text-muted-foreground hover:text-primary mb-8"
+              >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 <TranslatedText i18nKey="blog.back" fallback="Back to blog list" />
               </Link>
@@ -353,34 +123,44 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
 
             <article className="h-entry">
               <header className="mb-10">
-                <AnimatedSection className="text-4xl md:text-5xl font-bold mb-6" animationClass={styles.animatedY}>
+                {/* Title */}
+                <AnimatedSection
+                  className="text-4xl md:text-5xl font-bold mb-6"
+                  animationClass={styles.animatedY}
+                >
                   <h1 className="p-name">{post.title}</h1>
                 </AnimatedSection>
 
-                <AnimatedSection className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4" animationClass={styles.animatedY}>
+                {/* Post metadata */}
+                <AnimatedSection
+                  className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4"
+                  animationClass={styles.animatedY}
+                >
                   <div className="flex items-center">
                     <Calendar className="mr-1 h-4 w-4" />
                     <time className="dt-published" dateTime={post.date}>
-                      <FormattedDate date={post.date} fallback={formattedDateFallback} />
+                      <FormattedDate date={post.date} fallback={formatDateFallback(post.date)} />
                     </time>
                   </div>
+
                   <div className="flex items-center">
                     <Clock className="mr-1 h-4 w-4" />
                     <span>
                       {post.readingTime} <TranslatedText i18nKey="blog.minRead" fallback="min read" />
                     </span>
                   </div>
+
                   <Badge variant="outline">
                     <TranslatedText i18nKey="blog.mood" fallback="Mood" />: {post.mood}
                   </Badge>
+
                   {post.catApproved && (
                     <div className="flex items-center text-amber-600 dark:text-amber-400">
                       <Cat className="h-4 w-4 mr-1" />
-                      <span>
-                        <TranslatedText i18nKey="blog.cat" fallback="Cat approved" />
-                      </span>
+                      <TranslatedText i18nKey="blog.cat" fallback="Cat approved" />
                     </div>
                   )}
+
                   {post.language && (
                     <Badge
                       variant="outline"
@@ -393,76 +173,65 @@ export default async function BlogPostPage({ params }: { params: { slug: string[
                 </AnimatedSection>
 
                 {/* Category and Tags */}
-                <AnimatedSection className="flex flex-wrap gap-2 mb-4" animationClass={styles.animatedY}>
-                  {post.category && (
-                    <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
-                      <Badge
-                        variant="secondary"
-                        className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-800 cursor-pointer"
-                      >
-                        {post.category}
-                      </Badge>
-                    </Link>
-                  )}
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags.map((tag: string) => (
-                        <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
-                          <Badge
-                            variant="outline"
-                            className="p-category flex items-center gap-1 text-xs hover:bg-muted cursor-pointer"
-                          >
-                            <Tag className="h-3 w-3 mr-1" />
-                            {tag}
-                          </Badge>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </AnimatedSection>
+                {(post.category || (post.tags && post.tags.length > 0)) && (
+                  <AnimatedSection className="flex flex-wrap gap-2 mb-4" animationClass={styles.animatedY}>
+                    {post.category && (
+                      <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
+                        <Badge
+                          variant="secondary"
+                          className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-800 cursor-pointer"
+                        >
+                          {post.category}
+                        </Badge>
+                      </Link>
+                    )}
+                    {post.tags?.map((tag) => (
+                      <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                        <Badge
+                          variant="outline"
+                          className="p-category flex items-center gap-1 text-xs hover:bg-muted cursor-pointer"
+                        >
+                          <Tag className="h-3 w-3 mr-1" />
+                          {tag}
+                        </Badge>
+                      </Link>
+                    ))}
+                  </AnimatedSection>
+                )}
 
-                {/* Share buttons - client component, only renders with JS */}
+                {/* Share buttons */}
                 <AnimatedSection className="mb-8 mt-4" animationClass={styles.animatedY}>
-                  <BlogShareButtons title={post.title} slug={slug} />
+                  <ShareButtons title={post.title} url={postUrl} />
                 </AnimatedSection>
 
                 {/* Alternate language notice */}
                 {alternateLanguages.length > 0 && (
-                  <div className="mb-6 text-sm text-muted-foreground">
+                  <AnimatedSection className="mb-6 text-sm text-muted-foreground" animationClass={styles.animatedY}>
                     <TranslatedText i18nKey="blog.availableIn" fallback="This page is also available in" />{" "}
-                    {alternateLanguages.map((alt, idx) => {
-                      const isLast = idx === alternateLanguages.length - 1
-                      const isSecondLast = idx === alternateLanguages.length - 2
-                      return (
-                        <span key={alt.language}>
-                          <Link
-                            href={`/blog/${alt.slug}`}
-                            className="underline hover:text-primary"
-                          >
-                            <LanguageName code={alt.language} />
-                          </Link>
-                          {alternateLanguages.length > 2 && !isLast && !isSecondLast && ", "}
-                          {isSecondLast && " and "}
-                        </span>
-                      )
-                    })}
+                    {alternateLanguages.map((alt, idx) => (
+                      <span key={alt.language}>
+                        <Link href={`/blog/${alt.slug}`} className="underline hover:text-primary">
+                          <LanguageName code={alt.language} />
+                        </Link>
+                        {idx < alternateLanguages.length - 2 && ", "}
+                        {idx === alternateLanguages.length - 2 && " and "}
+                      </span>
+                    ))}
                     .
-                  </div>
+                  </AnimatedSection>
                 )}
               </header>
 
-              {/* Blog content - server rendered */}
+              {/* Blog content */}
               <AnimatedSection className="text-justify e-content" animationClass={styles.animatedY}>
                 <MarkdownRenderer content={post.content} />
               </AnimatedSection>
 
-              {/* Hidden h-card for author information */}
-              <div className="p-author h-card" style={{ display: 'none' }}>
-                <a className="p-name u-url" href="https://jarema.me">Jarema</a>
+              {/* Microformats hidden data */}
+              <div className="p-author h-card hidden">
+                <a className="p-name u-url" href={SITE_URL}>Jarema</a>
               </div>
-
-              {/* Hidden permalink for h-entry */}
-              <a className="u-url" href={`https://jarema.me/blog/${slug}`} style={{ display: 'none' }}>Permalink</a>
+              <a className="u-url hidden" href={postUrl}>Permalink</a>
 
               {/* Post navigation */}
               <AnimatedSection animationClass={styles.animatedY}>

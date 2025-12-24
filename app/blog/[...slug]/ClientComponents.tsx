@@ -3,7 +3,6 @@
 import { useReducedMotion, useMounted, useCurrentLanguage } from "@/hooks"
 import { useTranslation } from "react-i18next"
 import { ReadingProgress } from "@/components/blog/reading-progress"
-import { SharePost } from "@/components/blog/share-post"
 import { formatDate } from "@/lib/utils"
 import { LANGUAGE_NAMES } from "@/lib/constants"
 
@@ -14,15 +13,6 @@ export function BlogReadingProgress() {
   const mounted = useMounted()
   if (!mounted) return null
   return <ReadingProgress />
-}
-
-/**
- * Share buttons - only shows when JS is available
- */
-export function BlogShareButtons({ title, slug }: { title: string; slug: string }) {
-  const mounted = useMounted()
-  if (!mounted) return null
-  return <SharePost title={title} url={`https://jarema.me/blog/${slug}`} />
 }
 
 /**
@@ -60,12 +50,12 @@ export function LanguageName({ code }: { code: string }) {
 }
 
 /**
- * Animated wrapper that applies CSS animations only when mounted and user prefers motion
+ * Animated wrapper - applies CSS animations when mounted and user prefers motion
  */
 export function AnimatedSection({
   children,
   className,
-  animationClass
+  animationClass,
 }: {
   children: React.ReactNode
   className?: string
@@ -75,10 +65,7 @@ export function AnimatedSection({
   const prefersReducedMotion = useReducedMotion()
 
   const shouldAnimate = mounted && !prefersReducedMotion
+  const classes = shouldAnimate ? `${className || ""} ${animationClass}`.trim() : className
 
-  return (
-    <div className={shouldAnimate ? `${className || ''} ${animationClass}`.trim() : className}>
-      {children}
-    </div>
-  )
+  return <div className={classes}>{children}</div>
 }
