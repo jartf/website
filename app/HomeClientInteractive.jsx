@@ -6,21 +6,25 @@ import { useMounted, useReducedMotion } from "@/hooks"
 import { nowItems } from "@/content/now-items"
 import { LucideHeadphones, Activity } from "lucide-react"
 
-const ActivityCard = memo(({activity}) => (
-  <div className="flex items-center gap-3 overflow-hidden">
-    {activity.assets?.large_image && (
-      <div className="relative w-12 h-12 flex-shrink-0">
-        <img src={activity.assets.large_image} alt={activity.assets.large_text || activity.name} className="w-12 h-12 rounded-lg" title={activity.assets.large_text} loading="lazy" />
-        {activity.assets?.small_image && <img src={activity.assets.small_image} alt={activity.assets.small_text || ""} className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" title={activity.assets.small_text} loading="lazy" />}
+const ActivityCard = memo(function ActivityCard({activity}) {
+  return (
+    <div className="flex items-center gap-3 overflow-hidden">
+      {activity.assets?.large_image && (
+        <div className="relative w-12 h-12 flex-shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={activity.assets.large_image} alt={activity.assets.large_text || activity.name} className="w-12 h-12 rounded-lg" title={activity.assets.large_text} loading="lazy" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {activity.assets?.small_image && <img src={activity.assets.small_image} alt={activity.assets.small_text || ""} className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" title={activity.assets.small_text} loading="lazy" />}
+        </div>
+      )}
+      <div className="flex-1 min-w-0 overflow-hidden">
+        <span className="font-semibold break-words overflow-wrap-anywhere block">{activity.name}</span>
+        {activity.details && <p className="text-sm break-words overflow-wrap-anywhere">{activity.details}</p>}
+        {activity.state && <p className="text-sm text-muted-foreground break-words overflow-wrap-anywhere">{activity.state}</p>}
       </div>
-    )}
-    <div className="flex-1 min-w-0 overflow-hidden">
-      <span className="font-semibold break-words overflow-wrap-anywhere block">{activity.name}</span>
-      {activity.details && <p className="text-sm break-words overflow-wrap-anywhere">{activity.details}</p>}
-      {activity.state && <p className="text-sm text-muted-foreground break-words overflow-wrap-anywhere">{activity.state}</p>}
     </div>
-  </div>
-))
+  )
+})
 
 export function NowSection({ initialData }) {
   const { t, i18n } = useTranslation()
@@ -132,7 +136,7 @@ export function NowSection({ initialData }) {
       }))
 
     items.push(...filtered)
-    setLatestNow(items.slice(0, 3))
+    queueMicrotask(() => setLatestNow(items.slice(0, 3)))
   }, [mounted, i18n.language, lastfmTrack, lastfmError, premidActivities, premidError])
 
   if (!mounted) return !initialData?.length ? null : (
@@ -217,7 +221,7 @@ export function NowSection({ initialData }) {
   )
 }
 
-export const Greeting = memo(() => {
+export const Greeting = memo(function Greeting() {
   const { t } = useTranslation()
   const mounted = useMounted()
   const [greeting, setGreeting] = useState("Welcome, traveler.")
@@ -235,7 +239,7 @@ export const Greeting = memo(() => {
   return <p className="text-lg md:text-xl text-muted-foreground mb-4">{greeting}</p>
 })
 
-export const AnimatedHeroContent = memo(({children, delay = 0}) => {
+export const AnimatedHeroContent = memo(function AnimatedHeroContent({children, delay = 0}) {
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
 
@@ -244,13 +248,13 @@ export const AnimatedHeroContent = memo(({children, delay = 0}) => {
   return <div className="animate-fade-in-up" style={{animationDelay:`${delay}s`,animationFillMode:"both"}}>{children}</div>
 })
 
-export const TranslatedText = memo(({i18nKey, fallback}) => {
+export const TranslatedText = memo(function TranslatedText({i18nKey, fallback}) {
   const { t } = useTranslation()
   const mounted = useMounted()
   return mounted ? <>{t(i18nKey, fallback)}</> : <>{fallback}</>
 })
 
-export const BlogPostMeta = memo(({date, readingTime, initialDateText, initialMinReadText}) => {
+export const BlogPostMeta = memo(function BlogPostMeta({date, readingTime, initialDateText, initialMinReadText}) {
   const { t, i18n } = useTranslation()
   const mounted = useMounted()
   const [dateText, setDateText] = useState(initialDateText)

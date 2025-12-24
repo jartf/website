@@ -102,7 +102,7 @@ export function Header() {
 
     // Skip for mobile or large desktop
     if (windowWidth < 768 || windowWidth >= 1280) {
-      setOverflowIndex(null)
+      queueMicrotask(() => setOverflowIndex(null))
       return
     }
 
