@@ -45,16 +45,16 @@ export function Footer() {
         {BADGES.map(({ src, alt, href }) =>
           href ? (
             <a key={src} href={href} target="_blank" rel="noopener" className={linkClass}>
-              <Image src={src} alt={alt} width={88} height={31} className="hover:opacity-90 transition-opacity" />
+              <Image src={src} alt={alt} width={88} height={31} className="hover:opacity-90 transition-opacity" loading="lazy" />
             </a>
           ) : (
-            <Image key={src} src={src} alt={alt} width={88} height={31} />
+            <Image key={src} src={src} alt={alt} width={88} height={31} loading="lazy" />
           )
         )}
       </nav>
 
       <a className="flex justify-center mt-2 pb-3" href="/badges">
-        <Image src="/badge.png" alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars." width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" />
+        <Image src="/badge.png" alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars." width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" loading="lazy" />
       </a>
       {/* Bisexual pride flag stripe spanning full width */}
       <svg height="15" width="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" className="block w-full" preserveAspectRatio="none">
