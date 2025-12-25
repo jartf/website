@@ -53,9 +53,18 @@ export function Footer() {
         )}
       </nav>
 
-      <a className="flex justify-center mt-2 pb-4" href="/badges">
+      <a className="flex justify-center mt-2 pb-3" href="/badges">
         <Image src="/badge.png" alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars." width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" />
       </a>
+      {/* Bisexual pride flag stripe spanning full width */}
+      <svg height="15" width="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" className="block w-full" preserveAspectRatio="none">
+        <title>Decorative footer stripe</title>
+        <rect fill="#D60270" height="5" width="100%" x="0" y="0"></rect>
+        <rect fill="#9B4F96" height="5" width="100%" x="0" y="5"></rect>
+        <rect fill="#0038A8" height="5" width="100%" x="0" y="10"></rect>
+      </svg>
+      {/* Spacer below footer for extra breathing room */}
+      <div aria-hidden="true" className="h-3" />
     </footer>
   )
 }
