@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
     const resolvedParams = await Promise.resolve(params)
 
     if (!resolvedParams?.slug) {
-      return baseGenerateMetadata({ title: "Blog Post Not Found" })
+      return baseGenerateMetadata({ title: "Blog post not found" })
     }
 
     const post = await getBlogPost(resolvedParams.slug)
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
     }
   } catch (error) {
     console.error("Error generating metadata:", error)
-    return baseGenerateMetadata({ title: "Blog Post Not Found" })
+    return baseGenerateMetadata({ title: "Blog post not found" })
   }
 }
 

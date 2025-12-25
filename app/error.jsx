@@ -73,7 +73,7 @@ export default function Error({ error, reset }) {
                 <Link href="/">
                   <Button variant="outline">
                     <Home className="mr-2 h-4 w-4" />
-                    <TranslatedText i18nKey="error.home" fallback="Go Home" />
+                    <TranslatedText i18nKey="error.home" fallback="Go home" />
                   </Button>
                 </Link>
               </div>

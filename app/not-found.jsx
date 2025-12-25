@@ -7,7 +7,7 @@ import { PageAnimation, AnimatedCatIcon, AnimatedCompass, AnimatedSection } from
 import { TranslatedText } from "@/components/translated-text"
 
 export const metadata = generateMetadata({
-  title: "404 - Page Not Found",
+  title: "404 - Page not found",
   description: "The page you're looking for doesn't exist or has been moved.",
   path: "404",
 })
@@ -32,7 +32,7 @@ export default function NotFound() {
             {/* Main content */}
             <AnimatedSection delay={0.3}>
               <h1 className="text-4xl font-bold mb-4">
-                <TranslatedText i18nKey="404.title" fallback="Page Not Found" />
+                <TranslatedText i18nKey="404.title" fallback="Page not found" />
               </h1>
 
               <p className="text-muted-foreground mb-8">
@@ -43,13 +43,13 @@ export default function NotFound() {
                 <Link href="/">
                   <Button>
                     <Home className="mr-2 h-4 w-4" />
-                    <TranslatedText i18nKey="404.button" fallback="Go Home" />
+                    <TranslatedText i18nKey="404.button" fallback="Go home" />
                   </Button>
                 </Link>
                 <Link href="/slashes">
                   <Button variant="outline">
                     <Map className="mr-2 h-4 w-4" />
-                    <TranslatedText i18nKey="404.sitemap" fallback="Site Directory" />
+                    <TranslatedText i18nKey="404.sitemap" fallback="Site directory" />
                   </Button>
                 </Link>
               </div>

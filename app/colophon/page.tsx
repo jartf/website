@@ -43,7 +43,7 @@ export default function ColophonPage() {
               >
                 <h2 className="flex text-foreground items-center gap-2 text-2xl font-bold mb-4">
                   <Palette className="h-6 w-6 text-primary" />
-                  <TranslatedText i18nKey="colophon.siteHistory.title" fallback="Site History" />
+                  <TranslatedText i18nKey="colophon.siteHistory.title" fallback="Site history" />
                 </h2>
                 <p>
                   <TranslatedText
@@ -66,7 +66,7 @@ export default function ColophonPage() {
               >
                 <h2 className="flex text-foreground items-center gap-2 text-2xl font-bold mb-4">
                   <Code className="h-6 w-6 text-primary" />
-                  <TranslatedText i18nKey="colophon.technologyStack.title" fallback="Technology Stack" />
+                  <TranslatedText i18nKey="colophon.technologyStack.title" fallback="Technology stack" />
                 </h2>
                 <ul className="space-y-2 list-disc pl-5">
                   {technologyStack.map((tech) => (

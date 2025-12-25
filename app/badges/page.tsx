@@ -4,7 +4,7 @@ import BadgesClientWrapper from "./BadgesClientWrapper"
 import "./badges.css"
 
 export const metadata = generateMeta({
-  title: "Web Badges Collection",
+  title: "Web badges collection",
   description: "A collection of classic web badges and buttons used on my website.",
   path: "badges",
 })
