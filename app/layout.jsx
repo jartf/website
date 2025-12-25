@@ -136,6 +136,9 @@ export default function RootLayout({ children }) {
 
         <style>{`.emoji-flag{font-family:"Twemoji Country Flags","Twemoji Mozilla","Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;font-variant-emoji:emoji}.js-disabled-banner{display:none;background:linear-gradient(135deg,#1e3a5f 0%,#2d4a6f 100%);color:#fff;padding:1rem;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;border-bottom:1px solid rgba(255,255,255,0.1)}.js-disabled-banner p{margin:0;font-size:0.875rem;line-height:1.5}.js-disabled-banner a{color:#60a5fa;text-decoration:underline}.js-disabled-banner a:hover{color:#93c5fd}@media(max-width:640px){.js-disabled-banner{padding:0.75rem}.js-disabled-banner p{font-size:0.8rem}}`}</style>
 
+        {/* Wayback Machine detection and JavaScript blocker - must load first */}
+        <script src="/wayback-blocker.js" />
+
         <script dangerouslySetInnerHTML={{__html:`(function(){document.documentElement.classList.add('js-enabled');try{var s=${JSON.stringify(SUPPORTED_LANGUAGES)},r=(typeof localStorage!=='undefined'&&localStorage.getItem('i18nextLng'))||navigator.language||'',l=s.find(function(x){return r.toLowerCase()===x||r.toLowerCase().indexOf(x+'-')===0})||'en';document.documentElement.setAttribute('lang',l);if(l==='zh'||l==='vih'){var k=document.createElement('link');k.id='noto-sans-sc-font';k.rel='stylesheet';k.href='https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap';document.head.appendChild(k);var t=document.createElement('style');t.id='noto-sans-sc-var';t.textContent=':root{--font-noto-sans-sc:"Noto Sans SC",sans-serif}';document.head.appendChild(t)}}catch(e){document.documentElement.setAttribute('lang','en')}document.addEventListener('DOMContentLoaded',function(){var n=document.querySelector('.js-disabled-notice');if(n)n.style.display='none'})})();`}} />
 
         <script dangerouslySetInnerHTML={{__html:`(function(){try{var s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches,t=s==='dark'||s==='light'?s:(s==='system'||!s)?(p?'dark':'light'):'dark';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);document.documentElement.style.colorScheme=t}catch(e){var p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(!p){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.style.colorScheme='light'}else{document.documentElement.style.colorScheme='dark'}}})();`}} />
@@ -146,6 +149,9 @@ export default function RootLayout({ children }) {
             <p>You&apos;re browsing without JavaScript. The site works, but some interactive features like toggles or search won&apos;t be available, and content will be limited to prevent scraping from bots and AI.</p>
           </div>
         </noscript>
+        <div className="js-disabled-banner wayback-banner" style={{display:"none"}}>
+          <p>You&apos;re viewing an archived version of this site via the Internet Archive&apos;s Wayback Machine. JavaScript has been disabled for compatibility. The content is preserved as static HTML.</p>
+        </div>
 
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem storageKey="theme" disableTransitionOnChange>
           <I18nProvider>
