@@ -13,6 +13,9 @@ const nextConfig = {
   // Output configuration
   output: 'standalone',
 
+  // Use trailing slashes for better compatibility with archivers like Wayback Machine
+  trailingSlash: true,
+
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
