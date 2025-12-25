@@ -23,9 +23,13 @@ export function Galaxy() {
 
       {/* Dark Theme: Stars - CSS controls visibility via .stars-* rules */}
       <div className="absolute inset-0 bg-black/0 pointer-events-none">
-        <div className="fixed inset-0 stars-1"></div>
-        <div className="fixed inset-0 stars-2"></div>
-        <div className="fixed inset-0 stars-3"></div>
+        <div className="fixed inset-0 stars-1a"></div>
+        <div className="fixed inset-0 stars-1b"></div>
+        <div className="fixed inset-0 stars-2a"></div>
+        <div className="fixed inset-0 stars-2b"></div>
+        <div className="fixed inset-0 stars-3a"></div>
+        <div className="fixed inset-0 stars-3b"></div>
+        <div className="fixed inset-0 stars-3c"></div>
       </div>
 
       {/* Dark Theme: Twinkling Stars / Meteors - CSS controls visibility via #galaxy rules */}
