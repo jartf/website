@@ -57,9 +57,9 @@ export default async function Home() {
     ['Hotline Webring', 'https://hotlinewebring.club/', 'https://hotlinewebring.club/jar/previous', null, 'https://hotlinewebring.club/jar/next'],
     ['Bucket webring', 'https://webring.bucketfish.me', 'https://webring.bucketfish.me/redirect.html?to=prev&name=Jarema', 'https://webring.bucketfish.me/redirect.html?to=random&name=Jarema', 'https://webring.bucketfish.me/redirect.html?to=next&name=Jarema'],
     ['Meta Ring', 'https://meta-ring.hedy.dev/', 'https://meta-ring.hedy.dev/previous', 'https://meta-ring.hedy.dev/random', 'https://meta-ring.hedy.dev/next'],
+    ['☆ Webmaster Webring ☆', 'https://webmasterwebring.netlify.app/', 'https://webmasterwebring.netlify.app?jarema-previous', 'https://webmasterwebring.netlify.app?jarema-random', 'https://webmasterwebring.netlify.app?jarema-next'],
     ['Fediring', 'https://fediring.net/', 'https://fediring.net/previous?host=jarema.me', 'https://fediring.net/random', 'https://fediring.net/next?host=jarema.me'],
     ['The Online webring', 'https://webring.ghostk.id/online/', 'https://webring.ghostk.id/online/jarema/previous', 'https://webring.ghostk.id/online/random', 'https://webring.ghostk.id/online/jarema/next'],
-    ['☆ Webmaster Webring ☆', 'https://webmasterwebring.netlify.app/', 'https://webmasterwebring.netlify.app?jarema-previous', 'https://webmasterwebring.netlify.app?jarema-random', 'https://webmasterwebring.netlify.app?jarema-next'],
   ]
 
   return (
