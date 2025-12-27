@@ -20,7 +20,18 @@ const BADGES = [
     width: 88,
     height: 31,
     url: null,
-    description: "My personal web badge",
+    description: "My personal badge depicting me in headphones under the stars.",
+  },
+  {
+    id: "badge-eesti",
+    name: "Eesti",
+    src: "/badge-eesti.png",
+    alt: "My personal badge, with a frame of Estonia's flag.",
+    category: "personal",
+    width: 88,
+    height: 31,
+    url: null,
+    description: "The same personal badge, just with the Estonia flag frame.",
   },
   {
     id: "humanstxt",
@@ -31,7 +42,7 @@ const BADGES = [
     width: 88,
     height: 31,
     url: "https://jarema.me/humans.txt",
-    description: "Information about the human behind this website",
+    description: "Information about me! Hi, I'm the human behind this website.",
   },
   {
     id: "valid-rss",
@@ -318,6 +329,17 @@ const BADGES = [
     height: 31,
     url: null,
     description: "Yes I love graphic design! I'm very capable of it! Totally!",
+  },
+  {
+    id: "developed-by-human",
+    name: "Developed by a human",
+    src: "/Developed-By-a-Human-Not-By-AI-Badge-black.svg",
+    alt: "A black banner that reads Developed by a human, Not by AI.",
+    category: "web",
+    width: 88,
+    height: 31,
+    url: null,
+    description: "This site was developed by a human. (not 88x31, but close!)",
   },
 ]
 
