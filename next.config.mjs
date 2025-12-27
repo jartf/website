@@ -87,7 +87,7 @@ const nextConfig = {
               "connect-src 'self' https://jarema.me https://fm.jarema.me https://ws.audioscrobbler.com",
               "font-src 'self' fonts.gstatic.com",
               "frame-src https://jarema.atabook.org",
-              "img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com",
+              "img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com moods.imood.com",
               "manifest-src 'self'",
               "media-src 'self'",
               "object-src 'none'",
