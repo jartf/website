@@ -76,7 +76,8 @@ export function Header() {
   // Memoize navigation items - use translated labels when mounted, static labels otherwise
   const navItems = useMemo(
     () =>
-      NAV_ITEMS.map((item) => ({
+      // Exclude the "projects" nav item from the header
+      NAV_ITEMS.filter((item) => item.key !== "projects").map((item) => ({
         href: item.href,
         label: mounted
           ? t(`nav.${item.key}`, STATIC_NAV_LABELS[item.key] || item.key.charAt(0).toUpperCase() + item.key.slice(1))
