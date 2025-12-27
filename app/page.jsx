@@ -56,9 +56,9 @@ export default async function Home() {
     ['The retronaut webring', 'https://webring.dinhe.net/', 'https://webring.dinhe.net/prev/https://jarema.me', 'https://webring.dinhe.net/random', 'https://webring.dinhe.net/next/https://jarema.me'],
     ['Hotline Webring', 'https://hotlinewebring.club/', 'https://hotlinewebring.club/jar/previous', null, 'https://hotlinewebring.club/jar/next'],
     ['Bucket webring', 'https://webring.bucketfish.me', 'https://webring.bucketfish.me/redirect.html?to=prev&name=Jarema', 'https://webring.bucketfish.me/redirect.html?to=random&name=Jarema', 'https://webring.bucketfish.me/redirect.html?to=next&name=Jarema'],
+    ['Meta Ring', 'https://meta-ring.hedy.dev/', 'https://meta-ring.hedy.dev/previous', 'https://meta-ring.hedy.dev/random', 'https://meta-ring.hedy.dev/next'],
     ['Fediring', 'https://fediring.net/', 'https://fediring.net/previous?host=jarema.me', 'https://fediring.net/random', 'https://fediring.net/next?host=jarema.me'],
     ['The Online webring', 'https://webring.ghostk.id/online/', 'https://webring.ghostk.id/online/jarema/previous', 'https://webring.ghostk.id/online/random', 'https://webring.ghostk.id/online/jarema/next'],
-    ['Meta Ring', 'https://meta-ring.hedy.dev/', 'https://meta-ring.hedy.dev/previous', 'https://meta-ring.hedy.dev/random', 'https://meta-ring.hedy.dev/next'],
     ['☆ Webmaster Webring ☆', 'https://webmasterwebring.netlify.app/', 'https://webmasterwebring.netlify.app?jarema-previous', 'https://webmasterwebring.netlify.app?jarema-random', 'https://webmasterwebring.netlify.app?jarema-next'],
   ]
 
@@ -156,6 +156,21 @@ export default async function Home() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="mt-10">
+              <h2 className="text-2xl font-bold mb-4 text-center">Current mood</h2>
+              <div className="border rounded-lg p-6 bg-card text-center">
+                <a href="https://www.imood.com/users/jarema">
+                  <img
+                    src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
+                    alt="The current mood of jarema at www.imood.com"
+                    className="inline-block"
+                  />
+                </a>
               </div>
             </div>
           </div>
