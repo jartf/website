@@ -108,7 +108,7 @@ const BADGES = [
     width: 88,
     height: 31,
     url: "https://people.pledge.party/",
-    description: "I pledge to the People Pledge. For more info, see the website https://people.pledge.party",
+    description: "I pledge to the People Pledge. See https://people.pledge.party",
   },
   {
     id: "internet-privacy",
@@ -119,7 +119,7 @@ const BADGES = [
     width: 88,
     height: 31,
     url: null,
-    description: "Internet Privacy Now",
+    description: "Let's make internet privacy common again",
   },
   {
     id: "no-web3",
@@ -386,56 +386,63 @@ export default function BadgesPage() {
     <div className="container max-w-4xl py-8">
       <h1 className="text-3xl font-bold mb-6">Classic web badges collection</h1>
 
-      <p className="text-muted-foreground mb-8">
+      <p className="text-muted-foreground mb-6">
         I&apos;ve collected these 88x31 badges to show what I and this site actually care about. They&apos;re a throwback to the Geocities era when the internet was less corporate/AI slop. If you have a badge you&apos;d like me to add here, just ask me.
       </p>
 
-      {/* Personal Badge Section - Server rendered */}
+      {/* Personal Badge Section - Server rendered (collapsible via HTML/CSS) */}
       {personalBadge && (
-        <section className="mb-12 border p-6 rounded-lg bg-muted/30">
-          <h2 className="text-2xl font-semibold mb-4" id="my-badge">
-            My badge
-          </h2>
-          <p className="mb-4">Use this badge to link to my website:</p>
+        <section className="mb-6">
+          <details className="badge-details" aria-label="My badge details">
+            <summary className="cursor-pointer">
+              <h2 className="text-2xl font-semibold mb-0" id="my-badge">
+                My badge (click to expand)
+              </h2>
+            </summary>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
-            <Image
-              src={personalBadge.src}
-              alt={personalBadge.alt}
-              width={personalBadge.width * 2}
-              height={personalBadge.height * 2}
-              className="pixelated"
-            />
-            <div>
-              <p className="text-m text-muted-foreground">Hotlink URL: <code>https://jarema.me/badge.png</code></p>
-            </div>
-          </div>
+            <div className="border p-6 rounded-lg bg-muted/30 mt-4">
+              <p className="mb-4">Use this badge to link to my website:</p>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-medium mb-2">HTML code</h3>
-            <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
-              <code>{`<a href="https://jarema.me/">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
+                <Image
+                  src={personalBadge.src}
+                  alt={personalBadge.alt}
+                  width={personalBadge.width * 2}
+                  height={personalBadge.height * 2}
+                  className="pixelated"
+                />
+                <div>
+                  <p className="text-m text-muted-foreground">Hotlink URL: <code>https://jarema.me/badge.png</code></p>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="text-lg font-medium mb-2">HTML code</h3>
+                <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
+                  <code>{`<a href="https://jarema.me/">
   <img src="https://jarema.me/badge.png"
        alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars."
        width="88" height="31"
        style="image-rendering: pixelated;">
 </a>`}</code>
-            </pre>
-          </div>
+                </pre>
+              </div>
 
-          <div>
-            <h3 className="text-lg font-medium mb-2">Suggestions for embedding</h3>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>
-                Use <code className="bg-muted px-1 rounded">image-rendering: pixelated;</code> in your CSS to preserve the
-                pixel art style.
-              </li>
-              <li>
-                Link directly to my homepage at <code className="bg-muted px-1 rounded">https://jarema.me/</code>
-              </li>
-              <li>The badge is 88x31 pixels, double the width and height in your HTML to <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> to make them easier to read on higher-resolution screens.</li>
-            </ul>
-          </div>
+              <div>
+                <h3 className="text-lg font-medium mb-2">Suggestions for embedding</h3>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    Use <code className="bg-muted px-1 rounded">image-rendering: pixelated;</code> in your CSS to preserve the
+                    pixel art style.
+                  </li>
+                  <li>
+                    Link directly to my homepage at <code className="bg-muted px-1 rounded">https://jarema.me/</code>
+                  </li>
+                  <li>The badge is 88x31 pixels, double the width and height in your HTML to <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> to make them easier to read on higher-resolution screens.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
         </section>
       )}
 
