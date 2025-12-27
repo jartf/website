@@ -96,7 +96,7 @@ const nextConfig = {
               "worker-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
-              "frame-ancestors 'self' geekring.net https://kagi.com",
+              "frame-ancestors 'self' geekring.net kagi.com",
               "upgrade-insecure-requests",
             ].join('; '),
           },
