@@ -19,7 +19,7 @@ const BADGES = [
     category: "personal",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://jarema.me/",
     description: "My personal badge depicting me in headphones under the stars.",
   },
   {
@@ -30,7 +30,7 @@ const BADGES = [
     category: "personal",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://jarema.me/",
     description: "The same personal badge, just with the Estonia flag frame.",
   },
   {
@@ -184,7 +184,7 @@ const BADGES = [
     category: "browsers",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://jarema.me/blog/2025/08/anything-but-chrome/",
     description: "I'm willing to use anything EXCEPT Chrome. NEVER Chrome.",
   },
   {
@@ -195,7 +195,7 @@ const BADGES = [
     category: "software",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://bitwarden.com/",
     description: "Bitwarden the password manager is peak",
   },
   {
@@ -206,7 +206,7 @@ const BADGES = [
     category: "software",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://distrochooser.de/",
     description: "This user is powered by Linux, and so is the server for this website.",
   },
   {
@@ -228,7 +228,7 @@ const BADGES = [
     category: "web",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://neocities.org/",
     description: "Neocities is my love, web design is my passion",
   },
   {
@@ -261,7 +261,7 @@ const BADGES = [
     category: "web",
     width: 88,
     height: 31,
-    url: null,
+    url: "/tetris",
     description: "Tetris, anyone?",
   },
   {
@@ -283,7 +283,7 @@ const BADGES = [
     category: "misc",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://www.youtube.com/watch?v=R8fuPgbOhTM",
     description: "Teto teto teto *explodes*",
   },
   {
@@ -294,7 +294,7 @@ const BADGES = [
     category: "misc",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://www.youtube.com/watch?v=5oH9Nr3bKfw",
     description: "This was peak and you can't convince me otherwise",
   },
   {
@@ -338,8 +338,41 @@ const BADGES = [
     category: "web",
     width: 88,
     height: 31,
-    url: null,
+    url: "https://notbyai.fyi/",
     description: "This site was developed by a human. (not 88x31, but close!)",
+  },
+  {
+    id: "browser-monopolies",
+    name: "Hate browser monopolies",
+    src: "/browsermonopolies.png",
+    alt: "A small banner reading All my friends hate browser monopolies.",
+    category: "web",
+    width: 88,
+    height: 31,
+    url: "https://jarema.me/blog/2025/08/anything-but-chrome/",
+    description: "All my friends use a browser that's not Chrome!",
+  },
+  {
+    id: "email-common",
+    name: "Make email common again!",
+    src: "/emailcommon.png",
+    alt: "A banner showing an envelope icon and the words Make Email Common Again next to it.",
+    category: "web",
+    width: 88,
+    height: 31,
+    url: "mailto:hello@jarema.me",
+    description: "My email inbox is always open, feel free to email me!",
+  },
+  {
+    id: "osm-button",
+    name: "OpenStreetMap",
+    src: "/osm-button.png",
+    alt: "A banner with the OpenStreetMap logo and the text OpenStreetMap next to it.",
+    category: "web",
+    width: 88,
+    height: 31,
+    url: "https://www.openstreetmap.org/",
+    description: "I contribute to OpenStreetMap, and so should you!",
   },
 ]
 
