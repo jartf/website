@@ -141,7 +141,9 @@ export default async function Home() {
             <div><MoodCat /></div>
             <div>
               <h2 className="text-2xl font-bold mb-4 text-center">
-                <T k="home.webrings" f={STATIC.webrings} />
+                <a href="/now" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
+                  <T k="home.webrings" f={STATIC.webrings} />
+                </a>
               </h2>
               <div className="border rounded-lg p-4 bg-card divide-y text-sm">
                 {webrings.map(([name, url, prev, random, next]) => (
