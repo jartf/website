@@ -133,6 +133,28 @@ const BADGES = [
     description: "We can make a better, free, decentralized internet without crypto, NFT or Web3 crap.",
   },
   {
+    id: "kagi-smallweb-yellow",
+    name: "Kagi Small Web",
+    src: "/kagi-smallweb-yellow.gif",
+    alt: "An animated banner with the dog mascot Doggo of the Kagi search engine hopping up and down, next to the text Small web. The background is light yellow.",
+    category: "web",
+    width: 88,
+    height: 31,
+    url: "https://kagi.com/smallweb",
+    description: "This website is part of the Kagi Small Web initiative by the Kagi search engine. Learn more at https://blog.kagi.com/small-web",
+  },
+  {
+    id: "kagi-smallweb-white",
+    name: "Kagi Small Web",
+    src: "/kagi-smallweb.gif",
+    alt: "An animated banner with the dog mascot Doggo of the Kagi search engine hopping up and down, next to the text Small web. The background is light yellow.",
+    category: "web",
+    width: 88,
+    height: 31,
+    url: "https://kagi.com/smallweb",
+    description: "Same badge in white background",
+  },
+  {
     id: "got-html",
     name: "Got HTML?",
     src: "/got_html.gif",
@@ -163,7 +185,7 @@ const BADGES = [
     width: 88,
     height: 31,
     url: "https://fedoraproject.org/",
-    description: "This user is proudly powered by Fedora Linux",
+    description: "This user is proudly a Fedora Linux user and contributor.",
   },
   {
     id: "firefox",
@@ -174,7 +196,7 @@ const BADGES = [
     width: 88,
     height: 31,
     url: "https://www.mozilla.org/en-US/firefox/new/",
-    description: "This website is tested on the Firefox browser",
+    description: "This website is primarily tested on the Firefox browser",
   },
   {
     id: "anything-but",
@@ -185,7 +207,7 @@ const BADGES = [
     width: 88,
     height: 31,
     url: "https://jarema.me/blog/2025/08/anything-but-chrome/",
-    description: "I'm willing to use anything EXCEPT Chrome. NEVER Chrome.",
+    description: "I'm willing to use anything EXCEPT Chrome. Never Chrome.",
   },
   {
     id: "bitwarden",
@@ -218,7 +240,7 @@ const BADGES = [
     width: 88,
     height: 31,
     url: null,
-    description: "Yes, I'm still using buttons in... *checks calendar* 2025 now!",
+    description: "Yes, I'm still using buttons in... *checks calendar* almost 2026!",
   },
   {
     id: "button-webdesign",
@@ -244,7 +266,7 @@ const BADGES = [
   },
   {
     id: "imagine",
-    name: "This site is powered by imagination",
+    name: "Powered by imagination",
     src: "/imagine.gif",
     alt: "An animated banner showing the text This site is powered by in one frame and imagination in the other frame.",
     category: "web",

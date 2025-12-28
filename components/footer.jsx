@@ -19,6 +19,7 @@ const BADGES = [
   { src: "/button2019.gif", alt: "A banner showing the text Still using buttons in 2019!" },
   { src: "/graphicdesign.png", alt: "A cyan banner showing a frog in white background signifying an image without transparency, with the text graphic design is my passion in blood red." },
   { src: "/people_pledge_badge_party_cream_pink_88x31.png", alt: "A banner with a thin light pink border, showing the text People Pledge next to a party popper icon, both are in pink. The background is light yellow.", href: "https://people.pledge.party/" },
+  { src: "/kagi-smallweb-yellow.gif", alt: "An animated banner with the dog mascot Doggo of the Kagi search engine hopping up and down, next to the text Small web. The background is light yellow.", href: "https://kagi.com/smallweb" },
   { src: "/internetprivacy.gif", alt: "An animated pixel art banner with a spinning globe, next to the words Internet privacy in black, and Now! in red." },
   { src: "/saynotoweb3_88x31.gif", alt: "An animated black banner showing the text Keep the web free, say no to Web3 in green.", href: "https://yesterweb.org/no-to-web3/" },
   { src: "/valid-rss-rogers.png", alt: "A banner showing the RSS logo next to the text Valid RSS and a green checkmark. Subscribe to blog updates!", href: "/rss.xml" },
@@ -27,7 +28,6 @@ const BADGES = [
   { src: "/got_html.gif", alt: "A banner showing the text Got HTML? in black" },
   { src: "/js-warning.gif", alt: "A banner showing a caution sign next to the text Warning: Page contains JavaScript!" },
   { src: "/fedora.gif", alt: "A banner showing the text Powered by in black with white background, above the Fedora Linux wordmark with dark blue background.", href: "https://fedoraproject.org/" },
-  { src: "/firefox4.gif", alt: "An animated banner with a dark blue background and orange border, showing the Firefox logo next to the text alternating between Tested on and Firefox, both texts in orange.", href: "https://www.mozilla.org/en-US/firefox/new/" },
   { src: "/anythingbut.gif", alt: "A banner showing the Chrome logo crossed out with a No sign, next to the words Anything But Chrome in black.", href: "/blog/2025/08/anything-but-chrome" },
   { src: "/perfectclear.gif", alt: "An animated banner showing a Tetris gameplay, next to the words Perfect clear in white.", href: "/tetris" },
 ]
