@@ -73,6 +73,14 @@ export const WEBRING_ITEMS: WebringItem[] = [
     description: '"This webring is for anyone who is tired of how boring and same-y the internet is today."',
   },
   {
+    name: 'NetLoop',
+    url: 'https://netloop.netlify.app/',
+    previous: 'https://netloop.netlify.app/jarema/previous',
+    random: null,
+    next: 'https://netloop.netlify.app/jarema/next',
+    description: '"This is a webring!"',
+  },
+  {
     name: 'The Online webring',
     url: 'https://webring.ghostk.id/online/',
     previous: 'https://webring.ghostk.id/online/jarema/previous',

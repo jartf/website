@@ -60,6 +60,7 @@ export default async function Home() {
     ['☆ Webmaster Webring ☆', 'https://webmasterwebring.netlify.app/', 'https://webmasterwebring.netlify.app?jarema-previous', 'https://webmasterwebring.netlify.app?jarema-random', 'https://webmasterwebring.netlify.app?jarema-next'],
     ['Epic WebRing', 'https://epic1.nekoweb.org/webring/', 'https://links.app.tc/noJS/?d=prev&url=https://jarema.me', 'https://links.app.tc/noJS/?d=rand&url=https://jarema.me', 'https://links.app.tc/noJS/?d=next&url=https://jarema.me'],
     ['Fediring', 'https://fediring.net/', 'https://fediring.net/previous?host=jarema.me', 'https://fediring.net/random', 'https://fediring.net/next?host=jarema.me'],
+    ['NetLoop', 'https://netloop.netlify.app/', 'https://netloop.netlify.app/jarema/previous', null, 'https://netloop.netlify.app/jarema/next'],
     ['The Online webring', 'https://webring.ghostk.id/online/', 'https://webring.ghostk.id/online/jarema/previous', 'https://webring.ghostk.id/online/random', 'https://webring.ghostk.id/online/jarema/next'],
   ]
 
@@ -142,7 +143,7 @@ export default async function Home() {
             <div><MoodCat /></div>
             <div>
               <h2 className="text-2xl font-bold mb-4 text-center">
-                <a href="/now" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
+                <a href="/webrings" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
                   <T k="home.webrings" f={STATIC.webrings} />
                 </a>
               </h2>
