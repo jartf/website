@@ -58,6 +58,7 @@ export default async function Home() {
     ['Bucket webring', 'https://webring.bucketfish.me', 'https://webring.bucketfish.me/redirect.html?to=prev&name=Jarema', 'https://webring.bucketfish.me/redirect.html?to=random&name=Jarema', 'https://webring.bucketfish.me/redirect.html?to=next&name=Jarema'],
     ['Meta Ring', 'https://meta-ring.hedy.dev/', 'https://meta-ring.hedy.dev/previous', 'https://meta-ring.hedy.dev/random', 'https://meta-ring.hedy.dev/next'],
     ['☆ Webmaster Webring ☆', 'https://webmasterwebring.netlify.app/', 'https://webmasterwebring.netlify.app?jarema-previous', 'https://webmasterwebring.netlify.app?jarema-random', 'https://webmasterwebring.netlify.app?jarema-next'],
+    ['Epic WebRing', 'https://epic1.nekoweb.org/webring/', 'https://links.app.tc/noJS/?d=prev&url=https://jarema.me', 'https://links.app.tc/noJS/?d=rand&url=https://jarema.me', 'https://links.app.tc/noJS/?d=next&url=https://jarema.me'],
     ['Fediring', 'https://fediring.net/', 'https://fediring.net/previous?host=jarema.me', 'https://fediring.net/random', 'https://fediring.net/next?host=jarema.me'],
     ['The Online webring', 'https://webring.ghostk.id/online/', 'https://webring.ghostk.id/online/jarema/previous', 'https://webring.ghostk.id/online/random', 'https://webring.ghostk.id/online/jarema/next'],
   ]
