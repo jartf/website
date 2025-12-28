@@ -62,7 +62,7 @@ export const WEBRING_ITEMS: WebringItem[] = [
     previous: 'https://fediring.net/previous?host=jarema.me',
     random: 'https://fediring.net/random',
     next: 'https://fediring.net/next?host=jarema.me',
-    description: 'Personal sites of any member of the fediverse (also known as fedizens).',
+    description: '"Personal sites of any member of the fediverse (also known as fedizens)."',
   },
   {
     name: 'The Online webring',
