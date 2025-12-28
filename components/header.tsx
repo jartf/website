@@ -26,6 +26,7 @@ const STATIC_NAV_LABELS: Record<string, string> = {
   contact: "Contact",
   guestbook: "Guestbook",
   colophon: "Colophon",
+  webring: "Webrings",
 }
 
 // Memoized nav link component to prevent re-renders

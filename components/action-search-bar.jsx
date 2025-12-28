@@ -63,6 +63,7 @@ export const ActionSearchBar = memo(function ActionSearchBar() {
       ["contact", "nav.contact", Mail, "/contact", "c"],
       ["guestbook", "nav.guestbook", MessagesSquare, "/guestbook", "g"],
       ["colophon", "nav.colophon", FileText, "/colophon", "l"],
+      ["webring", "nav.webring", FlipHorizontal, "/webrings", "w"],
       ["scrapbook", "nav.scrapbook", Calendar, "/scrapbook", "d"],
       ["slashes", "Slashes", Slash, "/slashes", "/"],
     ].map(([id, label, Icon, path, shortcut]) => ({

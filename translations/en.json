@@ -9,6 +9,7 @@
     "contact": "Contact",
     "guestbook": "Guestbook",
     "colophon": "Colophon",
+    "webring": "Webrings",
     "scrapbook": "Scrapbook"
   },
   "languageNotice": {
@@ -432,6 +433,7 @@
     "uses": "Uses",
     "contact": "Contact",
     "colophon": "Colophon",
+    "webring": "Webrings",
     "slashes": "Slashes",
     "scrapbook": "Devlog",
     "tetris": "Tetris",
