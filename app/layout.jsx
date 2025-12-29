@@ -143,11 +143,13 @@ export default function RootLayout({ children }) {
 
         <script dangerouslySetInnerHTML={{__html:`(function(){try{var s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches,t=s==='dark'||s==='light'?s:(s==='system'||!s)?(p?'dark':'light'):'dark';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);document.documentElement.style.colorScheme=t}catch(e){var p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(!p){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.style.colorScheme='light'}else{document.documentElement.style.colorScheme='dark'}}})();`}} />
 
-        <script
-          defer
-          src="/stats/script.js"
-          data-website-id="94db1cb1-74f4-4a40-ad6c-962362670409"
-        ></script>
+        {process.env.NODE_ENV === 'production' && (
+          <script
+            defer
+            src="/stats/script.js"
+            data-website-id="94db1cb1-74f4-4a40-ad6c-962362670409"
+          ></script>
+        )}
 
       </head>
       <body className="font-sans min-h-screen bg-background" suppressHydrationWarning>
