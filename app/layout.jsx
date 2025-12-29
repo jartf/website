@@ -147,7 +147,7 @@ export default function RootLayout({ children }) {
           <script
             defer
             src="/stats/script.js"
-            data-website-id="94db1cb1-74f4-4a40-ad6c-962362670409"
+            data-website-id="2e9dfa41-fbe7-4799-9adb-0a57b8141a54"
           ></script>
         )}
 
