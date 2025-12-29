@@ -355,7 +355,7 @@ const BADGES = [
   {
     id: "developed-by-human",
     name: "Developed by a human",
-    src: "/Developed-By-a-Human-Not-By-AI-Badge-black.svg",
+    src: "/Developed-By-a-Human-Not-By-AI-Badge-black.png",
     alt: "A black banner that reads Developed by a human, Not by AI.",
     category: "web",
     width: 88,
