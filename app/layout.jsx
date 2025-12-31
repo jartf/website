@@ -158,7 +158,7 @@ export default function RootLayout({ children }) {
         {process.env.NODE_ENV === 'production' && (
           <script
             defer
-            src="https://scripts.simpleanalyticscdn.com/latest.js"
+            src="/simple/latest.js"
           ></script>
         )}
 
