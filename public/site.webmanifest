@@ -1,5 +1,5 @@
 {
-  "name": "Jarema's Digital Garden",
+  "name": "Jarema's digital garden",
   "short_name": "Jarema",
   "icons": [
     {
@@ -21,12 +21,6 @@
       "purpose": "maskable",
       "sizes": "1024x1024",
       "src": "/maskable_icon.png",
-      "type": "image/png"
-    },
-    {
-      "purpose": "maskable",
-      "sizes": "48x48",
-      "src": "/maskable_icon_x48.png",
       "type": "image/png"
     },
     {
@@ -66,7 +60,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#6ee7b7",
-  "background_color": "#1e1b4b",
+  "theme_color": "#2c2e84",
+  "background_color": "#1a1221",
   "display": "standalone"
 }
