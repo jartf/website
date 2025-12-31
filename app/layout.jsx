@@ -89,7 +89,7 @@ export const metadata = {
     other: [
       { url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
-      { url: "/maskable-icon.png", sizes: "1024x1024", type: "image/png" },
+      { url: "/maskable_icon.png", sizes: "1024x1024", type: "image/png" },
     ],
   },
   metadataBase: new URL("https://jarema.me"),
@@ -155,6 +155,13 @@ export default function RootLayout({ children }) {
           ></script>
         )}
 
+        {process.env.NODE_ENV === 'production' && (
+          <script
+            defer
+            src="https://scripts.simpleanalyticscdn.com/latest.js"
+          ></script>
+        )}
+
       </head>
       <body className="font-sans min-h-screen bg-background" suppressHydrationWarning>
         <noscript>
@@ -179,6 +186,7 @@ export default function RootLayout({ children }) {
               <Footer />
               <KeyboardNavigation />
             </div>
+            <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""/></noscript>
             <ActionSearchBar />
           </I18nProvider>
         </ThemeProvider>

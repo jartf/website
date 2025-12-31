@@ -84,10 +84,10 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'none'",
-              "connect-src 'self' https://jarema.me https://fm.jarema.me https://ws.audioscrobbler.com https://api-gateway.umami.dev",
+              "connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev scripts.simpleanalyticscdn.com",
               "font-src 'self' fonts.gstatic.com cdn.jsdelivr.net",
-              "frame-src https://jarema.atabook.org",
-              "img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com moods.imood.com",
+              "frame-src jarema.atabook.org",
+              "img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com moods.imood.com queue.simpleanalyticscdn.com",
               "manifest-src 'self'",
               "media-src 'self'",
               "object-src 'none'",
