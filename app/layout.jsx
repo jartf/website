@@ -154,14 +154,6 @@ export default function RootLayout({ children }) {
             data-website-id="2e9dfa41-fbe7-4799-9adb-0a57b8141a54"
           ></script>
         )}
-
-        {process.env.NODE_ENV === 'production' && (
-          <script
-            defer
-            src="/simple/latest.js"
-          ></script>
-        )}
-
       </head>
       <body className="font-sans min-h-screen bg-background" suppressHydrationWarning>
         <noscript>
