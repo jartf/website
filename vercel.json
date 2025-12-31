@@ -6,7 +6,7 @@
     },
     {
       "source": "/simple/:match*",
-      "destination": "https://scripts.simpleanalytics.com/:match*"
+      "destination": "https://scripts.simpleanalyticscdn.com/:match*"
     }
   ]
 }
