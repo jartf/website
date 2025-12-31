@@ -89,6 +89,7 @@ export const metadata = {
     other: [
       { url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+      { url: "/maskable-icon.png", sizes: "1024x1024", type: "image/png" },
     ],
   },
   metadataBase: new URL("https://jarema.me"),
@@ -121,6 +122,9 @@ export default function RootLayout({ children }) {
         <link rel="alternate icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+
+        <meta name="theme-color" content="#2c2e84" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 
         {/* rel=me links for identity verification */}
         <link rel="me" href="https://github.com/jartf" />
