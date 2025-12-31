@@ -19,7 +19,7 @@ export default function WebringPage() {
         </p>
 
         <p className="text-muted-foreground">
-          This website is part of these webrings. Click on the links to visit my neighbors' sites, and other members', if that webring has random functionality. Choose any ring you like!
+          This website is part of these webrings. Click on the links to visit my neighbors&apos; sites, and other members&apos;, if that webring has random functionality. Choose any ring you like!
         </p>
       </div>
 
