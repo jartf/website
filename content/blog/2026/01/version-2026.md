@@ -1,7 +1,7 @@
 ---
 title: "Version 2026"
 excerpt: "I'm kicking off 2026 with a Discord call and an open Obsidian window while being calm and sleepy."
-date: "2025-12-31T22:04:17Z"
+date: "2026-01-01T00:04:17Z"
 mood: "celebrating"
 catApproved: true
 readingTime: 6
