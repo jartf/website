@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
-import styles from "./BlogList.module.css"
+import styles from "./list.module.css"
 
 // Static fallback content for SSR
 const STATIC_CONTENT = {

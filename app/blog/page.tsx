@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
-import BlogList from "./BlogList"
+import BlogList from "./list"
 import { generateMetadata } from "@/lib/metadata"
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import { SITE_URL } from "@/lib/constants"

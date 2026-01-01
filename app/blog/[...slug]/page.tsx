@@ -16,16 +16,16 @@ import {
   getAlternateLanguages,
   formatDateFallback,
 } from "./lib"
-import { BlogPostNavigation } from "./BlogPostNavigation"
-import { ShareButtons } from "./ShareButtons"
+import { BlogPostNavigation } from "./postnav"
+import { ShareButtons } from "./share"
 import {
   BlogReadingProgress,
   FormattedDate,
   TranslatedText,
   LanguageName,
   AnimatedSection,
-} from "./ClientComponents"
-import styles from "./BlogPostClient.module.css"
+} from "./client"
+import styles from "./client.module.css"
 
 const SITE_URL = "https://jarema.me"
 
