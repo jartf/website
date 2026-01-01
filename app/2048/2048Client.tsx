@@ -170,14 +170,14 @@ function Game2048() {
           <div className="flex flex-col md:flex-row justify-center items-center gap-8">
             <div className="flex flex-col gap-4">
               <div className="flex justify-between items-center mb-2">
-                <div className="bg-card border rounded-lg p-3 text-center min-w-[120px]">
-                  <div className="text-sm font-medium text-muted-foreground">{t("2048.score", "Score")}</div>
-                  <div className="text-2xl font-bold">{score}</div>
+                <div className="bg-card border rounded-lg p-3 text-center min-w-[120px]" aria-live="polite" aria-atomic="true">
+                  <div className="text-sm font-medium text-muted-foreground" id="score-label">{t("2048.score", "Score")}</div>
+                  <div className="text-2xl font-bold" aria-labelledby="score-label">{score}</div>
                 </div>
 
                 <div className="bg-card border rounded-lg p-3 text-center min-w-[120px]">
-                  <div className="text-sm font-medium text-muted-foreground">{t("2048.best", "Best")}</div>
-                  <div className="text-2xl font-bold">{bestScore}</div>
+                  <div className="text-sm font-medium text-muted-foreground" id="best-label">{t("2048.best", "Best")}</div>
+                  <div className="text-2xl font-bold" aria-labelledby="best-label">{bestScore}</div>
                 </div>
               </div>
 
@@ -187,7 +187,12 @@ function Game2048() {
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
               >
-                <div className="grid grid-cols-4 gap-2 bg-muted rounded-lg p-2">
+                <div
+                  className="grid grid-cols-4 gap-2 bg-muted rounded-lg p-2"
+                  role="application"
+                  aria-label={t("2048.gameBoard", "2048 game board - use arrow keys to move tiles")}
+                  aria-roledescription="game board"
+                >
                   {board.map((row, i) =>
                     row.map((cell, j) => {
                       const key = `${i}-${j}-${cell}`
@@ -249,11 +254,15 @@ function Game2048() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       className="absolute inset-0 bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center rounded-lg"
+                      role="alertdialog"
+                      aria-modal="true"
+                      aria-labelledby="game-over-title"
+                      aria-describedby="game-over-score"
                     >
-                      <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-3">
+                      <h2 id="game-over-title" className="text-2xl md:text-3xl font-bold text-red-500 mb-3">
                         {t("2048.gameOver", "Game Over")}
                       </h2>
-                      <p className="text-base md:text-lg mb-4">
+                      <p id="game-over-score" className="text-base md:text-lg mb-4">
                         {t("2048.finalScore", "Final Score")}: <span className="font-bold">{score}</span>
                       </p>
                       <Button onClick={resetGame} size="lg">
@@ -271,12 +280,16 @@ function Game2048() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       className="absolute inset-0 bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center rounded-lg"
+                      role="alertdialog"
+                      aria-modal="true"
+                      aria-labelledby="win-title"
+                      aria-describedby="win-score"
                     >
-                      <Trophy className="h-12 w-12 text-yellow-500 mb-2" />
-                      <h2 className="text-2xl md:text-3xl font-bold text-green-500 mb-3">
+                      <Trophy className="h-12 w-12 text-yellow-500 mb-2" aria-hidden="true" />
+                      <h2 id="win-title" className="text-2xl md:text-3xl font-bold text-green-500 mb-3">
                         {t("2048.youWin", "You Win!")}
                       </h2>
-                      <p className="text-base md:text-lg mb-4">
+                      <p id="win-score" className="text-base md:text-lg mb-4">
                         {t("2048.currentScore", "Current Score")}: <span className="font-bold">{score}</span>
                       </p>
                       <div className="flex gap-3">
@@ -344,8 +357,8 @@ function Game2048() {
               </div>
             </div>
 
-            <div className="bg-card border rounded-lg p-6 w-full max-w-md">
-              <h2 className="text-2xl font-bold mb-4">{t("2048.howToPlay", "How to Play")}</h2>
+            <section className="bg-card border rounded-lg p-6 w-full max-w-md" aria-labelledby="how-to-play-heading">
+              <h2 id="how-to-play-heading" className="text-2xl font-bold mb-4">{t("2048.howToPlay", "How to Play")}</h2>
               <div className="space-y-3 text-muted-foreground">
                 <p>
                   {t(
@@ -426,7 +439,7 @@ function Game2048() {
                   {t("2048.touchInstructions", "On mobile devices, use the on-screen controls to move tiles.")}
                 </p>
               )}
-            </div>
+            </section>
           </div>
         </div>
       </div>

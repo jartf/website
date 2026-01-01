@@ -32,7 +32,11 @@ const BADGES = [
   { src: "/perfectclear.gif", alt: "An animated banner showing a Tetris gameplay, next to the words Perfect clear in white.", href: "/tetris" },
 ]
 
-const linkClass = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
+const linkClass = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+
+const ExternalLinkIcon = () => (
+  <span className="sr-only"> (opens in new tab)</span>
+)
 
 export function Footer() {
   return (
@@ -44,16 +48,17 @@ export function Footer() {
       <nav className="pt-1 flex justify-center flex-wrap gap-2 mx-auto" style={{ maxWidth: '760px' }} aria-label="Web badges and external links">
         {BADGES.map(({ src, alt, href }) =>
           href ? (
-            <a key={src} href={href} target="_blank" rel="noopener" className={linkClass}>
+            <a key={src} href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>
               <Image src={src} alt={alt} width={88} height={31} className="hover:opacity-90 transition-opacity" loading="lazy" />
+              <span className="sr-only"> (opens in new tab)</span>
             </a>
           ) : (
-            <Image key={src} src={src} alt={alt} width={88} height={31} loading="lazy" />
+            <Image key={src} src={src} alt={alt} width={88} height={31} loading="lazy" role="img" />
           )
         )}
       </nav>
 
-      <a className="flex justify-center mt-2 pb-3" href="/badges">
+      <a className="flex justify-center mt-2 pb-3" href="/badges" aria-label="View all badges">
         <Image src="/badge.png" alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars." width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" loading="lazy" />
       </a>
       {/* Bisexual pride flag stripe spanning full width */}

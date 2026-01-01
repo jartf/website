@@ -6,28 +6,28 @@ import Image from "next/image"
 import Link from "next/link"
 import { Mail, MessageSquare, Send, Phone, Calendar, AtSign, ImageIcon, Cloud, Twitter, FileCode, User, Github, Code, Globe, Map, ExternalLink, Info, MessageCircle } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import i18n from "i18next"
 
 const iconMap: Record<string, React.ReactNode> = {
-  Mail: <Mail className="h-6 w-6" />,
-  MessageSquare: <MessageSquare className="h-6 w-6" />,
-  Phone: <Phone className="h-6 w-6" />,
-  Send: <Send className="h-6 w-6" />,
-  MessageCircle: <MessageCircle className="h-6 w-6" />,
-  Calendar: <Calendar className="h-6 w-6" />,
-  Cloud: <Cloud className="h-6 w-6" />,
-  Twitter: <Twitter className="h-6 w-6" />,
-  FileCode: <FileCode className="h-6 w-6" />,
-  AtSign: <AtSign className="h-6 w-6" />,
-  ImageIcon: <ImageIcon className="h-6 w-6" />,
-  Facebook: <MessageSquare className="h-6 w-6" />,
-  User: <User className="h-6 w-6" />,
-  Github: <Github className="h-6 w-6" />,
-  Code: <Code className="h-6 w-6" />,
-  Globe: <Globe className="h-6 w-6" />,
-  Map: <Map className="h-6 w-6" />,
+  Mail: <Mail className="h-6 w-6" aria-hidden="true" />,
+  MessageSquare: <MessageSquare className="h-6 w-6" aria-hidden="true" />,
+  Phone: <Phone className="h-6 w-6" aria-hidden="true" />,
+  Send: <Send className="h-6 w-6" aria-hidden="true" />,
+  MessageCircle: <MessageCircle className="h-6 w-6" aria-hidden="true" />,
+  Calendar: <Calendar className="h-6 w-6" aria-hidden="true" />,
+  Cloud: <Cloud className="h-6 w-6" aria-hidden="true" />,
+  Twitter: <Twitter className="h-6 w-6" aria-hidden="true" />,
+  FileCode: <FileCode className="h-6 w-6" aria-hidden="true" />,
+  AtSign: <AtSign className="h-6 w-6" aria-hidden="true" />,
+  ImageIcon: <ImageIcon className="h-6 w-6" aria-hidden="true" />,
+  Facebook: <MessageSquare className="h-6 w-6" aria-hidden="true" />,
+  User: <User className="h-6 w-6" aria-hidden="true" />,
+  Github: <Github className="h-6 w-6" aria-hidden="true" />,
+  Code: <Code className="h-6 w-6" aria-hidden="true" />,
+  Globe: <Globe className="h-6 w-6" aria-hidden="true" />,
+  Map: <Map className="h-6 w-6" aria-hidden="true" />,
 }
 
 type LinkData = {
@@ -105,15 +105,20 @@ export default function ContactClient({ links }: ContactClientProps) {
       return (
         <Dialog key={link.id}>
           <DialogTrigger asChild>
-            <button className={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${link.color}`}>
+            <button
+              className={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${link.color}`}
+              aria-label={`Open ${name} QR code`}
+            >
               {icon}
               <span>{name}</span>
             </button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
+            <DialogTitle className="sr-only">{name} QR Code</DialogTitle>
+            <DialogDescription className="sr-only">{description}</DialogDescription>
             <div className="flex flex-col items-center justify-center p-4">
               <div className="relative w-full max-w-sm aspect-square mb-4">
-                <Image src={link.qrImage} alt={`${name} QR Code`} fill className="object-contain" />
+                <Image src={link.qrImage} alt={`${name} QR Code - ${description}`} fill className="object-contain" />
               </div>
               {link.url && (
                 <Button variant="outline" asChild className="mt-2">
@@ -224,22 +229,26 @@ export default function ContactClient({ links }: ContactClientProps) {
               <p className="text-muted-foreground italic mb-8 lowercase">{t("contact.disclaimer")}</p>
             </div>
 
-            <div>
-              <h2 className="text-2xl font-bold mb-4">{t("contact.sectionTitles.contactMe")}</h2>
+            <section aria-labelledby="contact-heading">
+              <h2 id="contact-heading" className="text-2xl font-bold mb-4">{t("contact.sectionTitles.contactMe")}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
                 {links.contact.map(renderLink)}
               </div>
+            </section>
 
-              <h2 className="text-2xl font-bold mb-4">{t("contact.sectionTitles.socialMedia")}</h2>
+            <section aria-labelledby="social-heading">
+              <h2 id="social-heading" className="text-2xl font-bold mb-4">{t("contact.sectionTitles.socialMedia")}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
                 {links.social.map(renderLink)}
               </div>
+            </section>
 
-              <h2 className="text-2xl font-bold mb-4">{t("contact.sectionTitles.otherPlatforms")}</h2>
+            <section aria-labelledby="other-heading">
+              <h2 id="other-heading" className="text-2xl font-bold mb-4">{t("contact.sectionTitles.otherPlatforms")}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {links.other.map(renderLink)}
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </div>

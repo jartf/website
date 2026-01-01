@@ -9,7 +9,7 @@ import { LanguageToggle } from "@/components/language-toggle"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { MusicToggle } from "@/components/music-toggle"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { Menu, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useViewport, useMounted } from "@/hooks"
@@ -250,6 +250,8 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" aria-label="Navigation menu">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                <SheetDescription className="sr-only">Main site navigation links</SheetDescription>
                 <nav className="grid gap-6 py-6" aria-label="Mobile navigation">
                   <div className="grid gap-3">
                     {navItems.map((item) => (

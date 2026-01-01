@@ -579,12 +579,12 @@ export default function TetrisGame() {
           <div className="flex flex-col md:flex-row justify-center items-center gap-8">
             <div className="bg-card border rounded-lg shadow-lg p-4 relative">
               {/* Game Status Bar - Mobile Only */}
-              <div className="md:hidden bg-card/95 border-b px-2 pb-2 pt-0 flex justify-between items-center z-10 sticky top-0 left-0 right-0 mb-2">
+              <div className="md:hidden bg-card/95 border-b px-2 pb-2 pt-0 flex justify-between items-center z-10 sticky top-0 left-0 right-0 mb-2" role="status" aria-live="polite" aria-atomic="true">
                 <div className="text-sm font-medium">
-                  {t("tetris.score")}: <span className="text-primary font-bold">{score}</span>
+                  <span id="mobile-score-label">{t("tetris.score")}:</span> <span className="text-primary font-bold" aria-labelledby="mobile-score-label">{score}</span>
                 </div>
                 <div className="text-sm font-medium">
-                  {t("tetris.level")}: <span className="text-primary font-bold">{level}</span>
+                  <span id="mobile-level-label">{t("tetris.level")}:</span> <span className="text-primary font-bold" aria-labelledby="mobile-level-label">{level}</span>
                 </div>
                 <div className="text-sm font-medium">
                   <span
@@ -595,7 +595,12 @@ export default function TetrisGame() {
                 </div>
               </div>
 
-              <div className={`${styles.gameBoard} bg-muted`}>
+              <div
+                className={`${styles.gameBoard} bg-muted`}
+                role="application"
+                aria-label={t("tetris.gameBoard", "Tetris game board - use arrow keys to move and rotate pieces")}
+                aria-roledescription="game board"
+              >
                 {board.map((row, y) =>
                   row.map((_, x) => (
                     <AnimatePresence key={`${y}-${x}`}>
@@ -615,14 +620,20 @@ export default function TetrisGame() {
 
               {/* Game Over Overlay - All screen sizes */}
               {gameOver && (
-                <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center z-20">
+                <div
+                  className="absolute inset-0 bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center z-20"
+                  role="alertdialog"
+                  aria-modal="true"
+                  aria-labelledby="tetris-game-over-title"
+                  aria-describedby="tetris-game-over-score"
+                >
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center p-4"
                   >
-                    <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-3">{t("tetris.gameOverMessage")}</h2>
-                    <p className="text-base md:text-lg mb-4">
+                    <h2 id="tetris-game-over-title" className="text-2xl md:text-3xl font-bold text-red-500 mb-3">{t("tetris.gameOverMessage")}</h2>
+                    <p id="tetris-game-over-score" className="text-base md:text-lg mb-4">
                       {t("tetris.finalScore")} <span className="font-bold">{score}</span>
                     </p>
                     <Button onClick={resetGame} size="lg">

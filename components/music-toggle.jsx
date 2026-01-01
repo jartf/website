@@ -26,10 +26,11 @@ export function MusicToggle() {
             size="icon"
             onClick={() => setIsPlaying(!isPlaying)}
             disabled={!audioLoaded}
+            aria-pressed={isPlaying}
+            aria-label={!audioLoaded ? "Music currently unavailable" : isPlaying ? t("music.pause", "Pause music") : t("music.play", "Play music")}
             className={!audioLoaded ? "opacity-50 cursor-not-allowed" : ""}
           >
-            {isPlaying ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
-            <span className="sr-only">Toggle music</span>
+            {isPlaying ? <Volume2 className="h-5 w-5" aria-hidden="true" /> : <VolumeX className="h-5 w-5" aria-hidden="true" />}
           </Button>
         </TooltipTrigger>
         <TooltipContent>{tooltipText}</TooltipContent>

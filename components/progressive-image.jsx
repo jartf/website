@@ -10,13 +10,15 @@ import { useReducedMotion } from "@/hooks"
 const ImageZoom = memo(function ImageZoom({ src, alt, onClose, isOpen }) {
   const [scale, setScale] = useState(1)
   const modalRef = useRef(null)
+  const closeButtonRef = useRef(null)
   const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     if (!isOpen) return
     const handleKey = (e) => e.key === "Escape" && onClose()
     window.addEventListener("keydown", handleKey)
-    modalRef.current?.focus()
+    // Focus the close button when modal opens for better accessibility
+    closeButtonRef.current?.focus()
     return () => window.removeEventListener("keydown", handleKey)
   }, [isOpen, onClose])
 
@@ -29,16 +31,18 @@ const ImageZoom = memo(function ImageZoom({ src, alt, onClose, isOpen }) {
       onClick={(e) => e.target === modalRef.current && onClose()}
       role="dialog"
       aria-modal="true"
-      aria-label={`Image: ${alt}`}
-      tabIndex={-1}
+      aria-labelledby="image-zoom-title"
+      aria-describedby="image-zoom-instructions"
     >
       <div className="relative max-w-7xl w-full max-h-[90vh] flex flex-col items-center">
+        <h2 id="image-zoom-title" className="sr-only">Image viewer: {alt}</h2>
         <button
+          ref={closeButtonRef}
           onClick={onClose}
-          className="absolute top-2 right-2 z-10 p-2 rounded-full bg-background/80 text-foreground hover:bg-background transition-colors"
-          aria-label="Close image"
+          className="absolute top-2 right-2 z-10 p-2 rounded-full bg-background/80 text-foreground hover:bg-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          aria-label="Close image viewer"
         >
-          <X size={24} />
+          <X size={24} aria-hidden="true" />
         </button>
         <div className="overflow-auto max-h-[calc(90vh-4rem)] w-full flex items-center justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -52,9 +56,10 @@ const ImageZoom = memo(function ImageZoom({ src, alt, onClose, isOpen }) {
             )}
             style={{ transform: `scale(${scale})` }}
             onClick={() => setScale(s => s === 1 ? 1.5 : 1)}
+            role="img"
           />
         </div>
-        <div className="mt-4 text-center text-sm text-muted-foreground">
+        <div className="mt-4 text-center text-sm text-muted-foreground" id="image-zoom-instructions">
           <p>{alt}</p>
           <p className="text-xs mt-1">Click image to zoom in/out, or press ESC to close</p>
         </div>

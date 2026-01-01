@@ -29,8 +29,10 @@ export default function GuestbookPage() {
           <iframe
             src="https://jarema.atabook.org"
             className="w-full h-[800px] border-0"
-            title="Guestbook"
+            title="Guestbook - leave a message"
             loading="lazy"
+            aria-label="Guestbook form and messages"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           />
         </div>
       </div>

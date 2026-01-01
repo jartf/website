@@ -24,9 +24,13 @@ export const ThemeToggle = memo(function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Toggle theme" aria-haspopup="menu">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={`Change theme, current: ${mounted ? theme : 'loading'}`}
+          aria-haspopup="menu"
+        >
           <Icon className="h-5 w-5" aria-hidden="true" />
-          <span className="sr-only">Toggle theme{mounted ? `, current: ${theme}` : ""}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" role="menu" aria-label="Theme options">

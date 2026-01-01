@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo, memo } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { useTheme } from "next-themes"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { useMounted, useDebounce } from "@/hooks"
 import {
@@ -212,7 +212,11 @@ export const ActionSearchBar = memo(function ActionSearchBar() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md p-0 gap-0 overflow-hidden">
+      <DialogContent className="sm:max-w-md p-0 gap-0 overflow-hidden" aria-describedby="search-description">
+        <DialogTitle className="sr-only">{t("actionSearch.title", "Quick Actions")}</DialogTitle>
+        <DialogDescription id="search-description" className="sr-only">
+          {t("actionSearch.description", "Search and navigate to actions, pages, and settings")}
+        </DialogDescription>
         <div className="p-4 pb-2">
           <div className="relative">
             <Input ref={inputRef} type="text" placeholder={t("actionSearch.placeholder", "Search actions...")} value={query} onChange={(e) => { setQuery(e.target.value); setSelectedIndex(0) }} className="pl-10 pr-4 h-10" />

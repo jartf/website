@@ -101,8 +101,8 @@ export default async function Home() {
             </div>
 
             {!!recentPosts.length && (
-              <div className="lg:order-1">
-                <h2 className="text-2xl font-bold mb-4 text-center">
+              <section className="lg:order-1" aria-labelledby="recent-posts-heading">
+                <h2 id="recent-posts-heading" className="text-2xl font-bold mb-4 text-center">
                   <a href="/webrings" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
                     <T k="home.recentPosts" f={STATIC.recentPosts} />
                   </a>
@@ -137,40 +137,41 @@ export default async function Home() {
                     </Button>
                   </Link>
                 </div>
-              </div>
+              </section>
             )}
           </div>
 
           <div className="mt-10 lg:mt-0 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
             <div><MoodCat /></div>
-            <div>
-              <h2 className="text-2xl font-bold mb-4 text-center">
+            <section aria-labelledby="webrings-heading">
+              <h2 id="webrings-heading" className="text-2xl font-bold mb-4 text-center">
                 <a href="/webrings" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
                   <T k="home.webrings" f={STATIC.webrings} />
                 </a>
               </h2>
-              <div className="border rounded-lg p-4 bg-card divide-y text-sm">
+              <nav className="border rounded-lg p-4 bg-card divide-y text-sm" aria-label="Webring navigation">
                 {webrings.map(([name, url, prev, random, next]) => (
                   <div key={url} className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
-                    <a href={url} className="text-primary hover:underline font-medium" target="_blank" rel="noopener">
+                    <a href={url} className="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">
                       {name}
+                      <span className="sr-only"> (opens in new tab)</span>
                     </a>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2" role="group" aria-label={`Navigate ${name}`}>
                       <a href={prev} className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Previous site in ${name}`} title="Previous">←</a>
-                      {random ? <a href={random} className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Random site in ${name}`} title="Random">🎲</a> : <span className="px-2 py-1 invisible">🎲</span>}
+                      {random ? <a href={random} className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Random site in ${name}`} title="Random">🎲</a> : <span className="px-2 py-1 invisible" aria-hidden="true">🎲</span>}
                       <a href={next} className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Next site in ${name}`} title="Next">→</a>
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
+              </nav>
+            </section>
           </div>
 
           <div>
-            <div className="mt-10">
-              <h2 className="text-2xl font-bold mb-4 text-center">Current mood</h2>
+            <section className="mt-10" aria-labelledby="current-mood-heading">
+              <h2 id="current-mood-heading" className="text-2xl font-bold mb-4 text-center">Current mood</h2>
               <div className="border rounded-lg p-6 bg-card text-center">
-                <a href="https://www.imood.com/users/jarema">
+                <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
@@ -178,9 +179,10 @@ export default async function Home() {
                     height={15}
                     className="inline-block"
                   />
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </div>
