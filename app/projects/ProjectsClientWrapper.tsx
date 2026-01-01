@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback, memo } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { DarkModeFirefly } from "@/components/firefly"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
+import { DarkModeFirefly } from "@/components/firefly"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import type { Project } from "@/content/project-items"
 import { useCurrentLanguage, useMounted, useReducedMotion } from "@/hooks"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"
@@ -14,14 +14,88 @@ interface ProjectsClientWrapperProps {
   projects: Project[]
 }
 
-export default function ProjectsClientWrapper({ projects }: ProjectsClientWrapperProps) {
+// Static labels for no-JS fallback
+const staticCategoryLabels: Record<string, string> = {
+  personal: "Personal",
+  academic: "Academic",
+  activism: "Activism",
+}
+
+const staticStatusLabels: Record<string, string> = {
+  completed: "Completed",
+  "in-progress": "In Progress",
+  planned: "Planned",
+}
+
+function getCategoryColor(category: string) {
+  switch (category) {
+    case "personal":
+      return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100"
+    case "academic":
+      return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
+    case "activism":
+      return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+    default:
+      return ""
+  }
+}
+
+function getStatusColor(status: string) {
+  switch (status) {
+    case "completed":
+      return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+    case "in-progress":
+      return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
+    case "planned":
+      return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
+    default:
+      return ""
+  }
+}
+
+function ProjectBadges({
+  category,
+  status,
+  categoryLabel,
+  statusLabel,
+}: {
+  category: string
+  status: string
+  categoryLabel: string
+  statusLabel: string
+}) {
+  return (
+    <div className="flex flex-wrap gap-2 mb-3">
+      <Badge className={getCategoryColor(category)}>{categoryLabel}</Badge>
+      <Badge className={getStatusColor(status)}>{statusLabel}</Badge>
+    </div>
+  )
+}
+
+function ProjectTags({ tags }: { tags: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-2 mb-4">
+      {tags.map((tag) => (
+        <Badge key={tag} variant="outline">
+          {tag}
+        </Badge>
+      ))}
+    </div>
+  )
+}
+
+export default function ProjectsClientWrapper({
+  projects,
+}: ProjectsClientWrapperProps) {
   const { t } = useTranslation()
   const [showHidden, setShowHidden] = useState(false)
   const [flippedCard, setFlippedCard] = useState<number | null>(null)
   const [focusedCardIndex, setFocusedCardIndex] = useState<number | null>(null)
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
-  const [lastFocusedCardIndex, setLastFocusedCardIndex] = useState<number | null>(null)
+  const [lastFocusedCardIndex, setLastFocusedCardIndex] = useState<
+    number | null
+  >(null)
   const [announcement, setAnnouncement] = useState("")
   const currentLang = useCurrentLanguage()
 
@@ -35,7 +109,22 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
     }
   }, [])
 
-  const visibleProjects: Project[] = showHidden ? projects : projects.filter((project) => !project.hidden)
+  const visibleProjects: Project[] = showHidden
+    ? projects
+    : projects.filter((project) => !project.hidden)
+
+  const getProjectContent = useCallback(
+    (project: Project) => {
+      if (currentLang === "vih" || currentLang === "vi") {
+        return project.content.vi || project.content.en
+      }
+      return (
+        project.content[currentLang as keyof typeof project.content] ||
+        project.content.en
+      )
+    },
+    [currentLang]
+  )
 
   const flipCard = useCallback(
     (projectId: number | null, index: number | null = null) => {
@@ -52,19 +141,14 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
       if (projectId !== null) {
         const project = visibleProjects.find((p) => p.id === projectId)
         if (project) {
-          let content
-          if (currentLang === "vih" || currentLang === "vi") {
-            content = project.content.vi || project.content.en
-          } else {
-            content = project.content[currentLang as keyof typeof project.content] || project.content.en
-          }
+          const content = getProjectContent(project)
           setAnnouncement(`Opened details for ${content.title}`)
         } else {
           setAnnouncement("Closed project details")
         }
       }
     },
-    [flippedCard, focusedCardIndex, visibleProjects, currentLang],
+    [flippedCard, focusedCardIndex, visibleProjects, getProjectContent]
   )
 
   useEffect(() => {
@@ -72,7 +156,8 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
       if (
         document.activeElement instanceof HTMLInputElement ||
         document.activeElement instanceof HTMLTextAreaElement ||
-        (document.activeElement && document.activeElement.getAttribute("contenteditable") === "true")
+        (document.activeElement &&
+          document.activeElement.getAttribute("contenteditable") === "true")
       ) {
         return
       }
@@ -81,7 +166,10 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
         e.preventDefault()
         flipCard(null)
 
-        if (lastFocusedCardIndex !== null && cardRefs.current[lastFocusedCardIndex]) {
+        if (
+          lastFocusedCardIndex !== null &&
+          cardRefs.current[lastFocusedCardIndex]
+        ) {
           setTimeout(() => {
             cardRefs.current[lastFocusedCardIndex]?.focus()
           }, 100)
@@ -91,7 +179,9 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
 
       if (/^[1-9]$/.test(e.key)) {
         const projectId = Number.parseInt(e.key, 10)
-        const projectIndex = visibleProjects.findIndex((p) => p.id === projectId)
+        const projectIndex = visibleProjects.findIndex(
+          (p) => p.id === projectId
+        )
         if (projectIndex !== -1) {
           if (flippedCard === projectId) {
             flipCard(null)
@@ -123,7 +213,8 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
           if (contentElement) {
             const { scrollTop, scrollHeight, clientHeight } = contentElement
             const isAtTop = scrollTop === 0
-            const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1
+            const isAtBottom =
+              Math.abs(scrollHeight - clientHeight - scrollTop) < 1
 
             if (e.key === "ArrowUp" && !isAtTop) {
               contentElement.scrollTop -= 30
@@ -142,13 +233,19 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
             newIndex = Math.max(0, currentCardIndex - 1)
             break
           case "ArrowRight":
-            newIndex = Math.min(visibleProjects.length - 1, currentCardIndex + 1)
+            newIndex = Math.min(
+              visibleProjects.length - 1,
+              currentCardIndex + 1
+            )
             break
           case "ArrowUp":
             newIndex = Math.max(0, currentCardIndex - 3)
             break
           case "ArrowDown":
-            newIndex = Math.min(visibleProjects.length - 1, currentCardIndex + 3)
+            newIndex = Math.min(
+              visibleProjects.length - 1,
+              currentCardIndex + 3
+            )
             break
         }
 
@@ -163,18 +260,28 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
             cardRefs.current[newIndex]?.focus()
             const project = visibleProjects[newIndex]
             if (project) {
-              setAnnouncement(`Focused ${project.content[currentLang as keyof typeof project.content]?.title || project.content.en.title}`)
+              setAnnouncement(`Focused ${getProjectContent(project).title}`)
             }
           }, 10)
 
-          cardRefs.current[newIndex]?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+          cardRefs.current[newIndex]?.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+          })
         }
       }
     }
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [flippedCard, focusedCardIndex, visibleProjects, flipCard, lastFocusedCardIndex, currentLang])
+  }, [
+    flippedCard,
+    focusedCardIndex,
+    visibleProjects,
+    flipCard,
+    lastFocusedCardIndex,
+    getProjectContent,
+  ])
 
   useEffect(() => {
     if (announcement) {
@@ -187,20 +294,24 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
     if (flippedCard !== null) {
       const handleTabKey = (e: KeyboardEvent) => {
         if (e.key === "Tab") {
-          const flippedCardIndex = visibleProjects.findIndex((p) => p.id === flippedCard)
+          const flippedCardIndex = visibleProjects.findIndex(
+            (p) => p.id === flippedCard
+          )
           if (flippedCardIndex === -1) return
 
           const flippedCardElement = cardRefs.current[flippedCardIndex]
           if (!flippedCardElement) return
 
           const focusableElements = flippedCardElement.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
           )
 
           if (focusableElements.length === 0) return
 
           const firstElement = focusableElements[0] as HTMLElement
-          const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+          const lastElement = focusableElements[
+            focusableElements.length - 1
+          ] as HTMLElement
 
           if (e.shiftKey && document.activeElement === firstElement) {
             e.preventDefault()
@@ -217,60 +328,23 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
     }
   }, [flippedCard, visibleProjects])
 
+  // Static content for no-JS users
   if (!mounted) {
-    // Static content for no-JS users
-    const visibleProjects: Project[] = projects.filter((project) => !project.hidden)
-
-    // Static category/status labels
-    const staticCategoryLabels: Record<string, string> = {
-      personal: "Personal",
-      academic: "Academic",
-      activism: "Activism",
-    }
-
-    const staticStatusLabels: Record<string, string> = {
-      completed: "Completed",
-      "in-progress": "In Progress",
-      planned: "Planned",
-    }
-
-    const getCategoryColor = (category: string) => {
-      switch (category) {
-        case "personal":
-          return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100"
-        case "academic":
-          return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
-        case "activism":
-          return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-        default:
-          return ""
-      }
-    }
-
-    const getStatusColor = (status: string) => {
-      switch (status) {
-        case "completed":
-          return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-        case "in-progress":
-          return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
-        case "planned":
-          return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
-        default:
-          return ""
-      }
-    }
+    const staticVisibleProjects = projects.filter((project) => !project.hidden)
 
     return (
       <main className="relative min-h-screen w-full overflow-hidden">
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-5xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Projects</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+              Projects
+            </h1>
             <p className="text-lg text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
               A collection of personal, academic, and activism projects.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {visibleProjects.map((project) => {
+              {staticVisibleProjects.map((project) => {
                 const content = project.content.en
                 return (
                   <div
@@ -279,35 +353,29 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
                   >
                     <div className="mb-2">
                       <h3 className="text-xl font-bold mb-2">{content.title}</h3>
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        <Badge className={getCategoryColor(project.category)}>
-                          {staticCategoryLabels[project.category] || project.category}
-                        </Badge>
-                        <Badge className={getStatusColor(project.status)}>
-                          {staticStatusLabels[project.status] || project.status}
-                        </Badge>
-                      </div>
+                      <ProjectBadges
+                        category={project.category}
+                        status={project.status}
+                        categoryLabel={
+                          staticCategoryLabels[project.category] ||
+                          project.category
+                        }
+                        statusLabel={
+                          staticStatusLabels[project.status] || project.status
+                        }
+                      />
                     </div>
 
-                    <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">{content.description}</p>
+                    <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">
+                      {content.description}
+                    </p>
 
                     <div className="mt-auto">
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map((tag) => (
-                          <Badge key={tag} variant="outline">{tag}</Badge>
-                        ))}
-                      </div>
+                      <ProjectTags tags={project.tags} />
                     </div>
                   </div>
                 )
               })}
-            </div>
-
-            <div className="flex justify-center">
-              <Button variant="outline" className="group" disabled>
-                <Sparkles className="mr-2 h-4 w-4" />
-                Show Random Projects
-              </Button>
             </div>
           </div>
         </div>
@@ -328,34 +396,12 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
     }
   }
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "personal":
-        return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100"
-      case "academic":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
-      case "activism":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-      default:
-        return ""
-    }
-  }
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "completed":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-      case "in-progress":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
-      case "planned":
-        return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
-      default:
-        return ""
-    }
-  }
-
   return (
-    <main className="relative min-h-screen w-full overflow-hidden" ref={mainContentRef} tabIndex={-1}>
+    <main
+      className="relative min-h-screen w-full overflow-hidden"
+      ref={mainContentRef}
+      tabIndex={-1}
+    >
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         {announcement}
       </div>
@@ -364,26 +410,25 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">{t("projects.title")}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+            {t("projects.title")}
+          </h1>
           <p className="text-lg text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
             {t("projects.description")}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {visibleProjects.map((project, index) => {
-              let content
-              if (currentLang === "vih" || currentLang === "vi") {
-                content = project.content.vi || project.content.en
-              } else {
-                content = project.content[currentLang as keyof typeof project.content] || project.content.en
-              }
+              const content = getProjectContent(project)
               return (
                 <div
                   key={project.id}
-                  className={`relative h-[350px] perspective-1000 ${prefersReducedMotion ? '' : 'transition-transform duration-300 hover:scale-[1.03]'}`}
+                  className={`relative h-[350px] perspective-1000 ${prefersReducedMotion ? "" : "transition-transform duration-300 hover:scale-[1.03]"}`}
                   style={{
                     opacity: 1,
-                    animation: prefersReducedMotion ? 'none' : `fadeInUp 0.5s ease-out ${index * 0.1}s both`,
+                    animation: prefersReducedMotion
+                      ? "none"
+                      : `fadeInUp 0.5s ease-out ${index * 0.1}s both`,
                   }}
                 >
                   <div
@@ -394,7 +439,9 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
                     {/* Front of card */}
                     <div
                       id={`project-card-${project.id}`}
-                      ref={(el) => { cardRefs.current[index] = el }}
+                      ref={(el) => {
+                        cardRefs.current[index] = el
+                      }}
                       className={`absolute w-full h-full backface-hidden rounded-xl border bg-card p-6 shadow-sm flex flex-col cursor-pointer overflow-hidden focus-visible:outline-none ${
                         focusedCardIndex === index
                           ? "ring-2 ring-primary ring-offset-2 dark:ring-offset-background"
@@ -413,26 +460,30 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
                       aria-label={`${content.title} card. Press Enter to view details.`}
                     >
                       <div className="mb-2">
-                        <h3 className="text-xl font-bold mb-2">{content.title}</h3>
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          <Badge className={getCategoryColor(project.category)}>
-                            {t(`projects.categories.${project.category}`)}
-                          </Badge>
-                          <Badge className={getStatusColor(project.status)}>{getStatusLabel(project.status)}</Badge>
-                        </div>
+                        <h3 className="text-xl font-bold mb-2">
+                          {content.title}
+                        </h3>
+                        <ProjectBadges
+                          category={project.category}
+                          status={project.status}
+                          categoryLabel={t(
+                            `projects.categories.${project.category}`
+                          )}
+                          statusLabel={getStatusLabel(project.status)}
+                        />
                       </div>
 
-                      <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">{content.description}</p>
+                      <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">
+                        {content.description}
+                      </p>
 
                       <div className="mt-auto">
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {project.tags.map((tag) => (
-                            <Badge key={tag} variant="outline">{tag}</Badge>
-                          ))}
-                        </div>
+                        <ProjectTags tags={project.tags} />
 
                         <div className="flex justify-center items-center gap-2">
-                          <KeyboardShortcut>{project.id <= 9 ? project.id : ""}</KeyboardShortcut>
+                          <KeyboardShortcut>
+                            {project.id <= 9 ? project.id : ""}
+                          </KeyboardShortcut>
                           <span className="text-sm text-muted-foreground">
                             {t("projects.cardActions.clickForDetails")}
                           </span>
@@ -444,7 +495,8 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
                     <div
                       id={`project-card-back-${project.id}`}
                       className={`absolute w-full h-full backface-hidden rounded-xl border bg-card p-6 shadow-sm flex flex-col rotate-y-180 cursor-pointer overflow-hidden focus-visible:outline-none ${
-                        focusedCardIndex === index && flippedCard === project.id
+                        focusedCardIndex === index &&
+                        flippedCard === project.id
                           ? "ring-2 ring-primary ring-offset-2 dark:ring-offset-background"
                           : ""
                       }`}
@@ -453,7 +505,10 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault()
                           flipCard(null)
-                          setTimeout(() => cardRefs.current[index]?.focus(), 100)
+                          setTimeout(
+                            () => cardRefs.current[index]?.focus(),
+                            100
+                          )
                         }
                       }}
                       tabIndex={flippedCard === project.id ? 0 : -1}
@@ -461,37 +516,57 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
                       aria-label={`${content.title} details. Press Enter or Escape to close.`}
                     >
                       <h3 className="text-xl font-bold mb-2">{content.title}</h3>
-                      <Badge className={`${getCategoryColor(project.category)} mb-4 w-fit`}>
+                      <div
+                        className={`${getCategoryColor(project.category)} mb-4 w-fit px-2.5 py-0.5 rounded-full text-xs font-semibold`}
+                      >
                         {t(`projects.categories.${project.category}`)}
-                      </Badge>
+                      </div>
 
                       <div
                         id={`project-content-${project.id}`}
-                        ref={flippedCard === project.id ? flippedCardContentRef : null}
+                        ref={
+                          flippedCard === project.id
+                            ? flippedCardContentRef
+                            : null
+                        }
                         className="space-y-4 flex-grow overflow-y-auto focus:outline-none"
                         tabIndex={flippedCard === project.id ? 0 : -1}
                         role="region"
                         aria-label={`${content.title} content`}
                       >
                         <div>
-                          <h4 className="font-medium">{t("projects.details.what")}</h4>
-                          <p className="text-sm text-muted-foreground">{content.what}</p>
+                          <h4 className="font-medium">
+                            {t("projects.details.what")}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {content.what}
+                          </p>
                         </div>
 
                         <div>
-                          <h4 className="font-medium">{t("projects.details.learned")}</h4>
-                          <p className="text-sm text-muted-foreground">{content.learned}</p>
+                          <h4 className="font-medium">
+                            {t("projects.details.learned")}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {content.learned}
+                          </p>
                         </div>
 
                         <div>
-                          <h4 className="font-medium">{t("projects.details.why")}</h4>
-                          <p className="text-sm text-muted-foreground">{content.why}</p>
+                          <h4 className="font-medium">
+                            {t("projects.details.why")}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {content.why}
+                          </p>
                         </div>
                       </div>
 
                       <div className="mt-4 flex justify-center items-center gap-2">
                         <KeyboardShortcut>Esc</KeyboardShortcut>
-                        <span className="text-sm text-muted-foreground">{t("projects.cardActions.clickToClose")}</span>
+                        <span className="text-sm text-muted-foreground">
+                          {t("projects.cardActions.clickToClose")}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -505,10 +580,16 @@ export default function ProjectsClientWrapper({ projects }: ProjectsClientWrappe
               variant="outline"
               onClick={() => setShowHidden(!showHidden)}
               className="group"
-              aria-label={showHidden ? t("projects.buttons.hideRandom") : t("projects.buttons.showRandom")}
+              aria-label={
+                showHidden
+                  ? t("projects.buttons.hideRandom")
+                  : t("projects.buttons.showRandom")
+              }
             >
               <Sparkles className="mr-2 h-4 w-4 group-hover:animate-pulse" />
-              {showHidden ? t("projects.buttons.hideRandom") : t("projects.buttons.showRandom")}
+              {showHidden
+                ? t("projects.buttons.hideRandom")
+                : t("projects.buttons.showRandom")}
             </Button>
           </div>
         </div>

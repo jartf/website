@@ -1,15 +1,16 @@
-'use client'
-
-import React from 'react'
 import { ArrowLeft, ArrowRight, Shuffle, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { WebringItem } from '@/content/webring-items'
 
-type WebringClientWrapperProps = {
+type WebringGridProps = {
   webrings: WebringItem[]
 }
 
-export default function WebringClientWrapper({ webrings }: WebringClientWrapperProps) {
+/**
+ * Server component for rendering webring grid
+ * No client-side interactivity needed - all links are regular anchor tags
+ */
+export default function WebringGrid({ webrings }: WebringGridProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {webrings.map((webring) => (

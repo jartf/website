@@ -1,9 +1,4 @@
-import { generateMetadata } from "@/lib/metadata"
-import { USES_CATEGORIES } from "@/content/uses-items"
-import UsesClientWrapper from "./UsesClientWrapper"
-import type { SerializableUsesCategory, SerializableSubsection, SerializableUsesItem } from "./types"
-import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
-import { SITE_URL } from "@/lib/constants"
+import type React from "react"
 import {
   Laptop,
   Headphones,
@@ -21,16 +16,14 @@ import {
   Music,
   Settings,
 } from "lucide-react"
-import type React from "react"
+import { generateMetadata } from "@/lib/metadata"
+import { USES_CATEGORIES } from "@/content/uses-items"
+import UsesClientWrapper from "./UsesClientWrapper"
+import type { SerializableUsesCategory } from "./types"
+import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
+import { SITE_URL } from "@/lib/constants"
 
-export const metadata = generateMetadata({
-  title: "Uses",
-  description: "Software and hardware I use every day.",
-  path: "uses",
-})
-
-// Map of all icons used - for getting icon names from JSX
-const iconComponents = {
+const usesIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Laptop,
   Headphones,
   Smartphone,
@@ -48,6 +41,12 @@ const iconComponents = {
   Settings,
 }
 
+export const metadata = generateMetadata({
+  title: "Uses",
+  description: "Software and hardware I use every day.",
+  path: "uses",
+})
+
 // Extract icon name from React element
 function getIconNameFromElement(element: React.ReactNode): string {
   if (!element || typeof element !== "object") return "ImageIcon"
@@ -56,11 +55,11 @@ function getIconNameFromElement(element: React.ReactNode): string {
   if (!el.type) return "ImageIcon"
 
   // Get the component function/class name
-  const type = el.type as any
+  const type = el.type as unknown as { displayName?: string; name?: string }
   const typeName = type.displayName || type.name || ""
 
   // Match against known icons
-  for (const [name, component] of Object.entries(iconComponents)) {
+  for (const [name, component] of Object.entries(usesIconMap)) {
     if (type === component || typeName === name) {
       return name
     }

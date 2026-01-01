@@ -1,8 +1,4 @@
-import { generateMetadata } from "@/lib/metadata"
-import { nowItems } from "@/content/now-items"
-import NowClientWrapper from "./NowClientWrapper"
-import type { SerializableNowItem, CategoryData } from "./types"
-import { generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
+import type React from "react"
 import {
   BookOpen,
   Code,
@@ -13,6 +9,22 @@ import {
   Lightbulb,
   Activity,
 } from "lucide-react"
+import { generateMetadata } from "@/lib/metadata"
+import { nowItems } from "@/content/now-items"
+import NowClientWrapper from "./NowClientWrapper"
+import type { SerializableNowItem, CategoryData } from "./types"
+import { generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
+
+const nowIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  BookOpen,
+  Code,
+  Coffee,
+  Headphones,
+  Brain,
+  GraduationCap,
+  Lightbulb,
+  Activity,
+}
 
 export const metadata = generateMetadata({
   title: "Now",
@@ -24,14 +36,9 @@ export const metadata = generateMetadata({
 function getIconName(
   icon: React.ComponentType<{ className?: string }>
 ): string {
-  if (icon === BookOpen) return "BookOpen"
-  if (icon === Code) return "Code"
-  if (icon === Coffee) return "Coffee"
-  if (icon === Headphones) return "Headphones"
-  if (icon === Brain) return "Brain"
-  if (icon === GraduationCap) return "GraduationCap"
-  if (icon === Lightbulb) return "Lightbulb"
-  if (icon === Activity) return "Activity"
+  for (const [name, component] of Object.entries(nowIconMap)) {
+    if (icon === component) return name
+  }
   return "Activity" // default fallback
 }
 

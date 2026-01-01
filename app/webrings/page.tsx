@@ -1,5 +1,5 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
-import WebringClientWrapper from "./WebringClientWrapper"
+import WebringGrid from "./webring-grid"
 import { WEBRING_ITEMS } from "@/content/webring-items"
 
 export const metadata = generateMeta({
@@ -23,7 +23,7 @@ export default function WebringPage() {
         </p>
       </div>
 
-      <WebringClientWrapper webrings={WEBRING_ITEMS} />
+      <WebringGrid webrings={WEBRING_ITEMS} />
 
     </div>
   )

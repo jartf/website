@@ -1,15 +1,10 @@
 "use client"
 
-import type React from "react"
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import Link from "next/link"
-import { DarkModeFirefly } from "@/components/firefly"
-import { useMounted } from "@/hooks"
 import {
   ExternalLink,
-  Lock,
-  EyeOff,
   Laptop,
   Headphones,
   Smartphone,
@@ -25,8 +20,16 @@ import {
   Video,
   Music,
   Settings,
+  Lock,
+  EyeOff,
 } from "lucide-react"
-import type { SerializableUsesCategory } from "./types"
+import { DarkModeFirefly } from "@/components/firefly"
+import { useMounted } from "@/hooks"
+import type { SerializableUsesCategory, SerializableUsesItem } from "./types"
+
+interface UsesClientWrapperProps {
+  categories: SerializableUsesCategory[]
+}
 
 // Icon map for rendering
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -47,8 +50,135 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Settings,
 }
 
-interface UsesClientWrapperProps {
-  categories: SerializableUsesCategory[]
+// Static category titles for no-JS users
+const staticCategoryTitles: Record<string, string> = {
+  hardware: "Hardware",
+  mobile: "Mobile",
+  audio: "Audio",
+  os: "Operating system",
+  development: "Development",
+  email: "Email",
+  privacy: "Privacy",
+  mobile_tools: "Mobile tools",
+  mapping: "Mapping",
+  gaming: "Gaming",
+  multimedia: "Multimedia",
+  photography: "Photography",
+  video: "Video",
+  design: "Design",
+  media: "Media",
+  photo: "Photo",
+  music: "Music",
+}
+
+function renderIcon(iconName: string, className: string = "h-6 w-6") {
+  const IconComponent = iconMap[iconName]
+  return IconComponent ? (
+    <IconComponent className={className} />
+  ) : (
+    <ImageIcon className={className} />
+  )
+}
+
+function UsesItem({
+  item,
+  descriptionText,
+}: {
+  item: SerializableUsesItem
+  descriptionText?: string
+}) {
+  return (
+    <div className="flex items-start gap-3">
+      <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary" />
+      <div>
+        <h3 className="text-xl font-medium">
+          {item.link ? (
+            <Link
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary inline-flex items-center"
+            >
+              {item.name}
+              <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
+            </Link>
+          ) : (
+            item.name
+          )}
+        </h3>
+        {(descriptionText || item.description) && (
+          <p className="text-muted-foreground">
+            {descriptionText || item.description}
+          </p>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function CategoryHeader({
+  iconName,
+  title,
+}: {
+  iconName: string
+  title: string
+}) {
+  return (
+    <div className="flex items-center gap-3 mb-4">
+      <div className="bg-primary/10 p-2 rounded-full">
+        {renderIcon(iconName)}
+      </div>
+      <h2 className="text-2xl font-bold">{title}</h2>
+    </div>
+  )
+}
+
+function HiddenPlatformItem({
+  platformId,
+  clicks,
+  onClick,
+  revealedName,
+  revealedDescriptionKey,
+}: {
+  platformId: "platform1" | "platform2"
+  clicks: number
+  onClick: () => void
+  revealedName: string
+  revealedDescriptionKey: string
+}) {
+  const { t } = useTranslation()
+  const isRevealed = clicks >= 5
+
+  return (
+    <div className="flex items-start gap-3">
+      <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary" />
+      <div className="cursor-pointer group" onClick={onClick}>
+        <h4 className="text-lg font-medium flex items-center">
+          {isRevealed ? (
+            <>
+              {revealedName}
+              <EyeOff className="h-4 w-4 ml-2 text-muted-foreground" />
+            </>
+          ) : (
+            <>
+              <span className="flex items-center">
+                <Lock className="h-4 w-4 mr-2 text-muted-foreground" />
+                {t(`uses.hiddenPlatforms.${platformId}`)}
+              </span>
+              <span className="ml-2 text-xs text-muted-foreground">
+                ({5 - clicks} {t("uses.itemDescriptions.clicksRemaining")})
+              </span>
+            </>
+          )}
+        </h4>
+        <p className="text-muted-foreground">
+          {isRevealed
+            ? t(`uses.itemDescriptions.${revealedDescriptionKey}`)
+            : t("uses.hiddenPlatforms.click5")}
+        </p>
+      </div>
+    </div>
+  )
 }
 
 export default function UsesClientWrapper({
@@ -58,10 +188,8 @@ export default function UsesClientWrapper({
   const mounted = useMounted()
   const [revancedClicks, setRevancedClicks] = useState(0)
   const [stremioClicks, setStremioClicks] = useState(0)
-  const [isVisible, setIsVisible] = useState(true)
   const categoryRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  // Memoize callback functions
   const handleRevancedClick = useCallback(() => {
     setRevancedClicks((prev) => prev + 1)
   }, [])
@@ -73,7 +201,6 @@ export default function UsesClientWrapper({
   useEffect(() => {
     if (mounted) {
       const handleKeyDown = (e: KeyboardEvent) => {
-        // Skip if user is typing in an input, textarea, or contentEditable element
         if (
           document.activeElement instanceof HTMLInputElement ||
           document.activeElement instanceof HTMLTextAreaElement ||
@@ -83,27 +210,24 @@ export default function UsesClientWrapper({
           return
         }
 
-        // Check if the key pressed is a number between 1-9, 0 for 10th, or - for 11th
         let categoryIndex = -1
         if (e.key >= "1" && e.key <= "9") {
           categoryIndex = Number.parseInt(e.key) - 1
         } else if (e.key === "0") {
-          categoryIndex = 9 // 10th category
+          categoryIndex = 9
         } else if (e.key === "-") {
-          categoryIndex = 10 // 11th category
+          categoryIndex = 10
         }
 
         if (categoryIndex >= 0 && categoryIndex < categoryRefs.current.length) {
           e.preventDefault()
 
-          // Scroll to the category
           if (categoryRefs.current[categoryIndex]) {
             categoryRefs.current[categoryIndex]?.scrollIntoView({
               behavior: "smooth",
               block: "start",
             })
 
-            // Add a brief highlight effect
             const categoryElement = categoryRefs.current[categoryIndex]
             if (categoryElement) {
               categoryElement.classList.add(
@@ -119,7 +243,6 @@ export default function UsesClientWrapper({
                 )
               }, 1000)
 
-              // Announce to screen readers
               const categoryTitle =
                 categoryElement.querySelector("h2")?.textContent
               const announcement = document.getElementById(
@@ -138,67 +261,6 @@ export default function UsesClientWrapper({
     }
   }, [mounted])
 
-  // Helper to render an icon by name
-  const renderIcon = (iconName: string, className: string = "h-6 w-6") => {
-    const IconComponent = iconMap[iconName]
-    if (IconComponent) {
-      return <IconComponent className={className} />
-    }
-    return <ImageIcon className={className} />
-  }
-
-  // Static category titles for no-JS users
-  const staticCategoryTitles: Record<string, string> = {
-    hardware: "Hardware",
-    mobile: "Mobile",
-    audio: "Audio",
-    os: "Operating system",
-    development: "Development",
-    email: "Email",
-    privacy: "Privacy",
-    mobile_tools: "Mobile tools",
-    mapping: "Mapping",
-    gaming: "Gaming",
-    multimedia: "Multimedia",
-    photography: "Photography",
-    video: "Video",
-    design: "Design",
-    media: "Media",
-    photo: "Photo",
-    music: "Music",
-  }
-
-  // Static item renderer for no-JS users
-  const renderStaticCategoryItems = (items: SerializableUsesCategory["items"]) => (
-    <div className="grid gap-6 ml-4">
-      {items.map((item, index) => (
-        <div key={index} className="flex items-start gap-3">
-          <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary"></div>
-          <div>
-            <h3 className="text-xl font-medium">
-              {item.link ? (
-                <Link
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary inline-flex items-center"
-                >
-                  {item.name}
-                  <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
-                </Link>
-              ) : (
-                item.name
-              )}
-            </h3>
-            {item.description && (
-              <p className="text-muted-foreground">{item.description}</p>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-
   // Static content for no-JS users
   if (!mounted) {
     return (
@@ -206,7 +268,9 @@ export default function UsesClientWrapper({
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Uses</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+                Uses
+              </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 All the things I use on a daily basis. Also available on{" "}
                 <Link
@@ -223,33 +287,31 @@ export default function UsesClientWrapper({
             </div>
 
             <div className="flex flex-col gap-12">
-              {/* Render all categories statically */}
-              {categories.slice(0, 10).map((category, index) => (
+              {categories.slice(0, 10).map((category) => (
                 <div key={category.title} id={`category-${category.title}`}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-primary/10 p-2 rounded-full">
-                      {renderIcon(category.iconName)}
-                    </div>
-                    <h2 className="text-2xl font-bold">
-                      {staticCategoryTitles[category.title] || category.title}
-                    </h2>
+                  <CategoryHeader
+                    iconName={category.iconName}
+                    title={
+                      staticCategoryTitles[category.title] || category.title
+                    }
+                  />
+                  <div className="grid gap-6 ml-4">
+                    {category.items.map((item, index) => (
+                      <UsesItem key={index} item={item} />
+                    ))}
                   </div>
-                  {renderStaticCategoryItems(category.items)}
                 </div>
               ))}
 
-              {/* Multimedia section */}
               {categories[10] && (
                 <div id="category-multimedia">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-primary/10 p-2 rounded-full">
-                      {renderIcon(categories[10].iconName)}
-                    </div>
-                    <h2 className="text-2xl font-bold">
-                      {staticCategoryTitles[categories[10].title] || categories[10].title}
-                    </h2>
-                  </div>
-
+                  <CategoryHeader
+                    iconName={categories[10].iconName}
+                    title={
+                      staticCategoryTitles[categories[10].title] ||
+                      categories[10].title
+                    }
+                  />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ml-4">
                     {categories[10].subsections?.map((subsection, subIndex) => (
                       <div key={subIndex} className="space-y-6">
@@ -260,37 +322,19 @@ export default function UsesClientWrapper({
                             </div>
                           )}
                           <h3 className="text-xl font-medium">
-                            {staticCategoryTitles[subsection.title] || subsection.title}
+                            {staticCategoryTitles[subsection.title] ||
+                              subsection.title}
                           </h3>
                         </div>
-
                         <div className="grid gap-6 ml-4">
                           {subsection.items
-                            .filter((item) => item.name !== "Unspeakable Platform 1" && item.name !== "Unspeakable Platform 2")
+                            .filter(
+                              (item) =>
+                                item.name !== "Unspeakable Platform 1" &&
+                                item.name !== "Unspeakable Platform 2"
+                            )
                             .map((item, itemIndex) => (
-                              <div key={itemIndex} className="flex items-start gap-3">
-                                <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary"></div>
-                                <div>
-                                  <h4 className="text-lg font-medium">
-                                    {item.link ? (
-                                      <Link
-                                        href={item.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="hover:text-primary inline-flex items-center"
-                                      >
-                                        {item.name}
-                                        <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
-                                      </Link>
-                                    ) : (
-                                      item.name
-                                    )}
-                                  </h4>
-                                  {item.description && (
-                                    <p className="text-muted-foreground">{item.description}</p>
-                                  )}
-                                </div>
-                              </div>
+                              <UsesItem key={itemIndex} item={item} />
                             ))}
                         </div>
                       </div>
@@ -305,42 +349,11 @@ export default function UsesClientWrapper({
     )
   }
 
-  // Helper to render a category's items
-  const renderCategoryItems = (
-    items: SerializableUsesCategory["items"]
-  ) => (
-    <div className="grid gap-6 ml-4">
-      {items.map((item, index) => (
-        <div key={index} className="flex items-start gap-3">
-          <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary"></div>
-          <div>
-            <h3 className="text-xl font-medium">
-              {item.link ? (
-                <Link
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary inline-flex items-center"
-                >
-                  {item.name}
-                  <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
-                </Link>
-              ) : (
-                item.name
-              )}
-            </h3>
-            {item.descriptionKey && (
-              <p className="text-muted-foreground">
-                {t(`uses.itemDescriptions.${item.descriptionKey}`)}
-              </p>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
+  const getTranslatedDescription = (item: SerializableUsesItem) =>
+    item.descriptionKey
+      ? t(`uses.itemDescriptions.${item.descriptionKey}`)
+      : item.description
 
-  // Render a standard category section
   const renderCategory = (
     category: SerializableUsesCategory,
     index: number
@@ -352,22 +365,63 @@ export default function UsesClientWrapper({
       id={`category-${category.title}`}
       className="transition-all duration-300"
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="bg-primary/10 p-2 rounded-full">
-          {renderIcon(category.iconName)}
-        </div>
-        <h2 className="text-2xl font-bold">
-          {t(`uses.categories.${category.title}`)}
-        </h2>
+      <CategoryHeader
+        iconName={category.iconName}
+        title={t(`uses.categories.${category.title}`)}
+      />
+      <div className="grid gap-6 ml-4">
+        {category.items.map((item, itemIndex) => (
+          <UsesItem
+            key={itemIndex}
+            item={item}
+            descriptionText={getTranslatedDescription(item)}
+          />
+        ))}
       </div>
-      {renderCategoryItems(category.items)}
     </div>
   )
 
+  const renderMultimediaSubsectionItem = (
+    item: SerializableUsesItem,
+    itemIndex: number
+  ) => {
+    if (item.name === "Unspeakable Platform 1") {
+      return (
+        <HiddenPlatformItem
+          key={itemIndex}
+          platformId="platform1"
+          clicks={revancedClicks}
+          onClick={handleRevancedClick}
+          revealedName="ReVanced"
+          revealedDescriptionKey="revancedDescription"
+        />
+      )
+    }
+
+    if (item.name === "Unspeakable Platform 2") {
+      return (
+        <HiddenPlatformItem
+          key={itemIndex}
+          platformId="platform2"
+          clicks={stremioClicks}
+          onClick={handleStremioClick}
+          revealedName="Stremio"
+          revealedDescriptionKey="stremioDescription"
+        />
+      )
+    }
+
+    return (
+      <UsesItem
+        key={itemIndex}
+        item={item}
+        descriptionText={getTranslatedDescription(item)}
+      />
+    )
+  }
+
   return (
-    <main
-      className={`relative min-h-screen w-full overflow-hidden transition-opacity duration-300 ${mounted && isVisible ? "opacity-100" : "opacity-0"}`}
-    >
+    <main className="relative min-h-screen w-full overflow-hidden transition-opacity duration-300 opacity-100">
       <DarkModeFirefly count={15} />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
@@ -391,45 +445,39 @@ export default function UsesClientWrapper({
             </p>
           </div>
 
-          {/* Screen reader announcement */}
           <div
             className="sr-only"
             aria-live="polite"
             id="keyboard-announcement"
-          ></div>
+          />
 
           <div className="flex flex-col gap-12">
-            {/* First row: hardware & mobile (indices 0, 1) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
               {renderCategory(categories[0], 0)}
               {renderCategory(categories[1], 1)}
             </div>
 
-            {/* Second row: audio & os (indices 2, 3) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
               {renderCategory(categories[2], 2)}
               {renderCategory(categories[3], 3)}
             </div>
 
-            {/* Third row: development & email (indices 4, 5) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
               {renderCategory(categories[4], 4)}
               {renderCategory(categories[5], 5)}
             </div>
 
-            {/* Fourth row: privacy & mobile_tools (indices 6, 7) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
               {renderCategory(categories[6], 6)}
               {renderCategory(categories[7], 7)}
             </div>
 
-            {/* Fifth row: mapping & gaming (indices 8, 9) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
               {renderCategory(categories[8], 8)}
               {renderCategory(categories[9], 9)}
             </div>
 
-            {/* Multimedia section (index 10) - special handling for subsections */}
+            {/* Multimedia section */}
             <div
               className="lg:col-span-2 transition-all duration-300"
               ref={(el) => {
@@ -461,135 +509,7 @@ export default function UsesClientWrapper({
                     </div>
 
                     <div className="grid gap-6 ml-4">
-                      {subsection.items.map((item, itemIndex) => {
-                        // Special handling for the "unspeakable platforms"
-                        if (item.name === "Unspeakable Platform 1") {
-                          return (
-                            <div
-                              key={itemIndex}
-                              className="flex items-start gap-3"
-                            >
-                              <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary"></div>
-                              <div
-                                className="cursor-pointer group"
-                                onClick={handleRevancedClick}
-                              >
-                                <h4 className="text-lg font-medium flex items-center">
-                                  {revancedClicks >= 5 ? (
-                                    <>
-                                      ReVanced
-                                      <EyeOff className="h-4 w-4 ml-2 text-muted-foreground" />
-                                    </>
-                                  ) : (
-                                    <>
-                                      <span className="flex items-center">
-                                        <Lock className="h-4 w-4 mr-2 text-muted-foreground" />
-                                        {t("uses.hiddenPlatforms.platform1")}
-                                      </span>
-                                      <span className="ml-2 text-xs text-muted-foreground">
-                                        ({5 - revancedClicks}{" "}
-                                        {t(
-                                          "uses.itemDescriptions.clicksRemaining"
-                                        )}
-                                        )
-                                      </span>
-                                    </>
-                                  )}
-                                </h4>
-                                <p className="text-muted-foreground">
-                                  {revancedClicks >= 5
-                                    ? t(
-                                        `uses.itemDescriptions.revancedDescription`
-                                      )
-                                    : t("uses.hiddenPlatforms.click5")}
-                                </p>
-                              </div>
-                            </div>
-                          )
-                        }
-
-                        if (item.name === "Unspeakable Platform 2") {
-                          return (
-                            <div
-                              key={itemIndex}
-                              className="flex items-start gap-3"
-                            >
-                              <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary"></div>
-                              <div
-                                className="cursor-pointer group"
-                                onClick={handleStremioClick}
-                              >
-                                <h4 className="text-lg font-medium flex items-center">
-                                  {stremioClicks >= 5 ? (
-                                    <>
-                                      Stremio
-                                      <EyeOff className="h-4 w-4 ml-2 text-muted-foreground" />
-                                    </>
-                                  ) : (
-                                    <>
-                                      <span className="flex items-center">
-                                        <Lock className="h-4 w-4 mr-2 text-muted-foreground" />
-                                        {t("uses.hiddenPlatforms.platform2")}
-                                      </span>
-                                      <span className="ml-2 text-xs text-muted-foreground">
-                                        ({5 - stremioClicks}{" "}
-                                        {t(
-                                          "uses.itemDescriptions.clicksRemaining"
-                                        )}
-                                        )
-                                      </span>
-                                    </>
-                                  )}
-                                </h4>
-                                <p className="text-muted-foreground">
-                                  {stremioClicks >= 5
-                                    ? t(
-                                        `uses.itemDescriptions.stremioDescription`
-                                      )
-                                    : t("uses.hiddenPlatforms.click5")}
-                                </p>
-                              </div>
-                            </div>
-                          )
-                        }
-
-                        return (
-                          <div
-                            key={itemIndex}
-                            className="flex items-start gap-3"
-                          >
-                            <div className="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary"></div>
-                            <div>
-                              <h4 className="text-lg font-medium">
-                                {item.link ? (
-                                  <Link
-                                    href={item.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hover:text-primary inline-flex items-center"
-                                  >
-                                    {item.name}
-                                    <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
-                                  </Link>
-                                ) : (
-                                  item.name
-                                )}
-                              </h4>
-                              {item.descriptionKey ? (
-                                <p className="text-muted-foreground">
-                                  {t(
-                                    `uses.itemDescriptions.${item.descriptionKey}`
-                                  )}
-                                </p>
-                              ) : (
-                                <p className="text-muted-foreground">
-                                  {item.description}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        )
-                      })}
+                      {subsection.items.map(renderMultimediaSubsectionItem)}
                     </div>
                   </div>
                 ))}

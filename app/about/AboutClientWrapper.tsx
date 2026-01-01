@@ -2,11 +2,16 @@
 
 import React, { useEffect, useRef, useState, memo } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { useMounted, useReducedMotion } from "@/hooks"
 import { DarkModeFirefly } from "@/components/firefly"
 
-type ChapterData = {
+export type ChapterData = {
   number: number
   titleKey: string
   contentKeys: string[]
@@ -22,7 +27,142 @@ interface AboutClientWrapperProps {
   hCard: React.ReactNode
 }
 
-export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapperProps) {
+function ChapterHeader({ number, title }: { number: number; title: string }) {
+  return (
+    <div className="flex items-center mb-3">
+      <div className="bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">
+        {number}
+      </div>
+      <h2 className="text-2xl md:text-3xl font-bold">{title}</h2>
+    </div>
+  )
+}
+
+const Chapter = memo(
+  React.forwardRef<
+    HTMLDivElement,
+    {
+      number: number
+      titleKey: string
+      staticTitle?: string
+      contentKeys: string[]
+      staticContent?: string[]
+      hasQuote?: boolean
+      staticQuote?: string
+      isActive: boolean
+    }
+  >(
+    (
+      {
+        number,
+        titleKey,
+        staticTitle,
+        contentKeys,
+        staticContent,
+        hasQuote,
+        staticQuote,
+        isActive,
+      },
+      ref
+    ) => {
+      const { t } = useTranslation()
+      const chapterRef = useRef<HTMLDivElement>(null)
+      const [isVisible, setIsVisible] = useState(false)
+      const prefersReducedMotion = useReducedMotion()
+
+      useEffect(() => {
+        const element = chapterRef.current
+        if (!element) return
+
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setIsVisible(true)
+              observer.disconnect()
+            }
+          },
+          { threshold: 0.3 }
+        )
+
+        observer.observe(element)
+        return () => observer.disconnect()
+      }, [])
+
+      const title = staticTitle
+        ? t(titleKey, { defaultValue: staticTitle })
+        : t(titleKey)
+
+      return (
+        <div
+          ref={ref as React.RefObject<HTMLDivElement>}
+          className="py-2"
+          id={`chapter-${number}`}
+        >
+          <div
+            ref={chapterRef}
+            className={`${prefersReducedMotion ? "" : "transition-all duration-500"}`}
+            style={{
+              opacity: isVisible || prefersReducedMotion ? 1 : 0,
+              transform:
+                isVisible || prefersReducedMotion
+                  ? "translateY(0)"
+                  : "translateY(50px)",
+            }}
+          >
+            <ChapterHeader number={number} title={title} />
+
+            <div className="mt-4 text-lg leading-relaxed">
+              {contentKeys.map((key, index) => {
+                const defaultVal = staticContent?.[index]
+                if (hasQuote && index === 1) {
+                  return (
+                    <p key={key} className="mt-4">
+                      {defaultVal
+                        ? t(`about.chapters.${number}.content2`, {
+                            defaultValue: defaultVal,
+                          })
+                        : t(`about.chapters.${number}.content2`)}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger className="italic ml-1 hover:text-primary transition-colors">
+                            {staticQuote
+                              ? t(`about.chapters.${number}.quote`, {
+                                  defaultValue: staticQuote,
+                                })
+                              : t(`about.chapters.${number}.quote`)}
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>
+                              {t(`about.chapters.${number}.quoteTooltip`, {
+                                defaultValue: "yeah I said it lol",
+                              })}
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </p>
+                  )
+                }
+                return (
+                  <p key={key} className={index > 0 ? "mt-4" : ""}>
+                    {defaultVal ? t(key, { defaultValue: defaultVal }) : t(key)}
+                  </p>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )
+    }
+  )
+)
+
+Chapter.displayName = "Chapter"
+
+export default function AboutClientWrapper({
+  chapters,
+  hCard,
+}: AboutClientWrapperProps) {
   const { t } = useTranslation()
   const [activeChapter, setActiveChapter] = useState(1)
   const [showHiddenChapter, setShowHiddenChapter] = useState(false)
@@ -31,7 +171,8 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
 
   useEffect(() => {
     if (mounted) {
-      const shouldShowHiddenChapter = sessionStorage.getItem("showHiddenChapter") === "true"
+      const shouldShowHiddenChapter =
+        sessionStorage.getItem("showHiddenChapter") === "true"
       if (shouldShowHiddenChapter) {
         queueMicrotask(() => setShowHiddenChapter(true))
       }
@@ -45,7 +186,10 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
 
           const { offsetTop, offsetHeight } = ref
 
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
             setActiveChapter(index + 1)
           }
         })
@@ -55,7 +199,8 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
         if (
           document.activeElement instanceof HTMLInputElement ||
           document.activeElement instanceof HTMLTextAreaElement ||
-          (document.activeElement && document.activeElement.getAttribute("contenteditable") === "true")
+          (document.activeElement &&
+            document.activeElement.getAttribute("contenteditable") === "true")
         ) {
           return
         }
@@ -85,37 +230,43 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
     }
   }, [showHiddenChapter, mounted, chapters])
 
-  const visibleChapters = showHiddenChapter ? chapters : chapters.filter(c => !c.hidden)
+  const visibleChapters = showHiddenChapter
+    ? chapters
+    : chapters.filter((c) => !c.hidden)
 
-  // Static fallback for no-JS: render all chapters with static content
+  // Static fallback for no-JS
   if (!mounted) {
-    const staticVisibleChapters = chapters.filter(c => !c.hidden)
+    const staticVisibleChapters = chapters.filter((c) => !c.hidden)
 
     return (
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">About me</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+            About me
+          </h1>
 
-          {/* h-card from server */}
           <div key="hcard-container">{hCard}</div>
 
           <div className="space-y-8">
             {staticVisibleChapters.map((chapter) => (
-              <div key={chapter.number} className="py-2" id={`chapter-${chapter.number}`}>
-                <div className="flex items-center mb-3">
-                  <div className="bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">
-                    {chapter.number}
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold">{chapter.staticTitle}</h2>
-                </div>
-
+              <div
+                key={chapter.number}
+                className="py-2"
+                id={`chapter-${chapter.number}`}
+              >
+                <ChapterHeader
+                  number={chapter.number}
+                  title={chapter.staticTitle || ""}
+                />
                 <div className="mt-4 text-lg leading-relaxed">
                   {chapter.staticContent?.map((content, index) => {
                     if (chapter.hasQuote && index === 1) {
                       return (
                         <p key={index} className="mt-4">
                           {content}
-                          <span className="italic ml-1">{chapter.staticQuote}</span>
+                          <span className="italic ml-1">
+                            {chapter.staticQuote}
+                          </span>
                         </p>
                       )
                     }
@@ -140,7 +291,9 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">{t("about.title")}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+            {t("about.title")}
+          </h1>
 
           {/* Mobile horizontal progress dots */}
           <div className="sticky top-4 z-20 flex justify-center mb-8 md:hidden">
@@ -149,7 +302,9 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
                 <button
                   key={`mobile-${chapter.number}`}
                   className={`w-4 h-4 rounded-full transition-colors ${
-                    activeChapter === chapter.number ? "bg-primary" : "bg-muted hover:bg-primary/50"
+                    activeChapter === chapter.number
+                      ? "bg-primary"
+                      : "bg-muted hover:bg-primary/50"
                   }`}
                   onClick={() => {
                     chapterRefs.current[chapter.number - 1]?.scrollIntoView({
@@ -172,10 +327,14 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
                     <TooltipTrigger asChild>
                       <button
                         className={`w-4 h-4 rounded-full transition-colors ${
-                          activeChapter === chapter.number ? "bg-primary" : "bg-muted hover:bg-primary/50"
+                          activeChapter === chapter.number
+                            ? "bg-primary"
+                            : "bg-muted hover:bg-primary/50"
                         }`}
                         onClick={() => {
-                          chapterRefs.current[chapter.number - 1]?.scrollIntoView({
+                          chapterRefs.current[
+                            chapter.number - 1
+                          ]?.scrollIntoView({
                             behavior: "smooth",
                             block: "center",
                           })
@@ -192,14 +351,15 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
             </div>
           </div>
 
-          {/* h-card from server */}
           <div key="hcard-container">{hCard}</div>
 
           <div className="space-y-8">
             {visibleChapters.map((chapter) => (
               <Chapter
                 key={`chapter-${chapter.number}`}
-                ref={(el) => { chapterRefs.current[chapter.number - 1] = el }}
+                ref={(el) => {
+                  chapterRefs.current[chapter.number - 1] = el
+                }}
                 number={chapter.number}
                 titleKey={chapter.titleKey}
                 staticTitle={chapter.staticTitle}
@@ -216,93 +376,3 @@ export default function AboutClientWrapper({ chapters, hCard }: AboutClientWrapp
     </div>
   )
 }
-
-const Chapter = memo(React.forwardRef<
-  HTMLDivElement,
-  {
-    number: number
-    titleKey: string
-    staticTitle?: string
-    contentKeys: string[]
-    staticContent?: string[]
-    hasQuote?: boolean
-    staticQuote?: string
-    isActive: boolean
-  }
->(({ number, titleKey, staticTitle, contentKeys, staticContent, hasQuote, staticQuote, isActive }, ref) => {
-  const { t } = useTranslation()
-  const chapterRef = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-  const prefersReducedMotion = useReducedMotion()
-
-  // Use IntersectionObserver for visibility detection
-  useEffect(() => {
-    const element = chapterRef.current
-    if (!element) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.3 }
-    )
-
-    observer.observe(element)
-    return () => observer.disconnect()
-  }, [])
-
-  const title = staticTitle ? t(titleKey, { defaultValue: staticTitle }) : t(titleKey)
-
-  return (
-    <div ref={ref as React.RefObject<HTMLDivElement>} className="py-2" id={`chapter-${number}`}>
-      <div
-        ref={chapterRef}
-        className={`${prefersReducedMotion ? '' : 'transition-all duration-500'}`}
-        style={{
-          opacity: isVisible || prefersReducedMotion ? 1 : 0,
-          transform: isVisible || prefersReducedMotion ? 'translateY(0)' : 'translateY(50px)',
-        }}
-      >
-        <div className="flex items-center mb-3">
-          <div className="bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">
-            {number}
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold">{title}</h2>
-        </div>
-
-        <div className="mt-4 text-lg leading-relaxed">
-          {contentKeys.map((key, index) => {
-            const defaultVal = staticContent?.[index]
-            if (hasQuote && index === 1) {
-              return (
-                <p key={key} className="mt-4">
-                  {defaultVal ? t(`about.chapters.${number}.content2`, { defaultValue: defaultVal }) : t(`about.chapters.${number}.content2`)}
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger className="italic ml-1 hover:text-primary transition-colors">
-                        {staticQuote ? t(`about.chapters.${number}.quote`, { defaultValue: staticQuote }) : t(`about.chapters.${number}.quote`)}
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{t(`about.chapters.${number}.quoteTooltip`, { defaultValue: "yeah I said it lol" })}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </p>
-              )
-            }
-            return (
-              <p key={key} className={index > 0 ? "mt-4" : ""}>
-                {defaultVal ? t(key, { defaultValue: defaultVal }) : t(key)}
-              </p>
-            )
-          })}
-        </div>
-      </div>
-    </div>
-  )
-}))
-
-Chapter.displayName = "Chapter"

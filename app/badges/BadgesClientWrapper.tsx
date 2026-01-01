@@ -5,7 +5,7 @@ import Image from "next/image"
 import { Search, Filter } from "lucide-react"
 import { useMounted } from "@/hooks"
 
-interface Badge {
+export interface Badge {
   id: string
   name: string
   src: string
@@ -22,11 +22,85 @@ interface BadgesClientWrapperProps {
   categories: string[]
 }
 
+function BadgeImage({
+  badge,
+  showTitle = false,
+}: {
+  badge: Badge
+  showTitle?: boolean
+}) {
+  const image = (
+    <Image
+      src={badge.src}
+      alt={badge.alt}
+      width={badge.width}
+      height={badge.height}
+      className={`pixelated ${badge.url ? "hover:opacity-90 transition-opacity" : ""}`}
+    />
+  )
+
+  if (badge.url) {
+    return (
+      <a
+        href={badge.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block"
+        aria-label={`Visit ${badge.name}`}
+        title={showTitle ? badge.name : undefined}
+      >
+        {image}
+      </a>
+    )
+  }
+
+  if (showTitle) {
+    return <div title={badge.name}>{image}</div>
+  }
+
+  return image
+}
+
+function BadgeCard({ badge }: { badge: Badge }) {
+  return (
+    <div className="border rounded-md p-4 flex flex-col h-full">
+      <div className="mb-2 min-h-[31px] flex items-center">
+        <BadgeImage badge={badge} />
+      </div>
+      <h3 className="font-medium">{badge.name}</h3>
+      <p className="text-sm text-muted-foreground">{badge.description}</p>
+    </div>
+  )
+}
+
+function BadgeGridVerbose({ badges }: { badges: Badge[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-start">
+      {badges.map((badge) => (
+        <BadgeCard key={badge.id} badge={badge} />
+      ))}
+    </div>
+  )
+}
+
+function BadgeGridCompact({ badges }: { badges: Badge[] }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {badges.map((badge) => (
+        <BadgeImage key={badge.id} badge={badge} showTitle />
+      ))}
+    </div>
+  )
+}
+
 /**
  * Client wrapper for badge collection with search/filter functionality
  * Page header and personal badge section are server-rendered in page.tsx
  */
-export default function BadgesClientWrapper({ badges, categories }: BadgesClientWrapperProps) {
+export default function BadgesClientWrapper({
+  badges,
+  categories,
+}: BadgesClientWrapperProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [viewMode, setViewMode] = useState<"verbose" | "badge-only">("verbose")
@@ -37,7 +111,8 @@ export default function BadgesClientWrapper({ badges, categories }: BadgesClient
       const matchesSearch =
         badge.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         badge.description.toLowerCase().includes(searchQuery.toLowerCase())
-      const matchesCategory = selectedCategory === "all" || badge.category === selectedCategory
+      const matchesCategory =
+        selectedCategory === "all" || badge.category === selectedCategory
       return matchesSearch && matchesCategory
     })
   }, [searchQuery, selectedCategory, badges])
@@ -47,41 +122,10 @@ export default function BadgesClientWrapper({ badges, categories }: BadgesClient
     return (
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Badges collection</h2>
-
         <p className="text-sm text-muted-foreground mb-4">
           Showing {badges.length} badges
         </p>
-
-        {/* Badges Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-start">
-          {badges.map((badge) => (
-            <div key={badge.id} className="border rounded-md p-4 flex flex-col h-full">
-              <div className="mb-2 min-h-[31px] flex items-center">
-                {badge.url ? (
-                  <a href={badge.url} target="_blank" rel="noopener noreferrer" className="inline-block" aria-label={`Visit ${badge.name}`}>
-                    <Image
-                      src={badge.src}
-                      alt={badge.alt}
-                      width={badge.width}
-                      height={badge.height}
-                      className="pixelated hover:opacity-90 transition-opacity"
-                    />
-                  </a>
-                ) : (
-                  <Image
-                    src={badge.src}
-                    alt={badge.alt}
-                    width={badge.width}
-                    height={badge.height}
-                    className="pixelated"
-                  />
-                )}
-              </div>
-              <h3 className="font-medium">{badge.name}</h3>
-              <p className="text-sm text-muted-foreground">{badge.description}</p>
-            </div>
-          ))}
-        </div>
+        <BadgeGridVerbose badges={badges} />
       </section>
     )
   }
@@ -118,7 +162,13 @@ export default function BadgesClientWrapper({ badges, categories }: BadgesClient
             ))}
           </select>
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M2.5 4.5L6 8L9.5 4.5"
                 stroke="currentColor"
@@ -161,71 +211,15 @@ export default function BadgesClientWrapper({ badges, categories }: BadgesClient
         Showing {filteredBadges.length} of {badges.length} badges
       </p>
 
-      {/* Badges Grid - Verbose Mode */}
-      {viewMode === "verbose" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-start">
-          {filteredBadges.map((badge) => (
-            <div key={badge.id} className="border rounded-md p-4 flex flex-col h-full">
-              <div className="mb-2 min-h-[31px] flex items-center">
-                {badge.url ? (
-                  <a href={badge.url} target="_blank" rel="noopener noreferrer" className="inline-block" aria-label={`Visit ${badge.name}`}>
-                    <Image
-                      src={badge.src}
-                      alt={badge.alt}
-                      width={badge.width}
-                      height={badge.height}
-                      className="pixelated hover:opacity-90 transition-opacity"
-                    />
-                  </a>
-                ) : (
-                  <Image
-                    src={badge.src}
-                    alt={badge.alt}
-                    width={badge.width}
-                    height={badge.height}
-                    className="pixelated"
-                  />
-                )}
-              </div>
-              <h3 className="font-medium">{badge.name}</h3>
-              <p className="text-sm text-muted-foreground">{badge.description}</p>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Badges Grid - Badge Only Mode */}
-      {viewMode === "badge-only" && (
-        <div className="flex flex-wrap gap-2">
-          {filteredBadges.map((badge) => (
-            <div key={badge.id} title={badge.name}>
-              {badge.url ? (
-                <a href={badge.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${badge.name}`}>
-                  <Image
-                    src={badge.src}
-                    alt={badge.alt}
-                    width={badge.width}
-                    height={badge.height}
-                    className="pixelated hover:opacity-90 transition-opacity"
-                  />
-                </a>
-              ) : (
-                <Image
-                  src={badge.src}
-                  alt={badge.alt}
-                  width={badge.width}
-                  height={badge.height}
-                  className="pixelated"
-                />
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+      {/* Badges Grid */}
+      {viewMode === "verbose" && <BadgeGridVerbose badges={filteredBadges} />}
+      {viewMode === "badge-only" && <BadgeGridCompact badges={filteredBadges} />}
 
       {filteredBadges.length === 0 && (
         <div className="text-center py-12 border rounded-md">
-          <p className="text-muted-foreground">No badges found matching your search criteria</p>
+          <p className="text-muted-foreground">
+            No badges found matching your search criteria
+          </p>
         </div>
       )}
     </section>
