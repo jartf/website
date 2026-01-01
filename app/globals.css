@@ -270,10 +270,22 @@
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background rounded-sm;
   }
 
+  /* Ensure buttons have proper focus indicators */
+  button:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
   /* High contrast mode support */
   @media (prefers-contrast: more) {
     :root {
       --ring: 195 100% 50%;
+      --foreground: 0 0% 100%;
+      --background: 0 0% 0%;
+    }
+
+    .light {
+      --foreground: 0 0% 0%;
+      --background: 0 0% 100%;
     }
 
     :focus-visible {
@@ -442,6 +454,19 @@
   /* Disable smooth scrolling */
   html {
     scroll-behavior: auto !important;
+  }
+
+  /* Disable transform animations but keep visibility */
+  .animate-in,
+  .animate-out {
+    animation: none !important;
+  }
+
+  /* Disable hover transform effects */
+  .hover\:scale-105:hover,
+  .hover\:translate-x-1:hover,
+  .hover\:-translate-y-1:hover {
+    transform: none !important;
   }
 }
 
