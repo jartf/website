@@ -1,5 +1,5 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
-import ContactClient from "./ContactClient"
+import ContactClient from "./client";
 
 export const metadata = generateMeta({
   title: "Contact",

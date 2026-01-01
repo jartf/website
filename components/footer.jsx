@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { FooterClient } from "@/components/footer-client"
+import { FooterClient } from "@/components/footer/client"
 
 // Static fallback text for no-JS rendering
 const STATIC_FOOTER = {

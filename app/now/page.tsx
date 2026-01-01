@@ -11,7 +11,7 @@ import {
 } from "lucide-react"
 import { generateMetadata } from "@/lib/metadata"
 import { nowItems } from "@/content/now-items"
-import NowClientWrapper from "./NowClientWrapper"
+import NowClient from "./client";
 import type { SerializableNowItem, CategoryData } from "./types"
 import { generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 
@@ -88,7 +88,7 @@ export default function NowPage() {
       {/* Structured Data for Google Rich Results */}
       {renderJsonLd([breadcrumbSchema])}
 
-      <NowClientWrapper
+      <NowClient
         items={serializableItems}
         groupedItems={groupedItems}
         categories={categories}

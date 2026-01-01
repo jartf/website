@@ -1,6 +1,6 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
 import Image from "next/image"
-import BadgesClientWrapper from "./BadgesClientWrapper"
+import BadgesClient from "./client";
 import "./badges.css"
 
 export const metadata = generateMeta({
@@ -535,7 +535,7 @@ export default function BadgesPage() {
       )}
 
       {/* Badge collection with search/filter - Client rendered for interactivity */}
-      <BadgesClientWrapper badges={BADGES} categories={CATEGORIES} />
+      <BadgesClient badges={BADGES} categories={CATEGORIES} />
     </div>
   )
 }

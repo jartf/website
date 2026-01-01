@@ -1,6 +1,6 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
 import { projects, type Project } from "@/content/project-items"
-import ProjectsClientWrapper from "./ProjectsClientWrapper"
+import ProjectsClient from "./client";
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import { SITE_URL } from "@/lib/constants"
 
@@ -33,7 +33,7 @@ export default function ProjectsPage() {
       {/* Structured Data for Google Rich Results */}
       {renderJsonLd([itemListSchema, breadcrumbSchema])}
 
-      <ProjectsClientWrapper projects={projects} />
+      <ProjectsClient projects={projects} />
     </>
   )
 }

@@ -2,7 +2,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { generateMetadata as generateMeta } from "@/lib/metadata"
-import AboutClientWrapper, { type ChapterData } from "./AboutClientWrapper"
+import AboutClient, { type ChapterData } from "./client";
 import { generatePersonSchema, generateProfilePageSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 
 export const metadata = generateMeta({
@@ -128,7 +128,7 @@ export default function AboutPage() {
       {/* Structured Data for Google Rich Results */}
       {renderJsonLd([personSchema, profilePageSchema, breadcrumbSchema])}
 
-      <AboutClientWrapper chapters={chapters} hCard={hCardContent} />
+      <AboutClient chapters={chapters} hCard={hCardContent} />
     </div>
   )
 }

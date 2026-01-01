@@ -7,7 +7,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { RefreshCw, ExternalLink } from "lucide-react"
 import { useMounted, useReducedMotion } from "@/hooks"
-import { type MoodCat, moodCats } from "./mood-cat"
+import { type MoodCat, moodCats } from "../mood-cat"
 
 /**
  * Memoized cat image component with CSS transitions

@@ -1,6 +1,6 @@
 import { generateMetadata } from "@/lib/metadata"
 import { AlertCircle } from "lucide-react"
-import TetrisClient from "./TetrisClient"
+import TetrisClient from "./client";
 
 export const metadata = generateMetadata({
   title: "Tetris",

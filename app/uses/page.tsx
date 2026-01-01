@@ -18,7 +18,7 @@ import {
 } from "lucide-react"
 import { generateMetadata } from "@/lib/metadata"
 import { USES_CATEGORIES } from "@/content/uses-items"
-import UsesClientWrapper from "./UsesClientWrapper"
+import UsesClient from "./client";
 import type { SerializableUsesCategory } from "./types"
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import { SITE_URL } from "@/lib/constants"
@@ -116,7 +116,7 @@ export default function UsesPage() {
       {/* Structured Data for Google Rich Results */}
       {renderJsonLd([itemListSchema, breadcrumbSchema])}
 
-      <UsesClientWrapper categories={serializableCategories} />
+      <UsesClient categories={serializableCategories} />
     </>
   )
 }

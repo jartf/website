@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ExternalLink } from "lucide-react"
-import { MoodCatClient } from "./mood-cat-client"
+import { MoodCatClient } from "./mood-cat/client"
 
 export type MoodCat = {
   id: number

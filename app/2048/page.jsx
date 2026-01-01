@@ -1,6 +1,6 @@
 import { generateMetadata } from "@/lib/metadata"
 import { AlertCircle } from "lucide-react"
-import Game2048Client from "./2048Client"
+import Game2048Client from "./client";
 
 export const metadata = generateMetadata({
   title: "2048",
