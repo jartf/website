@@ -178,7 +178,6 @@ export default function RootLayout({ children }) {
               <Footer />
               <KeyboardNavigation />
             </div>
-            <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""/></noscript>
             <ActionSearchBar />
           </I18nProvider>
         </ThemeProvider>
