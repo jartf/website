@@ -1,6 +1,7 @@
 # Personal website
 
-This is my personal website, a mix of blog, portfolio, and experimental space. It is built with Next.js, React, Tailwind CSS, shadcn/ui, Framer Motion, react-i18next, and TypeScript.
+This is my personal website, a mix of blog, portfolio, and experimental space. It is built with Next.js 16, React 19, Tailwind CSS 4, shadcn/ui, Framer Motion, react-i18next, and TypeScript.
+
 I originally made it for myself to share what I am learning, share my thoughts, and store my projects. I like to think of it as a digital garden.
 
 ## Features
@@ -24,7 +25,7 @@ I originally made it for myself to share what I am learning, share my thoughts, 
 ### Keyboard Shortcuts
 
 | Key | Action |
-|-----|--------|
+| --- | ------ |
 | `h` | Go to Home |
 | `a` | Go to About |
 | `b` | Go to Blog |
@@ -34,7 +35,7 @@ I originally made it for myself to share what I am learning, share my thoughts, 
 | `c` | Go to Contact |
 | `l` | Go to Colophon |
 | `m` | Cycle theme |
-| `g` | Cycle language |
+| `y` | Cycle language |
 | `r` | Refresh mood cat |
 | `.` | Open command palette |
 
@@ -86,32 +87,37 @@ The main scripts are straightforward:
 The project follows the Next.js 16 App Router architecture:
 
 ```text
-website-v4/
-├── app/                      # Next.js App Router pages and layouts
+jarema-v4/
+├── app/                     # Next.js pages and layouts
 │   ├── layout.jsx           # Root layout with providers, fonts, security headers
 │   ├── page.jsx             # Homepage (server component)
-│   ├── HomeClientInteractive.jsx  # Homepage interactive UI (client component)
+│   ├── client.jsx           # Homepage interactive UI (client component)
 │   ├── globals.css          # Global styles
 │   ├── blog/                # Blog section
 │   │   ├── page.tsx         # Server component (fetches posts)
-│   │   ├── BlogList.tsx     # Client component (interactive list)
+│   │   ├── list.tsx         # Client component (interactive list)
 │   │   └── [...slug]/       # Dynamic blog post routes
 │   ├── {route}/             # Other pages follow same pattern
 │   │   ├── page.tsx         # Server component - data fetching, metadata
-│   │   └── *ClientWrapper.tsx  # Client component - interactivity only
+│   │   └── client.tsx       # Client component - interactivity only
 │   ├── rss.xml/             # RSS feed route
 │   ├── atom.xml/            # Atom feed route
 │   └── feed.json/           # JSON feed route
 ├── components/              # Reusable UI components
 │   ├── ui/                  # shadcn/ui components (button, card, etc.)
+│   ├── blog/                # Blog-specific components
+│   ├── footer/              # Footer components
+│   ├── galaxy/              # Interactive galaxy background
+│   ├── mood-cat/            # Interactive mood cat component
 │   ├── header.tsx           # Navigation with responsive overflow handling
 │   ├── footer.jsx           # Site footer
 │   ├── theme-provider.tsx   # Dark mode provider
 │   ├── i18n-provider.jsx    # Internationalization provider
-│   ├── mood-cat.tsx         # Interactive mood cat component
+│   ├── action-search-bar.tsx    # Command palette component
 │   └── keyboard-navigation.jsx  # Global keyboard shortcuts handler
 ├── content/                 # Content files (multilingual)
 │   ├── blog/                # Markdown blog posts with frontmatter
+│   ├── scrapbook/           # Miscellaneous notes and writings
 │   ├── now-items.ts         # "Now" page content
 │   ├── project-items.ts     # Project portfolio items
 │   └── uses-items.tsx       # Tech stack and tools
@@ -124,10 +130,11 @@ website-v4/
 │   ├── blog.ts              # Blog post fetching and processing
 │   ├── metadata.js          # SEO metadata generator
 │   ├── feed.ts              # RSS/Atom/JSON feed generation
+│   ├── structured-data.ts   # JSON-LD structured data for SEO
 │   └── utils.ts             # General utilities
 ├── pages/api/               # API routes
-│   ├── lastfm/              # Last.fm recent tracks feed
-│   └── premid/              # PreMID Discord presence data
+│   ├── lastfm.js            # Last.fm recent tracks feed
+│   └── premid.ts            # PreMID Discord presence data
 ├── public/                  # Static assets
 │   ├── fonts/               # Local fonts
 │   ├── favicons.svg         # Site favicon
@@ -210,7 +217,7 @@ website-v4/
 All hooks are exported from `hooks/index.ts`:
 
 | Hook | Purpose |
-|------|---------|
+| ---- | ------- |
 | `useMounted()` | **Required** for client-only rendering to avoid hydration mismatches |
 | `useViewport()` | Debounced responsive breakpoint detection (`isMobile`, `isTablet`, `isDesktop`) |
 | `useCurrentLanguage()` | Normalized language code from i18n |
@@ -230,14 +237,72 @@ if (!mounted) return <StaticFallback />
 return <InteractiveComponent />
 ```
 
-## Testing & debugging
+## Testing
 
-- Check `http://localhost:3000` with JS disabled to verify site working without JS
-- Use `pnpm lint` and `pnpm type-check` to validate code quality
-- Use browser DevTools > Lighthouse for performance/accessibility audits
-- Verify translations by switching languages via header dropdown or pressing `g`
-- Test keyboard shortcuts (`h`, `b`, `p`, `n`, `m`, `g`, etc.)
-- Check responsive behavior at 768px (tablet) and 1280px (desktop) breakpoints
+1. Code quality
+
+   ```bash
+   pnpm lint        # ESLint validation
+   pnpm type-check  # TypeScript validation
+   ```
+
+2. No-JavaScript test
+   - Disable JavaScript in DevTools
+   - Verify site still works (navigation, content display)
+   - Check for `noscript` fallbacks
+
+3. Hydration validation
+   - Open browser console
+   - Look for "Hydration failed" or "Text content did not match" errors
+   - If found, wrap client-only code with `useMounted()` hook
+
+4. Responsive breakpoints
+   - Mobile: < 768px
+   - Tablet: 768px - 1279px
+   - Desktop: ≥ 1280px
+   - Test navigation overflow behavior on tablet
+
+5. Keyboard navigation
+   - `h` → Home, `b` → Blog, `p` → Projects
+   - `m` → Cycle theme, `y` → Cycle language
+   - `j`/`k` or arrow keys on blog list
+   - Verify shortcuts don't conflict on game pages (2048, Tetris)
+
+6. Internationalization
+   - Switch languages via header dropdown or `y` key
+   - Verify all 12 languages load without errors
+   - Check language-specific fonts (Chinese, Hán-Nôm)
+
+7. Performance
+   - Run Lighthouse audit in DevTools
+   - Target: 90+ on Performance, 100 on all other metrics (Accessibility, Best Practices, SEO)
+   - Check for layout shifts, long tasks, large images
+
+8. Accessibility
+   - Tab through all interactive elements
+   - Verify skip-to-content link works
+   - Check ARIA labels on icon buttons
+   - Test screen reader announcements
+
+## Deployment
+
+Builds use Next.js standalone output for self-contained deployments:
+
+```bash
+pnpm build  # Creates .next/standalone with all dependencies
+```
+
+**Security headers** are configured in `next.config.mjs`:
+
+- Strict CSP (Content Security Policy)
+- HSTS, X-Frame-Options, X-Content-Type-Options
+- CORS configured for specific domains only
+
+**Before adding external resources:**
+
+1. Review CSP directives in `next.config.mjs`
+2. Add domain to appropriate CSP directive
+3. Test in production mode to verify no CSP violations
 
 ## Contributing
 
