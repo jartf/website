@@ -172,6 +172,7 @@ export default async function Home() {
                   <img
                     src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
                     alt="The current mood of jarema at www.imood.com"
+                    height={15}
                     className="inline-block"
                   />
                 </a>
