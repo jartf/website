@@ -103,7 +103,9 @@ export default async function Home() {
             {!!recentPosts.length && (
               <div className="lg:order-1">
                 <h2 className="text-2xl font-bold mb-4 text-center">
-                  <T k="home.recentPosts" f={STATIC.recentPosts} />
+                  <a href="/webrings" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
+                    <T k="home.recentPosts" f={STATIC.recentPosts} />
+                  </a>
                 </h2>
                 <div className="space-y-4">
                   {recentPosts.map(post => (
