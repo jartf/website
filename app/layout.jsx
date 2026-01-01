@@ -1,5 +1,6 @@
 import { Space_Grotesk, Lexend, Roboto } from "next/font/google"
 import localFont from "next/font/local"
+import Script from "next/script"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { I18nProvider } from "@/components/i18n-provider"
@@ -141,7 +142,7 @@ export default function RootLayout({ children }) {
         <style>{`.emoji-flag{font-family:"Twemoji Country Flags","Twemoji Mozilla","Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;font-variant-emoji:emoji}.js-disabled-banner{display:none;background:linear-gradient(135deg,#1e3a5f 0%,#2d4a6f 100%);color:#fff;padding:1rem;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;border-bottom:1px solid rgba(255,255,255,0.1)}.js-disabled-banner p{margin:0;font-size:0.875rem;line-height:1.5}.js-disabled-banner a{color:#60a5fa;text-decoration:underline}.js-disabled-banner a:hover{color:#93c5fd}@media(max-width:640px){.js-disabled-banner{padding:0.75rem}.js-disabled-banner p{font-size:0.8rem}}`}</style>
 
         {/* Wayback Machine detection and JavaScript blocker - must load first */}
-        <script src="/wayback-blocker.js" />
+        <Script src="/wayback-blocker.js" strategy="beforeInteractive" />
 
         <script dangerouslySetInnerHTML={{__html:`(function(){document.documentElement.classList.add('js-enabled');try{var s=${JSON.stringify(SUPPORTED_LANGUAGES)},r=(typeof localStorage!=='undefined'&&localStorage.getItem('i18nextLng'))||navigator.language||'',l=s.find(function(x){return r.toLowerCase()===x||r.toLowerCase().indexOf(x+'-')===0})||'en';document.documentElement.setAttribute('lang',l);if(l==='zh'||l==='vih'){var k=document.createElement('link');k.id='noto-sans-sc-font';k.rel='stylesheet';k.href='https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap';document.head.appendChild(k);var t=document.createElement('style');t.id='noto-sans-sc-var';t.textContent=':root{--font-noto-sans-sc:"Noto Sans SC",sans-serif}';document.head.appendChild(t)}}catch(e){document.documentElement.setAttribute('lang','en')}document.addEventListener('DOMContentLoaded',function(){var n=document.querySelector('.js-disabled-notice');if(n)n.style.display='none'})})();`}} />
 

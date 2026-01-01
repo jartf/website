@@ -171,6 +171,7 @@ export default async function Home() {
               <h2 className="text-2xl font-bold mb-4 text-center">Current mood</h2>
               <div className="border rounded-lg p-6 bg-card text-center">
                 <a href="https://www.imood.com/users/jarema">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
                     alt="The current mood of jarema at www.imood.com"
