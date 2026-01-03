@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
 import type { BlogPostMetadata } from "@/lib/blog"
-import styles from "./list.module.css"
 
 // Static fallback content for SSR
 const STATIC_CONTENT = {
@@ -55,7 +54,7 @@ const BlogPostCard = memo(function BlogPostCard({
     <div
       className={`relative transition-all duration-300 h-entry ${
         isFocused ? "ring-2 ring-primary ring-offset-2 scale-[1.02] shadow-lg" : ""
-      } ${styles.visible}`}
+      } blog-visible`}
     >
       {/* Post number indicator for keyboard navigation */}
       {index < 9 && (
@@ -66,7 +65,7 @@ const BlogPostCard = memo(function BlogPostCard({
 
       <Link href={`/blog/${post.slug}`} className="block group u-url" passHref>
         <Card
-          className={`transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50 ${styles.visibleOpacity}`}
+          className={`transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border group-hover:border-primary/50 blog-visibleOpacity`}
         >
           {/* Hover effect background */}
           <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -404,7 +403,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
   if (safeBlogPosts.length === 0) {
     return (
-      <div className={`container mx-auto px-4 py-16 ${styles.visible}`}>
+      <div className={`container mx-auto px-4 py-16 blog-visible`}>
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold mb-6">{mounted ? t("blog.title", STATIC_CONTENT.title) : STATIC_CONTENT.title}</h1>
           <p className="text-muted-foreground mb-8">{mounted ? t("blog.noPosts", STATIC_CONTENT.noPosts) : STATIC_CONTENT.noPosts}</p>
@@ -518,7 +517,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
   }
 
   return (
-    <div className={`container mx-auto px-4 py-16 ${styles.fadeInFast}`}>
+    <div className={`container mx-auto px-4 py-16 blog-fadeInFast`}>
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold">{t("blog.title", "Blog")}</h1>
@@ -584,7 +583,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
         </div>
 
         {/* Search and filter bar */}
-        <div className={`mb-8 space-y-4 ${styles.visible}`} role="search" aria-label={t("blog.searchAndFilter", "Search and filter blog posts")}>
+        <div className={`mb-8 space-y-4 blog-visible`} role="search" aria-label={t("blog.searchAndFilter", "Search and filter blog posts")}>
           <div className="flex gap-2">
             <div className="relative flex-1">
               <label htmlFor="blog-search" className="sr-only">{t("blog.search", "Search posts")}</label>
@@ -895,7 +894,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
         {filteredPosts.length === 0 ? (
           <div
-            className={`text-center py-12 bg-muted/20 rounded-lg ${styles.visible}`}
+            className={`text-center py-12 bg-muted/20 rounded-lg blog-visible`}
           >
             <p className="text-muted-foreground">
               {t("blog.filterNoMatch", "No posts match your filters. Try adjusting your search criteria.")}
@@ -905,7 +904,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
             </Button>
           </div>
         ) : (
-          <div className={`space-y-6 ${styles.fadeIn}`}>
+          <div className={`space-y-6 blog-fadeIn`}>
             {filteredPosts.map((post, index) => (
               <div
                 key={post.slug}

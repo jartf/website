@@ -1,5 +1,5 @@
 import { getAllBlogPosts } from "@/lib/blog"
-import BlogList from "./list"
+import BlogList from "./client"
 import { generateMetadata } from "@/lib/metadata"
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import { SITE_URL } from "@/lib/constants"

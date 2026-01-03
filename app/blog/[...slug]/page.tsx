@@ -14,18 +14,17 @@ import {
   getPostNavigation,
   getRelatedPosts,
   getAlternateLanguages,
-  formatDateFallback,
-} from "./lib"
-import { BlogPostNavigation } from "./postnav"
-import { ShareButtons } from "./share"
+} from "@/lib/blog"
+import { formatDate } from "@/lib/utils"
 import {
   BlogReadingProgress,
   FormattedDate,
   TranslatedText,
   LanguageName,
   AnimatedSection,
+  BlogPostNavigation,
+  ShareButtons,
 } from "./client"
-import styles from "./client.module.css"
 
 const SITE_URL = "https://jarema.me"
 
@@ -40,7 +39,10 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
       return baseGenerateMetadata({ title: "Blog post not found" })
     }
 
-    const post = await getBlogPost(resolvedParams.slug)
+    const slugArr = Array.isArray(resolvedParams.slug) ? resolvedParams.slug : [resolvedParams.slug]
+    const slug = slugArr.join("/")
+
+    const post = await getBlogPost(slug)
     const description = post.content.substring(0, 160)
 
     return {
@@ -73,7 +75,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
 
     // Fetch all required data
     const [post, navigation, allPosts] = await Promise.all([
-      getBlogPost(slugArr),
+      getBlogPost(slug),
       getPostNavigation(slug),
       getAllBlogPosts(),
     ])
@@ -111,7 +113,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-3xl mx-auto">
             {/* Back link */}
-            <AnimatedSection animationClass={styles.animatedX}>
+            <AnimatedSection animationClass="blog-animatedX">
               <Link
                 href="/blog"
                 className="inline-flex items-center text-muted-foreground hover:text-primary mb-8"
@@ -126,7 +128,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
                 {/* Title */}
                 <AnimatedSection
                   className="text-4xl md:text-5xl font-bold mb-6"
-                  animationClass={styles.animatedY}
+                  animationClass="blog-animatedY"
                 >
                   <h1 className="p-name">{post.title}</h1>
                 </AnimatedSection>
@@ -134,12 +136,12 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
                 {/* Post metadata */}
                 <AnimatedSection
                   className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4"
-                  animationClass={styles.animatedY}
+                  animationClass="blog-animatedY"
                 >
                   <div className="flex items-center">
                     <Calendar className="mr-1 h-4 w-4" />
                     <time className="dt-published" dateTime={post.date}>
-                      <FormattedDate date={post.date} fallback={formatDateFallback(post.date)} />
+                      <FormattedDate date={post.date} fallback={formatDate(post.date)} />
                     </time>
                   </div>
 
@@ -174,7 +176,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
 
                 {/* Category and Tags */}
                 {(post.category || (post.tags && post.tags.length > 0)) && (
-                  <AnimatedSection className="flex flex-wrap gap-2 mb-4" animationClass={styles.animatedY}>
+                  <AnimatedSection className="flex flex-wrap gap-2 mb-4" animationClass="blog-animatedY">
                     {post.category && (
                       <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
                         <Badge
@@ -200,13 +202,13 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
                 )}
 
                 {/* Share buttons */}
-                <AnimatedSection className="mb-8 mt-4" animationClass={styles.animatedY}>
+                <AnimatedSection className="mb-8 mt-4" animationClass="blog-animatedY">
                   <ShareButtons title={post.title} url={postUrl} />
                 </AnimatedSection>
 
                 {/* Alternate language notice */}
                 {alternateLanguages.length > 0 && (
-                  <AnimatedSection className="mb-6 text-sm text-muted-foreground" animationClass={styles.animatedY}>
+                  <AnimatedSection className="mb-6 text-sm text-muted-foreground" animationClass="blog-animatedY">
                     <TranslatedText i18nKey="blog.availableIn" fallback="This page is also available in" />{" "}
                     {alternateLanguages.map((alt, idx) => (
                       <span key={alt.language}>
@@ -223,7 +225,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
               </header>
 
               {/* Blog content */}
-              <AnimatedSection className="text-justify e-content" animationClass={styles.animatedY}>
+              <AnimatedSection className="text-justify e-content" animationClass="blog-animatedY">
                 <MarkdownRenderer content={post.content} />
               </AnimatedSection>
 
@@ -234,13 +236,13 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
               <a className="u-url hidden" href={postUrl}>Permalink</a>
 
               {/* Post navigation */}
-              <AnimatedSection animationClass={styles.animatedY}>
+              <AnimatedSection animationClass="blog-animatedY">
                 <BlogPostNavigation navigation={navigation} />
               </AnimatedSection>
 
               {/* Related posts */}
               {relatedPosts.length > 0 && (
-                <AnimatedSection animationClass={styles.animatedY}>
+                <AnimatedSection animationClass="blog-animatedY">
                   <RelatedPosts posts={relatedPosts} />
                 </AnimatedSection>
               )}

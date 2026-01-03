@@ -7,7 +7,6 @@ import { Music, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, RotateCcw } from "luc
 import { DarkModeFirefly } from "@/components/firefly"
 import { useTranslation } from "react-i18next"
 import { usePlatform, useMounted } from "@/hooks"
-import styles from "./Tetris.module.css"
 
 type TouchAction = 'left' | 'right' | 'down' | 'rotate' | 'drop' | 'pause'
 
@@ -596,7 +595,7 @@ export default function TetrisGame() {
               </div>
 
               <div
-                className={`${styles.gameBoard} bg-muted`}
+                className={`tetris-gameBoard bg-muted`}
                 role="application"
                 aria-label={t("tetris.gameBoard", "Tetris game board - use arrow keys to move and rotate pieces")}
                 aria-roledescription="game board"
@@ -611,7 +610,7 @@ export default function TetrisGame() {
                           scale: completedRows.includes(y) ? 1.1 : 1,
                         }}
                         transition={{ duration: 0.3 }}
-                        className={`${styles.cell} ${renderCell(x, y) || "bg-background dark:bg-background/50"}`}
+                        className={`tetris-cell ${renderCell(x, y) || "bg-background dark:bg-background/50"}`}
                       />
                     </AnimatePresence>
                   )),

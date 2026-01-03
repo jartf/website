@@ -1,7 +1,6 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
 import Image from "next/image"
 import BadgesClient from "./client";
-import "./badges.css"
 
 export const metadata = generateMeta({
   title: "Web badges collection",

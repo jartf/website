@@ -16,6 +16,13 @@ export interface BlogPostMetadata {
   language?: string
   tags?: string[]
   category?: string | null
+  alternates?: { language: string; slug: string }[]
+}
+
+export interface AlternateLanguage {
+  language: string
+  slug: string
+  title: string
 }
 
 export interface BlogPost extends BlogPostMetadata {
@@ -98,6 +105,7 @@ export async function getAllBlogPosts(): Promise<BlogPostMetadata[]> {
         language: matterResult.data.language || "en",
         tags: matterResult.data.tags || [],
         category: matterResult.data.category || null,
+        alternates: matterResult.data.alternates || [],
       }
     }
 
@@ -200,4 +208,46 @@ export function getScrapbookEntries(): ScrapbookEntry[] {
       return { date: data.date, content: content.trim(), slug: filename.replace(/\.md$/, "") }
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+}
+
+/**
+ * Get alternate language versions of a post
+ */
+export async function getAlternateLanguages(
+  slugArr: string[],
+  post: BlogPostMetadata,
+  allPosts: BlogPostMetadata[],
+): Promise<AlternateLanguage[]> {
+  const baseSlugParts = [...slugArr]
+  if (baseSlugParts[baseSlugParts.length - 1] === post.language) {
+    baseSlugParts.pop()
+  }
+  const baseSlug = baseSlugParts.join("/")
+
+  // Prefer alternates from frontmatter if present
+  if (post.alternates && post.alternates.length > 0) {
+    return post.alternates
+      .filter((alt) => alt.language !== post.language)
+      .map((alt) => ({
+        language: alt.language,
+        slug: alt.slug,
+        title: allPosts.find((p) => p.slug === alt.slug)?.title || alt.slug,
+      }))
+  }
+
+  // Otherwise, find alternates by matching base slug
+  return allPosts
+    .filter((p) => {
+      const pSlugParts = p.slug.split("/")
+      if (pSlugParts[pSlugParts.length - 1] === p.language) {
+        pSlugParts.pop()
+      }
+      const pBaseSlug = pSlugParts.join("/")
+      return pBaseSlug === baseSlug && p.language !== post.language
+    })
+    .map((p) => ({
+      language: p.language || "en",
+      slug: p.slug,
+      title: p.title,
+    }))
 }
