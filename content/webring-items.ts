@@ -65,6 +65,14 @@ export const WEBRING_ITEMS: WebringItem[] = [
     description: '"Personal sites of any member of the fediverse (also known as fedizens)."',
   },
   {
+    name: 'Geekring',
+    url: 'http://geekring.net/',
+    previous: 'http://geekring.net/site/553/previous',
+    random: 'http://geekring.net/site/553/random',
+    next: 'http://geekring.net/site/553/next',
+    description: '"This is a webring for geeks of all sorts, except those who feel excluded by the use of the word geek."',
+  },
+  {
     name: 'Epic WebRing',
     url: 'https://epic1.nekoweb.org/webring/',
     previous: 'https://links.app.tc/noJS/?d=prev&url=https://jarema.me',
