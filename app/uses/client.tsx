@@ -11,7 +11,27 @@ import { DarkModeFirefly } from "@/components/firefly"
 import { useMounted } from "@/hooks"
 import { CategoryHeader, ExternalLinkText } from "@/components/translated-text"
 import { USES_ICONS, USES_STATIC_CATEGORIES } from "@/lib/icons"
-import type { SerializableUsesCategory, SerializableUsesItem } from "./types"
+
+// Types for serializable data from server
+export type SerializableUsesItem = {
+  name: string
+  descriptionKey?: string
+  description?: string
+  link?: string
+}
+
+export type SerializableSubsection = {
+  title: string
+  iconName?: string
+  items: SerializableUsesItem[]
+}
+
+export type SerializableUsesCategory = {
+  title: string
+  iconName: string
+  items: SerializableUsesItem[]
+  subsections?: SerializableSubsection[]
+}
 
 interface UsesClientWrapperProps {
   categories: SerializableUsesCategory[]

@@ -6,6 +6,9 @@ import { useMounted, useReducedMotion } from "@/hooks"
 import { nowItems } from "@/content/now-items"
 import { LucideHeadphones, Activity } from "lucide-react"
 
+// Re-export TranslatedText from shared component for backward compatibility
+export { TranslatedText } from "@/components/translated-text"
+
 const ActivityCard = memo(function ActivityCard({activity}) {
   return (
     <div className="flex items-center gap-3 overflow-hidden">
@@ -246,12 +249,6 @@ export const AnimatedHeroContent = memo(function AnimatedHeroContent({children, 
   if (!mounted || prefersReducedMotion) return <>{children}</>
 
   return <div className="animate-fade-in-up" style={{animationDelay:`${delay}s`,animationFillMode:"both"}}>{children}</div>
-})
-
-export const TranslatedText = memo(function TranslatedText({i18nKey, fallback}) {
-  const { t } = useTranslation()
-  const mounted = useMounted()
-  return mounted ? <>{t(i18nKey, fallback)}</> : <>{fallback}</>
 })
 
 export const BlogPostMeta = memo(function BlogPostMeta({date, readingTime, initialDateText, initialMinReadText}) {

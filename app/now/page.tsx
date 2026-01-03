@@ -1,7 +1,6 @@
 import { generateMetadata } from "@/lib/metadata"
 import { nowItems } from "@/content/now-items"
-import NowClient from "./client";
-import type { SerializableNowItem, CategoryData } from "./types"
+import NowClient, { type SerializableNowItem, type CategoryData } from "./client"
 import { generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import { NOW_ICONS, getIconName } from "@/lib/icons"
 

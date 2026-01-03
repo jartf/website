@@ -8,7 +8,21 @@ import { Badge } from "@/components/ui/badge"
 import { useMounted, useCurrentLanguage, useReducedMotion } from "@/hooks"
 import { CategoryHeader, TranslatedPageHeader } from "@/components/translated-text"
 import { NOW_ICONS, NOW_STATIC_CATEGORIES } from "@/lib/icons"
-import type { SerializableNowItem, CategoryData } from "./types"
+import type { NowItemContent } from "@/content/now-items"
+
+// Types for serializable data from server
+export type SerializableNowItem = {
+  id: number
+  category: string
+  iconName: string
+  content: NowItemContent
+  date: string
+}
+
+export type CategoryData = {
+  name: string
+  iconName: string
+}
 
 interface NowClientWrapperProps {
   items: SerializableNowItem[]

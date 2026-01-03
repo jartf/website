@@ -72,13 +72,15 @@ interface AnimatedSectionProps {
   children: ReactNode
   delay?: number
   className?: string
+  /** Custom animation class to use instead of default animate-fade-in-up */
+  animationClass?: string
 }
 
 /**
  * Animated section with fade-in-up effect using CSS
  * Falls back to static content when unmounted or user prefers reduced motion
  */
-export const AnimatedSection = memo(function AnimatedSection({ children, delay = 0, className }: AnimatedSectionProps) {
+export const AnimatedSection = memo(function AnimatedSection({ children, delay = 0, className, animationClass }: AnimatedSectionProps) {
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
 
@@ -86,14 +88,11 @@ export const AnimatedSection = memo(function AnimatedSection({ children, delay =
     return <div className={className}>{children}</div>
   }
 
+  const finalAnimationClass = animationClass || 'animate-fade-in-up'
+  const style = animationClass ? undefined : { animationDelay: `${delay}s`, animationFillMode: "both" as const }
+
   return (
-    <div
-      className={`${className || ''} animate-fade-in-up`}
-      style={{
-        animationDelay: `${delay}s`,
-        animationFillMode: "both",
-      }}
-    >
+    <div className={`${className || ''} ${finalAnimationClass}`.trim()} style={style}>
       {children}
     </div>
   )

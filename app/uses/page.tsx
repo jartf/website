@@ -1,7 +1,6 @@
 import { generateMetadata } from "@/lib/metadata"
 import { USES_CATEGORIES } from "@/content/uses-items"
-import UsesClient from "./client";
-import type { SerializableUsesCategory } from "./types"
+import UsesClient, { type SerializableUsesCategory } from "./client"
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import { SITE_URL } from "@/lib/constants"
 import { USES_ICONS, getIconNameFromElement } from "@/lib/icons"

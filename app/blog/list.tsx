@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
+import type { BlogPostMetadata } from "@/lib/blog"
 import styles from "./list.module.css"
 
 // Static fallback content for SSR
@@ -26,20 +27,6 @@ const STATIC_CONTENT = {
   minRead: "min read",
   mood: "Mood",
   cat: "Cat Approved",
-}
-
-// Types for blog posts
-type BlogPostMetadata = {
-  slug: string
-  title: string
-  excerpt: string
-  date: string
-  mood: string
-  catApproved: boolean
-  readingTime: number
-  tags?: string[]
-  category?: string
-  language?: string
 }
 
 type BlogListProps = {
