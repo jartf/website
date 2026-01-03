@@ -5,8 +5,12 @@ import { Calendar, Clock, Cat, ArrowLeft, Tag, Globe } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 import { RelatedPosts } from "@/components/blog/related-posts"
+import { ReadingProgress } from "@/components/blog/reading-progress"
+import { AnimatedSection } from "@/components/page-animation"
+import { TranslatedText } from "@/components/translated-text"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
 import { generateBlogPostSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
+import { SITE_URL } from "@/lib/constants"
 
 import {
   getAllBlogPosts,
@@ -17,16 +21,13 @@ import {
 } from "@/lib/blog"
 import { formatDate } from "@/lib/utils"
 import {
-  BlogReadingProgress,
   FormattedDate,
-  TranslatedText,
   LanguageName,
-  AnimatedSection,
   BlogPostNavigation,
   ShareButtons,
 } from "./client"
 
-const SITE_URL = "https://jarema.me"
+export const dynamic = "force-static"
 
 type PageParams = { slug: string[] | string } | Promise<{ slug: string[] | string }>
 
@@ -108,7 +109,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
     return (
       <main className="relative min-h-screen w-full overflow-hidden">
         {renderJsonLd([blogPostSchema, breadcrumbSchema])}
-        <BlogReadingProgress />
+        <ReadingProgress />
 
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-3xl mx-auto">

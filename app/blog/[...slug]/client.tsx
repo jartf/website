@@ -8,22 +8,8 @@ import { ArrowLeft, ArrowRight, Twitter, Facebook, LinkIcon, Check, Mail } from 
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useMounted, useCurrentLanguage } from "@/hooks"
-import { ReadingProgress } from "@/components/blog/reading-progress"
 import { formatDate } from "@/lib/utils"
 import { LANGUAGE_NAMES } from "@/lib/constants"
-
-// Re-export shared components for backward compatibility
-export { TranslatedText } from "@/components/translated-text"
-export { AnimatedSection } from "@/components/page-animation"
-
-/**
- * Reading progress bar - only shows when JS is available
- */
-export function BlogReadingProgress() {
-  const mounted = useMounted()
-  if (!mounted) return null
-  return <ReadingProgress />
-}
 
 /**
  * Client-side formatted date with user's locale

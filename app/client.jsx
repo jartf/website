@@ -5,9 +5,7 @@ import { useTranslation } from "react-i18next"
 import { useMounted, useReducedMotion } from "@/hooks"
 import { nowItems } from "@/content/now-items"
 import { LucideHeadphones, Activity } from "lucide-react"
-
-// Re-export TranslatedText from shared component for backward compatibility
-export { TranslatedText } from "@/components/translated-text"
+import { formatDate } from "@/lib/utils"
 
 const ActivityCard = memo(function ActivityCard({activity}) {
   return (
@@ -254,27 +252,10 @@ export const AnimatedHeroContent = memo(function AnimatedHeroContent({children, 
 export const BlogPostMeta = memo(function BlogPostMeta({date, readingTime, initialDateText, initialMinReadText}) {
   const { t, i18n } = useTranslation()
   const mounted = useMounted()
-  const [dateText, setDateText] = useState(initialDateText)
-  const [minReadText, setMinReadText] = useState(initialMinReadText)
+  const lang = i18n.language?.split("-")[0] || "en"
 
-  useEffect(() => {
-    if (!mounted) return
-
-    const update = () => {
-      const lang = i18n.language?.split("-")[0] || "en"
-      import("date-fns").then(({format}) => {
-        import("date-fns/locale").then(locales => {
-          const map = {en:locales.enUS,vi:locales.vi,et:locales.et,ru:locales.ru,da:locales.da,tr:locales.tr,zh:locales.zhCN,pl:locales.pl,sv:locales.sv,fi:locales.fi,tok:locales.enUS,vih:locales.vi}
-          setDateText(format(new Date(date), "PP", {locale:map[lang] || locales.enUS}))
-        })
-      })
-      setMinReadText(t("blog.minRead", "min read"))
-    }
-
-    update()
-    i18n.on('languageChanged', update)
-    return () => i18n.off('languageChanged', update)
-  }, [mounted, i18n, t, date])
+  const dateText = mounted ? formatDate(date, lang) : initialDateText
+  const minReadText = mounted ? t("blog.minRead", "min read") : initialMinReadText
 
   return (
     <>
