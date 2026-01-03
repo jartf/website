@@ -1,8 +1,7 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
-import Link from "next/link"
-import { ExternalLink, Code, Server, Palette } from "lucide-react"
+import { Code, Server, Palette } from "lucide-react"
 import { PageAnimation } from "@/components/page-animation"
-import { TranslatedText, TranslatedPageHeader } from "@/components/translated-text"
+import { TranslatedText, TranslatedPageHeader, ExternalLinkText } from "@/components/translated-text"
 
 export const metadata = generateMeta({
   title: "Colophon",
@@ -71,15 +70,9 @@ export default function ColophonPage() {
                 <ul className="space-y-2 list-disc pl-5">
                   {technologyStack.map((tech) => (
                     <li key={tech.name}>
-                      <Link
-                        href={tech.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:underline inline-flex items-center"
-                      >
+                      <ExternalLinkText href={tech.url}>
                         {tech.name}
-                        <ExternalLink className="h-4 w-4 ml-1" />
-                      </Link>{" "}
+                      </ExternalLinkText>{" "}
                       - <TranslatedText i18nKey={`colophon.technologyStack.${tech.key}`} fallback={tech.description} />
                     </li>
                   ))}
@@ -97,28 +90,12 @@ export default function ColophonPage() {
                 </h2>
                 <p>
                   <TranslatedText i18nKey="colophon.hosting.content1" fallback="This site is hosted on" />{" "}
-                  <Link
-                    href="https://vercel.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline inline-flex items-center"
-                  >
-                    Vercel
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </Link>
+                  <ExternalLinkText href="https://vercel.com/">Vercel</ExternalLinkText>
                   , <TranslatedText i18nKey="colophon.hosting.content2" fallback="which provides excellent performance and automatic deployments from GitHub." />
                 </p>
                 <p>
                   <TranslatedText i18nKey="colophon.hosting.content3" fallback="DNS and CDN services are provided by" />{" "}
-                  <Link
-                    href="https://www.cloudflare.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline inline-flex items-center"
-                  >
-                    Cloudflare
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </Link>
+                  <ExternalLinkText href="https://www.cloudflare.com/">Cloudflare</ExternalLinkText>
                   , <TranslatedText i18nKey="colophon.hosting.content4" fallback="for fast global content delivery and security." />
                 </p>
               </section>
@@ -133,35 +110,13 @@ export default function ColophonPage() {
                 </h2>
                 <p>
                   <TranslatedText i18nKey="colophon.inspiration.content1" fallback="The idea for this colophon page came from" />{" "}
-                  <Link
-                    href="https://binyam.in/colophon/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline inline-flex items-center"
-                  >
+                  <ExternalLinkText href="https://binyam.in/colophon/">
                     Binyamin Aron Green&apos;s Colophon
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </Link>
+                  </ExternalLinkText>
                   , <TranslatedText i18nKey="colophon.inspiration.content2" fallback="which was inspired by" />{" "}
-                  <Link
-                    href="https://ericwbailey.design/colophon.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline inline-flex items-center"
-                  >
-                    Eric Bailey
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </Link>
+                  <ExternalLinkText href="https://ericwbailey.design/colophon.html">Eric Bailey</ExternalLinkText>
                   . <TranslatedText i18nKey="colophon.inspiration.content3" fallback="You can learn more about colophons at" />{" "}
-                  <Link
-                    href="https://indieweb.org/colophon"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline inline-flex items-center"
-                  >
-                    IndieWeb
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </Link>
+                  <ExternalLinkText href="https://indieweb.org/colophon">IndieWeb</ExternalLinkText>
                   .
                 </p>
               </section>

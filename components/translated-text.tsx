@@ -1,7 +1,9 @@
 "use client"
 
 import type React from "react"
+import Link from "next/link"
 import { useTranslation } from "react-i18next"
+import { ExternalLink } from "lucide-react"
 import { useMounted } from "@/hooks"
 import type { IconComponent } from "@/lib/icons"
 
@@ -114,5 +116,48 @@ export function CategoryHeader({
       )}
       <h2 className="text-2xl font-bold">{title}</h2>
     </div>
+  )
+}
+
+// ============================================================================
+// ExternalLinkText - Link with external icon pattern
+// ============================================================================
+
+interface ExternalLinkTextProps {
+  /** URL to link to */
+  href: string
+  /** Link text content */
+  children: React.ReactNode
+  /** Additional CSS classes for the link */
+  className?: string
+  /** Icon size class (default: "h-4 w-4 ml-1") */
+  iconClassName?: string
+  /** Whether to show the external link icon (default: true) */
+  showIcon?: boolean
+}
+
+/**
+ * Reusable external link with icon pattern
+ * Consolidates the repeated pattern: <Link href={url} target="_blank" rel="noopener noreferrer" className="...inline-flex items-center">{text}<ExternalLink className="h-4 w-4 ml-1"/></Link>
+ *
+ * Usage: <ExternalLinkText href="https://example.com">Example</ExternalLinkText>
+ */
+export function ExternalLinkText({
+  href,
+  children,
+  className = "text-primary hover:underline inline-flex items-center",
+  iconClassName = "h-4 w-4 ml-1",
+  showIcon = true,
+}: ExternalLinkTextProps) {
+  return (
+    <Link
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+    >
+      {children}
+      {showIcon && <ExternalLink className={iconClassName} aria-hidden="true" />}
+    </Link>
   )
 }

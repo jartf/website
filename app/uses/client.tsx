@@ -2,16 +2,14 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import Link from "next/link"
 import {
-  ExternalLink,
   ImageIcon,
   Lock,
   EyeOff,
 } from "lucide-react"
 import { DarkModeFirefly } from "@/components/firefly"
 import { useMounted } from "@/hooks"
-import { CategoryHeader } from "@/components/translated-text"
+import { CategoryHeader, ExternalLinkText } from "@/components/translated-text"
 import { USES_ICONS, USES_STATIC_CATEGORIES } from "@/lib/icons"
 import type { SerializableUsesCategory, SerializableUsesItem } from "./types"
 
@@ -47,15 +45,13 @@ function UsesItem({
       <div>
         <h3 className="text-xl font-medium">
           {item.link ? (
-            <Link
+            <ExternalLinkText
               href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
               className="hover:text-primary inline-flex items-center"
+              iconClassName="h-4 w-4 ml-1 opacity-70"
             >
               {item.name}
-              <ExternalLink className="h-4 w-4 ml-1 opacity-70" />
-            </Link>
+            </ExternalLinkText>
           ) : (
             item.name
           )}
@@ -210,15 +206,13 @@ export default function UsesClientWrapper({
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 All the things I use on a daily basis. Also available on{" "}
-                <Link
+                <ExternalLinkText
                   href="https://uses.tech"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="text-primary hover:underline inline-flex items-center"
+                  iconClassName="h-4 w-4 ml-1"
                 >
                   uses.tech
-                  <ExternalLink className="h-4 w-4 ml-1" />
-                </Link>
+                </ExternalLinkText>
                 , a website where people share the stuff they use.
               </p>
             </div>
@@ -375,15 +369,13 @@ export default function UsesClientWrapper({
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               {t("uses.description")}{" "}
-              <Link
+              <ExternalLinkText
                 href="https://uses.tech"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-primary hover:underline inline-flex items-center"
+                iconClassName="h-4 w-4 ml-1"
               >
                 uses.tech
-                <ExternalLink className="h-4 w-4 ml-1" />
-              </Link>
+              </ExternalLinkText>
               , {t("uses.websiteDescription")}
             </p>
           </div>

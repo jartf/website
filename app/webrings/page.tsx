@@ -1,7 +1,8 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
 import { WEBRING_ITEMS } from "@/content/webring-items"
-import { ArrowLeft, ArrowRight, Shuffle, ExternalLink } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Shuffle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ExternalLinkText } from "@/components/translated-text"
 
 export const metadata = generateMeta({
   title: "Webrings",
@@ -31,15 +32,13 @@ export default function WebringPage() {
             className="border rounded-lg p-6 bg-card hover:shadow-lg transition-all flex flex-col"
           >
             <div className="mb-4">
-              <a
+              <ExternalLinkText
                 href={webring.url}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-xl font-bold text-primary hover:underline inline-flex items-center gap-2"
+                iconClassName="h-4 w-4"
               >
                 {webring.name}
-                <ExternalLink className="h-4 w-4" />
-              </a>
+              </ExternalLinkText>
               {webring.description && (
                 <p className="text-sm text-muted-foreground mt-2">
                   {webring.description}
