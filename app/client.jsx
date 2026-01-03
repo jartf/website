@@ -325,7 +325,7 @@ export const RecentPosts = memo(function RecentPosts({ blogPosts }) {
   return (
     <section className="lg:order-1" aria-labelledby="recent-posts-heading">
       <h2 id="recent-posts-heading" className="text-2xl font-bold mb-4 text-center">
-        <a href="/webrings" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
+        <a href="/blog" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
           <T k="home.recentPosts" f="Recent blog posts" />
         </a>
       </h2>
