@@ -1,8 +1,9 @@
 import { generateMetadata } from "@/lib/metadata"
 import Link from "next/link"
-import { Slash, Home, User, Code, BookOpen, Clock, Mail, FileText, Wrench, Calendar, MessagesSquare } from "lucide-react"
+import { Slash } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PageAnimation, AnimatedEntry } from "@/components/page-animation"
+import { SLASHES_ICONS } from "@/lib/icons"
 
 export const metadata = generateMetadata({
   title: "Slashes",
@@ -10,20 +11,8 @@ export const metadata = generateMetadata({
   path: "slashes",
 })
 
-// Icon map for server rendering
-const iconMap = {
-  Home,
-  User,
-  Code,
-  BookOpen,
-  Clock,
-  Mail,
-  FileText,
-  Wrench,
-  Calendar,
-  MessagesSquare,
-  Slash,
-}
+// Use shared icon map
+const iconMap = SLASHES_ICONS
 
 // Static routes data - defined on server
 const routes = [

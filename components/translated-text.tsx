@@ -1,7 +1,9 @@
 "use client"
 
+import type React from "react"
 import { useTranslation } from "react-i18next"
 import { useMounted } from "@/hooks"
+import type { IconComponent } from "@/lib/icons"
 
 // ============================================================================
 // TranslatedText - Simple inline translation with fallback
@@ -34,18 +36,21 @@ interface TranslatedPageHeaderProps {
   staticTitle: string
   staticDescription: string
   className?: string
+  /** Optional subtitle below description */
+  subtitle?: React.ReactNode
 }
 
 /**
  * Translated page header with title and description
- * Common pattern used across colophon, about, etc.
+ * Common pattern used across colophon, about, contact, etc.
  */
 export function TranslatedPageHeader({
   titleKey,
   descriptionKey,
   staticTitle,
   staticDescription,
-  className = "text-center mb-12"
+  className = "text-center mb-12",
+  subtitle,
 }: TranslatedPageHeaderProps) {
   const { t } = useTranslation()
   const mounted = useMounted()
@@ -58,6 +63,56 @@ export function TranslatedPageHeader({
       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
         {mounted ? t(descriptionKey, staticDescription) : staticDescription}
       </p>
+      {subtitle}
+    </div>
+  )
+}
+
+// ============================================================================
+// CategoryHeader - Reusable category header with icon
+// ============================================================================
+
+interface CategoryHeaderProps {
+  /** Icon component to render */
+  icon?: IconComponent
+  /** Icon name for lookup in iconMap */
+  iconName?: string
+  /** Icon map for name lookup */
+  iconMap?: Record<string, IconComponent>
+  /** Category title */
+  title: string
+  /** Additional CSS classes */
+  className?: string
+  /** Icon container variant */
+  variant?: "filled" | "subtle"
+}
+
+/**
+ * Reusable category header with icon and title
+ * Used across Now, Uses, and other pages with categorized content
+ */
+export function CategoryHeader({
+  icon,
+  iconName,
+  iconMap,
+  title,
+  className = "flex items-center gap-3 mb-4",
+  variant = "filled",
+}: CategoryHeaderProps) {
+  const Icon = icon || (iconName && iconMap ? iconMap[iconName] : null)
+
+  const iconContainerClass = variant === "filled"
+    ? "bg-primary text-primary-foreground p-2 rounded-full"
+    : "bg-primary/10 p-2 rounded-full"
+
+  return (
+    <div className={className}>
+      {Icon && (
+        <div className={iconContainerClass}>
+          <Icon className="h-5 w-5" />
+        </div>
+      )}
+      <h2 className="text-2xl font-bold">{title}</h2>
     </div>
   )
 }

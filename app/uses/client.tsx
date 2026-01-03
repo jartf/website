@@ -5,71 +5,25 @@ import { useTranslation } from "react-i18next"
 import Link from "next/link"
 import {
   ExternalLink,
-  Laptop,
-  Headphones,
-  Smartphone,
-  Code,
-  Coffee,
-  Globe,
-  Shield,
   ImageIcon,
-  Map,
-  Gamepad2,
-  Palette,
-  Camera,
-  Video,
-  Music,
-  Settings,
   Lock,
   EyeOff,
 } from "lucide-react"
 import { DarkModeFirefly } from "@/components/firefly"
 import { useMounted } from "@/hooks"
+import { CategoryHeader } from "@/components/translated-text"
+import { USES_ICONS, USES_STATIC_CATEGORIES } from "@/lib/icons"
 import type { SerializableUsesCategory, SerializableUsesItem } from "./types"
 
 interface UsesClientWrapperProps {
   categories: SerializableUsesCategory[]
 }
 
-// Icon map for rendering
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Laptop,
-  Headphones,
-  Smartphone,
-  Code,
-  Coffee,
-  Globe,
-  Shield,
-  ImageIcon,
-  Map,
-  Gamepad2,
-  Palette,
-  Camera,
-  Video,
-  Music,
-  Settings,
-}
+// Icon map for rendering - use shared USES_ICONS
+const iconMap = USES_ICONS
 
-// Static category titles for no-JS users
-const staticCategoryTitles: Record<string, string> = {
-  hardware: "Hardware",
-  mobile: "Mobile",
-  audio: "Audio",
-  os: "Operating system",
-  development: "Development",
-  email: "Email",
-  privacy: "Privacy",
-  mobile_tools: "Mobile tools",
-  mapping: "Mapping",
-  gaming: "Gaming",
-  multimedia: "Multimedia",
-  photography: "Photography",
-  video: "Video",
-  design: "Design",
-  media: "Media",
-  photo: "Photo",
-  music: "Music",
-}
+// Static category titles - use shared USES_STATIC_CATEGORIES
+const staticCategoryTitles = USES_STATIC_CATEGORIES
 
 function renderIcon(iconName: string, className: string = "h-6 w-6") {
   const IconComponent = iconMap[iconName]
@@ -112,23 +66,6 @@ function UsesItem({
           </p>
         )}
       </div>
-    </div>
-  )
-}
-
-function CategoryHeader({
-  iconName,
-  title,
-}: {
-  iconName: string
-  title: string
-}) {
-  return (
-    <div className="flex items-center gap-3 mb-4">
-      <div className="bg-primary/10 p-2 rounded-full">
-        {renderIcon(iconName)}
-      </div>
-      <h2 className="text-2xl font-bold">{title}</h2>
     </div>
   )
 }
@@ -291,6 +228,8 @@ export default function UsesClientWrapper({
                 <div key={category.title} id={`category-${category.title}`}>
                   <CategoryHeader
                     iconName={category.iconName}
+                    iconMap={iconMap}
+                    variant="subtle"
                     title={
                       staticCategoryTitles[category.title] || category.title
                     }
@@ -307,6 +246,8 @@ export default function UsesClientWrapper({
                 <div id="category-multimedia">
                   <CategoryHeader
                     iconName={categories[10].iconName}
+                    iconMap={iconMap}
+                    variant="subtle"
                     title={
                       staticCategoryTitles[categories[10].title] ||
                       categories[10].title
@@ -367,6 +308,8 @@ export default function UsesClientWrapper({
     >
       <CategoryHeader
         iconName={category.iconName}
+        iconMap={iconMap}
+        variant="subtle"
         title={t(`uses.categories.${category.title}`)}
       />
       <div className="grid gap-6 ml-4">
@@ -485,14 +428,12 @@ export default function UsesClientWrapper({
               }}
               id="category-multimedia"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-primary/10 p-2 rounded-full">
-                  {renderIcon(categories[10].iconName)}
-                </div>
-                <h2 className="text-2xl font-bold">
-                  {t(`uses.categories.${categories[10].title}`)}
-                </h2>
-              </div>
+              <CategoryHeader
+                iconName={categories[10].iconName}
+                iconMap={iconMap}
+                variant="subtle"
+                title={t(`uses.categories.${categories[10].title}`)}
+              />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ml-4">
                 {categories[10].subsections?.map((subsection, subIndex) => (

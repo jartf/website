@@ -4,31 +4,21 @@ import { useTranslation } from "react-i18next"
 import { DarkModeFirefly } from "@/components/firefly"
 import Image from "next/image"
 import Link from "next/link"
-import { Mail, MessageSquare, Send, Phone, Calendar, AtSign, ImageIcon, Cloud, Twitter, FileCode, User, Github, Code, Globe, Map, ExternalLink, Info, MessageCircle } from "lucide-react"
+import { ExternalLink, Info } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
+import { TranslatedPageHeader } from "@/components/translated-text"
+import { CONTACT_ICONS, CONTACT_LINK_NAMES } from "@/lib/icons"
 import i18n from "i18next"
 
-const iconMap: Record<string, React.ReactNode> = {
-  Mail: <Mail className="h-6 w-6" aria-hidden="true" />,
-  MessageSquare: <MessageSquare className="h-6 w-6" aria-hidden="true" />,
-  Phone: <Phone className="h-6 w-6" aria-hidden="true" />,
-  Send: <Send className="h-6 w-6" aria-hidden="true" />,
-  MessageCircle: <MessageCircle className="h-6 w-6" aria-hidden="true" />,
-  Calendar: <Calendar className="h-6 w-6" aria-hidden="true" />,
-  Cloud: <Cloud className="h-6 w-6" aria-hidden="true" />,
-  Twitter: <Twitter className="h-6 w-6" aria-hidden="true" />,
-  FileCode: <FileCode className="h-6 w-6" aria-hidden="true" />,
-  AtSign: <AtSign className="h-6 w-6" aria-hidden="true" />,
-  ImageIcon: <ImageIcon className="h-6 w-6" aria-hidden="true" />,
-  Facebook: <MessageSquare className="h-6 w-6" aria-hidden="true" />,
-  User: <User className="h-6 w-6" aria-hidden="true" />,
-  Github: <Github className="h-6 w-6" aria-hidden="true" />,
-  Code: <Code className="h-6 w-6" aria-hidden="true" />,
-  Globe: <Globe className="h-6 w-6" aria-hidden="true" />,
-  Map: <Map className="h-6 w-6" aria-hidden="true" />,
-}
+// Generate icon elements from shared CONTACT_ICONS
+const iconMap: Record<string, React.ReactNode> = Object.fromEntries(
+  Object.entries(CONTACT_ICONS).map(([name, Icon]) => [
+    name,
+    <Icon key={name} className="h-6 w-6" aria-hidden="true" />,
+  ])
+)
 
 type LinkData = {
   id: string
@@ -49,31 +39,8 @@ type ContactClientProps = {
   }
 }
 
-const linkNames: Record<string, string> = {
-  matrix: "Matrix",
-  discord: "Discord",
-  email: "Email",
-  signal: "Signal",
-  telegram: "Telegram",
-  zalo: "Zalo",
-  wechat: "微信",
-  calendar: "contact.links.bookMeeting",
-  akkoma: "Akkoma",
-  mastodon: "Mastodon",
-  bluesky: "Bluesky",
-  twitter: "Twitter / X",
-  devto: "Dev.to",
-  threads: "Threads",
-  instagram: "Instagram",
-  messenger: "Messenger",
-  pronouns: "Pronouns.page",
-  github: "GitHub",
-  gitlab: "GitLab",
-  googledev: "Google Developer",
-  indieweb: "IndieWeb",
-  osm: "OpenStreetMap",
-  waze: "Waze Map Editor",
-}
+// Use shared link names
+const linkNames = CONTACT_LINK_NAMES
 
 export default function ContactClient({ links }: ContactClientProps) {
   const { t } = useTranslation()
@@ -218,10 +185,12 @@ export default function ContactClient({ links }: ContactClientProps) {
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t("contact.title")}</h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("contact.description")}</p>
-          </div>
+          <TranslatedPageHeader
+            titleKey="contact.title"
+            descriptionKey="contact.description"
+            staticTitle="Contact"
+            staticDescription="Get in touch with me"
+          />
 
           <div className="grid gap-8">
             <div className="text-center">

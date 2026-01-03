@@ -9,23 +9,15 @@ import { Badge } from "@/components/ui/badge"
 import type { Project } from "@/content/project-items"
 import { useCurrentLanguage, useMounted, useReducedMotion } from "@/hooks"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"
+import { PROJECT_CATEGORY_LABELS, PROJECT_STATUS_LABELS } from "@/lib/icons"
 
 interface ProjectsClientWrapperProps {
   projects: Project[]
 }
 
-// Static labels for no-JS fallback
-const staticCategoryLabels: Record<string, string> = {
-  personal: "Personal",
-  academic: "Academic",
-  activism: "Activism",
-}
-
-const staticStatusLabels: Record<string, string> = {
-  completed: "Completed",
-  "in-progress": "In Progress",
-  planned: "Planned",
-}
+// Static labels for no-JS fallback - use shared constants
+const staticCategoryLabels = PROJECT_CATEGORY_LABELS
+const staticStatusLabels = PROJECT_STATUS_LABELS
 
 function getCategoryColor(category: string) {
   switch (category) {

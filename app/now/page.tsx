@@ -1,30 +1,9 @@
-import type React from "react"
-import {
-  BookOpen,
-  Code,
-  Coffee,
-  Headphones,
-  Brain,
-  GraduationCap,
-  Lightbulb,
-  Activity,
-} from "lucide-react"
 import { generateMetadata } from "@/lib/metadata"
 import { nowItems } from "@/content/now-items"
 import NowClient from "./client";
 import type { SerializableNowItem, CategoryData } from "./types"
 import { generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
-
-const nowIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  BookOpen,
-  Code,
-  Coffee,
-  Headphones,
-  Brain,
-  GraduationCap,
-  Lightbulb,
-  Activity,
-}
+import { NOW_ICONS, getIconName } from "@/lib/icons"
 
 export const metadata = generateMetadata({
   title: "Now",
@@ -32,22 +11,16 @@ export const metadata = generateMetadata({
   path: "now",
 })
 
-// Reverse lookup to get icon name from component
-function getIconName(
-  icon: React.ComponentType<{ className?: string }>
-): string {
-  for (const [name, component] of Object.entries(nowIconMap)) {
-    if (icon === component) return name
-  }
-  return "Activity" // default fallback
-}
+// Use shared getIconName with NOW_ICONS map
+const getIconNameFromNow = (icon: typeof nowItems[number]["icon"]) =>
+  getIconName(icon, NOW_ICONS)
 
 export default function NowPage() {
   // Convert nowItems to serializable format (replace icon components with names)
   const serializableItems: SerializableNowItem[] = nowItems.map((item) => ({
     id: item.id,
     category: item.category,
-    iconName: getIconName(item.icon),
+    iconName: getIconNameFromNow(item.icon),
     content: item.content,
     date: item.date,
   }))

@@ -2,20 +2,12 @@
 
 import { useState, useEffect, useRef, memo } from "react"
 import { useTranslation } from "react-i18next"
-import {
-  BookOpen,
-  Code,
-  Coffee,
-  Headphones,
-  Brain,
-  GraduationCap,
-  Lightbulb,
-  Activity,
-} from "lucide-react"
 import { DarkModeFirefly } from "@/components/firefly"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useMounted, useCurrentLanguage, useReducedMotion } from "@/hooks"
+import { CategoryHeader, TranslatedPageHeader } from "@/components/translated-text"
+import { NOW_ICONS, NOW_STATIC_CATEGORIES } from "@/lib/icons"
 import type { SerializableNowItem, CategoryData } from "./types"
 
 interface NowClientWrapperProps {
@@ -24,52 +16,11 @@ interface NowClientWrapperProps {
   categories: CategoryData[]
 }
 
-// Icon map for rendering
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  BookOpen,
-  Code,
-  Coffee,
-  Headphones,
-  Brain,
-  GraduationCap,
-  Lightbulb,
-  Activity,
-}
+// Icon map for rendering - use shared NOW_ICONS
+const iconMap = NOW_ICONS
 
-// Static category name mappings for no-JS fallback
-const staticCategoryNames: Record<string, string> = {
-  reading: "Reading",
-  learning: "Learning",
-  thinking: "Thinking",
-  planning: "Planning",
-  coding: "Coding",
-  drinking: "Drinking",
-  studying: "Studying",
-  working: "Working",
-  listening: "Listening",
-  premid: "Activity",
-  other: "Other",
-}
-
-function CategoryHeader({
-  iconName,
-  title,
-}: {
-  iconName: string
-  title: string
-}) {
-  const Icon = iconMap[iconName]
-  return (
-    <div className="flex items-center gap-3">
-      {Icon && (
-        <div className="bg-primary text-primary-foreground p-2 rounded-full">
-          <Icon className="h-5 w-5" />
-        </div>
-      )}
-      <h2 className="text-2xl font-bold">{title}</h2>
-    </div>
-  )
-}
+// Static category name mappings - use shared NOW_STATIC_CATEGORIES
+const staticCategoryNames = NOW_STATIC_CATEGORIES
 
 function CategoryCard({ children }: { children: React.ReactNode }) {
   return (
@@ -336,6 +287,7 @@ export default memo(function NowClientWrapper({
                 <div key={category.name} className="space-y-4">
                   <CategoryHeader
                     iconName={category.iconName}
+                    iconMap={iconMap}
                     title={staticCategoryNames[category.name] || category.name}
                   />
 
@@ -591,6 +543,7 @@ export default memo(function NowClientWrapper({
               >
                 <CategoryHeader
                   iconName={category.iconName}
+                  iconMap={iconMap}
                   title={t(`now.categories.${category.name}`)}
                 />
 
