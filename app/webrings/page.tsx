@@ -94,7 +94,6 @@ export default function WebringPage() {
           </div>
         ))}
       </div>
-
     </div>
   )
 }
