@@ -4,7 +4,7 @@ import { getAllBlogPosts } from "@/lib/blog"
 import { Button } from "@/components/ui/button"
 import { MoodCat } from "@/components/mood-cat"
 import { EasterEgg } from "@/components/easter-egg"
-import { NowSection, Greeting, BlogPostMeta } from "./client"
+import { NowSection, Greeting, BlogPostMeta, RecentPosts } from "./client"
 import { TranslatedText } from "@/components/translated-text"
 import { generateWebSiteSchema, generatePersonSchema, renderJsonLd } from "@/lib/structured-data"
 import { nowItems } from "@/content/now-items"
@@ -33,8 +33,8 @@ export default async function Home() {
   const t = (await import('@/translations/en.json')).default
   const blogPosts = await getAllBlogPosts()
 
-  let recentPosts = blogPosts.filter(p => p.language === lang).slice(0, 3)
-  if (!recentPosts.length) recentPosts = blogPosts.filter(p => p.language === "en").slice(0, 3)
+  // Pass all posts to client component for language-based filtering
+  const allPosts = blogPosts
 
   const staticNowData = nowItems
     .filter(i => i.content?.[lang] || i.content?.en)
@@ -101,45 +101,7 @@ export default async function Home() {
               <NowSection initialData={staticNowData.length ? staticNowData : null} />
             </div>
 
-            {!!recentPosts.length && (
-              <section className="lg:order-1" aria-labelledby="recent-posts-heading">
-                <h2 id="recent-posts-heading" className="text-2xl font-bold mb-4 text-center">
-                  <a href="/webrings" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
-                    <T k="home.recentPosts" f={STATIC.recentPosts} />
-                  </a>
-                </h2>
-                <div className="space-y-4">
-                  {recentPosts.map(post => (
-                    <div key={post.slug} className="h-entry">
-                      <Link href={`/blog/${post.slug}`} className="block group u-url">
-                        <div className="border rounded-lg p-4 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
-                          <h3 className="text-lg font-semibold mb-1 group-hover:text-primary transition-colors p-name">{post.title}</h3>
-                          <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
-                            <BlogPostMeta
-                              date={post.date}
-                              readingTime={post.readingTime}
-                              initialDateText={formatDate(post.date, lang)}
-                              initialMinReadText={t.blog?.minRead || STATIC.minRead}
-                            />
-                          </div>
-                          <p className="text-muted-foreground line-clamp-2 text-sm p-summary">{post.excerpt}</p>
-                        </div>
-                      </Link>
-                      <div className="p-author h-card" style={{display:'none'}}>
-                        <span className="p-name" data-url="https://jarema.me">Jarema</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 text-center lg:hidden">
-                  <Link href="/blog">
-                    <Button variant="outline" className="w-full sm:w-auto">
-                      <T k="home.blogButton" f={STATIC.blogButton} />
-                    </Button>
-                  </Link>
-                </div>
-              </section>
-            )}
+            <RecentPosts blogPosts={allPosts} />
           </div>
 
           <div className="mt-10 lg:mt-0 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">

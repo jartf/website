@@ -6,6 +6,9 @@ import { useMounted, useReducedMotion } from "@/hooks"
 import { nowItems } from "@/content/now-items"
 import { LucideHeadphones, Activity } from "lucide-react"
 import { formatDate } from "@/lib/utils"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { TranslatedText } from "@/components/translated-text"
 
 const ActivityCard = memo(function ActivityCard({activity}) {
   return (
@@ -263,5 +266,99 @@ export const BlogPostMeta = memo(function BlogPostMeta({date, readingTime, initi
       <span>•</span>
       <span>{readingTime} {minReadText}</span>
     </>
+  )
+})
+
+export const RecentPosts = memo(function RecentPosts({ blogPosts }) {
+  const { t, i18n } = useTranslation()
+  const mounted = useMounted()
+  const lang = i18n.language?.split("-")[0] || "en"
+
+  const [recentPosts, setRecentPosts] = useState(() => {
+    // Initial SSR/hydration: show English posts
+    let posts = blogPosts.filter(p => p.language === "en").slice(0, 3)
+    if (!posts.length) posts = blogPosts.slice(0, 3)
+    return posts
+  })
+
+  useEffect(() => {
+    if (!mounted) return
+
+    // Combine posts from current language and English
+    const currentLangPosts = blogPosts.filter(p => p.language === lang)
+    const englishPosts = blogPosts.filter(p => p.language === "en")
+
+    // If current language is English, just show English posts
+    if (lang === "en") {
+      setRecentPosts(englishPosts.slice(0, 3))
+      return
+    }
+
+    // Otherwise, combine both languages
+    // Create a Set to avoid duplicates by slug
+    const seen = new Set()
+    const combined = []
+
+    // Add current language posts first
+    for (const post of currentLangPosts) {
+      if (!seen.has(post.slug)) {
+        seen.add(post.slug)
+        combined.push(post)
+      }
+    }
+
+    // Then add English posts
+    for (const post of englishPosts) {
+      if (!seen.has(post.slug)) {
+        seen.add(post.slug)
+        combined.push(post)
+      }
+    }
+
+    setRecentPosts(combined.slice(0, 3))
+  }, [mounted, lang, blogPosts])
+
+  if (!recentPosts.length) return null
+
+  const T = ({k, f}) => <TranslatedText i18nKey={k} fallback={f} />
+
+  return (
+    <section className="lg:order-1" aria-labelledby="recent-posts-heading">
+      <h2 id="recent-posts-heading" className="text-2xl font-bold mb-4 text-center">
+        <a href="/webrings" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
+          <T k="home.recentPosts" f="Recent blog posts" />
+        </a>
+      </h2>
+      <div className="space-y-4">
+        {recentPosts.map(post => (
+          <div key={post.slug} className="h-entry">
+            <Link href={`/blog/${post.slug}`} className="block group u-url">
+              <div className="border rounded-lg p-4 hover:shadow-md transition-all bg-card group-hover:border-primary/50">
+                <h3 className="text-lg font-semibold mb-1 group-hover:text-primary transition-colors p-name">{post.title}</h3>
+                <div className="flex flex-wrap gap-2 text-sm text-muted-foreground mb-2">
+                  <BlogPostMeta
+                    date={post.date}
+                    readingTime={post.readingTime}
+                    initialDateText={formatDate(post.date, lang)}
+                    initialMinReadText={t("blog.minRead", "min read")}
+                  />
+                </div>
+                <p className="text-muted-foreground line-clamp-2 text-sm p-summary">{post.excerpt}</p>
+              </div>
+            </Link>
+            <div className="p-author h-card" style={{display:'none'}}>
+              <span className="p-name" data-url="https://jarema.me">Jarema</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 text-center lg:hidden">
+        <Link href="/blog">
+          <Button variant="outline" className="w-full sm:w-auto">
+            <T k="home.blogButton" f="Read my blog" />
+          </Button>
+        </Link>
+      </div>
+    </section>
   )
 })
