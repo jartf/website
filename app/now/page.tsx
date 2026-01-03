@@ -2,7 +2,7 @@ import { generateMetadata } from "@/lib/metadata"
 import { nowItems } from "@/content/now-items"
 import NowClient, { type SerializableNowItem, type CategoryData } from "./client"
 import { generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
-import { NOW_ICONS, getIconName } from "@/lib/icons"
+import { NOW_ICONS } from "@/lib/icons"
 
 export const metadata = generateMetadata({
   title: "Now",
@@ -10,19 +10,19 @@ export const metadata = generateMetadata({
   path: "now",
 })
 
-// Use shared getIconName with NOW_ICONS map
-const getIconNameFromNow = (icon: typeof nowItems[number]["icon"]) =>
-  getIconName(icon, NOW_ICONS)
-
 export default function NowPage() {
-  // Convert nowItems to serializable format (replace icon components with names)
-  const serializableItems: SerializableNowItem[] = nowItems.map((item) => ({
-    id: item.id,
-    category: item.category,
-    iconName: getIconNameFromNow(item.icon),
-    content: item.content,
-    date: item.date,
-  }))
+  // Convert nowItems to serializable format (get icon name directly)
+  const serializableItems: SerializableNowItem[] = nowItems.map((item) => {
+    // Find icon name by comparing component reference
+    const iconName = Object.entries(NOW_ICONS).find(([_, Icon]) => Icon === item.icon)?.[0] || "Activity"
+    return {
+      id: item.id,
+      category: item.category,
+      iconName,
+      content: item.content,
+      date: item.date,
+    }
+  })
 
   // Pre-compute grouped items on the server
   const groupedItems = serializableItems.reduce(
@@ -57,9 +57,7 @@ export default function NowPage() {
 
   return (
     <>
-      {/* Structured Data for Google Rich Results */}
       {renderJsonLd([breadcrumbSchema])}
-
       <NowClient
         items={serializableItems}
         groupedItems={groupedItems}

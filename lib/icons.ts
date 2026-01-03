@@ -207,38 +207,3 @@ export const PROJECT_STATUS_LABELS: Record<string, string> = {
   "in-progress": "In Progress",
   planned: "Planned",
 }
-
-// ============================================================================
-// Utility function to get icon name from component (for server-side serialization)
-// ============================================================================
-export function getIconName(
-  icon: IconComponent,
-  iconMap: Record<string, IconComponent>
-): string {
-  for (const [name, component] of Object.entries(iconMap)) {
-    if (icon === component) return name
-  }
-  return "Activity" // default fallback
-}
-
-// Extract icon name from React element
-export function getIconNameFromElement(
-  element: React.ReactNode,
-  iconMap: Record<string, IconComponent>
-): string {
-  if (!element || typeof element !== "object") return "ImageIcon"
-
-  const el = element as React.ReactElement
-  if (!el.type) return "ImageIcon"
-
-  const type = el.type as unknown as { displayName?: string; name?: string }
-  const typeName = type.displayName || type.name || ""
-
-  for (const [name, component] of Object.entries(iconMap)) {
-    if (type === component || typeName === name) {
-      return name
-    }
-  }
-
-  return "ImageIcon"
-}

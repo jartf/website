@@ -1,12 +1,12 @@
-import Image from "next/image"
-import { FooterClient } from "@/components/footer/client"
+"use client"
 
-// Static fallback text for no-JS rendering
-const STATIC_FOOTER = {
-  copyright: "no rights reserved, take what you need and do what you want :p",
-  madeWith: "made with love",
-  andChaos: "and a few weeks of screwing around",
-}
+import { useState, useCallback } from "react"
+import { useTranslation } from "react-i18next"
+import { usePathname } from "next/navigation"
+import Image from "next/image"
+import { Heart } from "lucide-react"
+import { KeyboardShortcutsHelp } from "@/components/keyboard-shortcuts-help"
+import { usePlatform, useViewport, useMounted } from "@/hooks"
 
 // Badge data for cleaner rendering
 const BADGES = [
@@ -34,15 +34,46 @@ const BADGES = [
 
 const linkClass = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
 
-const ExternalLinkIcon = () => (
-  <span className="sr-only"> (opens in new tab)</span>
-)
-
 export function Footer() {
+  const { t } = useTranslation()
+  const pathname = usePathname()
+  const { isDesktop } = usePlatform()
+  const { isMobile } = useViewport()
+  const mounted = useMounted()
+  const [tapCount, setTapCount] = useState(0)
+  const isAboutPage = pathname === "/about"
+
+  const handleTap = useCallback((e) => {
+    if (e.target.tagName === 'A') return
+
+    setTapCount(prev => {
+      const newCount = prev + 1
+      if (newCount === 6 && !isAboutPage) {
+        sessionStorage.setItem("showHiddenChapter", "true")
+        window.location.href = "/about#chapter-6"
+        return 0
+      }
+      return newCount
+    })
+
+    setTimeout(() => setTapCount(0), 2000)
+  }, [isAboutPage])
+
   return (
     <footer className="w-full border-t pt-1 xl:py-0" role="contentinfo">
       <div className="container flex flex-col items-center justify-center gap-2 py-2 xl:flex-row xl:gap-1 relative">
-        <FooterClient {...STATIC_FOOTER} />
+        <div className="flex flex-col xl:flex-row items-center gap-2 xl:gap-1 text-sm text-muted-foreground select-none" onClick={handleTap}>
+          <p className="lowercase">
+            {mounted ? t("footer.copyright") : "no rights reserved, take what you need and do what you want :p"}
+          </p>
+          <span className="hidden xl:inline">•</span>
+          <p className="flex items-center gap-1.5 lowercase">
+            {mounted ? t("footer.madeWith") : "made with love"}
+            <Heart className="h-3 w-3 fill-current text-red-500" aria-hidden="true" />
+            {mounted ? t("footer.andChaos") : "and a few weeks of screwing around"}
+          </p>
+        </div>
+        {mounted && isDesktop && !isMobile && <KeyboardShortcutsHelp />}
       </div>
 
       <nav className="pt-1 flex justify-center flex-wrap gap-2 mx-auto" style={{ maxWidth: '760px' }} aria-label="Web badges and external links">
@@ -61,6 +92,7 @@ export function Footer() {
       <a className="flex justify-center mt-2 pb-3" href="/badges" aria-label="View all badges">
         <Image src="/badge.png" alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars." width={88} height={31} className="opacity-90 hover:opacity-100 transition-opacity" loading="lazy" />
       </a>
+
       {/* Bisexual pride flag stripe spanning full width */}
       <svg height="15" width="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" className="block w-full" preserveAspectRatio="none">
         <title>Decorative footer stripe</title>
@@ -68,6 +100,7 @@ export function Footer() {
         <rect fill="#9B4F96" height="5" width="100%" x="0" y="5"></rect>
         <rect fill="#0038A8" height="5" width="100%" x="0" y="10"></rect>
       </svg>
+
       {/* Spacer below footer for extra breathing room */}
       <div aria-hidden="true" className="h-3" />
     </footer>

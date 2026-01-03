@@ -1,7 +1,12 @@
+"use client"
+
+import { useState, useEffect, useRef, useCallback, memo } from "react"
+import { useTranslation } from "react-i18next"
+import i18n from "@/i18n/i18n"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ExternalLink } from "lucide-react"
-import { MoodCatClient } from "./mood-cat/client"
+import { RefreshCw, ExternalLink } from "lucide-react"
+import { useMounted, useReducedMotion } from "@/hooks"
 
 export type MoodCat = {
   id: number
@@ -131,87 +136,140 @@ export const moodCats: MoodCat[] = [
   },
 ]
 
-/**
- * Get a random cat from the list
- */
 function getRandomCat(): MoodCat {
   return moodCats[Math.floor(Math.random() * moodCats.length)]
 }
 
-/**
- * Server component that renders a mood cat with progressive enhancement
- */
+const CatImage = memo(function CatImage({ cat, isVisible }: { cat: MoodCat; isVisible: boolean }) {
+  const currentLang = i18n.language
+  const prefersReducedMotion = useReducedMotion()
+
+  return (
+    <div
+      className={`relative h-full w-full ${!isVisible ? 'opacity-0' : 'opacity-100'} ${prefersReducedMotion ? '' : 'transition-opacity duration-300'}`}
+    >
+      <Image
+        src={cat.image}
+        alt={`Mood cat: ${cat.caption}`}
+        fill
+        className="object-cover"
+        loading="lazy"
+        priority={false}
+      />
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <p className="text-white text-xl font-medium text-center">
+          {currentLang === "vi" && cat.captionVi ? cat.captionVi : cat.caption}
+        </p>
+        {cat.attribution && (
+          <p className="text-white/70 text-xs text-center mt-1">
+            <a
+              href={cat.attribution}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white/90 transition-colors"
+              title={
+                currentLang === "vi" && cat.attributionNoteVi
+                  ? cat.attributionNoteVi
+                  : cat.attributionNote
+              }
+            >
+              Image source
+            </a>
+            {((currentLang === "vi" && cat.attributionNoteVi) ||
+              (currentLang !== "vi" && cat.attributionNote)) && (
+              <span className="block mt-0.5 text-[10px] opacity-70">
+                {currentLang === "vi" && cat.attributionNoteVi
+                  ? cat.attributionNoteVi
+                  : cat.attributionNote}
+              </span>
+            )}
+          </p>
+        )}
+      </div>
+    </div>
+  )
+})
+
 export function MoodCat() {
-  // Pick a random cat on the server
-  const initialCat = getRandomCat()
+  const { t } = useTranslation()
+  const [currentCat, setCurrentCat] = useState<MoodCat>(getRandomCat)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const mounted = useMounted()
+  const prefersReducedMotion = useReducedMotion()
+  const refreshButtonRef = useRef<HTMLButtonElement>(null)
+
+  const refreshCat = useCallback(() => {
+    setIsLoading(true)
+    if (!prefersReducedMotion) {
+      setIsTransitioning(true)
+    }
+
+    let newCat
+    do {
+      newCat = moodCats[Math.floor(Math.random() * moodCats.length)]
+    } while (newCat.id === currentCat.id)
+
+    const delay = prefersReducedMotion ? 50 : 150
+    setTimeout(() => {
+      setCurrentCat(newCat)
+      setIsTransitioning(false)
+      setIsLoading(false)
+    }, delay)
+  }, [currentCat, prefersReducedMotion])
 
   return (
     <div className="relative">
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold relative inline-block group">
-          Cat of the day
+          {mounted ? t("moodCat.title", "Cat of the day") : "Cat of the day"}
           <span className="absolute left-0 -bottom-1 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
           <noscript>
             <style>{`
               .mood-cat-hover-text { display: none; }
             `}</style>
           </noscript>
-          <span className="mood-cat-hover-text absolute left-0 -top-6 w-full text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            judging you softly
-          </span>
+          {mounted && (
+            <span className="mood-cat-hover-text absolute left-0 -top-6 w-full text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+              {t("moodCat.hover", "judging you softly")}
+            </span>
+          )}
         </h2>
       </div>
 
-      <div className="relative rounded-xl overflow-hidden bg-muted" data-server-cat>
+      <div className="relative rounded-xl overflow-hidden bg-muted">
         <div className="relative aspect-[4/3] w-full">
-          <div className="relative h-full w-full">
-            <Image
-              src={initialCat.image}
-              alt={`Mood cat: ${initialCat.caption}`}
-              fill
-              className="object-cover"
-              loading="lazy"
-              priority={false}
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <p className="text-white text-xl font-medium text-center">
-                {initialCat.caption}
-              </p>
-              {initialCat.attribution && (
-                <p className="text-white/70 text-xs text-center mt-1">
-                  <a
-                    href={initialCat.attribution}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-white/90 transition-colors"
-                    title={initialCat.attributionNote}
-                  >
-                    Image source
-                  </a>
-                  {initialCat.attributionNote && (
-                    <span className="block mt-0.5 text-[10px] opacity-70">
-                      {initialCat.attributionNote}
-                    </span>
-                  )}
-                </p>
-              )}
-            </div>
-          </div>
+          {mounted ? (
+            <CatImage cat={currentCat} isVisible={!isTransitioning} />
+          ) : (
+            <CatImage cat={currentCat} isVisible={true} />
+          )}
         </div>
       </div>
 
-      <div className="mt-4 flex justify-center gap-3" data-server-buttons>
+      <div className="mt-4 flex justify-center gap-3">
+        {mounted && (
+          <Button
+            ref={refreshButtonRef}
+            variant="outline"
+            size="sm"
+            onClick={refreshCat}
+            disabled={isLoading}
+            className="group"
+            aria-label={t("moodCat.refresh", "Refresh mood cat")}
+          >
+            <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : "group-hover:rotate-180 transition-transform duration-500"}`} />
+            <span>{t("moodCat.refresh", "New cat, who dis?")}</span>
+          </Button>
+        )}
         <Button variant="outline" size="sm" asChild className="group">
           <a href="https://www.reddit.com/r/Catswithjobs/" target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="mr-2 h-4 w-4 group-hover:animate-pulse" aria-hidden="true" />
-            <span>See more cats</span>
+            <ExternalLink className="mr-2 h-4 w-4 group-hover:animate-pulse" />
+            <span>{mounted ? t("moodCat.seeMore", "See more cats") : "See more cats"}</span>
             <span className="sr-only"> (opens in new tab)</span>
           </a>
         </Button>
       </div>
-
-      {/* Progressive enhancement - add client interactivity */}
-      <MoodCatClient initialCat={initialCat} />
     </div>
   )
 }

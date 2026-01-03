@@ -3,7 +3,7 @@ import { USES_CATEGORIES } from "@/content/uses-items"
 import UsesClient, { type SerializableUsesCategory } from "./client"
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import { SITE_URL } from "@/lib/constants"
-import { USES_ICONS, getIconNameFromElement } from "@/lib/icons"
+import { USES_ICONS } from "@/lib/icons"
 
 export const metadata = generateMetadata({
   title: "Uses",
@@ -11,32 +11,47 @@ export const metadata = generateMetadata({
   path: "uses",
 })
 
-// Use shared utility with USES_ICONS map
-const getUsesIconName = (element: React.ReactNode) =>
-  getIconNameFromElement(element, USES_ICONS)
-
 export default function UsesPage() {
   // Convert USES_CATEGORIES to serializable format
   const serializableCategories: SerializableUsesCategory[] = USES_CATEGORIES.map(
-    (category) => ({
-      title: category.title,
-      iconName: getUsesIconName(category.icon),
-      items: category.items.map((item) => ({
-        name: item.name,
-        descriptionKey: item.descriptionKey,
-        link: item.link,
-      })),
-      subsections: category.subsections?.map((sub) => ({
-        title: sub.title,
-        iconName: sub.icon ? getUsesIconName(sub.icon) : undefined,
-        items: sub.items.map((item) => ({
+    (category) => {
+      // Find icon name directly
+      const iconName = Object.entries(USES_ICONS).find(([_, Icon]) => {
+        if (typeof category.icon === 'object' && category.icon && 'type' in category.icon) {
+          return Icon === category.icon.type
+        }
+        return false
+      })?.[0] || "ImageIcon"
+
+      return {
+        title: category.title,
+        iconName,
+        items: category.items.map((item) => ({
           name: item.name,
           descriptionKey: item.descriptionKey,
-          description: item.description,
           link: item.link,
         })),
-      })),
-    })
+        subsections: category.subsections?.map((sub) => {
+          const subIconName = sub.icon ? Object.entries(USES_ICONS).find(([_, Icon]) => {
+            if (typeof sub.icon === 'object' && sub.icon && 'type' in sub.icon) {
+              return Icon === sub.icon.type
+            }
+            return false
+          })?.[0] : undefined
+
+          return {
+            title: sub.title,
+            iconName: subIconName,
+            items: sub.items.map((item) => ({
+              name: item.name,
+              descriptionKey: item.descriptionKey,
+              description: item.description,
+              link: item.link,
+            })),
+          }
+        }),
+      }
+    }
   )
 
   // Generate structured data
@@ -60,9 +75,7 @@ export default function UsesPage() {
 
   return (
     <>
-      {/* Structured Data for Google Rich Results */}
       {renderJsonLd([itemListSchema, breadcrumbSchema])}
-
       <UsesClient categories={serializableCategories} />
     </>
   )
