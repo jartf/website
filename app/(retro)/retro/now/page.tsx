@@ -11,8 +11,8 @@ export default function RetroNowPage() {
     <>
       {/* Page title */}
       <center>
-        <font size={5} color="#000080">
-          <b>📍 What I&apos;m Doing Now</b>
+        <font size={5}>
+          <b>What I&apos;m doing now</b>
         </font>
         <hr width="50%" />
         <font size={2}>
@@ -40,7 +40,6 @@ export default function RetroNowPage() {
             width="100%"
             cellPadding={10}
             style={{
-              backgroundColor: '#f5f5f5',
               border: '2px inset #808080',
               marginBottom: '10px',
             }}
@@ -48,16 +47,16 @@ export default function RetroNowPage() {
             <tbody>
               <tr>
                 <td>
-                  <font size={3} color="#000080">
-                    <b>📌 {item.category.charAt(0).toUpperCase() + item.category.slice(1)}</b>
+                  <font size={3}>
+                    <b>{item.category.charAt(0).toUpperCase() + item.category.slice(1)}</b>
                   </font>
                   <br />
                   <font size={2}>
                     {item.content.en}
                   </font>
                   <br />
-                  <font size={1} color="#666666">
-                    <i>Updated: {new Date(item.date).toLocaleDateString('en-US')}</i>
+                  <font size={1} color="#aaaaaa">
+                    <i>Updated: {new Date(item.date).toLocaleDateString('en-GB')}</i>
                   </font>
                 </td>
               </tr>
@@ -70,9 +69,9 @@ export default function RetroNowPage() {
 
       {/* Last updated */}
       <center>
-        <font size={2} color="#666666">
+        <font size={2} color="#aaaaaa">
           <i>
-            Last updated: {new Date().toLocaleDateString('en-US', {
+            Last updated: {new Date().toLocaleDateString('en-GB', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
@@ -86,7 +85,7 @@ export default function RetroNowPage() {
       {/* Back link */}
       <center>
         <font size={2}>
-          <a href="/retro">&lt;&lt; Back to Homepage</a>
+          <a href="/retro">&lt;&lt; Back to homepage</a>
         </font>
       </center>
     </>
