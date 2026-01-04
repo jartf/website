@@ -266,7 +266,6 @@ export function MoodCat() {
           <a href="https://www.reddit.com/r/Catswithjobs/" target="_blank" rel="noopener noreferrer">
             <ExternalLink className="mr-2 h-4 w-4 group-hover:animate-pulse" />
             <span>{mounted ? t("moodCat.seeMore", "See more cats") : "See more cats"}</span>
-            <span className="sr-only"> (opens in new tab)</span>
           </a>
         </Button>
       </div>

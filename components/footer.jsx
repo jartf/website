@@ -81,7 +81,6 @@ export function Footer() {
           href ? (
             <a key={src} href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>
               <Image src={src} alt={alt} width={88} height={31} className="hover:opacity-90 transition-opacity" loading="lazy" />
-              <span className="sr-only"> (opens in new tab)</span>
             </a>
           ) : (
             <Image key={src} src={src} alt={alt} width={88} height={31} loading="lazy" role="img" />

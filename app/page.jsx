@@ -117,7 +117,6 @@ export default async function Home() {
                   <div key={url} className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
                     <a href={url} className="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">
                       {name}
-                      <span className="sr-only"> (opens in new tab)</span>
                     </a>
                     <div className="flex items-center gap-2" role="group" aria-label={`Navigate ${name}`}>
                       <a href={prev} className="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Previous site in ${name}`} title="Previous">←</a>
@@ -142,7 +141,6 @@ export default async function Home() {
                     height={15}
                     className="inline-block"
                   />
-                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               </div>
             </section>
