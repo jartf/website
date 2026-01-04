@@ -124,11 +124,8 @@ export default function RetroRootLayout({
                   <tbody>
                     <tr>
                       <td>
-                        <font size={2} color="#f2f2f2">
-                          <b>📣 Note:</b> You are viewing the <b>retro-compatible version</b> of this website.
-                          For the full experience with all modern features, please visit{' '}
-                          <a href="/" style={{ color: '#5dd9f4' }}>the main site</a>{' '}
-                          using a modern browser.
+                        <font size={3} color="#f2f2f2">
+                          <b>Note:</b> You are viewing the <b>retro version</b> of this website. Welcome!
                         </font>
                       </td>
                     </tr>
@@ -210,19 +207,19 @@ function RetroSidebar() {
       </center>
       <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
       <ul style={{ paddingLeft: '20px', margin: '5px 0' }}>
-        <li><a href="/retro" style={{ color: '#5dd9f4' }}>🏠 Home</a></li>
-        <li><a href="/retro/about" style={{ color: '#5dd9f4' }}>👤 About Me</a></li>
-        <li><a href="/retro/blog" style={{ color: '#5dd9f4' }}>📝 Blog</a></li>
-        <li><a href="/retro/projects" style={{ color: '#5dd9f4' }}>💻 Projects</a></li>
-        <li><a href="/retro/now" style={{ color: '#5dd9f4' }}>📍 Now</a></li>
-        <li><a href="/retro/uses" style={{ color: '#5dd9f4' }}>🔧 Uses</a></li>
-        <li><a href="/retro/contact" style={{ color: '#5dd9f4' }}>📧 Contact</a></li>
+        <li><a href="/retro" style={{ color: '#5dd9f4' }}>Home</a></li>
+        <li><a href="/retro/about" style={{ color: '#5dd9f4' }}>About me</a></li>
+        <li><a href="/retro/blog" style={{ color: '#5dd9f4' }}>Blog</a></li>
+        <li><a href="/retro/projects" style={{ color: '#5dd9f4' }}>Projects</a></li>
+        <li><a href="/retro/now" style={{ color: '#5dd9f4' }}>Now</a></li>
+        <li><a href="/retro/uses" style={{ color: '#5dd9f4' }}>Uses</a></li>
+        <li><a href="/retro/contact" style={{ color: '#5dd9f4' }}>Contact</a></li>
       </ul>
 
       <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
 
       <center>
-        <font size={3} color="#5dd9f4"><b>Site Info</b></font>
+        <font size={3} color="#5dd9f4"><b>Site info</b></font>
       </center>
       <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
       <font size={2}>
@@ -248,9 +245,9 @@ function RetroSidebar() {
       <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
       <font size={2}>
         <ul style={{ paddingLeft: '20px', margin: '5px 0' }}>
-          <li><a href="https://github.com/0x4a656666" style={{ color: '#5dd9f4' }}>GitHub</a></li>
-          <li><a href="/rss.xml" style={{ color: '#5dd9f4' }}>RSS Feed</a></li>
-          <li><a href="/" style={{ color: '#5dd9f4' }}>Modern Site</a></li>
+          <li><a href="https://github.com/jartf" style={{ color: '#5dd9f4' }}>GitHub</a></li>
+          <li><a href="/rss.xml" style={{ color: '#5dd9f4' }}>RSS feed</a></li>
+          <li><a href="/" style={{ color: '#5dd9f4' }}>Modern site</a></li>
         </ul>
       </font>
 
@@ -259,14 +256,14 @@ function RetroSidebar() {
       <center>
         <font size={2}>
           <img
-            src="https://web.archive.org/web/20090830040033im_/http://geocities.com/SiliconValley/Heights/4164/animated_construction.gif"
-            alt="Under Construction"
-            width={40}
-            height={40}
+            src="/underconstruction.png"
+            alt="Under construction"
+            width={88}
+            height={31}
             style={{ imageRendering: 'pixelated' }}
           />
           <br />
-          <blink>Under Construction!</blink>
+          <font>This site is always under construction!</font>
         </font>
       </center>
     </>
@@ -280,14 +277,14 @@ function RetroFooter() {
     <>
       <font size={2} color="#ffffff">
         <p>
-          &copy; 1996-{currentYear} Jarema | All Rights Reserved
+          Jarema, {currentYear} - No rights reserved
           <br />
-          <a href="mailto:hi@jarema.me" style={{ color: '#5dd9f4' }}>
-            hi@jarema.me
+          <a href="mailto:hello@jarema.me" style={{ color: '#5dd9f4' }}>
+            hello@jarema.me
           </a>
         </p>
         <p>
-          <font size={1}>
+          <font size={2}>
             This page has been accessed{' '}
             <font color="#5dd9f4">
               <b>∞</b>
@@ -299,8 +296,8 @@ function RetroFooter() {
           </font>
         </p>
         <p>
-          <font size={1}>
-            [<a href="/" style={{ color: '#5dd9f4' }}>View Modern Version</a>]
+          <font size={2}>
+            [<a href="/" style={{ color: '#5dd9f4' }}>View modern version</a>]
             {' | '}
             [<a href="/sitemap.xml" style={{ color: '#5dd9f4' }}>Sitemap</a>]
             {' | '}
@@ -318,58 +315,174 @@ function RetroBadges() {
       <tbody>
         <tr>
           <td>
+            <img
+              src="/sweet.png"
+              alt="Sweet homepage"
+              width={88}
+              height={31}
+            />
+          </td>
+          <td>
             <a href="https://www.anybrowser.org/campaign/">
               <img
-                src="https://www.anybrowser.org/campaign/bvgraphics/abanybrowser3.gif"
-                alt="Best Viewed With Any Browser"
+                src="/any_browser.gif"
+                alt="Best viewed with any browser"
                 width={88}
                 height={31}
-                style={{ border: '1px solid #000' }}
               />
             </a>
           </td>
           <td>
             <img
-              src="https://web.archive.org/web/20091027081833im_/http://geocities.com/ResearchTriangle/Station/5765/netscape.gif"
-              alt="Netscape Now!"
+              src="/lynxnow.gif"
+              alt="Lynx Now!"
               width={88}
               height={31}
-              style={{ border: '1px solid #000' }}
             />
           </td>
           <td>
             <img
-              src="https://web.archive.org/web/20091019182711im_/http://geocities.com/SiliconValley/Way/4302/w3c_html40.gif"
-              alt="Valid HTML 4.0"
+              src="/dumbass.gif"
+              alt="Dumbass webmaster ahead"
               width={88}
               height={31}
-              style={{ border: '1px solid #000' }}
             />
           </td>
           <td>
             <img
-              src="https://web.archive.org/web/20091024201254im_/http://geocities.com/SiliconValley/Hills/3116/css_valid.gif"
-              alt="Valid CSS"
+              src="/join_logo.gif"
+              alt="Miaow"
               width={88}
               height={31}
-              style={{ border: '1px solid #000' }}
             />
           </td>
           <td>
             <img
-              src="https://web.archive.org/web/20090831030905im_/http://geocities.com/SiliconValley/Horizon/7810/madmac.gif"
-              alt="Made on a Mac"
+              src="/bannars.gif"
+              alt="Miaow"
               width={88}
               height={31}
-              style={{ border: '1px solid #000' }}
             />
           </td>
-        </tr>
-        <tr>
-          <td colSpan={5} style={{ textAlign: 'center' }}>
-            <font size={1} color="#666666">
-              Best viewed at 800x600 resolution with 256 colors
-            </font>
+          <td>
+            <img
+              src="/teto.gif"
+              alt="Teto"
+              width={88}
+              height={31}
+            />
+          </td>
+          <td>
+            <img
+              src="/button2019.gif"
+              alt="Still using buttons in 2019!"
+              width={88}
+              height={31}
+            />
+          </td>
+          <td>
+            <a href="https://people.pledge.party">
+              <img
+                src="/people_pledge_badge_party_cream_pink_88x31.png"
+                alt="People Pledge"
+                width={88}
+                height={31}
+              />
+            </a>
+          </td>
+          <td>
+            <a href="https://kagi.com/smallweb">
+              <img
+                src="/kagi-smallweb-yellow.gif"
+                alt="Kagi Small Web"
+                width={88}
+                height={31}
+              />
+            </a>
+          </td>
+          <td>
+            <img
+              src="/internetprivacy.gif"
+              alt="Internet Privacy Now!"
+              width={88}
+              height={31}
+            />
+          </td>
+          <td>
+            <a href="https://yesterweb.org/no-to-web3/">
+              <img
+                src="/saynotoweb3_88x31.gif"
+                alt="Keep the web free, say no to Web3"
+                width={88}
+                height={31}
+              />
+            </a>
+          </td>
+          <td>
+            <a href="/rss.xml">
+              <img
+                src="/valid-rss-rogers.png"
+                alt="Valid RSS feed"
+                width={88}
+                height={31}
+              />
+            </a>
+          </td>
+          <td>
+            <a href="/atom.xml">
+              <img
+                src="/valid-atom.png"
+                alt="Valid Atom feed"
+                width={88}
+                height={31}
+              />
+            </a>
+          </td>
+          <td>
+            <a href="/humans.txt">
+              <img
+                src="/humanstxt.png"
+                alt="humans.txt"
+                width={88}
+                height={31}
+              />
+            </a>
+          </td>
+          <td>
+            <img
+              src="/got_html.gif"
+              alt="Got HTML?"
+              width={88}
+              height={31}
+            />
+          </td>
+          <td>
+            <a href="https://fedoraproject.org/">
+              <img
+                src="/fedora.gif"
+                alt="Fedora Linux"
+                width={88}
+                height={31}
+              />
+            </a>
+          </td>
+          <td>
+            <a href="/blog/2025/08/anything-but-chrome">
+              <img
+                src="/anythingbut.gif"
+                alt="Anything but Chrome"
+                width={88}
+                height={31}
+              />
+            </a>
+          </td>
+          <td>
+            <img
+              src="/retrokid.gif"
+              alt="Retro"
+              width={88}
+              height={31}
+            />
           </td>
         </tr>
       </tbody>

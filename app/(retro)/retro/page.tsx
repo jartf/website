@@ -9,7 +9,7 @@ import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants'
  */
 
 export const metadata = {
-  title: `${SITE_NAME} - Retro Version`,
+  title: `${SITE_NAME} - Retro version`,
   description: SITE_DESCRIPTION,
   robots: 'noindex, nofollow', // Don't index the retro version
 }
@@ -19,15 +19,9 @@ export default function RetroHomePage() {
     <>
       {/* Welcome banner */}
       <center>
-        <font size={6} color="#000080">
-          <b>Welcome to my Homepage!</b>
+        <font size={6}>
+          <b>Welcome to my corner!</b>
         </font>
-        <br />
-        <img
-          src="https://web.archive.org/web/20091027065323im_/http://geocities.com/SiliconValley/Park/6554/welcome.gif"
-          alt="Welcome!"
-          width={200}
-        />
       </center>
 
       <hr />
@@ -35,17 +29,16 @@ export default function RetroHomePage() {
       {/* Introduction */}
       <p>
         <font size={3}>
-          <b>Hello, visitor!</b> My name is <font color="#ff0000"><b>Jarema</b></font> and
-          you have reached my personal corner of the World Wide Web! 🌐
+          <b>Hello wanderer!</b> My name is <font color="#ff0000"><b>Jarema</b></font> and
+          this is my corner on the internet!
         </font>
       </p>
 
       <p>
         <font size={3}>
-          I am a developer, tinkerer, and digital gardener who enjoys building things
-          for the web. This website serves as my digital home where I share my{' '}
+          I am a student and developer who enjoys tinkering and building things. This website is the place I share my{' '}
           <a href="/retro/blog">thoughts</a>,{' '}
-          <a href="/retro/projects">projects</a>, and{' '}
+          <a href="/retro/projects">projects</a>, and also{' '}
           <a href="/retro/about">a bit about myself</a>.
         </font>
       </p>
@@ -57,8 +50,8 @@ export default function RetroHomePage() {
         <tbody>
           <tr>
             <td>
-              <font size={4} color="#000080">
-                <b>📚 What&apos;s Here?</b>
+              <font size={4}>
+                <b>What&apos;s on here?</b>
               </font>
             </td>
           </tr>
@@ -67,22 +60,22 @@ export default function RetroHomePage() {
 
       <blockquote>
         <dl>
-          <dt><b><a href="/retro/about">👤 About Me</a></b></dt>
+          <dt><b><a href="/retro/about">About me</a></b></dt>
           <dd>Learn more about who I am and what I do.</dd>
 
-          <dt><b><a href="/retro/blog">📝 Blog</a></b></dt>
+          <dt><b><a href="/retro/blog">Blog</a></b></dt>
           <dd>Read my latest thoughts, tutorials, and ramblings.</dd>
 
-          <dt><b><a href="/retro/projects">💻 Projects</a></b></dt>
+          <dt><b><a href="/retro/projects">Projects</a></b></dt>
           <dd>Check out the things I&apos;ve built.</dd>
 
-          <dt><b><a href="/retro/now">📍 Now</a></b></dt>
+          <dt><b><a href="/retro/now">Now</a></b></dt>
           <dd>What I&apos;m currently focused on.</dd>
 
-          <dt><b><a href="/retro/uses">🔧 Uses</a></b></dt>
+          <dt><b><a href="/retro/uses">Uses</a></b></dt>
           <dd>The tools and tech I use daily.</dd>
 
-          <dt><b><a href="/retro/contact">📧 Contact</a></b></dt>
+          <dt><b><a href="/retro/contact">Contact</a></b></dt>
           <dd>Ways to get in touch with me.</dd>
         </dl>
       </blockquote>
