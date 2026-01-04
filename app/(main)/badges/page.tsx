@@ -250,7 +250,7 @@ const BADGES = [
     width: 88,
     height: 31,
     url: null,
-    description: "Yes, I'm still using buttons in... *checks calendar* almost 2026!",
+    description: "Yes, I'm still using buttons in... *checks calendar* 2026!",
   },
   {
     id: "button-webdesign",
