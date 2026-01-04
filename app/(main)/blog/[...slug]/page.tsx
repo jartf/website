@@ -26,6 +26,7 @@ import {
   BlogPostNavigation,
   ShareButtons,
 } from "./client"
+import { CusdisComments } from "@/components/blog/cusdis-comments"
 
 export const dynamic = "force-static"
 
@@ -247,6 +248,15 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
                   <RelatedPosts posts={relatedPosts} />
                 </AnimatedSection>
               )}
+
+              {/* Comments */}
+              <AnimatedSection animationClass="blog-animatedY">
+                <CusdisComments
+                  pageId={slug}
+                  pageUrl={postUrl}
+                  pageTitle={post.title}
+                />
+              </AnimatedSection>
             </article>
           </div>
         </div>
