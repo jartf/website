@@ -1,0 +1,346 @@
+/*
+ * Retro CSS Stylesheet
+ *
+ * This stylesheet is CSS1 compatible for ancient browsers like
+ * Netscape Navigator 4.x and Internet Explorer 3.x
+ *
+ * CSS1 was released in 1996 and supports:
+ * - Basic font properties (font-family, font-size, font-style, font-weight)
+ * - Text properties (text-align, text-decoration, text-indent)
+ * - Color and background (color, background, background-color)
+ * - Margin and padding
+ * - Border (basic)
+ * - Width and height
+ * - Display (basic)
+ *
+ * NOT supported in CSS1:
+ * - position, z-index
+ * - float (partially)
+ * - CSS variables
+ * - flexbox, grid
+ * - media queries
+ * - :hover on non-links (in older browsers)
+ */
+
+/* Base styles */
+body {
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links */
+a {
+  color: #0000ff;
+}
+
+a:visited {
+  color: #800080;
+}
+
+a:active {
+  color: #ff0000;
+}
+
+/* Headings */
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000080;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000080;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000080;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+/* Paragraphs */
+p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+li {
+  margin-bottom: 3px;
+}
+
+/* Horizontal rule */
+hr {
+  border-style: none;
+  height: 2px;
+  background-color: #808080;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 5px;
+}
+
+/* Blockquote */
+blockquote {
+  border-left-width: 4px;
+  border-left-style: solid;
+  border-left-color: #808080;
+  padding-left: 15px;
+  margin-left: 10px;
+  font-style: italic;
+}
+
+/* Definition lists */
+dt {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+dd {
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+/* Pre and code */
+pre, code {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #f0f0f0;
+  padding: 2px;
+}
+
+pre {
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #808080;
+  overflow: auto;
+}
+
+/* Form elements (basic) */
+input, textarea, select {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  padding: 2px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: #808080;
+}
+
+button {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  padding: 4px 8px;
+  background-color: #c0c0c0;
+  border-width: 2px;
+  border-style: outset;
+  border-color: #808080;
+  cursor: pointer;
+}
+
+/* Images */
+img {
+  border-width: 0;
+}
+
+/* Header bar */
+.header {
+  background-color: #000080;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.header a {
+  color: #00ffff;
+}
+
+/* Navigation */
+.nav {
+  background-color: #e0e0e0;
+  padding: 5px;
+  border-bottom-width: 2px;
+  border-bottom-style: groove;
+  border-bottom-color: #808080;
+}
+
+.nav a {
+  margin-right: 10px;
+}
+
+/* Content area */
+.content {
+  background-color: #ffffff;
+  padding: 15px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: #808080;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: #808080;
+}
+
+/* Footer */
+.footer {
+  background-color: #000080;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+}
+
+.footer a {
+  color: #ffff00;
+}
+
+/* Notice boxes */
+.notice {
+  background-color: #ffffcc;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #ff9900;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.notice-info {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.notice-success {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.notice-warning {
+  background-color: #fff8e1;
+  border-color: #ff9800;
+}
+
+/* Blink animation - for nostalgia! */
+/* Note: CSS1 doesn't support animations, this is for modern browsers viewing retro mode */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+blink {
+  animation: blink 1s infinite;
+}
+
+/* Marquee-like text - for browsers that support it */
+.marquee {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Badge container */
+.badges {
+  text-align: center;
+  padding: 20px;
+}
+
+.badges img {
+  margin: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000000;
+}
+
+/* Retro button style */
+.button-retro {
+  display: inline;
+  padding: 4px 12px;
+  background-color: #c0c0c0;
+  border-width: 3px;
+  border-style: outset;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000000;
+}
+
+/* Groove and ridge borders (90s favorite!) */
+.border-groove {
+  border-width: 2px;
+  border-style: groove;
+  border-color: #808080;
+}
+
+.border-ridge {
+  border-width: 2px;
+  border-style: ridge;
+  border-color: #808080;
+}
+
+.border-inset {
+  border-width: 2px;
+  border-style: inset;
+  border-color: #808080;
+}
+
+.border-outset {
+  border-width: 2px;
+  border-style: outset;
+  border-color: #808080;
+}
+
+/* Text alignment classes */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Common colors */
+.color-navy { color: #000080; }
+.color-red { color: #ff0000; }
+.color-green { color: #008000; }
+.color-yellow { color: #ffff00; }
+.color-cyan { color: #00ffff; }
+.color-magenta { color: #ff00ff; }
+.color-gray { color: #808080; }
+.color-white { color: #ffffff; }
+
+.bg-navy { background-color: #000080; }
+.bg-silver { background-color: #c0c0c0; }
+.bg-white { background-color: #ffffff; }
+.bg-yellow { background-color: #ffff00; }
+.bg-gray { background-color: #808080; }

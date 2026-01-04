@@ -30,6 +30,7 @@ const BADGES = [
   { src: "/fedora.gif", alt: "A banner showing the text Powered by in black with white background, above the Fedora Linux wordmark with dark blue background.", href: "https://fedoraproject.org/" },
   { src: "/anythingbut.gif", alt: "A banner showing the Chrome logo crossed out with a No sign, next to the words Anything But Chrome in black.", href: "/blog/2025/08/anything-but-chrome" },
   { src: "/perfectclear.gif", alt: "An animated banner showing a Tetris gameplay, next to the words Perfect clear in white.", href: "/tetris" },
+  { src: "/retro-mode.svg", alt: "A retro-style banner showing 'Retro Mode' with a pixelated design. Works in Mosaic and Netscape!", href: "/retro" },
 ]
 
 const linkClass = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
