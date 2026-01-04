@@ -88,7 +88,7 @@ export default function RetroAboutPage() {
           </tr>
           <tr>
             <td><font size={2}><b>Frontend</b></font></td>
-            <td><font size={2}>React, Next.js, Vue.js, Tailwind CSS</font></td>
+            <td><font size={2}>React, Next.js, Tailwind CSS</font></td>
           </tr>
           <tr>
             <td><font size={2}><b>Backend</b></font></td>
