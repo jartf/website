@@ -213,6 +213,7 @@ function RetroSidebar() {
         <li><a href="/retro/projects" style={{ color: '#5dd9f4' }}>Projects</a></li>
         <li><a href="/retro/now" style={{ color: '#5dd9f4' }}>Now</a></li>
         <li><a href="/retro/uses" style={{ color: '#5dd9f4' }}>Uses</a></li>
+        <li><a href="/retro/webrings" style={{ color: '#5dd9f4' }}>Webrings</a></li>
         <li><a href="/retro/contact" style={{ color: '#5dd9f4' }}>Contact</a></li>
       </ul>
 
