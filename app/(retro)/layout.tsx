@@ -41,8 +41,8 @@ export default function RetroRootLayout({
       </head>
       <body
         style={{
-          backgroundColor: '#c0c0c0',
-          color: '#000000',
+          backgroundColor: '#1a1625',
+          color: '#f2f2f2',
           fontFamily: 'Times New Roman, Times, serif',
           margin: 0,
           padding: 0,
@@ -61,7 +61,7 @@ export default function RetroRootLayout({
               <td
                 colSpan={3}
                 style={{
-                  backgroundColor: '#000080',
+                  backgroundColor: '#2d1b4e',
                   color: '#ffffff',
                   padding: '10px',
                   textAlign: 'center',
@@ -75,21 +75,21 @@ export default function RetroRootLayout({
                           <b>☆ {SITE_NAME} ☆</b>
                         </font>
                         <br />
-                        <font size={2} color="#ffff00">
+                        <font size={2} color="#5dd9f4">
                           <i>A personal website since 2024</i>
                         </font>
                       </td>
                       <td style={{ textAlign: 'right', verticalAlign: 'middle' }}>
                         <font size={2} color="#ffffff">
-                          [<a href="/retro" style={{ color: '#00ffff' }}>Home</a>]
+                          [<a href="/retro" style={{ color: '#5dd9f4' }}>Home</a>]
                           {' '}
-                          [<a href="/retro/about" style={{ color: '#00ffff' }}>About</a>]
+                          [<a href="/retro/about" style={{ color: '#5dd9f4' }}>About</a>]
                           {' '}
-                          [<a href="/retro/blog" style={{ color: '#00ffff' }}>Blog</a>]
+                          [<a href="/retro/blog" style={{ color: '#5dd9f4' }}>Blog</a>]
                           {' '}
-                          [<a href="/retro/projects" style={{ color: '#00ffff' }}>Projects</a>]
+                          [<a href="/retro/projects" style={{ color: '#5dd9f4' }}>Projects</a>]
                           {' '}
-                          [<a href="/retro/contact" style={{ color: '#00ffff' }}>Contact</a>]
+                          [<a href="/retro/contact" style={{ color: '#5dd9f4' }}>Contact</a>]
                         </font>
                       </td>
                     </tr>
@@ -104,7 +104,7 @@ export default function RetroRootLayout({
                 <hr style={{
                   border: 'none',
                   height: '3px',
-                  backgroundColor: '#000080',
+                  backgroundColor: '#5dd9f4',
                 }} />
               </td>
             </tr>
@@ -117,17 +117,17 @@ export default function RetroRootLayout({
                   cellPadding={5}
                   cellSpacing={0}
                   style={{
-                    backgroundColor: '#ffffcc',
-                    border: '2px solid #ff9900',
+                    backgroundColor: '#2d1b4e',
+                    border: '2px solid #5dd9f4',
                   }}
                 >
                   <tbody>
                     <tr>
                       <td>
-                        <font size={2}>
+                        <font size={2} color="#f2f2f2">
                           <b>📣 Note:</b> You are viewing the <b>retro-compatible version</b> of this website.
                           For the full experience with all modern features, please visit{' '}
-                          <a href="/" style={{ color: '#0000ff' }}>the main site</a>{' '}
+                          <a href="/" style={{ color: '#5dd9f4' }}>the main site</a>{' '}
                           using a modern browser.
                         </font>
                       </td>
@@ -148,9 +148,10 @@ export default function RetroRootLayout({
                         valign="top"
                         width="75%"
                         style={{
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#211833',
+                          color: '#f2f2f2',
                           padding: '15px',
-                          border: '2px inset #808080',
+                          border: '2px inset #3d2f5a',
                         }}
                       >
                         {children}
@@ -161,9 +162,10 @@ export default function RetroRootLayout({
                         valign="top"
                         width="25%"
                         style={{
-                          backgroundColor: '#e0e0e0',
+                          backgroundColor: '#2d1b4e',
+                          color: '#f2f2f2',
                           padding: '10px',
-                          border: '2px inset #808080',
+                          border: '2px inset #3d2f5a',
                         }}
                       >
                         <RetroSidebar />
@@ -179,7 +181,7 @@ export default function RetroRootLayout({
               <td
                 colSpan={3}
                 style={{
-                  backgroundColor: '#000080',
+                  backgroundColor: '#2d1b4e',
                   color: '#ffffff',
                   padding: '10px',
                   textAlign: 'center',
@@ -204,25 +206,25 @@ function RetroSidebar() {
   return (
     <>
       <center>
-        <font size={3}><b>Navigation</b></font>
+        <font size={3} color="#5dd9f4"><b>Navigation</b></font>
       </center>
-      <hr />
+      <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
       <ul style={{ paddingLeft: '20px', margin: '5px 0' }}>
-        <li><a href="/retro">🏠 Home</a></li>
-        <li><a href="/retro/about">👤 About Me</a></li>
-        <li><a href="/retro/blog">📝 Blog</a></li>
-        <li><a href="/retro/projects">💻 Projects</a></li>
-        <li><a href="/retro/now">📍 Now</a></li>
-        <li><a href="/retro/uses">🔧 Uses</a></li>
-        <li><a href="/retro/contact">📧 Contact</a></li>
+        <li><a href="/retro" style={{ color: '#5dd9f4' }}>🏠 Home</a></li>
+        <li><a href="/retro/about" style={{ color: '#5dd9f4' }}>👤 About Me</a></li>
+        <li><a href="/retro/blog" style={{ color: '#5dd9f4' }}>📝 Blog</a></li>
+        <li><a href="/retro/projects" style={{ color: '#5dd9f4' }}>💻 Projects</a></li>
+        <li><a href="/retro/now" style={{ color: '#5dd9f4' }}>📍 Now</a></li>
+        <li><a href="/retro/uses" style={{ color: '#5dd9f4' }}>🔧 Uses</a></li>
+        <li><a href="/retro/contact" style={{ color: '#5dd9f4' }}>📧 Contact</a></li>
       </ul>
 
-      <hr />
+      <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
 
       <center>
-        <font size={3}><b>Site Info</b></font>
+        <font size={3} color="#5dd9f4"><b>Site Info</b></font>
       </center>
-      <hr />
+      <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
       <font size={2}>
         <p>
           <b>Last updated:</b><br />
@@ -238,21 +240,21 @@ function RetroSidebar() {
         </p>
       </font>
 
-      <hr />
+      <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
 
       <center>
-        <font size={3}><b>Links</b></font>
+        <font size={3} color="#5dd9f4"><b>Links</b></font>
       </center>
-      <hr />
+      <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
       <font size={2}>
         <ul style={{ paddingLeft: '20px', margin: '5px 0' }}>
-          <li><a href="https://github.com/0x4a656666">GitHub</a></li>
-          <li><a href="/rss.xml">RSS Feed</a></li>
-          <li><a href="/">Modern Site</a></li>
+          <li><a href="https://github.com/0x4a656666" style={{ color: '#5dd9f4' }}>GitHub</a></li>
+          <li><a href="/rss.xml" style={{ color: '#5dd9f4' }}>RSS Feed</a></li>
+          <li><a href="/" style={{ color: '#5dd9f4' }}>Modern Site</a></li>
         </ul>
       </font>
 
-      <hr />
+      <hr style={{ backgroundColor: '#3d2f5a', border: 'none', height: '2px' }} />
 
       <center>
         <font size={2}>
@@ -280,14 +282,14 @@ function RetroFooter() {
         <p>
           &copy; 1996-{currentYear} Jarema | All Rights Reserved
           <br />
-          <a href="mailto:hi@jarema.me" style={{ color: '#00ffff' }}>
+          <a href="mailto:hi@jarema.me" style={{ color: '#5dd9f4' }}>
             hi@jarema.me
           </a>
         </p>
         <p>
           <font size={1}>
             This page has been accessed{' '}
-            <font color="#00ff00">
+            <font color="#5dd9f4">
               <b>∞</b>
             </font>{' '}
             times since you loaded it!
@@ -298,11 +300,11 @@ function RetroFooter() {
         </p>
         <p>
           <font size={1}>
-            [<a href="/" style={{ color: '#ffff00' }}>View Modern Version</a>]
+            [<a href="/" style={{ color: '#5dd9f4' }}>View Modern Version</a>]
             {' | '}
-            [<a href="/sitemap.xml" style={{ color: '#ffff00' }}>Sitemap</a>]
+            [<a href="/sitemap.xml" style={{ color: '#5dd9f4' }}>Sitemap</a>]
             {' | '}
-            [<a href="/rss.xml" style={{ color: '#ffff00' }}>RSS</a>]
+            [<a href="/rss.xml" style={{ color: '#5dd9f4' }}>RSS</a>]
           </font>
         </p>
       </font>

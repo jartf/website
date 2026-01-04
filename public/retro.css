@@ -43,8 +43,8 @@ canvas,
 
 /* Base styles */
 body {
-  background-color: #c0c0c0;
-  color: #000000;
+  background-color: #1a1625;
+  color: #f2f2f2;
   font-family: "Times New Roman", Times, serif;
   font-size: 14px;
   margin: 0;
@@ -53,22 +53,22 @@ body {
 
 /* Links */
 a {
-  color: #0000ff;
+  color: #5dd9f4;
 }
 
 a:visited {
-  color: #800080;
+  color: #a78bfa;
 }
 
 a:active {
-  color: #ff0000;
+  color: #7dd3fc;
 }
 
 /* Headings */
 h1 {
   font-size: 24px;
   font-weight: bold;
-  color: #000080;
+  color: #5dd9f4;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -76,7 +76,7 @@ h1 {
 h2 {
   font-size: 20px;
   font-weight: bold;
-  color: #000080;
+  color: #5dd9f4;
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -84,7 +84,7 @@ h2 {
 h3 {
   font-size: 16px;
   font-weight: bold;
-  color: #000080;
+  color: #5dd9f4;
   margin-top: 6px;
   margin-bottom: 6px;
 }
@@ -110,7 +110,7 @@ li {
 hr {
   border-style: none;
   height: 2px;
-  background-color: #808080;
+  background-color: #3d2f5a;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -128,10 +128,11 @@ td, th {
 blockquote {
   border-left-width: 4px;
   border-left-style: solid;
-  border-left-color: #808080;
+  border-left-color: #5dd9f4;
   padding-left: 15px;
   margin-left: 10px;
   font-style: italic;
+  color: #b8b8b8;
 }
 
 /* Definition lists */
@@ -148,7 +149,8 @@ dd {
 /* Pre and code */
 pre, code {
   font-family: "Courier New", Courier, monospace;
-  background-color: #f0f0f0;
+  background-color: #2d1b4e;
+  color: #f2f2f2;
   padding: 2px;
 }
 
@@ -156,7 +158,7 @@ pre {
   padding: 10px;
   border-width: 1px;
   border-style: solid;
-  border-color: #808080;
+  border-color: #3d2f5a;
   overflow: auto;
 }
 
@@ -167,17 +169,20 @@ input, textarea, select {
   padding: 2px;
   border-width: 2px;
   border-style: inset;
-  border-color: #808080;
+  border-color: #3d2f5a;
+  background-color: #2d1b4e;
+  color: #f2f2f2;
 }
 
 button {
   font-family: "Times New Roman", Times, serif;
   font-size: 14px;
   padding: 4px 8px;
-  background-color: #c0c0c0;
+  background-color: #2d1b4e;
+  color: #f2f2f2;
   border-width: 2px;
   border-style: outset;
-  border-color: #808080;
+  border-color: #5dd9f4;
   cursor: pointer;
 }
 
@@ -188,82 +193,86 @@ img {
 
 /* Header bar */
 .header {
-  background-color: #000080;
+  background-color: #2d1b4e;
   color: #ffffff;
   padding: 10px;
 }
 
 .header a {
-  color: #00ffff;
+  color: #5dd9f4;
 }
 
 /* Navigation */
 .nav {
-  background-color: #e0e0e0;
+  background-color: #2d1b4e;
   padding: 5px;
   border-bottom-width: 2px;
   border-bottom-style: groove;
-  border-bottom-color: #808080;
+  border-bottom-color: #3d2f5a;
 }
 
 .nav a {
   margin-right: 10px;
+  color: #5dd9f4;
 }
 
 /* Content area */
 .content {
-  background-color: #ffffff;
+  background-color: #211833;
+  color: #f2f2f2;
   padding: 15px;
   border-width: 2px;
   border-style: inset;
-  border-color: #808080;
+  border-color: #3d2f5a;
 }
 
 /* Sidebar */
 .sidebar {
-  background-color: #e0e0e0;
+  background-color: #2d1b4e;
+  color: #f2f2f2;
   padding: 10px;
   border-width: 2px;
   border-style: inset;
-  border-color: #808080;
+  border-color: #3d2f5a;
 }
 
 /* Footer */
 .footer {
-  background-color: #000080;
+  background-color: #2d1b4e;
   color: #ffffff;
   padding: 10px;
   text-align: center;
 }
 
 .footer a {
-  color: #ffff00;
+  color: #5dd9f4;
 }
 
 /* Notice boxes */
 .notice {
-  background-color: #ffffcc;
+  background-color: #2d1b4e;
+  color: #f2f2f2;
   border-width: 2px;
   border-style: solid;
-  border-color: #ff9900;
+  border-color: #5dd9f4;
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .notice-info {
-  background-color: #e3f2fd;
-  border-color: #2196f3;
+  background-color: #1e3a5f;
+  border-color: #5dd9f4;
 }
 
 .notice-success {
-  background-color: #e8f5e9;
-  border-color: #4caf50;
+  background-color: #1e3a2f;
+  border-color: #4ade80;
 }
 
 .notice-warning {
-  background-color: #fff8e1;
-  border-color: #ff9800;
+  background-color: #3a2e1e;
+  border-color: #fbbf24;
 }
 
 /* Blink animation - for nostalgia! */
@@ -301,38 +310,38 @@ blink {
 .button-retro {
   display: inline;
   padding: 4px 12px;
-  background-color: #c0c0c0;
+  background-color: #2d1b4e;
   border-width: 3px;
   border-style: outset;
-  border-color: #ffffff #808080 #808080 #ffffff;
+  border-color: #5dd9f4 #3d2f5a #3d2f5a #5dd9f4;
   font-weight: bold;
   text-decoration: none;
-  color: #000000;
+  color: #f2f2f2;
 }
 
 /* Groove and ridge borders (90s favorite!) */
 .border-groove {
   border-width: 2px;
   border-style: groove;
-  border-color: #808080;
+  border-color: #3d2f5a;
 }
 
 .border-ridge {
   border-width: 2px;
   border-style: ridge;
-  border-color: #808080;
+  border-color: #3d2f5a;
 }
 
 .border-inset {
   border-width: 2px;
   border-style: inset;
-  border-color: #808080;
+  border-color: #3d2f5a;
 }
 
 .border-outset {
   border-width: 2px;
   border-style: outset;
-  border-color: #808080;
+  border-color: #3d2f5a;
 }
 
 /* Text alignment classes */
@@ -349,17 +358,17 @@ blink {
 }
 
 /* Common colors */
-.color-navy { color: #000080; }
-.color-red { color: #ff0000; }
-.color-green { color: #008000; }
-.color-yellow { color: #ffff00; }
-.color-cyan { color: #00ffff; }
-.color-magenta { color: #ff00ff; }
-.color-gray { color: #808080; }
+.color-navy { color: #2d1b4e; }
+.color-red { color: #f87171; }
+.color-green { color: #4ade80; }
+.color-yellow { color: #fbbf24; }
+.color-cyan { color: #5dd9f4; }
+.color-magenta { color: #c084fc; }
+.color-gray { color: #9ca3af; }
 .color-white { color: #ffffff; }
 
-.bg-navy { background-color: #000080; }
-.bg-silver { background-color: #c0c0c0; }
-.bg-white { background-color: #ffffff; }
-.bg-yellow { background-color: #ffff00; }
-.bg-gray { background-color: #808080; }
+.bg-navy { background-color: #2d1b4e; }
+.bg-silver { background-color: #211833; }
+.bg-white { background-color: #2d1b4e; }
+.bg-yellow { background-color: #3a2e1e; }
+.bg-gray { background-color: #1a1625; }
