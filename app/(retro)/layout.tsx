@@ -1,9 +1,16 @@
 import { SITE_NAME } from '@/lib/constants'
 
 /**
- * Retro Layout for Ancient Browsers
+ * Retro Route Group Layout
  *
- * This layout uses:
+ * This layout completely replaces the root layout for /retro routes.
+ * It provides a standalone HTML document without any modern components
+ * like Header, Footer, Galaxy background, ThemeProvider, etc.
+ *
+ * This ensures text browsers like Lynx don't see the modern navigation
+ * and other elements that don't make sense in the retro context.
+ *
+ * Uses:
  * - HTML 3.2 compatible markup (tables for layout!)
  * - Inline styles only (for browsers that don't support external CSS)
  * - No JavaScript dependencies
@@ -16,7 +23,7 @@ import { SITE_NAME } from '@/lib/constants'
  * - Lynx, Links, w3m (text browsers)
  */
 
-export default function RetroLayout({
+export default function RetroRootLayout({
   children,
 }: {
   children: React.ReactNode
