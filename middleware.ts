@@ -100,9 +100,25 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent') || ''
 
-  // Skip if already on retro route
+  // Handle retro routes - disable JavaScript via CSP
   if (pathname.startsWith('/retro')) {
-    return NextResponse.next()
+    const response = NextResponse.next()
+
+    // Set Content-Security-Policy to disable JavaScript execution
+    response.headers.set(
+      'Content-Security-Policy',
+      [
+        "default-src 'self'",
+        "script-src 'none'",
+        "style-src 'self' 'unsafe-inline'",
+        "img-src 'self' http: https:",
+        "font-src 'self'",
+        "base-uri 'self'",
+        "form-action 'self'",
+      ].join('; ')
+    )
+
+    return response
   }
 
   // Skip static files, API routes, and special routes
