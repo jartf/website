@@ -82,129 +82,20 @@ export default function RetroHomePage() {
 
       <hr />
 
-      {/* Fun facts section */}
-      <table
-        width="100%"
-        cellPadding={10}
-        cellSpacing={0}
-        style={{ backgroundColor: '#e8e8e8', border: '2px groove #808080' }}
-      >
-        <tbody>
-          <tr>
-            <td>
-              <center>
-                <font size={4} color="#008000">
-                  <b>✨ Fun Facts! ✨</b>
-                </font>
-              </center>
-              <ul>
-                <li>This site works on browsers from 1993! 🖥️</li>
-                <li>No JavaScript required for basic navigation! 📜</li>
-                <li>Tables are used for layout (as nature intended) 📊</li>
-                <li>Best viewed at 800x600 with millions of colors 🎨</li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <hr />
-
-      {/* Guestbook call to action */}
-      <center>
-        <table
-          cellPadding={10}
-          cellSpacing={0}
-          style={{ backgroundColor: '#ffffcc', border: '3px ridge #808080' }}
-        >
-          <tbody>
-            <tr>
-              <td>
-                <center>
-                  <img
-                    src="https://web.archive.org/web/20091027042814im_/http://geocities.com/SiliconValley/Lab/3638/penpals.gif"
-                    alt="Guestbook"
-                    width={100}
-                  />
-                  <br />
-                  <font size={3} color="#800000">
-                    <b>Sign my Guestbook!</b>
-                  </font>
-                  <br />
-                  <font size={2}>
-                    Leave a message and let me know you were here!
-                    <br />
-                    <a href="/guestbook">
-                      <b>[Click Here to Sign]</b>
-                    </a>
-                  </font>
-                </center>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </center>
-
-      <hr />
-
       {/* Webrings */}
       <center>
-        <font size={3} color="#000080">
-          <b>🕸️ Webrings 🕸️</b>
+        <font size={3}>
+          <b>Webrings</b>
         </font>
         <br />
         <font size={2}>
-          This site is part of several webrings connecting cool personal sites!
+          This site is part of several webrings. Check them out, they're cool!
           <br />
           <a href="/retro/webrings">[View All Webrings]</a>
         </font>
       </center>
 
       <hr />
-
-      {/* News/Updates */}
-      <table
-        width="100%"
-        cellPadding={5}
-        style={{ backgroundColor: '#f0f0f0', border: '1px solid #000' }}
-      >
-        <tbody>
-          <tr>
-            <td style={{ backgroundColor: '#000080', color: '#ffffff' }}>
-              <font size={3}><b>📰 Latest News</b></font>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <font size={2}>
-                <b>Jan 2026:</b> Added retro browser support! Now compatible with
-                Mosaic, Netscape Navigator, and other vintage browsers. 🎉
-                <br /><br />
-                <b>2024:</b> Site launched! Welcome to my digital garden.
-                <br /><br />
-                <i>Check the <a href="/retro/blog">blog</a> for more updates!</i>
-              </font>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <br />
-
-      {/* Site ring graphic */}
-      <center>
-        <img
-          src="https://web.archive.org/web/20091020060133im_/http://geocities.com/Hollywood/4616/emailme.gif"
-          alt="Email Me!"
-          width={100}
-        />
-        <br />
-        <font size={2}>
-          Questions? Comments? <a href="mailto:hi@jarema.me">Drop me a line!</a>
-        </font>
-      </center>
-
-      <br />
 
       {/* Last updated */}
       <center>
