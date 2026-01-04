@@ -192,12 +192,17 @@ const CatImage = memo(function CatImage({ cat, isVisible }: { cat: MoodCat; isVi
 
 export function MoodCat() {
   const { t } = useTranslation()
-  const [currentCat, setCurrentCat] = useState<MoodCat>(getRandomCat)
+  const [currentCat, setCurrentCat] = useState<MoodCat>(moodCats[0])
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
   const refreshButtonRef = useRef<HTMLButtonElement>(null)
+
+  // Set random cat on mount to avoid hydration mismatch
+  useEffect(() => {
+    setCurrentCat(getRandomCat())
+  }, [])
 
   const refreshCat = useCallback(() => {
     setIsLoading(true)
