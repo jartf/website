@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags, @next/next/no-html-link-for-pages, @next/next/no-img-element */
 import { SITE_NAME } from '@/lib/constants'
 
 /**

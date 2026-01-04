@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, memo } from "react"
+import { useEffect, useState, memo, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMounted, useReducedMotion } from "@/hooks"
 import { nowItems } from "@/content/now-items"
@@ -269,29 +269,23 @@ export const BlogPostMeta = memo(function BlogPostMeta({date, readingTime, initi
   )
 })
 
+// Helper component for translations - defined outside to avoid recreation during render
+const T = ({k, f}) => <TranslatedText i18nKey={k} fallback={f} />
+
 export const RecentPosts = memo(function RecentPosts({ blogPosts }) {
   const { t, i18n } = useTranslation()
   const mounted = useMounted()
   const lang = i18n.language?.split("-")[0] || "en"
 
-  const [recentPosts, setRecentPosts] = useState(() => {
-    // Initial SSR/hydration: show English posts
-    let posts = blogPosts.filter(p => p.language === "en").slice(0, 3)
-    if (!posts.length) posts = blogPosts.slice(0, 3)
-    return posts
-  })
-
-  useEffect(() => {
-    if (!mounted) return
-
+  const recentPosts = useMemo(() => {
     // Combine posts from current language and English
     const currentLangPosts = blogPosts.filter(p => p.language === lang)
     const englishPosts = blogPosts.filter(p => p.language === "en")
 
-    // If current language is English, just show English posts
-    if (lang === "en") {
-      setRecentPosts(englishPosts.slice(0, 3))
-      return
+    // If current language is English or not mounted yet, just show English posts
+    if (!mounted || lang === "en") {
+      const posts = englishPosts.slice(0, 3)
+      return posts.length ? posts : blogPosts.slice(0, 3)
     }
 
     // Otherwise, combine both languages
@@ -315,19 +309,17 @@ export const RecentPosts = memo(function RecentPosts({ blogPosts }) {
       }
     }
 
-    setRecentPosts(combined.slice(0, 3))
+    return combined.slice(0, 3)
   }, [mounted, lang, blogPosts])
 
   if (!recentPosts.length) return null
 
-  const T = ({k, f}) => <TranslatedText i18nKey={k} fallback={f} />
-
   return (
     <section className="lg:order-1" aria-labelledby="recent-posts-heading">
       <h2 id="recent-posts-heading" className="text-2xl font-bold mb-4 text-center">
-        <a href="/blog" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
+        <Link href="/blog" tabIndex={-1} className="no-underline hover:underline focus:underline" style={{color:"inherit"}}>
           <T k="home.recentPosts" f="Recent blog posts" />
-        </a>
+        </Link>
       </h2>
       <div className="space-y-4">
         {recentPosts.map(post => (
