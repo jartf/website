@@ -225,7 +225,7 @@ function RetroSidebar() {
       <font size={2}>
         <p>
           <b>Last updated:</b><br />
-          {new Date().toLocaleDateString('en-US', {
+          {new Date().toLocaleDateString('en-GB', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'

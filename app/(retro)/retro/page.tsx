@@ -91,7 +91,7 @@ export default function RetroHomePage() {
         <font size={2}>
           This site is part of several webrings. Check them out, they're cool!
           <br />
-          <a href="/retro/webrings">[View All Webrings]</a>
+          <a href="/retro/webrings">View all webrings</a>
         </font>
       </center>
 
@@ -99,9 +99,9 @@ export default function RetroHomePage() {
 
       {/* Last updated */}
       <center>
-        <font size={1} color="#666666">
+        <font size={2} color="#aaaaaa">
           <i>
-            Last updated: {new Date().toLocaleDateString('en-US', {
+            Last updated: {new Date().toLocaleDateString('en-GB', {
               weekday: 'long',
               year: 'numeric',
               month: 'long',
