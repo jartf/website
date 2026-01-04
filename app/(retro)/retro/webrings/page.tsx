@@ -11,13 +11,13 @@ export default function RetroWebringsPage() {
     <>
       {/* Page title */}
       <center>
-        <font size={5} color="#000080">
+        <font size={5}>
           <b>Webrings</b>
         </font>
         <hr width="50%" />
-        <font size={2}>
+        <font size={3}>
           <i>
-            They were the original way to discover cool websites on the World Wide Web!
+            The original way to discover cool websites on the interwebs!
           </i>
         </font>
       </center>
