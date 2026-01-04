@@ -311,10 +311,10 @@ function RetroFooter() {
 
 function RetroBadges() {
   return (
-    <table cellPadding={5} cellSpacing={5} style={{ margin: '0 auto' }}>
+    <table cellPadding={5} cellSpacing={5} style={{ margin: '0 auto' }} align="center">
       <tbody>
         {/* Row 1 - First 8 badges */}
-        <tr>
+        <tr align="center">
           <td>
             <img
               src="/sweet.png"
@@ -383,7 +383,7 @@ function RetroBadges() {
           </td>
         </tr>
         {/* Row 2 - Next 8 badges */}
-        <tr>
+        <tr align="center">
           <td>
             <a href="https://people.pledge.party">
               <img
@@ -463,7 +463,7 @@ function RetroBadges() {
         </tr>
         {/* Row 3 - Last 3 badges */}
         <tr>
-          <td>
+          <td colSpan={8} align="center">
             <a href="https://fedoraproject.org/">
               <img
                 src="/fedora.gif"
@@ -472,8 +472,7 @@ function RetroBadges() {
                 height={31}
               />
             </a>
-          </td>
-          <td>
+            {' '}
             <a href="/blog/2025/08/anything-but-chrome">
               <img
                 src="/anythingbut.gif"
@@ -482,8 +481,7 @@ function RetroBadges() {
                 height={31}
               />
             </a>
-          </td>
-          <td>
+            {' '}
             <img
               src="/retrokid.gif"
               alt="Retro"
