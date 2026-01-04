@@ -97,7 +97,7 @@ const RETRO_ROUTES = [
   '/uses',
 ]
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent') || ''
 
