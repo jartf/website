@@ -313,6 +313,7 @@ function RetroBadges() {
   return (
     <table cellPadding={5} cellSpacing={5} style={{ margin: '0 auto' }}>
       <tbody>
+        {/* Row 1 - First 8 badges */}
         <tr>
           <td>
             <img
@@ -380,6 +381,9 @@ function RetroBadges() {
               height={31}
             />
           </td>
+        </tr>
+        {/* Row 2 - Next 8 badges */}
+        <tr>
           <td>
             <a href="https://people.pledge.party">
               <img
@@ -456,6 +460,9 @@ function RetroBadges() {
               height={31}
             />
           </td>
+        </tr>
+        {/* Row 3 - Last 3 badges */}
+        <tr>
           <td>
             <a href="https://fedoraproject.org/">
               <img
