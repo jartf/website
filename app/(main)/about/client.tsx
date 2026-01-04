@@ -98,17 +98,12 @@ const Chapter = memo(
           className="py-2"
           id={`chapter-${number}`}
         >
-          <div
-            ref={chapterRef}
-            className={`${prefersReducedMotion ? "" : "transition-all duration-500"}`}
-            style={{
-              opacity: isVisible || prefersReducedMotion ? 1 : 0,
-              transform:
-                isVisible || prefersReducedMotion
-                  ? "translateY(0)"
-                  : "translateY(50px)",
-            }}
-          >
+              <div
+                ref={chapterRef}
+                className={`${prefersReducedMotion ? "" : "transition-all duration-500"} ${
+                  isVisible || prefersReducedMotion ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+                }`}
+              >
             <ChapterHeader number={number} title={title} />
 
             <div className="mt-4 text-lg leading-relaxed">

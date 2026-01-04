@@ -133,7 +133,7 @@ const BlogPostCard = memo(function BlogPostCard({
         </Card>
       </Link>
       {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
-      <div className="p-author h-card" style={{ display: 'none' }}>
+      <div className="p-author h-card hidden">
         <span className="p-name" data-url="https://jarema.me">Jarema</span>
       </div>
     </div>
@@ -505,7 +505,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                 </Card>
               </Link>
               {/* Hidden h-card for author information - outside Link to avoid nested anchors */}
-              <div className="p-author h-card" style={{ display: 'none' }}>
+              <div className="p-author h-card hidden">
                 <span className="p-name" data-url="https://jarema.me">Jarema</span>
               </div>
               </div>

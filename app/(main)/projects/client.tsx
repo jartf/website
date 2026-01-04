@@ -415,13 +415,7 @@ export default function ProjectsClientWrapper({
               return (
                 <div
                   key={project.id}
-                  className={`relative h-[350px] perspective-1000 ${prefersReducedMotion ? "" : "transition-transform duration-300 hover:scale-[1.03]"}`}
-                  style={{
-                    opacity: 1,
-                    animation: prefersReducedMotion
-                      ? "none"
-                      : `fadeInUp 0.5s ease-out ${index * 0.1}s both`,
-                  }}
+                  className={`relative h-[350px] perspective-1000 ${prefersReducedMotion ? "" : "transition-transform duration-300 hover:scale-[1.03] animate-fadeInUp"}`}
                 >
                   <div
                     className={`absolute w-full h-full rounded-xl transition-all duration-500 transform-style-3d ${

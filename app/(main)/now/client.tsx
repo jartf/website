@@ -79,12 +79,20 @@ function ProgressBar({
     }
   }
 
+  const barRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (barRef.current) {
+      barRef.current.style.width = `${progress}%`
+    }
+  }, [progress])
+
   return (
     <div className="space-y-1">
       <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
         <div
+          ref={barRef}
           className="bg-primary h-full transition-all duration-1000 ease-linear"
-          style={{ width: `${progress}%` }}
         />
       </div>
       <div className="flex justify-between text-xs text-muted-foreground">
@@ -543,17 +551,12 @@ export default memo(function NowClientWrapper({
             {categories.map((category, categoryIndex) => (
               <div
                 key={category.name}
-                className="space-y-4"
+                className={`space-y-4 ${prefersReducedMotion ? "" : "animate-fadeInUp"}`}
                 ref={(el) => {
                   categoryRefs.current[category.name] = el
                 }}
                 id={`category-${category.name}`}
                 tabIndex={0}
-                style={{
-                  animation: prefersReducedMotion
-                    ? "none"
-                    : `fadeInUp 0.5s ease-out ${categoryIndex * 0.1}s both`,
-                }}
               >
                 <CategoryHeader
                   iconName={category.iconName}
