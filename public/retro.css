@@ -22,6 +22,25 @@
  * - :hover on non-links (in older browsers)
  */
 
+/*
+ * Hide the modern global header and footer on retro pages
+ * These elements come from the root layout and don't render properly
+ * in the retro context. The retro layout has its own header/footer.
+ */
+header.sticky,
+footer[role="contentinfo"],
+.js-disabled-banner,
+.wayback-banner,
+a[href="#main-content"] {
+  display: none;
+}
+
+/* Also hide the Galaxy background and other modern UI elements */
+canvas,
+.backdrop-blur-sm {
+  display: none;
+}
+
 /* Base styles */
 body {
   background-color: #c0c0c0;
