@@ -103,7 +103,7 @@ export default function BadgesClientWrapper({
 }: BadgesClientWrapperProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
-  const [viewMode, setViewMode] = useState<"verbose" | "badge-only">("verbose")
+  const [viewMode, setViewMode] = useState<"verbose" | "badge-only">("badge-only")
   const mounted = useMounted()
 
   const filteredBadges = useMemo(() => {
@@ -125,7 +125,7 @@ export default function BadgesClientWrapper({
         <p className="text-sm text-muted-foreground mb-4">
           Showing {badges.length} badges
         </p>
-        <BadgeGridVerbose badges={badges} />
+        <BadgeGridCompact badges={badges} />
       </section>
     )
   }
@@ -147,10 +147,10 @@ export default function BadgesClientWrapper({
           />
         </div>
 
-        <div className="relative">
+        <div className="relative w-full sm:w-auto sm:min-w-[200px]">
           <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <select
-            className="pl-10 h-10 rounded-md border border-input bg-background px-3 py-2 text-sm appearance-none pr-8"
+            className="pl-10 w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm appearance-none pr-8"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             aria-label="Filter by category"
