@@ -40,6 +40,7 @@ function isLegacyBrowser(userAgent: string): boolean {
     /opera\/[1-6]\./,
     /konqueror\/[1-2]/,
     /icab\/[1-2]/,
+    /seamonkey/,
 
     // Very old mobile browsers
     /nokia/,
