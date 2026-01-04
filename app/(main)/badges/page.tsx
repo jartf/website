@@ -260,7 +260,7 @@ const BADGES = [
     category: "web",
     width: 88,
     height: 31,
-    url: "https://neocities.org/",
+    url: "https://jarema.neocities.org/",
     description: "Neocities is my love, web design is my passion",
   },
   {
