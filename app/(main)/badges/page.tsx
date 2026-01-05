@@ -1,7 +1,5 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
-import Image from "next/image"
-import BadgesClient from "./client";
-import enTranslations from "@/translations/en.json"
+import BadgesClient from "./client"
 
 export const metadata = generateMeta({
   title: "Web badges collection",
@@ -565,76 +563,13 @@ const BADGES = [
 
 const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "software", "web", "misc"]
 
-// Find personal badge for the server-rendered section
+// Find personal badge to pass to client component
 const personalBadge = BADGES.find((badge) => badge.category === "personal")
-const t = enTranslations.badges
 
 export default function BadgesPage() {
   return (
     <div className="container max-w-4xl py-8">
-      <h1 className="text-3xl font-bold mb-6">{t.pageTitle}</h1>
-
-      <p className="text-muted-foreground mb-6">
-        {t.pageDescription}
-      </p>
-
-      {/* Personal Badge Section - Server rendered (collapsible via HTML/CSS) */}
-      {personalBadge && (
-        <section className="mb-6">
-          <details className="badge-details" aria-label="My badge details">
-            <summary className="cursor-pointer">
-              <h2 className="text-2xl font-semibold mb-0" id="my-badge">
-                {t.myBadgeTitle}
-              </h2>
-            </summary>
-
-            <div className="border p-6 rounded-lg bg-muted/30 mt-4">
-              <p className="mb-4">{t.myBadgeIntro}</p>
-
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
-                <Image
-                  src={personalBadge.src}
-                  alt={personalBadge.alt}
-                  width={personalBadge.width * 2}
-                  height={personalBadge.height * 2}
-                  className="pixelated"
-                />
-                <div>
-                  <p className="text-m text-muted-foreground">{t.hotlinkUrl} <code>https://jarema.me/badge.png</code></p>
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <h3 className="text-lg font-medium mb-2">{t.htmlCodeTitle}</h3>
-                <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
-                  <code>{`<a href="https://jarema.me/">
-  <img src="https://jarema.me/badge.png"
-       alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars."
-       width="88" height="31"
-       style="image-rendering: pixelated;">
-</a>`}</code>
-                </pre>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-medium mb-2">{t.embeddingSuggestionsTitle}</h3>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li>
-                    {t.suggestion1} <code className="bg-muted px-1 rounded">image-rendering: pixelated;</code> {t.suggestion1b}
-                  </li>
-                  <li>
-                    {t.suggestion2} <code className="bg-muted px-1 rounded">https://jarema.me/</code>
-                  </li>
-                  <li>{t.suggestion3} <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> {t.suggestion3b}</li>
-                </ul>
-              </div>
-            </div>
-          </details>
-        </section>
-      )}
-
-      {/* Badge collection with search/filter - Client rendered for interactivity */}
-      <BadgesClient badges={BADGES} categories={CATEGORIES} />
+      <BadgesClient badges={BADGES} categories={CATEGORIES} personalBadge={personalBadge} />
     </div>
   )
 }

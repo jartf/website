@@ -22,6 +22,7 @@ export interface Badge {
 interface BadgesClientWrapperProps {
   badges: Badge[]
   categories: string[]
+  personalBadge?: Badge
 }
 
 function BadgeImage({
@@ -99,11 +100,12 @@ function BadgeGridCompact({ badges, t }: { badges: Badge[], t: (key: string, opt
 
 /**
  * Client wrapper for badge collection with search/filter functionality
- * Page header and personal badge section are server-rendered in page.tsx
+ * Now includes full page rendering with dynamic i18n support
  */
 export default function BadgesClientWrapper({
   badges,
   categories,
+  personalBadge,
 }: BadgesClientWrapperProps) {
   const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState("")
@@ -122,7 +124,7 @@ export default function BadgesClientWrapper({
     })
   }, [searchQuery, selectedCategory, badges])
 
-  // Static content for no-JS users - show all badges without search/filter
+  // Static content for no-JS users
   if (!mounted) {
     const staticT = (key: string, options?: any) => {
       const parts = key.split('.')
@@ -135,19 +137,137 @@ export default function BadgesClientWrapper({
       }
       return value
     }
+    const st = enTranslations.badges
     return (
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">{enTranslations.badges.collectionHeading}</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          {enTranslations.badges.showingCount.replace('{{count}}', badges.length.toString())}
-        </p>
-        <BadgeGridCompact badges={badges} t={staticT} />
-      </section>
+      <>
+        <h1 className="text-3xl font-bold mb-6">{st.pageTitle}</h1>
+        <p className="text-muted-foreground mb-6">{st.pageDescription}</p>
+
+        {personalBadge && (
+          <section className="mb-6">
+            <details className="badge-details" aria-label="My badge details">
+              <summary className="cursor-pointer">
+                <h2 className="text-2xl font-semibold mb-0" id="my-badge">
+                  {st.myBadgeTitle}
+                </h2>
+              </summary>
+
+              <div className="border p-6 rounded-lg bg-muted/30 mt-4">
+                <p className="mb-4">{st.myBadgeIntro}</p>
+
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
+                  <Image
+                    src={personalBadge.src}
+                    alt={personalBadge.alt}
+                    width={personalBadge.width * 2}
+                    height={personalBadge.height * 2}
+                    className="pixelated"
+                  />
+                  <div>
+                    <p className="text-m text-muted-foreground">{st.hotlinkUrl} <code>https://jarema.me/badge.png</code></p>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <h3 className="text-lg font-medium mb-2">{st.htmlCodeTitle}</h3>
+                  <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
+                    <code>{`<a href="https://jarema.me/">
+  <img src="https://jarema.me/badge.png"
+       alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars."
+       width="88" height="31"
+       style="image-rendering: pixelated;">
+</a>`}</code>
+                  </pre>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">{st.embeddingSuggestionsTitle}</h3>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>
+                      {st.suggestion1} <code className="bg-muted px-1 rounded">image-rendering: pixelated;</code> {st.suggestion1b}
+                    </li>
+                    <li>
+                      {st.suggestion2} <code className="bg-muted px-1 rounded">https://jarema.me/</code>
+                    </li>
+                    <li>{st.suggestion3} <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> {st.suggestion3b}</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </section>
+        )}
+
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">{st.collectionHeading}</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            {st.showingCount.replace('{{count}}', badges.length.toString())}
+          </p>
+          <BadgeGridCompact badges={badges} t={staticT} />
+        </section>
+      </>
     )
   }
 
   return (
-    <section className="mb-8">
+    <>
+      <h1 className="text-3xl font-bold mb-6">{t('badges.pageTitle')}</h1>
+      <p className="text-muted-foreground mb-6">{t('badges.pageDescription')}</p>
+
+      {personalBadge && (
+        <section className="mb-6">
+          <details className="badge-details" aria-label="My badge details">
+            <summary className="cursor-pointer">
+              <h2 className="text-2xl font-semibold mb-0" id="my-badge">
+                {t('badges.myBadgeTitle')}
+              </h2>
+            </summary>
+
+            <div className="border p-6 rounded-lg bg-muted/30 mt-4">
+              <p className="mb-4">{t('badges.myBadgeIntro')}</p>
+
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
+                <Image
+                  src={personalBadge.src}
+                  alt={personalBadge.alt}
+                  width={personalBadge.width * 2}
+                  height={personalBadge.height * 2}
+                  className="pixelated"
+                />
+                <div>
+                  <p className="text-m text-muted-foreground">{t('badges.hotlinkUrl')} <code>https://jarema.me/badge.png</code></p>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="text-lg font-medium mb-2">{t('badges.htmlCodeTitle')}</h3>
+                <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
+                  <code>{`<a href="https://jarema.me/">
+  <img src="https://jarema.me/badge.png"
+       alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars."
+       width="88" height="31"
+       style="image-rendering: pixelated;">
+</a>`}</code>
+                </pre>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium mb-2">{t('badges.embeddingSuggestionsTitle')}</h3>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    {t('badges.suggestion1')} <code className="bg-muted px-1 rounded">image-rendering: pixelated;</code> {t('badges.suggestion1b')}
+                  </li>
+                  <li>
+                    {t('badges.suggestion2')} <code className="bg-muted px-1 rounded">https://jarema.me/</code>
+                  </li>
+                  <li>{t('badges.suggestion3')} <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> {t('badges.suggestion3b')}</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </section>
+      )}
+
+      <section className="mb-8">
       <h2 className="text-2xl font-semibold mb-4">{t('badges.collectionHeading')}</h2>
 
       {/* Search and Filter */}
@@ -238,6 +358,7 @@ export default function BadgesClientWrapper({
           </p>
         </div>
       )}
-    </section>
+      </section>
+    </>
   )
 }
