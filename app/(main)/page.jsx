@@ -61,8 +61,6 @@ export default async function Home() {
     ['☆ Webmaster Webring ☆', 'https://webmasterwebring.netlify.app/', 'https://webmasterwebring.netlify.app?jarema-previous', 'https://webmasterwebring.netlify.app?jarema-random', 'https://webmasterwebring.netlify.app?jarema-next'],
     ['Fediring', 'https://fediring.net/', 'https://fediring.net/previous?host=jarema.me', 'https://fediring.net/random', 'https://fediring.net/next?host=jarema.me'],
     ['Geekring', 'http://geekring.net/', 'http://geekring.net/site/553/previous', 'http://geekring.net/site/553/random', 'http://geekring.net/site/553/next'],
-    ['Epic WebRing', 'https://epic1.nekoweb.org/webring/', 'https://links.app.tc/noJS/?d=prev&url=https://jarema.me', 'https://links.app.tc/noJS/?d=rand&url=https://jarema.me', 'https://links.app.tc/noJS/?d=next&url=https://jarema.me'],
-    ['NetLoop', 'https://netloop.netlify.app/', 'https://netloop.netlify.app/jarema/previous', null, 'https://netloop.netlify.app/jarema/next'],
   ]
 
   return (
@@ -114,7 +112,7 @@ export default async function Home() {
               </h2>
               <nav className="border rounded-lg p-4 bg-card divide-y text-sm" aria-label="Webring navigation">
                 {webrings.map(([name, url, prev, random, next]) => (
-                  <div key={url} className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
+                  <div key={url} className="flex items-center justify-between py-2.25 first:pt-0 last:pb-0">
                     <a href={url} className="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">
                       {name}
                     </a>
