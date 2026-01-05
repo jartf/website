@@ -526,5 +526,11 @@
       "jumpToSection": "跳转到 {{section}}",
       "jumpToSectionDescription": "跳转到部分 {{section}}"
     }
+  },
+  "firstVisitHint": {
+      "prefix": "提示：",
+      "message": "您可以按",
+      "suffix": "键来打开搜索栏 :D",
+      "dismiss": "关闭"
   }
 }

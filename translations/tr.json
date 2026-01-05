@@ -526,5 +526,11 @@
       "jumpToSection": "{{section}} bölümüne git",
       "jumpToSectionDescription": "{{section}} bölümüne git"
     }
+  },
+  "firstVisitHint": {
+      "prefix": "İpucu:",
+      "message": "Arama çubuğunu açmak için",
+      "suffix": "tuşuna basabilirsin :D",
+      "dismiss": "Kapat"
   }
 }

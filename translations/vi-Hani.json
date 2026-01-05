@@ -513,5 +513,11 @@
       "jumpToSection": "Đi đến phần {{section}}",
       "jumpToSectionDescription": ""
     }
+  },
+  "firstVisitHint": {
+      "prefix": "𠼽𡮈:",
+      "message": "伴固体扨柉",
+      "suffix": "抵𢲫工具尋檢 :D",
+      "dismiss": "𠬃過"
   }
 }

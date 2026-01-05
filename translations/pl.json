@@ -514,5 +514,11 @@
       "jumpToSection": "Przejdź do sekcji {{section}}",
       "jumpToSectionDescription": "Przejdź do sekcji {{section}}"
     }
+  },
+  "firstVisitHint": {
+      "prefix": "Wskazówka:",
+      "message": "Naciśnij klawisz",
+      "suffix": ", aby otworzyć wyszukiwarkę :D",
+      "dismiss": "Ukryj"
   }
 }

@@ -528,5 +528,11 @@
       "jumpToSection": "Hop til {{section}}",
       "jumpToSectionDescription": "Gå til sektion {{section}}"
     }
+  },
+  "firstVisitHint": {
+      "prefix": "Hint:",
+      "message": "Du kan trykke på",
+      "suffix": "-tasten for at åbne søgefeltet :D",
+      "dismiss": "Afvis hint"
   }
 }

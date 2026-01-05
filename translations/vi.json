@@ -514,5 +514,11 @@
       "jumpToSection": "Đi đến phần {{section}}",
       "jumpToSectionDescription": ""
     }
+  },
+  "firstVisitHint": {
+      "prefix": "Mách nhỏ:",
+      "message": "Bạn có thể nhấn phím",
+      "suffix": "để mở thanh tìm kiếm :D",
+      "dismiss": "Bỏ qua"
   }
 }

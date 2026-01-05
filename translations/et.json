@@ -514,5 +514,11 @@
       "jumpToSection": "Jump to {{section}}",
       "jumpToSectionDescription": "Navigate to section {{section}}"
     }
+  },
+  "firstVisitHint": {
+      "prefix": "Vihje:",
+      "message": "Otsinguriba avamiseks võid vajutada",
+      "suffix": "klahvi :D",
+      "dismiss": "Sulge vihje"
   }
 }

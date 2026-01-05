@@ -519,7 +519,7 @@
   "firstVisitHint": {
     "prefix": "Hint:",
     "message": "You can press the",
-    "suffix": "key on your keyboard to open the action search bar :D",
+    "suffix": "key on your keyboard to open the global search bar :D",
     "dismiss": "Dismiss hint"
   }
 }

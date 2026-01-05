@@ -517,5 +517,11 @@
       "jumpToSection": "tawa {{section}}",
       "jumpToSectionDescription": "tawa kulupu {{section}}"
     }
+  },
+  "firstVisitHint": {
+      "prefix": "sona:",
+      "message": "o luka e nena",
+      "suffix": "tawa open e ilo alasa :D",
+      "dismiss": "weka e sona"
   }
 }

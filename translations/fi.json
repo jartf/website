@@ -514,5 +514,11 @@
       "jumpToSection": "Hyppää osioon {{section}}",
       "jumpToSectionDescription": "Siirry osioon {{section}}"
     }
+  },
+  "firstVisitHint": {
+      "prefix": "Vinkki:",
+      "message": "Voit avata haun painamalla",
+      "suffix": "-näppäintä :D",
+      "dismiss": "Sulje vinkki"
   }
 }

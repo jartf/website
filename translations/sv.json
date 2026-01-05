@@ -514,5 +514,11 @@
       "jumpToSection": "Hoppa till {{section}}",
       "jumpToSectionDescription": "Navigera till sektion {{section}}"
     }
+  },
+  "firstVisitHint": {
+      "prefix": "Tips:",
+      "message": "Du kan trycka på",
+      "suffix": "-tangenten för att öppna sökfältet :D",
+      "dismiss": "Dölj"
   }
 }

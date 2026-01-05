@@ -524,5 +524,11 @@
       "jumpToSection": "Перейти к {{section}}",
       "jumpToSectionDescription": ""
     }
+  },
+  "firstVisitHint": {
+      "prefix": "Подсказка:",
+      "message": "Нажмите клавишу",
+      "suffix": ", чтобы открыть поиск по сайту :D",
+      "dismiss": "Скрыть"
   }
 }
