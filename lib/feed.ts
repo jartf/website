@@ -109,28 +109,30 @@ export function generateJSONFeed({ posts, title, description, language, feedUrl 
 // ============================================================================
 // Feed Response Helpers
 // ============================================================================
-export async function getRSSResponse(language = "en") {
+export async function getRSSResponse(language?: string) {
   const allPosts = await getAllBlogPosts()
-  const posts = allPosts.filter(p => language === "en" ? (!p.language || p.language === "en") : p.language === language)
-  const title = language === "en" ? SITE_NAME : `${SITE_NAME} - ${LANGUAGE_NAMES[language] || language}`
-  const description = language === "en" ? SITE_DESCRIPTION : `${SITE_DESCRIPTION} - ${LANGUAGE_NAMES[language] || language}`
+  const posts = language ? allPosts.filter(p => p.language === language || (language === "en" && !p.language)) : allPosts
+  const title = language && language !== "en" ? `${SITE_NAME} - ${LANGUAGE_NAMES[language] || language}` : SITE_NAME
+  const description = language && language !== "en" ? `${SITE_DESCRIPTION} - ${LANGUAGE_NAMES[language] || language}` : SITE_DESCRIPTION
+  const feedUrl = language ? `${SITE_URL}/rss/${language}.xml` : `${SITE_URL}/rss.xml`
 
-  return new Response(generateRSSFeed({ posts, title, description, language, feedUrl: `${SITE_URL}/rss${language === "en" ? "" : `/${language}`}.xml` }), {
+  return new Response(generateRSSFeed({ posts, title, description, language: language || "en", feedUrl }), {
     headers: { "Content-Type": "application/xml", "Cache-Control": "public, max-age=3600, s-maxage=3600" },
   })
 }
 
-export async function getAtomResponse(language = "en") {
+export async function getAtomResponse(language?: string) {
   const allPosts = await getAllBlogPosts()
-  const posts = allPosts.filter(p => language === "en" ? (!p.language || p.language === "en") : p.language === language)
+  const posts = language ? allPosts.filter(p => p.language === language || (language === "en" && !p.language)) : allPosts
 
-  if (posts.length === 0 && language !== "en") {
+  if (posts.length === 0 && language) {
     return new Response("No posts found for this language", { status: 404 })
   }
 
-  const title = language === "en" ? SITE_NAME : `${SITE_NAME} (${language})`
+  const title = language && language !== "en" ? `${SITE_NAME} (${language})` : SITE_NAME
+  const feedUrl = language ? `${SITE_URL}/atom/${language}.xml` : `${SITE_URL}/atom.xml`
 
-  return new Response(generateAtomFeed({ posts, title, description: SITE_DESCRIPTION, language, feedUrl: `${SITE_URL}/atom${language === "en" ? "" : `/${language}`}.xml` }), {
+  return new Response(generateAtomFeed({ posts, title, description: SITE_DESCRIPTION, language: language || "en", feedUrl }), {
     headers: { "Content-Type": "application/atom+xml", "Cache-Control": "public, max-age=3600, s-maxage=3600" },
   })
 }
