@@ -372,6 +372,19 @@
     "randomAria": "Random site in {{name}}",
     "nextAria": "Next site in {{name}}"
   },
+  "badges": {
+    "title": "Web badges collection",
+    "description": "A collection of classic web badges and buttons used on my website.",
+    "collectionHeading": "Badges collection",
+    "search": "Search badges...",
+    "filterByCategory": "Filter by category",
+    "verboseView": "Verbose",
+    "badgeOnlyView": "Badge only",
+    "showingCount": "Showing {{count}} badges",
+    "showingFiltered": "Showing {{filtered}} of {{total}} badges",
+    "noResults": "No badges found matching your search criteria",
+    "visitBadge": "Visit {{name}}"
+  },
   "colophon": {
     "title": "Colophon",
     "description": "The story behind this website and how it was built",

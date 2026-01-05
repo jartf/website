@@ -4,6 +4,7 @@ import { useState, useMemo } from "react"
 import Image from "next/image"
 import { Search, Filter } from "lucide-react"
 import { useMounted } from "@/hooks"
+import enTranslations from "@/translations/en.json"
 
 export interface Badge {
   id: string
@@ -46,7 +47,7 @@ function BadgeImage({
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block"
-        aria-label={`Visit ${badge.name}`}
+        aria-label={enTranslations.badges.visitBadge.replace('{{name}}', badge.name)}
         title={showTitle ? badge.name : undefined}
       >
         {image}
@@ -121,9 +122,9 @@ export default function BadgesClientWrapper({
   if (!mounted) {
     return (
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Badges collection</h2>
+        <h2 className="text-2xl font-semibold mb-4">{enTranslations.badges.collectionHeading}</h2>
         <p className="text-sm text-muted-foreground mb-4">
-          Showing {badges.length} badges
+          {enTranslations.badges.showingCount.replace('{{count}}', badges.length.toString())}
         </p>
         <BadgeGridCompact badges={badges} />
       </section>
@@ -132,7 +133,7 @@ export default function BadgesClientWrapper({
 
   return (
     <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">Badges collection</h2>
+      <h2 className="text-2xl font-semibold mb-4">{enTranslations.badges.collectionHeading}</h2>
 
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -140,7 +141,7 @@ export default function BadgesClientWrapper({
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Search badges..."
+            placeholder={enTranslations.badges.search}
             className="pl-10 w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -153,7 +154,7 @@ export default function BadgesClientWrapper({
             className="pl-10 w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm appearance-none pr-8"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            aria-label="Filter by category"
+            aria-label={enTranslations.badges.filterByCategory}
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -190,7 +191,7 @@ export default function BadgesClientWrapper({
             }`}
             aria-label="Verbose view"
           >
-            Verbose
+            {enTranslations.badges.verboseView}
           </button>
           <button
             onClick={() => setViewMode("badge-only")}
@@ -201,14 +202,16 @@ export default function BadgesClientWrapper({
             }`}
             aria-label="Badge only view"
           >
-            Badge only
+            {enTranslations.badges.badgeOnlyView}
           </button>
         </div>
       </div>
 
       {/* Results count */}
       <p className="text-sm text-muted-foreground mb-4">
-        Showing {filteredBadges.length} of {badges.length} badges
+        {enTranslations.badges.showingFiltered
+          .replace('{{filtered}}', filteredBadges.length.toString())
+          .replace('{{total}}', badges.length.toString())}
       </p>
 
       {/* Badges Grid */}
@@ -218,7 +221,7 @@ export default function BadgesClientWrapper({
       {filteredBadges.length === 0 && (
         <div className="text-center py-12 border rounded-md">
           <p className="text-muted-foreground">
-            No badges found matching your search criteria
+            {enTranslations.badges.noResults}
           </p>
         </div>
       )}
