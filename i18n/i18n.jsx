@@ -48,7 +48,7 @@ if (!i18next.isInitialized) {
       },
       interpolation: { escapeValue: false },
       detection: {
-        order: ["querystring", "cookie", "localStorage", "navigator", "htmlTag"],
+        order: ["querystring", "localStorage", "cookie", "navigator", "htmlTag"],
         lookupQuerystring: "lng",
         lookupCookie: "i18next",
         lookupLocalStorage: "i18nextLng",
