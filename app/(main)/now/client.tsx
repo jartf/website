@@ -9,6 +9,7 @@ import { useMounted, useCurrentLanguage, useReducedMotion } from "@/hooks"
 import { CategoryHeader, TranslatedPageHeader } from "@/components/translated-text"
 import { NOW_ICONS, NOW_STATIC_CATEGORIES } from "@/lib/icons"
 import type { NowItemContent } from "@/content/now-items"
+import enTranslations from "@/translations/en.json"
 
 // Types for serializable data from server
 export type SerializableNowItem = {
@@ -290,12 +291,12 @@ export default memo(function NowClientWrapper({
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Now</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{enTranslations.now.title}</h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                What I&apos;m currently doing, thinking about, and focusing on.
+                {enTranslations.now.description}
               </p>
               <p className="text-sm text-muted-foreground mt-2">
-                Last updated:{" "}
+                {enTranslations.now.lastUpdated}:{" "}
                 {lastUpdated.toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
