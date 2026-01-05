@@ -17,15 +17,16 @@ import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
 import type { BlogPostMetadata } from "@/lib/blog"
+import enTranslations from "@/translations/en.json"
 
-// Static fallback content for SSR
+// Static fallback content for SSR from translations
 const STATIC_CONTENT = {
-  title: "Blog",
-  noPosts: "No posts yet. Check back soon!",
-  search: "Search posts...",
-  minRead: "min read",
-  mood: "Mood",
-  cat: "Cat Approved",
+  title: enTranslations.blog.title,
+  noPosts: enTranslations.blog.noPosts,
+  search: enTranslations.blog.search,
+  minRead: enTranslations.blog.minRead,
+  mood: enTranslations.blog.mood,
+  cat: enTranslations.blog.cat,
 }
 
 type BlogListProps = {
@@ -104,7 +105,7 @@ const BlogPostCard = memo(function BlogPostCard({
                   className="flex items-center gap-1 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100"
                 >
                   <Cat className="h-3 w-3" />
-                  {t("blog.cat", "Cat Approved")}
+                  {t("blog.cat", "Cat approved")}
                 </Badge>
               )}
             </div>
