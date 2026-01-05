@@ -187,15 +187,15 @@
           </div>
 
           <div class="info-box">
-            <h2>⚛️ Atom Feed</h2>
-            <p>This is an Atom feed. Copy the URL below to subscribe in your favorite RSS reader.</p>
+            <h2>Atom Feed</h2>
+            <p>This is an Atom feed. Copy the URL below to subscribe in your favorite reader.</p>
             <div class="feed-url">
               <xsl:value-of select="/atom:feed/atom:link[@rel='self']/@href"/>
             </div>
           </div>
 
           <div class="posts">
-            <h2>Recent Posts</h2>
+            <h2>Recent posts</h2>
             <xsl:for-each select="/atom:feed/atom:entry">
               <div class="post">
                 <h3>
