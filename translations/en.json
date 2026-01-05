@@ -360,6 +360,18 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "webrings": {
+    "title": "Webrings",
+    "description": "Webrings I'm part of. Discover more independent websites and personal blogs.",
+    "intro1": "A webring is a collection of websites made by like-minded folks, usually centered around a topic, aesthetic, or common interest. (from the safonts webring)",
+    "intro2": "This website is part of these webrings. Click on the links to visit my neighbors' sites, and other members', if that webring has random functionality. Choose any ring you like!",
+    "previous": "Previous",
+    "random": "Random",
+    "next": "Next",
+    "previousAria": "Previous site in {{name}}",
+    "randomAria": "Random site in {{name}}",
+    "nextAria": "Next site in {{name}}"
+  },
   "colophon": {
     "title": "Colophon",
     "description": "The story behind this website and how it was built",

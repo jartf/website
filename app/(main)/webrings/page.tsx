@@ -3,6 +3,7 @@ import { WEBRING_ITEMS } from "@/content/webring-items"
 import { ArrowLeft, ArrowRight, Shuffle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ExternalLinkText } from "@/components/translated-text"
+import enTranslations from "@/translations/en.json"
 
 export const metadata = generateMeta({
   title: "Webrings",
@@ -10,18 +11,20 @@ export const metadata = generateMeta({
   path: "webring",
 })
 
+const t = enTranslations.webrings
+
 export default function WebringPage() {
   return (
     <div className="container max-w-4xl py-8">
-      <h1 className="text-3xl font-bold mb-4">Webrings</h1>
+      <h1 className="text-3xl font-bold mb-4">{t.title}</h1>
 
       <div className="mb-8 space-y-4">
         <p className="text-muted-foreground">
-          A webring is a collection of websites made by like-minded folks, usually centered around a topic, aesthetic, or common interest. (from the <a href="https://xandra.cc/safonts/" target="_blank" rel="noopener noreferrer">safonts webring</a>)
+          {t.intro1}
         </p>
 
         <p className="text-muted-foreground">
-          This website is part of these webrings. Click on the links to visit my neighbors&apos; sites, and other members&apos;, if that webring has random functionality. Choose any ring you like!
+          {t.intro2}
         </p>
       </div>
 
@@ -52,11 +55,11 @@ export default function WebringPage() {
                 size="sm"
                 asChild
                 className="flex-1"
-                aria-label={`Previous site in ${webring.name}`}
+                aria-label={t.previousAria.replace('{{name}}', webring.name)}
               >
                 <a href={webring.previous} target="_blank" rel="noopener">
                   <ArrowLeft className="h-4 w-4 mr-1" />
-                  Previous
+                  {t.previous}
                 </a>
               </Button>
 
@@ -66,11 +69,11 @@ export default function WebringPage() {
                   size="sm"
                   asChild
                   className="flex-1"
-                  aria-label={`Random site in ${webring.name}`}
+                  aria-label={t.randomAria.replace('{{name}}', webring.name)}
                 >
                   <a href={webring.random} target="_blank" rel="noopener">
                     <Shuffle className="h-4 w-4 mr-1" />
-                    Random
+                    {t.random}
                   </a>
                 </Button>
               ) : (
@@ -82,10 +85,10 @@ export default function WebringPage() {
                 size="sm"
                 asChild
                 className="flex-1"
-                aria-label={`Next site in ${webring.name}`}
+                aria-label={t.nextAria.replace('{{name}}', webring.name)}
               >
                 <a href={webring.next} target="_blank" rel="noopener">
-                  Next
+                  {t.next}
                   <ArrowRight className="h-4 w-4 ml-1" />
                 </a>
               </Button>
