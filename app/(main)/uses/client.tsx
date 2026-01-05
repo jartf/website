@@ -238,26 +238,128 @@ export default function UsesClientWrapper({
             </div>
 
             <div className="flex flex-col gap-12">
-              {categories.slice(0, 10).map((category) => (
-                <div key={category.title} id={`category-${category.title}`}>
-                  <CategoryHeader
-                    iconName={category.iconName}
-                    iconMap={iconMap}
-                    variant="subtle"
-                    title={
-                      staticCategoryTitles[category.title] || category.title
-                    }
-                  />
-                  <div className="grid gap-6 ml-4">
-                    {category.items.map((item, index) => (
-                      <UsesItem key={index} item={item} />
-                    ))}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {categories.slice(0, 2).map((category) => (
+                  <div key={category.title} id={`category-${category.title}`}>
+                    <CategoryHeader
+                      iconName={category.iconName}
+                      iconMap={iconMap}
+                      variant="subtle"
+                      title={
+                        staticCategoryTitles[category.title] || category.title
+                      }
+                    />
+                    <div className="grid gap-6 ml-4">
+                      {category.items.map((item, index) => (
+                        <UsesItem
+                          key={index}
+                          item={item}
+                          descriptionText={item.description}
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {categories.slice(2, 4).map((category) => (
+                  <div key={category.title} id={`category-${category.title}`}>
+                    <CategoryHeader
+                      iconName={category.iconName}
+                      iconMap={iconMap}
+                      variant="subtle"
+                      title={
+                        staticCategoryTitles[category.title] || category.title
+                      }
+                    />
+                    <div className="grid gap-6 ml-4">
+                      {category.items.map((item, index) => (
+                        <UsesItem
+                          key={index}
+                          item={item}
+                          descriptionText={item.description}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {categories.slice(4, 6).map((category) => (
+                  <div key={category.title} id={`category-${category.title}`}>
+                    <CategoryHeader
+                      iconName={category.iconName}
+                      iconMap={iconMap}
+                      variant="subtle"
+                      title={
+                        staticCategoryTitles[category.title] || category.title
+                      }
+                    />
+                    <div className="grid gap-6 ml-4">
+                      {category.items.map((item, index) => (
+                        <UsesItem
+                          key={index}
+                          item={item}
+                          descriptionText={item.description}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {categories.slice(6, 8).map((category) => (
+                  <div key={category.title} id={`category-${category.title}`}>
+                    <CategoryHeader
+                      iconName={category.iconName}
+                      iconMap={iconMap}
+                      variant="subtle"
+                      title={
+                        staticCategoryTitles[category.title] || category.title
+                      }
+                    />
+                    <div className="grid gap-6 ml-4">
+                      {category.items.map((item, index) => (
+                        <UsesItem
+                          key={index}
+                          item={item}
+                          descriptionText={item.description}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {categories.slice(8, 10).map((category) => (
+                  <div key={category.title} id={`category-${category.title}`}>
+                    <CategoryHeader
+                      iconName={category.iconName}
+                      iconMap={iconMap}
+                      variant="subtle"
+                      title={
+                        staticCategoryTitles[category.title] || category.title
+                      }
+                    />
+                    <div className="grid gap-6 ml-4">
+                      {category.items.map((item, index) => (
+                        <UsesItem
+                          key={index}
+                          item={item}
+                          descriptionText={item.description}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
 
               {categories[10] && (
-                <div id="category-multimedia">
+                <div className="lg:col-span-2" id="category-multimedia">
                   <CategoryHeader
                     iconName={categories[10].iconName}
                     iconMap={iconMap}
@@ -289,7 +391,11 @@ export default function UsesClientWrapper({
                                 item.name !== "Unspeakable Platform 2"
                             )
                             .map((item, itemIndex) => (
-                              <UsesItem key={itemIndex} item={item} />
+                              <UsesItem
+                                key={itemIndex}
+                                item={item}
+                                descriptionText={item.description}
+                              />
                             ))}
                         </div>
                       </div>

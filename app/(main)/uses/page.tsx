@@ -4,6 +4,7 @@ import UsesClient, { type SerializableUsesCategory } from "./client"
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
 import { SITE_URL } from "@/lib/constants"
 import { USES_ICONS } from "@/lib/icons"
+import enTranslations from "@/translations/en.json"
 
 export const metadata = generateMetadata({
   title: "Uses",
@@ -12,7 +13,7 @@ export const metadata = generateMetadata({
 })
 
 export default function UsesPage() {
-  // Convert USES_CATEGORIES to serializable format
+  // Convert USES_CATEGORIES to serializable format with descriptions
   const serializableCategories: SerializableUsesCategory[] = USES_CATEGORIES.map(
     (category) => {
       // Find icon name directly
@@ -26,11 +27,17 @@ export default function UsesPage() {
       return {
         title: category.title,
         iconName,
-        items: category.items.map((item) => ({
-          name: item.name,
-          descriptionKey: item.descriptionKey,
-          link: item.link,
-        })),
+        items: category.items.map((item) => {
+          const description = item.descriptionKey
+            ? enTranslations.uses.itemDescriptions[item.descriptionKey as keyof typeof enTranslations.uses.itemDescriptions]
+            : undefined
+          return {
+            name: item.name,
+            descriptionKey: item.descriptionKey,
+            description,
+            link: item.link,
+          }
+        }),
         subsections: category.subsections?.map((sub) => {
           const subIconName = sub.icon ? Object.entries(USES_ICONS).find(([_, Icon]) => {
             if (typeof sub.icon === 'object' && sub.icon && 'type' in sub.icon) {
@@ -42,12 +49,17 @@ export default function UsesPage() {
           return {
             title: sub.title,
             iconName: subIconName,
-            items: sub.items.map((item) => ({
-              name: item.name,
-              descriptionKey: item.descriptionKey,
-              description: item.description,
-              link: item.link,
-            })),
+            items: sub.items.map((item) => {
+              const description = item.descriptionKey
+                ? enTranslations.uses.itemDescriptions[item.descriptionKey as keyof typeof enTranslations.uses.itemDescriptions]
+                : item.description
+              return {
+                name: item.name,
+                descriptionKey: item.descriptionKey,
+                description,
+                link: item.link,
+              }
+            }),
           }
         }),
       }
