@@ -10,6 +10,7 @@ import { LanguageNotice } from "@/components/language-notice"
 import { Galaxy } from "@/components/galaxy/galaxy"
 import { KeyboardNavigation } from "@/components/keyboard-navigation"
 import { ActionSearchBar } from "@/components/action-search-bar"
+import { FirstVisitHint } from "@/components/first-visit-hint"
 import { SUPPORTED_LANGUAGES } from "@/lib/constants"
 
 // Font configurations
@@ -180,6 +181,7 @@ export default function RootLayout({ children }) {
               <KeyboardNavigation />
             </div>
             <ActionSearchBar />
+            <FirstVisitHint />
           </I18nProvider>
         </ThemeProvider>
       </body>
