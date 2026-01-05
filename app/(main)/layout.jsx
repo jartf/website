@@ -157,7 +157,7 @@ export default function RootLayout({ children }) {
           ></script>
         )}
       </head>
-      <body className="font-sans min-h-screen bg-background" suppressHydrationWarning>
+      <body className="min-h-screen bg-background" suppressHydrationWarning>
         <noscript>
           <div className="js-disabled-banner" style={{display:"block"}}>
             <p>You&apos;re browsing without JavaScript. The site works, but some interactive features like toggles or search won&apos;t be available, and content will be limited to prevent scraping from bots and AI.</p>

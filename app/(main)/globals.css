@@ -196,6 +196,17 @@
     --ring: 195 100% 65%;
   }
 
+  /* Default font settings for all languages */
+  html,
+  html body,
+  html :where(p, span, a, li, button, label, small, strong, em, div, blockquote, input, textarea, select, option, summary, figcaption, code, kbd, samp) {
+    font-family: var(--font-lexend), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  html :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  }
+
   /* Language-specific font settings */
   html[lang="ru"],
   html[lang="ru"] body,
