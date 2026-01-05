@@ -233,20 +233,20 @@ export function useLanguageTracker() {
 // useKeyboardNavigation - Global keyboard shortcuts
 // ============================================================================
 const NAVIGATION_SHORTCUTS: Record<string, string> = {
-  [keyboardShortcuts.HOME]: routes.HOME,
-  [keyboardShortcuts.ABOUT]: routes.ABOUT,
-  [keyboardShortcuts.BLOG]: routes.BLOG,
-  [keyboardShortcuts.PROJECTS]: routes.PROJECTS,
-  [keyboardShortcuts.NOW]: routes.NOW,
-  [keyboardShortcuts.USES]: routes.USES,
-  [keyboardShortcuts.CONTACT]: routes.CONTACT,
-  [keyboardShortcuts.GUESTBOOK]: routes.GUESTBOOK,
-  [keyboardShortcuts.COLOPHON]: routes.COLOPHON,
-  [keyboardShortcuts.WEBRING]: routes.WEBRING,
-  [keyboardShortcuts.SLASHES]: routes.SLASHES,
-  [keyboardShortcuts.SCRAPBOOK]: routes.SCRAPBOOK,
-  [keyboardShortcuts.GAME_2048]: routes.GAME_2048,
-  [keyboardShortcuts.TETRIS]: routes.TETRIS,
+  [keyboardShortcuts.home]: routes.home,
+  [keyboardShortcuts.about]: routes.about,
+  [keyboardShortcuts.blog]: routes.blog,
+  [keyboardShortcuts.projects]: routes.projects,
+  [keyboardShortcuts.now]: routes.now,
+  [keyboardShortcuts.uses]: routes.uses,
+  [keyboardShortcuts.contact]: routes.contact,
+  [keyboardShortcuts.guestbook]: routes.guestbook,
+  [keyboardShortcuts.colophon]: routes.colophon,
+  [keyboardShortcuts.webring]: routes.webring,
+  [keyboardShortcuts.slashes]: routes.slashes,
+  [keyboardShortcuts.scrapbook]: routes.scrapbook,
+  [keyboardShortcuts.game2048]: routes.game2048,
+  [keyboardShortcuts.tetris]: routes.tetris,
 }
 
 export function useKeyboardNavigation() {
@@ -284,7 +284,7 @@ export function useKeyboardNavigation() {
       if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el?.getAttribute("contenteditable") === "true") return
       if (e.ctrlKey) return
 
-      const isGame = pathname?.includes(routes.GAME_2048) || pathname?.includes(routes.TETRIS)
+      const isGame = pathname?.includes(routes.game2048) || pathname?.includes(routes.tetris)
 
       if (isGame) {
         if (e.key === "h" && !e.metaKey && !e.altKey) { e.preventDefault(); router.push("/") }
