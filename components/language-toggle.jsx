@@ -11,16 +11,12 @@ import {
   LANGUAGE_NAMES,
   LANGUAGE_FLAGS,
   LANGUAGE_FONT_CLASSES,
+  MAIN_LANGUAGES,
+  OTHER_LANGUAGES,
+  BETA_LANGUAGES,
 } from "@/lib/constants"
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill"
 import fuzzysort from "fuzzysort"
-
-// Language classification (moved outside component to prevent recreation)
-const MAIN_LANGUAGES = ["en", "vi", "et", "ru", "da", "zh"]
-const OTHER_LANGUAGES = ["tok", "vih"]
-const BETA_LANGUAGES = SUPPORTED_LANGUAGES.filter(
-  (lang) => !MAIN_LANGUAGES.includes(lang) && !OTHER_LANGUAGES.includes(lang)
-)
 
 // Language aliases for search
 const LANGUAGE_ALIASES = {

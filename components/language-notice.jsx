@@ -4,8 +4,7 @@ import { useState, memo } from "react"
 import { useTranslation } from "react-i18next"
 import { AlertCircle, X } from "lucide-react"
 import { useMounted, useReducedMotion } from "@/hooks"
-
-const COMPLETED_LANGUAGES = ["en", "vi", "ru", "da"]
+import { COMPLETED_LANGUAGES } from "@/lib/constants"
 
 /** Notice for non-complete translation languages */
 export const LanguageNotice = memo(function LanguageNotice() {
