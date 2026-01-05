@@ -1,6 +1,7 @@
 import { generateMetadata as generateMeta } from "@/lib/metadata"
 import Image from "next/image"
 import BadgesClient from "./client";
+import enTranslations from "@/translations/en.json"
 
 export const metadata = generateMeta({
   title: "Web badges collection",
@@ -566,14 +567,15 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
 
 // Find personal badge for the server-rendered section
 const personalBadge = BADGES.find((badge) => badge.category === "personal")
+const t = enTranslations.badges
 
 export default function BadgesPage() {
   return (
     <div className="container max-w-4xl py-8">
-      <h1 className="text-3xl font-bold mb-6">Classic web badges collection</h1>
+      <h1 className="text-3xl font-bold mb-6">{t.pageTitle}</h1>
 
       <p className="text-muted-foreground mb-6">
-        I&apos;ve collected these 88x31 badges to show what I and this site actually care about. They&apos;re a throwback to the Geocities era when the internet was less corporate/AI slop. If you have a badge you&apos;d like me to add here, just ask me.
+        {t.pageDescription}
       </p>
 
       {/* Personal Badge Section - Server rendered (collapsible via HTML/CSS) */}
@@ -582,12 +584,12 @@ export default function BadgesPage() {
           <details className="badge-details" aria-label="My badge details">
             <summary className="cursor-pointer">
               <h2 className="text-2xl font-semibold mb-0" id="my-badge">
-                My badge (click to expand)
+                {t.myBadgeTitle}
               </h2>
             </summary>
 
             <div className="border p-6 rounded-lg bg-muted/30 mt-4">
-              <p className="mb-4">Use this badge to link to my website:</p>
+              <p className="mb-4">{t.myBadgeIntro}</p>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
                 <Image
@@ -598,12 +600,12 @@ export default function BadgesPage() {
                   className="pixelated"
                 />
                 <div>
-                  <p className="text-m text-muted-foreground">Hotlink URL: <code>https://jarema.me/badge.png</code></p>
+                  <p className="text-m text-muted-foreground">{t.hotlinkUrl} <code>https://jarema.me/badge.png</code></p>
                 </div>
               </div>
 
               <div className="mb-6">
-                <h3 className="text-lg font-medium mb-2">HTML code</h3>
+                <h3 className="text-lg font-medium mb-2">{t.htmlCodeTitle}</h3>
                 <pre className="p-4 bg-muted rounded-md overflow-x-auto text-sm">
                   <code>{`<a href="https://jarema.me/">
   <img src="https://jarema.me/badge.png"
@@ -615,16 +617,15 @@ export default function BadgesPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-medium mb-2">Suggestions for embedding</h3>
+                <h3 className="text-lg font-medium mb-2">{t.embeddingSuggestionsTitle}</h3>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    Use <code className="bg-muted px-1 rounded">image-rendering: pixelated;</code> in your CSS to preserve the
-                    pixel art style.
+                    {t.suggestion1} <code className="bg-muted px-1 rounded">image-rendering: pixelated;</code> {t.suggestion1b}
                   </li>
                   <li>
-                    Link directly to my homepage at <code className="bg-muted px-1 rounded">https://jarema.me/</code>
+                    {t.suggestion2} <code className="bg-muted px-1 rounded">https://jarema.me/</code>
                   </li>
-                  <li>The badge is 88x31 pixels, double the width and height in your HTML to <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> to make them easier to read on higher-resolution screens.</li>
+                  <li>{t.suggestion3} <code className="bg-muted px-1 rounded">width=&quot;176&quot; height=&quot;62&quot;</code> {t.suggestion3b}</li>
                 </ul>
               </div>
             </div>

@@ -4,6 +4,7 @@ import { useState, useMemo } from "react"
 import Image from "next/image"
 import { Search, Filter } from "lucide-react"
 import { useMounted } from "@/hooks"
+import { useTranslation } from "react-i18next"
 import enTranslations from "@/translations/en.json"
 
 export interface Badge {
@@ -26,9 +27,11 @@ interface BadgesClientWrapperProps {
 function BadgeImage({
   badge,
   showTitle = false,
+  t,
 }: {
   badge: Badge
   showTitle?: boolean
+  t: (key: string, options?: any) => string
 }) {
   const image = (
     <Image
@@ -47,7 +50,7 @@ function BadgeImage({
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block"
-        aria-label={enTranslations.badges.visitBadge.replace('{{name}}', badge.name)}
+        aria-label={t('badges.visitBadge', { name: badge.name })}
         title={showTitle ? badge.name : undefined}
       >
         {image}
@@ -62,11 +65,11 @@ function BadgeImage({
   return image
 }
 
-function BadgeCard({ badge }: { badge: Badge }) {
+function BadgeCard({ badge, t }: { badge: Badge, t: (key: string, options?: any) => string }) {
   return (
     <div className="border rounded-md p-4 flex flex-col h-full">
       <div className="mb-2 min-h-[31px] flex items-center">
-        <BadgeImage badge={badge} />
+        <BadgeImage badge={badge} t={t} />
       </div>
       <h3 className="font-medium">{badge.name}</h3>
       <p className="text-sm text-muted-foreground">{badge.description}</p>
@@ -74,21 +77,21 @@ function BadgeCard({ badge }: { badge: Badge }) {
   )
 }
 
-function BadgeGridVerbose({ badges }: { badges: Badge[] }) {
+function BadgeGridVerbose({ badges, t }: { badges: Badge[], t: (key: string, options?: any) => string }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-start">
       {badges.map((badge) => (
-        <BadgeCard key={badge.id} badge={badge} />
+        <BadgeCard key={badge.id} badge={badge} t={t} />
       ))}
     </div>
   )
 }
 
-function BadgeGridCompact({ badges }: { badges: Badge[] }) {
+function BadgeGridCompact({ badges, t }: { badges: Badge[], t: (key: string, options?: any) => string }) {
   return (
     <div className="flex flex-wrap gap-2">
       {badges.map((badge) => (
-        <BadgeImage key={badge.id} badge={badge} showTitle />
+        <BadgeImage key={badge.id} badge={badge} showTitle t={t} />
       ))}
     </div>
   )
@@ -102,6 +105,7 @@ export default function BadgesClientWrapper({
   badges,
   categories,
 }: BadgesClientWrapperProps) {
+  const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [viewMode, setViewMode] = useState<"verbose" | "badge-only">("badge-only")
@@ -120,20 +124,31 @@ export default function BadgesClientWrapper({
 
   // Static content for no-JS users - show all badges without search/filter
   if (!mounted) {
+    const staticT = (key: string, options?: any) => {
+      const parts = key.split('.')
+      let value: any = enTranslations
+      for (const part of parts) {
+        value = value[part]
+      }
+      if (typeof value === 'string' && options) {
+        return value.replace(/\{\{(\w+)\}\}/g, (_, k) => options[k] || '')
+      }
+      return value
+    }
     return (
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">{enTranslations.badges.collectionHeading}</h2>
         <p className="text-sm text-muted-foreground mb-4">
           {enTranslations.badges.showingCount.replace('{{count}}', badges.length.toString())}
         </p>
-        <BadgeGridCompact badges={badges} />
+        <BadgeGridCompact badges={badges} t={staticT} />
       </section>
     )
   }
 
   return (
     <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">{enTranslations.badges.collectionHeading}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{t('badges.collectionHeading')}</h2>
 
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -141,7 +156,7 @@ export default function BadgesClientWrapper({
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="text"
-            placeholder={enTranslations.badges.search}
+            placeholder={t('badges.search')}
             className="pl-10 w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -154,7 +169,7 @@ export default function BadgesClientWrapper({
             className="pl-10 w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm appearance-none pr-8"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            aria-label={enTranslations.badges.filterByCategory}
+            aria-label={t('badges.filterByCategory')}
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -191,7 +206,7 @@ export default function BadgesClientWrapper({
             }`}
             aria-label="Verbose view"
           >
-            {enTranslations.badges.verboseView}
+            {t('badges.verboseView')}
           </button>
           <button
             onClick={() => setViewMode("badge-only")}
@@ -202,26 +217,24 @@ export default function BadgesClientWrapper({
             }`}
             aria-label="Badge only view"
           >
-            {enTranslations.badges.badgeOnlyView}
+            {t('badges.badgeOnlyView')}
           </button>
         </div>
       </div>
 
       {/* Results count */}
       <p className="text-sm text-muted-foreground mb-4">
-        {enTranslations.badges.showingFiltered
-          .replace('{{filtered}}', filteredBadges.length.toString())
-          .replace('{{total}}', badges.length.toString())}
+        {t('badges.showingFiltered', { filtered: filteredBadges.length, total: badges.length })}
       </p>
 
       {/* Badges Grid */}
-      {viewMode === "verbose" && <BadgeGridVerbose badges={filteredBadges} />}
-      {viewMode === "badge-only" && <BadgeGridCompact badges={filteredBadges} />}
+      {viewMode === "verbose" && <BadgeGridVerbose badges={filteredBadges} t={t} />}
+      {viewMode === "badge-only" && <BadgeGridCompact badges={filteredBadges} t={t} />}
 
       {filteredBadges.length === 0 && (
         <div className="text-center py-12 border rounded-md">
           <p className="text-muted-foreground">
-            {enTranslations.badges.noResults}
+            {t('badges.noResults')}
           </p>
         </div>
       )}
