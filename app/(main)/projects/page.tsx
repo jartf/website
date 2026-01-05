@@ -2,7 +2,7 @@ import { generateMetadata as generateMeta } from "@/lib/metadata"
 import { projects, type Project } from "@/content/project-items"
 import ProjectsClient from "./client";
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
-import { SITE_URL } from "@/lib/constants"
+import { siteUrl } from "@/lib/constants"
 
 export const metadata = generateMeta({
   title: "Projects",
@@ -18,7 +18,7 @@ export default function ProjectsPage() {
     projects.map((project) => ({
       title: project.content.en.title,
       description: project.content.en.description,
-      url: `${SITE_URL}/projects`,
+      url: `${siteUrl}/projects`,
     }))
   )
 

@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { DOMAIN_HASHES } from '@/lib/constants';
+import { domainHashes } from '@/lib/constants';
 
 const TEXT_HEADERS = { 'Content-Type': 'text/plain' };
 
 export async function GET(request) {
   const host = request.headers.get('host') || '';
 
-  const discordHash = Object.entries(DOMAIN_HASHES).find(([domain]) =>
+  const discordHash = Object.entries(domainHashes).find(([domain]) =>
     host.includes(domain)
   )?.[1];
 

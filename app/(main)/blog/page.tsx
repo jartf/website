@@ -2,7 +2,7 @@ import { getAllBlogPosts } from "@/lib/blog"
 import BlogList from "./client"
 import { generateMetadata } from "@/lib/metadata"
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
-import { SITE_URL } from "@/lib/constants"
+import { siteUrl } from "@/lib/constants"
 
 export const metadata = generateMetadata({
   title: "Blog",
@@ -20,7 +20,7 @@ export default async function BlogPage() {
     blogPosts.map(post => ({
       title: post.title,
       description: post.excerpt,
-      url: `${SITE_URL}/blog/${post.slug}`,
+      url: `${siteUrl}/blog/${post.slug}`,
       date: post.date,
     }))
   )

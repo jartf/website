@@ -2,7 +2,7 @@ import { generateMetadata } from "@/lib/metadata"
 import { USES_CATEGORIES } from "@/content/uses-items"
 import UsesClient, { type SerializableUsesCategory } from "./client"
 import { generateItemListSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
-import { SITE_URL } from "@/lib/constants"
+import { siteUrl } from "@/lib/constants"
 import { USES_ICONS } from "@/lib/icons"
 import enTranslations from "@/translations/en.json"
 
@@ -70,7 +70,7 @@ export default function UsesPage() {
   const allItems = serializableCategories.flatMap((cat) =>
     cat.items.map((item) => ({
       title: item.name,
-      url: item.link || `${SITE_URL}/uses`,
+      url: item.link || `${siteUrl}/uses`,
     }))
   )
 

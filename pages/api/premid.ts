@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PREMID_CONFIG } from '@/lib/constants'
+import { preMidConfig } from '@/lib/constants'
 
 interface Activity {
   name: string
@@ -63,7 +63,7 @@ const validateExtension = (extension: any): boolean =>
 const cleanupExpiredActivities = (): void => {
   const now = Date.now()
   for (const [key, entry] of activities.entries()) {
-    if (now - entry.lastUpdate >= PREMID_CONFIG.ACTIVITY_TIMEOUT_MS) {
+    if (now - entry.lastUpdate >= preMidConfig.activityTimeoutMs) {
       entry.timeoutId && clearTimeout(entry.timeoutId)
       activities.delete(key)
     }
@@ -71,7 +71,7 @@ const cleanupExpiredActivities = (): void => {
 }
 
 const createActivityTimeout = (key: string): NodeJS.Timeout =>
-  setTimeout(() => activities.delete(key), PREMID_CONFIG.ACTIVITY_TIMEOUT_MS)
+  setTimeout(() => activities.delete(key), preMidConfig.activityTimeoutMs)
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -91,7 +91,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
     }
 
-    if (extension.user_id !== PREMID_CONFIG.AUTHORIZED_USER_ID) {
+    if (extension.user_id !== preMidConfig.authorizedUserId) {
       res.status(403).json({ error: 'Unauthorized' })
       return
     }
@@ -101,9 +101,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(400).json({ error: 'Invalid activity data' })
         return
       }
-      if (activities.size >= PREMID_CONFIG.MAX_ACTIVITIES) {
+      if (activities.size >= preMidConfig.maxActivities) {
         cleanupExpiredActivities()
-        if (activities.size >= PREMID_CONFIG.MAX_ACTIVITIES) {
+        if (activities.size >= preMidConfig.maxActivities) {
           const [oldestKey, oldestEntry] = Array.from(activities.entries())
             .reduce((oldest, current) => current[1].lastUpdate < oldest[1].lastUpdate ? current : oldest)
           oldestEntry.timeoutId && clearTimeout(oldestEntry.timeoutId)
@@ -127,7 +127,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
       cleanupExpiredActivities()
       const now = Date.now()
-      const hasRecentActivity = Array.from(activities.values()).some(entry => now - entry.lastUpdate < PREMID_CONFIG.CLEAR_THRESHOLD_MS)
+      const hasRecentActivity = Array.from(activities.values()).some(entry => now - entry.lastUpdate < preMidConfig.clearThresholdMs)
       if (!hasRecentActivity) {
         for (const entry of activities.values()) entry.timeoutId && clearTimeout(entry.timeoutId)
         activities.clear()
@@ -137,11 +137,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json({ success: true })
   } else if (req.method === 'GET') {
     const host = req.headers.host ?? ''
-    const isProduction = PREMID_CONFIG.PRODUCTION_HOSTS.has(host)
+    const isProduction = preMidConfig.productionHosts.has(host)
 
     if (!isProduction) {
       try {
-        const response = await fetch(PREMID_CONFIG.PRODUCTION_API_URL, { signal: AbortSignal.timeout(PREMID_CONFIG.API_TIMEOUT_MS) })
+        const response = await fetch(preMidConfig.productionApiUrl, { signal: AbortSignal.timeout(preMidConfig.apiTimeoutMs) })
         if (!response.ok) throw new Error(`API returned ${response.status}: ${response.statusText}`)
         const data = await response.json()
         res.status(200).json(data)

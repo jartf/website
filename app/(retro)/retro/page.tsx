@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants'
+import { siteName, siteDescription } from '@/lib/constants'
 
 /**
  * Retro Home Page
@@ -9,8 +9,8 @@ import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants'
  */
 
 export const metadata = {
-  title: `${SITE_NAME} - Retro version`,
-  description: SITE_DESCRIPTION,
+  title: `${siteName} - Retro version`,
+  description: siteDescription,
   robots: 'noindex, nofollow', // Don't index the retro version
 }
 

@@ -16,7 +16,7 @@ import {
 import { projects } from "@/content/project-items"
 import { nowItems } from "@/content/now-items"
 import { KeyboardShortcut } from "@/components/keyboard-shortcut"
-import { SUPPORTED_LANGUAGES } from "@/lib/constants"
+import { supportedLanguages } from "@/lib/constants"
 
 // Helpers
 const dispatchKey = (key) => document.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true }))
@@ -86,8 +86,8 @@ export const ActionSearchBar = memo(function ActionSearchBar() {
         id: "language-toggle", label: t("actionSearch.cycleLanguage", "Change language"),
         icon: <Languages className="h-4 w-4 text-green-500" />, shortcut: "y", category: t("blog.language", "Language"),
         action: () => {
-          const idx = Math.max(0, SUPPORTED_LANGUAGES.findIndex(l => lang.startsWith(l)))
-          i18n.changeLanguage(SUPPORTED_LANGUAGES[(idx + 1) % SUPPORTED_LANGUAGES.length]); close()
+          const idx = Math.max(0, supportedLanguages.findIndex(l => lang.startsWith(l)))
+          i18n.changeLanguage(supportedLanguages[(idx + 1) % supportedLanguages.length]); close()
         },
       },
     ]

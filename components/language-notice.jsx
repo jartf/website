@@ -4,7 +4,7 @@ import { useState, memo } from "react"
 import { useTranslation } from "react-i18next"
 import { AlertCircle, X } from "lucide-react"
 import { useMounted, useReducedMotion } from "@/hooks"
-import { COMPLETED_LANGUAGES } from "@/lib/constants"
+import { completedLanguages } from "@/lib/constants"
 
 /** Notice for non-complete translation languages */
 export const LanguageNotice = memo(function LanguageNotice() {
@@ -16,7 +16,7 @@ export const LanguageNotice = memo(function LanguageNotice() {
   if (!mounted || !visible) return null
 
   const baseLang = i18n.language?.split("-")[0]
-  const isComplete = COMPLETED_LANGUAGES.some(l => i18n.language === l || i18n.language?.startsWith(l + "-") || baseLang === l)
+  const isComplete = completedLanguages.some(l => i18n.language === l || i18n.language?.startsWith(l + "-") || baseLang === l)
   if (isComplete) return null
 
   return (

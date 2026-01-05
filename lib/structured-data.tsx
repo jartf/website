@@ -3,7 +3,7 @@
  * Provides schema.org markup for better search engine visibility
  */
 
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "./constants"
+import { siteUrl, siteName, siteDescription } from "./constants"
 
 // ============================================================================
 // Person Schema (Author/Creator)
@@ -12,11 +12,11 @@ export function generatePersonSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": `${SITE_URL}/#person`,
+    "@id": `${siteUrl}/#person`,
     name: "Jarema",
-    url: SITE_URL,
+    url: siteUrl,
     description: "Economics major, sometimes coder, most times cat whisperer.",
-    image: `${SITE_URL}/android-chrome-512x512.png`,
+    image: `${siteUrl}/android-chrome-512x512.png`,
     sameAs: [
       "https://github.com/jartf",
       "https://pronouns.page/@jerryv",
@@ -37,19 +37,19 @@ export function generateWebSiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${SITE_URL}/#website`,
-    name: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    url: SITE_URL,
-    author: {
-      "@id": `${SITE_URL}/#person`,
+    "@id": `${siteUrl}/#website`,
+    name: siteName,
+    description: siteDescription,
+    url: siteUrl,
+    publisher: {
+      "@id": `${siteUrl}/#person`,
     },
     inLanguage: ["en", "vi", "et", "ru", "da", "zh", "tr", "pl", "sv", "fi"],
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/blog?q={search_term_string}`,
+        urlTemplate: `${siteUrl}/blog?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -82,8 +82,8 @@ export function generateBlogPostSchema({
   language = "en",
   readingTime,
 }: BlogPostSchemaProps) {
-  const url = `${SITE_URL}/blog/${slug}`
-  const imageUrl = `${SITE_URL}/android-chrome-512x512.png`
+  const url = `${siteUrl}/blog/${slug}`
+  const imageUrl = `${siteUrl}/android-chrome-512x512.png`
 
   return {
     "@context": "https://schema.org",
@@ -96,13 +96,13 @@ export function generateBlogPostSchema({
     datePublished: date,
     dateModified: dateModified || date,
     author: {
-      "@id": `${SITE_URL}/#person`,
+      "@id": `${siteUrl}/#person`,
     },
     publisher: {
       "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
+      "@id": `${siteUrl}/#person`,
       name: "Jarema",
-      url: SITE_URL,
+      url: siteUrl,
       logo: {
         "@type": "ImageObject",
         url: imageUrl,
@@ -137,7 +137,7 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${SITE_URL}${item.url}`,
+      item: `${siteUrl}${item.url}`,
     })),
   }
 }
@@ -206,13 +206,13 @@ export function generateProfilePageSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    "@id": `${SITE_URL}/about`,
+    "@id": `${siteUrl}/about`,
     mainEntity: {
-      "@id": `${SITE_URL}/#person`,
+      "@id": `${siteUrl}/#person`,
     },
     name: "About Jarema",
     description: "Learn more about Jarema - economics major, developer, and cat enthusiast.",
-    url: `${SITE_URL}/about`,
+    url: `${siteUrl}/about`,
   }
 }
 

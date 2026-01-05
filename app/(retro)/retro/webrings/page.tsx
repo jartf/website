@@ -1,8 +1,8 @@
 import { WEBRING_ITEMS } from '@/content/webring-items'
-import { SITE_NAME } from '@/lib/constants'
+import { siteName } from "@/lib/constants"
 
 export const metadata = {
-  title: `Webrings - ${SITE_NAME} (Retro)`,
+  title: `Webrings - ${siteName} (Retro)`,
   robots: 'noindex, nofollow',
 }
 

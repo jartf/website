@@ -11,7 +11,7 @@ import { Galaxy } from "@/components/galaxy/galaxy"
 import { KeyboardNavigation } from "@/components/keyboard-navigation"
 import { ActionSearchBar } from "@/components/action-search-bar"
 import { FirstVisitHint } from "@/components/first-visit-hint"
-import { SUPPORTED_LANGUAGES, HREFLANG_LANGUAGES } from "@/lib/constants"
+import { supportedLanguages, hrefLangLanguages } from "@/lib/constants"
 
 // Font configurations
 const spaceGrotesk = Space_Grotesk({
@@ -45,7 +45,7 @@ const hanNom = localFont({
 
 const genFeeds = (types) => types.map(t => [
   { url: `${t[0]}.xml`, title: `Jarema's digital garden - ${t[1]} Feed` },
-  ...SUPPORTED_LANGUAGES.map(lang => ({
+  ...supportedLanguages.map(lang => ({
     url: `${t[0]}/${lang}.xml`,
     title: `Jarema's digital garden - ${lang.toUpperCase()} ${t[1]} Feed`,
     hreflang: lang,
@@ -55,7 +55,7 @@ const genFeeds = (types) => types.map(t => [
 const FEED_URLS_RSS = genFeeds([['rss', 'RSS']])
 const FEED_URLS_JSON = [
   { url: "feed.json", title: "Jarema's digital garden - FEED Feed" },
-  ...SUPPORTED_LANGUAGES.map(lang => ({
+  ...supportedLanguages.map(lang => ({
     url: `feed/${lang}.json`,
     title: `Jarema's digital garden - ${lang.toUpperCase()} FEED Feed`,
     hreflang: lang,
@@ -95,7 +95,7 @@ export const metadata = {
   metadataBase: new URL("https://jarema.me"),
   alternates: {
     canonical: "/",
-    languages: Object.fromEntries(HREFLANG_LANGUAGES.map((lang) => [lang, "/"])),
+    languages: Object.fromEntries(hrefLangLanguages.map((lang) => [lang, "/"])),
     types: {
       "application/rss+xml": FEED_URLS_RSS,
       "application/json": FEED_URLS_JSON,
@@ -143,7 +143,7 @@ export default function RootLayout({ children }) {
         {/* Wayback Machine detection and JavaScript blocker - must load first */}
         <Script src="/wayback-blocker.js" strategy="beforeInteractive" />
 
-        <script dangerouslySetInnerHTML={{__html:`(function(){document.documentElement.classList.add('js-enabled');try{var s=${JSON.stringify(SUPPORTED_LANGUAGES)},r=(typeof localStorage!=='undefined'&&localStorage.getItem('i18nextLng'))||navigator.language||'',l=s.find(function(x){return r.toLowerCase()===x||r.toLowerCase().indexOf(x+'-')===0})||'en';document.documentElement.setAttribute('lang',l);if(l==='zh'||l==='vih'){var k=document.createElement('link');k.id='noto-sans-sc-font';k.rel='stylesheet';k.href='https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap';document.head.appendChild(k);var t=document.createElement('style');t.id='noto-sans-sc-var';t.textContent=':root{--font-noto-sans-sc:"Noto Sans SC",sans-serif}';document.head.appendChild(t)}}catch(e){document.documentElement.setAttribute('lang','en')}document.addEventListener('DOMContentLoaded',function(){var n=document.querySelector('.js-disabled-notice');if(n)n.style.display='none'})})();`}} />
+        <script dangerouslySetInnerHTML={{__html:`(function(){document.documentElement.classList.add('js-enabled');try{var s=${JSON.stringify(supportedLanguages)},r=(typeof localStorage!=='undefined'&&localStorage.getItem('i18nextLng'))||navigator.language||'',l=s.find(function(x){return r.toLowerCase()===x||r.toLowerCase().indexOf(x+'-')===0})||'en';document.documentElement.setAttribute('lang',l);if(l==='zh'||l==='vih'){var k=document.createElement('link');k.id='noto-sans-sc-font';k.rel='stylesheet';k.href='https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap';document.head.appendChild(k);var t=document.createElement('style');t.id='noto-sans-sc-var';t.textContent=':root{--font-noto-sans-sc:"Noto Sans SC",sans-serif}';document.head.appendChild(t)}}catch(e){document.documentElement.setAttribute('lang','en')}document.addEventListener('DOMContentLoaded',function(){var n=document.querySelector('.js-disabled-notice');if(n)n.style.display='none'})})();`}} />
 
         <script dangerouslySetInnerHTML={{__html:`(function(){try{var s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches,t=s==='dark'||s==='light'?s:(s==='system'||!s)?(p?'dark':'light'):'dark';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);document.documentElement.style.colorScheme=t}catch(e){var p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(!p){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.style.colorScheme='light'}else{document.documentElement.style.colorScheme='dark'}}})();`}} />
 

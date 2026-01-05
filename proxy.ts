@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { RETRO_ROUTES } from '@/lib/constants'
+import { retroRoutes } from '@/lib/constants'
 
 /**
  * Detects ancient/legacy browsers that can't handle modern web technologies.
@@ -128,7 +128,7 @@ export function proxy(request: NextRequest) {
     // Check if this route has a retro equivalent
     const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '')
 
-    if (RETRO_ROUTES.includes(normalizedPath)) {
+    if (retroRoutes.includes(normalizedPath)) {
       // Redirect to retro version
       const retroUrl = new URL(`/retro${normalizedPath === '/' ? '' : normalizedPath}`, request.url)
       return NextResponse.redirect(retroUrl)
@@ -143,7 +143,7 @@ export function proxy(request: NextRequest) {
   if (request.nextUrl.searchParams.get('retro') === 'true') {
     const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '')
 
-    if (RETRO_ROUTES.includes(normalizedPath)) {
+    if (retroRoutes.includes(normalizedPath)) {
       const retroUrl = new URL(`/retro${normalizedPath === '/' ? '' : normalizedPath}`, request.url)
       return NextResponse.redirect(retroUrl)
     }

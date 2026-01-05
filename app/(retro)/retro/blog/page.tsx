@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { getAllBlogPosts } from '@/lib/blog'
-import { SITE_NAME } from '@/lib/constants'
+import { siteName } from "@/lib/constants"
 
 export const metadata = {
-  title: `Blog - ${SITE_NAME} (Retro)`,
+  title: `Blog - ${siteName} (Retro)`,
   robots: 'noindex, nofollow',
 }
 

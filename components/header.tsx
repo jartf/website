@@ -13,7 +13,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from 
 import { Menu, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useViewport, useMounted } from "@/hooks"
-import { NAV_ITEMS } from "@/lib/constants"
+import { navItems } from "@/lib/constants"
 
 // Static fallback labels for when JS is disabled
 const STATIC_NAV_LABELS: Record<string, string> = {
@@ -75,10 +75,10 @@ export function Header() {
   const { windowWidth } = useViewport()
 
   // Memoize navigation items - use translated labels when mounted, static labels otherwise
-  const navItems = useMemo(
+  const translatedNavItems = useMemo(
     () =>
       // Exclude the "projects" nav item from the header
-      NAV_ITEMS.filter((item) => item.key !== "projects").map((item) => ({
+      navItems.filter((item) => item.key !== "projects").map((item) => ({
         href: item.href,
         label: mounted
           ? t(`nav.${item.key}`, STATIC_NAV_LABELS[item.key] || item.key.charAt(0).toUpperCase() + item.key.slice(1))
@@ -161,12 +161,12 @@ export function Header() {
         cancelAnimationFrame(rafId)
       }
     }
-  }, [mounted, windowWidth, navItems]) // Include navItems since labels affect widths
+  }, [mounted, windowWidth, translatedNavItems]) // Include translatedNavItems since labels affect widths
 
   // Only apply overflow logic for tablet sizes when mounted
   const isTabletSize = mounted && windowWidth >= 768 && windowWidth < 1280
-  const visibleItems = isTabletSize && overflowIndex !== null ? navItems.slice(0, overflowIndex) : navItems
-  const overflowItems = isTabletSize && overflowIndex !== null ? navItems.slice(overflowIndex) : []
+  const visibleItems = isTabletSize && overflowIndex !== null ? translatedNavItems.slice(0, overflowIndex) : translatedNavItems
+  const overflowItems = isTabletSize && overflowIndex !== null ? translatedNavItems.slice(overflowIndex) : []
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
@@ -177,7 +177,7 @@ export function Header() {
         className="absolute -left-[9999px] flex items-center gap-6 text-sm whitespace-nowrap"
         style={{ visibility: 'hidden', pointerEvents: 'none' }}
       >
-        {navItems.map((item) => (
+        {translatedNavItems.map((item) => (
           <span key={item.href} data-measure-item="true">
             {item.label}
           </span>
@@ -254,7 +254,7 @@ export function Header() {
                 <SheetDescription className="sr-only">Main site navigation links</SheetDescription>
                 <nav className="grid gap-6 py-6" aria-label="Mobile navigation">
                   <div className="grid gap-3">
-                    {navItems.map((item) => (
+                    {translatedNavItems.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
@@ -281,7 +281,7 @@ export function Header() {
                   <span className="sr-only">Open navigation menu</span>
                 </summary>
                 <div className="absolute right-0 top-full mt-2 bg-background border rounded-md shadow-lg p-4 min-w-[160px] z-50">
-                  {navItems.map((item) => (
+                  {translatedNavItems.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}

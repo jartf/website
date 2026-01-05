@@ -15,7 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "react-i18next"
-import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/lib/constants"
+import { supportedLanguages, languageNames } from "@/lib/constants"
 import type { BlogPostMetadata } from "@/lib/blog"
 import enTranslations from "@/translations/en.json"
 
@@ -386,13 +386,13 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
 
   // Get current language for RSS feed
   const currentLanguage = currentLang
-  const isValidLanguage = SUPPORTED_LANGUAGES.includes(currentLanguage as any)
+  const isValidLanguage = supportedLanguages.includes(currentLanguage as any)
   const rssLanguage = isValidLanguage ? currentLanguage : "en"
 
   // Map language codes to display names with i18n + safe fallback to endonyms
   const getLanguageName = useCallback((code: string): string => {
-    if (!mounted) return LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code
-    return t(`language.${code}`, LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code).toString()
+    if (!mounted) return languageNames[code as keyof typeof languageNames] || code
+    return t(`language.${code}`, languageNames[code as keyof typeof languageNames] || code).toString()
   }, [mounted, t])
 
   // Helper to format date consistently
@@ -553,7 +553,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                     <div className="border-t pt-2">
                       <h4 className="text-sm font-medium mb-2">{t("blog.languageFeeds", "Language-specific feeds")}</h4>
                       <div className="grid grid-cols-2 gap-2">
-                        {SUPPORTED_LANGUAGES.map((lang) => (
+                        {supportedLanguages.map((lang) => (
                           <a
                             key={lang}
                             href={`/rss/${lang}.xml`}
@@ -563,7 +563,7 @@ export default function BlogList({ blogPosts = [] }: BlogListProps) {
                               lang === rssLanguage ? "bg-primary/10 font-medium" : ""
                             }`}
                           >
-                            <span>{LANGUAGE_NAMES[lang as keyof typeof LANGUAGE_NAMES]}</span>
+                            <span>{languageNames[lang as keyof typeof languageNames]}</span>
                             <Rss className="h-3 w-3 text-orange-600 dark:text-orange-400" />
                           </a>
                         ))}

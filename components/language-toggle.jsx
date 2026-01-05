@@ -7,14 +7,14 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Globe } from "lucide-react"
 import { useLanguageTracker, useMounted, useCurrentLanguage } from "@/hooks"
 import {
-  SUPPORTED_LANGUAGES,
-  LANGUAGE_NAMES,
-  LANGUAGE_FLAGS,
-  LANGUAGE_FONT_CLASSES,
-  MAIN_LANGUAGES,
-  OTHER_LANGUAGES,
-  BETA_LANGUAGES,
-  LANGUAGE_ALIASES,
+  supportedLanguages,
+  languageNames,
+  languageFlags,
+  languageFontClasses,
+  mainLanguages,
+  otherLanguages,
+  betaLanguages,
+  languageAliases,
 } from "@/lib/constants"
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill"
 import fuzzysort from "fuzzysort"
@@ -24,9 +24,9 @@ const buildSearchList = (list) =>
   list.map(lang => ({
     lang,
     terms: [
-      LANGUAGE_NAMES[lang] || "",
+      languageNames[lang] || "",
       lang,
-      ...(LANGUAGE_ALIASES[lang] || [])
+      ...(languageAliases[lang] || [])
     ].join(" ")
   }))
 
@@ -58,9 +58,9 @@ export const LanguageToggle = memo(function LanguageToggle() {
 
   // Get all visible language items in order
   const getVisibleLanguages = useCallback(() => {
-    const mainLangs = filterLanguages(MAIN_LANGUAGES)
-    const betaLangs = filterLanguages(BETA_LANGUAGES)
-    const otherLangs = filterLanguages(OTHER_LANGUAGES)
+    const mainLangs = filterLanguages(mainLanguages)
+    const betaLangs = filterLanguages(betaLanguages)
+    const otherLangs = filterLanguages(otherLanguages)
     return [...mainLangs, ...betaLangs, ...otherLangs]
   }, [filterLanguages])
 
@@ -202,8 +202,8 @@ export const LanguageToggle = memo(function LanguageToggle() {
 
   // Render flag using emoji; on Windows apply Twemoji Country Flags font
   const renderFlag = (language) => {
-    if (!SUPPORTED_LANGUAGES.includes(language)) return null
-    return <span className={`mr-2 ${isWindows ? "emoji-flag" : ""}`}>{LANGUAGE_FLAGS[language]}</span>
+    if (!supportedLanguages.includes(language)) return null
+    return <span className={`mr-2 ${isWindows ? "emoji-flag" : ""}`}>{languageFlags[language]}</span>
   }
 
   // Helper to render a language item
@@ -215,18 +215,18 @@ export const LanguageToggle = memo(function LanguageToggle() {
       }}
       onClick={() => handleLanguageChange(language)}
       onMouseEnter={() => setFocusedIndex(index)}
-      className={`${currentLanguage === language ? "bg-accent text-accent-foreground" : ""} ${focusedIndex === index ? "bg-accent text-accent-foreground" : ""} ${LANGUAGE_FONT_CLASSES[language]}`}
+      className={`${currentLanguage === language ? "bg-accent text-accent-foreground" : ""} ${focusedIndex === index ? "bg-accent text-accent-foreground" : ""} ${languageFontClasses[language]}`}
     >
       {renderFlag(language)}
-      {LANGUAGE_NAMES[language]}
+      {languageNames[language]}
     </DropdownMenuItem>
   )
 
   // Render language sections with proper indexing
   const renderLanguageSections = () => {
-    const mainLangs = filterLanguages(MAIN_LANGUAGES)
-    const betaLangs = filterLanguages(BETA_LANGUAGES)
-    const otherLangs = filterLanguages(OTHER_LANGUAGES)
+    const mainLangs = filterLanguages(mainLanguages)
+    const betaLangs = filterLanguages(betaLanguages)
+    const otherLangs = filterLanguages(otherLanguages)
 
     let currentIndex = 0
     const sections = []
@@ -284,7 +284,7 @@ export const LanguageToggle = memo(function LanguageToggle() {
           id="language-toggle-button"
         >
           <Globe className="h-5 w-5" aria-hidden="true" />
-          <span className="sr-only">Toggle language, current: {LANGUAGE_NAMES[currentLanguage] || currentLanguage}</span>
+          <span className="sr-only">Toggle language, current: {languageNames[currentLanguage] || currentLanguage}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

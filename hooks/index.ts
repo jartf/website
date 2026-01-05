@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useCallback, useRef, useSyncExternalStore
 import { useTranslation } from "react-i18next"
 import { useRouter, usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
-import { SUPPORTED_LANGUAGES, THEMES, KEYBOARD_SHORTCUTS, ROUTES } from "@/lib/constants"
+import { supportedLanguages, themes, keyboardShortcuts, routes } from "@/lib/constants"
 
 // ============================================================================
 // useMounted - Hydration-safe mounting detection
@@ -150,8 +150,8 @@ export function useCurrentLanguage(syncHtmlLang = false) {
 
   const currentLanguage = useMemo(() => {
     const rawLang = i18n.language || "en"
-    if (SUPPORTED_LANGUAGES.includes(rawLang)) return rawLang
-    const match = SUPPORTED_LANGUAGES.find(lang => rawLang.startsWith(lang))
+    if (supportedLanguages.includes(rawLang)) return rawLang
+    const match = supportedLanguages.find(lang => rawLang.startsWith(lang))
     return match || "en"
   }, [i18n.language])
 
@@ -195,8 +195,8 @@ export function useLanguageTracker() {
 
   // Check if all languages visited whenever visitedLanguages changes
   useEffect(() => {
-    if (visitedLanguages.size >= SUPPORTED_LANGUAGES.length) {
-      const allVisited = SUPPORTED_LANGUAGES.every(lang => visitedLanguages.has(lang))
+    if (visitedLanguages.size >= supportedLanguages.length) {
+      const allVisited = supportedLanguages.every(lang => visitedLanguages.has(lang))
       if (allVisited && !allLanguagesVisited) {
         queueMicrotask(() => setAllLanguagesVisited(true))
       }
@@ -209,7 +209,7 @@ export function useLanguageTracker() {
   }, [])
 
   const checkAllLanguagesVisited = useCallback(() => {
-    const allVisited = SUPPORTED_LANGUAGES.every(lang => visitedLanguages.has(lang))
+    const allVisited = supportedLanguages.every(lang => visitedLanguages.has(lang))
     return allVisited
   }, [visitedLanguages])
 
@@ -233,20 +233,20 @@ export function useLanguageTracker() {
 // useKeyboardNavigation - Global keyboard shortcuts
 // ============================================================================
 const NAVIGATION_SHORTCUTS: Record<string, string> = {
-  [KEYBOARD_SHORTCUTS.HOME]: ROUTES.HOME,
-  [KEYBOARD_SHORTCUTS.ABOUT]: ROUTES.ABOUT,
-  [KEYBOARD_SHORTCUTS.BLOG]: ROUTES.BLOG,
-  [KEYBOARD_SHORTCUTS.PROJECTS]: ROUTES.PROJECTS,
-  [KEYBOARD_SHORTCUTS.NOW]: ROUTES.NOW,
-  [KEYBOARD_SHORTCUTS.USES]: ROUTES.USES,
-  [KEYBOARD_SHORTCUTS.CONTACT]: ROUTES.CONTACT,
-  [KEYBOARD_SHORTCUTS.GUESTBOOK]: ROUTES.GUESTBOOK,
-  [KEYBOARD_SHORTCUTS.COLOPHON]: ROUTES.COLOPHON,
-  [KEYBOARD_SHORTCUTS.WEBRING]: ROUTES.WEBRING,
-  [KEYBOARD_SHORTCUTS.SLASHES]: ROUTES.SLASHES,
-  [KEYBOARD_SHORTCUTS.SCRAPBOOK]: ROUTES.SCRAPBOOK,
-  [KEYBOARD_SHORTCUTS.GAME_2048]: ROUTES.GAME_2048,
-  [KEYBOARD_SHORTCUTS.TETRIS]: ROUTES.TETRIS,
+  [keyboardShortcuts.HOME]: routes.HOME,
+  [keyboardShortcuts.ABOUT]: routes.ABOUT,
+  [keyboardShortcuts.BLOG]: routes.BLOG,
+  [keyboardShortcuts.PROJECTS]: routes.PROJECTS,
+  [keyboardShortcuts.NOW]: routes.NOW,
+  [keyboardShortcuts.USES]: routes.USES,
+  [keyboardShortcuts.CONTACT]: routes.CONTACT,
+  [keyboardShortcuts.GUESTBOOK]: routes.GUESTBOOK,
+  [keyboardShortcuts.COLOPHON]: routes.COLOPHON,
+  [keyboardShortcuts.WEBRING]: routes.WEBRING,
+  [keyboardShortcuts.SLASHES]: routes.SLASHES,
+  [keyboardShortcuts.SCRAPBOOK]: routes.SCRAPBOOK,
+  [keyboardShortcuts.GAME_2048]: routes.GAME_2048,
+  [keyboardShortcuts.TETRIS]: routes.TETRIS,
 }
 
 export function useKeyboardNavigation() {
@@ -264,16 +264,16 @@ export function useKeyboardNavigation() {
   }, [pathname])
 
   const cycleTheme = useCallback(() => {
-    const idx = THEMES.indexOf(theme || "system")
-    setTheme(THEMES[(idx + 1) % THEMES.length])
+    const idx = themes.indexOf(theme || "system")
+    setTheme(themes[(idx + 1) % themes.length])
   }, [theme, setTheme])
 
   const cycleLanguage = useCallback(() => {
     const curr = i18n.language || "en"
-    let idx = SUPPORTED_LANGUAGES.indexOf(curr)
-    if (idx === -1) idx = SUPPORTED_LANGUAGES.findIndex(l => curr.startsWith(l))
+    let idx = supportedLanguages.indexOf(curr)
+    if (idx === -1) idx = supportedLanguages.findIndex(l => curr.startsWith(l))
     if (idx === -1) idx = 0
-    const next = SUPPORTED_LANGUAGES[(idx + 1) % SUPPORTED_LANGUAGES.length]
+    const next = supportedLanguages[(idx + 1) % supportedLanguages.length]
     i18n.changeLanguage(next)
     document.documentElement?.setAttribute("lang", next)
   }, [i18n])
@@ -284,7 +284,7 @@ export function useKeyboardNavigation() {
       if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el?.getAttribute("contenteditable") === "true") return
       if (e.ctrlKey) return
 
-      const isGame = pathname?.includes(ROUTES.GAME_2048) || pathname?.includes(ROUTES.TETRIS)
+      const isGame = pathname?.includes(routes.GAME_2048) || pathname?.includes(routes.TETRIS)
 
       if (isGame) {
         if (e.key === "h" && !e.metaKey && !e.altKey) { e.preventDefault(); router.push("/") }

@@ -10,7 +10,7 @@ import { AnimatedSection } from "@/components/page-animation"
 import { TranslatedText } from "@/components/translated-text"
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata"
 import { generateBlogPostSchema, generateBreadcrumbSchema, renderJsonLd } from "@/lib/structured-data"
-import { SITE_URL } from "@/lib/constants"
+import { siteUrl } from "@/lib/constants"
 
 import {
   getAllBlogPosts,
@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
       : []
 
     const alternateLanguages = await getAlternateLanguages(slugArr, post, allPosts)
-    const postUrl = `${SITE_URL}/blog/${slug}`
+    const postUrl = `${siteUrl}/blog/${slug}`
 
     // Structured data for Google
     const blogPostSchema = generateBlogPostSchema({
@@ -236,7 +236,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
 
               {/* Microformats hidden data */}
               <div className="p-author h-card hidden">
-                <a className="p-name u-url" href={SITE_URL}>Jarema</a>
+                <a className="p-name u-url" href={siteUrl}>Jarema</a>
               </div>
               <a className="u-url hidden" href={postUrl}>Permalink</a>
 

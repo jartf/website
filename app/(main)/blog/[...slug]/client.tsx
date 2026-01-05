@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useMounted, useCurrentLanguage } from "@/hooks"
 import { formatDate } from "@/lib/utils"
-import { LANGUAGE_NAMES } from "@/lib/constants"
+import { languageNames } from "@/lib/constants"
 
 /**
  * Client-side formatted date with user's locale
@@ -29,7 +29,7 @@ export function LanguageName({ code }: { code: string }) {
   const { t } = useTranslation()
   const mounted = useMounted()
 
-  const fallback = LANGUAGE_NAMES[code as keyof typeof LANGUAGE_NAMES] || code
+  const fallback = languageNames[code as keyof typeof languageNames] || code
   if (!mounted) return <>{fallback}</>
   return <>{t(`language.${code}`, fallback)}</>
 }

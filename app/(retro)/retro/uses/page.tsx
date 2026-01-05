@@ -1,8 +1,8 @@
 import { USES_CATEGORIES } from '@/content/uses-items'
-import { SITE_NAME } from '@/lib/constants'
+import { siteName } from "@/lib/constants"
 
 export const metadata = {
-  title: `Uses - ${SITE_NAME} (Retro)`,
+  title: `Uses - ${siteName} (Retro)`,
   robots: 'noindex, nofollow',
 }
 

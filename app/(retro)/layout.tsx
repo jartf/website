@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-css-tags, @next/next/no-html-link-for-pages, @next/next/no-img-element */
-import { SITE_NAME } from '@/lib/constants'
+import { siteName } from '@/lib/constants'
 
 /**
  * Retro Route Group Layout
@@ -35,7 +35,7 @@ export default function RetroRootLayout({
         <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex" />
-        <title>{`${SITE_NAME} - Retro Version`}</title>
+        <title>{`${siteName} - Retro Version`}</title>
         {/* CSS1-compatible stylesheet for browsers that support it */}
         <link rel="stylesheet" href="/retro.css" type="text/css" />
       </head>
@@ -72,7 +72,7 @@ export default function RetroRootLayout({
                     <tr>
                       <td style={{ textAlign: 'left' }}>
                         <font size={5} color="#ffffff">
-                          <b>☆ {SITE_NAME} ☆</b>
+                          <b>☆ {siteName} ☆</b>
                         </font>
                         <br />
                         <font size={2} color="#5dd9f4">

@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
-import { ROUTES } from "@/lib/constants"
+import { routes } from "@/lib/constants"
 
 /**
  * @typedef {'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'} ChangeFrequency
@@ -16,7 +16,7 @@ import { ROUTES } from "@/lib/constants"
  */
 
 // Define static pages
-const STATIC_PAGES = Object.values(ROUTES)
+const STATIC_PAGES = Object.values(routes)
 
 /**
  * Recursively get all .md files in a directory and its subdirectories
