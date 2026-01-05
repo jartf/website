@@ -54,6 +54,10 @@ if (!i18next.isInitialized) {
         lookupLocalStorage: "i18nextLng",
         caches: ["localStorage", "cookie"],
         cookieExpirationDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
+        cookieOptions: {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+        },
       },
       react: { useSuspense: false },
       // No backend, no async loading
