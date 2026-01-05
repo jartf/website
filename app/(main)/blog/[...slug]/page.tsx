@@ -159,10 +159,13 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
                   </Badge>
 
                   {post.catApproved && (
-                    <div className="flex items-center text-amber-600 dark:text-amber-400">
-                      <Cat className="h-4 w-4 mr-1" />
+                    <Badge
+                      variant="outline"
+                      className="flex items-center gap-1 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100"
+                    >
+                      <Cat className="h-3 w-3" />
                       <TranslatedText i18nKey="blog.cat" fallback="Cat approved" />
-                    </div>
+                    </Badge>
                   )}
 
                   {post.language && (
