@@ -384,6 +384,19 @@
     "randomAria": "{{name}} içindeki rastgele site",
     "nextAria": "{{name}} içindeki sonraki site"
   },
+  "badges": {
+    "title": "Web rozetleri koleksiyonu",
+    "description": "Web sitemde kullanılan klasik web rozetleri ve düğmelerinden oluşan bir koleksiyon.",
+    "collectionHeading": "Rozet koleksiyonu",
+    "search": "Rozet ara...",
+    "filterByCategory": "Kategoriye göre filtrele",
+    "verboseView": "Ayrıntılı",
+    "badgeOnlyView": "Sadece rozet",
+    "showingCount": "{{count}} rozet gösteriliyor",
+    "showingFiltered": "{{total}} rozetten {{filtered}} tanesi gösteriliyor",
+    "noResults": "Arama kriterlerinizle eşleşen rozet bulunamadı",
+    "visitBadge": "Ziyaret et: {{name}}"
+  },
   "colophon": {
     "title": "Künye",
     "description": "Bu web sitesinin arkasındaki hikaye ve nasıl oluşturulduğu",

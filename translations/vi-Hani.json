@@ -371,6 +371,19 @@
     "randomAria": "張偶然𥪝 {{name}}",
     "nextAria": "張𢖖󠄁𥪝 {{name}}"
   },
+  "badges": {
+    "title": "部搜集徽號䇼",
+    "description": "綜合各徽號䇼吧𨨷𢶸古典得使用𨑗張䇼𧵑碎。",
+    "collectionHeading": "部搜集徽號䇼",
+    "search": "尋檢徽號…",
+    "filterByCategory": "漉蹺名目",
+    "verboseView": "枝節",
+    "badgeOnlyView": "只形影",
+    "showingCount": "當顯示 {{count}} 徽號",
+    "showingFiltered": "顯示 {{filtered}} 𨑗總數 {{total}} 徽號",
+    "noResults": "空尋𧡊徽號𱜢𨨤貝尋檢𧵑伴",
+    "visitBadge": "㨳㖭探 {{name}}"
+  },
   "colophon": {
     "title": "通信張䇼",
     "description": "句𡀯𱘃𢖖󠄁張䇼尼",

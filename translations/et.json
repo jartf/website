@@ -372,6 +372,19 @@
     "randomAria": "Juhuslik leht ringis {{name}}",
     "nextAria": "Järgmine leht ringis {{name}}"
   },
+  "badges": {
+    "title": "Veebimärkide kogu",
+    "description": "Klassikaliste veebimärkide ja nuppude kogu, mida kasutan oma kodulehel.",
+    "collectionHeading": "Märkide kogu",
+    "search": "Otsi märke...",
+    "filterByCategory": "Filtreeri kategooria järgi",
+    "verboseView": "Üksikasjalik",
+    "badgeOnlyView": "Ainult märk",
+    "showingCount": "Kuvatakse {{count}} märki",
+    "showingFiltered": "Kuvatakse {{filtered}} / {{total}} märgist",
+    "noResults": "Otsingukriteeriumidele vastavaid märke ei leitud",
+    "visitBadge": "Külasta: {{name}}"
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Selle veebisaidi taga peituv lugu ja selle loomine",

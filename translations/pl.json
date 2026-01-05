@@ -372,6 +372,19 @@
     "randomAria": "Losowa strona w {{name}}",
     "nextAria": "Następna strona w {{name}}"
   },
+  "badges": {
+    "title": "Kolekcja odznak internetowych",
+    "description": "Zbiór klasycznych odznak i przycisków internetowych używanych na mojej stronie.",
+    "collectionHeading": "Kolekcja odznak",
+    "search": "Szukaj odznak...",
+    "filterByCategory": "Filtruj według kategorii",
+    "verboseView": "Szczegółowy",
+    "badgeOnlyView": "Tylko odznaka",
+    "showingCount": "Wyświetlanie {{count}} odznak",
+    "showingFiltered": "Wyświetlanie {{filtered}} z {{total}} odznak",
+    "noResults": "Nie znaleziono odznak pasujących do kryteriów wyszukiwania",
+    "visitBadge": "Odwiedź {{name}}"
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historia tej strony i jak powstała",

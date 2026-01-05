@@ -384,6 +384,19 @@
     "randomAria": "{{name}} 中的随机网站",
     "nextAria": "{{name}} 中的下一个网站"
   },
+  "badges": {
+    "title": "网页徽章收藏",
+    "description": "我在网站上使用的经典网页徽章和按钮合集。",
+    "collectionHeading": "徽章收藏",
+    "search": "搜索徽章...",
+    "filterByCategory": "按类别筛选",
+    "verboseView": "详细视图",
+    "badgeOnlyView": "仅显示徽章",
+    "showingCount": "显示 {{count}} 个徽章",
+    "showingFiltered": "显示 {{total}} 个徽章中的 {{filtered}} 个",
+    "noResults": "未找到符合您搜索条件的徽章",
+    "visitBadge": "访问 {{name}}"
+  },
   "colophon": {
     "title": "网站信息",
     "description": "这个网站背后的故事",

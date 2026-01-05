@@ -375,6 +375,19 @@
     "randomAria": "lipu nasa lon {{name}}",
     "nextAria": "lipu kama lon {{name}}"
   },
+  "badges": {
+    "title": "kulupu pi sitelen lili",
+    "description": "kulupu pi sitelen lili pi ilo sona. mi kepeken ni lon lipu mi.",
+    "collectionHeading": "kulupu sitelen",
+    "search": "o alasa e sitelen...",
+    "filterByCategory": "o weka e ijo kepeken kulupu",
+    "verboseView": "sona mute",
+    "badgeOnlyView": "sitelen taso",
+    "showingCount": "mi pana e lukin pi sitelen {{count}}",
+    "showingFiltered": "mi pana e lukin pi sitelen {{filtered}} tan {{total}}",
+    "noResults": "mi alasa e sitelen la mi lukin e ala",
+    "visitBadge": "o tawa {{name}}"
+  },
   "colophon": {
     "title": "tan lipu",
     "description": "toki pi lipu ni en nasin pali ona",

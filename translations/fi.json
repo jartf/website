@@ -372,6 +372,19 @@
     "randomAria": "Satunnainen sivu ryhmässä {{name}}",
     "nextAria": "Seuraava sivu ryhmässä {{name}}"
   },
+  "badges": {
+    "title": "Verkkomerkkikokoelma",
+    "description": "Kokoelma klassisia verkkomerkkejä ja painikkeita, joita käytetään verkkosivustollani.",
+    "collectionHeading": "Merkkikokoelma",
+    "search": "Etsi merkkejä...",
+    "filterByCategory": "Suodata kategorian mukaan",
+    "verboseView": "Yksityiskohtainen",
+    "badgeOnlyView": "Vain merkki",
+    "showingCount": "Näytetään {{count}} merkkiä",
+    "showingFiltered": "Näytetään {{filtered}} / {{total}} merkistä",
+    "noResults": "Hakukriteereitä vastaavia merkkejä ei löytynyt",
+    "visitBadge": "Vieraile: {{name}}"
+  },
   "colophon": {
     "title": "Kolofoni",
     "description": "Tarinani tämän sivuston takana ja miten se rakennettiin",

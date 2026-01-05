@@ -386,6 +386,19 @@
     "randomAria": "Tilfældig side i {{name}}",
     "nextAria": "Næste side i {{name}}"
   },
+  "badges": {
+    "title": "Samling af web-badges",
+    "description": "En samling af klassiske web-badges og knapper brugt på min hjemmeside.",
+    "collectionHeading": "Badge-samling",
+    "search": "Søg i badges...",
+    "filterByCategory": "Filtrer efter kategori",
+    "verboseView": "Detaljeret",
+    "badgeOnlyView": "Kun badge",
+    "showingCount": "Viser {{count}} badges",
+    "showingFiltered": "Viser {{filtered}} af {{total}} badges",
+    "noResults": "Ingen badges fundet ud fra dine søgekriterier",
+    "visitBadge": "Besøg {{name}}"
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historien bag dette websted, og hvordan det blev bygget",

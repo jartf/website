@@ -372,6 +372,19 @@
     "randomAria": "Trang ngẫu nhiên trong {{name}}",
     "nextAria": "Trang sau trong {{name}}"
   },
+  "badges": {
+    "title": "Bộ sưu tập huy hiệu web",
+    "description": "Tổng hợp các huy hiệu web và nút bấm cổ điển được sử dụng trên trang web của tôi.",
+    "collectionHeading": "Bộ sưu tập huy hiệu",
+    "search": "Tìm kiếm huy hiệu...",
+    "filterByCategory": "Lọc theo danh mục",
+    "verboseView": "Chi tiết",
+    "badgeOnlyView": "Chỉ hình ảnh",
+    "showingCount": "Đang hiển thị {{count}} huy hiệu",
+    "showingFiltered": "Hiển thị {{filtered}} trên tổng số {{total}} huy hiệu",
+    "noResults": "Không tìm thấy huy hiệu nào khớp với tìm kiếm của bạn",
+    "visitBadge": "Ghé thăm {{name}}"
+  },
   "colophon": {
     "title": "Thông tin trang web",
     "description": "Câu chuyện đằng sau trang web này",

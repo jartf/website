@@ -382,6 +382,19 @@
     "randomAria": "Случайный сайт в {{name}}",
     "nextAria": "Следующий сайт в {{name}}"
   },
+  "badges": {
+    "title": "Коллекция веб-значков",
+    "description": "Коллекция классических веб-значков и кнопок, используемых на моем сайте.",
+    "collectionHeading": "Коллекция значков",
+    "search": "Поиск значков...",
+    "filterByCategory": "Фильтр по категориям",
+    "verboseView": "Подробно",
+    "badgeOnlyView": "Только значок",
+    "showingCount": "Показано {{count}} значков",
+    "showingFiltered": "Показано {{filtered}} из {{total}} значков",
+    "noResults": "Значки, соответствующие вашему запросу, не найдены",
+    "visitBadge": "Посетить {{name}}"
+  },
   "colophon": {
     "title": "Колофон",
     "description": "История этого сайта и как он был создан",

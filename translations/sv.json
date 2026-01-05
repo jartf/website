@@ -372,6 +372,19 @@
     "randomAria": "Slumpmässig sida i {{name}}",
     "nextAria": "Nästa sida i {{name}}"
   },
+  "badges": {
+    "title": "Samling av webbmärken",
+    "description": "En samling klassiska webbmärken och knappar som används på min webbplats.",
+    "collectionHeading": "Märkessamling",
+    "search": "Sök märken...",
+    "filterByCategory": "Filtrera efter kategori",
+    "verboseView": "Detaljerad",
+    "badgeOnlyView": "Endast märke",
+    "showingCount": "Visar {{count}} märken",
+    "showingFiltered": "Visar {{filtered}} av {{total}} märken",
+    "noResults": "Inga märken hittades som matchar dina sökkriterier",
+    "visitBadge": "Besök {{name}}"
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historien bakom denna webbplats och hur den byggdes",
