@@ -33,6 +33,7 @@ export function generateRSSFeed({ posts, title, description, language, feedUrl }
   </item>`).join("")
 
   return `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
   <title>${escapeXml(title)}</title>
@@ -67,6 +68,7 @@ export function generateAtomFeed({ posts, title, description, language, feedUrl 
   </entry>`).join("")
 
   return `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/atom.xsl" type="text/xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>${escapeXml(title)}</title>
   <link href="${SITE_URL}" rel="alternate" type="text/html"/>
