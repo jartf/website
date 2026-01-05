@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { TranslatedPageHeader } from "@/components/translated-text"
 import { CONTACT_ICONS, CONTACT_LINK_NAMES } from "@/lib/icons"
 import i18n from "i18next"
+import enTranslations from "@/translations/en.json"
 
 // Generate icon elements from shared CONTACT_ICONS
 const iconMap: Record<string, React.ReactNode> = Object.fromEntries(
@@ -213,8 +214,8 @@ export default function ContactClient() {
           <TranslatedPageHeader
             titleKey="contact.title"
             descriptionKey="contact.description"
-            staticTitle="Contact"
-            staticDescription="Get in touch with me"
+            staticTitle={enTranslations.contact.title}
+            staticDescription={enTranslations.contact.description}
           />
 
           <div className="grid gap-8">
