@@ -14,24 +14,10 @@ import {
   MAIN_LANGUAGES,
   OTHER_LANGUAGES,
   BETA_LANGUAGES,
+  LANGUAGE_ALIASES,
 } from "@/lib/constants"
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill"
 import fuzzysort from "fuzzysort"
-
-// Language aliases for search
-const LANGUAGE_ALIASES = {
-  vi: ["Vietnamese", "Tieng Viet"],
-  et: ["Estonian"],
-  ru: ["Russian", "Russkii", "Russkiy"],
-  da: ["Danish"],
-  zh: ["Chinese", "Zhongwen", "Hanyu"],
-  tr: ["Turkish", "Turkce"],
-  pl: ["Polish"],
-  sv: ["Swedish"],
-  fi: ["Finnish"],
-  tok: ["language of the good"],
-  vih: ["Vietnamese", "Han Nom", "Hannom"],
-}
 
 // Build fuzzy search list
 const buildSearchList = (list) =>

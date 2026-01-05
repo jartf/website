@@ -1,10 +1,5 @@
 import { NextResponse } from 'next/server';
-
-const DOMAIN_HASHES = {
-  'jarema.me': 'dh=1d651c707c7a9a0d03b235429393417f9506161c',
-  'z.is-a.dev': 'dh=151caf0b951e4ef19ec7ca771079fbed44c28970',
-  'localhost': 'dh=2147463847test',
-};
+import { DOMAIN_HASHES } from '@/lib/constants';
 
 const TEXT_HEADERS = { 'Content-Type': 'text/plain' };
 

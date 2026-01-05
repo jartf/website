@@ -7,6 +7,7 @@ import { Music, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, RotateCcw } from "luc
 import { DarkModeFirefly } from "@/components/firefly"
 import { useTranslation } from "react-i18next"
 import { usePlatform, useMounted } from "@/hooks"
+import { TETRIS_CONFIG } from "@/lib/constants"
 
 type TouchAction = 'left' | 'right' | 'down' | 'rotate' | 'drop' | 'pause'
 
@@ -134,13 +135,7 @@ const SONGS = [
   },
 ]
 
-const BOARD_WIDTH = 10
-const BOARD_HEIGHT = 20
-const INITIAL_DROP_TIME = 800
-const SPEED_INCREASE_FACTOR = 0.95
-const TOUCH_COOLDOWN = 200 // Cooldown in milliseconds
-
-const createEmptyBoard = (): BoardCell[][] => Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(0))
+const createEmptyBoard = (): BoardCell[][] => Array.from({ length: TETRIS_CONFIG.BOARD_HEIGHT }, () => Array(TETRIS_CONFIG.BOARD_WIDTH).fill(0))
 
 const randomTetromino = (): TetrominoWithKey => {
   const keys = Object.keys(TETROMINOS) as Array<keyof typeof TETROMINOS>
@@ -154,7 +149,7 @@ export default function TetrisGame() {
   const [currentPiece, setCurrentPiece] = useState<CurrentPiece | null>(null)
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(false)
-  const [dropTime, setDropTime] = useState(INITIAL_DROP_TIME)
+  const [dropTime, setDropTime] = useState(TETRIS_CONFIG.INITIAL_DROP_TIME)
   const [level, setLevel] = useState(1)
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [currentSongIndex, setCurrentSongIndex] = useState(0)
@@ -195,7 +190,7 @@ export default function TetrisGame() {
         if (shape[row][col] !== 0) {
           const newX = x + col
           const newY = y + row
-          if (newX < 0 || newX >= BOARD_WIDTH || newY >= BOARD_HEIGHT || (newY >= 0 && board[newY][newX] !== 0)) {
+          if (newX < 0 || newX >= TETRIS_CONFIG.BOARD_WIDTH || newY >= TETRIS_CONFIG.BOARD_HEIGHT || (newY >= 0 && board[newY][newX] !== 0)) {
             return true
           }
         }
@@ -223,8 +218,8 @@ export default function TetrisGame() {
       if (linesCleared.length > 0) {
         setCompletedRows(linesCleared)
         setTimeout(() => {
-          while (updatedBoard.length < BOARD_HEIGHT) {
-            updatedBoard.unshift(Array(BOARD_WIDTH).fill(0))
+          while (updatedBoard.length < TETRIS_CONFIG.BOARD_HEIGHT) {
+            updatedBoard.unshift(Array(TETRIS_CONFIG.BOARD_WIDTH).fill(0))
           }
           setBoard(updatedBoard)
           setCompletedRows([])
@@ -235,7 +230,7 @@ export default function TetrisGame() {
 
           if (Math.floor(newScore / 500) > level - 1) {
             setLevel((prev) => prev + 1)
-            setDropTime((prev) => prev * SPEED_INCREASE_FACTOR)
+            setDropTime((prev) => prev * TETRIS_CONFIG.SPEED_INCREASE_FACTOR)
           }
         }, 500)
       }
@@ -245,7 +240,7 @@ export default function TetrisGame() {
 
   const spawnNewPiece = useCallback(() => {
     const newPiece = {
-      x: Math.floor(BOARD_WIDTH / 2) - 1,
+      x: Math.floor(TETRIS_CONFIG.BOARD_WIDTH / 2) - 1,
       y: 0,
       tetromino: randomTetromino(),
     }
@@ -264,7 +259,7 @@ export default function TetrisGame() {
         if (value !== 0) {
           const boardY = y + currentPiece.y
           const boardX = x + currentPiece.x
-          if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH) {
+          if (boardY >= 0 && boardY < TETRIS_CONFIG.BOARD_HEIGHT && boardX >= 0 && boardX < TETRIS_CONFIG.BOARD_WIDTH) {
             newBoard[boardY][boardX] = currentPiece.tetromino.color
           }
         }
@@ -354,7 +349,7 @@ export default function TetrisGame() {
         if (value !== 0) {
           const boardY = y + updatedPiece.y
           const boardX = x + updatedPiece.x
-          if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH) {
+          if (boardY >= 0 && boardY < TETRIS_CONFIG.BOARD_HEIGHT && boardX >= 0 && boardX < TETRIS_CONFIG.BOARD_WIDTH) {
             newBoard[boardY][boardX] = updatedPiece.tetromino.color
           }
         }
@@ -372,7 +367,7 @@ export default function TetrisGame() {
   // Touch control handlers with cooldown
   const handleTouchAction = (action: () => void, actionType: TouchAction) => {
     const now = Date.now()
-    if (now - touchCooldowns.current[actionType] < TOUCH_COOLDOWN) {
+    if (now - touchCooldowns.current[actionType] < TETRIS_CONFIG.TOUCH_COOLDOWN) {
       return // Still in cooldown period
     }
 
@@ -512,7 +507,7 @@ export default function TetrisGame() {
     setCurrentPiece(null)
     setScore(0)
     setGameOver(false)
-    setDropTime(INITIAL_DROP_TIME)
+    setDropTime(TETRIS_CONFIG.INITIAL_DROP_TIME)
     setLevel(1)
     setCompletedRows([])
     setIsPaused(false)

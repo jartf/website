@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { RETRO_ROUTES } from '@/lib/constants'
 
 /**
  * Detects ancient/legacy browsers that can't handle modern web technologies.
@@ -83,19 +84,6 @@ function isLegacyBrowser(userAgent: string): boolean {
 
   return false
 }
-
-/**
- * Routes that have retro equivalents
- */
-const RETRO_ROUTES = [
-  '/',
-  '/about',
-  '/blog',
-  '/projects',
-  '/contact',
-  '/now',
-  '/uses',
-]
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
