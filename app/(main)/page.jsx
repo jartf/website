@@ -112,7 +112,7 @@ export default async function Home() {
               </h2>
               <nav className="border rounded-lg p-4 bg-card divide-y text-sm" aria-label="Webring navigation">
                 {webrings.map(([name, url, prev, random, next]) => (
-                  <div key={url} className="flex items-center justify-between py-2.25 first:pt-0 last:pb-0">
+                  <div key={url} className="flex items-center justify-between py-2 lg:py-2.25 xl:py-2.75 first:pt-0 last:pb-0">
                     <a href={url} className="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">
                       {name}
                     </a>
