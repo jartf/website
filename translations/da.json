@@ -374,6 +374,18 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "webrings": {
+    "title": "Webringe",
+    "description": "Webringe jeg er med i. Opdag flere uafhængige websider og personlige blogs.",
+    "intro1": "En webring er en samling af websider lavet af ligesindede, typisk centreret omkring et emne, en æstetik eller en fælles interesse. (fra safonts webring)",
+    "intro2": "Denne side er en del af disse webringe. Klik på linkene for at besøge mine naboers sider, og andre medlemmers, hvis den webring har en tilfældig-funktion. Vælg hvilken som helst ring du har lyst til!",
+    "previous": "Forrige",
+    "random": "Tilfældig",
+    "next": "Næste",
+    "previousAria": "Forrige side i {{name}}",
+    "randomAria": "Tilfældig side i {{name}}",
+    "nextAria": "Næste side i {{name}}"
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historien bag dette websted, og hvordan det blev bygget",

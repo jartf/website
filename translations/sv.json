@@ -360,6 +360,18 @@
   "scrapbook": {
     "title": "Devlogg"
   },
+  "webrings": {
+    "title": "Webbringar",
+    "description": "Webbringar som jag är med i. Upptäck fler oberoende webbplatser och personliga bloggar.",
+    "intro1": "En webbring är en samling webbplatser skapade av likasinnade, oftast centrerade kring ett ämne, estetik eller gemensamt intresse. (från safonts webring)",
+    "intro2": "Denna webbplats är en del av dessa webbringar. Klicka på länkarna för att besöka mina grannars sidor, och andra medlemmar om den webbringen har en slumpfunktion. Välj vilken ring du vill!",
+    "previous": "Föregående",
+    "random": "Slumpmässig",
+    "next": "Nästa",
+    "previousAria": "Föregående sida i {{name}}",
+    "randomAria": "Slumpmässig sida i {{name}}",
+    "nextAria": "Nästa sida i {{name}}"
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historien bakom denna webbplats och hur den byggdes",

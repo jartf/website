@@ -360,6 +360,18 @@
   "scrapbook": {
     "title": "Devlogi"
   },
+  "webrings": {
+    "title": "Verkkorenkaat",
+    "description": "Verkkorenkaat, joissa olen mukana. Löydä lisää itsenäisiä verkkosivustoja ja henkilökohtaisia blogeja.",
+    "intro1": "Verkkorengas on samanhenkisten ihmisten tekemä sivustokokoelma, joka keskittyy yleensä tiettyyn aiheeseen, estetiikkaan tai yhteiseen kiinnostuksen kohteeseen. (safonts-verkkorenkaalta)",
+    "intro2": "Tämä sivusto on osa näitä verkkorenkaita. Klikkaa linkkejä vieraillaksesi naapureideni sivuilla, tai muiden jäsenten, jos renkaassa on satunnaistoiminto. Valitse mikä tahansa rengas!",
+    "previous": "Edellinen",
+    "random": "Satunnainen",
+    "next": "Seuraava",
+    "previousAria": "Edellinen sivu ryhmässä {{name}}",
+    "randomAria": "Satunnainen sivu ryhmässä {{name}}",
+    "nextAria": "Seuraava sivu ryhmässä {{name}}"
+  },
   "colophon": {
     "title": "Kolofoni",
     "description": "Tarinani tämän sivuston takana ja miten se rakennettiin",

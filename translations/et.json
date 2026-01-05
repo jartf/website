@@ -360,6 +360,18 @@
   "scrapbook": {
     "title": "Devlogi"
   },
+  "webrings": {
+    "title": "Veebiringid",
+    "description": "Veebiringid, kuhu ma kuulun. Avasta rohkem iseseisvaid veebilehti ja isiklikke blogisid.",
+    "intro1": "Veebiring on sarnaselt mõtlevate inimeste loodud veebilehtede kogumik, mis on tavaliselt koondunud mingi teema, esteetika või ühise huvi ümber. (safonts veebiringilt)",
+    "intro2": "See veebileht on osa neist veebiringidest. Klõpsa linkidel, et külastada mu naabrite lehti, ja teisi liikmeid, kui sellel ringil on juhuslikkuse funktsioon. Vali milline tahes ring!",
+    "previous": "Eelmine",
+    "random": "Juhuslik",
+    "next": "Järgmine",
+    "previousAria": "Eelmine leht ringis {{name}}",
+    "randomAria": "Juhuslik leht ringis {{name}}",
+    "nextAria": "Järgmine leht ringis {{name}}"
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Selle veebisaidi taga peituv lugu ja selle loomine",

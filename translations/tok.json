@@ -363,6 +363,18 @@
   "scrapbook": {
     "title": "toki pali"
   },
+  "webrings": {
+    "title": "sike lipu",
+    "description": "sike lipu ni li jo e mi. o lukin e lipu ante pi jan ante.",
+    "intro1": "sike lipu li kulupu pi lipu insa. jan li pali e ni tan pilin sama. (tan sike lipu safonts)",
+    "intro2": "lipu ni li lon sike lipu ni. o nena e linja tawa la sina lukin e lipu pi poka mi. o nena e sike ale!",
+    "previous": "pini",
+    "random": "nasa",
+    "next": "kama",
+    "previousAria": "lipu pini lon {{name}}",
+    "randomAria": "lipu nasa lon {{name}}",
+    "nextAria": "lipu kama lon {{name}}"
+  },
   "colophon": {
     "title": "tan lipu",
     "description": "toki pi lipu ni en nasin pali ona",

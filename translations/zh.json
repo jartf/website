@@ -372,6 +372,18 @@
   "scrapbook": {
     "title": "开发日志"
   },
+  "webrings": {
+    "title": "网站环",
+    "description": "我加入的网站环。探索更多独立网站和个人博客。",
+    "intro1": "网站环是由志同道合的人创建的网站集合，通常围绕某个主题、美学或共同兴趣。（来自 safonts 网站环）",
+    "intro2": "本网站是这些网站环的一部分。点击链接访问我邻居的网站，如果该网站环有随机功能，也可以访问其他成员。选择你喜欢的任何环！",
+    "previous": "上一个",
+    "random": "随机",
+    "next": "下一个",
+    "previousAria": "{{name}} 中的上一个网站",
+    "randomAria": "{{name}} 中的随机网站",
+    "nextAria": "{{name}} 中的下一个网站"
+  },
   "colophon": {
     "title": "网站信息",
     "description": "这个网站背后的故事",

@@ -359,6 +359,18 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "webrings": {
+    "title": "Webring",
+    "description": "各 webring 𨉟當參加。勘破添仍 website 吧 blog 個人恪唲。",
+    "intro1": "Webring 𱺵集合各張䇼得造𤳸仍𠊛共志向、常搓𨒺𠬠主題、㘗審美或所適鍾。（自 safonts webring）",
+    "intro2": "張䇼尼𱺵𠬠份𧵑各 webring 𨑜低。扨𠓨 link 抵踦㖭茹行𥯎𧵑𨉟、或各成員恪裊 webring 妬固職能 random。據譔不期𤥑𱜢伴 thích nha!",
+    "previous": "𠓀",
+    "random": "偶然",
+    "next": "𢖖󠄁",
+    "previousAria": "張𠓀𥪝 {{name}}",
+    "randomAria": "張偶然𥪝 {{name}}",
+    "nextAria": "張𢖖󠄁𥪝 {{name}}"
+  },
   "colophon": {
     "title": "通信張䇼",
     "description": "句𡀯𱘃𢖖󠄁張䇼尼",

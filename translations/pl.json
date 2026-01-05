@@ -360,6 +360,18 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "webrings": {
+    "title": "Webringi",
+    "description": "Webringi, do których należę. Odkryj więcej niezależnych stron i blogów osobistych.",
+    "intro1": "Webring to zbiór stron stworzonych przez osoby o podobnych poglądach, zazwyczaj skupionych wokół tematu, estetyki lub wspólnych zainteresowań. (z webringu safonts)",
+    "intro2": "Ta strona jest częścią tych webringów. Kliknij w linki, aby odwiedzić strony moich sąsiadów oraz innych członków, jeśli dany webring ma funkcję losowania. Wybierz dowolny krąg!",
+    "previous": "Poprzednia",
+    "random": "Losowa",
+    "next": "Następna",
+    "previousAria": "Poprzednia strona w {{name}}",
+    "randomAria": "Losowa strona w {{name}}",
+    "nextAria": "Następna strona w {{name}}"
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historia tej strony i jak powstała",

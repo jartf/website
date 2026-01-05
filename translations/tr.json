@@ -372,6 +372,18 @@
   "scrapbook": {
     "title": "Geliştirme Günlüğü"
   },
+  "webrings": {
+    "title": "Web çemberleri",
+    "description": "Parçası olduğum web çemberleri. Daha fazla bağımsız web sitesi ve kişisel blog keşfedin.",
+    "intro1": "Web çemberi, genellikle bir konu, estetik veya ortak ilgi alanı etrafında toplanan, kafa dengi insanlar tarafından oluşturulmuş web siteleri koleksiyonudur. (safonts web çemberinden)",
+    "intro2": "Bu web sitesi bu çemberlerin bir parçasıdır. Komşularımın ve (eğer rastgele fonksiyonu varsa) diğer üyelerin sitelerini ziyaret etmek için linklere tıklayın. İstediğiniz çemberi seçin!",
+    "previous": "Önceki",
+    "random": "Rastgele",
+    "next": "Sonraki",
+    "previousAria": "{{name}} içindeki önceki site",
+    "randomAria": "{{name}} içindeki rastgele site",
+    "nextAria": "{{name}} içindeki sonraki site"
+  },
   "colophon": {
     "title": "Künye",
     "description": "Bu web sitesinin arkasındaki hikaye ve nasıl oluşturulduğu",

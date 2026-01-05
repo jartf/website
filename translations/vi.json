@@ -360,6 +360,18 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "webrings": {
+    "title": "Webring",
+    "description": "Các webring mình đang tham gia. Khám phá thêm những website và blog cá nhân khác nhé.",
+    "intro1": "Webring là tập hợp các trang web được tạo bởi những người cùng chí hướng, thường xoay quanh một chủ đề, gu thẩm mỹ hoặc sở thích chung. (từ safonts webring)",
+    "intro2": "Trang web này là một phần của các webring dưới đây. Nhấn vào link để ghé thăm nhà hàng xóm của mình, hoặc các thành viên khác nếu webring đó có chức năng random. Cứ chọn bất kỳ vòng nào bạn thích nha!",
+    "previous": "Trước",
+    "random": "Ngẫu nhiên",
+    "next": "Sau",
+    "previousAria": "Trang trước trong {{name}}",
+    "randomAria": "Trang ngẫu nhiên trong {{name}}",
+    "nextAria": "Trang sau trong {{name}}"
+  },
   "colophon": {
     "title": "Thông tin trang web",
     "description": "Câu chuyện đằng sau trang web này",
