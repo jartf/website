@@ -22,8 +22,8 @@
           body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: hsl(0, 0%, 95%);
+            background: hsl(270, 30%, 10%);
             min-height: 100vh;
             padding: 2rem 1rem;
           }
@@ -31,130 +31,133 @@
           .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
           }
 
           .header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 2rem;
+            padding: 2rem 0;
             text-align: center;
+            border-bottom: 1px solid hsl(270, 25%, 25%);
+            margin-bottom: 2rem;
           }
 
           .header h1 {
             font-size: 2rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
+            color: hsl(0, 0%, 98%);
           }
 
           .header p {
-            opacity: 0.9;
-            font-size: 1.1rem;
+            opacity: 0.8;
+            font-size: 1rem;
+            color: hsl(270, 10%, 70%);
           }
 
           .info-box {
-            background: #f8f9fa;
-            border-left: 4px solid #f093fb;
+            background: hsl(270, 25%, 15%);
+            border: 1px solid hsl(270, 25%, 25%);
+            border-left: 3px solid hsl(195, 100%, 65%);
             padding: 1.5rem;
-            margin: 1.5rem;
+            margin-bottom: 2rem;
             border-radius: 8px;
           }
 
           .info-box h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
-            color: #f5576c;
+            color: hsl(195, 100%, 65%);
+            font-weight: 600;
           }
 
           .info-box p {
-            color: #666;
+            color: hsl(270, 10%, 70%);
+            font-size: 0.95rem;
           }
 
           .feed-url {
-            background: #fff;
-            border: 2px solid #f093fb;
+            background: hsl(270, 30%, 12%);
+            border: 1px solid hsl(270, 25%, 25%);
             padding: 0.75rem;
             border-radius: 6px;
             font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             word-break: break-all;
-            margin-top: 0.5rem;
-            color: #f5576c;
-          }
-
-          .posts {
-            padding: 1.5rem;
+            margin-top: 0.75rem;
+            color: hsl(195, 100%, 75%);
           }
 
           .posts h2 {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            color: #333;
-            border-bottom: 2px solid #f093fb;
-            padding-bottom: 0.5rem;
+            color: hsl(0, 0%, 98%);
+            font-weight: 700;
           }
 
           .post {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #e9ecef;
+            background: hsl(270, 25%, 15%);
+            border: 1px solid hsl(270, 25%, 25%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s, transform 0.2s;
           }
 
-          .post:last-child {
-            border-bottom: none;
+          .post:hover {
+            border-color: hsl(195, 100%, 65%);
+            transform: translateY(-2px);
           }
 
           .post h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
           }
 
           .post h3 a {
-            color: #f5576c;
+            color: hsl(0, 0%, 98%);
             text-decoration: none;
             transition: color 0.2s;
           }
 
           .post h3 a:hover {
-            color: #f093fb;
-            text-decoration: underline;
+            color: hsl(195, 100%, 65%);
           }
 
           .post-meta {
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 0.875rem;
+            color: hsl(270, 10%, 60%);
             margin-bottom: 0.75rem;
           }
 
           .post-summary {
-            color: #555;
-            line-height: 1.7;
+            color: hsl(270, 10%, 70%);
+            line-height: 1.6;
           }
 
           .tags {
-            margin-top: 0.75rem;
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
           }
 
           .tag {
             display: inline-block;
-            background: #ffe0f0;
-            color: #f5576c;
+            background: hsl(270, 30%, 20%);
+            color: hsl(195, 100%, 65%);
             padding: 0.25rem 0.75rem;
             border-radius: 4px;
-            font-size: 0.85rem;
-            margin-right: 0.5rem;
-            margin-top: 0.25rem;
+            font-size: 0.813rem;
+            border: 1px solid hsl(270, 25%, 25%);
           }
 
           .footer {
-            background: #f8f9fa;
-            padding: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid hsl(270, 25%, 25%);
             text-align: center;
-            color: #666;
-            font-size: 0.9rem;
+            color: hsl(270, 10%, 60%);
+            font-size: 0.875rem;
           }
 
           @media (max-width: 600px) {
@@ -167,7 +170,10 @@
             }
 
             .info-box {
-              margin: 1rem;
+              padding: 1rem;
+            }
+
+            .post {
               padding: 1rem;
             }
           }
