@@ -5,7 +5,7 @@ export async function GET(request) {
 
   // Check the host domain and return appropriate value
   if (host.includes('jarema.me')) {
-    return new NextResponse('dh=2147463547test', {
+    return new NextResponse('dh=1d651c707c7a9a0d03b235429393417f9506161c', {
       status: 200,
       headers: {
         'Content-Type': 'text/plain',
