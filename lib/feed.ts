@@ -1,5 +1,5 @@
 import { getAllBlogPosts, type BlogPostMetadata } from "./blog"
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "./constants"
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, HREFLANG_LANGUAGES, LANGUAGE_NAMES } from "./constants"
 import { escapeXml } from "./utils"
 
 // ============================================================================
@@ -17,7 +17,7 @@ interface FeedOptions {
 // RSS 2.0 Feed Generator
 // ============================================================================
 export function generateRSSFeed({ posts, title, description, language, feedUrl }: FeedOptions): string {
-  const languageLinks = SUPPORTED_LANGUAGES
+  const languageLinks = HREFLANG_LANGUAGES
     .filter(l => l !== language)
     .map(l => `  <atom:link href="${SITE_URL}/rss/${l}.xml" rel="alternate" type="application/rss+xml" hreflang="${l}" />`)
     .join("\n")
@@ -51,7 +51,7 @@ ${languageLinks}${items}
 // Atom Feed Generator
 // ============================================================================
 export function generateAtomFeed({ posts, title, description, language, feedUrl }: FeedOptions): string {
-  const languageLinks = SUPPORTED_LANGUAGES
+  const languageLinks = HREFLANG_LANGUAGES
     .filter(l => l !== language)
     .map(l => `  <link href="${SITE_URL}/atom/${l}.xml" rel="alternate" type="application/atom+xml" hreflang="${l}" />`)
     .join("\n")

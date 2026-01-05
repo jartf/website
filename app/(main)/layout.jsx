@@ -11,7 +11,7 @@ import { Galaxy } from "@/components/galaxy/galaxy"
 import { KeyboardNavigation } from "@/components/keyboard-navigation"
 import { ActionSearchBar } from "@/components/action-search-bar"
 import { FirstVisitHint } from "@/components/first-visit-hint"
-import { SUPPORTED_LANGUAGES } from "@/lib/constants"
+import { SUPPORTED_LANGUAGES, HREFLANG_LANGUAGES } from "@/lib/constants"
 
 // Font configurations
 const spaceGrotesk = Space_Grotesk({
@@ -42,8 +42,6 @@ const hanNom = localFont({
   display: "swap",
   preload: false,
 })
-
-const HREFLANG_LANGUAGES = SUPPORTED_LANGUAGES.filter(l => l !== 'tok' && l !== 'vih')
 
 const genFeeds = (types) => types.map(t => [
   { url: `${t[0]}.xml`, title: `Jarema's digital garden - ${t[1]} Feed` },
