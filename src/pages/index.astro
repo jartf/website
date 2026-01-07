@@ -1,0 +1,168 @@
+---
+// Homepage - Astro version with full i18n support
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { routes } from "@/lib/constants";
+import { webringItems } from "@/content/webring-items";
+import MoodCat from "@/components/MoodCat.astro";
+import NowSection from "@/components/NowSection.astro";
+import RecentPosts from "@/components/RecentPosts.astro";
+---
+
+<BaseLayout title="Jarema's digital garden" isHomePage={true}>
+  <main class="relative min-h-screen w-full overflow-hidden">
+    <div class="container mx-auto px-2 sm:px-4 lg:px-6 py-8 lg:py-12 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <!-- Hero Section -->
+        <div class="relative pt-10 pb-10 mb-8">
+          <div class="text-center">
+            <p class="text-lg text-muted-foreground mb-2" id="greeting" data-i18n="greetings.morning">👋 Good morning, traveler.</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" data-i18n="home.heading">
+              hi there, i'm Jarema
+            </h1>
+            <p class="text-lg md:text-xl text-muted-foreground mb-8" data-i18n="home.subheading">
+              Economics major, sometimes coder, most times cat whisperer.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href={routes.contact}>
+                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
+                  <span data-i18n="home.contactButton">Contact me</span>
+                </button>
+              </a>
+              <a href={routes.about}>
+                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+                  <span data-i18n="home.aboutButton">About me</span>
+                </button>
+              </a>
+              <a href={routes.blog}>
+                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+                  <span data-i18n="home.blogButton">Read my blog</span>
+                </button>
+              </a>
+              <a href={routes.guestbook}>
+                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+                  <span data-i18n="home.guestbookButton">Sign my guestbook</span>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 items-start lg:min-h-[490px]">
+          <div class="lg:order-2">
+            <NowSection />
+          </div>
+          <RecentPosts />
+        </div>
+
+        <!-- MoodCat and Webrings -->
+        <div class="mt-10 lg:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 lg:items-stretch">
+          <MoodCat />
+
+          <section aria-labelledby="webrings-heading" class="flex flex-col">
+            <h2 id="webrings-heading" class="text-2xl font-bold mb-4 text-center">
+              <a href="/webrings/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit" data-i18n="webrings.title">
+                Webrings
+              </a>
+            </h2>
+            <nav class="border rounded-lg p-4 bg-card divide-y text-sm" aria-label="Webring navigation">
+              {webringItems.map((ring) => (
+                <div class="flex items-center justify-between py-2 lg:py-2 xl:py-2.25 first:pt-0 last:pb-0">
+                  <a href={ring.url} class="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">
+                    {ring.name}
+                  </a>
+                  <div class="flex items-center gap-2" role="group" aria-label={`Navigate ${ring.name}`}>
+                    <a href={ring.previous} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Previous site in ${ring.name}`} title="Previous">←</a>
+                    {ring.random ? (
+                      <a href={ring.random} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Random site in ${ring.name}`} title="Random">🎲</a>
+                    ) : (
+                      <span class="px-2 py-1 invisible" aria-hidden="true">🎲</span>
+                    )}
+                    <a href={ring.next} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Next site in ${ring.name}`} title="Next">→</a>
+                  </div>
+                </div>
+              ))}
+            </nav>
+          </section>
+        </div>
+
+        <!-- Current Mood -->
+        <div>
+          <section class="mt-10" aria-labelledby="current-mood-heading">
+            <h2 id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" data-i18n="home.currentMood">Current mood</h2>
+            <div class="border rounded-lg p-6 bg-card text-center">
+              <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
+                  alt="The current mood of jarema at www.imood.com"
+                  height="15"
+                  class="inline-block"
+                />
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  import { languageStore, t, initLanguage } from '@/i18n';
+
+  // Time-based greeting with i18n
+  function updateGreeting() {
+    const hour = new Date().getHours();
+    const greetingEl = document.getElementById('greeting');
+    if (!greetingEl) return;
+
+    let greetingKey = 'greetings.morning';
+    let emoji = '🌅';
+
+    if (hour >= 5 && hour < 12) {
+      greetingKey = 'greetings.morning';
+      emoji = '🌅';
+    } else if (hour >= 12 && hour < 17) {
+      greetingKey = 'greetings.afternoon';
+      emoji = '☀️';
+    } else if (hour >= 17 && hour < 21) {
+      greetingKey = 'greetings.evening';
+      emoji = '🌆';
+    } else {
+      greetingKey = 'greetings.night';
+      emoji = '🌙';
+    }
+
+    const greeting = t(greetingKey);
+    greetingEl.textContent = `${emoji} ${greeting}`;
+    greetingEl.setAttribute('data-greeting-key', greetingKey);
+  }
+
+  function updateTranslations() {
+    // Update static translations
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+
+    // Update time-based greeting
+    updateGreeting();
+  }
+
+  initLanguage();
+  updateGreeting();
+  updateTranslations();
+
+  languageStore.subscribe(() => {
+    updateTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateTranslations();
+  });
+</script>

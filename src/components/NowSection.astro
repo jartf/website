@@ -1,0 +1,243 @@
+---
+// Now Section - displays recent activity items with i18n support
+// Server-side rendered with client-side progressive enhancement for Last.fm/PreMid
+import { nowItems } from "@/content/now-items";
+
+// Icon mapping for categories
+const categoryIcons: Record<string, string> = {
+  listening: "🎧",
+  premid: "🎮",
+  planning: "📝",
+  reading: "📖",
+  coding: "💻",
+  drinking: "☕",
+  thinking: "💭",
+  studying: "📚",
+};
+
+// Get the latest 3 items for homepage display
+const displayItems = nowItems.slice(0, 3);
+---
+
+<section aria-labelledby="now-heading" class="mb-12" id="now-section">
+  <h2 id="now-heading" class="text-2xl font-bold mb-4 text-center">
+    <a href="/now/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit" data-i18n="home.latestNow">
+      What I'm up to now
+    </a>
+  </h2>
+  <div class="border rounded-lg p-5 bg-card space-y-4 lg:max-h-[415px] overflow-y-auto overflow-x-hidden">
+    {displayItems.map((item, i) => (
+      <article
+        class={i < displayItems.length - 1 ? "border-b border-border pb-4" : ""}
+        data-now-content={JSON.stringify(item.content)}
+        data-category={item.category}
+      >
+        <div class="flex items-center gap-2 font-semibold mb-1">
+          <span class="text-lg" aria-hidden="true">{categoryIcons[item.category] || "📌"}</span>
+          <span class="now-category" data-i18n={`now.categories.${item.category}`}>
+            {item.category}
+          </span>
+        </div>
+        <p class="now-text text-sm">{item.content.en}</p>
+        <time class="text-xs text-muted-foreground mt-1 block" datetime={item.date}>
+          {new Date(item.date).toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short' })}
+        </time>
+      </article>
+    ))}
+  </div>
+</section>
+
+<script>
+  import { languageStore, t } from '@/i18n';
+
+  interface LastfmTrack {
+    name: string;
+    artist: string;
+    url: string;
+    nowplaying: boolean;
+    date?: string;
+  }
+
+  interface PremidActivity {
+    name: string;
+    details?: string;
+    state?: string;
+    assets?: {
+      large_image?: string;
+      large_text?: string;
+      small_image?: string;
+      small_text?: string;
+    };
+  }
+
+  function createActivityCard(activity: PremidActivity): string {
+    let html = '<div class="flex items-center gap-3 overflow-hidden">';
+
+    if (activity.assets?.large_image) {
+      html += '<div class="relative w-12 h-12 flex-shrink-0">';
+      html += `<img src="${activity.assets.large_image}" alt="${activity.assets.large_text || activity.name}" class="w-12 h-12 rounded-lg" loading="lazy" />`;
+      if (activity.assets?.small_image) {
+        html += `<img src="${activity.assets.small_image}" alt="${activity.assets.small_text || ''}" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" loading="lazy" />`;
+      }
+      html += '</div>';
+    }
+
+    html += '<div class="flex-1 min-w-0 overflow-hidden">';
+    html += `<span class="font-semibold break-words block">${activity.name}</span>`;
+    if (activity.details) {
+      html += `<p class="text-sm break-words">${activity.details}</p>`;
+    }
+    if (activity.state) {
+      html += `<p class="text-sm text-muted-foreground break-words">${activity.state}</p>`;
+    }
+    html += '</div></div>';
+
+    return html;
+  }
+
+  async function enhanceWithLiveData() {
+    const section = document.getElementById('now-section');
+    if (!section) return;
+
+    const container = section.querySelector('.border.rounded-lg');
+    if (!container) return;
+
+    try {
+      const [lastfmRes, premidRes] = await Promise.all([
+        fetch('/api/lastfm').catch(() => null),
+        fetch('/api/premid').catch(() => null),
+      ]);
+
+      const items: any[] = [];
+
+      // Parse Last.fm
+      if (lastfmRes?.ok) {
+        const xml = await lastfmRes.text();
+        const doc = new window.DOMParser().parseFromString(xml, 'application/xml');
+        const tracks = doc.getElementsByTagName('track');
+
+        if (tracks.length > 0) {
+          const track = Array.from(tracks).find(t => t.getAttribute('nowplaying') === 'true') || tracks[0];
+          const nowplaying = track?.getAttribute('nowplaying') === 'true';
+          const name = track?.getElementsByTagName('name')[0]?.textContent || '';
+          const artist = track?.getElementsByTagName('artist')[0]?.textContent || '';
+          const url = track?.getElementsByTagName('url')[0]?.textContent || '';
+
+          if (name && artist) {
+            items.push({ type: 'lastfm', name, artist, url, nowplaying, dateObj: new Date() });
+          }
+        }
+      }
+
+      // Parse PreMid
+      if (premidRes?.ok) {
+        const data = await premidRes.json();
+        if (data.activities?.length > 0) {
+          items.push({ type: 'premid', activities: data.activities.map((a: any) => a.activity) });
+        }
+      }
+
+      // If we have live data, update the container
+      if (items.length > 0) {
+        const lang = languageStore.get();
+        const staticItems = Array.from(container.querySelectorAll('article'))
+          .map(article => ({
+            category: article.getAttribute('data-category'),
+            element: article
+          }))
+          .filter(item => {
+            // Remove static items that conflict with live data
+            if (item.category === 'listening' && items.some(i => i.type === 'lastfm')) return false;
+            if (item.category === 'premid' && items.some(i => i.type === 'premid')) return false;
+            return true;
+          })
+          .slice(0, 3 - items.length);
+
+        // Build new HTML
+        let html = '';
+        const allItems = [...items, ...staticItems.map(i => ({ type: 'static', element: i.element }))].slice(0, 3);
+
+        allItems.forEach((item, i) => {
+          const divider = i < allItems.length - 1 ? 'border-b border-border pb-4' : '';
+
+          if (item.type === 'lastfm') {
+            html += `<div class="${divider}">`;
+            html += '<div class="flex items-center gap-2 font-semibold mb-1">';
+            html += '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>';
+            html += `<span>${t('now.categories.listening') || 'Listening'}</span>`;
+            if (item.nowplaying) {
+              html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
+            }
+            html += '</div>';
+            html += `<p class="text-sm"><a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold">${item.name}</a> <span class="text-muted-foreground">by</span> ${item.artist}</p>`;
+            html += '</div>';
+          } else if (item.type === 'premid') {
+            html += `<div class="${divider}">`;
+            html += '<div class="flex items-center gap-2 font-semibold mb-1">';
+            html += '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>';
+            html += `<span>${t('now.categories.premid') || 'PreMID'}</span>`;
+            html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
+            html += '</div>';
+            html += '<div class="space-y-3">';
+            item.activities.forEach((a: PremidActivity) => {
+              html += createActivityCard(a);
+            });
+            html += '</div></div>';
+          } else if (item.type === 'static') {
+            html += item.element.outerHTML;
+          }
+        });
+
+        container.innerHTML = html;
+      }
+    } catch (error) {
+      // Silently fail - keep SSR content
+      console.error('Failed to enhance with live data:', error);
+    }
+  }
+
+  function updateNowTranslations() {
+    const lang = languageStore.get();
+
+    // Update static i18n keys
+    document.querySelectorAll('#now-section [data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+
+    // Update dynamic content
+    document.querySelectorAll('#now-section [data-now-content]').forEach((article) => {
+      const contentData = article.getAttribute('data-now-content');
+      if (contentData) {
+        try {
+          const content = JSON.parse(contentData);
+          const langContent = content[lang] || content.en;
+          const textEl = article.querySelector('.now-text');
+          if (textEl) {
+            textEl.textContent = langContent;
+          }
+        } catch (e) {
+          // Ignore parse errors
+        }
+      }
+    });
+  }
+
+  // Initial enhancement
+  enhanceWithLiveData();
+  updateNowTranslations();
+
+  // Subscribe to language changes
+  languageStore.subscribe(() => {
+    updateNowTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateNowTranslations();
+  });
+</script>

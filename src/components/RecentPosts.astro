@@ -1,0 +1,125 @@
+---
+// Recent Posts component with i18n
+import { getCollection } from "astro:content";
+
+interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readingTime: number;
+}
+
+// Try to get posts from content collection, fallback to static data
+let posts: BlogPost[] = [];
+
+try {
+  const blogPosts = await getCollection("blog");
+  posts = blogPosts
+    .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+    .slice(0, 3)
+    .map((post) => ({
+      slug: post.slug,
+      title: post.data.title,
+      excerpt: post.data.excerpt || "No excerpt available",
+      date: post.data.date instanceof Date ? post.data.date.toISOString() : post.data.date,
+      readingTime: post.data.readingTime || 5,
+    }));
+} catch {
+  // Fallback static data if content collection doesn't exist
+  posts = [
+    {
+      slug: "hello-world",
+      title: "Hello World",
+      excerpt: "Welcome to my blog! This is where I share my thoughts on economics, coding, and more.",
+      date: "2024-01-01",
+      readingTime: 3,
+    },
+  ];
+}
+---
+
+<section aria-labelledby="recent-posts-heading">
+  <h2 id="recent-posts-heading" class="text-2xl font-bold mb-4 text-center">
+    <a href="/blog/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit" data-i18n="home.recentPosts">
+      Recent blog posts
+    </a>
+  </h2>
+  <div class="space-y-4">
+    {posts.map((post, index) => (
+      <article class="border rounded-lg p-4 bg-card card-hover-effect group">
+        <a href={`/blog/${post.slug}/`} class="block">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+              <h3 class="font-semibold text-lg group-hover:text-primary transition-colors line-clamp-1">
+                {post.title}
+              </h3>
+              <p class="text-sm text-muted-foreground mt-1 line-clamp-2">
+                {post.excerpt}
+              </p>
+              <div class="flex items-center gap-3 mt-2 text-xs text-muted-foreground/70">
+                <time datetime={post.date} data-date={post.date}>
+                  {new Date(post.date).toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })}
+                </time>
+                <span>•</span>
+                <span class="reading-time"><span data-reading-time>{post.readingTime}</span> <span data-i18n="blog.minRead">min read</span></span>
+              </div>
+            </div>
+            <div class="flex-shrink-0 text-2xl text-muted-foreground/30 font-bold">
+              {String(index + 1).padStart(2, '0')}
+            </div>
+          </div>
+        </a>
+      </article>
+    ))}
+  </div>
+  <div class="text-center mt-4">
+    <a href="/blog/" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg hover:bg-accent transition-colors">
+      <span data-i18n="nav.blog">Blog</span>
+      <span>→</span>
+    </a>
+  </div>
+</section>
+
+<script>
+  import { languageStore, t, initLanguage } from '@/i18n';
+
+  function updateTranslations() {
+    const lang = languageStore.get();
+
+    // Update static i18n keys
+    document.querySelectorAll('section[aria-labelledby="recent-posts-heading"] [data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+
+    // Update dates with locale
+    document.querySelectorAll('section[aria-labelledby="recent-posts-heading"] [data-date]').forEach((el) => {
+      const dateStr = el.getAttribute('data-date');
+      if (dateStr) {
+        const date = new Date(dateStr);
+        el.textContent = date.toLocaleDateString(lang, {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+      }
+    });
+  }
+
+  initLanguage();
+  updateTranslations();
+
+  languageStore.subscribe(() => {
+    updateTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateTranslations();
+  });
+</script>

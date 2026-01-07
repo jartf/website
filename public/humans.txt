@@ -1,0 +1,26 @@
+/* TEAM */
+Developer: Jarema
+Contact email: hello@jarema.me. See https://jarema.me/contact for more contact methods.
+Website: https://jarema.me
+Location: Vietnam
+Languages: Vietnamese, English, Russian, some Danish and Turkish. Emotions: work in progress.
+
+/* SITE */
+Last update: 2025-04-23
+Standards: HTML5, CSS3, JavaScript
+Components: Next.js, React, Tailwind CSS
+Software: VS Code, Git, Vercel. See https://jarema.me/colophon for more info.
+
+/* THANKS */
+To the strangers who saw through the silence. To the ones who stayed, even when they were tired themselves. To those who showed up when they didn’t have to.
+To the friends who became family. To the childhood ones who cared more than blood ever did. To my bros who saw me as a person, not a fixer, and never let me feel alone.
+To the old friends I drifted from, but never forgot. Wherever you are, I hope you're doing okay. I hope the sky is kind to you forever and a day.
+To the ones I never got to thank in person. Even if it was something small or strange, you mattered. Even if I never get to say it. Even if I never can.
+To my younger self, scared, silent, yet stubborn. You held on way longer than both of us expected. You kept us here. I'm proud of you.
+To life, for the pain. To pain, for the writing. To writing, for the feelings.
+To the ones who left and the ones I had to let go. Some goodbyes were just life, some were for survival. Still, I'm glad you came.
+To the ones who taught me what love isn't. You showed me what I'll never tolerate. And what I'll never become.
+And, to whoever finds this. May you feel seen, even in the dark. May you feel heard, even in the quiet.
+
+/* NOTE */
+Built with much love and a deep desire for peace.

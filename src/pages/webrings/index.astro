@@ -1,0 +1,110 @@
+---
+// Webrings Page
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { webringItems } from "@/content/webring-items";
+---
+
+<BaseLayout title="Webrings" description="Webrings I'm part of. Discover more independent websites and personal blogs.">
+  <div class="container mx-auto px-4 py-8 lg:py-12">
+    <div class="max-w-3xl mx-auto">
+      <header class="mb-10 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="webrings.title">Webrings</h1>
+        <p class="text-muted-foreground text-lg max-w-xl mx-auto" data-i18n="webrings.description">
+          Webrings I'm part of. Discover more independent websites and personal blogs.
+        </p>
+      </header>
+
+      <!-- Introduction -->
+      <div class="mb-10 p-6 bg-muted/30 rounded-lg">
+        <p class="text-sm text-muted-foreground mb-3" data-i18n="webrings.intro1">
+          A webring is a collection of websites made by like-minded folks, usually centered around a topic, aesthetic, or common interest. (from the safonts webring)
+        </p>
+        <p class="text-sm text-muted-foreground" data-i18n="webrings.intro2">
+          This website is part of these webrings. Click on the links to visit my neighbors' sites, and other members', if that webring has random functionality. Choose any ring you like!
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {webringItems.map((ring) => (
+          <article class="border rounded-lg p-5 bg-card hover:shadow-md transition-shadow">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex-1">
+                <a
+                  href={ring.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:underline font-semibold text-lg"
+                >
+                  {ring.name}
+                </a>
+                {ring.description && (
+                  <p class="text-sm text-muted-foreground mt-1 line-clamp-2">
+                    {ring.description}
+                  </p>
+                )}
+              </div>
+              <nav class="flex items-center gap-2" aria-label={`Navigate ${ring.name}`}>
+                <a
+                  href={ring.previous}
+                  class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
+                  title="Previous site"
+                  aria-label={`Previous site in ${ring.name}`}
+                >
+                  <span data-i18n="webrings.previous">←</span>
+                </a>
+                {ring.random ? (
+                  <a
+                    href={ring.random}
+                    class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
+                    title="Random site"
+                    aria-label={`Random site in ${ring.name}`}
+                  >
+                    🎲
+                  </a>
+                ) : (
+                  <span class="px-4 py-2 opacity-30" aria-hidden="true">🎲</span>
+                )}
+                <a
+                  href={ring.next}
+                  class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
+                  title="Next site"
+                  aria-label={`Next site in ${ring.name}`}
+                >
+                  <span data-i18n="webrings.next">→</span>
+                </a>
+              </nav>
+            </div>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { languageStore, t, initLanguage } from '@/i18n';
+
+  function updateTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+  }
+
+  initLanguage();
+  updateTranslations();
+
+  languageStore.subscribe(() => {
+    updateTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateTranslations();
+  });
+</script>

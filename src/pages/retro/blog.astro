@@ -1,0 +1,128 @@
+---
+import RetroLayout from "@/layouts/RetroLayout.astro";
+import { getCollection } from 'astro:content';
+
+// Get all blog posts and sort by date
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<RetroLayout title="Blog - Jarema's Retro Site">
+  <!-- Page title -->
+  <center>
+    <font size="5">
+      <b>Blog</b>
+    </font>
+  </center>
+
+  <hr>
+
+  <!-- Blog posts list -->
+  {posts.length === 0 ? (
+    <center>
+      <font size="3">
+        <i>No blog posts yet! Check back soon.</i>
+      </font>
+    </center>
+  ) : (
+    <>
+      <font size="3">
+        <b>All posts ({posts.length})</b>
+      </font>
+
+      <table width="100%" border="1" cellpadding="5" cellspacing="0" bgcolor="#f5f5f5" style="margin-top: 10px;">
+        <tr bgcolor="#000080">
+          <th align="left" width="120">
+            <font size="3" color="#ffffff">Date</font>
+          </th>
+          <th align="left">
+            <font size="3" color="#ffffff">Title</font>
+          </th>
+        </tr>
+
+        {posts.map((post) => (
+          <tr>
+            <td width="120" valign="top">
+              <font size="2">
+                {new Date(post.data.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                })}
+              </font>
+            </td>
+            <td>
+              <font size="3">
+                <a href={`/blog/${post.slug}/`}>
+                  <b>{post.data.title}</b>
+                </a>
+                {post.data.excerpt && (
+                  <>
+                    <br>
+                    <font size="2" color="#808080">
+                      {post.data.excerpt.length > 150
+                        ? post.data.excerpt.substring(0, 150) + '...'
+                        : post.data.excerpt
+                      }
+                    </font>
+                  </>
+                )}
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <>
+                    <br>
+                    <font size="1">
+                      Tags: {post.data.tags.map((tag, i) => (
+                        <span>
+                          [{tag}]
+                          {i < (post.data.tags?.length ?? 0) - 1 ? ' ' : ''}
+                        </span>
+                      ))}
+                    </font>
+                  </>
+                )}
+              </font>
+            </td>
+          </tr>
+        ))}
+      </table>
+    </>
+  )}
+
+  <br>
+
+  <!-- RSS feed -->
+  <table width="100%" border="0" cellpadding="10" cellspacing="0" bgcolor="#fff3cd" style="border: 2px solid #ff9800;">
+    <tr>
+      <td align="center">
+        <font size="3" color="#e65100">
+          <b>Subscribe via XML feeds</b>
+        </font>
+        <br>
+        <font size="2">
+          Stay updated with my latest posts!
+          <br>
+          <a href="/rss.xml">
+            <b>RSS 2.0</b>
+          </a>
+          {' | '}
+          <a href="/atom.xml">
+            <b>Atom</b>
+          </a>
+          {' | '}
+          <a href="/feed.json">
+            <b>JSON</b>
+          </a>
+        </font>
+      </td>
+    </tr>
+  </table>
+
+  <br>
+
+  <!-- Back link -->
+  <center>
+    <font size="2">
+      <a href="/retro/">&lt;&lt; Back to homepage</a>
+    </font>
+  </center>
+</RetroLayout>

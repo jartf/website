@@ -1,0 +1,380 @@
+# Disallow utility pages
+User-agent: *
+Disallow: /404
+Disallow: /slashes
+Disallow: /api
+
+# Sitemap
+Sitemap: https://jarema.me/sitemap.xml
+
+# These 8 bots specifically ignore robots.txt
+User-agent: ChatGPT-Atlas
+User-agent: Google-NotebookLM
+User-agent: Kangaroo Bot
+User-agent: PanguBot
+User-agent: PerplexityBot
+User-agent: Perplexity-Stealth
+User-agent: Perplexity-User
+User-agent: TerraCotta
+Disallow: /
+
+# Specially allowed bots (peak dev tools, thanks!)
+User-agent: Google-InspectionTool
+Allow: /
+
+# GenAI training bots
+User-agent: AI2Bot
+User-agent: AI2Bot-Dolma
+User-agent: AliyunSecBot
+User-agent: Amazonbot
+User-agent: amazon-kendra
+User-agent: Anchor Browser
+User-agent: anthropic-AI
+User-agent: Applebot-Extended
+User-agent: Awario
+User-agent: AwarioBot
+User-agent: AwarioRssBot
+User-agent: AwarioSmartBot
+User-agent: bigsur.ai
+User-agent: Brightbot
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: ChatGLM-Spider
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+User-agent: Cotoyogi
+User-agent: Crawlspace
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: CloudVertexBot
+User-agent: Crawl4AI
+User-agent: Datenbank Crawler
+User-agent: DeepseekBot
+User-agent: Diffbot
+User-agent: FacebookBot
+User-agent: FirecrawlAgent
+User-agent: FriendlyCrawler
+User-agent: GenAI
+User-agent: Google-CloudVertexBot
+User-agent: Google-Extended
+User-agent: GoogleAgent-Mariner
+User-agent: GoogleOther
+User-agent: GPTBot
+User-agent: Groq-Bot
+User-agent: heritrix
+User-agent: HuggingFace-Bot
+User-agent: iAskBot
+User-agent: iaskspider
+User-agent: iaskspider/2.0
+User-agent: ICC-Crawler
+User-agent: imageSpider
+User-agent: ImagesiftBot
+User-agent: img2dataset
+User-agent: imgproxy
+User-agent: Jetslide
+User-agent: KunatoCrawler
+User-agent: laion-huggingface-processor
+User-agent: LCC
+User-agent: LinerBot
+User-agent: MachineLearningForPeaceBot
+User-agent: magpie-crawler
+User-agent: Manus-User
+User-agent: Meltwater
+User-agent: meta-webindexer
+User-agent: meta-externalagent
+User-agent: meta-externalfetcher
+User-agent: MyCentralAIScraperBot
+User-agent: netEstate Imprint Crawler
+User-agent: Nicecrawler
+User-agent: NovaAct
+User-agent: Novellum AI Crawl
+User-agent: omgili
+User-agent: omgilibot
+User-agent: peer39_crawler
+User-agent: PetalBot
+User-agent: PiplBot
+User-agent: Poseidon Research Crawler
+User-agent: ProRataInc
+User-agent: QualifiedBot
+User-agent: Replicate-Bot
+User-agent: RunPod-Bot
+User-agent: SBIntuitionsBot
+User-agent: Scoop.it
+User-agent: Seekr
+User-agent: SeekrBot
+User-agent: Sidetrade indexer bot
+User-agent: Spider
+User-agent: TaraGroup Intelligent Bot
+User-agent: TikTokSpider
+User-agent: Timpibot
+User-agent: Together-Bot
+User-agent: TwinAgent
+User-agent: VelenPublicWebCrawler
+User-agent: Webzio
+User-agent: Webzio-Extended
+User-agent: WRTNBot
+User-agent: xAI-Bot
+User-agent: YouBot
+Disallow: /
+
+# SEO crawlers
+User-agent: aa
+User-agent: AhrefsBot
+User-agent: Ahrefs Site Audit
+User-agent: Attracta
+User-agent: Audisto Crawler
+User-agent: Barkrowler
+User-Agent: BLEXBot
+User-agent: botify
+User-agent: CaliberBot
+User-agent: Caliperbot
+User-agent: ClarityBot
+User-agent: Clearscopebot
+User-agent: Cloudtrellis
+User-agent: cludo.com
+User-agent: Cocolyzebot
+User-agent: cognitiveSEO Crawler
+User-agent: contentking
+User-agent: Convermax
+User-agent: Cxense
+User-agent: DataForSEO
+User-agent: DataForSEO Bot
+User-agent: DataForSeoBot
+User-agent: deepcrawl
+User-agent: deepcrawl.com
+User-agent: DomainStatsBot
+User-agent: DotBot
+User-agent: Dragonbot
+User-agent: EchoboxBot
+User-agent: Google Digital Asset Links
+User-agent: Google StoreBot
+User-agent: Huckabot
+User-agent: Huckabuy Bot
+User-agent: hypestat
+User-agent: James BOT
+User-agent: LinkCheck by Siteimprove
+User-agent: LinkChecker Bot
+User-agent: linkchecker.pro
+User-agent: LinkCheckerBot
+User-agent: linkdexbot
+User-agent: LinksIndexerBot
+User-agent: MarketGoo
+User-agent: MBCrawler
+User-agent: MegaIndex.ru
+User-agent: MJ12Bot
+User-agent: Moz dotbot
+User-agent: Moz rogerbot
+User-agent: Nitro-
+User-agent: NitroBot
+User-agent: noorobot
+User-agent: OnCrawl
+User-agent: OnCrawl Mobile
+User-agent: online-webceo-bot
+User-agent: Prerender
+User-agent: Pro Sitemaps
+User-agent: Pro Sitemaps Generator
+User-agent: Readable
+User-agent: RevvimGort
+User-agent: rogerbot-crawler
+User-agent: RSiteAuditor
+User-agent: RyteBot
+User-agent: Screaming Frog SEO Spider
+User-agent: SearchAtlas Bot
+User-agent: SEBot-WA
+User-agent: SemrushBot
+User-agent: SemrushBot-BA
+User-agent: SemrushBot-CT
+User-agent: SemrushBot-FT
+User-agent: SemrushBot-OCOB
+User-agent: SemrushBot-SA
+User-agent: SemrushBot-SI
+User-agent: SemrushBot-SWA
+User-agent: SemrushBotBacklinks
+User-agent: Senutobot
+User-agent: seo-audit-check-bot
+User-agent: seo4ajax
+User-agent: seo4ajax.com
+User-agent: SeobilityBot
+User-agent: SEOkicks
+User-agent: SEOlizer
+User-agent: SERankingBacklinksBot
+User-agent: serpstatbot
+User-agent: SiteAuditBot
+User-agent: Sitebulb
+User-agent: SiteCheck-sitecrawl
+User-agent: SiteCheckerBotCrawler
+User-agent: Siteimprove Crawl
+User-agent: StatusNestBacklinkSpider
+User-agent: Storebot-Google
+User-agent: W3 Validator Services
+User-agent: woorankreview
+User-agent: XoviOnpageCrawler
+User-agent: ZoomBot
+Disallow: /
+
+# IP-violation scanners (from seirdy.one)
+User-Agent: AcademicBotRTU
+User-agent: BrandVerity
+User-agent: CheckMarkNetwork
+User-Agent: SlySearch
+User-Agent: TurnitinBot
+Disallow: /
+
+# Scrapers
+User-agent: 008
+User-agent: AdsTxtCrawler
+User-agent: Dataprovider
+User-agent: Dataprovider.com
+User-agent: dcrawl
+User-agent: HelloworkJobPostingBot
+User-agent: HTTrack
+User-agent: HTTrack 3.0
+User-agent: IndeedJobBot
+User-agent: KrawlerBot
+User-agent: MetaInspector
+User-agent: MetaJobBot
+User-agent: newspaper
+User-agent: Nutch
+User-agent: nyt_scraping
+User-agent: Offline Explorer
+User-agent: OpenindexSpider
+User-agent: Orbbot
+User-agent: Potions
+User-agent: Scrapy
+User-agent: ServerHunterSpider
+User-agent: StatsDroneBot
+Disallow: /
+
+# Intelligence gatherer (from darkvisitors.com)
+User-agent: A360-Search
+User-agent: ActiveComply
+User-agent: Adagiobot
+User-agent: adbeat_bot
+User-agent: adidxbot
+User-agent: AdkernelTopicCrawler
+User-agent: AdsBot-Google
+User-agent: AdsBot-Google-Mobile
+User-agent: aiHitBot
+User-agent: Amazon AdBot
+User-agent: AmazonAdBot
+User-agent: AmazonProductDiscovery
+User-agent: AndersPinkBot
+User-agent: AudigentAdBot
+User-agent: Automattic Analytics Crawler
+User-agent: BigUpDataBot
+User-agent: Bing Ads
+User-agent: BitSightBot
+User-agent: Blackboard
+User-agent: BomboraBot
+User-agent: BrightEdge Bot
+User-agent: BrightEdge Crawler
+User-agent: Buck
+User-agent: channable
+User-agent: Cincraw
+User-agent: Clickagy Intelligence Bot
+User-agent: Clickagy Intelligence Bot v2
+User-agent: ContextualBot
+User-agent: contxbot
+User-agent: CriteoBot
+User-agent: cXensebot
+User-agent: ds9
+User-agent: DVbot
+User-agent: Echobot Bot
+User-agent: EcoVadisSustainabilityBot
+User-agent: EpivozCrawler
+User-agent: ev-crawler
+User-agent: EzLynx
+User-agent: EzoicBot
+User-agent: EzoicBot-Nicheiq
+User-agent: factset_spyderbot
+User-agent: FDL Stats Bot
+User-agent: Fedicabot
+User-agent: Google AdsBot
+User-agent: Google AdSense
+User-agent: Google-Adwords-Instant
+User-agent: Google-Display-Ads-Bot
+User-agent: GrapeshotCrawler
+User-agent: GroovinaAdsbot
+User-agent: HubSpot
+User-agent: IAS crawler
+User-agent: ias-ie
+User-agent: Innguma
+User-agent: InteractiveAdvertisingBureau
+User-agent: IonCrawl
+User-agent: Jugendschutzprogramm-Crawler
+User-agent: KargoBot-Artemis-Mobile
+User-agent: Klaviyo
+User-agent: KStandBot
+User-agent: Leikibot
+User-agent: LightspeedSystemsCrawler
+User-agent: linkfluence
+User-agent: LinkWalker
+User-agent: Macrobondbot
+User-agent: magpie-crawler
+User-agent: MedialogiaBot
+User-agent: MediaMonitoringBot
+User-agent: Mediapartners-Google
+User-agent: Mediatoolkitbot
+User-agent: Mediavine Medatada Parser
+User-agent: MediavineMetadataParser
+User-agent: meta-externalads
+User-agent: MgidBot
+User-agent: Missinglettr Bot
+User-agent: MixrankBot
+User-agent: MuckRack
+User-agent: NanoInteractive
+User-agent: Netcraft
+User-agent: NetcraftSurveyAgent
+User-agent: netEstate NE Crawler
+User-agent: Neticle Crawler
+User-agent: NetSeer crawler
+User-agent: Netvibes
+User-agent: NostoCrawlerBot
+User-agent: outbrain
+User-agent: Owler
+User-agent: page-preview-tool
+User-agent: Pandalytics
+User-agent: panscient.com
+User-agent: parse.ly scraper
+User-agent: productsup.io/crawler
+User-agent: proximic
+User-agent: Quantcastbot
+User-agent: Qwarrybot
+User-agent: RetroListeCOM
+User-agent: SalesViewerBot
+User-agent: Scope3
+User-agent: scraping@nytimes.com
+User-agent: SentiBot
+User-agent: SlickBot
+User-agent: slickstream
+User-agent: SmartologyBot
+User-agent: SMTBot
+User-agent: StatistikAustria
+User-agent: Taboola
+User-agent: Taboolabot
+User-agent: trendictionbot
+User-agent: TrendsmapResolver
+User-agent: TTD-Content
+User-agent: TweetmemeBot
+User-agent: Twingly
+User-agent: Twingly Recon-Sjostrom
+User-agent: uipbot
+User-agent: um-FC
+User-agent: um-IC
+User-agent: um-LN
+User-agent: Verity
+User-agent: virustotal
+User-agent: weborama-fetcher
+User-agent: webspidermount
+User-agent: webzio
+User-agent: wknd-bot
+User-agent: YaDirectFetcher
+User-agent: Yahoo Ad monitoring
+User-agent: Yahoo Japan
+User-agent: YaK
+User-agent: Yext Inc
+User-agent: YextBot
+User-agent: ZoominfoBot
+Disallow: /

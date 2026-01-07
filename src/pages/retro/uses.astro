@@ -1,0 +1,96 @@
+---
+import RetroLayout from "@/layouts/RetroLayout.astro";
+import { USES_CATEGORIES, usesDescriptions } from "@/content/uses-items";
+---
+
+<RetroLayout title="Uses - Jarema's Retro Site">
+  <!-- Page title -->
+  <center>
+    <font size="5">
+      <b>Uses</b>
+    </font>
+    <hr width="50%">
+    <font size="2">
+      <i>
+        A <a href="https://uses.tech/">uses page</a> listing my tools and tech
+      </i>
+    </font>
+  </center>
+
+  <hr>
+
+  <p>
+    <font size="3">
+      Here's a list of the hardware, software, and tools I use on a daily basis.
+    </font>
+  </p>
+
+  <!-- Uses categories -->
+  {USES_CATEGORIES.map((category) => (
+    <>
+      <font size="4">
+        <b>
+          {category.title.charAt(0).toUpperCase() + category.title.slice(1).replace(/_/g, ' ')}
+        </b>
+      </font>
+
+      <table width="100%" border="1" cellpadding="5" cellspacing="0" bgcolor="#f5f5f5" style="margin-bottom: 15px;">
+        <tr bgcolor="#c0c0c0">
+          <th width="30%" align="left"><font size="2">Name</font></th>
+          <th width="70%" align="left"><font size="2">Description</font></th>
+        </tr>
+        {category.items.map((item) => (
+          <tr>
+            <td valign="top">
+              <font size="2">
+                <b>{item.name}</b>
+              </font>
+            </td>
+            <td>
+              <font size="2">
+                {usesDescriptions.en[item.descriptionKey] || item.descriptionKey}
+                {item.link && (
+                  <>
+                    {' '}
+                    <a href={item.link}>[Link]</a>
+                  </>
+                )}
+              </font>
+            </td>
+          </tr>
+        ))}
+        {category.subsections?.map((sub) => (
+          sub.items.map((item) => (
+            <tr>
+              <td valign="top">
+                <font size="2">
+                  <b>{item.name}</b>
+                </font>
+              </td>
+              <td>
+                <font size="2">
+                  {item.descriptionKey ? (usesDescriptions.en[item.descriptionKey] || item.descriptionKey) : item.description}
+                  {item.link && (
+                    <>
+                      {' '}
+                      <a href={item.link}>[Link]</a>
+                    </>
+                  )}
+                </font>
+              </td>
+            </tr>
+          ))
+        ))}
+      </table>
+    </>
+  ))}
+
+  <hr>
+
+  <!-- Back link -->
+  <center>
+    <font size="2">
+      <a href="/retro/">&lt;&lt; Back to homepage</a>
+    </font>
+  </center>
+</RetroLayout>

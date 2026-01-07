@@ -1,0 +1,270 @@
+---
+// Badges Page - with full i18n support and verbose layout
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+// Badge data from v4 implementation
+const BADGES = [
+  { id: "personal", name: "Jarema's badge", src: "/badge.png", alt: "A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones", category: "personal", url: "https://jarema.me/", description: "My personal badge depicting me in headphones under the stars." },
+  { id: "badge-eesti", name: "Eesti", src: "/badge-eesti.png", alt: "My personal badge, with a frame of Estonia's flag.", category: "personal", url: "https://jarema.me/", description: "The same personal badge, just with the Estonia flag frame." },
+  { id: "retrokid", name: "retrokid", src: "/retrokid.gif", alt: "An animated retro banner showing the pixelated text retrokid.", category: "web", url: "/retro", description: "A retro badge for the retro mode! I have a site version for Netscape!" },
+  { id: "humanstxt", name: "humans.txt", src: "/humanstxt.png", alt: "A banner showing the humans.txt wordmark", category: "validation", url: "/humans.txt", description: "Information about me! Hi, I'm the human behind this website." },
+  { id: "valid-rss", name: "Valid RSS", src: "/valid-rss-rogers.png", alt: "A banner showing the RSS logo next to the text Valid RSS", category: "validation", url: "/rss.xml", description: "Valid RSS feed" },
+  { id: "valid-atom", name: "Valid Atom", src: "/valid-atom.png", alt: "A banner showing the Atom logo next to the text Valid", category: "validation", url: "/atom.xml", description: "Valid Atom feed" },
+  { id: "got-html", name: "Got HTML?", src: "/got_html.gif", alt: "A banner showing the text Got HTML?", category: "web", url: null, description: "Give me some of that HTML" },
+  { id: "js-warning", name: "JavaScript warning", src: "/js-warning.gif", alt: "A banner showing a caution sign next to the text Warning: Page contains JavaScript!", category: "web", url: null, description: "Careful, the floor has JS!" },
+  { id: "miaow", name: "Miaow", src: "/join_logo.gif", alt: "An animated pixel art banner of a white cat sleeping on a red pillow", category: "web", url: null, description: "Sleeping cat on a pillow, miaow!" },
+  { id: "realm", name: "The Realm of Dream", src: "/bannars.gif", alt: "An animated pixel art banner with the text The Realm of Dream on a rainbow background", category: "web", url: null, description: "This is a cute realm :D" },
+  { id: "best-viewed", name: "Best viewed with Eyes", src: "/best_viewed_with_eyes.gif", alt: "An animated pixel art banner with Best viewed with Eyes", category: "web", url: null, description: "This site is, of course, best viewed with eyes!" },
+  { id: "people-pledge", name: "People Pledge", src: "/people_pledge_badge_party_cream_pink_88x31.png", alt: "A banner showing the text People Pledge", category: "web", url: "https://people.pledge.party/", description: "I pledge to the People Pledge." },
+  { id: "internet-privacy", name: "Internet privacy Now!", src: "/internetprivacy.gif", alt: "An animated pixel art banner with Internet privacy Now!", category: "privacy", url: null, description: "Let's make internet privacy common again" },
+  { id: "no-web3", name: "Say no to Web3", src: "/saynotoweb3_88x31.gif", alt: "A banner showing Keep the web free, say no to Web3", category: "web", url: "https://yesterweb.org/no-to-web3/", description: "We can make a better internet without crypto or Web3 crap." },
+  { id: "kagi-smallweb", name: "Kagi Small Web", src: "/kagi-smallweb-yellow.gif", alt: "An animated banner with Doggo of Kagi search engine", category: "web", url: "https://kagi.com/smallweb", description: "This website is part of the Kagi Small Web initiative." },
+  { id: "fedora", name: "Fedora", src: "/fedora.gif", alt: "A banner showing Powered by Fedora Linux", category: "software", url: "https://fedoraproject.org/", description: "This user is proudly a Fedora Linux user." },
+  { id: "anything-but", name: "Anything But Chrome", src: "/anythingbut.gif", alt: "A banner showing the Chrome logo crossed out", category: "browsers", url: "/blog/2025/08/anything-but-chrome", description: "I'm willing to use anything EXCEPT Chrome." },
+  { id: "button-2019", name: "Still using buttons", src: "/button2019.gif", alt: "A banner showing Still using buttons in 2019!", category: "web", url: null, description: "Yes, I'm still using buttons in 2026!" },
+  { id: "dumbass", name: "Dumbass webmaster", src: "/dumbass.gif", alt: "A banner showing Dumbass webmaster ahead", category: "misc", url: null, description: "Beware! This webmaster is dumbass." },
+  { id: "perfect-clear", name: "Perfect clear!", src: "/perfectclear.gif", alt: "An animated banner showing a Tetris gameplay", category: "web", url: "/tetris", description: "Tetris, anyone?" },
+  { id: "teto", name: "Kasane Teto", src: "/teto.gif", alt: "An animated banner showing Kasane Teto dancing", category: "misc", url: "https://www.youtube.com/watch?v=R8fuPgbOhTM", description: "Teto teto teto *explodes*" },
+  { id: "sweet", name: "Sweet homepage", src: "/sweet.png", alt: "A blue banner showing the text Sweet homepage", category: "misc", url: null, description: "Isn't this page sweet?" },
+];
+
+const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "software", "web", "misc"];
+---
+
+<BaseLayout title="Badges" description="A collection of 88x31 badges.">
+  <div class="container mx-auto px-4 py-8 lg:py-12">
+    <div class="max-w-4xl mx-auto">
+      <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold mb-4" data-i18n="badges.pageTitle">Classic web badges collection</h1>
+        <p class="text-muted-foreground" data-i18n="badges.pageDescription">
+          I've collected these 88x31 badges to show what I and this site actually care about. They're a throwback to the Geocities era when the internet was less corporate/AI slop. If you have a badge you'd like me to add here, just ask me.
+        </p>
+      </header>
+
+      <!-- My Badge Section - NOT open by default -->
+      <section class="mb-12">
+        <details class="border rounded-lg bg-card overflow-hidden">
+          <summary class="p-4 cursor-pointer hover:bg-accent transition-colors font-semibold flex items-center gap-2" data-i18n="badges.myBadgeTitle">
+            My badge (click to expand)
+          </summary>
+          <div class="p-6 border-t">
+            <p class="text-sm text-muted-foreground mb-4" data-i18n="badges.myBadgeIntro">
+              Use this badge to link to my website:
+            </p>
+            <div class="text-center mb-6">
+              <img src="/badge.png" alt="Jarema's badge" width="176" height="62" class="pixelated mx-auto" />
+            </div>
+            <div class="mb-4">
+              <p class="text-xs text-muted-foreground mb-1" data-i18n="badges.hotlinkUrl">Hotlink URL:</p>
+              <code class="block bg-muted p-2 rounded text-xs overflow-x-auto select-all">https://jarema.me/badge.png</code>
+            </div>
+            <div class="mb-4">
+              <p class="text-xs text-muted-foreground mb-1" data-i18n="badges.htmlCodeTitle">HTML code</p>
+              <pre class="bg-muted p-2 rounded text-xs overflow-x-auto select-all"><code>{`<a href="https://jarema.me/">
+  <img src="https://jarema.me/badge.png" alt="Jarema's digital garden" width="88" height="31" style="image-rendering: pixelated;">
+</a>`}</code></pre>
+            </div>
+            <div class="text-xs text-muted-foreground space-y-1 mt-4 p-3 bg-muted/50 rounded">
+              <p class="font-medium" data-i18n="badges.embeddingSuggestionsTitle">Suggestions for embedding</p>
+              <ul class="list-disc list-inside space-y-1">
+                <li><span data-i18n="badges.suggestion1">Use</span> <code class="bg-muted px-1 rounded">image-rendering: pixelated</code> <span data-i18n="badges.suggestion1b">in your CSS to preserve the pixel art style.</span></li>
+                <li><span data-i18n="badges.suggestion2">Link directly to my homepage at</span> <code class="bg-muted px-1 rounded">https://jarema.me/</code></li>
+                <li><span data-i18n="badges.suggestion3">The badge is 88x31 pixels, double the width and height in your HTML to</span> <code class="bg-muted px-1 rounded">176x62</code> <span data-i18n="badges.suggestion3b">to make them easier to read on higher-resolution screens.</span></li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4" data-i18n="badges.collectionHeading">Badges collection</h2>
+
+        <!-- Controls: Search, Filter, View Mode -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+          <div class="relative flex-1">
+            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="badge-search" placeholder="Search badges..." data-i18n-placeholder="badges.search" class="pl-10 w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm" />
+          </div>
+          <select id="badge-category" class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm min-w-[150px]">
+            {CATEGORIES.map((cat) => (
+              <option value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+            ))}
+          </select>
+          <div class="flex gap-2">
+            <button id="view-verbose" class="h-10 px-4 rounded-md text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80" data-i18n="badges.verboseView">Verbose</button>
+            <button id="view-badge-only" class="h-10 px-4 rounded-md text-sm font-medium bg-primary text-primary-foreground" data-i18n="badges.badgeOnlyView">Badge only</button>
+          </div>
+        </div>
+
+        <!-- Results count -->
+        <p id="badge-count" class="text-sm text-muted-foreground mb-4">Showing {BADGES.length} badges</p>
+
+        <!-- Badge Only View (default) -->
+        <div id="badges-compact" class="flex flex-wrap gap-2 justify-center p-4 border rounded-lg bg-card">
+          {BADGES.map((badge) => (
+            badge.url ? (
+              <a href={badge.url} target={badge.url.startsWith('/') ? undefined : "_blank"} rel={badge.url.startsWith('/') ? undefined : "noopener noreferrer"} title={badge.name} data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
+                <img src={badge.src} alt={badge.alt} width="88" height="31" class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />
+              </a>
+            ) : (
+              <span title={badge.name} data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
+                <img src={badge.src} alt={badge.alt} width="88" height="31" class="pixelated" loading="lazy" />
+              </span>
+            )
+          ))}
+        </div>
+
+        <!-- Verbose View (hidden by default) -->
+        <div id="badges-verbose" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {BADGES.map((badge) => (
+            <div class="border rounded-md p-4 flex flex-col h-full" data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
+              <div class="mb-2 min-h-[31px] flex items-center">
+                {badge.url ? (
+                  <a href={badge.url} target={badge.url.startsWith('/') ? undefined : "_blank"} rel={badge.url.startsWith('/') ? undefined : "noopener noreferrer"}>
+                    <img src={badge.src} alt={badge.alt} width="88" height="31" class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />
+                  </a>
+                ) : (
+                  <img src={badge.src} alt={badge.alt} width="88" height="31" class="pixelated" loading="lazy" />
+                )}
+              </div>
+              <h3 class="font-medium">{badge.name}</h3>
+              <p class="text-sm text-muted-foreground">{badge.description}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- No Results -->
+        <div id="no-results" class="hidden text-center py-12 border rounded-md">
+          <p class="text-muted-foreground" data-i18n="badges.noResults">No badges found matching your search criteria</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+</style>
+
+<script>
+  import { languageStore, t, initLanguage } from '@/i18n';
+
+  function updateTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+    // Update placeholder
+    const searchInput = document.getElementById('badge-search') as HTMLInputElement;
+    if (searchInput) {
+      const placeholderKey = searchInput.getAttribute('data-i18n-placeholder');
+      if (placeholderKey) {
+        const translated = t(placeholderKey);
+        if (translated !== placeholderKey) {
+          searchInput.placeholder = translated;
+        }
+      }
+    }
+  }
+
+  initLanguage();
+  updateTranslations();
+
+  languageStore.subscribe(() => {
+    updateTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateTranslations();
+  });
+
+  // View mode toggle
+  const viewVerboseBtn = document.getElementById('view-verbose');
+  const viewBadgeOnlyBtn = document.getElementById('view-badge-only');
+  const compactView = document.getElementById('badges-compact');
+  const verboseView = document.getElementById('badges-verbose');
+
+  viewVerboseBtn?.addEventListener('click', () => {
+    compactView?.classList.add('hidden');
+    verboseView?.classList.remove('hidden');
+    viewVerboseBtn.classList.remove('bg-muted', 'text-muted-foreground');
+    viewVerboseBtn.classList.add('bg-primary', 'text-primary-foreground');
+    viewBadgeOnlyBtn?.classList.remove('bg-primary', 'text-primary-foreground');
+    viewBadgeOnlyBtn?.classList.add('bg-muted', 'text-muted-foreground');
+  });
+
+  viewBadgeOnlyBtn?.addEventListener('click', () => {
+    compactView?.classList.remove('hidden');
+    verboseView?.classList.add('hidden');
+    viewBadgeOnlyBtn.classList.remove('bg-muted', 'text-muted-foreground');
+    viewBadgeOnlyBtn.classList.add('bg-primary', 'text-primary-foreground');
+    viewVerboseBtn?.classList.remove('bg-primary', 'text-primary-foreground');
+    viewVerboseBtn?.classList.add('bg-muted', 'text-muted-foreground');
+  });
+
+  // Search and filter
+  const searchInput = document.getElementById('badge-search') as HTMLInputElement;
+  const categorySelect = document.getElementById('badge-category') as HTMLSelectElement;
+  const badgeCount = document.getElementById('badge-count');
+  const noResults = document.getElementById('no-results');
+
+  function filterBadges() {
+    const query = searchInput?.value.toLowerCase() || '';
+    const category = categorySelect?.value || 'all';
+
+    let visibleCount = 0;
+    const totalCount = document.querySelectorAll('[data-badge-id]').length / 2; // Divided by 2 because we have both views
+
+    document.querySelectorAll('[data-badge-id]').forEach((el) => {
+      const name = el.getAttribute('data-name') || '';
+      const desc = el.getAttribute('data-description') || '';
+      const cat = el.getAttribute('data-category') || '';
+
+      const matchesSearch = name.includes(query) || desc.includes(query);
+      const matchesCategory = category === 'all' || cat === category;
+
+      if (matchesSearch && matchesCategory) {
+        (el as HTMLElement).style.display = '';
+        visibleCount++;
+      } else {
+        (el as HTMLElement).style.display = 'none';
+      }
+    });
+
+    // Update count (divide by 2 because both views)
+    const actualVisible = visibleCount / 2;
+    const actualTotal = totalCount;
+
+    if (badgeCount) {
+      const showingText = t('badges.showingFiltered').replace('{{filtered}}', String(actualVisible)).replace('{{total}}', String(actualTotal));
+      badgeCount.textContent = showingText !== 'badges.showingFiltered' ? showingText : `Showing ${actualVisible} of ${actualTotal} badges`;
+    }
+
+    // Show/hide no results message
+    if (actualVisible === 0) {
+      noResults?.classList.remove('hidden');
+      compactView?.classList.add('hidden');
+      verboseView?.classList.add('hidden');
+    } else {
+      noResults?.classList.add('hidden');
+      // Restore the current view
+      if (viewVerboseBtn?.classList.contains('bg-primary')) {
+        verboseView?.classList.remove('hidden');
+      } else {
+        compactView?.classList.remove('hidden');
+      }
+    }
+  }
+
+  searchInput?.addEventListener('input', filterBadges);
+  categorySelect?.addEventListener('change', filterBadges);
+</script>

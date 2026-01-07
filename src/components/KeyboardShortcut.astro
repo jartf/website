@@ -1,0 +1,19 @@
+---
+// KeyboardShortcut - Displays a keyboard shortcut badge
+// Converted from React to Astro
+interface Props {
+  children: any;
+  class?: string;
+  hideOnMobile?: boolean;
+}
+
+const { children, class: className = '', hideOnMobile = true } = Astro.props;
+---
+
+<kbd class:list={[
+  'px-1.5 py-0.5 text-xs bg-muted rounded border border-border font-mono',
+  hideOnMobile && 'hidden md:inline-block',
+  className
+]}>
+  {children}
+</kbd>

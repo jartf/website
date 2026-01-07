@@ -1,0 +1,165 @@
+---
+// Static Header component
+// Interactive features (theme toggle, language toggle) are handled by React islands
+
+import { navItems, navLabels } from "@/lib/constants";
+import { isActivePath } from "@/lib/utils";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import { LanguageToggle } from "@/components/LanguageToggle";
+import MusicToggle from "@/components/MusicToggle.astro";
+
+const pathname = Astro.url.pathname;
+
+// Filter out 'projects' from nav items (as in original)
+const headerNavItems = navItems.filter((item) => item.key !== "projects");
+---
+
+<header class="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
+  <div class="container flex h-16 items-center justify-between px-4">
+    <div class="flex items-center gap-2 min-w-0 flex-1">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-80 h-card flex-shrink-0" aria-label="Homepage">
+        <div class="relative size-8 overflow-hidden">
+          <img src="/favicon.svg" alt="Logo" width="32" height="32" class="size-8 u-photo" aria-hidden="true" />
+        </div>
+        <span class="font-heading font-bold text-lg hidden sm:inline-block p-name">Jarema</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center ml-6 min-w-0" aria-label="Main navigation">
+        <div class="flex items-center gap-4 lg:gap-6">
+          {headerNavItems.map((item) => {
+            const isActive = isActivePath(pathname, item.href);
+            return (
+              <a
+                href={item.href}
+                data-nav-key={item.key}
+                data-nav-item="true"
+                class:list={[
+                  "text-sm transition-colors hover:text-primary whitespace-nowrap",
+                  isActive ? "text-foreground font-medium" : "text-muted-foreground"
+                ]}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <span data-i18n={`nav.${item.key}`}>{navLabels[item.key]}</span>
+                {isActive && (
+                  <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true"></div>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+    </div>
+
+    <div class="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
+      <!-- Language Toggle (React Island for interactivity) -->
+      <LanguageToggle client:only="react" />
+
+      <!-- Theme Toggle (React Island for interactivity) -->
+      <ThemeToggle />
+
+      <!-- Music Toggle (React Island; currently unavailable/disabled) -->
+      <MusicToggle />
+
+      <!-- Mobile Menu Button -->
+      <button
+        type="button"
+        class="md:hidden p-2 rounded-md hover:bg-muted transition-colors"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        id="mobile-menu-button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  <nav
+    id="mobile-menu"
+    class="md:hidden fixed inset-0 top-16 bg-background z-40 transform translate-x-full transition-transform duration-300 ease-in-out"
+    aria-label="Mobile navigation"
+  >
+    <div class="container py-6">
+      <div class="grid gap-3">
+        {headerNavItems.map((item) => {
+          const isActive = isActivePath(pathname, item.href);
+          return (
+            <a
+              href={item.href}
+              class:list={[
+                "text-sm transition-colors hover:text-primary block py-2",
+                isActive ? "text-foreground font-medium" : "text-muted-foreground"
+              ]}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {navLabels[item.key]}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  import { languageStore, t, initLanguage } from '@/i18n';
+
+  // Mobile menu toggle
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener('click', () => {
+      const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!isOpen));
+
+      if (isOpen) {
+        mobileMenu.classList.add('translate-x-full');
+        mobileMenu.classList.remove('translate-x-0');
+      } else {
+        mobileMenu.classList.remove('translate-x-full');
+        mobileMenu.classList.add('translate-x-0');
+      }
+    });
+
+    // Close menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuButton.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.add('translate-x-full');
+        mobileMenu.classList.remove('translate-x-0');
+      });
+    });
+  }
+
+  // i18n translation updates
+  function updateTranslations() {
+    document.querySelectorAll('header [data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+  }
+
+  initLanguage();
+  updateTranslations();
+
+  languageStore.subscribe(() => {
+    updateTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateTranslations();
+  });
+</script>

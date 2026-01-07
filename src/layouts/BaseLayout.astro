@@ -1,0 +1,180 @@
+---
+// Base Layout for Jarema's Digital Garden
+// Astro equivalent of Next.js app/(main)/layout.jsx
+
+import "@/styles/globals.css";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Galaxy from "@/components/Galaxy.astro";
+import { KeyboardNavigation } from "@/components/KeyboardNavigation";
+import { ActionSearchBar } from "@/components/ActionSearchBar";
+import { FirstVisitHint } from "@/components/FirstVisitHint";
+import { LanguageNotice } from "@/components/LanguageNotice";
+import { EasterEgg } from "@/components/EasterEgg";
+import { supportedLanguages, hrefLangLanguages } from "@/lib/constants";
+
+interface Props {
+  title?: string;
+  description?: string;
+  isHomePage?: boolean;
+}
+
+const {
+  title = "Jarema's digital garden",
+  description = "A personal playground and digital garden for Jarema - featuring projects, blog posts, and multilingual content about economics, coding, and more.",
+  isHomePage = false,
+} = Astro.props;
+
+const siteUrl = "https://jarema.me";
+const fullTitle = isHomePage ? title : `${title} | Jarema's digital garden`;
+
+// Generate alternate feeds
+const feedTypes = [
+  { type: "rss", mime: "application/rss+xml" },
+  { type: "atom", mime: "application/atom+xml" },
+];
+
+const jsonFeeds = [
+  { url: `${siteUrl}/feed.json`, title: "Jarema's digital garden - JSON Feed" },
+  ...supportedLanguages.map((lang) => ({
+    url: `${siteUrl}/feed/${lang}.json`,
+    title: `Jarema's digital garden - ${lang.toUpperCase()} JSON Feed`,
+  })),
+];
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Jarema, digital garden, personal website, blog, economics, coding, multilingual" />
+    <meta name="author" content="Jarema" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Theme colors -->
+    <meta name="theme-color" content="#2c2e84" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}/android-chrome-512x512.png`} />
+    <meta property="og:site_name" content="Jarema's digital garden" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/android-chrome-512x512.png`} />
+
+    <!-- Identity verification -->
+    <link rel="me" href="https://github.com/jartf" />
+    <link rel="me" href="https://pronouns.page/@jerryv" />
+
+    <!-- IndieAuth endpoints -->
+    <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+    <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+
+    <!-- Webmention endpoint -->
+    <link rel="webmention" href="https://webmention.io/jarema.me/webmention" />
+    <link rel="microsub" href="https://aperture.p3k.io/microsub/1060" />
+
+    <!-- RSS/Atom Feeds -->
+    <link rel="alternate" type="application/rss+xml" href={`${siteUrl}/rss.xml`} title="Jarema's digital garden - RSS Feed" />
+    <link rel="alternate" type="application/atom+xml" href={`${siteUrl}/atom.xml`} title="Jarema's digital garden - Atom Feed" />
+    <link rel="alternate" type="application/json" href={`${siteUrl}/feed.json`} title="Jarema's digital garden - JSON Feed" />
+
+    <!-- Alternate language feeds -->
+    {supportedLanguages.map((lang) => (
+      <>
+        <link rel="alternate" type="application/rss+xml" href={`${siteUrl}/rss/${lang}.xml`} title={`RSS Feed - ${lang.toUpperCase()}`} hreflang={lang} />
+        <link rel="alternate" type="application/atom+xml" href={`${siteUrl}/atom/${lang}.xml`} title={`Atom Feed - ${lang.toUpperCase()}`} hreflang={lang} />
+      </>
+    ))}
+
+    <!-- hreflang tags -->
+    <link rel="canonical" href={Astro.url.href} />
+    {hrefLangLanguages.map((lang) => (
+      <link rel="alternate" hreflang={lang} href={Astro.url.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={Astro.url.href} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Theme initialization script (runs before page render) -->
+    <script is:inline>
+      (function() {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = stored === 'dark' || stored === 'light'
+            ? stored
+            : (stored === 'system' || !stored)
+              ? (prefersDark ? 'dark' : 'light')
+              : 'dark';
+          document.documentElement.classList.remove('light', 'dark');
+          document.documentElement.classList.add(theme);
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {
+          // Fallback to system preference
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.classList.add(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
+
+    <style>
+      .emoji-flag {
+        font-family: "Twemoji Country Flags", "Twemoji Mozilla", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        font-variant-emoji: emoji;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-background">
+    <Galaxy />
+
+    <div class="flex flex-col min-h-screen relative z-10">
+      <a
+        href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-ring focus:outline-none"
+      >
+        Skip to main content
+      </a>
+
+      <Header />
+
+      <main id="main-content" class="flex-1" tabindex="-1">
+        <slot />
+      </main>
+
+      <Footer />
+    </div>
+
+    <!-- Global React components for keyboard navigation and search -->
+    <KeyboardNavigation client:only="react" />
+    <ActionSearchBar client:only="react" />
+    <FirstVisitHint client:only="react" />
+
+    <!-- Global notices/easter eggs -->
+    <LanguageNotice client:only="react" />
+    <EasterEgg client:only="react" />
+  </body>
+</html>

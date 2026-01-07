@@ -1,0 +1,159 @@
+---
+// Footer component with badges, webring links, i18n support, and secret chapter 6 easter egg
+
+import { footerBadges } from "@/lib/constants";
+import { KeyboardShortcutsHelp } from "./KeyboardShortcutsHelp";
+---
+
+<footer class="w-full border-t pt-1 xl:py-0" role="contentinfo">
+  <div class="container flex flex-col items-center justify-center gap-2 py-2 xl:flex-row xl:gap-1 relative">
+    <div
+      id="footer-tap-area"
+      class="flex flex-col xl:flex-row items-center gap-2 xl:gap-1 text-sm text-muted-foreground select-none cursor-default"
+    >
+      <p class="lowercase" data-i18n="footer.copyright">
+        no rights reserved, take what you need and do what you want :p
+      </p>
+      <span class="hidden xl:inline">•</span>
+      <p class="flex items-center gap-1.5 lowercase">
+        <span data-i18n="footer.madeWith">made with love</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="text-red-500" aria-hidden="true">
+          <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+        </svg>
+        <span data-i18n="footer.andChaos">and a few weeks of screwing around</span>
+      </p>
+    </div>
+
+    <!-- Keyboard shortcuts help (desktop only) -->
+    <div class="hidden xl:block absolute right-4">
+      <KeyboardShortcutsHelp client:only="react" />
+    </div>
+  </div>
+
+  <!-- Badges section -->
+  <nav
+    class="pt-1 flex justify-center flex-wrap gap-2 mx-auto"
+    style="max-width: 760px"
+    aria-label="Web badges and external links"
+  >
+    {footerBadges.map(({ src, alt, href }) =>
+      href ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+        >
+          <img
+            src={src}
+            alt={alt}
+            width="88"
+            height="31"
+            class="hover:opacity-90 transition-opacity"
+            loading="lazy"
+          />
+        </a>
+      ) : (
+        <img
+          src={src}
+          alt={alt}
+          width="88"
+          height="31"
+          loading="lazy"
+          role="img"
+        />
+      )
+    )}
+  </nav>
+
+  <!-- Site badge -->
+  <a class="flex justify-center mt-2 pb-3" href="/badges/" aria-label="View all badges">
+    <img
+      src="/badge.png"
+      alt="A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones, next to the word Jarema in a white, blocky pixel font. The background is black and filled with small white stars."
+      width="88"
+      height="31"
+      class="opacity-90 hover:opacity-100 transition-opacity"
+      loading="lazy"
+    />
+  </a>
+
+  <!-- Pride flag stripe -->
+  <svg height="15" width="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="block w-full" preserveAspectRatio="none">
+    <title>Decorative footer stripe</title>
+    <rect fill="#D60270" height="5" width="100%" x="0" y="0"></rect>
+    <rect fill="#9B4F96" height="5" width="100%" x="0" y="5"></rect>
+    <rect fill="#0038A8" height="5" width="100%" x="0" y="10"></rect>
+  </svg>
+
+  <!-- Spacer -->
+  <div aria-hidden="true" class="h-3"></div>
+</footer>
+
+<script>
+  import { languageStore, t, initLanguage } from '@/i18n';
+
+  let tapCount = 0;
+  let tapTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function updateFooterTranslations() {
+    document.querySelectorAll('footer [data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+  }
+
+  // Secret chapter 6 easter egg - tap footer 6 times to reveal
+  const footerTapArea = document.getElementById('footer-tap-area');
+  if (footerTapArea) {
+    footerTapArea.addEventListener('click', (e) => {
+      // Don't count clicks on links
+      if ((e.target as HTMLElement).tagName === 'A') return;
+
+      tapCount++;
+
+      // Reset tap count after 2 seconds of no taps
+      if (tapTimeout) clearTimeout(tapTimeout);
+      tapTimeout = setTimeout(() => { tapCount = 0; }, 2000);
+
+      // On 6th tap, reveal chapter 6
+      if (tapCount === 6) {
+        sessionStorage.setItem('showHiddenChapter', 'true');
+
+        // If already on about page, reveal chapter 6 directly
+        if (window.location.pathname.includes('/about')) {
+          document.querySelectorAll('.hidden-chapter').forEach((el) => {
+            el.classList.remove('hidden');
+          });
+          // Scroll to chapter 6
+          const chapter6 = document.getElementById('chapter-6');
+          if (chapter6) {
+            chapter6.scrollIntoView({ behavior: 'smooth' });
+          }
+        } else {
+          // Navigate to about page chapter 6
+          window.location.href = '/about/#chapter-6';
+        }
+        tapCount = 0;
+      }
+    });
+  }
+
+  // Update on language change
+  languageStore.subscribe(() => {
+    updateFooterTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateFooterTranslations();
+  });
+
+  // Initial update after language init
+  initLanguage();
+  updateFooterTranslations();
+</script>

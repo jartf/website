@@ -1,0 +1,592 @@
+{
+  "nav": {
+    "home": "Avaleht",
+    "about": "Minust",
+    "projects": "Projektid",
+    "blog": "Blogi",
+    "now": "Nüüd",
+    "uses": "Kasutused",
+    "contact": "Kontakt",
+    "guestbook": "Külalisteraamat",
+    "colophon": "Kolofon",
+    "webring": "Veebiring",
+    "scrapbook": "Arenduspäevik"
+  },
+  "languageNotice": {
+    "message": "Selle keele tõlked on veel pooleli. Osa sisust võib olla puudulik või puudu.",
+    "dismiss": "Sule"
+  },
+  "language": {
+    "main": "Põhikeeled",
+    "beta": "Keeled beetaversioonis",
+    "other": "Teised keeled",
+    "auto": "Auto (brauseri keel)",
+    "search": "Otsi keeli...",
+    "en": "Inglise",
+    "vi": "Vietnami",
+    "et": "Eesti",
+    "ru": "Vene",
+    "da": "Taani",
+    "tr": "Türgi",
+    "zh": "Hiina",
+    "pl": "Poola",
+    "sv": "Rootsi",
+    "fi": "Soome",
+    "tok": "Toki Pona"
+  },
+  "greetings": {
+    "morning": "Tere hommikust, rändur.",
+    "afternoon": "Tere päevast, uitaja.",
+    "evening": "Tere õhtust, avastaja.",
+    "night": "Veel üleval? Mina ka."
+  },
+  "home": {
+    "buttons": {
+      "about": "Minust",
+      "projects": "Vaata mu projekte"
+    },
+    "footer": "Tere tulemast minu digiaeda. Uuri vabalt ringi.",
+    "heading": "tere, mina olen Jarema",
+    "subheading": "Majandusteaduse tudeng, vahel koodija, enamasti kasside sosistaja.",
+    "contactButton": "Võta ühendust",
+    "aboutButton": "Loe minust",
+    "blogButton": "Loe mu blogi",
+    "guestbookButton": "Kirjuta mu külalisteraamatusse",
+    "recentPosts": "Hiljutised blogipostitused",
+    "latestNow": "Mida ma hetkel teen",
+    "currentMood": "Praegune tuju"
+  },
+  "guestbook": {
+    "title": "Külalisteraamat",
+    "description": "Jäta teade minu külalisteraamatusse"
+  },
+  "about": {
+    "title": "Minust",
+    "description": "Lugu sellest, kes ma olen, kust ma tulen, mis on mu kirg ja mille poole ma püüdlen.",
+    "chapters": {
+      "1": {
+        "title": "kuidas ma sündisin",
+        "content1": "Ma sündisin Vietnamis 2000ndate keskpaigas, mis teeb minust tehniliselt Gen Z, aga kasvasin üles pigem kuskil vahepealsuses, mis ei sobi hästi ühegi sildi alla. Ma olin see vaikne laps klassi taga, aga mu mõistus polnud kunagi vaikne. Ma jälgisin kõike, olgu see inimesed, mustrid või võimusuhted, ja panin seda kõike tasa ja targu kokku.",
+        "content2": "My childhood was a strange mix of digital escapes and emotional landmines. I didn't have a perfect family. I won't even try to pretend I did. I had to grow up fast, emotionally speaking, and I learned early on that being sensitive meant being careful. You learn to listen more than you speak. You learn to code-switch, to hide pieces of yourself in plain sight. But you also learn resilience. You learn how to build a self from scratch when no one hands you the blueprint.",
+        "content3": "This site is part of that blueprint. Not to explain everything or even try to, but to make peace with the chaos."
+      },
+      "2": {
+        "title": "kui ma avastasin, et maailm on kokku mängitud",
+        "content1": "It didn't hit all at once. There wasn't some singular moment of revelation. It was more like a slow burn: the realization that the systems around me, from family to education to society at large, weren't built with people like me in mind. That stability could be a trap. That even love can be conditional, weaponized. That you could follow all the \"rules\" and still lose.",
+        "content2": "So I did what a lot of us do: I adapted. I sharpened my mind, armored my heart, and started studying everything. Economics gave me the vocabulary to understand power. Coding gave me the tools to build power. Language gave me the freedom to express and escape. I realized I didn't want to just survive inside the system, I wanted to understand it, expose it, and maybe even subvert it a little.",
+        "content3": "This site isn't just a portfolio. It's proof that I exist on my own terms, not the ones I was handed."
+      },
+      "3": {
+        "title": "kood, keeled ja ADHD eripäradest tulenev eneseteostus",
+        "content1": "I don't do well with rigid routines or neat timelines. ADHD means my brain moves fast, loops endlessly, hyperfocuses randomly at 2am, forgets to eat for a day straight, and sometimes drowns in noise. Sensitivity to noise also makes me go insane sometimes. But it also means I'm deeply curious. Obsessively so. I don't \"dabble\" in things, rather I throw myself in. I don't multitask, it's just that I live in parallel tabs.",
+        "content2": "Coding, for me, is both chaos and comfort. It gives structure to thoughts that refuse to sit still. It gives me the power to make something that works, something that reflects a part of my mind that can never fully be verbalized. And language? That's the other half of the puzzle. I switch between Vietnamese, English, Russian, and sometimes Turkish or Danish, not because I want to show off, but because different languages unlock different selves. Different emotions. Different memories. English is my sharpest blade. Vietnamese is my heartbeat. Russian is my melancholy. Turkish is the thrill of newness. Danish is… well, still in progress.",
+        "content3": "And yeah, I write messy, but I write real. I code imperfectly, but intentionally. Everything you see here was built with that same energy."
+      },
+      "4": {
+        "title": "aktivism ja liiga ehtne olemine veebis",
+        "content1": "I'm not an influencer. I'm not a loud voice on a picket line. But I believe in accountability, in empathy, in building spaces where people feel seen, not just tolerated. My activism is quiet, sometimes invisible. It shows up in the things I build, the conversations I have, and the way I refuse to dilute my truth just to make someone comfortable.",
+        "content2": "It's in calling out injustice when it's safer to stay silent. It's in amplifying marginalized voices, even when I feel like mine is already whisper-thin. It's in the saying:",
+        "quote": "\"I don't have all the answers, but I'm still going to try.\"",
+        "quoteTooltip": "yeah I said it lol",
+        "content3": "Sometimes I vanish for weeks. Sometimes I overshare at 3am. Sometimes I post a cat meme and follow it with a quote I randomly make up. I contain multitudes."
+      },
+      "5": {
+        "title": "mis on mu järgmine samm",
+        "content1": "I'm not here to sell you a personal brand or pretend I've got my life all figured out. Because I really don't. Most days, I'm just trying to balance being functional, being kind, and being honest. But I do know what matters to me.",
+        "content2": "I want to keep creating. Keep writing. Keep learning languages that make my brain buzz. I want to build tools that matter, not just get likes. I want to travel to the places where history, language, and identity tangle together. I want to leave behind things that feel warm, useful, and human. Not polished perfection, but stories and scraps that make people feel less alone.",
+        "content3": "I want peace. Not just the absence of chaos, but the kind of peace that comes from knowing who you are, what you've been through, and what you've chosen to leave behind.",
+        "content4": "If you're here reading this, then part of you resonates with that. Welcome. Make yourself at home. Just watch your step, some of the thoughts on this site are still under construction."
+      },
+      "6": {
+        "title": "ma tahtsin veel midagi öelda",
+        "content1": "so here's the part they weren't supposed to read.",
+        "content2": "i'm still angry. still grieving a version of myself that was never allowed to exist. still waking up some days wondering why everything feels a few degrees off. sometimes i think about running away, just disappearing, new name, new city, new language. sometimes i almost do it.",
+        "content3": "there are days i don't even feel human. more like a memory trying to solidify. more like an echo of something softer i can't reach anymore. other days, i'm electric. i feel every detail, sunlight on skin, quiet playlists, the way people's faces shift when they're finally safe enough to be themselves. it keeps me alive, somehow.",
+        "content4": "i'm not done becoming whoever the hell i'm supposed to be. but i am done pretending that i'm okay with staying silent."
+      }
+    }
+  },
+  "projects": {
+    "title": "Minu projektid",
+    "description": "Kogumik isiklikest, akadeemilistest ja aktivismi projektidest, millega olen tegelenud. Mõned valmis, mõned veel valmimas.",
+    "status": {
+      "completed": "Valmis",
+      "inProgress": "Veel valmimas",
+      "planned": "Plaanitud"
+    },
+    "statusLabels": {
+      "completed": "Valmis",
+      "inProgress": "Töös",
+      "planned": "Plaanitud"
+    },
+    "categories": {
+      "personal": "Isiklik",
+      "academic": "Akadeemiline",
+      "activism": "Aktivism"
+    },
+    "details": {
+      "what": "Mis see on",
+      "learned": "Mida ma õppisin",
+      "why": "Miks see on minu jaoks oluline"
+    },
+    "cardActions": {
+      "clickForDetails": "Klõpsa detailide nägemiseks",
+      "clickToClose": "Klõpsa sulgemiseks"
+    },
+    "buttons": {
+      "showRandom": "Näita rohkem juhuslikkust",
+      "hideRandom": "Peida kaos"
+    }
+  },
+  "blog": {
+    "title": "Blogi",
+    "description": "Mõtteid, mõtisklusi ja aeg-ajalt ka pahameelehooge. Sündinud eri hetkedel ja meeleoludes.",
+    "language": "Keel",
+    "languageFilter": "Filtreeri keele järgi",
+    "tag": "Märksõnad",
+    "category": "Kategooria",
+    "noPosts": "Blogipostitusi veel pole. Vaata varsti uuesti!",
+    "search": "Otsi postitusi...",
+    "sortNew": "Kuupäeva järgi (uuemad ees)",
+    "sortOld": "Kuupäeva järgi (vanimad ees)",
+    "sortReadTime": "Lugemisaja järgi (lühemad ees)",
+    "sortABC": "Tähestikuline järjestus (A-Z)",
+    "filter": "Filtrid",
+    "filterDescription": "Filtreeri blogipostitusi",
+    "activeFilter": "Aktiivsed filtrid:",
+    "filterNoMatch": "Sinu filtrid ei andnud tulemusi. Proovi mõnd filtrit muuta või eemaldada.",
+    "clearFilter": "Tühjenda kõik filtrid",
+    "mood": "Meeleolu",
+    "cat": "Kassi heakskiit",
+    "prev": "Eelmine blogipostitus",
+    "next": "Järgmine blogipostitus",
+    "jumpToPost": "Hüppa postitusse",
+    "back": "Tagasi blogi nimekirja",
+    "showingPosts": "Kuvatakse {{current}} blogipostitust {{total}}-st",
+    "minRead": "minutit lugemist",
+    "availableIn": "Lehte saab lugeda ka keeltes",
+    "comments": "Kommentaarid"
+  },
+  "now": {
+    "title": "Nüüd",
+    "description": "Mida ma praegu teen, millest mõtlen ja millele keskendun.",
+    "lastUpdated": "Viimati uuendatud",
+    "whatIsNow": "Mis on /now leht?",
+    "whatIsNowDescription": "Now-leht on leht isiklikul veebisaidil, mis ütleb teile, millele inimene hetkel, täna või väga hiljuti keskendub. Rohkem infot leiate aadressil",
+    "categories": {
+      "reading": "Lugemine",
+      "coding": "Kodeerimine",
+      "drinking": "Joomine",
+      "listening": "Kuulamine",
+      "premid": "Discordi tegevus",
+      "thinking": "Mõtlemine",
+      "studying": "Õppimine",
+      "planning": "Planeerimine"
+    }
+  },
+  "uses": {
+    "title": "Kasutused",
+    "description": "Kõik asjad, mida ma iga päev kasutan. Sarnaselt",
+    "websiteDescription": "lehele, mis kogub teiste kasutatavaid asju.",
+    "categories": {
+      "hardware": "Riistvara",
+      "mobile": "Mobiil",
+      "audio": "Heli",
+      "os": "Operatsioonisüsteem ja brauserid",
+      "development": "Arendustööriistad",
+      "email": "E-post ja produktiivsus",
+      "privacy": "Privaatsus ja turvalisus",
+      "mobile_tools": "Mobiilseadmete tarkvaratööriistad",
+      "mapping": "Kaardistamine",
+      "gaming": "Mängimine",
+      "multimedia": "Multimeedia",
+      "design": "Disain ja illustratsioon",
+      "photo": "Fototöötlus",
+      "video": "Video ja heli",
+      "media": "Voogedastusteenused"
+    },
+    "subsections": {
+      "design": "Disain ja illustratsioon",
+      "photo": "Fototöötlus",
+      "video": "Video ja heli",
+      "media": "Voogedastusteenused"
+    },
+    "itemDescriptions": {
+      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "externalHDD": "Väline kõvaketas varundamiseks",
+      "mechanicalKeyboard": "Mechanical keyboard with Red Switch",
+      "wirelessMouse": "Juhtmevaba mänguhiir",
+      "mainPhone": "Peamine telefon",
+      "secondaryPhone": "Teine telefon töö jaoks",
+      "smartwatch": "Nutikell",
+      "primaryEarbuds": "Peamised juhtmevabad kõrvaklapid",
+      "backupEarbuds": "Varukõrvaklapid",
+      "dualBoot": "Dual boot setup with hardened Windows",
+      "primaryBrowser": "Primary web browser",
+      "secondaryBrowser": "Secondary web browser",
+      "primaryCodeEditor": "Primary code editor",
+      "terminalEmulators": "Terminal emulators",
+      "versionControl": "Version control system",
+      "apiTesting": "API testing tool",
+      "databaseManagement": "Database management",
+      "codeHosting": "Code hosting and collaboration",
+      "webHosting": "Web hosting platform",
+      "ddosProtection": "DDoS protection and CDN",
+      "desktopEmail": "Desktop email client",
+      "emailClient": "Email client (desktop & mobile)",
+      "domainEmail": "Domain email provider",
+      "taskManagement": "Task management",
+      "calendar": "Calendar and scheduling",
+      "timeTracking": "Time tracking",
+      "automationTool": "Automation tool",
+      "phoneLinking": "Linking phone with PC",
+      "noteTaking": "Note-taking app",
+      "officeSuite": "Office suite",
+      "cloudStorage": "Cloud storage solution",
+      "vpn": "VPN with WireGuard config",
+      "passwordManager": "Self-hosted password manager",
+      "twoFactorAuth": "Two-factor authentication app",
+      "dnsProvider": "DNS provider",
+      "privacySearch": "Privacy-focused search engine",
+      "networkVpn": "Secure network mesh VPN",
+      "lgFirmware": "LG firmware flashing tool",
+      "qualcommFlash": "Qualcomm Flash Image Loader",
+      "samsungFirmware": "Samsung firmware flashing tool",
+      "samsungDownload": "Samsung firmware download site",
+      "iosManagement": "iOS device management",
+      "geographicSystem": "Geographic Information System",
+      "webOpenstreetmap": "Web-based OpenStreetMap editor",
+      "desktopOpenstreetmap": "Desktop OpenStreetMap editor",
+      "mobileOpenstreetmap": "Mobile OpenStreetMap editor",
+      "mobileContributor": "Mobile OpenStreetMap contributor",
+      "communityNavigation": "Community-based navigation and map editor",
+      "minecraftClient": "Minecraft client and launcher",
+      "minecraftServer": "Minecraft server and modding platform",
+      "gameDistribution": "Game distribution platform",
+      "gameLauncher": "Game store and launcher",
+      "indieMarketplace": "Indie game marketplace",
+      "vectorGraphics": "Vector graphics editor",
+      "uiUxDesign": "UI/UX design tool",
+      "graphicDesign": "Graphic design platform",
+      "digitalPaintingDesktop": "Digital painting (desktop)",
+      "digitalPaintingMobile": "Digital painting (mobile)",
+      "photoEditing": "Photo editing and manipulation",
+      "openSourceEditor": "Open-source photo editor",
+      "professionalEditor": "Professional video editor",
+      "professionalEditorDavinci": "Professional video editor",
+      "openSourceVideoEditor": "Open-source video editor",
+      "videoEditorCapcut": "Video editor (desktop & mobile)",
+      "subtitleEditor": "Subtiitrite redaktor",
+      "videoPlayer": "Videopleier",
+      "audioEditor": "Heliredaktor",
+      "musicStreamingYoutube": "Muusika voogedastusteenus",
+      "musicStreamingSpotify": "Muusika voogedastusteenus",
+      "videoStreaming": "Video voogedastusplatvorm",
+      "revancedDescription": "I pay for YouTube Premium, but the main app is just unusable smh",
+      "stremioDescription": "shhhh, don't tell Netflix",
+      "clickToReveal": "Klõpsake 5 korda, et kuvada",
+      "moreClicksToReveal": "({count} klikki veel, et paljastada)",
+      "clicksRemaining": "klikki veel, et paljastada"
+    },
+    "hiddenPlatforms": {
+      "platform1": "Unspeakable platform 1",
+      "platform2": "Unspeakable platform 2",
+      "click5": "Klõpsake 5 korda, et kuvada",
+      "moreClicks": "(veel 5 klikki, et paljastada)"
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "description": "Võimalused minuga ühendust võtta ja ühendust luua.",
+    "message": "don't be shy. say hi. or book a 1:1 if you're feeling professional :)",
+    "disclaimer": "i do respond to emails. probably. unless i get distracted by a bird or something idk",
+    "pgpNote": "PGP-võtmed ja teised verifitseerimismeetodid on saadaval nõudmisel.",
+    "sections": {
+      "contactMe": "Võtke minuga ühendust",
+      "socialMedia": "Mina sotsiaalmeedias",
+      "otherPlatforms": "Mina teistel platvormidel"
+    },
+    "sectionTitles": {
+      "contactMe": "Võtke minuga ühendust",
+      "socialMedia": "Mina sotsiaalmeedias",
+      "otherPlatforms": "Mina teistel platvormidel"
+    },
+    "links": {
+      "universityEmail": "Ülikooli e-post",
+      "bookMeeting": "Broneeri minuga kohtumine",
+      "messengerNote": "I'm very inactive on Facebook and Messenger. Replies will be on a best-effort basis."
+    },
+    "secretButton": "Salajane nupp"
+  },
+  "moodCat": {
+    "title": "Päeva kass",
+    "hover": "judging you softly",
+    "refresh": "New cat, who dis?",
+    "seeMore": "Vaata rohkem liiva",
+    "imageSource": "Pildi allikas"
+  },
+  "music": {
+    "play": "Esita taustamuusikat",
+    "pause": "Taustamuusika peatamine"
+  },
+  "tetris": {
+    "title": "Tetris",
+    "description": "A classic game of falling blocks and disappearing lines",
+    "gameInfo": "Mängu info",
+    "score": "Skoor",
+    "level": "Level",
+    "status": "Staatus",
+    "gameOver": "Mäng läbi",
+    "paused": "Peatatud",
+    "playing": "Mängib",
+    "controls": "Juhtimiselemendid",
+    "moveLeft": "Liiguta vasakule",
+    "moveRight": "Liiguta paremale",
+    "moveDown": "Liiguta alla",
+    "rotate": "Rotate block",
+    "hardDrop": "Hard drop",
+    "pauseGame": "Mängu peatamine",
+    "playAgain": "Mängi uuesti",
+    "resetGame": "Lähtesta mäng",
+    "resume": "Jätka mängu",
+    "pause": "Paus",
+    "drop": "Drop",
+    "musicOn": "Muusika sees",
+    "musicOff": "Muusika välja lülitatud",
+    "gameOverMessage": "Mäng läbi!",
+    "finalScore": "Teie lõppskoor:"
+  },
+  "404": {
+    "title": "You've wandered off the map",
+    "description": "The cat doesn't even know this place.",
+    "button": "Mine tagasi koju",
+    "sitemap": "Vaata saidikaarti",
+    "enjoycat": "While you're lost, enjoy this cat:"
+  },
+  "scrapbook": {
+    "title": "Devlogi"
+  },
+  "webrings": {
+    "title": "Veebiringid",
+    "description": "Veebiringid, kuhu ma kuulun. Avasta rohkem iseseisvaid veebilehti ja isiklikke blogisid.",
+    "intro1": "Veebiring on sarnaselt mõtlevate inimeste loodud veebilehtede kogumik, mis on tavaliselt koondunud mingi teema, esteetika või ühise huvi ümber. (safonts veebiringilt)",
+    "intro2": "See veebileht on osa neist veebiringidest. Klõpsa linkidel, et külastada mu naabrite lehti, ja teisi liikmeid, kui sellel ringil on juhuslikkuse funktsioon. Vali milline tahes ring!",
+    "previous": "Eelmine",
+    "random": "Juhuslik",
+    "next": "Järgmine",
+    "previousAria": "Eelmine leht ringis {{name}}",
+    "randomAria": "Juhuslik leht ringis {{name}}",
+    "nextAria": "Järgmine leht ringis {{name}}"
+  },
+  "badges": {
+    "title": "Veebimärkide kogu",
+    "description": "Klassikaliste veebimärkide ja nuppude kogu, mida kasutan oma veebilehel.",
+    "pageTitle": "Klassikaline veebimärkide kogu",
+    "pageDescription": "Olen kogunud need 88x31 märgid, et näidata, millest mina ja see leht tegelikult hoolime. Need on tagasivaade Geocities'i ajastule, kui internet oli vähem täis korporatiivset ja tehisintellekti saasta. Kui sul on märk, mida sooviksid siia lisada, anna mulle lihtsalt teada.",
+    "myBadgeTitle": "Minu märk (klõpsa laiendamiseks)",
+    "myBadgeIntro": "Kasuta seda märki minu veebilehele viitamiseks:",
+    "hotlinkUrl": "Hotlink URL:",
+    "htmlCodeTitle": "HTML-kood",
+    "embeddingSuggestionsTitle": "Soovitused vistutamiseks",
+    "suggestion1": "Kasuta",
+    "suggestion1b": "oma CSS-is, et säilitada pikselkunsti stiil.",
+    "suggestion2": "Viita otse minu avalehele aadressil",
+    "suggestion3": "Märk on 88x31 pikslit, kahekordista oma HTML-is laius ja kõrgus mõõtudeni",
+    "suggestion3b": "et teha need kõrge resolutsiooniga ekraanidel paremini loetavaks.",
+    "collectionHeading": "Märkide kogu",
+    "search": "Otsi märke...",
+    "filterByCategory": "Filtreeri kategooria järgi",
+    "verboseView": "Üksikasjalik",
+    "badgeOnlyView": "Ainult märk",
+    "showingCount": "Kuvatud {{count}} märki",
+    "showingFiltered": "Kuvatud {{filtered}} märki {{total}}-st",
+    "noResults": "Otsingukriteeriumidele vastavaid märke ei leitud",
+    "visitBadge": "Külasta {{name}}"
+  },
+  "colophon": {
+    "title": "Kolofon",
+    "description": "Selle veebisaidi taga peituv lugu ja selle loomine",
+    "siteHistory": {
+      "title": "Saidi ajalugu",
+      "content1": "This site was just registered in late 2023, yet the design has changed a lot over the span of its life. The first version was just a basic WordPress site hosted on a sketchy free hosting provider, the second was Carrd-based, and the third was built with Astro. This current iteration (the fourth version) is a complete redesign built from scratch with modern web technologies.",
+      "content2": "Each version has been an evolution, with this latest one focusing on performance, accessibility, full keyboard navigation, and a more personal touch that better represents who I am and what I care about."
+    },
+    "technologyStack": {
+      "title": "Tehnoloogiapakk",
+      "nextjs": "React framework that enables server-side rendering and static site generation",
+      "react": "JavaScript library for building user interfaces",
+      "tailwind": "Utility-first CSS framework",
+      "shadcn": "Reusable component library built with Radix UI and Tailwind",
+      "framer": "Animation library for React",
+      "i18next": "Internationalization framework",
+      "typescript": "Strongly typed programming language that builds on JavaScript"
+    },
+    "hosting": {
+      "title": "Hosting & deployment",
+      "content1": "Sait on majutatud",
+      "content2": "which provides seamless deployment from GitHub, automatic HTTPS, and global CDN distribution.",
+      "content3": "The domain is managed through",
+      "content4": "which provides additional security and performance benefits."
+    },
+    "design": {
+      "title": "Disainifilosoofia",
+      "p1": "See veebileht on loodud ligipääsetavust ja jõudlust silmas pidades. See töötab ilma JavaScriptita, kasutab semantilist HTML-i ja austab teie privaatsust, vältides jälgimisküpsiseid.",
+      "p2": "Disaini eesmärk on leida tasakaal kaasaegse esteetika ja klassikalise veebi lihtsuse vahel. Tume režiim on vaikimisi sisse lülitatud, sest mulle meeldivad mu võrkkestad."
+    },
+    "webStandards": {
+      "title": "Veebistandardid",
+      "intro": "See sait rakendab:",
+      "microformats": "mikrovormingud",
+      "feeds": "RSS, Atom ja JSON vood",
+      "robots": "robots.txt ja sitemap.xml",
+      "humans": "humans.txt"
+    },
+    "accessibility": {
+      "title": "Ligipääsetavus",
+      "intro": "Püüan teha selle saidi kõigile kättesaadavaks. Funktsioonide hulka kuuluvad:",
+      "item1": "Semantiline HTML struktuur",
+      "item2": "Sisu vahelejätmise lingid",
+      "item3": "Õige pealkirjade hierarhia",
+      "item4": "WCAG 2.1 AA värvikontrast",
+      "item5": "Klaviatuuriga navigeeritav",
+      "item6": "Arvestab vähendatud liikumise eelistusi",
+      "reportText": "Kui märkate ligipääsetavuse probleeme, siis",
+      "contactLink": "andke mulle teada"
+    },
+    "inspiration": {
+      "title": "Inspiration",
+      "content1": "See leht ammutab inspiratsiooni",
+      "content2": "which in turn draws inspiration from",
+      "content3": "Algne idee teemal"
+    }
+  },
+  "footer": {
+    "copyright": "õigused puuduvad, võta, mida vajad, ja tee, mida tahad :p",
+    "madeWith": "armastusega tehtud",
+    "andChaos": "ja paar nädalat mängimist"
+  },
+  "2048": {
+    "description": "Join the tiles, get to 2048!",
+    "score": "Skoor",
+    "best": "Parim",
+    "gameOver": "Mäng läbi!",
+    "finalScore": "Lõppskoor",
+    "tryAgain": "Try again",
+    "youWin": "Sa võidad!",
+    "currentScore": "Praegune tulemus",
+    "keepPlaying": "Keep playing",
+    "newGame": "Uus mäng",
+    "howToPlay": "Mängujuhend",
+    "instructions1": "Use your arrow keys or WASD to move the tiles. When two tiles with the same number touch, they merge into one!",
+    "instructions2": "After each move, a new tile appears (either 2 or 4).",
+    "instructions3": "Create a tile with the number 2048 to win the game!",
+    "controls": "Juhtimiselemendid",
+    "moveLeft": "Liiguta vasakule",
+    "moveRight": "Liiguta paremale",
+    "moveUp": "Liiguta üles",
+    "moveDown": "Liiguta alla",
+    "touchInstructions": "On mobile devices, use the on-screen controls to move tiles.",
+    "undo": "Võta tagasi"
+  },
+  "keyboardShortcuts": {
+    "title": "Kiirklahvid",
+    "navigation": "Navigation",
+    "actions": "Toimingud",
+    "close": "Sule",
+    "home": "Avaleht",
+    "about": "Minust",
+    "blog": "Blogi",
+    "projects": "Projektid",
+    "now": "Now",
+    "uses": "Uses",
+    "contact": "Contact",
+    "colophon": "Colophon",
+    "slashes": "Slashes",
+    "scrapbook": "Devlogi",
+    "tetris": "Tetris",
+    "2048": "2048",
+    "cycleLanguage": "Keelte vahel liikumine",
+    "cycleTheme": "Heledate/tumedate teemade vaheldumisi vahetamine",
+    "refreshCat": "Refresh mood cat",
+    "gamePageNotice": "Most keyboard shortcuts are disabled in game pages to avoid conflicts with game controls.",
+    "openShortcuts": "Ava klaviatuuri otseteed",
+    "actionSearch": "Open Action Search"
+  },
+  "actionSearch": {
+    "title": "Otsingutoimingud",
+    "placeholder": "Otsingutoimingud...",
+    "noResults": "Toiminguid ei leitud",
+    "goTo": "Mine lehele",
+    "toggleTheme": "Heleda/tumeda teema vahetamine",
+    "switchDarkMode": "Lülitu tumedale režiimile",
+    "switchLightMode": "Lülitu heledale režiimile",
+    "appearance": "Appearance",
+    "cycleLanguage": "Keelte vahel liikumine",
+    "refreshCat": "Get a new mood cat",
+    "playGame": "Mängi mängu",
+    "viewShortcuts": "View all shortcuts",
+    "pressToOpen": "Käskude paleti avamiseks vajutage klahvi .",
+    "escToClose": "ESC sulgemiseks",
+    "fun": "Fun",
+    "games": "Mängud",
+    "tetris": "Mängi Tetrist",
+    "2048": "Mängi 2048",
+    "help": "Help",
+    "projects": {
+      "category": "Navigate through project cards",
+      "closeCard": "Close flipped card",
+      "closeCardDescription": "Close the currently opened card",
+      "left": "Navigate left",
+      "leftDescription": "Navigate to the previous project card",
+      "right": "Navigate right",
+      "rightDescription": "Navigate to the next project card",
+      "up": "Navigate up",
+      "upDescription": "Navigate up or scroll content",
+      "down": "Navigate down",
+      "downDescription": "Navigate down or scroll content",
+      "flipCard": "Flip project card: {{title}}",
+      "flipCardDescription": "Flip the project card to view details"
+    },
+    "blog": {
+      "category": "Navigate through blog posts",
+      "next": "To next post",
+      "nextDescription": "Navigate to the next blog post",
+      "prev": "To previous post",
+      "prevDescription": "Navigate to the previous blog post",
+      "search": "Search blog posts",
+      "searchDescription": "Search blog posts by title or content",
+      "filterTag": "Filter blog posts",
+      "filterTagDescription": "Open filter menu",
+      "jumpToPost": "Jump to post {{i}}",
+      "jumpToPostDescription": "Navigate to post {{i}}",
+      "back": "Back to blog list",
+      "backDescription": "Return to the blog list"
+    },
+    "about": {
+      "category": "Navigate through about sections",
+      "jumpToChapter": "Jump to chapter {{i}}",
+      "jumpToChapterDescription": "Navigate to chapter {{i}}"
+    },
+    "uses": {
+      "category": "Navigate through uses sections",
+      "jumpToCategory": "Jump to {{category}}",
+      "jumpToCategoryDescription": "Navigate to category {{category}}"
+    },
+    "now": {
+      "category": "Navigate through now sections",
+      "jumpToCategory": "Jump to {{category}}",
+      "jumpToCategoryDescription": "Navigate to {{category}}"
+    },
+    "colophon": {
+      "category": "Navigate through colophon sections",
+      "jumpToSection": "Jump to {{section}}",
+      "jumpToSectionDescription": "Navigate to section {{section}}"
+    }
+  },
+  "firstVisitHint": {
+      "prefix": "Vihje:",
+      "message": "Otsinguriba avamiseks võid vajutada",
+      "suffix": "klahvi :D",
+      "dismiss": "Sulge vihje"
+  }
+}

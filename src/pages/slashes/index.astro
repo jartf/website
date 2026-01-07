@@ -1,0 +1,81 @@
+---
+// Slashes Page - list of common slash pages with i18n
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+interface SlashPage {
+  path: string;
+  nameKey: string;
+  defaultName: string;
+  descriptionKey: string;
+  defaultDescription: string;
+}
+
+const slashPages: SlashPage[] = [
+  { path: "/about/", nameKey: "nav.about", defaultName: "About", descriptionKey: "", defaultDescription: "Learn about me" },
+  { path: "/blog/", nameKey: "nav.blog", defaultName: "Blog", descriptionKey: "", defaultDescription: "Read my posts" },
+  { path: "/contact/", nameKey: "nav.contact", defaultName: "Contact", descriptionKey: "", defaultDescription: "Get in touch" },
+  { path: "/now/", nameKey: "nav.now", defaultName: "Now", descriptionKey: "", defaultDescription: "What I'm doing now" },
+  { path: "/uses/", nameKey: "nav.uses", defaultName: "Uses", descriptionKey: "", defaultDescription: "Tech and tools I use" },
+  { path: "/colophon/", nameKey: "nav.colophon", defaultName: "Colophon", descriptionKey: "", defaultDescription: "How this site is built" },
+  { path: "/guestbook/", nameKey: "nav.guestbook", defaultName: "Guestbook", descriptionKey: "", defaultDescription: "Leave a message" },
+  { path: "/webrings/", nameKey: "nav.webring", defaultName: "Webrings", descriptionKey: "", defaultDescription: "Web communities" },
+  { path: "/badges/", nameKey: "keyboardShortcuts.navigation", defaultName: "Badges", descriptionKey: "", defaultDescription: "88x31 badges" },
+  { path: "/projects/", nameKey: "nav.projects", defaultName: "Projects", descriptionKey: "", defaultDescription: "Things I've built" },
+  { path: "/scrapbook/", nameKey: "nav.scrapbook", defaultName: "Devlog", descriptionKey: "", defaultDescription: "Development log" },
+];
+---
+
+<BaseLayout title="Slashes" description="Common slash pages on this site.">
+  <div class="container mx-auto px-4 py-8 lg:py-12">
+    <div class="max-w-2xl mx-auto">
+      <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold mb-4">Slashes</h1>
+        <p class="text-muted-foreground">
+          Common pages available on this site, following the <a href="https://slashpages.net/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">slash pages</a> convention.
+        </p>
+      </header>
+
+      <div class="space-y-3">
+        {slashPages.map((page) => (
+          <a
+            href={page.path}
+            class="flex items-center justify-between p-4 border rounded-lg bg-card hover:border-primary/50 transition-colors group"
+          >
+            <div>
+              <span class="font-medium group-hover:text-primary transition-colors" data-i18n={page.nameKey}>{page.defaultName}</span>
+              <p class="text-sm text-muted-foreground">{page.defaultDescription}</p>
+            </div>
+            <span class="text-muted-foreground font-mono text-sm">{page.path}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { languageStore, t, initLanguage } from '@/i18n';
+
+  function updateTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+  }
+
+  initLanguage();
+  updateTranslations();
+
+  languageStore.subscribe(() => {
+    updateTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateTranslations();
+  });
+</script>

@@ -1,0 +1,226 @@
+---
+// Dynamic blog post page
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import ShareButtons from "@/components/blog/ShareButtons.astro";
+import { supportedLanguages } from "@/i18n";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Get all posts for navigation
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.excerpt || `Read "${post.data.title}" on Jarema's digital garden.`}
+>
+  <article class="container mx-auto px-4 py-8 lg:py-12 max-w-3xl">
+    <header class="mb-8">
+      <div class="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+        <a href="/blog/" class="hover:text-primary transition-colors">
+          <span data-i18n="blog.back">← Back to blog</span>
+        </a>
+      </div>
+
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">{post.data.title}</h1>
+
+      <div class="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+        <time datetime={post.data.date.toISOString()} data-date={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString('en', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+        <span>•</span>
+        <span><span id="reading-time-value">{post.data.readingTime || 5}</span> <span data-i18n="blog.minRead">min read</span></span>
+        {post.data.mood && (
+          <>
+            <span>•</span>
+            <span><span data-i18n="blog.mood">Mood</span>: {post.data.mood}</span>
+          </>
+        )}
+        {post.data.catApproved && (
+          <>
+            <span>•</span>
+            <span data-i18n="blog.catApproved" title="Cat approved!">🐱✓</span>
+          </>
+        )}
+      </div>
+
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="flex gap-2 flex-wrap mt-4">
+          {post.data.tags.map((tag) => (
+            <span class="text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <div class="mt-6">
+        <ShareButtons title={post.data.title} url={`https://jarema.me/blog/${post.slug}/`} />
+      </div>
+
+      {post.data.alternates && post.data.alternates.length > 0 && (
+        <div class="mt-4 p-3 rounded-lg bg-muted/50 border">
+          <span class="text-sm text-muted-foreground" data-i18n="blog.availableIn">Also available in: </span>
+          {post.data.alternates.map((alt, i) => (
+            <>
+              <a
+                href={`/blog/${alt.slug}/`}
+                class="text-sm text-primary hover:underline"
+              >
+                {supportedLanguages.find(l => l.code === alt.language)?.name || alt.language.toUpperCase()}
+              </a>
+              {i < post.data.alternates!.length - 1 && <span class="text-muted-foreground">, </span>}
+            </>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="prose prose-lg dark:prose-invert max-w-none blog-content">
+      <Content />
+    </div>
+
+    <!-- Post Navigation -->
+    <nav class="mt-12 pt-8 border-t" aria-label="Post navigation">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {prevPost && (
+          <a
+            href={`/blog/${prevPost.slug}/`}
+            class="group p-4 border rounded-lg hover:border-primary/50 transition-colors"
+          >
+            <span class="text-xs text-muted-foreground" data-i18n="blog.prev">← Previous</span>
+            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">
+              {prevPost.data.title}
+            </p>
+          </a>
+        )}
+        {nextPost && (
+          <a
+            href={`/blog/${nextPost.slug}/`}
+            class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto"
+          >
+            <span class="text-xs text-muted-foreground" data-i18n="blog.next">Next →</span>
+            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">
+              {nextPost.data.title}
+            </p>
+          </a>
+        )}
+      </div>
+    </nav>
+
+    <!-- Comments Section (Cusdis) -->
+    <section class="mt-12 pt-8 border-t">
+      <h2 class="text-2xl font-bold mb-6"><span data-i18n="blog.comments">Comments</span></h2>
+      <div
+        id="cusdis_thread"
+        class="[&_iframe]:min-h-[380px] [&_iframe]:w-full"
+        data-host="https://cusdis.com"
+        data-app-id="2a38d0a9-34a3-4f5e-b985-63fc014e30e5"
+        data-page-id={post.slug}
+        data-page-url={`https://jarema.me/blog/${post.slug}/`}
+        data-page-title={post.data.title}
+        data-theme="dark"
+      >
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<script>
+  import { languageStore, t, initLanguage } from '@/i18n';
+
+  // Initialize i18n
+  initLanguage();
+
+  function updateTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) {
+          el.textContent = translated;
+        }
+      }
+    });
+
+    // Update date with locale
+    const lang = languageStore.get();
+    document.querySelectorAll('time[data-date]').forEach((el) => {
+      const dateStr = el.getAttribute('data-date');
+      if (dateStr) {
+        const date = new Date(dateStr);
+        el.textContent = date.toLocaleDateString(lang, {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+    });
+  }
+
+  updateTranslations();
+
+  languageStore.subscribe(() => {
+    updateTranslations();
+  });
+
+  window.addEventListener('languageChange', () => {
+    updateTranslations();
+  });
+
+  // Load Cusdis script
+  const script = document.createElement('script');
+  script.src = 'https://cusdis.com/js/cusdis.es.js';
+  script.async = true;
+  script.defer = true;
+  document.body.appendChild(script);
+
+  script.onload = () => {
+    if (window.CUSDIS) {
+      window.CUSDIS.initial();
+    }
+  };
+
+  // Cusdis theme management: dark by default, auto when user switches to light, dark again when back to dark
+  const cusdisEl = document.getElementById('cusdis_thread');
+  if (cusdisEl) {
+    const updateCusdisTheme = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      // If site is in dark mode, use dark theme
+      // If site is in light mode, use auto to let Cusdis follow system preference
+      const cusdisTheme = isDark ? 'dark' : 'auto';
+      cusdisEl.setAttribute('data-theme', cusdisTheme);
+    };
+
+    // Watch for theme changes
+    const themeObserver = new MutationObserver(updateCusdisTheme);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    // Initial update
+    updateCusdisTheme();
+  }
+</script>

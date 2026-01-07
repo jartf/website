@@ -1,0 +1,606 @@
+{
+  "nav": {
+    "home": "Hjem",
+    "about": "Om mig",
+    "projects": "Projekter",
+    "blog": "Blog",
+    "now": "Lige nu",
+    "uses": "Bruger",
+    "contact": "Kontakt",
+    "guestbook": "Gæstebog",
+    "colophon": "Kolofon",
+    "webring": "Webring",
+    "scrapbook": "Scrapbog"
+  },
+  "languageNotice": {
+    "message": "Oversættelser til dette sprog er stadig under opbygning. Noget indhold kan være ufuldstændigt eller manglende.",
+    "dismiss": "Afvis"
+  },
+  "language": {
+    "main": "Hovedsprog",
+    "beta": "Sprog i beta",
+    "other": "Andre sprog",
+    "auto": "Auto (browser-sprog)",
+    "search": "Søg sprog...",
+    "en": "Engelsk",
+    "vi": "Vietnamesisk",
+    "ru": "Russisk",
+    "et": "Estisk",
+    "da": "Dansk",
+    "tr": "Tyrkisk",
+    "zh": "Kinesisk",
+    "pl": "Polsk",
+    "sv": "Svensk",
+    "fi": "Finsk",
+    "tok": "Toki Pona"
+  },
+  "greetings": {
+    "morning": "Godmorgen, rejsende.",
+    "afternoon": "God eftermiddag, vandrer.",
+    "evening": "God aften, opdagelsesrejsende.",
+    "night": "Stadig vågen? Jeg også."
+  },
+  "home": {
+    "typing": {
+      "intro": "hej, jeg er Jarema.",
+      "economics": "økonomistuderende.",
+      "coder": "programmør.",
+      "cat": "katteelsker.",
+      "chaotic": "kaotisk god."
+    },
+    "buttons": {
+      "about": "Om mig",
+      "projects": "Se mine projekter"
+    },
+    "footer": "Velkommen til min digitale have. Du er velkommen til at udforske.",
+    "heading": "hej der, jeg er Jarema",
+    "subheading": "Økonomistuderende, roder lidt med kode, mest kattenes fortrolige.",
+    "contactButton": "Kontakt mig",
+    "aboutButton": "Om mig",
+    "blogButton": "Læs min blog",
+    "guestbookButton": "Skriv i min gæstebog",
+    "recentPosts": "Seneste blogindlæg",
+    "latestNow": "Hvad jeg laver lige nu",
+    "currentMood": "Nuværende humør"
+  },
+  "guestbook": {
+    "title": "Gæstebog",
+    "description": "Skriv en hilsen i min gæstebog!"
+  },
+  "about": {
+    "title": "Om mig",
+    "description": "Historien om hvem jeg er, hvor jeg kommer fra, hvad min passion er, og hvad jeg arbejder hen imod.",
+    "chapters": {
+      "1": {
+        "title": "hvordan jeg blev til",
+        "content1": "Jeg blev født i Vietnam i midten af 2000'erne, hvilket teknisk set gør mig til Gen Z, men jeg voksede op med en slags mellemting, der ikke helt passer ind i nogen kategori. Jeg var det stille barn bagerst i lokalet, men mit sind var aldrig rigtig stille. Jeg observerede alt, uanset om det var mennesker, mønstre eller magtdynamikker, og satte det hele stille og roligt sammen.",
+        "content2": "Min barndom var en underlig blanding af digitale flugter og følelsesmæssige minefelter. Jeg havde ikke en perfekt familie. Jeg vil ikke engang lade som om, at jeg havde det.",
+        "content3": "Jeg var nødt til at vokse op hurtigt, følelsesmæssigt set, og jeg lærte tidligt, at det at være følsom betød, at man skulle være forsigtig.",
+        "content4": "Du lærer at lytte mere end at tale, at \"ændre din stemme\" og være neutral for at passe til situationen, at skjule dig selv, selv når ingen tvinger dig til det.",
+        "content5": "Men man lærer også modstandskraft. Du lærer at bygge et selv op fra bunden, når ingen giver dig en tegning."
+      },
+      "2": {
+        "title": "da jeg indså, at denne verden er et fusk",
+        "content1": "Det skete ikke på én gang. Det var mere som en langsom erkendelse: at systemerne omkring mig, fra familie til uddannelse til samfundet generelt, ikke var designet til folk som mig. At stabilitet nogle gange kan være en fælde. At selv kærlighed kan være betinget, gjort til et våben. At du kan følge alle \"reglerne\" og stadig tabe.",
+        "content2": "Så jeg gjorde, hvad jeg tror, mange mennesker som mig gør: Jeg måtte tilpasse mig. Jeg skærpede mit sind, pansrede mit hjerte og begyndte at studere alt. Økonomi gav mig ordforrådet til at forstå magt. Kodning gav mig værktøjerne til at opbygge magt. Sprog gav mig friheden til at udtrykke og flygte. Jeg indså, at jeg ikke bare ville overleve i systemet, jeg ville forstå det, afsløre det og måske endda undergrave det lidt.",
+        "content3": "Dette websted er ikke kun min portefølje. Det er et bevis på, at jeg eksisterer på mine egne præmisser, ikke dem, jeg fik."
+      },
+      "3": {
+        "title": "kodning, sprog og ADHD-mentaliteten",
+        "content1": "Jeg har det ikke godt med rigide rutiner eller pæne tidslinjer. ADHD betyder, at min hjerne bevæger sig hurtigt, kører i ring uendeligt, hyperfokuserer tilfældigt kl. 2 om natten, glemmer at spise i et døgn og nogle gange drukner i støj. Følsomhed over for støj gør mig også sindssyg nogle gange. Men det betyder også, at jeg er dybt nysgerrig. Besat af det. Jeg \"dabber\" ikke med ting, jeg kaster mig ud i dem. Jeg multitasker ikke, jeg lever bare i parallelle faner.",
+        "content2": "For mig er kode virkelig kaotisk og forvirrende, men det er også et tilflugtssted. Det giver struktur til tanker, der nægter at sidde stille. Det giver mig magten til at skabe noget, der fungerer, noget der afspejler en del af mit sind, der aldrig fuldt ud kan verbaliseres. Og sprog? Det er den anden halvdel af mit livs historie. Jeg hopper frem og tilbage mellem vietnamesisk, engelsk, russisk, og nogle gange tyrkisk eller dansk, ikke for at vise mig, men fordi hvert sprog åbner en anden version af mig, en anden følelse, et andet minde. Engelsk er sværdet, vietnamesisk er hjerteslaget, russisk er den stille melankoli. Tyrkisk er en ny spænding. Og dansk... det loader stadig.",
+        "content3": "Og ja, jeg skriver rodet, men jeg skriver ægte. Jeg koder uperfekt, men bevidst. Alt, hvad du ser her, er bygget med den samme energi."
+      },
+      "4": {
+        "title": "aktivisme og at være for ægte online",
+        "content1": "Jeg er ikke influencer, og jeg er ikke en høj stemme på en strejke. Men jeg tror på ansvarlighed, på empati, på at skabe rum, hvor folk føler sig set, ikke bare tolereret. Min aktivisme er stille, nogle gange usynlig. Det viser sig i de ting, jeg bygger, de samtaler, jeg har, og den måde, jeg nægter at udvande min sandhed bare for at få nogen til at føle sig godt tilpas.",
+        "content2": "Det er i at kalde uretfærdighed frem, når det er sikrere at forblive tavs. Det er i at forstærke marginaliserede stemmer, selv når jeg føler, at min egen allerede er hviskende tynd. Det er i ordene:",
+        "quote": "\"Jeg har ikke alle svarene, men jeg vil stadig prøve.\"",
+        "quoteTooltip": "ja, jeg sagde det lol",
+        "content3": "Nogle gange forsvinder jeg i ugevis. Nogle gange overdelte jeg kl. 3 om natten. Nogle gange poster jeg et kattememe og følger det op med et citat, jeg tilfældigt finder på. Jeg rummer mange ting."
+      },
+      "5": {
+        "title": "hvor jeg er på vej hen",
+        "content1": "Jeg er her ikke for at sælge dig et personligt brand eller lade som om, at jeg har styr på mit liv. Fordi det er jeg virkelig ikke. De fleste dage prøver jeg bare at balancere at være funktionel, at være venlig og at være ærlig. Men jeg ved, hvad der er vigtigt for mig.",
+        "content2": "Jeg vil fortsætte med at skabe. Jeg vil fortsætte med at skrive. Måske lære flere sprog for sjov. Men jeg vil bygge ting, der giver mening, ikke bare for at få likes. Jeg vil rejse til de steder, hvor historie, sprog og identitet vikler sig ind i hinanden. Jeg vil efterlade mig ting, der føles varme, nyttige og menneskelige. Ikke poleret perfektion, men historier, der gør folk mindre ensomme.",
+        "content3": "Og jeg vil have fred. Ikke bare fraværet af kaos, men den slags fred, der kommer af at vide, hvem du er, hvad du har været igennem, og hvad du har valgt at lægge bag dig.",
+        "content4": "s grad af empati. Så velkommen. Føl dig hjemme. Men vær forsigtig, nogle af tankerne herinde er stadig under opbygning."
+      },
+      "6": {
+        "title": "jeg er ikke færdig endnu",
+        "content1": "og her er den del, som \"folk\" ikke skulle se.",
+        "content2": "jeg er stadig vred. jeg er meget vred. jeg sørger stadig over en version af mig selv, der aldrig fik lov til at eksistere. jeg vågner stadig nogle dage og undrer mig over, hvorfor alt føles et par grader forkert. nogle gange tænker jeg på at løbe væk og forsvinde, få et nyt navn, bo i en ny by, tale et nyt sprog. eller nogle gange handler det om at give slip på alt i den modsatte betydning. og jeg var tæt på at gøre det en gang.",
+        "content3": "der er dage, hvor jeg ikke føler, at jeg er et menneske længere. nogle gange føler jeg, at jeg er et minde, der forsøger at tage form. som et ekko af noget blødt, som jeg ikke længere kan røre ved. andre dage er jeg elektrisk. jeg kan føle alle detaljer omkring mig, fra sollyset på min hud, de bløde toner fra den playliste, der spiller, de øjeblikke hvor folks øjne og ansigter ændrer sig, når de føler sig trygge nok til at være sig selv. det holder mig i live på en eller anden måde.",
+        "content4": "jeg er ikke færdig med at blive den, jeg skal være. men jeg er færdig med at lade som om, at jeg er okay og jeg er okay med at være stille mere."
+      }
+    }
+  },
+  "projects": {
+    "title": "Mine Projekter",
+    "description": "En samling af personlige, akademiske og aktivistiske projekter, jeg har arbejdet på. Nogle færdige, nogle stadig under udvikling.",
+    "status": {
+      "completed": "Færdig",
+      "inProgress": "Stadig Under Udvikling",
+      "planned": "Planlagt"
+    },
+    "statusLabels": {
+      "completed": "Færdig",
+      "inProgress": "I Gang",
+      "planned": "Planlagt"
+    },
+    "categories": {
+      "personal": "Personlig",
+      "academic": "Akademisk",
+      "activism": "Aktivisme"
+    },
+    "details": {
+      "what": "Hvad det er",
+      "learned": "Hvad jeg lærte",
+      "why": "Hvorfor det er vigtigt"
+    },
+    "clickForDetails": "Klik for detaljer",
+    "clickToClose": "Klik for at lukke",
+    "cardActions": {
+      "clickForDetails": "Klik for detaljer",
+      "clickToClose": "Klik for at lukke"
+    },
+    "buttons": {
+      "showRandom": "Vis mere tilfældighed",
+      "hideRandom": "Skjul kaosset"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Tanker, refleksioner og lejlighedsvise skænderier. Skrevet på forskellige tidspunkter og sindstilstande.",
+    "language": "Sprog",
+    "languageFilter": "Filtrer efter sprog",
+    "tag": "Tag",
+    "category": "Kategori",
+    "noPosts": "Ingen opslag endnu. Kig forbi igen snart!",
+    "search": "Søg i opslag...",
+    "sortNew": "Nyeste først",
+    "sortOld": "Ældste først",
+    "sortReadTime": "Læsetid",
+    "sortABC": "Alfabetisk",
+    "filter": "Filter",
+    "filterDescription": "Filtrer blogopslag",
+    "activeFilter": "Aktive filtre:",
+    "filterNoMatch": "Ingen opslag matcher dine filtre. Prøv at justere søgekriterierne.",
+    "clearFilter": "Ryd alle filtre",
+    "mood": "Humør",
+    "cat": "Godkendt af katten selv",
+    "prev": "Forrige opslag",
+    "next": "Næste opslag",
+    "jumpToPost": "Hop til opslag",
+    "back": "Tilbage til bloglisten",
+    "showingPosts": "Viser {{current}} ud af {{total}} opslag",
+    "minRead": "minutters læsning",
+    "availableIn": "Denne side er også tilgængelig på",
+    "comments": "Kommentarer"
+  },
+  "now": {
+    "title": "Nu",
+    "description": "Hvad jeg laver, tænker på og fokuserer på lige nu.",
+    "lastUpdated": "Sidst opdateret",
+    "whatIsNow": "Hvad er en /now-side?",
+    "whatIsNowDescription": "En now-side er en side på en personlig hjemmeside, der fortæller dig, hvad en person fokuserer på i øjeblikket, på dagen eller for ganske nylig. Du kan lære mere på",
+    "categories": {
+      "reading": "Læser",
+      "coding": "Koder",
+      "drinking": "Drikker",
+      "listening": "Lytter",
+      "premid": "Discord-aktivitet",
+      "thinking": "Tænker",
+      "studying": "Studerer",
+      "planning": "Planlægger"
+    }
+  },
+  "uses": {
+    "title": "Bruger",
+    "description": "Alle de ting, jeg bruger på daglig basis. Også tilgængelig på",
+    "websiteDescription": "et websted, hvor folk deler de ting, de bruger.",
+    "categories": {
+      "hardware": "Hardware",
+      "mobile": "Mobil",
+      "audio": "Lyd",
+      "os": "Styresystem & browsere",
+      "development": "Udvikling",
+      "email": "E-mail & produktivitet",
+      "privacy": "Privatliv & sikkerhed",
+      "mobile_tools": "Værktøjer til mobile enheder",
+      "mapping": "Kortlægning",
+      "gaming": "Gaming",
+      "multimedia": "Multimedia",
+      "design": "Design & Illustration",
+      "photo": "Fotoredigering",
+      "video": "Video & Lyd",
+      "media": "Medietjenester"
+    },
+    "subsections": {
+      "design": "Design & Illustration",
+      "photo": "Fotoredigering",
+      "video": "Video & Lyd",
+      "media": "Medietjenester"
+    },
+    "itemDescriptions": {
+      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "externalHDD": "Ekstern HDD til sikkerhedskopier",
+      "mechanicalKeyboard": "Mekanisk tastatur med Røde Kontakter",
+      "wirelessMouse": "Trådløs gaming-mus",
+      "mainPhone": "Primær telefon",
+      "secondaryPhone": "Sekundær telefon",
+      "smartwatch": "Smartwatch",
+      "primaryEarbuds": "Primære trådløse ørepropper",
+      "backupEarbuds": "Backup ørepropper",
+      "dualBoot": "Dual boot-opsætning med hærdet Windows",
+      "primaryBrowser": "Primær webbrowser",
+      "secondaryBrowser": "Sekundær webbrowser",
+      "primaryCodeEditor": "Primær kodeeditor",
+      "terminalEmulators": "Terminalemulatorer",
+      "versionControl": "Versionskontrolsystem",
+      "apiTesting": "API-testværktøj",
+      "databaseManagement": "Databaseadministration",
+      "codeHosting": "Kodehosting og samarbejde",
+      "webHosting": "Webhostingplatform",
+      "ddosProtection": "DDoS-beskyttelse og CDN",
+      "desktopEmail": "Desktop e-mailklient",
+      "emailClient": "E-mailklient (desktop & mobil)",
+      "domainEmail": "Domain e-mailudbyder",
+      "taskManagement": "Opgavestyring",
+      "calendar": "Kalender og planlægning",
+      "timeTracking": "Tidsregistrering",
+      "automationTool": "Automatiseringsværktøj",
+      "phoneLinking": "Forbindelse mellem telefon og PC",
+      "noteTaking": "Note-app",
+      "officeSuite": "Office-pakke",
+      "cloudStorage": "Cloud-lagringsløsning",
+      "vpn": "VPN med WireGuard-konfiguration",
+      "passwordManager": "Selv-hostet adgangskodemanager",
+      "twoFactorAuth": "To-faktor-godkendelsesapp",
+      "dnsProvider": "DNS-udbyder",
+      "privacySearch": "Privatlivsfokuseret søgemaskine",
+      "networkVpn": "Sikkert netværks-mesh-VPN",
+      "lgFirmware": "LG firmware-flashværktøj",
+      "qualcommFlash": "Qualcomm Flash Image Loader",
+      "samsungFirmware": "Samsung firmware-flashværktøj",
+      "samsungDownload": "Samsung firmware-downloadside",
+      "iosManagement": "iOS-enhedsstyring",
+      "geographicSystem": "Geografisk Informationssystem",
+      "webOpenstreetmap": "Webbaseret OpenStreetMap-editor",
+      "desktopOpenstreetmap": "Desktop OpenStreetMap-editor",
+      "mobileOpenstreetmap": "Mobil OpenStreetMap-editor",
+      "mobileContributor": "Mobil OpenStreetMap-bidragyder",
+      "communityNavigation": "Fællesskabsbaseret navigation og korteditor",
+      "minecraftClient": "Minecraft-klient",
+      "minecraftServer": "Minecraft-server",
+      "gameDistribution": "Spildistributionsplatform",
+      "gameLauncher": "Spilbutik og launcher",
+      "indieMarketplace": "Indie-spilmarkedsplads",
+      "vectorGraphics": "Vektorgrafikeditor",
+      "uiUxDesign": "UI/UX-designværktøj",
+      "graphicDesign": "Grafisk designplatform",
+      "digitalPaintingDesktop": "Digital maling (desktop)",
+      "digitalPaintingMobile": "Digital maling (mobil)",
+      "photoEditing": "Fotoredigering og -manipulation",
+      "openSourceEditor": "Open source-fotoredigeringsprogram",
+      "professionalEditor": "Professionel videoredigeringsprogram",
+      "professionalEditorDavinci": "Professionel videoredigeringsprogram",
+      "openSourceVideoEditor": "Open source-videoredigeringsprogram",
+      "videoEditorCapcut": "Videoredigeringsprogram (desktop & mobil)",
+      "subtitleEditor": "Underteksteditor",
+      "videoPlayer": "Videoafspiller",
+      "audioEditor": "Lydredigeringsprogram",
+      "musicStreamingYoutube": "Musikstreamingtjeneste",
+      "musicStreamingSpotify": "Musikstreamingtjeneste",
+      "videoStreaming": "Videostreamingplatform",
+      "revancedDescription": "Jeg betaler for YouTube Premium, men hovedappen er bare ubrugelig smh",
+      "stremioDescription": "shhhh, fortæl det ikke til Netflix",
+      "clickToReveal": "Klik 5 gange for at afsløre",
+      "moreClicksToReveal": "({count} flere klik for at afsløre)",
+      "clicksRemaining": "flere klik for at afsløre"
+    },
+    "hiddenPlatforms": {
+      "platform1": "Ubeskrivelig platform 1",
+      "platform2": "Ubeskrivelig platform 2",
+      "click5": "Klik 5 gange for at afsløre",
+      "moreClicks": "(5 flere klik for at afsløre)"
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "description": "Måder at række ud og komme i kontakt med mig.",
+    "message": "vær ikke genert. sig hej. eller book en 1:1, hvis du føler dig professionel :)",
+    "disclaimer": "jeg svarer på e-mails. sandsynligvis. medmindre jeg bliver distraheret af en fugl eller noget idk",
+    "pgpNote": "PGP-nøgler og andre bekræftelsesmetoder fås ved henvendelse.",
+    "showKofi": "Vis Ko-fi",
+    "hideKofi": "Skjul Ko-fi",
+    "supportKofi": "Støt mig på Ko-fi",
+    "sections": {
+      "contactMe": "Kontakt mig",
+      "socialMedia": "Mig på sociale medier",
+      "otherPlatforms": "Mig på andre platforme"
+    },
+    "sectionTitles": {
+      "contactMe": "Kontakt mig",
+      "socialMedia": "Mig på sociale medier",
+      "otherPlatforms": "Mig på andre platforme"
+    },
+    "links": {
+      "universityEmail": "Universitets-e-mail",
+      "bookMeeting": "Book et møde med mig",
+      "messengerNote": "Jeg er meget inaktiv på Facebook og Messenger. Svar vil være efter bedste evne."
+    },
+    "secretButton": "Hemmelig knap"
+  },
+  "moodCat": {
+    "title": "Dagens Humørkat",
+    "hover": "dømmer dig blidt",
+    "refresh": "Ny kat, hvem er du?",
+    "seeMore": "Se flere katte",
+    "imageSource": "Billedkilde"
+  },
+  "music": {
+    "play": "Afspil baggrundsmusik",
+    "pause": "Pause baggrundsmusik"
+  },
+  "tetris": {
+    "title": "Tetris",
+    "description": "Et klassisk spil med faldende blokke og forsvindende linjer",
+    "gameInfo": "Spilinformation",
+    "score": "Score",
+    "level": "Niveau",
+    "status": "Status",
+    "gameOver": "Spil slut",
+    "paused": "Pauset",
+    "playing": "Spiller",
+    "controls": "Kontroller",
+    "moveLeft": "Flyt til venstre",
+    "moveRight": "Flyt til højre",
+    "moveDown": "Flyt ned",
+    "rotate": "Rotér",
+    "hardDrop": "Hård drop",
+    "pauseGame": "Pause spil",
+    "playAgain": "Spil igen",
+    "resetGame": "Nulstil spil",
+    "resume": "Fortsæt",
+    "pause": "Pause",
+    "drop": "Drop",
+    "musicOn": "Musik til",
+    "musicOff": "Musik fra",
+    "gameOverMessage": "Spil slut!",
+    "finalScore": "Din endelige score:"
+  },
+  "404": {
+    "title": "Du er faret vild",
+    "description": "Katten kender ikke engang dette sted.",
+    "button": "Gå tilbage til hjemmet",
+    "sitemap": "Se sitemap",
+    "enjoycat": "Mens du er faret vild, nyd denne kat:"
+  },
+  "scrapbook": {
+    "title": "Devlog"
+  },
+  "webrings": {
+    "title": "Webringe",
+    "description": "Webringe jeg er med i. Opdag flere uafhængige websider og personlige blogs.",
+    "intro1": "En webring er en samling af websider lavet af ligesindede, typisk centreret omkring et emne, en æstetik eller en fælles interesse. (fra safonts webring)",
+    "intro2": "Denne side er en del af disse webringe. Klik på linkene for at besøge mine naboers sider, og andre medlemmers, hvis den webring har en tilfældig-funktion. Vælg hvilken som helst ring du har lyst til!",
+    "previous": "Forrige",
+    "random": "Tilfældig",
+    "next": "Næste",
+    "previousAria": "Forrige side i {{name}}",
+    "randomAria": "Tilfældig side i {{name}}",
+    "nextAria": "Næste side i {{name}}"
+  },
+  "badges": {
+    "title": "Samling af web-badges",
+    "description": "En samling af klassiske web-badges og knapper på min hjemmeside.",
+    "pageTitle": "Klassisk web-badge samling",
+    "pageDescription": "Jeg har samlet disse 88x31 badges for at vise, hvad jeg og denne side faktisk går op i. De er et tilbageblik til Geocities-æraen, før internettet blev fyldt med virksomheds- og AI-skrammel. Hvis du har et badge, du synes jeg skal tilføje, så bare spørg.",
+    "myBadgeTitle": "Mit badge (klik for at udvide)",
+    "myBadgeIntro": "Brug dette badge til at linke til min hjemmeside:",
+    "hotlinkUrl": "Hotlink URL:",
+    "htmlCodeTitle": "HTML-kode",
+    "embeddingSuggestionsTitle": "Forslag til indlejring",
+    "suggestion1": "Brug",
+    "suggestion1b": "i din CSS for at bevare pixel art-stilen.",
+    "suggestion2": "Link direkte til min forside på",
+    "suggestion3": "Badget er 88x31 pixels, fordobl bredden og højden i din HTML til",
+    "suggestion3b": "for at gøre dem lettere at læse på skærme med høj opløsning.",
+    "collectionHeading": "Badge-samling",
+    "search": "Søg i badges...",
+    "filterByCategory": "Filtrer efter kategori",
+    "verboseView": "Detaljeret",
+    "badgeOnlyView": "Kun badge",
+    "showingCount": "Viser {{count}} badges",
+    "showingFiltered": "Viser {{filtered}} af {{total}} badges",
+    "noResults": "Ingen badges matcher din søgning",
+    "visitBadge": "Besøg {{name}}"
+  },
+  "colophon": {
+    "title": "Kolofon",
+    "description": "Historien bag dette websted, og hvordan det blev bygget",
+    "siteHistory": {
+      "title": "Webstedets Historie",
+      "content1": "Dette websted blev først registreret i slutningen af 2023, men designet har ændret sig meget i løbet af dets levetid. Den første version var bare et grundlæggende WordPress-websted hostet på en skizzy gratis hostingudbyder, den anden var Carrd-baseret, og den tredje var bygget med Astro.",
+      "content2": "Denne nuværende iteration (den fjerde version) er et komplet redesign bygget fra bunden med moderne webteknologier. Hver version har været en udvikling, hvor denne seneste fokuserer på ydeevne, tilgængelighed og et mere personligt præg, der bedre repræsenterer, hvem jeg er, og hvad jeg holder af."
+    },
+    "technologyStack": {
+      "title": "Teknologistak",
+      "nextjs": "React-framework, der muliggør serverside-rendering og statisk webstedsgenerering",
+      "react": "JavaScript-bibliotek til opbygning af brugergrænseflader",
+      "tailwind": "Utility-first CSS-framework",
+      "shadcn": "Genanvendeligt komponentbibliotek bygget med Radix UI og Tailwind",
+      "framer": "Animationsbibliotek til React",
+      "i18next": "Internationaliseringsframework",
+      "typescript": "Stærkt typet programmeringssprog, der bygger på JavaScript"
+    },
+    "hosting": {
+      "title": "Hosting & Implementering",
+      "content1": "Webstedet er hostet på",
+      "content2": "som giver problemfri implementering fra GitHub, automatisk HTTPS og global CDN-distribution.",
+      "content3": "Domænet administreres via",
+      "content4": "som giver yderligere sikkerheds- og ydelsesfordele."
+    },
+    "design": {
+      "title": "Designfilosofi",
+      "p1": "Denne hjemmeside er designet med tilgængelighed og ydeevne for øje. Den fungerer uden JavaScript aktiveret, bruger semantisk HTML og respekterer dit privatliv ved ikke at bruge tracking cookies.",
+      "p2": "Designet sigter mod en balance mellem moderne æstetik og klassisk web-enkelhed. Mørk tilstand er standard, fordi jeg holder af mine nethinder."
+    },
+    "webStandards": {
+      "title": "Webstandarder",
+      "intro": "Denne side implementerer:",
+      "microformats": "mikroformater",
+      "feeds": "RSS, Atom og JSON feeds",
+      "robots": "robots.txt og sitemap.xml",
+      "humans": "humans.txt"
+    },
+    "accessibility": {
+      "title": "Tilgængelighed",
+      "intro": "Jeg bestræber mig på at gøre denne side tilgængelig for alle. Funktioner inkluderer:",
+      "item1": "Semantisk HTML-struktur",
+      "item2": "Skip-to-content links",
+      "item3": "Korrekt overskriftshierarki",
+      "item4": "WCAG 2.1 AA farvekontrast",
+      "item5": "Tastaturnavigation",
+      "item6": "Respekterer præferencer for reduceret bevægelse",
+      "reportText": "Hvis du støder på tilgængelighedsproblemer, så",
+      "contactLink": "giv mig besked"
+    },
+    "inspiration": {
+      "title": "Inspiration",
+      "content1": "Denne side henter inspiration fra",
+      "content2": "som igen henter inspiration fra",
+      "content3": "Original idé på"
+    }
+  },
+  "footer": {
+    "copyright": "ingen rettigheder forbeholdt, tag hvad du har brug for, og gør hvad du vil :p",
+    "madeWith": "lavet med kærlighed",
+    "andChaos": "og et par dages kodning"
+  },
+  "2048": {
+    "description": "Saml brikkerne, nå til 2048!",
+    "score": "Score",
+    "best": "Bedste",
+    "gameOver": "Spillet er slut!",
+    "finalScore": "Endelig score",
+    "tryAgain": "Prøv igen",
+    "youWin": "Du vandt!",
+    "currentScore": "Nuværende score",
+    "keepPlaying": "Fortsæt spillet",
+    "newGame": "Nyt spil",
+    "howToPlay": "Sådan spiller du",
+    "instructions1": "Brug piletasterne eller WASD til at flytte brikkerne. Når to brikker med samme tal rører hinanden, smelter de sammen til én!",
+    "instructions2": "Efter hvert træk dukker en ny brik op (enten 2 eller 4).",
+    "instructions3": "Skab en brik med tallet 2048 for at vinde spillet!",
+    "controls": "Kontroller",
+    "moveLeft": "Flyt til venstre",
+    "moveRight": "Flyt til højre",
+    "moveUp": "Flyt op",
+    "moveDown": "Flyt ned",
+    "touchInstructions": "På mobile enheder, swipe for at flytte brikker eller brug knapperne på skærmen.",
+    "undo": "Fortryd"
+  },
+  "keyboardShortcuts": {
+    "title": "Tastaturgenveje",
+    "navigation": "Navigation",
+    "actions": "Handlinger",
+    "close": "Luk",
+    "home": "Forside",
+    "about": "Om mig",
+    "blog": "Blog",
+    "projects": "Projekter",
+    "now": "Nu",
+    "uses": "Værktøjer",
+    "contact": "Kontakt",
+    "colophon": "Kolofon",
+    "slashes": "Skåstreger",
+    "scrapbook": "Devlog",
+    "tetris": "Tetris",
+    "2048": "2048",
+    "cycleLanguage": "Skift sprog",
+    "cycleTheme": "Skift tema",
+    "refreshCat": "Opdatér humørkatten",
+    "gamePageNotice": "De fleste tastaturgenveje er deaktiveret på spil-sider for at undgå konflikter med spilkontroller.",
+    "openShortcuts": "Åbn tastaturgenveje",
+    "actionSearch": "Åbn Handlingssøgning"
+  },
+  "actionSearch": {
+    "title": "Søg handlinger",
+    "placeholder": "Søg handlinger...",
+    "noResults": "Ingen handlinger fundet",
+    "goTo": "Gå til side",
+    "toggleTheme": "Skift tema",
+    "switchDarkMode": "Skift til mørk tilstand",
+    "switchLightMode": "Skift til lys tilstand",
+    "appearance": "Udseende",
+    "cycleLanguage": "Skift sprog",
+    "refreshCat": "Hent en ny humørkat",
+    "playGame": "Spil et spil",
+    "viewShortcuts": "Se alle genveje",
+    "pressToOpen": "Tryk på . for at åbne kommandopaletten",
+    "escToClose": "ESC for at lukke",
+    "fun": "Sjov",
+    "games": "Spil",
+    "tetris": "Spil Tetris",
+    "2048": "Spil 2048",
+    "help": "Hjælp",
+    "projects": {
+      "category": "Navigér mellem projekter",
+      "closeCard": "Luk vendt kort",
+      "closeCardDescription": "Luk det vendte projektkort",
+      "left": "Navigér til venstre",
+      "leftDescription": "Gå til forrige projekt",
+      "right": "Navigér til højre",
+      "rightDescription": "Gå til næste projekt",
+      "up": "Navigér op",
+      "upDescription": "Gå op eller rul",
+      "down": "Navigér ned",
+      "downDescription": "Gå ned eller rul",
+      "flipCard": "Vend projektkort: {{title}}",
+      "flipCardDescription": "Vend kortet for at se detaljer"
+    },
+    "blog": {
+      "category": "Navigér mellem blogindlæg",
+      "next": "Til næste indlæg",
+      "nextDescription": "Gå til næste blogindlæg",
+      "prev": "Til forrige indlæg",
+      "prevDescription": "Gå til forrige blogindlæg",
+      "search": "Søg i blogindlæg",
+      "searchDescription": "Søg i titler eller indhold",
+      "filterTag": "Filtrér blogindlæg",
+      "filterTagDescription": "Åbn filtermenu",
+      "jumpToPost": "Hop til indlæg {{i}}",
+      "jumpToPostDescription": "Navigér til indlæg {{i}}",
+      "back": "Tilbage til bloglisten",
+      "backDescription": "Gå tilbage til bloglisten"
+    },
+    "about": {
+      "category": "Navigér i 'Om mig'-sektionerne",
+      "jumpToChapter": "Hop til kapitel {{i}}",
+      "jumpToChapterDescription": "Gå til kapitel {{i}}"
+    },
+    "uses": {
+      "category": "Navigér i 'Jeg bruger'-sektionerne",
+      "jumpToCategory": "Hop til {{category}}",
+      "jumpToCategoryDescription": "Gå til kategori {{category}}"
+    },
+    "now": {
+      "category": "Navigér i 'Nu'-sektionerne",
+      "jumpToCategory": "Hop til {{category}}",
+      "jumpToCategoryDescription": "Gå til kategori {{category}}"
+    },
+    "colophon": {
+      "category": "Navigér i kolofonsektionerne",
+      "jumpToSection": "Hop til {{section}}",
+      "jumpToSectionDescription": "Gå til sektion {{section}}"
+    }
+  },
+  "firstVisitHint": {
+      "prefix": "Hint:",
+      "message": "Du kan trykke på",
+      "suffix": "-tasten for at åbne søgefeltet :D",
+      "dismiss": "Afvis hint"
+  }
+}
