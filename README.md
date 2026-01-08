@@ -1,4 +1,4 @@
-# Personal website
+# Jarema's digital garden, version 4 (Next.js)
 
 This is my personal website, a mix of blog, portfolio, and experimental space. It is built with Next.js 16, React 19, Tailwind CSS 4, shadcn/ui, Framer Motion, react-i18next, and TypeScript.
 
@@ -171,6 +171,8 @@ jarema-v4/
    tags: ["technology", "economics"]
    category: "tech"
    ---
+   
+   Your content goes here.
    ```
 
 3. Posts auto-sort by date (descending) and are fetched via `getAllBlogPosts()` from `lib/blog.ts`
@@ -309,14 +311,14 @@ pnpm build  # Creates .next/standalone with all dependencies
 This repo is mostly for my own use, but I'm keeping it public for anyone curious. Feel free to explore, fork it, and dig through the code.
 If you come across an issue or notice something that could be improved, feel free to open a pull request or issue.
 
-### What NOT to do
-
-- ❌ Don't use async i18n loading or `<Suspense>` for translations
-- ❌ Don't mark components as `"use client"` unless they use hooks, state, or events
-- ❌ Don't modify shadcn/ui components in `components/ui/` directly
-- ❌ Don't forget `useMounted()` for client-only content
-- ❌ Don't use `next/image` unoptimized prop unless required
-
 ## License
 
-This project is distributed under the Unlicense license. See the `LICENSE` file for more information.
+**TL;DR: You are free to use, modify, redistribute, and sell the source code and the content on this website, provided proper attribution is given back to me.**
+
+This repository is dual-licensed.
+
+All source code is licensed under the [MIT License](LICENSE).
+
+All non-code content, such as text, posts, essays, documentation, photos, videos, and other materials, is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
+
+These licenses do not apply to third-party libraries, assets, or content included in the project. Third-party components and assets are subject to their own respective licenses.
