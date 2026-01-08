@@ -164,6 +164,10 @@
     "back": "Powrót do listy bloga",
     "showingPosts": "Wyświetlono {{current}} z {{total}} wpisów",
     "minRead": "min czytania",
+    "subscribeRSS": "Subskrybuj przez RSS",
+    "allPosts": "Kanał wszystkich wpisów",
+    "languageFeeds": "Kanały dla poszczególnych języków",
+    "rssDescription": "Zasubskrybuj moje kanały RSS w swoim ulubionym czytniku, aby otrzymywać powiadomienia o nowych wpisach.",
     "availableIn": "Ta strona jest także dostępna w",
     "comments": "Komentarze"
   },

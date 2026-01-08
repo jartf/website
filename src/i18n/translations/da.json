@@ -175,6 +175,10 @@
     "back": "Tilbage til bloglisten",
     "showingPosts": "Viser {{current}} ud af {{total}} opslag",
     "minRead": "minutters læsning",
+    "subscribeRSS": "Abonner via RSS",
+    "allPosts": "Feed med alle indlæg",
+    "languageFeeds": "Sprogspecifikke feeds",
+    "rssDescription": "Abonner på mine RSS-feeds i din foretrukne RSS-læser for at få besked om nye indlæg.",
     "availableIn": "Denne side er også tilgængelig på",
     "comments": "Kommentarer"
   },

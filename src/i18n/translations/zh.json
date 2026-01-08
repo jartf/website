@@ -173,6 +173,10 @@
     "back": "返回博客列表",
     "showingPosts": "正在显示 {{total}} 篇中的第 {{current}} 篇",
     "minRead": "分钟阅读",
+    "subscribeRSS": "通过 RSS 订阅",
+    "allPosts": "所有文章源",
+    "languageFeeds": "特定语言源",
+    "rssDescription": "在您喜欢的阅读器中订阅我的 RSS 源，以便第一时间获取新文章通知。",
     "availableIn": "此页面也有以下语言版本"
     ,"comments": "Comments"
   },

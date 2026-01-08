@@ -164,6 +164,10 @@
     "back": "Tagasi blogi nimekirja",
     "showingPosts": "Kuvatakse {{current}} blogipostitust {{total}}-st",
     "minRead": "minutit lugemist",
+    "subscribeRSS": "Telli RSS-i kaudu",
+    "allPosts": "Kõigi postituste voog",
+    "languageFeeds": "Keelepõhised vood",
+    "rssDescription": "Telli minu RSS-vood oma lemmiklugejas, et saada teavitusi uutest postitustest.",
     "availableIn": "Lehte saab lugeda ka keeltes",
     "comments": "Kommentaarid"
   },

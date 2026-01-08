@@ -173,6 +173,10 @@
     "back": "Blog listesine geri dön",
     "showingPosts": "{{total}} gönderiden {{current}} tanesi gösteriliyor",
     "minRead": "dakikalık okuma",
+    "subscribeRSS": "RSS ile abone ol",
+    "allPosts": "Tüm yazıların beslemesi",
+    "languageFeeds": "Dile özel beslemeler",
+    "rssDescription": "Yeni yazılardan haberdar olmak için favori RSS okuyucunuzdan RSS beslemelerime abone olun.",
     "availableIn": "Bu sayfa şu dillerde de mevcut:",
     "comments": "Yorumlar"
   },

@@ -164,6 +164,10 @@
     "back": "Takaisin blogilistaan",
     "showingPosts": "Näytetään {{current}} / {{total}} kirjoitusta",
     "minRead": "min lukuaika",
+    "subscribeRSS": "Tilaa RSS-syöte",
+    "allPosts": "Kaikkien julkaisujen syöte",
+    "languageFeeds": "Kielikohtaiset syötteet",
+    "rssDescription": "Tilaa RSS-syötteeni suosikkilukijassasi saadaksesi ilmoituksen uusista julkaisuista.",
     "availableIn": "Tämä sivu on saatavilla myös",
     "comments": "Kommentit"
   },

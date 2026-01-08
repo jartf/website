@@ -164,6 +164,10 @@
     "back": "Tillbaka till blogglistan",
     "showingPosts": "Visar {{current}} av {{total}} inlägg",
     "minRead": "min läsning",
+    "subscribeRSS": "Prenumerera via RSS",
+    "allPosts": "Flöde med alla inlägg",
+    "languageFeeds": "Språkspecifika flöden",
+    "rssDescription": "Prenumerera på mina RSS-flöden i din favoritläsare för att få notiser om nya inlägg.",
     "availableIn": "Den här sidan finns också på",
     "comments": "Kommentarer"
   },
