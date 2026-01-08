@@ -33,6 +33,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 <BaseLayout
   title={post.data.title}
   description={post.data.excerpt || `Read "${post.data.title}" on Jarema's digital garden.`}
+  lang={post.data.language ?? 'en'}
 >
   <article class="container mx-auto px-4 py-8 lg:py-12 max-w-3xl">
     <header class="mb-8">
@@ -104,7 +105,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       <Content />
     </div>
 
-    <!-- Post Navigation -->
+    <!-- Post navigation -->
     <nav class="mt-12 pt-8 border-t" aria-label="Post navigation">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {prevPost && (
@@ -132,7 +133,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       </div>
     </nav>
 
-    <!-- Comments Section (Cusdis) -->
+    <!-- Comments section (Cusdis) -->
     <section class="mt-12 pt-8 border-t">
       <h2 class="text-2xl font-bold mb-6"><span data-i18n="blog.comments">Comments</span></h2>
       <div
@@ -214,7 +215,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     }
   };
 
-  // Cusdis theme management: dark by default, auto when user switches to light, dark again when back to dark
+  // Cusdis theme management
   const cusdisEl = document.getElementById('cusdis_thread');
   if (cusdisEl) {
     const updateCusdisTheme = () => {

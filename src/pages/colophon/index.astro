@@ -1,5 +1,5 @@
 ---
-// Colophon Page - site credits and technical details with i18n
+// Colophon page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 ---
@@ -7,20 +7,20 @@ import T from "@/components/T.astro";
 <BaseLayout title="Colophon" description="Technical details and credits for this website.">
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-2xl mx-auto">
-      <header class="mb-8">
+      <header class="mb-8 text-center">
         <T key="colophon.title" tag="h1" class="text-4xl font-bold mb-4" />
-        <T key="colophon.description" tag="p" class="text-muted-foreground" />
+        <T key="colophon.description" tag="p" class="text-lg text-muted-foreground" />
       </header>
 
-      <div class="prose prose-lg dark:prose-invert max-w-none space-y-8">
-        <!-- Site History -->
+      <div class="prose text-md dark:prose-invert max-w-none space-y-8 text-justify">
+        <!-- Site history -->
         <section id="site-history" class="scroll-mt-20">
           <T key="colophon.siteHistory.title" tag="h2" />
           <T key="colophon.siteHistory.content1" tag="p" />
           <T key="colophon.siteHistory.content2" tag="p" />
         </section>
 
-        <!-- Technology Stack -->
+        <!-- Technology stack -->
         <section id="technology-stack" class="scroll-mt-20">
           <T key="colophon.technologyStack.title" tag="h2" />
           <ul>
@@ -32,7 +32,7 @@ import T from "@/components/T.astro";
           </ul>
         </section>
 
-        <!-- Hosting & Deployment -->
+        <!-- Hosting & deployment -->
         <section id="hosting" class="scroll-mt-20">
           <T key="colophon.hosting.title" tag="h2" />
           <p>
@@ -47,14 +47,14 @@ import T from "@/components/T.astro";
           </p>
         </section>
 
-        <!-- Design Philosophy -->
+        <!-- Design philosophy -->
         <section id="design-philosophy" class="scroll-mt-20">
           <T key="colophon.design.title" tag="h2" />
           <T key="colophon.design.p1" tag="p" />
           <T key="colophon.design.p2" tag="p" />
         </section>
 
-        <!-- Web Standards -->
+        <!-- Web standards -->
         <section id="web-standards" class="scroll-mt-20">
           <T key="colophon.webStandards.title" tag="h2" />
           <T key="colophon.webStandards.intro" tag="p" />

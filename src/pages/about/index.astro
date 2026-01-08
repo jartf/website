@@ -3,7 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 
 const title = "About me";
-const description = "The story of who I am, where I come from, and what I'm working toward.";
+const description = "The story of who I am, where I come from, what my passion is, and what I'm working toward.";
 
 const chapters = [
   { num: 1, key: "1" },
@@ -18,7 +18,7 @@ const chapters = [
 <BaseLayout title={title} description={description}>
   <main class="container mx-auto px-4 py-8 max-w-4xl">
     <header class="text-center mb-12">
-      <T key="about.title" tag="h1" class="text-4xl md:text-5xl font-bold mb-4" />
+      <T key="about.title" tag="h1" class="text-4xl font-bold mb-4" />
       <T key="about.description" tag="p" class="text-muted-foreground text-lg max-w-2xl mx-auto" />
     </header>
 

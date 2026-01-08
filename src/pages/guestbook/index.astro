@@ -1,5 +1,5 @@
 ---
-// Guestbook Page with atabook
+// Guestbook page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 ---
@@ -9,10 +9,10 @@ import T from "@/components/T.astro";
     <div class="max-w-2xl mx-auto">
       <header class="mb-8 text-center">
         <T key="guestbook.title" tag="h1" class="text-4xl font-bold mb-4" />
-        <T key="guestbook.description" tag="p" class="text-muted-foreground" />
+        <T key="guestbook.description" tag="p" class="text-lg text-muted-foreground" />
       </header>
 
-      <!-- Atabook guestbook iframe -->
+      <!-- Atabook iframe -->
       <div class="border rounded-lg overflow-hidden bg-card">
         <iframe
           src="https://jarema.atabook.org"
@@ -32,8 +32,7 @@ import T from "@/components/T.astro";
 
       <div class="mt-8 text-center text-sm text-muted-foreground">
         <p>
-          Powered by <a href="https://atabook.org" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Atabook</a>.
-          Be kind and respectful. 💜
+          <T key="guestbook.poweredBy" /> <a href="https://atabook.org" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline"><T key="guestbook.atabook" /></a> 💜
         </p>
       </div>
     </div>

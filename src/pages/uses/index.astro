@@ -1,5 +1,5 @@
 ---
-// Uses Page - tech and tools I use with i18n support
+// Uses page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { USES_CATEGORIES } from "@/content/uses-items";
@@ -29,8 +29,8 @@ const categoryIcons: Record<string, string> = {
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-6xl mx-auto">
       <header class="mb-10 text-center">
-        <T key="uses.title" tag="h1" class="text-4xl md:text-5xl font-bold mb-4" />
-        <p class="text-muted-foreground text-lg max-w-xl mx-auto">
+        <T key="uses.title" tag="h1" class="text-4xl font-bold mb-4" />
+        <p class="text-muted-foreground text-lg mx-auto">
           <span data-i18n="uses.description">All the things I use on a daily basis. Also available on</span>
           {" "}
           <a href="https://uses.tech" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">uses.tech</a>,
@@ -145,7 +145,7 @@ const categoryIcons: Record<string, string> = {
   import { languageStore, t, initLanguage } from '@/i18n';
 
   function updateTranslations() {
-    // Update all data-i18n elements (includes categories, subsections, descriptions)
+    // Update data-i18n elements
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const key = el.getAttribute('data-i18n');
       if (key) {

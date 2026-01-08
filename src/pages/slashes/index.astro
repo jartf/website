@@ -1,5 +1,5 @@
 ---
-// Slashes Page - list of common slash pages with i18n
+// Slashes page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 interface SlashPage {
@@ -11,17 +11,17 @@ interface SlashPage {
 }
 
 const slashPages: SlashPage[] = [
-  { path: "/about/", nameKey: "nav.about", defaultName: "About", descriptionKey: "", defaultDescription: "Learn about me" },
-  { path: "/blog/", nameKey: "nav.blog", defaultName: "Blog", descriptionKey: "", defaultDescription: "Read my posts" },
-  { path: "/contact/", nameKey: "nav.contact", defaultName: "Contact", descriptionKey: "", defaultDescription: "Get in touch" },
-  { path: "/now/", nameKey: "nav.now", defaultName: "Now", descriptionKey: "", defaultDescription: "What I'm doing now" },
-  { path: "/uses/", nameKey: "nav.uses", defaultName: "Uses", descriptionKey: "", defaultDescription: "Tech and tools I use" },
-  { path: "/colophon/", nameKey: "nav.colophon", defaultName: "Colophon", descriptionKey: "", defaultDescription: "How this site is built" },
-  { path: "/guestbook/", nameKey: "nav.guestbook", defaultName: "Guestbook", descriptionKey: "", defaultDescription: "Leave a message" },
-  { path: "/webrings/", nameKey: "nav.webring", defaultName: "Webrings", descriptionKey: "", defaultDescription: "Web communities" },
-  { path: "/badges/", nameKey: "keyboardShortcuts.navigation", defaultName: "Badges", descriptionKey: "", defaultDescription: "88x31 badges" },
-  { path: "/projects/", nameKey: "nav.projects", defaultName: "Projects", descriptionKey: "", defaultDescription: "Things I've built" },
-  { path: "/scrapbook/", nameKey: "nav.scrapbook", defaultName: "Devlog", descriptionKey: "", defaultDescription: "Development log" },
+  { path: "/about/", nameKey: "nav.about", defaultName: "About", descriptionKey: "about.description", defaultDescription: "Learn about me" },
+  { path: "/blog/", nameKey: "nav.blog", defaultName: "Blog", descriptionKey: "blog.description", defaultDescription: "Read my posts" },
+  { path: "/contact/", nameKey: "nav.contact", defaultName: "Contact", descriptionKey: "contact.description", defaultDescription: "Get in touch" },
+  { path: "/now/", nameKey: "nav.now", defaultName: "Now", descriptionKey: "now.description", defaultDescription: "What I'm doing now" },
+  { path: "/uses/", nameKey: "nav.uses", defaultName: "Uses", descriptionKey: "uses.description", defaultDescription: "Tech and tools I use" },
+  { path: "/colophon/", nameKey: "nav.colophon", defaultName: "Colophon", descriptionKey: "colophon.description", defaultDescription: "How this site is built" },
+  { path: "/guestbook/", nameKey: "nav.guestbook", defaultName: "Guestbook", descriptionKey: "guestbook.description", defaultDescription: "Leave a message" },
+  { path: "/webrings/", nameKey: "nav.webring", defaultName: "Webrings", descriptionKey: "webrings.description", defaultDescription: "Web communities" },
+  { path: "/badges/", nameKey: "keyboardShortcuts.navigation", defaultName: "Badges", descriptionKey: "badges.description", defaultDescription: "88x31 badges" },
+  { path: "/projects/", nameKey: "nav.projects", defaultName: "Projects", descriptionKey: "projects.description", defaultDescription: "Things I've built" },
+  { path: "/scrapbook/", nameKey: "nav.scrapbook", defaultName: "Devlog", descriptionKey: "scrapbook.description", defaultDescription: "Development log" },
 ];
 ---
 
@@ -29,9 +29,13 @@ const slashPages: SlashPage[] = [
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-2xl mx-auto">
       <header class="mb-8 text-center">
-        <h1 class="text-4xl font-bold mb-4">Slashes</h1>
+        <h1 class="text-4xl font-bold mb-4" data-i18n="slashes.title">Slashes</h1>
         <p class="text-muted-foreground">
-          Common pages available on this site, following the <a href="https://slashpages.net/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">slash pages</a> convention.
+          <span data-i18n="slashes.descriptionStart">Common pages available on this site, following the</span>
+          {' '}
+          <a href="https://slashpages.net/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline" data-i18n="slashes.linkText">slash pages</a>
+          {' '}
+          <span data-i18n="slashes.descriptionEnd">convention.</span>
         </p>
       </header>
 
@@ -39,13 +43,13 @@ const slashPages: SlashPage[] = [
         {slashPages.map((page) => (
           <a
             href={page.path}
-            class="flex items-center justify-between p-4 border rounded-lg bg-card hover:border-primary/50 transition-colors group"
+            class="flex items-start justify-between p-4 border rounded-lg bg-card hover:border-primary/50 transition-colors group"
           >
-            <div>
+            <div class="flex-1">
               <span class="font-medium group-hover:text-primary transition-colors" data-i18n={page.nameKey}>{page.defaultName}</span>
-              <p class="text-sm text-muted-foreground">{page.defaultDescription}</p>
+              <p class="text-sm text-muted-foreground" data-i18n={page.descriptionKey}>{page.defaultDescription}</p>
             </div>
-            <span class="text-muted-foreground font-mono text-sm">{page.path}</span>
+            <span class="text-muted-foreground font-mono text-sm self-start text-right ml-4">{page.path}</span>
           </a>
         ))}
       </div>

@@ -1,9 +1,9 @@
 ---
-// Badges Page - with full i18n support and verbose layout
+// Badges page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 
-// Badge data from v4 implementation
+// Badge data
 const BADGES = [
   { id: "personal", name: "Jarema's badge", src: "/badge.png", alt: "A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones", category: "personal", url: "https://jarema.me/", description: "My personal badge depicting me in headphones under the stars." },
   { id: "badge-eesti", name: "Eesti", src: "/badge-eesti.png", alt: "My personal badge, with a frame of Estonia's flag.", category: "personal", url: "https://jarema.me/", description: "The same personal badge, just with the Estonia flag frame." },
@@ -37,10 +37,10 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
     <div class="max-w-4xl mx-auto">
       <header class="mb-8 text-center">
         <T key="badges.pageTitle" tag="h1" class="text-4xl font-bold mb-4" />
-        <T key="badges.pageDescription" tag="p" class="text-muted-foreground" />
+        <T key="badges.pageDescription" tag="p" class="text-lg text-muted-foreground" />
       </header>
 
-      <!-- My Badge Section - NOT open by default -->
+      <!-- My badge section -->
       <section class="mb-12">
         <details class="border rounded-lg bg-card overflow-hidden">
           <summary class="p-4 cursor-pointer hover:bg-accent transition-colors font-semibold flex items-center gap-2" data-i18n="badges.myBadgeTitle">
@@ -78,7 +78,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
       <section>
         <T key="badges.collectionHeading" tag="h2" class="text-2xl font-bold mb-4" />
 
-        <!-- Controls: Search, Filter, View Mode -->
+        <!-- Controls -->
         <div class="flex flex-col sm:flex-row gap-4 mb-6">
           <div class="relative flex-1">
             <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -98,7 +98,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
         <!-- Results count -->
         <p id="badge-count" class="text-sm text-muted-foreground mb-4">Showing {BADGES.length} badges</p>
 
-        <!-- Badge Only View (default) -->
+        <!-- Badge only view (default) -->
         <div id="badges-compact" class="flex flex-wrap gap-2 justify-center p-4 border rounded-lg bg-card">
           {BADGES.map((badge) => (
             badge.url ? (
@@ -113,7 +113,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
           ))}
         </div>
 
-        <!-- Verbose View (hidden by default) -->
+        <!-- Verbose view -->
         <div id="badges-verbose" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {BADGES.map((badge) => (
             <div class="border rounded-md p-4 flex flex-col h-full" data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
@@ -239,7 +239,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
       }
     });
 
-    // Update count (divide by 2 because both views)
+    // Update count
     const actualVisible = visibleCount / 2;
     const actualTotal = totalCount;
 

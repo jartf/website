@@ -1,6 +1,5 @@
 ---
-// Base Layout for Jarema's Digital Garden
-// Astro equivalent of Next.js app/(main)/layout.jsx
+// Base Layout for website
 
 import "@/styles/globals.css";
 import Header from "@/components/Header.astro";
@@ -17,20 +16,39 @@ interface Props {
   title?: string;
   description?: string;
   isHomePage?: boolean;
+  lang?: string;
 }
 
 const {
   title = "Jarema's digital garden",
-  description = "A personal playground and digital garden for Jarema - featuring projects, blog posts, and multilingual content about economics, coding, and more.",
+  description = "A personal playground and digital garden for Jarema, featuring some blog posts, some content about economics, coding, and occasional catposting too.",
   isHomePage = false,
+  lang = 'en',
 } = Astro.props;
 
 const siteUrl = "https://jarema.me";
-const fullTitle = isHomePage ? title : `${title} | Jarema's digital garden`;
+const fullTitle = isHomePage ? title : `${title} - Jarema's digital garden`;
+// Map site language codes to Open Graph locale values
+const ogLocaleMap: Record<string, string> = {
+  en: 'en_US',
+  vi: 'vi_VN',
+  vih: 'vi_VN',
+  zh: 'zh_CN',
+  ru: 'ru_RU',
+  da: 'da_DK',
+  et: 'et_EE',
+  tr: 'tr_TR',
+  pl: 'pl_PL',
+  sv: 'sv_SE',
+  fi: 'fi_FI',
+  tok: 'en_US',
+};
+
+const ogLocale = ogLocaleMap[lang] ?? 'en_US';
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={lang === 'vih' ? 'vi' : lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,7 +58,7 @@ const fullTitle = isHomePage ? title : `${title} | Jarema's digital garden`;
     <title>{fullTitle}</title>
     <meta name="title" content={fullTitle} />
     <meta name="description" content={description} />
-    <meta name="keywords" content="Jarema, digital garden, personal website, blog, economics, coding, multilingual" />
+    <meta name="keywords" content="Jarema, jartf, digital garden, personal website, blog, economics, coding, tech, multilingual, student, cat, personal blog, digital playground, independent blog, independent writer, indie web, technology, now page, about page, personal reflections, ideas, thoughts, observation journal, how to build a personal site, economics and coding personal site" />
     <meta name="author" content="Jarema" />
 
     <!-- Favicons -->
@@ -60,7 +78,7 @@ const fullTitle = isHomePage ? title : `${title} | Jarema's digital garden`;
     <meta property="og:description" content={description} />
     <meta property="og:image" content={`${siteUrl}/android-chrome-512x512.png`} />
     <meta property="og:site_name" content="Jarema's digital garden" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={ogLocale} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary" />

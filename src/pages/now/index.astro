@@ -1,5 +1,5 @@
 ---
-// Now Page - what I'm currently doing
+// Now page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { nowItems } from "@/content/now-items";
@@ -16,7 +16,7 @@ const iconMap: Record<string, string> = {
   Lightbulb: "💡",
 };
 
-// Sort items by date descending for last updated
+// Sort items by date descending
 const sortedItems = [...nowItems].sort((a, b) =>
   new Date(b.date).getTime() - new Date(a.date).getTime()
 );
@@ -26,8 +26,8 @@ const sortedItems = [...nowItems].sort((a, b) =>
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-3xl mx-auto">
       <header class="text-center mb-10">
-        <T key="now.title" tag="h1" class="text-4xl md:text-5xl font-bold mb-4" />
-        <T key="now.description" tag="p" class="text-muted-foreground text-lg max-w-xl mx-auto" />
+        <T key="now.title" tag="h1" class="text-4xl font-bold mb-4" />
+        <T key="now.description" tag="p" class="text-muted-foreground text-lg mx-auto" />
         <p class="text-sm text-muted-foreground/70 mt-4">
           <span data-i18n="now.lastUpdated">Last updated</span>: <span id="last-updated-date">{sortedItems.length > 0 ? new Date(sortedItems[0].date).toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</span>
         </p>
@@ -167,7 +167,7 @@ const sortedItems = [...nowItems].sort((a, b) =>
         }
       }
 
-      // Parse PreMid
+      // Parse PreMID
       if (premidRes?.ok) {
         const data = await premidRes.json();
         if (data.activities?.length > 0) {

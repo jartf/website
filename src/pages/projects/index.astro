@@ -1,5 +1,5 @@
 ---
-// Projects Page with i18n and flip cards
+// Projects page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { projects } from "@/content/project-items";
@@ -51,7 +51,7 @@ const categoryIcons = {
         </button>
       </div>
 
-      <!-- In Progress Section -->
+      <!-- In progress section -->
       {inProgressProjects.length > 0 && (
         <section class="mb-12">
           <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
@@ -100,7 +100,7 @@ const categoryIcons = {
         </section>
       )}
 
-      <!-- Completed Section -->
+      <!-- Completed section -->
       {completedProjects.length > 0 && (
         <section class="mb-12">
           <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
@@ -147,7 +147,7 @@ const categoryIcons = {
         </section>
       )}
 
-      <!-- Planned Section -->
+      <!-- Planned section -->
       {plannedProjects.length > 0 && (
         <section class="mb-12">
           <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">

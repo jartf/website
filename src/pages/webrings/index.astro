@@ -1,5 +1,5 @@
 ---
-// Webrings Page
+// Webrings page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { webringItems } from "@/content/webring-items";
@@ -9,12 +9,12 @@ import { webringItems } from "@/content/webring-items";
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-3xl mx-auto">
       <header class="mb-10 text-center">
-        <T key="webrings.title" tag="h1" class="text-4xl md:text-5xl font-bold mb-4" />
+        <T key="webrings.title" tag="h1" class="text-4xl font-bold mb-4" />
         <T key="webrings.description" tag="p" class="text-muted-foreground text-lg max-w-xl mx-auto" />
       </header>
 
       <!-- Introduction -->
-      <div class="mb-10 p-6 bg-muted/30 rounded-lg">
+      <div class="mb-10 p-6 bg-muted/30 rounded-lg text-justify">
         <T key="webrings.intro1" tag="p" class="text-sm text-muted-foreground mb-3" />
         <T key="webrings.intro2" tag="p" class="text-sm text-muted-foreground" />
       </div>
