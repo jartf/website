@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
+import { Image } from 'astro:assets';
 
 const title = "About me";
 const description = "The story of who I am, where I come from, what my passion is, and what I'm working toward.";
@@ -25,7 +26,7 @@ const chapters = [
     <!-- h-card microformat -->
     <div class="h-card mb-10 p-6 border rounded-lg bg-muted/10">
       <div class="flex flex-col sm:flex-row items-center gap-4">
-        <img src="/favicon.svg" alt="Jarema" width="80" height="80" class="u-photo rounded-full" />
+        <Image src="/favicon.svg" alt="Jarema" width={80} height={80} class="u-photo rounded-full" />
         <div class="text-center sm:text-left">
           <h2 class="p-name text-xl font-bold">Jarema</h2>
           <p class="p-note mt-1 text-muted-foreground">Economics major, sometimes coder, most times cat whisperer.</p>

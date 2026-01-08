@@ -2,6 +2,7 @@
 // Badges page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
+import { Image } from 'astro:assets';
 
 // Badge data
 const BADGES = [
@@ -50,8 +51,8 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
             <p class="text-sm text-muted-foreground mb-4" data-i18n="badges.myBadgeIntro">
               Use this badge to link to my website:
             </p>
-            <div class="text-center mb-6">
-              <img src="/badge.png" alt="Jarema's badge" width="176" height="62" class="pixelated mx-auto" />
+              <div class="text-center mb-6">
+              <Image src="/badge.png" alt="Jarema's badge" width={176} height={62} class="pixelated mx-auto" />
             </div>
             <div class="mb-4">
               <p class="text-xs text-muted-foreground mb-1" data-i18n="badges.hotlinkUrl">Hotlink URL:</p>
@@ -101,13 +102,13 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
         <!-- Badge only view (default) -->
         <div id="badges-compact" class="flex flex-wrap gap-2 justify-center p-4 border rounded-lg bg-card">
           {BADGES.map((badge) => (
-            badge.url ? (
+                badge.url ? (
               <a href={badge.url} target={badge.url.startsWith('/') ? undefined : "_blank"} rel={badge.url.startsWith('/') ? undefined : "noopener noreferrer"} title={badge.name} data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
-                <img src={badge.src} alt={badge.alt} width="88" height="31" class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />
+                <Image src={badge.src} alt={badge.alt} width={88} height={31} class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />
               </a>
             ) : (
               <span title={badge.name} data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
-                <img src={badge.src} alt={badge.alt} width="88" height="31" class="pixelated" loading="lazy" />
+                <Image src={badge.src} alt={badge.alt} width={88} height={31} class="pixelated" loading="lazy" />
               </span>
             )
           ))}
@@ -120,10 +121,10 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
               <div class="mb-2 min-h-[31px] flex items-center">
                 {badge.url ? (
                   <a href={badge.url} target={badge.url.startsWith('/') ? undefined : "_blank"} rel={badge.url.startsWith('/') ? undefined : "noopener noreferrer"}>
-                    <img src={badge.src} alt={badge.alt} width="88" height="31" class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />
+                    <Image src={badge.src} alt={badge.alt} width={88} height={31} class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />
                   </a>
                 ) : (
-                  <img src={badge.src} alt={badge.alt} width="88" height="31" class="pixelated" loading="lazy" />
+                  <Image src={badge.src} alt={badge.alt} width={88} height={31} class="pixelated" loading="lazy" />
                 )}
               </div>
               <h3 class="font-medium">{badge.name}</h3>

@@ -2,6 +2,7 @@
 // Contact page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
+import { Image } from 'astro:assets';
 
 // Contact links data
 const contactLinks = [
@@ -100,7 +101,7 @@ const icons: Record<string, string> = {
         <div id="qr-zalo" class="mt-4 hidden border rounded-lg p-6 bg-card">
           <h3 class="font-semibold mb-4 text-center">Zalo</h3>
           <div class="flex flex-col items-center">
-            <img src="/zalo-qr.jpeg" alt="Zalo QR Code" class="w-48 h-48 object-contain mb-4" />
+            <Image src="/zalo-qr.jpeg" alt="Zalo QR Code" width={192} height={192} class="w-48 h-48 object-contain mb-4" />
             <p class="text-sm text-muted-foreground text-center">Quét mã QR để kết nối với tôi trên Zalo</p>
             <a href="https://zaloapp.com/qr/p/ryw96g1vmzmw" target="_blank" rel="noopener noreferrer" class="mt-2 text-primary hover:underline">
               Mở Zalo
@@ -111,7 +112,7 @@ const icons: Record<string, string> = {
         <div id="qr-wechat" class="mt-4 hidden border rounded-lg p-6 bg-card">
           <h3 class="font-semibold mb-4 text-center">微信 (WeChat)</h3>
           <div class="flex flex-col items-center">
-            <img src="/wechat-qr.png" alt="WeChat QR Code" class="w-48 h-48 object-contain mb-4" />
+            <Image src="/wechat-qr.png" alt="WeChat QR Code" width={192} height={192} class="w-48 h-48 object-contain mb-4" />
             <p class="text-sm text-muted-foreground text-center">扫一扫上面的二维码图案，加我为朋友。</p>
           </div>
         </div>
