@@ -1,6 +1,5 @@
 ---
-// Static Header component
-// Interactive features (theme toggle, language toggle) are handled by React islands
+// Static header
 
 import { navItems } from "@/lib/constants";
 import { isActivePath } from "@/lib/utils";
@@ -8,7 +7,7 @@ import T from "@/components/T.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import MusicToggle from "@/components/MusicToggle.astro";
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
 const pathname = Astro.url.pathname;
 
@@ -45,7 +44,7 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
               >
                 <T key={`nav.${item.key}`} />
                 {isActive && (
-                  <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true"/>
+                  <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />
                 )}
               </a>
             );
@@ -55,56 +54,42 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
     </div>
 
     <div class="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
-      <!-- Language Toggle (React Island for interactivity) -->
+      <!-- Language toggle (React island for interactivity) -->
       <LanguageToggle client:only="react" transition:persist />
 
-      <!-- Theme Toggle (React Island for interactivity) -->
+      <!-- Theme toggle -->
       <ThemeToggle />
 
-      <!-- Music Toggle (React Island; currently unavailable/disabled) -->
+      <!-- Music toggle -->
       <MusicToggle />
-
-      <!-- Mobile Menu Button -->
-      <button
-        type="button"
-        class="md:hidden p-2 rounded-md hover:bg-muted transition-colors"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        id="mobile-menu-button"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="4" x2="20" y1="12" y2="12"></line>
-          <line x1="4" x2="20" y1="6" y2="6"></line>
-          <line x1="4" x2="20" y1="18" y2="18"></line>
-        </svg>
-      </button>
     </div>
   </div>
 
-  <!-- Mobile Navigation Menu -->
+  <!-- Mobile navigation bar -->
   <nav
-    id="mobile-menu"
-    class="md:hidden fixed inset-0 top-16 bg-background z-40 transform translate-x-full transition-transform duration-300 ease-in-out"
+    class="md:hidden border-t bg-background/95 backdrop-blur-sm"
     aria-label="Mobile navigation"
   >
-    <div class="container py-6">
-      <div class="grid gap-3">
+    <div class="container px-4 py-2">
+      <div class="flex items-center justify-center gap-3 gap-y-1 flex-wrap">
         {headerNavItems.map((item) => {
-          const isActive = isActivePath(pathname, item.href);
-          return (
-            <a
-              href={item.href}
-              class:list={[
-                "text-sm transition-colors hover:text-primary block py-2",
-                isActive ? "text-foreground font-medium" : "text-muted-foreground",
-              ]}
-              aria-current={isActive ? "page" : undefined}
-            >
-              <T key={`nav.${item.key}`} />
-            </a>
-          );
-        })}
+            const isActive = isActivePath(pathname, item.href);
+            return (
+              <a
+                href={item.href}
+                class:list={[
+                  "text-sm transition-colors hover:text-primary whitespace-nowrap py-1",
+                  isActive ? "text-foreground font-medium" : "text-muted-foreground",
+                ]}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <T key={`nav.${item.key}`} />
+                {isActive && (
+                  <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />
+                )}
+              </a>
+            );
+          })}
       </div>
     </div>
   </nav>
@@ -112,34 +97,6 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
 
 <script>
   import { languageStore, t, initLanguage } from "@/i18n";
-
-  // Mobile menu toggle
-  const menuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-
-  if (menuButton && mobileMenu) {
-    menuButton.addEventListener("click", () => {
-      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
-      menuButton.setAttribute("aria-expanded", String(!isOpen));
-
-      if (isOpen) {
-        mobileMenu.classList.add("translate-x-full");
-        mobileMenu.classList.remove("translate-x-0");
-      } else {
-        mobileMenu.classList.remove("translate-x-full");
-        mobileMenu.classList.add("translate-x-0");
-      }
-    });
-
-    // Close menu when clicking a link
-    mobileMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        menuButton.setAttribute("aria-expanded", "false");
-        mobileMenu.classList.add("translate-x-full");
-        mobileMenu.classList.remove("translate-x-0");
-      });
-    });
-  }
 
   // i18n translation updates
   function updateTranslations() {
