@@ -88,14 +88,22 @@ try {
     const lang = languageStore.get();
 
     // Update static i18n keys
+    const updates: Array<{ el: Element; text: string }> = [];
+
     document.querySelectorAll('section[aria-labelledby="recent-posts-heading"] [data-i18n]').forEach((el) => {
       const key = el.getAttribute('data-i18n');
       if (key) {
         const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
+        if (translated !== key && el.textContent !== translated) {
+          updates.push({ el, text: translated });
         }
       }
+    });
+
+    requestAnimationFrame(() => {
+      updates.forEach(({ el, text }) => {
+        el.textContent = text;
+      });
     });
 
     // Update dates with locale

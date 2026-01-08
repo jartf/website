@@ -308,3 +308,21 @@
   image-rendering: -webkit-optimize-contrast; /* Edge 79+, Chrome, Safari */
   image-rendering: pixelated; /* Standard fallback */
 }
+
+/* i18n optimization - prevent layout shift during translation */
+[data-i18n], [data-t-key] {
+  /* Ensure smooth text transitions */
+  transition: opacity 0.1s ease-in-out;
+}
+
+/* Prevent flash of untranslated content for non-English users */
+html:not([lang="en"]) [data-i18n]:empty,
+html:not([lang="en"]) [data-t-key]:empty {
+  visibility: hidden;
+}
+
+/* Optimize rendering for translation updates */
+.i18n-updating [data-i18n],
+.i18n-updating [data-t-key] {
+  will-change: contents;
+}

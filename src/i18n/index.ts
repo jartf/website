@@ -147,3 +147,32 @@ export function useTranslation() {
     supportedLanguages,
   };
 }
+
+// Server-side translation helper (for Astro components)
+export function getServerTranslation(key: string, lang: SupportedLanguage = 'en', params?: Record<string, string | number>): string {
+  const trans = translations[lang] || translations.en;
+  let value = getNestedValue(trans, key);
+
+  // Fallback to English if not found
+  if (!value && lang !== 'en') {
+    value = getNestedValue(translations.en, key);
+  }
+
+  // If still not found, return the key
+  if (!value) return key;
+
+  // Replace parameters like {{name}}
+  if (params) {
+    for (const [paramKey, paramValue] of Object.entries(params)) {
+      value = value.replace(new RegExp(`\\{\\{${paramKey}\\}\\}`, 'g'), String(paramValue));
+    }
+  }
+
+  return value;
+}
+
+// Make translations available globally for inline scripts
+if (typeof window !== 'undefined') {
+  (window as any).__I18N_TRANSLATIONS__ = translations;
+  (window as any).languageStore = languageStore;
+}

@@ -139,22 +139,39 @@ import RecentPosts from "@/components/RecentPosts.astro";
   }
 
   function updateTranslations() {
-    // Update static translations
+    // Batch DOM reads and writes for better performance
+    const updates: Array<{ el: Element; text: string }> = [];
+
+    // Read phase
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const key = el.getAttribute('data-i18n');
       if (key) {
         const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
+        if (translated !== key && el.textContent !== translated) {
+          updates.push({ el, text: translated });
         }
       }
+    });
+
+    // Write phase - batched DOM updates
+    requestAnimationFrame(() => {
+      updates.forEach(({ el, text }) => {
+        el.textContent = text;
+      });
     });
 
     // Update time-based greeting
     updateGreeting();
   }
 
-  initLanguage();
+  // Use pre-detected language if available
+  const initialLang = (window as any).__INITIAL_LANG__;
+  if (initialLang && initialLang !== 'en') {
+    languageStore.set(initialLang);
+  } else {
+    initLanguage();
+  }
+
   updateGreeting();
   updateTranslations();
 

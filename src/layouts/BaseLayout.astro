@@ -127,6 +127,33 @@ const fullTitle = isHomePage ? title : `${title} | Jarema's digital garden`;
       })();
     </script>
 
+    <!-- Language initialization script (runs before page render) -->
+    <script is:inline>
+      (function() {
+        try {
+          const stored = localStorage.getItem('i18nextLng');
+          const browserLang = navigator.language.split('-')[0];
+          const supportedLangs = ['en', 'vi', 'ru', 'et', 'da', 'tr', 'zh', 'pl', 'sv', 'fi', 'tok', 'vih'];
+
+          let lang = 'en';
+          if (stored && supportedLangs.includes(stored)) {
+            lang = stored;
+          } else if (supportedLangs.includes(browserLang)) {
+            lang = browserLang;
+          }
+
+          // Set lang attribute immediately
+          document.documentElement.lang = lang === 'vih' ? 'vi' : lang;
+
+          // Store the detected language for quick access
+          window.__INITIAL_LANG__ = lang;
+        } catch (e) {
+          window.__INITIAL_LANG__ = 'en';
+          document.documentElement.lang = 'en';
+        }
+      })();
+    </script>
+
     <style>
       .emoji-flag {
         font-family: "Twemoji Country Flags", "Twemoji Mozilla", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;

@@ -10,7 +10,13 @@ export function LanguageToggle() {
   const translations = useStore(currentTranslations);
 
   useEffect(() => {
-    initLanguage();
+    // Use pre-detected language if available for faster initialization
+    const initialLang = (window as any).__INITIAL_LANG__;
+    if (initialLang && initialLang !== languageStore.get()) {
+      languageStore.set(initialLang);
+    } else {
+      initLanguage();
+    }
     setMounted(true);
   }, []);
 

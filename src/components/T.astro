@@ -1,0 +1,110 @@
+---
+/**
+ * Translation component for Astro
+ * Pre-renders all supported language translations as hidden elements
+ * and shows the correct one based on client language selection
+ *
+ * Usage:
+ * <T key="home.heading" />
+ * <T key="greetings.morning" params={{ name: "Jarema" }} />
+ */
+
+import { translations, supportedLanguages, type SupportedLanguage } from '@/i18n';
+
+interface Props {
+  key: string;
+  params?: Record<string, string | number>;
+  tag?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const { key, params, tag = 'span', class: className, ...rest } = Astro.props;
+
+function getNestedValue(obj: Record<string, any>, path: string): string | undefined {
+  const keys = path.split('.');
+  let current = obj;
+
+  for (const k of keys) {
+    if (current && typeof current === 'object' && k in current) {
+      current = current[k];
+    } else {
+      return undefined;
+    }
+  }
+
+  return typeof current === 'string' ? current : undefined;
+}
+
+function translateWithParams(value: string, params?: Record<string, string | number>): string {
+  if (!params) return value;
+
+  let result = value;
+  for (const [paramKey, paramValue] of Object.entries(params)) {
+    result = result.replace(new RegExp(`\\{\\{${paramKey}\\}\\}`, 'g'), String(paramValue));
+  }
+  return result;
+}
+
+// Pre-render translations for all languages
+const translatedTexts: Record<string, string> = {};
+supportedLanguages.forEach((lang) => {
+  const langCode = lang.code as SupportedLanguage;
+  const trans = translations[langCode] || translations.en;
+  let value = getNestedValue(trans, key);
+
+  // Fallback to English
+  if (!value && langCode !== 'en') {
+    value = getNestedValue(translations.en, key);
+  }
+
+  if (value) {
+    translatedTexts[langCode] = translateWithParams(value, params);
+  }
+});
+
+const Tag = tag as any;
+---
+
+<Tag
+  class={className}
+  data-t-key={key}
+  {...rest}
+>
+  {translatedTexts['en'] || key}
+</Tag>
+
+<script is:inline define:vars={{ translatedTexts, tKey: key }}>
+  // Immediately update to correct language on page load
+  (function() {
+    const element = document.querySelector(`[data-t-key="${tKey}"]`);
+    if (!element) return;
+
+    const lang = window.__INITIAL_LANG__ || 'en';
+    const text = translatedTexts[lang] || translatedTexts['en'] || tKey;
+
+    if (element.textContent !== text) {
+      element.textContent = text;
+    }
+
+    // Listen for language changes
+    function updateText() {
+      const currentEl = document.querySelector(`[data-t-key="${tKey}"]`);
+      if (!currentEl) return;
+
+      // Get current language from global store
+      const currentLang = window.languageStore?.get() || lang;
+      const newText = translatedTexts[currentLang] || translatedTexts['en'] || tKey;
+      if (currentEl.textContent !== newText) {
+        currentEl.textContent = newText;
+      }
+    }
+
+    window.addEventListener('languageChange', updateText);
+
+    // Subscribe to store changes if available
+    if (window.languageStore?.subscribe) {
+      window.languageStore.subscribe(updateText);
+    }
+  })();
+</script>
