@@ -1,6 +1,7 @@
 ---
 // Blog listing page with i18n support
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { supportedLanguages } from "@/i18n";
 
@@ -26,7 +27,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
     <div class="max-w-4xl mx-auto">
       <!-- Header with title and RSS button -->
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-4xl font-bold" data-i18n="blog.title">Blog</h1>
+        <T key="blog.title" tag="h1" class="text-4xl font-bold" />
 
         <!-- RSS Button with Popover -->
         <div class="relative">
@@ -39,16 +40,16 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
               <path d="M4 4a16 16 0 0 1 16 16"/>
               <circle cx="5" cy="19" r="1"/>
             </svg>
-            <span class="hidden sm:inline" data-i18n="blog.rss">RSS</span>
+            <T key="blog.rss" class="hidden sm:inline" />
           </button>
 
           <!-- RSS Popover Content -->
           <div id="rss-popover" class="hidden absolute right-0 top-full mt-2 w-72 p-4 bg-popover border rounded-lg shadow-lg z-50">
-            <h3 class="font-medium mb-3" data-i18n="blog.subscribeRSS">Subscribe via RSS</h3>
+            <T key="blog.subscribeRSS" tag="h3" class="font-medium mb-3" />
 
             <div class="space-y-3">
               <div class="flex items-center justify-between">
-                <span class="text-sm font-medium" data-i18n="blog.allPosts">All Posts</span>
+                <T key="blog.allPosts" class="text-sm font-medium" />
                 <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 px-2 py-1 rounded-md hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-1">
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
@@ -58,7 +59,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
               </div>
 
               <div class="border-t pt-3">
-                <h4 class="text-sm font-medium mb-2" data-i18n="blog.languageFeeds">Language-specific feeds</h4>
+                <T key="blog.languageFeeds" tag="h4" class="text-sm font-medium mb-2" />
                 <div class="grid grid-cols-2 gap-2">
                   {Object.entries(languageNames).map(([code, name]) => (
                     <a
@@ -76,9 +77,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
                 </div>
               </div>
 
-              <p class="text-xs text-muted-foreground mt-2" data-i18n="blog.rssDescription">
-                Subscribe to these feeds in your favorite RSS reader to get notified about new posts.
-              </p>
+              <T key="blog.rssDescription" tag="p" class="text-xs text-muted-foreground mt-2" />
             </div>
           </div>
         </div>

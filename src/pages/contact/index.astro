@@ -1,6 +1,7 @@
 ---
 // Contact Page - full contact methods
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
 
 // Contact links data with icons matching the original
 const contactLinks = [
@@ -69,21 +70,15 @@ const icons: Record<string, string> = {
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-3xl mx-auto">
       <header class="mb-10 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="contact.title">Contact</h1>
-        <p class="text-muted-foreground text-lg" data-i18n="contact.description">
-          Ways to reach out and connect with me.
-        </p>
-        <p class="text-xl mt-4 lowercase" data-i18n="contact.message">
-          don't be shy. say hi. or book a 1:1 if you're feeling professional :)
-        </p>
-        <p class="text-sm text-muted-foreground/70 mt-2 italic lowercase" data-i18n="contact.disclaimer">
-          i do respond to emails. probably. unless i get distracted by a bird or something idk
-        </p>
+        <T key="contact.title" tag="h1" class="text-4xl md:text-5xl font-bold mb-4" />
+        <T key="contact.description" tag="p" class="text-muted-foreground text-lg" />
+        <T key="contact.message" tag="p" class="text-xl mt-4 lowercase" />
+        <T key="contact.disclaimer" tag="p" class="text-sm text-muted-foreground/70 mt-2 italic lowercase" />
       </header>
 
       <!-- Contact Me Section -->
       <section class="mb-12">
-        <h2 class="text-2xl font-bold mb-6" data-i18n="contact.sectionTitles.contactMe">Contact me</h2>
+        <T key="contact.sectionTitles.contactMe" tag="h2" class="text-2xl font-bold mb-6" />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {contactLinks.map((link) => (
             <a
@@ -124,7 +119,7 @@ const icons: Record<string, string> = {
 
       <!-- Social Media Section -->
       <section class="mb-12">
-        <h2 class="text-2xl font-bold mb-6" data-i18n="contact.sectionTitles.socialMedia">Me on social media</h2>
+        <T key="contact.sectionTitles.socialMedia" tag="h2" class="text-2xl font-bold mb-6" />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {socialLinks.map((link) => (
             <a
@@ -151,7 +146,7 @@ const icons: Record<string, string> = {
 
       <!-- Other Platforms Section -->
       <section class="mb-12">
-        <h2 class="text-2xl font-bold mb-6" data-i18n="contact.sectionTitles.otherPlatforms">Me on other platforms</h2>
+        <T key="contact.sectionTitles.otherPlatforms" tag="h2" class="text-2xl font-bold mb-6" />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="other-platforms">
           {otherLinks.map((link) => {
             if (link.urls) {
@@ -193,26 +188,14 @@ const icons: Record<string, string> = {
 
       <!-- PGP/Security note -->
       <div class="text-center text-sm text-muted-foreground p-4 border rounded-lg bg-muted/30">
-        <p data-i18n="contact.pgpNote">PGP keys and other verification methods available upon request.</p>
+        <T key="contact.pgpNote" tag="p" />
       </div>
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
-
-  function updateTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-  }
+  import { languageStore, initLanguage } from '@/i18n';
 
   // Show QR codes based on language
   function updateQRVisibility() {
@@ -269,18 +252,15 @@ const icons: Record<string, string> = {
   }
 
   initLanguage();
-  updateTranslations();
   updateQRVisibility();
   updatePronounsLink();
 
   languageStore.subscribe(() => {
-    updateTranslations();
     updateQRVisibility();
     updatePronounsLink();
   });
 
   window.addEventListener('languageChange', () => {
-    updateTranslations();
     updateQRVisibility();
     updatePronounsLink();
   });

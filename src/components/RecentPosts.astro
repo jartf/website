@@ -1,6 +1,7 @@
 ---
 // Recent Posts component with i18n
 import { getCollection, type CollectionEntry } from "astro:content";
+import T from "@/components/T.astro";
 
 interface BlogPost {
   slug: string;
@@ -41,8 +42,8 @@ try {
 
 <section aria-labelledby="recent-posts-heading">
   <h2 id="recent-posts-heading" class="text-2xl font-bold mb-4 text-center">
-    <a href="/blog/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit" data-i18n="home.recentPosts">
-      Recent blog posts
+    <a href="/blog/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit">
+      <T key="home.recentPosts" />
     </a>
   </h2>
   <div class="space-y-4">
@@ -62,7 +63,7 @@ try {
                   {new Date(post.date).toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })}
                 </time>
                 <span>•</span>
-                <span class="reading-time"><span data-reading-time>{post.readingTime}</span> <span data-i18n="blog.minRead">min read</span></span>
+                <span class="reading-time"><span data-reading-time>{post.readingTime}</span> <T key="blog.minRead" /></span>
               </div>
             </div>
             <div class="flex-shrink-0 text-2xl text-muted-foreground/30 font-bold">
@@ -75,36 +76,17 @@ try {
   </div>
   <div class="text-center mt-4">
     <a href="/blog/" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg hover:bg-accent transition-colors">
-      <span data-i18n="nav.blog">Blog</span>
+      <T key="nav.blog" />
       <span>→</span>
     </a>
   </div>
 </section>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+  import { languageStore, initLanguage } from '@/i18n';
 
-  function updateTranslations() {
+  function updateDates() {
     const lang = languageStore.get();
-
-    // Update static i18n keys
-    const updates: Array<{ el: Element; text: string }> = [];
-
-    document.querySelectorAll('section[aria-labelledby="recent-posts-heading"] [data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key && el.textContent !== translated) {
-          updates.push({ el, text: translated });
-        }
-      }
-    });
-
-    requestAnimationFrame(() => {
-      updates.forEach(({ el, text }) => {
-        el.textContent = text;
-      });
-    });
 
     // Update dates with locale
     document.querySelectorAll('section[aria-labelledby="recent-posts-heading"] [data-date]').forEach((el) => {
@@ -120,14 +102,20 @@ try {
     });
   }
 
-  initLanguage();
-  updateTranslations();
+  const initialLang = (window as any).__INITIAL_LANG__;
+  if (initialLang && initialLang !== 'en') {
+    languageStore.set(initialLang);
+  } else {
+    initLanguage();
+  }
+
+  updateDates();
 
   languageStore.subscribe(() => {
-    updateTranslations();
+    updateDates();
   });
 
   window.addEventListener('languageChange', () => {
-    updateTranslations();
+    updateDates();
   });
 </script>

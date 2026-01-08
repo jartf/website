@@ -2,6 +2,7 @@
 // Now Section - displays recent activity items with i18n support
 // Server-side rendered with client-side progressive enhancement for Last.fm/PreMid
 import { nowItems } from "@/content/now-items";
+import T from "@/components/T.astro";
 
 // Icon mapping for categories
 const categoryIcons: Record<string, string> = {
@@ -21,8 +22,8 @@ const displayItems = nowItems.slice(0, 3);
 
 <section aria-labelledby="now-heading" class="mb-12" id="now-section">
   <h2 id="now-heading" class="text-2xl font-bold mb-4 text-center">
-    <a href="/now/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit" data-i18n="home.latestNow">
-      What I'm up to now
+    <a href="/now/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit">
+      <T key="home.latestNow" />
     </a>
   </h2>
   <div class="border rounded-lg p-5 bg-card space-y-4 lg:max-h-[415px] overflow-y-auto overflow-x-hidden">

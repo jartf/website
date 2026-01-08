@@ -1,33 +1,28 @@
 ---
 // Colophon Page - site credits and technical details with i18n
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
 ---
 
 <BaseLayout title="Colophon" description="Technical details and credits for this website.">
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-2xl mx-auto">
       <header class="mb-8">
-        <h1 class="text-4xl font-bold mb-4" data-i18n="colophon.title">Colophon</h1>
-        <p class="text-muted-foreground" data-i18n="colophon.description">
-          The story behind this website and how it was built
-        </p>
+        <T key="colophon.title" tag="h1" class="text-4xl font-bold mb-4" />
+        <T key="colophon.description" tag="p" class="text-muted-foreground" />
       </header>
 
       <div class="prose prose-lg dark:prose-invert max-w-none space-y-8">
         <!-- Site History -->
         <section id="site-history" class="scroll-mt-20">
-          <h2 data-i18n="colophon.siteHistory.title">Site history</h2>
-          <p data-i18n="colophon.siteHistory.content1">
-            This site was just registered in late 2023, yet the design has changed a lot over the span of its life. The first version was just a basic WordPress site hosted on a sketchy free hosting provider, the second was Carrd-based, and the third was built with Astro. This current iteration (the fourth version) is a complete redesign built from scratch with modern web technologies.
-          </p>
-          <p data-i18n="colophon.siteHistory.content2">
-            Each version has been an evolution, with this latest one focusing on performance, accessibility, full keyboard navigation, and a more personal touch that better represents who I am and what I care about.
-          </p>
+          <T key="colophon.siteHistory.title" tag="h2" />
+          <T key="colophon.siteHistory.content1" tag="p" />
+          <T key="colophon.siteHistory.content2" tag="p" />
         </section>
 
         <!-- Technology Stack -->
         <section id="technology-stack" class="scroll-mt-20">
-          <h2 data-i18n="colophon.technologyStack.title">Technology stack</h2>
+          <T key="colophon.technologyStack.title" tag="h2" />
           <ul>
             <li><strong>Astro:</strong> <span data-i18n="colophon.technologyStack.astro">Static site generator with island architecture</span></li>
             <li><strong>Tailwind CSS:</strong> <span data-i18n="colophon.technologyStack.tailwind">Utility-first CSS framework</span></li>
@@ -39,7 +34,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Hosting & Deployment -->
         <section id="hosting" class="scroll-mt-20">
-          <h2 data-i18n="colophon.hosting.title">Hosting & deployment</h2>
+          <T key="colophon.hosting.title" tag="h2" />
           <p>
             <span data-i18n="colophon.hosting.content1">The site is hosted on</span>{" "}
             <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel</a>,{" "}
@@ -54,21 +49,15 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Design Philosophy -->
         <section id="design-philosophy" class="scroll-mt-20">
-          <h2 data-i18n="colophon.design.title">Design philosophy</h2>
-          <p data-i18n="colophon.design.p1">
-            This website is designed with accessibility and performance in mind. It works without JavaScript enabled,
-            uses semantic HTML, and respects your privacy by not using any tracking cookies.
-          </p>
-          <p data-i18n="colophon.design.p2">
-            The design aims for a balance between modern aesthetics and classic web simplicity.
-            Dark mode is the default because I like my retinas.
-          </p>
+          <T key="colophon.design.title" tag="h2" />
+          <T key="colophon.design.p1" tag="p" />
+          <T key="colophon.design.p2" tag="p" />
         </section>
 
         <!-- Web Standards -->
         <section id="web-standards" class="scroll-mt-20">
-          <h2 data-i18n="colophon.webStandards.title">Web standards</h2>
-          <p data-i18n="colophon.webStandards.intro">This site implements:</p>
+          <T key="colophon.webStandards.title" tag="h2" />
+          <T key="colophon.webStandards.intro" tag="p" />
           <ul>
             <li>
               <a href="https://microformats.org/wiki/h-card" target="_blank" rel="noopener noreferrer">h-card</a>
@@ -84,10 +73,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Accessibility -->
         <section id="accessibility" class="scroll-mt-20">
-          <h2 data-i18n="colophon.accessibility.title">Accessibility</h2>
-          <p data-i18n="colophon.accessibility.intro">
-            I strive to make this site accessible to everyone. Features include:
-          </p>
+          <T key="colophon.accessibility.title" tag="h2" />
+          <T key="colophon.accessibility.intro" tag="p" />
           <ul>
             <li data-i18n="colophon.accessibility.item1">Semantic HTML structure</li>
             <li data-i18n="colophon.accessibility.item2">Skip-to-content links</li>
@@ -104,7 +91,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
         <!-- Inspiration -->
         <section id="inspiration" class="scroll-mt-20">
-          <h2 data-i18n="colophon.inspiration.title">Inspiration</h2>
+          <T key="colophon.inspiration.title" tag="h2" />
           <p>
             <span data-i18n="colophon.inspiration.content1">This page draws inspiration from</span>{" "}
             <a href="https://maggieappleton.com/colophon" target="_blank" rel="noopener noreferrer">Maggie Appleton's colophon</a>,{" "}
@@ -120,7 +107,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 <script>
   import { languageStore, t, initLanguage } from '@/i18n';
 
-  function updateTranslations() {
+  // Only update inline spans with data-i18n (for complex mixed content)
+  function updateInlineTranslations() {
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const key = el.getAttribute('data-i18n');
       if (key) {
@@ -133,13 +121,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   }
 
   initLanguage();
-  updateTranslations();
+  updateInlineTranslations();
 
   languageStore.subscribe(() => {
-    updateTranslations();
+    updateInlineTranslations();
   });
 
   window.addEventListener('languageChange', () => {
-    updateTranslations();
+    updateInlineTranslations();
   });
 </script>

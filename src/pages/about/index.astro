@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
 
 const title = "About me";
 const description = "The story of who I am, where I come from, and what I'm working toward.";
@@ -17,12 +18,8 @@ const chapters = [
 <BaseLayout title={title} description={description}>
   <main class="container mx-auto px-4 py-8 max-w-4xl">
     <header class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="about.title">
-        About me
-      </h1>
-      <p class="text-muted-foreground text-lg max-w-2xl mx-auto" data-i18n="about.description">
-        The story of who I am, where I come from, what my passion is, and what I'm working toward.
-      </p>
+      <T key="about.title" tag="h1" class="text-4xl md:text-5xl font-bold mb-4" />
+      <T key="about.description" tag="p" class="text-muted-foreground text-lg max-w-2xl mx-auto" />
     </header>
 
     <!-- h-card microformat -->
@@ -63,18 +60,12 @@ const chapters = [
       <section id="chapter-1" class="scroll-mt-20">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">1.</span>
-          <span data-i18n="about.chapters.1.title">how i spawned</span>
+          <T key="about.chapters.1.title" />
         </h2>
         <div class="prose dark:prose-invert max-w-none space-y-4">
-          <p data-i18n="about.chapters.1.content1">
-            I was born in Vietnam in the mid-2000s, which technically makes me Gen Z, but I grew up with a kind of in-betweenness that doesn't quite fit any label. I was the quiet kid in the back of the room, but my mind was never really quiet. I was observing everything, whether that was people, patterns, or power dynamics, and quietly putting it all together.
-          </p>
-          <p data-i18n="about.chapters.1.content2">
-            My childhood was a strange mix of digital escapes and emotional landmines. I didn't have a perfect family. I won't even try to pretend I did. I had to grow up fast, emotionally speaking, and I learned early on that being sensitive meant being careful. You learn to listen more than you speak. You learn to code-switch, to hide pieces of yourself in plain sight. But you also learn resilience. You learn how to build a self from scratch when no one hands you the blueprint.
-          </p>
-          <p data-i18n="about.chapters.1.content3">
-            This site is part of that blueprint. Not to explain everything or even try to, but to make peace with the chaos.
-          </p>
+          <T key="about.chapters.1.content1" tag="p" />
+          <T key="about.chapters.1.content2" tag="p" />
+          <T key="about.chapters.1.content3" tag="p" />
         </div>
       </section>
 
@@ -82,18 +73,12 @@ const chapters = [
       <section id="chapter-2" class="scroll-mt-20">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">2.</span>
-          <span data-i18n="about.chapters.2.title">when i found out the world is rigged</span>
+          <T key="about.chapters.2.title" />
         </h2>
         <div class="prose dark:prose-invert max-w-none space-y-4">
-          <p data-i18n="about.chapters.2.content1">
-            It didn't hit all at once. There wasn't some singular moment of revelation. It was more like a slow burn: the realization that the systems around me, from family to education to society at large, weren't built with people like me in mind. That stability could be a trap. That even love can be conditional, weaponized. That you could follow all the "rules" and still lose.
-          </p>
-          <p data-i18n="about.chapters.2.content2">
-            So I did what a lot of us do: I adapted. I sharpened my mind, armored my heart, and started studying everything. Economics gave me the vocabulary to understand power. Coding gave me the tools to build power. Language gave me the freedom to express and escape. I realized I didn't want to just survive inside the system, I wanted to understand it, expose it, and maybe even subvert it a little.
-          </p>
-          <p data-i18n="about.chapters.2.content3">
-            This site isn't just a portfolio. It's proof that I exist on my own terms, not the ones I was handed.
-          </p>
+          <T key="about.chapters.2.content1" tag="p" />
+          <T key="about.chapters.2.content2" tag="p" />
+          <T key="about.chapters.2.content3" tag="p" />
         </div>
       </section>
 
@@ -101,18 +86,12 @@ const chapters = [
       <section id="chapter-3" class="scroll-mt-20">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">3.</span>
-          <span data-i18n="about.chapters.3.title">coding, languages, and the ADHD grindset</span>
+          <T key="about.chapters.3.title" />
         </h2>
         <div class="prose dark:prose-invert max-w-none space-y-4">
-          <p data-i18n="about.chapters.3.content1">
-            I don't do well with rigid routines or neat timelines. ADHD means my brain moves fast, loops endlessly, hyperfocuses randomly at 2am, forgets to eat for a day straight, and sometimes drowns in noise. Sensitivity to noise also makes me go insane sometimes. But it also means I'm deeply curious. Obsessively so. I don't "dabble" in things, rather I throw myself in. I don't multitask, it's just that I live in parallel tabs.
-          </p>
-          <p data-i18n="about.chapters.3.content2">
-            Coding, for me, is both chaos and comfort. It gives structure to thoughts that refuse to sit still. It gives me the power to make something that works, something that reflects a part of my mind that can never fully be verbalized. And language? That's the other half of the puzzle. I switch between Vietnamese, English, Russian, and sometimes Turkish or Danish, not because I want to show off, but because different languages unlock different selves. Different emotions. Different memories. English is my sharpest blade. Vietnamese is my heartbeat. Russian is my melancholy. Turkish is the thrill of newness. Danish is… well, still in progress.
-          </p>
-          <p data-i18n="about.chapters.3.content3">
-            And yeah, I write messy, but I write real. I code imperfectly, but intentionally. Everything you see here was built with that same energy.
-          </p>
+          <T key="about.chapters.3.content1" tag="p" />
+          <T key="about.chapters.3.content2" tag="p" />
+          <T key="about.chapters.3.content3" tag="p" />
         </div>
       </section>
 
@@ -120,22 +99,16 @@ const chapters = [
       <section id="chapter-4" class="scroll-mt-20">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">4.</span>
-          <span data-i18n="about.chapters.4.title">activism and being too real online</span>
+          <T key="about.chapters.4.title" />
         </h2>
         <div class="prose dark:prose-invert max-w-none space-y-4">
-          <p data-i18n="about.chapters.4.content1">
-            I'm not an influencer. I'm not a loud voice on a picket line. But I believe in accountability, in empathy, in building spaces where people feel seen, not just tolerated. My activism is quiet, sometimes invisible. It shows up in the things I build, the conversations I have, and the way I refuse to dilute my truth just to make someone comfortable.
-          </p>
-          <p data-i18n="about.chapters.4.content2">
-            It's in calling out injustice when it's safer to stay silent. It's in amplifying marginalized voices, even when I feel like mine is already whisper-thin. It's in the saying:
-          </p>
+          <T key="about.chapters.4.content1" tag="p" />
+          <T key="about.chapters.4.content2" tag="p" />
           <blockquote class="border-l-4 border-primary pl-4 italic my-6">
-            <p data-i18n="about.chapters.4.quote">"I don't have all the answers, but I'm still going to try."</p>
-            <cite class="text-sm text-muted-foreground not-italic" data-i18n="about.chapters.4.quoteTooltip">— yeah I said it lol</cite>
+            <T key="about.chapters.4.quote" tag="p" />
+            <T key="about.chapters.4.quoteTooltip" tag="cite" class="text-sm text-muted-foreground not-italic" />
           </blockquote>
-          <p data-i18n="about.chapters.4.content3">
-            Sometimes I vanish for weeks. Sometimes I overshare at 3am. Sometimes I post a cat meme and follow it with a quote I randomly make up. I contain multitudes.
-          </p>
+          <T key="about.chapters.4.content3" tag="p" />
         </div>
       </section>
 
@@ -143,21 +116,13 @@ const chapters = [
       <section id="chapter-5" class="scroll-mt-20">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">5.</span>
-          <span data-i18n="about.chapters.5.title">where i'm headed</span>
+          <T key="about.chapters.5.title" />
         </h2>
         <div class="prose dark:prose-invert max-w-none space-y-4">
-          <p data-i18n="about.chapters.5.content1">
-            I'm not here to sell you a personal brand or pretend I've got my life all figured out. Because I really don't. Most days, I'm just trying to balance being functional, being kind, and being honest. But I do know what matters to me.
-          </p>
-          <p data-i18n="about.chapters.5.content2">
-            I want to keep creating. Keep writing. Keep learning languages that make my brain buzz. I want to build tools that matter, not just get likes. I want to travel to the places where history, language, and identity tangle together. I want to leave behind things that feel warm, useful, and human. Not polished perfection, but stories and scraps that make people feel less alone.
-          </p>
-          <p data-i18n="about.chapters.5.content3">
-            I want peace. Not just the absence of chaos, but the kind of peace that comes from knowing who you are, what you've been through, and what you've chosen to leave behind.
-          </p>
-          <p data-i18n="about.chapters.5.content4">
-            If you're here reading this, then part of you resonates with that. Welcome. Make yourself at home. Just watch your step, some of the thoughts on this site are still under construction.
-          </p>
+          <T key="about.chapters.5.content1" tag="p" />
+          <T key="about.chapters.5.content2" tag="p" />
+          <T key="about.chapters.5.content3" tag="p" />
+          <T key="about.chapters.5.content4" tag="p" />
         </div>
       </section>
 
@@ -165,21 +130,13 @@ const chapters = [
       <section id="chapter-6" class="scroll-mt-20 hidden-chapter hidden">
         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">6.</span>
-          <span data-i18n="about.chapters.6.title">i'm not done yet</span>
+          <T key="about.chapters.6.title" />
         </h2>
         <div class="prose dark:prose-invert max-w-none space-y-4 italic text-muted-foreground">
-          <p data-i18n="about.chapters.6.content1">
-            so here's the part they weren't supposed to read.
-          </p>
-          <p data-i18n="about.chapters.6.content2">
-            i'm still angry. still grieving a version of myself that was never allowed to exist. still waking up some days wondering why everything feels a few degrees off. sometimes i think about running away, just disappearing, new name, new city, new language. sometimes i almost do it.
-          </p>
-          <p data-i18n="about.chapters.6.content3">
-            there are days i don't even feel human. more like a memory trying to solidify. more like an echo of something softer i can't reach anymore. other days, i'm electric. i feel every detail, sunlight on skin, quiet playlists, the way people's faces shift when they're finally safe enough to be themselves. it keeps me alive, somehow.
-          </p>
-          <p class="font-medium text-foreground not-italic" data-i18n="about.chapters.6.content4">
-            i'm not done becoming whoever the hell i'm supposed to be. but i am done pretending that i'm okay with staying silent.
-          </p>
+          <T key="about.chapters.6.content1" tag="p" />
+          <T key="about.chapters.6.content2" tag="p" />
+          <T key="about.chapters.6.content3" tag="p" />
+          <T key="about.chapters.6.content4" tag="p" class="font-medium text-foreground not-italic" />
         </div>
       </section>
     </div>
@@ -194,21 +151,6 @@ const chapters = [
 </BaseLayout>
 
 <script>
-  // i18n client-side translation updates
-  import { languageStore, t, initLanguage } from '@/i18n';
-
-  function updateTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-  }
-
   // Check for hidden chapter reveal
   function checkHiddenChapter() {
     const showHidden = sessionStorage.getItem('showHiddenChapter') === 'true';
@@ -219,16 +161,5 @@ const chapters = [
     }
   }
 
-  // Initialize and update on language change
-  initLanguage();
-  updateTranslations();
   checkHiddenChapter();
-
-  languageStore.subscribe(() => {
-    updateTranslations();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateTranslations();
-  });
 </script>

@@ -4,6 +4,7 @@
 
 import { navItems, navLabels } from "@/lib/constants";
 import { isActivePath } from "@/lib/utils";
+import T from "@/components/T.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import MusicToggle from "@/components/MusicToggle.astro";
@@ -41,7 +42,7 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
                 ]}
                 aria-current={isActive ? "page" : undefined}
               >
-                <span data-i18n={`nav.${item.key}`}>{navLabels[item.key]}</span>
+                <T key={`nav.${item.key}`} />
                 {isActive && (
                   <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true"></div>
                 )}
