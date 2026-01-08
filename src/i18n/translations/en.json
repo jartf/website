@@ -371,7 +371,14 @@
     "enjoycat": "While you're lost, enjoy this cat:"
   },
   "scrapbook": {
-    "title": "Devlog"
+    "title": "Devlog",
+    "description": "Some development logs when I was building this site."
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "Common pages available on this site, following the",
+    "linkText": "slash pages",
+    "descriptionEnd": "convention."
   },
   "webrings": {
     "title": "Webrings",
