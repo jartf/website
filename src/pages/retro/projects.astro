@@ -3,13 +3,13 @@ import RetroLayout from "@/layouts/RetroLayout.astro";
 import { projects } from "@/content/project-items";
 ---
 
-<RetroLayout title="Projects - Jarema's Retro Site">
+<RetroLayout title="Projects - Jarema's retro site">
   <!-- Page title -->
   <center>
-    <font size="5" color="#000080">
-      <b>💻 Projects</b>
+    <font size="5">
+      <b>Projects</b>
     </font>
-    <hr width="50%">
+    <hr style="width: 50%">
     <font size="2">
       <i>Things I've built and worked on</i>
     </font>
@@ -19,12 +19,12 @@ import { projects } from "@/content/project-items";
 
   <!-- Projects list -->
   {projects.filter(p => !p.hidden).map((project, index) => (
-    <table width="100%" border="0" cellpadding="10" cellspacing="0" bgcolor={index % 2 === 0 ? '#ffffff' : '#f5f5f5'} style="border: 2px groove #808080; margin-bottom: 10px;">
+    <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px groove #808080; margin-bottom: 10px;">
       <tr>
         <td>
-          <font size="3" color="#000080">
+          <font size="3">
             <b>
-              💻 {project.content.en.title}
+              {project.content.en.title}
             </b>
           </font>
           <br>
@@ -38,7 +38,7 @@ import { projects } from "@/content/project-items";
             <b>Category:</b> {project.category}
           </font>
           <br>
-          <font size="1">
+          <font size="2">
             Tags: {project.tags.map((tag, i) => (
               <span>
                 [{tag}]
@@ -53,33 +53,10 @@ import { projects } from "@/content/project-items";
 
   <hr>
 
-  <!-- GitHub CTA -->
-  <center>
-    <table border="0" cellpadding="10" cellspacing="0" bgcolor="#f5f5f5" style="border: 2px solid #333;">
-      <tr>
-        <td align="center">
-          <font size="3">
-            <b>🐙 More on GitHub</b>
-          </font>
-          <br>
-          <font size="2">
-            Check out more of my work on GitHub!
-            <br><br>
-            <a href="https://github.com/0x4a656666">
-              <b>[View My GitHub Profile]</b>
-            </a>
-          </font>
-        </td>
-      </tr>
-    </table>
-  </center>
-
-  <br>
-
   <!-- Back link -->
   <center>
     <font size="2">
-      <a href="/retro/">&lt;&lt; Back to Homepage</a>
+      <a href="/retro/">&lt;&lt; Back to homepage</a>
     </font>
   </center>
 </RetroLayout>

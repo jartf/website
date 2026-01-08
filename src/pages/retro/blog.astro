@@ -1,10 +1,10 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 // Get all blog posts and sort by date
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const allPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => !data.draft);
+const posts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
 <RetroLayout title="Blog - Jarema's Retro Site">
@@ -30,9 +30,9 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
         <b>All posts ({posts.length})</b>
       </font>
 
-      <table width="100%" border="1" cellpadding="5" cellspacing="0" bgcolor="#f5f5f5" style="margin-top: 10px;">
-        <tr bgcolor="#000080">
-          <th align="left" width="120">
+      <table width="100%" border="1" cellpadding="5" cellspacing="0" style="margin-top: 10px;">
+        <tr style="background-color: #000080;">
+          <th align="left" style="width: 120px;">
             <font size="3" color="#ffffff">Date</font>
           </th>
           <th align="left">
@@ -40,11 +40,11 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
           </th>
         </tr>
 
-        {posts.map((post) => (
+        {posts.map((post: CollectionEntry<'blog'>) => (
           <tr>
-            <td width="120" valign="top">
+            <td style="width: 120px; vertical-align: top;">
               <font size="2">
-                {new Date(post.data.date).toLocaleDateString('en-US', {
+                {new Date(post.data.date).toLocaleDateString('en-GB', {
                   year: 'numeric',
                   month: 'short',
                   day: 'numeric',
@@ -59,7 +59,7 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
                 {post.data.excerpt && (
                   <>
                     <br>
-                    <font size="2" color="#808080">
+                    <font size="2" color="#dddddd">
                       {post.data.excerpt.length > 150
                         ? post.data.excerpt.substring(0, 150) + '...'
                         : post.data.excerpt
@@ -71,7 +71,7 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
                   <>
                     <br>
                     <font size="1">
-                      Tags: {post.data.tags.map((tag, i) => (
+                      Tags: {post.data.tags.map((tag: string, i: number) => (
                         <span>
                           [{tag}]
                           {i < (post.data.tags?.length ?? 0) - 1 ? ' ' : ''}
@@ -91,7 +91,7 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
   <br>
 
   <!-- RSS feed -->
-  <table width="100%" border="0" cellpadding="10" cellspacing="0" bgcolor="#fff3cd" style="border: 2px solid #ff9800;">
+  <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px solid #ff9800;">
     <tr>
       <td align="center">
         <font size="3" color="#e65100">

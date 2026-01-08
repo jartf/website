@@ -9,7 +9,7 @@ import { USES_CATEGORIES, usesDescriptions } from "@/content/uses-items";
     <font size="5">
       <b>Uses</b>
     </font>
-    <hr width="50%">
+    <hr style="width: 50%">
     <font size="2">
       <i>
         A <a href="https://uses.tech/">uses page</a> listing my tools and tech
@@ -25,6 +25,8 @@ import { USES_CATEGORIES, usesDescriptions } from "@/content/uses-items";
     </font>
   </p>
 
+  <br>
+
   <!-- Uses categories -->
   {USES_CATEGORIES.map((category) => (
     <>
@@ -34,10 +36,12 @@ import { USES_CATEGORIES, usesDescriptions } from "@/content/uses-items";
         </b>
       </font>
 
-      <table width="100%" border="1" cellpadding="5" cellspacing="0" bgcolor="#f5f5f5" style="margin-bottom: 15px;">
-        <tr bgcolor="#c0c0c0">
-          <th width="30%" align="left"><font size="2">Name</font></th>
-          <th width="70%" align="left"><font size="2">Description</font></th>
+      <br><br>
+
+      <table width="100%" border="1" cellpadding="5" cellspacing="0" style="margin-bottom: 15px;">
+        <tr style="background-color: #000080;">
+          <th style="width: 35%;" align="left"><font size="2">Name</font></th>
+          <th style="width: 65%;" align="left"><font size="2">Description</font></th>
         </tr>
         {category.items.map((item) => (
           <tr>

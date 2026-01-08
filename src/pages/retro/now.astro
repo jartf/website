@@ -3,7 +3,7 @@ import RetroLayout from "@/layouts/RetroLayout.astro";
 import { nowItems } from "@/content/now-items";
 ---
 
-<RetroLayout title="Now - Jarema's Retro Site">
+<RetroLayout title="Now - Jarema's retro site">
   <!-- Page title -->
   <center>
     <font size="5">
@@ -22,13 +22,13 @@ import { nowItems } from "@/content/now-items";
   <p>
     <font size="3">
       This page shows what I'm currently focused on in life.
-      It's updated periodically to reflect my current priorities and activities.
+      It's updated periodically.
     </font>
   </p>
 
   <!-- Now items -->
   {nowItems.map((item) => (
-    <table width="100%" border="0" cellpadding="10" cellspacing="0" bgcolor="#f5f5f5" style="border: 2px inset #808080; margin-bottom: 10px;">
+    <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px inset #808080; margin-bottom: 10px;">
       <tr>
         <td>
           <font size="3">
@@ -39,7 +39,7 @@ import { nowItems } from "@/content/now-items";
             {item.content.en}
           </font>
           <br>
-          <font size="1" color="#808080">
+          <font size="1" color="#bbbbbb">
             <i>Updated: {new Date(item.date).toLocaleDateString('en-GB')}</i>
           </font>
         </td>
@@ -51,7 +51,7 @@ import { nowItems } from "@/content/now-items";
 
   <!-- Last updated -->
   <center>
-    <font size="2" color="#808080">
+    <font size="2">
       <i>
         Last updated: {new Date().toLocaleDateString('en-GB', {
           year: 'numeric',
