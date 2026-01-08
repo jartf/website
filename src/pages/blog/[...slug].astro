@@ -84,7 +84,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
       {post.data.alternates && post.data.alternates.length > 0 && (
         <div class="mt-4 p-3 rounded-lg bg-muted/50 border">
-          <span class="text-sm text-muted-foreground" data-i18n="blog.availableIn">Also available in: </span>
+          <span class="text-sm text-muted-foreground" data-i18n="blog.availableIn">This page is also available in: </span>
           {post.data.alternates.map((alt: { slug: string; language: string }, i: number) => (
             <>
               <a
