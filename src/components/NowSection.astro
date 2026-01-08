@@ -116,8 +116,9 @@ function getCategoryTranslation(category: string): string {
         const tracks = doc.getElementsByTagName("track");
 
         if (tracks.length > 0) {
-          const track =(t) => t.getAttribute("nowplaying") === "true") || tracks[0];
-          const nowplaying = track?.getAttribute("nowplaying") === "true";          const name = track?.getElementsByTagName("name")[0]?.textContent || "";
+          const track = Array.from(tracks).find((t) => t.getAttribute("nowplaying") === "true") || tracks[0];
+          const nowplaying = track?.getAttribute("nowplaying") === "true";
+          const name = track?.getElementsByTagName("name")[0]?.textContent || "";
           const artist = track?.getElementsByTagName("artist")[0]?.textContent || "";
           const url = track?.getElementsByTagName("url")[0]?.textContent || "";
 
