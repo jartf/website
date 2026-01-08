@@ -18,7 +18,6 @@ const posts = allPosts.sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blo
 // Get unique values for filters
 const uniqueMoods = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.mood).filter(Boolean))] as string[];
 const uniqueCategories = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.category).filter(Boolean))] as string[];
-const uniqueTags = [...new Set(posts.flatMap((p: CollectionEntry<"blog">) => p.data.tags || []).filter(Boolean))] as string[];
 const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.language || 'en'))] as string[];
 ---
 
@@ -202,7 +201,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
 
       <!-- Blog Posts List -->
       <div class="space-y-6" id="blog-posts">
-        {posts.map((post: CollectionEntry<"blog">, index: number) => (
+        {posts.map((post: CollectionEntry<"blog">) => (
           <article
             class="border rounded-lg overflow-hidden bg-card transition-all duration-300 hover:shadow-md hover:border-primary/50 group blog-post"
             data-title={post.data.title.toLowerCase()}

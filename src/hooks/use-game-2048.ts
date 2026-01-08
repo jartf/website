@@ -141,7 +141,6 @@ export const moveRight = (board: GameBoard): MoveResult => {
   const tileAnimations: TileAnimations = {}
 
   for (let i = 0; i < 4; i++) {
-    const originalRow = [...newBoard[i]]
     let row = newBoard[i].filter((val) => val !== 0)
     const mergedIndices: number[] = []
 

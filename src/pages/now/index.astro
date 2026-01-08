@@ -81,14 +81,6 @@ const sortedItems = [...nowItems].sort((a, b) =>
 <script>
   import { languageStore, t, initLanguage } from '@/i18n';
 
-  interface LastfmTrack {
-    name: string;
-    artist: string;
-    url: string;
-    nowplaying: boolean;
-    date?: string;
-  }
-
   interface PremidActivity {
     name: string;
     details?: string;
@@ -191,8 +183,6 @@ const sortedItems = [...nowItems].sort((a, b) =>
 
       // If we have live data, prepend it
       if (liveItems.length > 0) {
-        const lang = languageStore.get();
-
         // Remove static items that conflict with live data
         const staticArticles = Array.from(container.querySelectorAll('article'));
         staticArticles.forEach(article => {

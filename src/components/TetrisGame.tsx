@@ -490,7 +490,7 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
   } | null>(null)
   const [nextPiece, setNextPiece] = useState<TetrominoType>(getRandomTetromino())
   const [score, setScore] = useState(0)
-  const [lines, setLines] = useState(0)
+  const [, setLines] = useState(0)
   const [level, setLevel] = useState(1)
   const [gameOver, setGameOver] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
@@ -917,10 +917,6 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
       })
     }
   }, [isMusicPlaying, currentTrackIndex])
-
-  const playNextTrack = useCallback(() => {
-    setCurrentTrackIndex(prev => (prev + 1) % MUSIC_PLAYLIST.length)
-  }, [])
 
   // Render the board with current piece
   const renderBoard = () => {

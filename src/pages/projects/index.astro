@@ -1,7 +1,7 @@
 ---
 // Projects Page with i18n and flip cards
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { projects, type Project } from "@/content/project-items";
+import { projects } from "@/content/project-items";
 
 // Filter out hidden projects
 const visibleProjects = projects.filter(p => !p.hidden);

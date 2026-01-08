@@ -50,14 +50,6 @@ const displayItems = nowItems.slice(0, 3);
 <script>
   import { languageStore, t } from '@/i18n';
 
-  interface LastfmTrack {
-    name: string;
-    artist: string;
-    url: string;
-    nowplaying: boolean;
-    date?: string;
-  }
-
   interface PremidActivity {
     name: string;
     details?: string;
@@ -139,7 +131,6 @@ const displayItems = nowItems.slice(0, 3);
 
       // If we have live data, update the container
       if (items.length > 0) {
-        const lang = languageStore.get();
         const staticItems = Array.from(container.querySelectorAll('article'))
           .map(article => ({
             category: article.getAttribute('data-category'),

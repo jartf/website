@@ -30,7 +30,8 @@ export function TranslatedText({
 
 // Simpler hook for use in other components
 export function useT() {
-  const lang = useStore(languageStore);
+  // Subscribe to language store to trigger re-renders on language change
+  useStore(languageStore);
 
   return (key: string, params?: Record<string, string | number>) => {
     return t(key, params);

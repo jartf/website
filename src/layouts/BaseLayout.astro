@@ -27,20 +27,6 @@ const {
 
 const siteUrl = "https://jarema.me";
 const fullTitle = isHomePage ? title : `${title} | Jarema's digital garden`;
-
-// Generate alternate feeds
-const feedTypes = [
-  { type: "rss", mime: "application/rss+xml" },
-  { type: "atom", mime: "application/atom+xml" },
-];
-
-const jsonFeeds = [
-  { url: `${siteUrl}/feed.json`, title: "Jarema's digital garden - JSON Feed" },
-  ...supportedLanguages.map((lang) => ({
-    url: `${siteUrl}/feed/${lang}.json`,
-    title: `Jarema's digital garden - ${lang.toUpperCase()} JSON Feed`,
-  })),
-];
 ---
 
 <!doctype html>
