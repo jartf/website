@@ -166,7 +166,7 @@ The site is deployed using Vercel, `vercel.json` adapter is configured for stati
 
 ## License
 
-**TL;DR: You are free to use, modify, redistribute, and sell the source code and the content on this website, provided proper attribution is given back to me.**
+**TL;DR: You are free to use, modify, redistribute, and sell the source code and the content on this website, provided proper attribution is given back to me. Attribution should include a link to my website (https://jarema.me).**
 
 This repository is dual-licensed.
 
