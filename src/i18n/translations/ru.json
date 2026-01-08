@@ -171,6 +171,7 @@
     "back": "Назад к списку блога",
     "showingPosts": "Показано {{current}} из {{total}} постов",
     "minRead": "минут(ы) чтения",
+    "rss": "RSS-лента",
     "subscribeRSS": "Подписаться через RSS",
     "allPosts": "Лента всех записей",
     "languageFeeds": "Ленты по языкам",

@@ -164,10 +164,11 @@
     "back": "Quay lại danh sách blog",
     "showingPosts": "Đang hiển thị {{current}} trên tổng số {{total}} bài viết",
     "minRead": "phút đọc",
+    "rss": "Nguồn cấp tin RSS",
     "subscribeRSS": "Đăng ký qua RSS",
-    "allPosts": "Nguồn cấp tin tất cả bài viết",
+    "allPosts": "Nguồn tin cho tất cả bài viết",
     "languageFeeds": "Nguồn cấp tin theo ngôn ngữ",
-    "rssDescription": "Đăng ký nguồn cấp tin RSS của mình trên trình đọc yêu thích để nhận thông báo về bài viết mới.",
+    "rssDescription": "Đăng ký nguồn tin RSS của mình trên trình đọc bạn thích để nhận thông báo về bài viết mới.",
     "availableIn": "Trang này cũng được viết trong",
     "comments": "Bình luận"
   },

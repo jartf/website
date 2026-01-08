@@ -164,6 +164,7 @@
     "back": "Powrót do listy bloga",
     "showingPosts": "Wyświetlono {{current}} z {{total}} wpisów",
     "minRead": "min czytania",
+    "rss": "Kanał RSS",
     "subscribeRSS": "Subskrybuj przez RSS",
     "allPosts": "Kanał wszystkich wpisów",
     "languageFeeds": "Kanały dla poszczególnych języków",

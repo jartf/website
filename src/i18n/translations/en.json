@@ -171,6 +171,7 @@
     "back": "Back to blog list",
     "showingPosts": "Showing {{current}} of {{total}} posts",
     "minRead": "min read",
+    "rss": "RSS feed",
     "subscribeRSS": "Subscribe via RSS",
     "allPosts": "Feed of all posts",
     "languageFeeds": "Language-specific feeds",

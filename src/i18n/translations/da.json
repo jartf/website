@@ -175,6 +175,7 @@
     "back": "Tilbage til bloglisten",
     "showingPosts": "Viser {{current}} ud af {{total}} opslag",
     "minRead": "minutters læsning",
+    "rss": "RSS-feed",
     "subscribeRSS": "Abonner via RSS",
     "allPosts": "Feed med alle indlæg",
     "languageFeeds": "Sprogspecifikke feeds",

@@ -164,6 +164,7 @@
     "back": "Takaisin blogilistaan",
     "showingPosts": "Näytetään {{current}} / {{total}} kirjoitusta",
     "minRead": "min lukuaika",
+    "rss": "RSS-syöte",
     "subscribeRSS": "Tilaa RSS-syöte",
     "allPosts": "Kaikkien julkaisujen syöte",
     "languageFeeds": "Kielikohtaiset syötteet",
