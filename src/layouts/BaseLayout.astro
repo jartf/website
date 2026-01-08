@@ -2,7 +2,7 @@
 // Base Layout for website
 
 import "@/styles/globals.css";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Galaxy from "@/components/Galaxy.astro";
@@ -59,7 +59,9 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <title>{fullTitle}</title>
     <meta name="title" content={fullTitle} />
     <meta name="description" content={description} />
-    <meta name="keywords" content="Jarema, jartf, digital garden, personal website, blog, economics, coding, tech, multilingual, student, cat, personal blog, digital playground, independent blog, independent writer, indie web, technology, now page, about page, personal reflections, ideas, thoughts, observation journal, how to build a personal site, economics and coding personal site" />
+    <meta name="keywords"
+      content="Jarema, jartf, digital garden, personal website, blog, economics, coding, tech, multilingual, student, cat, personal blog, digital playground, independent blog, independent writer, indie web, technology, now page, about page, personal reflections, ideas, thoughts, observation journal, how to build a personal site, economics and coding personal site"
+    />
     <meta name="author" content="Jarema" />
 
     <!-- Favicons -->
@@ -115,8 +117,8 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <!-- hreflang tags -->
     <link rel="canonical" href={Astro.url.href} />
     {hrefLangLanguages.map((lang) => (
-      <link rel="alternate" hreflang={lang.code} href={Astro.url.href} />
-    ))}
+        <link rel="alternate" hreflang={lang.code} href={Astro.url.href} />
+      ))}
     <link rel="alternate" hreflang="x-default" href={Astro.url.href} />
 
     <!-- Google Fonts -->
@@ -125,11 +127,11 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
 
     <!-- View Transitions for smooth page navigation -->
-    <ViewTransitions />
+    <ClientRouter />
 
     <!-- Theme initialization script (runs before page render) -->
     <script is:inline>
-      (function() {
+      (function () {
         try {
           const stored = localStorage.getItem("theme");
           const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -147,7 +149,7 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
 
     <!-- Language initialization script (runs before page render) -->
     <script is:inline>
-      (function() {
+      (function () {
         try {
           const stored = localStorage.getItem("i18nextLng");
           const lang = stored || "en";
@@ -165,7 +167,7 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     </script>
 
     <script is:inline>
-      (function() {
+      (function () {
         try {
           const host = location.hostname;
 

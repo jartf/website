@@ -1,5 +1,5 @@
 ---
-// Homepage - Astro version with full i18n support
+// Homepage
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { routes } from "@/lib/constants";
@@ -44,7 +44,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
           </div>
         </div>
 
-        <!-- Main Content Grid -->
+        <!-- Main content grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 items-start lg:min-h-[490px]">
           <div class="lg:order-2">
             <NowSection />
@@ -64,21 +64,21 @@ import RecentPosts from "@/components/RecentPosts.astro";
             </h2>
             <nav class="border rounded-lg p-4 bg-card divide-y text-sm" aria-label="Webring navigation">
               {webringItems.map((ring) => (
-                <div class="flex items-center justify-between py-2 lg:py-2 xl:py-2.25 first:pt-0 last:pb-0">
-                  <a href={ring.url} class="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">
-                    {ring.name}
-                  </a>
-                  <div class="flex items-center gap-2" role="group" aria-label={`Navigate ${ring.name}`}>
-                    <a href={ring.previous} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Previous site in ${ring.name}`} title="Previous">←</a>
-                    {ring.random ? (
-                      <a href={ring.random} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Random site in ${ring.name}`} title="Random">🎲</a>
-                    ) : (
-                      <span class="px-2 py-1 invisible" aria-hidden="true">🎲</span>
-                    )}
-                    <a href={ring.next} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Next site in ${ring.name}`} title="Next">→</a>
+                  <div class="flex items-center justify-between py-2 lg:py-2 xl:py-2.25 first:pt-0 last:pb-0">
+                    <a href={ring.url} class="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">
+                      {ring.name}
+                    </a>
+                    <div class="flex items-center gap-2" role="group" aria-label={`Navigate ${ring.name}`}>
+                      <a href={ring.previous} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Previous site in ${ring.name}`} title="Previous">←</a>
+                      {ring.random ? (
+                        <a href={ring.random} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Random site in ${ring.name}`} title="Random">🎲</a>
+                      ) : (
+                        <span class="px-2 py-1 invisible" aria-hidden="true">🎲</span>
+                      )}
+                      <a href={ring.next} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" aria-label={`Next site in ${ring.name}`} title="Next">→</a>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </nav>
           </section>
         </div>
@@ -105,29 +105,29 @@ import RecentPosts from "@/components/RecentPosts.astro";
 </BaseLayout>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+  import { languageStore, initLanguage } from "@/i18n";
 
   // Time-based greeting emoji update
   function updateGreetingEmoji() {
     const hour = new Date().getHours();
-    const emojiEl = document.getElementById('greeting-emoji');
+    const emojiEl = document.getElementById("greeting-emoji");
     if (!emojiEl) return;
 
-    let emoji = '🌅';
-    let greetingKey = 'greetings.morning';
+    let emoji = "🌅";
+    let greetingKey = "greetings.morning";
 
     if (hour >= 5 && hour < 12) {
-      emoji = '🌅';
-      greetingKey = 'greetings.morning';
+      emoji = "🌅";
+      greetingKey = "greetings.morning";
     } else if (hour >= 12 && hour < 17) {
-      emoji = '☀️';
-      greetingKey = 'greetings.afternoon';
+      emoji = "☀️";
+      greetingKey = "greetings.afternoon";
     } else if (hour >= 17 && hour < 21) {
-      emoji = '🌆';
-      greetingKey = 'greetings.evening';
+      emoji = "🌆";
+      greetingKey = "greetings.evening";
     } else {
-      emoji = '🌙';
-      greetingKey = 'greetings.night';
+      emoji = "🌙";
+      greetingKey = "greetings.night";
     }
 
     emojiEl.textContent = emoji;
@@ -135,13 +135,13 @@ import RecentPosts from "@/components/RecentPosts.astro";
     // Update the T component's key
     const greetingTComponent = document.querySelector('#greeting [data-t-key="greetings.morning"]');
     if (greetingTComponent) {
-      greetingTComponent.setAttribute('data-t-key', greetingKey);
+      greetingTComponent.setAttribute("data-t-key", greetingKey);
       // Trigger update
-      const currentLang = window.__INITIAL_LANG__ || 'en';
+      const currentLang = window.__INITIAL_LANG__ || "en";
       const translations = (window as any).__I18N_TRANSLATIONS__;
       if (translations && translations[currentLang] && translations[currentLang].greetings) {
-        const translated = translations[currentLang].greetings[greetingKey.split('.')[1]] ||
-                          translations.en.greetings[greetingKey.split('.')[1]];
+        const translated = translations[currentLang].greetings[greetingKey.split(".")[1]] ||
+          translations.en.greetings[greetingKey.split(".")[1]];
         if (translated) {
           greetingTComponent.textContent = translated;
         }
@@ -151,7 +151,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
 
   // Use pre-detected language if available
   const initialLang = (window as any).__INITIAL_LANG__;
-  if (initialLang && initialLang !== 'en') {
+  if (initialLang && initialLang !== "en") {
     languageStore.set(initialLang);
   } else {
     initLanguage();
@@ -164,7 +164,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
     updateGreetingEmoji();
   });
 
-  window.addEventListener('languageChange', () => {
+  window.addEventListener("languageChange", () => {
     updateGreetingEmoji();
   });
 </script>

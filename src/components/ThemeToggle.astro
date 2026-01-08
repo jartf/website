@@ -26,48 +26,48 @@
 </button>
 
 <script>
-    // Theme toggle logic
+  // Theme toggle logic
   function initThemeToggle() {
     const button = document.getElementById("theme-toggle");
     const darkIcon = document.getElementById("theme-toggle-dark-icon");
     const lightIcon = document.getElementById("theme-toggle-light-icon");
-  if (!button || !darkIcon || !lightIcon) return;
+    if (!button || !darkIcon || !lightIcon) return;
 
-  function updateIcons(isDark: boolean) {
+    function updateIcons(isDark: boolean) {
       if (isDark) {
-        darkIcon.classList.add("hidden");
-        lightIcon.classList.remove("hidden");
+        darkIcon!.classList.add("hidden");
+        lightIcon!.classList.remove("hidden");
       } else {
-        darkIcon.classList.remove("hidden");
-        lightIcon.classList.add("hidden");
+        darkIcon!.classList.remove("hidden");
+        lightIcon!.classList.add("hidden");
+      }
     }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains("dark");
+      const newTheme = isDark ? "light" : "dark";
+
+      localStorage.setItem("theme", newTheme);
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(newTheme);
+      document.documentElement.style.colorScheme = newTheme;
+
+      updateIcons(newTheme === "dark");
+      button!.setAttribute("aria-label", `Switch to ${newTheme === "dark" ? "light" : "dark"} mode`);
+      button!.setAttribute("title", `Switch to ${newTheme === "dark" ? "light" : "dark"} mode`);
+    }
+
+    // Initialize icons based on current theme
+    const currentTheme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+    updateIcons(currentTheme === "dark");
+    button!.setAttribute("aria-label", `Switch to ${currentTheme === "dark" ? "light" : "dark"} mode`);
+    button!.setAttribute("title", `Switch to ${currentTheme === "dark" ? "light" : "dark"} mode`);
+
+    // Remove existing listener to avoid duplicates
+    button.replaceWith(button.cloneNode(true));
+    const newButton = document.getElementById("theme-toggle");
+    newButton?.addEventListener("click", toggleTheme);
   }
-
-  function toggleTheme() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const newTheme = isDark ? "light" : "dark";
-
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(newTheme);
-    document.documentElement.style.colorScheme = newTheme;
-
-    updateIcons(newTheme === "dark");
-    button.setAttribute("aria-label", `Switch to ${newTheme === "dark" ? "light" : "dark"} mode`);
-    button.setAttribute("title", `Switch to ${newTheme === "dark" ? "light" : "dark"} mode`);
-  }
-
-  // Initialize icons based on current theme
-  const currentTheme = document.documentElement.classList.contains("dark") ? "dark" : "light";
-  updateIcons(currentTheme === "dark");
-  button.setAttribute("aria-label", `Switch to ${currentTheme === "dark" ? "light" : "dark"} mode`);
-  button.setAttribute("title", `Switch to ${currentTheme === "dark" ? "light" : "dark"} mode`);
-
-  // Remove existing listener to avoid duplicates
-  button.replaceWith(button.cloneNode(true));
-  const newButton = document.getElementById("theme-toggle");
-  newButton?.addEventListener("click", toggleTheme);
-   }
 
   // Initialize on page load
   initThemeToggle();

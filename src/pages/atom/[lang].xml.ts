@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { supportedLanguages } from "@/lib/constants";
+import { supportedLanguages, type SupportedLanguage } from "@/lib/constants";
 import { getAtomResponse } from "@/lib/feed";
 
 export async function getStaticPaths() {
@@ -9,9 +9,9 @@ export async function getStaticPaths() {
 export const GET: APIRoute = async ({ params }) => {
   const lang = params.lang;
   const validLangCodes = supportedLanguages.map((l) => l.code);
-  if (!lang || !validLangCodes.includes(lang)) {
+  if (!lang || !validLangCodes.includes(lang as SupportedLanguage)) {
     return new Response("Not found", { status: 404 });
   }
 
-  return getAtomResponse(lang as any);
+  return getAtomResponse(lang as SupportedLanguage);
 };

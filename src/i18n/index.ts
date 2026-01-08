@@ -1,5 +1,5 @@
 // i18n configuration and utilities
-import { atom, computed, onMount } from "nanostores";
+import { atom, computed } from "nanostores";
 import { supportedLanguages, type SupportedLanguage } from "@/lib/constants";
 
 // Global window types for i18n
