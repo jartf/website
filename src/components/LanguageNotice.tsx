@@ -8,11 +8,18 @@ import { completedLanguages } from "@/lib/constants";
 export function LanguageNotice() {
   const currentLang = useStore(languageStore);
   const [mounted, setMounted] = useState(false);
+  const STORAGE_KEY = "languageNoticeDismissed";
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     initLanguage();
     setMounted(true);
+    try {
+      const dismissed = localStorage.getItem(STORAGE_KEY);
+      if (dismissed === "true") setVisible(false);
+    } catch (err) {
+      // ignore localStorage errors (e.g., SSR or blocked storage)
+    }
   }, []);
 
   const isComplete = useMemo(() => {
@@ -28,7 +35,14 @@ export function LanguageNotice() {
         <AlertCircle className="h-5 w-5 mr-3 flex-shrink-0" />
         <p className="text-sm">{t("languageNotice.message")}</p>
         <button
-          onClick={() => setVisible(false)}
+          onClick={() => {
+            setVisible(false);
+            try {
+              localStorage.setItem(STORAGE_KEY, "true");
+            } catch (err) {
+              // ignore localStorage errors
+            }
+          }}
           className="ml-4 p-1 rounded-full hover:bg-amber-200 dark:hover:bg-amber-800 transition-colors"
           aria-label={t("languageNotice.dismiss")}
         >
