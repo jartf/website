@@ -1,6 +1,7 @@
 ---
 // Homepage - Astro version with full i18n support
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
 import { routes } from "@/lib/constants";
 import { webringItems } from "@/content/webring-items";
 import MoodCat from "@/components/MoodCat.astro";
@@ -15,32 +16,28 @@ import RecentPosts from "@/components/RecentPosts.astro";
         <!-- Hero Section -->
         <div class="relative pt-10 pb-10 mb-8">
           <div class="text-center">
-            <p class="text-lg text-muted-foreground mb-2" id="greeting" data-i18n="greetings.morning">👋 Good morning, traveler.</p>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" data-i18n="home.heading">
-              hi there, i'm Jarema
-            </h1>
-            <p class="text-lg md:text-xl text-muted-foreground mb-8" data-i18n="home.subheading">
-              Economics major, sometimes coder, most times cat whisperer.
-            </p>
+            <p class="text-lg text-muted-foreground mb-2" id="greeting"><span id="greeting-emoji">👋</span> <T key="greetings.morning" /></p>
+            <T key="home.heading" tag="h1" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" />
+            <T key="home.subheading" tag="p" class="text-lg md:text-xl text-muted-foreground mb-8" />
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
               <a href={routes.contact}>
                 <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
-                  <span data-i18n="home.contactButton">Contact me</span>
+                  <T key="home.contactButton" />
                 </button>
               </a>
               <a href={routes.about}>
                 <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                  <span data-i18n="home.aboutButton">About me</span>
+                  <T key="home.aboutButton" />
                 </button>
               </a>
               <a href={routes.blog}>
                 <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                  <span data-i18n="home.blogButton">Read my blog</span>
+                  <T key="home.blogButton" />
                 </button>
               </a>
               <a href={routes.guestbook}>
                 <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                  <span data-i18n="home.guestbookButton">Sign my guestbook</span>
+                  <T key="home.guestbookButton" />
                 </button>
               </a>
             </div>
@@ -61,8 +58,8 @@ import RecentPosts from "@/components/RecentPosts.astro";
 
           <section aria-labelledby="webrings-heading" class="flex flex-col">
             <h2 id="webrings-heading" class="text-2xl font-bold mb-4 text-center">
-              <a href="/webrings/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit" data-i18n="webrings.title">
-                Webrings
+              <a href="/webrings/" tabindex="-1" class="no-underline hover:underline focus:underline" style="color:inherit">
+                <T key="webrings.title" />
               </a>
             </h2>
             <nav class="border rounded-lg p-4 bg-card divide-y text-sm" aria-label="Webring navigation">
@@ -89,7 +86,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
         <!-- Current Mood -->
         <div>
           <section class="mt-10" aria-labelledby="current-mood-heading">
-            <h2 id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" data-i18n="home.currentMood">Current mood</h2>
+            <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
             <div class="border rounded-lg p-6 bg-card text-center">
               <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer">
                 <img
@@ -110,58 +107,46 @@ import RecentPosts from "@/components/RecentPosts.astro";
 <script>
   import { languageStore, t, initLanguage } from '@/i18n';
 
-  // Time-based greeting with i18n
-  function updateGreeting() {
+  // Time-based greeting emoji update
+  function updateGreetingEmoji() {
     const hour = new Date().getHours();
-    const greetingEl = document.getElementById('greeting');
-    if (!greetingEl) return;
+    const emojiEl = document.getElementById('greeting-emoji');
+    if (!emojiEl) return;
 
-    let greetingKey = 'greetings.morning';
     let emoji = '🌅';
+    let greetingKey = 'greetings.morning';
 
     if (hour >= 5 && hour < 12) {
-      greetingKey = 'greetings.morning';
       emoji = '🌅';
+      greetingKey = 'greetings.morning';
     } else if (hour >= 12 && hour < 17) {
-      greetingKey = 'greetings.afternoon';
       emoji = '☀️';
+      greetingKey = 'greetings.afternoon';
     } else if (hour >= 17 && hour < 21) {
-      greetingKey = 'greetings.evening';
       emoji = '🌆';
+      greetingKey = 'greetings.evening';
     } else {
-      greetingKey = 'greetings.night';
       emoji = '🌙';
+      greetingKey = 'greetings.night';
     }
 
-    const greeting = t(greetingKey);
-    greetingEl.textContent = `${emoji} ${greeting}`;
-    greetingEl.setAttribute('data-greeting-key', greetingKey);
-  }
+    emojiEl.textContent = emoji;
 
-  function updateTranslations() {
-    // Batch DOM reads and writes for better performance
-    const updates: Array<{ el: Element; text: string }> = [];
-
-    // Read phase
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key && el.textContent !== translated) {
-          updates.push({ el, text: translated });
+    // Update the T component's key
+    const greetingTComponent = document.querySelector('#greeting [data-t-key="greetings.morning"]');
+    if (greetingTComponent) {
+      greetingTComponent.setAttribute('data-t-key', greetingKey);
+      // Trigger update
+      const currentLang = window.__INITIAL_LANG__ || 'en';
+      const translations = (window as any).__I18N_TRANSLATIONS__;
+      if (translations && translations[currentLang] && translations[currentLang].greetings) {
+        const translated = translations[currentLang].greetings[greetingKey.split('.')[1]] ||
+                          translations.en.greetings[greetingKey.split('.')[1]];
+        if (translated) {
+          greetingTComponent.textContent = translated;
         }
       }
-    });
-
-    // Write phase - batched DOM updates
-    requestAnimationFrame(() => {
-      updates.forEach(({ el, text }) => {
-        el.textContent = text;
-      });
-    });
-
-    // Update time-based greeting
-    updateGreeting();
+    }
   }
 
   // Use pre-detected language if available
@@ -172,14 +157,14 @@ import RecentPosts from "@/components/RecentPosts.astro";
     initLanguage();
   }
 
-  updateGreeting();
-  updateTranslations();
+  updateGreetingEmoji();
 
+  // Listen for language changes to update dynamic greeting
   languageStore.subscribe(() => {
-    updateTranslations();
+    updateGreetingEmoji();
   });
 
   window.addEventListener('languageChange', () => {
-    updateTranslations();
+    updateGreetingEmoji();
   });
 </script>
