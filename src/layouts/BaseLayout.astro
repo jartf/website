@@ -24,32 +24,32 @@ const {
   title = "Jarema's digital garden",
   description = "A personal playground and digital garden for Jarema, featuring some blog posts, some content about economics, coding, and occasional catposting too.",
   isHomePage = false,
-  lang = 'en',
+  lang = "en",
 } = Astro.props;
 
 const siteUrl = "https://jarema.me";
 const fullTitle = isHomePage ? title : `${title} - Jarema's digital garden`;
 // Map site language codes to Open Graph locale values
 const ogLocaleMap: Record<string, string> = {
-  en: 'en_US',
-  vi: 'vi_VN',
-  vih: 'vi_VN',
-  zh: 'zh_CN',
-  ru: 'ru_RU',
-  da: 'da_DK',
-  et: 'et_EE',
-  tr: 'tr_TR',
-  pl: 'pl_PL',
-  sv: 'sv_SE',
-  fi: 'fi_FI',
-  tok: 'en_US',
+  en: "en_US",
+  vi: "vi_VN",
+  vih: "vi_VN",
+  zh: "zh_CN",
+  ru: "ru_RU",
+  da: "da_DK",
+  et: "et_EE",
+  tr: "tr_TR",
+  pl: "pl_PL",
+  sv: "sv_SE",
+  fi: "fi_FI",
+  tok: "en_US",
 };
 
-const ogLocale = ogLocaleMap[lang] ?? 'en_US';
+const ogLocale = ogLocaleMap[lang] ?? "en_US";
 ---
 
 <!doctype html>
-<html lang={lang === 'vih' ? 'vi' : lang} class="dark">
+<html lang={lang === "vih" ? "vi" : lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -107,15 +107,15 @@ const ogLocale = ogLocaleMap[lang] ?? 'en_US';
     <!-- Alternate language feeds -->
     {supportedLanguages.map((lang) => (
       <>
-        <link rel="alternate" type="application/rss+xml" href={`${siteUrl}/rss/${lang}.xml`} title={`RSS Feed - ${lang.toUpperCase()}`} hreflang={lang} />
-        <link rel="alternate" type="application/atom+xml" href={`${siteUrl}/atom/${lang}.xml`} title={`Atom Feed - ${lang.toUpperCase()}`} hreflang={lang} />
+        <link rel="alternate" type="application/rss+xml" href={`${siteUrl}/rss/${lang.code}.xml`} title={`RSS Feed - ${lang.code.toUpperCase()}`} hreflang={lang.code} />
+        <link rel="alternate" type="application/atom+xml" href={`${siteUrl}/atom/${lang.code}.xml`} title={`Atom Feed - ${lang.code.toUpperCase()}`} hreflang={lang.code} />
       </>
     ))}
 
     <!-- hreflang tags -->
     <link rel="canonical" href={Astro.url.href} />
     {hrefLangLanguages.map((lang) => (
-      <link rel="alternate" hreflang={lang} href={Astro.url.href} />
+      <link rel="alternate" hreflang={lang.code} href={Astro.url.href} />
     ))}
     <link rel="alternate" hreflang="x-default" href={Astro.url.href} />
 
@@ -131,20 +131,16 @@ const ogLocale = ogLocaleMap[lang] ?? 'en_US';
     <script is:inline>
       (function() {
         try {
-          const stored = localStorage.getItem('theme');
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const theme = stored === 'dark' || stored === 'light'
-            ? stored
-            : (stored === 'system' || !stored)
-              ? (prefersDark ? 'dark' : 'light')
-              : 'dark';
-          document.documentElement.classList.remove('light', 'dark');
+          const stored = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme = stored === "dark" || stored === "light" ? stored : stored === "system" || !stored ? prefersDark ? "dark" : "light" : "dark";
+          document.documentElement.classList.remove("light", "dark");
           document.documentElement.classList.add(theme);
           document.documentElement.style.colorScheme = theme;
         } catch (e) {
           // Fallback to system preference
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.classList.add(prefersDark ? 'dark' : 'light');
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.add(prefersDark ? "dark" : "light");
         }
       })();
     </script>
@@ -153,25 +149,17 @@ const ogLocale = ogLocaleMap[lang] ?? 'en_US';
     <script is:inline>
       (function() {
         try {
-          const stored = localStorage.getItem('i18nextLng');
-          const browserLang = navigator.language.split('-')[0];
-          const supportedLangs = ['en', 'vi', 'ru', 'et', 'da', 'tr', 'zh', 'pl', 'sv', 'fi', 'tok', 'vih'];
-
-          let lang = 'en';
-          if (stored && supportedLangs.includes(stored)) {
-            lang = stored;
-          } else if (supportedLangs.includes(browserLang)) {
-            lang = browserLang;
-          }
+          const stored = localStorage.getItem("i18nextLng");
+          const lang = stored || "en";
 
           // Set lang attribute immediately
-          document.documentElement.lang = lang === 'vih' ? 'vi' : lang;
+          document.documentElement.lang = lang === "vih" ? "vi" : lang;
 
           // Store the detected language for quick access
           window.__INITIAL_LANG__ = lang;
         } catch (e) {
-          window.__INITIAL_LANG__ = 'en';
-          document.documentElement.lang = 'en';
+          window.__INITIAL_LANG__ = "en";
+          document.documentElement.lang = "en";
         }
       })();
     </script>
@@ -183,27 +171,27 @@ const ogLocale = ogLocaleMap[lang] ?? 'en_US';
 
           // Don't load analytics on development
           if (
-            host === 'localhost' ||
-            host === '127.0.0.1' ||
-            host === '::1' ||
-            host === '0.0.0.0' ||
-            host.startsWith('127.')
+            host === "localhost" ||
+            host === "127.0.0.1" ||
+            host === "::1" ||
+            host === "0.0.0.0" ||
+            host.startsWith("127.")
           ) {
             return;
           }
 
           // Default website ID for jarema.me
-          let siteId = '2e9dfa41-fbe7-4799-9adb-0a57b8141a54';
+          let siteId = "2e9dfa41-fbe7-4799-9adb-0a57b8141a54";
 
           // If running on z.is-a.dev use the alternate website ID
-          if (host === 'z.is-a.dev' || host.endsWith('.z.is-a.dev')) {
-            siteId = 'bea729d4-bbf9-494e-a4d9-bcbf2a2ab2f3';
+          if (host === "z.is-a.dev" || host.endsWith(".z.is-a.dev")) {
+            siteId = "bea729d4-bbf9-494e-a4d9-bcbf2a2ab2f3";
           }
 
-          const s = document.createElement('script');
+          const s = document.createElement("script");
           s.defer = true;
-          s.src = '/stats/script.js';
-          s.setAttribute('data-website-id', siteId);
+          s.src = "/stats/script.js";
+          s.setAttribute("data-website-id", siteId);
           document.head.appendChild(s);
         } catch (e) {
           // Silence errors during script injection

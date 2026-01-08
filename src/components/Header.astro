@@ -2,7 +2,7 @@
 // Static Header component
 // Interactive features (theme toggle, language toggle) are handled by React islands
 
-import { navItems, navLabels } from "@/lib/constants";
+import { navItems } from "@/lib/constants";
 import { isActivePath } from "@/lib/utils";
 import T from "@/components/T.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
@@ -38,13 +38,13 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
                 data-nav-item="true"
                 class:list={[
                   "text-sm transition-colors hover:text-primary whitespace-nowrap",
-                  isActive ? "text-foreground font-medium" : "text-muted-foreground"
+                  isActive ? "text-foreground font-medium" : "text-muted-foreground",
                 ]}
                 aria-current={isActive ? "page" : undefined}
               >
                 <T key={`nav.${item.key}`} />
                 {isActive && (
-                  <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true"></div>
+                  <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true"/>
                 )}
               </a>
             );
@@ -55,7 +55,7 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
 
     <div class="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
       <!-- Language Toggle (React Island for interactivity) -->
-      <LanguageToggle client:only="react" />
+      <LanguageToggle client:only="react" transition:persist />
 
       <!-- Theme Toggle (React Island for interactivity) -->
       <ThemeToggle />
@@ -96,11 +96,11 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
               href={item.href}
               class:list={[
                 "text-sm transition-colors hover:text-primary block py-2",
-                isActive ? "text-foreground font-medium" : "text-muted-foreground"
+                isActive ? "text-foreground font-medium" : "text-muted-foreground",
               ]}
               aria-current={isActive ? "page" : undefined}
             >
-              {navLabels[item.key]}
+              <T key={`nav.${item.key}`} />
             </a>
           );
         })}
@@ -110,40 +110,40 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
 </header>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+  import { languageStore, t, initLanguage } from "@/i18n";
 
   // Mobile menu toggle
-  const menuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const menuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
 
   if (menuButton && mobileMenu) {
-    menuButton.addEventListener('click', () => {
-      const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-      menuButton.setAttribute('aria-expanded', String(!isOpen));
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
 
       if (isOpen) {
-        mobileMenu.classList.add('translate-x-full');
-        mobileMenu.classList.remove('translate-x-0');
+        mobileMenu.classList.add("translate-x-full");
+        mobileMenu.classList.remove("translate-x-0");
       } else {
-        mobileMenu.classList.remove('translate-x-full');
-        mobileMenu.classList.add('translate-x-0');
+        mobileMenu.classList.remove("translate-x-full");
+        mobileMenu.classList.add("translate-x-0");
       }
     });
 
     // Close menu when clicking a link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuButton.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.add('translate-x-full');
-        mobileMenu.classList.remove('translate-x-0');
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menuButton.setAttribute("aria-expanded", "false");
+        mobileMenu.classList.add("translate-x-full");
+        mobileMenu.classList.remove("translate-x-0");
       });
     });
   }
 
   // i18n translation updates
   function updateTranslations() {
-    document.querySelectorAll('header [data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
+    document.querySelectorAll("header [data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
       if (key) {
         const translated = t(key);
         if (translated !== key) {
@@ -160,7 +160,7 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
     updateTranslations();
   });
 
-  window.addEventListener('languageChange', () => {
+  window.addEventListener("languageChange", () => {
     updateTranslations();
   });
 </script>

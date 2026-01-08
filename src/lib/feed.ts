@@ -1,5 +1,11 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { hrefLangLanguages, languageNames, siteDescription, siteName, siteUrl } from "@/lib/constants";
+import { hrefLangLanguages, supportedLanguages, siteDescription, siteName, siteUrl } from "@/lib/constants";
+
+// Helper to get language name from code
+function getLanguageName(code: string): string {
+  const lang = supportedLanguages.find((l) => l.code === code);
+  return lang ? lang.name : code.toUpperCase();
+}
 
 export interface FeedPost {
   slug: string;
@@ -44,10 +50,10 @@ interface FeedOptions {
 
 export function generateRSSFeed({ posts, title, description, language, feedUrl }: FeedOptions): string {
   const languageLinks = hrefLangLanguages
-    .filter((l) => l !== language)
+    .filter((l) => l.code !== language)
     .map(
       (l) =>
-        `  <atom:link href="${siteUrl}/rss/${l}.xml" rel="alternate" type="application/rss+xml" hreflang="${l}" />`
+        `  <atom:link href="${siteUrl}/rss/${l.code}.xml" rel="alternate" type="application/rss+xml" hreflang="${l.code}" />`,
     )
     .join("\n");
 
@@ -82,10 +88,10 @@ ${languageLinks}${items}
 
 export function generateAtomFeed({ posts, title, description, language, feedUrl }: FeedOptions): string {
   const languageLinks = hrefLangLanguages
-    .filter((l) => l !== language)
+    .filter((l) => l.code !== language)
     .map(
       (l) =>
-        `  <link href="${siteUrl}/atom/${l}.xml" rel="alternate" type="application/atom+xml" hreflang="${l}" />`
+        `  <link href="${siteUrl}/atom/${l.code}.xml" rel="alternate" type="application/atom+xml" hreflang="${l.code}" />`,
     )
     .join("\n");
 
@@ -100,7 +106,7 @@ export function generateAtomFeed({ posts, title, description, language, feedUrl 
     <updated>${new Date(post.date).toISOString()}</updated>
     <summary type="html">${escapeXml(post.excerpt)}</summary>
     ${post.tags?.map((tag) => `<category term="${escapeXml(tag)}"/>`).join("\n    ") || ""}
-  </entry>`
+  </entry>`,
     )
     .join("");
 
@@ -153,9 +159,9 @@ export async function getRSSResponse(language?: string) {
     ? allPosts.filter((p) => p.language === language || (language === "en" && (!p.language || p.language === "en")))
     : allPosts;
 
-  const title = language && language !== "en" ? `${siteName} - ${languageNames[language] || language}` : siteName;
+  const title = language && language !== "en" ? `${siteName} - ${getLanguageName(language)}` : siteName;
   const description =
-    language && language !== "en" ? `${siteDescription} - ${languageNames[language] || language}` : siteDescription;
+    language && language !== "en" ? `${siteDescription} - ${getLanguageName(language)}` : siteDescription;
   const feedUrl = language ? `${siteUrl}/rss/${language}.xml` : `${siteUrl}/rss.xml`;
 
   return new Response(generateRSSFeed({ posts, title, description, language: language || "en", feedUrl }), {
@@ -191,9 +197,9 @@ export async function getJSONFeedResponse(language?: string) {
     return new Response("No posts found for this language", { status: 404 });
   }
 
-  const title = language && language !== "en" ? `${siteName} - ${languageNames[language] || language}` : siteName;
+  const title = language && language !== "en" ? `${siteName} - ${getLanguageName(language)}` : siteName;
   const description =
-    language && language !== "en" ? `${siteDescription} - ${languageNames[language] || language}` : siteDescription;
+    language && language !== "en" ? `${siteDescription} - ${getLanguageName(language)}` : siteDescription;
 
   const feedUrl = language ? `${siteUrl}/feed/${language}.json` : `${siteUrl}/feed.json`;
 

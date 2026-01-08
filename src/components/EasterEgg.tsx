@@ -51,7 +51,7 @@ export const EasterEgg = memo(function EasterEgg() {
 
   const allLanguagesVisited = useMemo(() => {
     if (!mounted) return false;
-    return supportedLanguages.every((lang) => visited.has(lang));
+    return supportedLanguages.every((lang) => visited.has(lang.code));
   }, [mounted, visited]);
 
   useEffect(() => {
