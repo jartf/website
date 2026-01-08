@@ -313,7 +313,7 @@ If you come across an issue or notice something that could be improved, feel fre
 
 ## License
 
-**TL;DR: You are free to use, modify, redistribute, and sell the source code and the content on this website, provided proper attribution is given back to me.**
+**TL;DR: You are free to use, modify, redistribute, and sell the source code and the content on this website, provided proper attribution is given back to me. Attribution should include a link to my website (https://jarema.me).**
 
 This repository is dual-licensed.
 
