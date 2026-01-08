@@ -172,11 +172,40 @@ const ogLocale = ogLocaleMap[lang] ?? 'en_US';
       })();
     </script>
 
-    <script
-      defer
-      src="/stats/script.js"
-      data-website-id="2e9dfa41-fbe7-4799-9adb-0a57b8141a54"
-    ></script>
+    <script is:inline>
+      (function() {
+        try {
+          const host = location.hostname;
+
+          // Don't load analytics on development
+          if (
+            host === 'localhost' ||
+            host === '127.0.0.1' ||
+            host === '::1' ||
+            host === '0.0.0.0' ||
+            host.startsWith('127.')
+          ) {
+            return;
+          }
+
+          // Default website ID for jarema.me
+          let siteId = '2e9dfa41-fbe7-4799-9adb-0a57b8141a54';
+
+          // If running on z.is-a.dev use the alternate website ID
+          if (host === 'z.is-a.dev' || host.endsWith('.z.is-a.dev')) {
+            siteId = 'bea729d4-bbf9-494e-a4d9-bcbf2a2ab2f3';
+          }
+
+          const s = document.createElement('script');
+          s.defer = true;
+          s.src = '/stats/script.js';
+          s.setAttribute('data-website-id', siteId);
+          document.head.appendChild(s);
+        } catch (e) {
+          // Silence errors during script injection
+        }
+      })();
+    </script>
 
     <style>
       .emoji-flag {
