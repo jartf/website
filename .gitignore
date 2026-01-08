@@ -1,3 +1,6 @@
+# Copied from astro's .gitignore file
+# Source: https://github.com/withastro/astro/blob/main/.gitignore
+
 node_modules/
 dist/
 *.tsbuildinfo

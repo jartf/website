@@ -1,4 +1,4 @@
-# Jarema's digital garden, version 5
+# Jarema's digital garden, version 5 (Astro)
 
 A personal website built with [Astro](https://astro.build), migrated from Next.js.
 
@@ -166,10 +166,12 @@ The site is deployed using Vercel, `vercel.json` adapter is configured for stati
 
 ## License
 
+**TL;DR: You are free to use, modify, redistribute, and sell the source code and the content on this website, provided proper attribution is given back to me.**
+
 This repository is dual-licensed.
 
 All source code is licensed under the [MIT License](LICENSE).
 
-All non-code content (text, posts, essays, documentation, photos, and other material if any) is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
+All non-code content, such as text, posts, essays, documentation, photos, videos, and other materials, is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
 
-You are free to use, modify, redistribute, and sell both, provided proper attribution is given.
+These licenses do not apply to third-party libraries, assets, or content included in the project. Third-party components and assets are subject to their own respective licenses.
