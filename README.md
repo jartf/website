@@ -109,7 +109,7 @@ The site supports dark and light modes:
 **12 languages** supported: English, Tiếng Việt, Русский, Eesti, Dansk, 中文, Türkçe, Polski, Svenska, Suomi, toki pona, 漢喃
 
 - Translations in `src/i18n/translations/*.json`
-- Use `data-i18n="key.path"` attribute for client-side translation
+- Import the T component and use it for client-side translation
 - Language state managed via `languageStore` nanostore
 - Language detection from browser or localStorage
 
