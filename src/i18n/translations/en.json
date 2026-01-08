@@ -58,7 +58,14 @@
   },
   "guestbook": {
     "title": "Guestbook",
-    "description": "Leave a message on my guestbook!"
+    "description": "Leave a message on my guestbook!",
+    "noscript": {
+      "requiresJs": "The guestbook requires JavaScript to be enabled.",
+      "alternative": "Alternatively, you can",
+      "email": "email me"
+    },
+    "poweredBy": "Powered by",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "About me",
