@@ -1,6 +1,7 @@
 ---
 // Now Page - what I'm currently doing
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
 import { nowItems } from "@/content/now-items";
 
 // Icon mapping
@@ -25,10 +26,8 @@ const sortedItems = [...nowItems].sort((a, b) =>
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-3xl mx-auto">
       <header class="text-center mb-10">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="now.title">Now</h1>
-        <p class="text-muted-foreground text-lg max-w-xl mx-auto" data-i18n="now.description">
-          What I'm doing, thinking about, and focusing on right now.
-        </p>
+        <T key="now.title" tag="h1" class="text-4xl md:text-5xl font-bold mb-4" />
+        <T key="now.description" tag="p" class="text-muted-foreground text-lg max-w-xl mx-auto" />
         <p class="text-sm text-muted-foreground/70 mt-4">
           <span data-i18n="now.lastUpdated">Last updated</span>: <span id="last-updated-date">{sortedItems.length > 0 ? new Date(sortedItems[0].date).toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</span>
         </p>
@@ -36,7 +35,7 @@ const sortedItems = [...nowItems].sort((a, b) =>
 
       <!-- What is a /now page? -->
       <div class="mb-8 p-6 border rounded-lg bg-muted/30">
-        <h2 class="font-semibold mb-2" data-i18n="now.whatIsNow">What is a /now page?</h2>
+        <T key="now.whatIsNow" tag="h2" class="font-semibold mb-2" />
         <p class="text-muted-foreground text-sm">
           <span data-i18n="now.whatIsNowDescription">A now page is a page on a personal website that tells you what a person is focused on at the current time, day, or very recently. You can learn more at</span>
           {" "}

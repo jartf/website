@@ -1,6 +1,7 @@
 ---
 // Uses Page - tech and tools I use with i18n support
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
 import { USES_CATEGORIES } from "@/content/uses-items";
 import { t } from "@/i18n";
 
@@ -28,7 +29,7 @@ const categoryIcons: Record<string, string> = {
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-6xl mx-auto">
       <header class="mb-10 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="uses.title">Uses</h1>
+        <T key="uses.title" tag="h1" class="text-4xl md:text-5xl font-bold mb-4" />
         <p class="text-muted-foreground text-lg max-w-xl mx-auto">
           <span data-i18n="uses.description">All the things I use on a daily basis. Also available on</span>
           {" "}

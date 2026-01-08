@@ -1,16 +1,15 @@
 ---
 // Guestbook Page with atabook
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
 ---
 
 <BaseLayout title="Guestbook" description="Leave a message in my guestbook!">
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-2xl mx-auto">
       <header class="mb-8 text-center">
-        <h1 class="text-4xl font-bold mb-4" data-i18n="guestbook.title">Guestbook</h1>
-        <p class="text-muted-foreground" data-i18n="guestbook.description">
-          Leave a message on my guestbook!
-        </p>
+        <T key="guestbook.title" tag="h1" class="text-4xl font-bold mb-4" />
+        <T key="guestbook.description" tag="p" class="text-muted-foreground" />
       </header>
 
       <!-- Atabook guestbook iframe -->
@@ -40,30 +39,3 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     </div>
   </div>
 </BaseLayout>
-
-<script>
-  import { languageStore, t, initLanguage } from '@/i18n';
-
-  function updateTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-  }
-
-  initLanguage();
-  updateTranslations();
-
-  languageStore.subscribe(() => {
-    updateTranslations();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateTranslations();
-  });
-</script>
