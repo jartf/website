@@ -7,7 +7,7 @@ import { supportedLanguages } from "@/i18n";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  return posts.map((post) => ({
+  return posts.map((post: CollectionEntry<"blog">) => ({
     params: { slug: post.slug },
     props: { post },
   }));
@@ -21,11 +21,11 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 
 // Get all posts for navigation
-const allPosts = await getCollection("blog", ({ data }) => !data.draft);
-const sortedPosts = allPosts.sort((a, b) =>
+const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
+const sortedPosts = allPosts.sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
   new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
-const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
+const currentIndex = sortedPosts.findIndex((p: CollectionEntry<"blog">) => p.slug === post.slug);
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 ---
@@ -70,7 +70,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
       {post.data.tags && post.data.tags.length > 0 && (
         <div class="flex gap-2 flex-wrap mt-4">
-          {post.data.tags.map((tag) => (
+          {post.data.tags.map((tag: string) => (
             <span class="text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
               {tag}
             </span>
@@ -85,7 +85,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       {post.data.alternates && post.data.alternates.length > 0 && (
         <div class="mt-4 p-3 rounded-lg bg-muted/50 border">
           <span class="text-sm text-muted-foreground" data-i18n="blog.availableIn">Also available in: </span>
-          {post.data.alternates.map((alt, i) => (
+          {post.data.alternates.map((alt: { slug: string; language: string }, i: number) => (
             <>
               <a
                 href={`/blog/${alt.slug}/`}
@@ -152,6 +152,15 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
 <script>
   import { languageStore, t, initLanguage } from '@/i18n';
+
+  // Declare CUSDIS on window
+  declare global {
+    interface Window {
+      CUSDIS?: {
+        initial: () => void;
+      };
+    }
+  }
 
   // Initialize i18n
   initLanguage();

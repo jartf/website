@@ -3,7 +3,7 @@ import { domainHashes } from "@/lib/constants";
 
 export const prerender = false;
 
-const TEXT_HEADERS = { "Content-Type": "text/plain" };
+const TEXT_HEADERS: HeadersInit = { "Content-Type": "text/plain" };
 
 export const GET: APIRoute = async ({ request }) => {
   const host = request.headers.get("host") || "";

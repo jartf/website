@@ -1,7 +1,7 @@
 ---
 // Blog listing page with i18n support
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { supportedLanguages } from "@/i18n";
 
 // Create language names map from supportedLanguages
@@ -10,16 +10,16 @@ const languageNames: Record<string, string> = Object.fromEntries(
 );
 
 // Get all blog posts, sorted by date
-const allPosts = await getCollection("blog", ({ data }) => !data.draft);
-const posts = allPosts.sort((a, b) =>
+const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
+const posts = allPosts.sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
   new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 
 // Get unique values for filters
-const uniqueMoods = [...new Set(posts.map(p => p.data.mood).filter(Boolean))];
-const uniqueCategories = [...new Set(posts.map(p => p.data.category).filter(Boolean))];
-const uniqueTags = [...new Set(posts.flatMap(p => p.data.tags || []).filter(Boolean))];
-const uniqueLanguages = [...new Set(posts.map(p => p.data.language || 'en'))];
+const uniqueMoods = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.mood).filter(Boolean))] as string[];
+const uniqueCategories = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.category).filter(Boolean))] as string[];
+const uniqueTags = [...new Set(posts.flatMap((p: CollectionEntry<"blog">) => p.data.tags || []).filter(Boolean))] as string[];
+const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.language || 'en'))] as string[];
 ---
 
 <BaseLayout title="Blog" description="Read my thoughts on economics, coding, and life.">
@@ -202,7 +202,7 @@ const uniqueLanguages = [...new Set(posts.map(p => p.data.language || 'en'))];
 
       <!-- Blog Posts List -->
       <div class="space-y-6" id="blog-posts">
-        {posts.map((post, index) => (
+        {posts.map((post: CollectionEntry<"blog">, index: number) => (
           <article
             class="border rounded-lg overflow-hidden bg-card transition-all duration-300 hover:shadow-md hover:border-primary/50 group blog-post"
             data-title={post.data.title.toLowerCase()}
@@ -279,7 +279,7 @@ const uniqueLanguages = [...new Set(posts.map(p => p.data.language || 'en'))];
                     {post.data.category}
                   </span>
                 )}
-                {post.data.tags?.map((tag) => (
+                {post.data.tags?.map((tag: string) => (
                   <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded border text-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>

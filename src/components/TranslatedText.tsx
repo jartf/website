@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ElementType } from 'react';
 import { useStore } from '@nanostores/react';
 import { languageStore, t } from '@/i18n';
 
@@ -6,7 +6,7 @@ interface TranslatedTextProps {
   i18nKey: string;
   fallback?: string;
   params?: Record<string, string | number>;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
   className?: string;
 }
 

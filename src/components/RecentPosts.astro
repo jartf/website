@@ -1,6 +1,6 @@
 ---
 // Recent Posts component with i18n
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 interface BlogPost {
   slug: string;
@@ -16,9 +16,9 @@ let posts: BlogPost[] = [];
 try {
   const blogPosts = await getCollection("blog");
   posts = blogPosts
-    .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+    .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
     .slice(0, 3)
-    .map((post) => ({
+    .map((post: CollectionEntry<'blog'>) => ({
       slug: post.slug,
       title: post.data.title,
       excerpt: post.data.excerpt || "No excerpt available",

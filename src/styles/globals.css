@@ -305,7 +305,6 @@
 
 /* Badge pixelated rendering */
 .pixelated {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: pixelated;
+  image-rendering: -webkit-optimize-contrast; /* Edge 79+, Chrome, Safari */
+  image-rendering: pixelated; /* Standard fallback */
 }
