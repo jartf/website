@@ -3,6 +3,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { nowItems } from "@/content/now-items";
+import { translations } from "@/i18n";
 
 // Icon mapping
 const iconMap: Record<string, string> = {
@@ -17,19 +18,29 @@ const iconMap: Record<string, string> = {
 };
 
 // Sort items by date descending
-const sortedItems = [...nowItems].sort((a, b) =>
-  new Date(b.date).getTime() - new Date(a.date).getTime()
+const sortedItems = [...nowItems].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
 );
+
+// Helper function to get category translation
+function getCategoryTranslation(category: string): string {
+  return translations.en.now?.categories?.[category] || category;
+}
 ---
 
 <BaseLayout title="Now" description="What I'm currently up to, thinking about, and focused on.">
-  <div class="container mx-auto px-4 py-8 lg:py-12">
+  <div class="container mx-auto px-4 py-8 lg:py-12" id="now-page">
     <div class="max-w-3xl mx-auto">
       <header class="text-center mb-10">
         <T key="now.title" tag="h1" class="text-4xl font-bold mb-4" />
         <T key="now.description" tag="p" class="text-muted-foreground text-lg mx-auto" />
         <p class="text-sm text-muted-foreground/70 mt-4">
-          <span data-i18n="now.lastUpdated">Last updated</span>: <span id="last-updated-date">{sortedItems.length > 0 ? new Date(sortedItems[0].date).toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</span>
+          <span data-i18n="now.lastUpdated">Last updated</span>: <time id="last-updated-date"
+            data-date={sortedItems.length > 0 ? sortedItems[0].date : ""}
+            datetime={sortedItems.length > 0 ? sortedItems[0].date : ""}
+            >{
+              sortedItems.length > 0
+                ? new Date(sortedItems[0].date).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", }) : ""
+            }</time>
         </p>
       </header>
 
@@ -45,40 +56,41 @@ const sortedItems = [...nowItems].sort((a, b) =>
 
       <div class="grid gap-6" id="now-items-container">
         {sortedItems.map((item) => (
-          <article class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow" data-category={item.category}>
-            <div class="flex items-start gap-4">
-              <span class="text-3xl flex-shrink-0" aria-hidden="true">
-                {iconMap[item.icon] || "📌"}
-              </span>
-              <div class="flex-1 min-w-0">
-                <h2 class="font-semibold text-lg mb-2" data-i18n={`now.categories.${item.category}`}>
-                  {item.category}
-                </h2>
-                <p
-                  class="now-text"
-                  data-now-content={JSON.stringify(item.content)}
-                >
-                  {item.content.en}
-                </p>
-                <time
-                  class="text-xs text-muted-foreground/70 mt-3 block"
-                  datetime={item.date}
-                  data-date={item.date}
-                >
-                  {new Date(item.date).toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short' })}
-                </time>
+            <article class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow" data-category={item.category} data-now-content={JSON.stringify(item.content)}>
+              <div class="flex items-start gap-4">
+                <span class="text-3xl flex-shrink-0" aria-hidden="true">
+                  {iconMap[item.icon] || "📌"}
+                </span>
+                <div class="flex-1 min-w-0">
+                  <h2 class="font-semibold text-lg mb-2" data-i18n={`now.categories.${item.category}`}>
+                    {getCategoryTranslation(item.category)}
+                  </h2>
+                  <p class="now-text">{item.content.en}</p>
+                  <time
+                    class="text-xs text-muted-foreground/70 mt-3 block"
+                    datetime={item.date}
+                    data-date={item.date}
+                  >
+                    {new Date(item.date).toLocaleDateString("en", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      timeZoneName: "short",
+                    })}
+                  </time>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
       </div>
-
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+  import { languageStore, t } from "@/i18n";
 
   interface PremidActivity {
     name: string;
@@ -110,9 +122,9 @@ const sortedItems = [...nowItems].sort((a, b) =>
       html += '<div class="relative w-12 h-12 flex-shrink-0">';
       html += `<img src="${activity.assets.large_image}" alt="${activity.assets.large_text || activity.name}" class="w-12 h-12 rounded-lg" loading="lazy" />`;
       if (activity.assets?.small_image) {
-        html += `<img src="${activity.assets.small_image}" alt="${activity.assets.small_text || ''}" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" loading="lazy" />`;
+        html += `<img src="${activity.assets.small_image}" alt="${activity.assets.small_text || ""}" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" loading="lazy" />`;
       }
-      html += '</div>';
+      html += "</div>";
     }
 
     html += '<div class="flex-1 min-w-0 overflow-hidden">';
@@ -123,19 +135,22 @@ const sortedItems = [...nowItems].sort((a, b) =>
     if (activity.state) {
       html += `<p class="text-sm text-muted-foreground break-words">${activity.state}</p>`;
     }
-    html += '</div></div>';
+    html += "</div></div>";
 
     return html;
   }
 
   async function enhanceWithLiveData() {
-    const container = document.getElementById('now-items-container');
+    const page = document.getElementById("now-page");
+    if (!page) return;
+
+    const container = document.getElementById("now-items-container");
     if (!container) return;
 
     try {
       const [lastfmRes, premidRes] = await Promise.all([
-        fetch('/api/lastfm').catch(() => null),
-        fetch('/api/premid').catch(() => null),
+        fetch("/api/lastfm").catch(() => null),
+        fetch("/api/premid").catch(() => null),
       ]);
 
       const liveItems: any[] = [];
@@ -143,25 +158,25 @@ const sortedItems = [...nowItems].sort((a, b) =>
       // Parse Last.fm
       if (lastfmRes?.ok) {
         const xml = await lastfmRes.text();
-        const doc = new window.DOMParser().parseFromString(xml, 'application/xml');
-        const tracks = doc.getElementsByTagName('track');
+        const doc = new window.DOMParser().parseFromString(xml, "application/xml");
+        const tracks = doc.getElementsByTagName("track");
 
         if (tracks.length > 0) {
-          const track = Array.from(tracks).find(t => t.getAttribute('nowplaying') === 'true') || tracks[0];
-          const nowplaying = track?.getAttribute('nowplaying') === 'true';
-          const name = track?.getElementsByTagName('name')[0]?.textContent || '';
-          const artist = track?.getElementsByTagName('artist')[0]?.textContent || '';
-          const url = track?.getElementsByTagName('url')[0]?.textContent || '';
+          const track = Array.from(tracks).find((t) => t.getAttribute("nowplaying") === "true",) || tracks[0];
+          const nowplaying = track?.getAttribute("nowplaying") === "true";
+          const name = track?.getElementsByTagName("name")[0]?.textContent || "";
+          const artist = track?.getElementsByTagName("artist")[0]?.textContent || "";
+          const url = track?.getElementsByTagName("url")[0]?.textContent || "";
 
           if (name && artist) {
             liveItems.push({
-              type: 'lastfm',
-              category: 'listening',
+              type: "lastfm",
+              category: "listening",
               name,
               artist,
               url,
               nowplaying,
-              dateObj: new Date()
+              dateObj: new Date(),
             });
           }
         }
@@ -172,10 +187,10 @@ const sortedItems = [...nowItems].sort((a, b) =>
         const data = await premidRes.json();
         if (data.activities?.length > 0) {
           liveItems.push({
-            type: 'premid',
-            category: 'premid',
+            type: "premid",
+            category: "premid",
             activities: data.activities.map((a: any) => a.activity),
-            dateObj: new Date()
+            dateObj: new Date(),
           });
         }
       }
@@ -183,60 +198,65 @@ const sortedItems = [...nowItems].sort((a, b) =>
       // If we have live data, prepend it
       if (liveItems.length > 0) {
         // Remove static items that conflict with live data
-        const staticArticles = Array.from(container.querySelectorAll('article'));
-        staticArticles.forEach(article => {
-          const category = article.getAttribute('data-category');
-          if (category === 'listening' && liveItems.some(i => i.type === 'lastfm')) {
+        const staticArticles = Array.from(container.querySelectorAll("article"),);
+        staticArticles.forEach((article) => {
+          const category = article.getAttribute("data-category");
+          if (category === "listening" && liveItems.some((i) => i.type === "lastfm")) {
             article.remove();
-          } else if (category === 'premid' && liveItems.some(i => i.type === 'premid')) {
+          } else if (category === "premid" && liveItems.some((i) => i.type === "premid")) {
             article.remove();
           }
         });
 
         // Create HTML for live items
-        let html = '';
-        liveItems.forEach(item => {
+        let html = "";
+        liveItems.forEach((item) => {
           html += '<article class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow">';
           html += '<div class="flex items-start gap-4">';
-          html += `<span class="text-3xl flex-shrink-0" aria-hidden="true">${iconMap[item.type === 'lastfm' ? 'Headphones' : 'Activity']}</span>`;
+          html += `<span class="text-3xl flex-shrink-0" aria-hidden="true">${iconMap[item.type === "lastfm" ? "Headphones" : "Activity"]}</span>`;
           html += '<div class="flex-1 min-w-0">';
 
-          if (item.type === 'lastfm') {
+          if (item.type === "lastfm") {
             html += '<div class="flex items-center gap-2 mb-2">';
-            html += `<h2 class="font-semibold text-lg">${t('now.categories.listening') || 'Listening'}</h2>`;
+            html += `<h2 class="font-semibold text-lg" data-i18n="now.categories.listening">${t("now.categories.listening") || "Listening"}</h2>`;
             if (item.nowplaying) {
-              html += '<span class="text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
+              html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
             }
-            html += '</div>';
-            html += `<p><a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold">${item.name}</a> <span>by</span> ${item.artist}</p>`;
-          } else if (item.type === 'premid') {
+            html += "</div>";
+            html += `<p><a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold">${item.name}</a> <span class="text-muted-foreground">by</span> ${item.artist}</p>`;
+          } else if (item.type === "premid") {
             html += '<div class="flex items-center gap-2 mb-2">';
-            html += `<h2 class="font-semibold text-lg">${t('now.categories.premid') || 'PreMID'}</h2>`;
-            html += '<span class="text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
-            html += '</div>';
+            html += `<h2 class="font-semibold text-lg" data-i18n="now.categories.premid">${t("now.categories.premid") || "Discord activity"}</h2>`;
+            html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
+            html += "</div>";
             html += '<div class="space-y-3">';
             item.activities.forEach((a: PremidActivity) => {
               html += createActivityCard(a);
             });
-            html += '</div>';
+            html += "</div>";
           }
 
-          html += '</div></div></article>';
+          html += "</div></div></article>";
         });
 
-        container.insertAdjacentHTML('afterbegin', html);
+        container.insertAdjacentHTML("afterbegin", html);
+        // Update translations after adding live data
+        updateNowPageTranslations();
       }
     } catch (error) {
-      console.error('Failed to enhance with live data:', error);
+      console.error("Failed to enhance with live data:", error);
     }
   }
 
-  function updateTranslations() {
+  function updateNowPageTranslations() {
+    const page = document.getElementById("now-page");
+    if (!page) return;
+
     const lang = languageStore.get();
 
-    // Update static translations
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
+    // Update static i18n keys within the page
+    page.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
       if (key) {
         const translated = t(key);
         if (translated !== key) {
@@ -246,64 +266,70 @@ const sortedItems = [...nowItems].sort((a, b) =>
     });
 
     // Update dynamic now item content
-    document.querySelectorAll('[data-now-content]').forEach((el) => {
-      const contentJson = el.getAttribute('data-now-content');
-      if (contentJson) {
+    page.querySelectorAll("[data-now-content]").forEach((article) => {
+      const contentData = article.getAttribute("data-now-content");
+      if (contentData) {
         try {
-          const content = JSON.parse(contentJson);
-          el.textContent = content[lang] || content.en;
+          const content = JSON.parse(contentData);
+          const langContent = content[lang] || content.en;
+          const textEl = article.querySelector(".now-text");
+          if (textEl) { textEl.textContent = langContent; }
         } catch (e) {
-          // ignore parse errors
+          // Ignore parse errors
         }
       }
     });
 
     // Update dates with locale
-    document.querySelectorAll('[data-date]').forEach((el) => {
-      const dateStr = el.getAttribute('data-date');
+    page.querySelectorAll("[data-date]").forEach((el) => {
+      const dateStr = el.getAttribute("data-date");
       if (dateStr) {
         const date = new Date(dateStr);
         el.textContent = date.toLocaleDateString(lang, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          timeZoneName: 'short'
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZoneName: "short",
         });
       }
     });
+  }
 
-    // Update last updated date
-    const lastUpdatedEl = document.getElementById('last-updated-date');
-    if (lastUpdatedEl) {
-      const dates = Array.from(document.querySelectorAll('[data-date]'))
-        .map(el => new Date(el.getAttribute('data-date') || ''))
-        .filter(d => !isNaN(d.getTime()));
+  // Setup function
+  function setupNowPage() {
+    async function initialize() {
+      await enhanceWithLiveData();
+      updateNowPageTranslations();
+    }
+    initialize();
+  }
 
-      if (dates.length > 0) {
-        const latestDate = dates.reduce((max, d) => d > max ? d : max, new Date(0));
-        lastUpdatedEl.textContent = latestDate.toLocaleDateString(lang, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          timeZoneName: 'short'
-        });
-      }
+  // Run setup initially
+  setupNowPage();
+
+  // Subscribe to language changes
+  declare global {
+    interface Window {
+      __nowPageInitialized?: boolean;
     }
   }
 
-  initLanguage();
-  enhanceWithLiveData();
-  updateTranslations();
+  if (!window.__nowPageInitialized) {
+    window.__nowPageInitialized = true;
 
-  languageStore.subscribe(() => {
-    updateTranslations();
-  });
+    languageStore.subscribe(() => {
+      updateNowPageTranslations();
+    });
 
-  window.addEventListener('languageChange', () => {
-    updateTranslations();
-  });
+    window.addEventListener("languageChange", () => {
+      updateNowPageTranslations();
+    });
+
+    // Handle view transitions
+    document.addEventListener("astro:after-swap", () => {
+      setupNowPage();
+    });
+  }
 </script>
