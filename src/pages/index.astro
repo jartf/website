@@ -80,13 +80,15 @@ import RecentPosts from "@/components/RecentPosts.astro";
                   </div>
                 ))}
                 <div class="pt-4 text-center">
-                  <button
-                    id="view-all-webrings"
-                    class="inline-flex items-center gap-2 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors group"
-                    aria-label="See all webrings"
-                  >
-                    <T key="home.viewAllWebrings" /> →
-                  </button>
+                  <a href={routes.webring}>
+                    <button
+                      id="view-all-webrings"
+                      class="inline-flex items-center gap-2 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors group"
+                      aria-label="See all webrings"
+                    >
+                      <T key="home.viewAllWebrings" /> →
+                    </button>
+                  </a>
                 </div>
             </nav>
           </section>
