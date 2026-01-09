@@ -145,11 +145,19 @@ const categoryIcons: Record<string, string> = {
   import { languageStore, t, initLanguage } from '@/i18n';
 
   function updateTranslations() {
+    console.log('[USES PAGE] updateTranslations called');
+    const currentLang = languageStore.get();
+    console.log('[USES PAGE] Current language:', currentLang);
+    
     // Update data-i18n elements
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const elements = document.querySelectorAll('[data-i18n]');
+    console.log('[USES PAGE] Found elements with data-i18n:', elements.length);
+    
+    elements.forEach((el) => {
       const key = el.getAttribute('data-i18n');
       if (key) {
         const translated = t(key);
+        console.log('[USES PAGE] Translating:', key, '→', translated);
         if (translated !== key) {
           el.textContent = translated;
         }
@@ -224,7 +232,9 @@ const categoryIcons: Record<string, string> = {
   let languageChangeHandler: (() => void) | null = null;
 
   function init() {
+    console.log('[USES PAGE] init() called');
     initLanguage();
+    console.log('[USES PAGE] After initLanguage, languageStore:', languageStore.get());
     updateTranslations();
     setupHiddenPlatforms();
 
@@ -237,12 +247,14 @@ const categoryIcons: Record<string, string> = {
     }
 
     // Subscribe to language changes
-    unsubscribe = languageStore.subscribe(() => {
+    unsubscribe = languageStore.subscribe((lang) => {
+      console.log('[USES PAGE] languageStore changed to:', lang);
       updateTranslations();
     });
 
     // Add language change event listener
-    languageChangeHandler = () => {
+    languageChangeHandler = (event) => {
+      console.log('[USES PAGE] languageChange event fired:', event);
       updateTranslations();
     };
     window.addEventListener('languageChange', languageChangeHandler);
