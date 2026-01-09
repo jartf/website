@@ -149,11 +149,42 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
 
           // Store the detected language for quick access
           window.__INITIAL_LANG__ = lang;
+
+          // Avoid flashes of English content: hide translatable text until i18n applies.
+          if (lang && lang !== "en") {
+            document.documentElement.classList.add("i18n-pending");
+          }
         } catch (e) {
           window.__INITIAL_LANG__ = "en";
           document.documentElement.lang = "en";
         }
       })();
+    </script>
+
+    <!-- i18n runtime (single initializer + View Transitions re-apply) -->
+    <script>
+      import { applyDomTranslations, initLanguage, languageStore } from "@/i18n";
+
+      // Avoid duplicate listeners/subscriptions across View Transitions.
+      // (Astro may execute head scripts on navigation.)
+      if (!(window as any).__I18N_RUNTIME_INIT__) {
+        (window as any).__I18N_RUNTIME_INIT__ = true;
+
+        initLanguage();
+        applyDomTranslations(document);
+
+        document.documentElement.classList.remove("i18n-pending");
+
+        // Prevent FOEC during View Transitions swaps.
+        document.addEventListener("astro:before-swap", () => {
+          document.documentElement.classList.add("i18n-updating");
+        });
+
+        const apply = () => applyDomTranslations(document);
+        window.addEventListener("languageChange", apply);
+        document.addEventListener("astro:after-swap", apply);
+        languageStore.subscribe(apply);
+      }
     </script>
 
     <script is:inline>
@@ -227,47 +258,5 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <!-- Global notices/easter eggs -->
     <LanguageNotice client:only="react" transition:persist />
     <EasterEgg client:only="react" transition:persist />
-
-    <!-- Global i18n DOM updater (handles View Transitions swaps) -->
-    <script is:inline>
-      (function () {
-        // Ensure we only initialize once per browser session.
-        if (window.__I18N_DOM_INIT__) return;
-        window.__I18N_DOM_INIT__ = true;
-
-        function tryInit() {
-          var api = window.__I18N__;
-          if (!api) return false;
-
-          var run = function () {
-            api.initLanguage();
-            api.applyDomTranslations(document);
-          };
-
-          // Initial load
-          run();
-
-          // React to explicit language changes
-          window.addEventListener("languageChange", run);
-          if (api.languageStore && api.languageStore.subscribe) {
-            api.languageStore.subscribe(run);
-          }
-
-          // Re-apply after Astro swaps HTML (when client-side navigation is enabled).
-          document.addEventListener("astro:after-swap", run);
-
-          return true;
-        }
-
-        // The i18n bundle is loaded via other page scripts (e.g. Header/Footer).
-        // If it hasn't executed yet, retry briefly.
-        if (tryInit()) return;
-        var attempts = 0;
-        var t = setInterval(function () {
-          attempts++;
-          if (tryInit() || attempts > 100) clearInterval(t);
-        }, 25);
-      })();
-    </script>
   </body>
 </html>

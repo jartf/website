@@ -12,8 +12,8 @@ export interface FeedPost {
   title: string;
   excerpt: string;
   date: Date;
-  tags?: string[];
-  language?: string;
+  tags: string[];
+  language: string;
 }
 
 function escapeXml(value: string): string {
@@ -24,6 +24,8 @@ function escapeXml(value: string): string {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
 }
+
+let allFeedPostsPromise: Promise<FeedPost[]> | null = null;
 
 async function getAllFeedPosts(): Promise<FeedPost[]> {
   const posts = await getCollection("blog", (entry: CollectionEntry<"blog">) => !entry.data.draft);
@@ -38,6 +40,25 @@ async function getAllFeedPosts(): Promise<FeedPost[]> {
       language: post.data.language ?? "en",
     }))
     .sort((a: FeedPost, b: FeedPost) => b.date.getTime() - a.date.getTime());
+}
+
+function getAllFeedPostsCached(): Promise<FeedPost[]> {
+  return (allFeedPostsPromise ??= getAllFeedPosts());
+}
+
+type FeedMode = "all" | "en-only";
+
+function postsForLanguage(allPosts: FeedPost[], language: string | undefined, mode: FeedMode): FeedPost[] {
+  if (language) return allPosts.filter((p) => p.language === language);
+  return mode === "en-only" ? allPosts.filter((p) => p.language === "en") : allPosts;
+}
+
+function feedTitle(language: string | undefined) {
+  return language && language !== "en" ? `${siteName} - ${getLanguageName(language)}` : siteName;
+}
+
+function feedDescription(language: string | undefined) {
+  return language && language !== "en" ? `${siteDescription} - ${getLanguageName(language)}` : siteDescription;
 }
 
 interface FeedOptions {
@@ -66,7 +87,7 @@ export function generateRSSFeed({ posts, title, description, language, feedUrl }
     <guid isPermaLink="true">${siteUrl}/blog/${post.slug}/</guid>
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <description>${escapeXml(post.excerpt)}</description>
-    ${post.tags?.map((tag) => `<category>${escapeXml(tag)}</category>`).join("\n    ") || ""}
+    ${post.tags.map((tag) => `<category>${escapeXml(tag)}</category>`).join("\n    ")}
   </item>`
     )
     .join("");
@@ -105,7 +126,7 @@ export function generateAtomFeed({ posts, title, description, language, feedUrl 
     <published>${new Date(post.date).toISOString()}</published>
     <updated>${new Date(post.date).toISOString()}</updated>
     <summary type="html">${escapeXml(post.excerpt)}</summary>
-    ${post.tags?.map((tag) => `<category term="${escapeXml(tag)}"/>`).join("\n    ") || ""}
+    ${post.tags.map((tag) => `<category term="${escapeXml(tag)}"/>`).join("\n    ")}
   </entry>`,
     )
     .join("");
@@ -147,63 +168,58 @@ export function generateJSONFeed({ posts, title, description, language, feedUrl 
 }
 
 function cacheHeaders(contentType?: string) {
-  return {
-    ...(contentType ? { "Content-Type": contentType } : null),
+  const headers: Record<string, string> = {
     "Cache-Control": "public, max-age=3600, s-maxage=3600",
-  } as Record<string, string>;
+  };
+  if (contentType) headers["Content-Type"] = contentType;
+  return headers;
 }
 
 export async function getRSSResponse(language?: string) {
-  const allPosts = await getAllFeedPosts();
-  const posts = language
-    ? allPosts.filter((p) => p.language === language || (language === "en" && (!p.language || p.language === "en")))
-    : allPosts;
-
-  const title = language && language !== "en" ? `${siteName} - ${getLanguageName(language)}` : siteName;
-  const description =
-    language && language !== "en" ? `${siteDescription} - ${getLanguageName(language)}` : siteDescription;
+  const allPosts = await getAllFeedPostsCached();
+  const posts = postsForLanguage(allPosts, language, "all");
   const feedUrl = language ? `${siteUrl}/rss/${language}.xml` : `${siteUrl}/rss.xml`;
 
-  return new Response(generateRSSFeed({ posts, title, description, language: language || "en", feedUrl }), {
-    headers: cacheHeaders("application/xml"),
-  });
+  return new Response(
+    generateRSSFeed({
+      posts,
+      title: feedTitle(language),
+      description: feedDescription(language),
+      language: language || "en",
+      feedUrl,
+    }),
+    {
+      headers: cacheHeaders("application/xml"),
+    },
+  );
 }
 
 export async function getAtomResponse(language?: string) {
-  const allPosts = await getAllFeedPosts();
-  const posts = language
-    ? allPosts.filter((p) => p.language === language || (language === "en" && (!p.language || p.language === "en")))
-    : allPosts;
+  const allPosts = await getAllFeedPostsCached();
+  const posts = postsForLanguage(allPosts, language, "all");
 
   if (posts.length === 0 && language) {
     return new Response("No posts found for this language", { status: 404 });
   }
 
-  const title = language && language !== "en" ? `${siteName} (${language})` : siteName;
   const feedUrl = language ? `${siteUrl}/atom/${language}.xml` : `${siteUrl}/atom.xml`;
 
-  return new Response(generateAtomFeed({ posts, title, description: siteDescription, language: language || "en", feedUrl }), {
+  return new Response(generateAtomFeed({ posts, title: feedTitle(language), description: siteDescription, language: language || "en", feedUrl }), {
     headers: cacheHeaders("application/atom+xml"),
   });
 }
 
 export async function getJSONFeedResponse(language?: string) {
-  const allPosts = await getAllFeedPosts();
-  const posts = language
-    ? allPosts.filter((p) => p.language === language || (language === "en" && (!p.language || p.language === "en")))
-    : allPosts.filter((p) => !p.language || p.language === "en");
+  const allPosts = await getAllFeedPostsCached();
+  const posts = postsForLanguage(allPosts, language, "en-only");
 
   if (language && posts.length === 0) {
     return new Response("No posts found for this language", { status: 404 });
   }
 
-  const title = language && language !== "en" ? `${siteName} - ${getLanguageName(language)}` : siteName;
-  const description =
-    language && language !== "en" ? `${siteDescription} - ${getLanguageName(language)}` : siteDescription;
-
   const feedUrl = language ? `${siteUrl}/feed/${language}.json` : `${siteUrl}/feed.json`;
 
-  return Response.json(generateJSONFeed({ posts, title, description, language: language || "en", feedUrl }), {
+  return Response.json(generateJSONFeed({ posts, title: feedTitle(language), description: feedDescription(language), language: language || "en", feedUrl }), {
     headers: cacheHeaders(),
   });
 }

@@ -116,7 +116,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
 </BaseLayout>
 
 <script>
-  import { languageStore, initLanguage } from "@/i18n";
+  import { languageStore, initLanguage, t } from "@/i18n";
 
   // Time-based greeting emoji update
   function updateGreetingEmoji() {
@@ -147,16 +147,8 @@ import RecentPosts from "@/components/RecentPosts.astro";
     const greetingTComponent = document.querySelector('#greeting [data-t-key="greetings.morning"]');
     if (greetingTComponent) {
       greetingTComponent.setAttribute("data-t-key", greetingKey);
-      // Trigger update
-      const currentLang = window.__INITIAL_LANG__ || "en";
-      const translations = (window as any).__I18N_TRANSLATIONS__;
-      if (translations && translations[currentLang] && translations[currentLang].greetings) {
-        const translated = translations[currentLang].greetings[greetingKey.split(".")[1]] ||
-          translations.en.greetings[greetingKey.split(".")[1]];
-        if (translated) {
-          greetingTComponent.textContent = translated;
-        }
-      }
+      const translated = t(greetingKey);
+      if (translated && translated !== greetingKey) greetingTComponent.textContent = translated;
     }
   }
 

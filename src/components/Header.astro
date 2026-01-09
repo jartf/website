@@ -94,31 +94,3 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
     </div>
   </nav>
 </header>
-
-<script>
-  import { languageStore, t, initLanguage } from "@/i18n";
-
-  // i18n translation updates
-  function updateTranslations() {
-    document.querySelectorAll("header [data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-  }
-
-  initLanguage();
-  updateTranslations();
-
-  languageStore.subscribe(() => {
-    updateTranslations();
-  });
-
-  window.addEventListener("languageChange", () => {
-    updateTranslations();
-  });
-</script>

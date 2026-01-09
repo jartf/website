@@ -70,70 +70,48 @@ import { Image } from 'astro:assets';
   <div aria-hidden="true" class="h-3"></div>
 </footer>
 
-<script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+<script is:inline>
+  (function () {
+    let tapCount = 0;
+    let tapTimeout = null;
 
-  let tapCount = 0;
-  let tapTimeout: ReturnType<typeof setTimeout> | null = null;
+    // Secret chapter 6 easter egg - tap footer 6 times to reveal
+    const footerTapArea = document.getElementById("footer-tap-area");
+    if (!footerTapArea) return;
 
-  function updateFooterTranslations() {
-    document.querySelectorAll('footer [data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-  }
-
-  // Secret chapter 6 easter egg - tap footer 6 times to reveal
-  const footerTapArea = document.getElementById('footer-tap-area');
-  if (footerTapArea) {
-    footerTapArea.addEventListener('click', (e) => {
+    footerTapArea.addEventListener("click", (e) => {
       // Don't count clicks on links
-      if ((e.target as HTMLElement).tagName === 'A') return;
+      if (e.target && e.target.tagName === "A") return;
 
       tapCount++;
 
       // Reset tap count after 2 seconds of no taps
       if (tapTimeout) clearTimeout(tapTimeout);
-      tapTimeout = setTimeout(() => { tapCount = 0; }, 2000);
+      tapTimeout = setTimeout(() => {
+        tapCount = 0;
+      }, 2000);
 
       // On 6th tap, reveal chapter 6
       if (tapCount === 6) {
-        sessionStorage.setItem('showHiddenChapter', 'true');
+        sessionStorage.setItem("showHiddenChapter", "true");
 
         // If already on about page, reveal chapter 6 directly
-        if (window.location.pathname.includes('/about')) {
-          document.querySelectorAll('.hidden-chapter').forEach((el) => {
-            el.classList.remove('hidden');
+        if (window.location.pathname.includes("/about")) {
+          document.querySelectorAll(".hidden-chapter").forEach((el) => {
+            el.classList.remove("hidden");
           });
           // Scroll to chapter 6
-          const chapter6 = document.getElementById('chapter-6');
+          const chapter6 = document.getElementById("chapter-6");
           if (chapter6) {
-            chapter6.scrollIntoView({ behavior: 'smooth' });
+            chapter6.scrollIntoView({ behavior: "smooth" });
           }
         } else {
           // Navigate to about page chapter 6
-          window.location.href = '/about/#chapter-6';
+          window.location.href = "/about/#chapter-6";
         }
+
         tapCount = 0;
       }
     });
-  }
-
-  // Update on language change
-  languageStore.subscribe(() => {
-    updateFooterTranslations();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateFooterTranslations();
-  });
-
-  // Initial update after language init
-  initLanguage();
-  updateFooterTranslations();
+  })();
 </script>

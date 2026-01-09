@@ -92,6 +92,17 @@
   }
 }
 
+/*
+  i18n: prevent flash of English content (FOEC)
+  Only hide elements that will be replaced by i18n.
+*/
+html.i18n-pending [data-i18n],
+html.i18n-pending [data-t-key],
+html.i18n-updating [data-i18n],
+html.i18n-updating [data-t-key] {
+  visibility: hidden;
+}
+
 @layer base {
   * {
     @apply border-border;

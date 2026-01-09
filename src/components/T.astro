@@ -1,8 +1,8 @@
 ---
 /**
  * Translation component for Astro
- * Pre-renders all supported language translations as hidden elements
- * and shows the correct one based on client language selection
+ * Pre-computes translations on the server and swaps text client-side.
+ * This avoids flashes of English on first paint and during View Transitions.
  *
  * Usage:
  * <T key="home.heading" />
@@ -21,7 +21,7 @@ interface Props {
 
 const { key, params, tag = "span", class: className, ...rest } = Astro.props;
 
-// Pre-render translations for all languages
+// Pre-render translations for all languages for this key.
 const translatedTexts: Record<string, string> = {};
 supportedLanguages.forEach((lang) => {
   const langCode = lang.code as SupportedLanguage;
@@ -46,30 +46,24 @@ const Tag = tag as any;
 </Tag>
 
 <script is:inline define:vars={{ translatedTexts, tKey: key }}>
-  // Update text based on current language
-  function updateTranslation() {
-    const element = document.querySelector(`[data-t-key="${tKey}"]`);
-    if (!element) return;
-
-    const currentLang = window.languageStore?.get() || window.__INITIAL_LANG__ || localStorage.getItem("i18nextLng") || "en";
-    const text = translatedTexts[currentLang] || translatedTexts["en"] || tKey;
-
-    if (element.textContent !== text) {
-      element.textContent = text;
+  function getInitialLang() {
+    try {
+      return window.__INITIAL_LANG__ || localStorage.getItem("i18nextLng") || "en";
+    } catch (_) {
+      return "en";
     }
   }
 
-  // Initialize immediately
+  function updateTranslation() {
+    const currentLang = getInitialLang();
+    const text = translatedTexts[currentLang] || translatedTexts["en"] || tKey;
+
+    document.querySelectorAll(`[data-t-key="${tKey}"]`).forEach((element) => {
+      if (element.textContent !== text) element.textContent = text;
+    });
+  }
+
   updateTranslation();
-
-  // Update on language changes
   window.addEventListener("languageChange", updateTranslation);
-
-  // Update on View Transitions navigation
   document.addEventListener("astro:after-swap", updateTranslation);
-
-    // Subscribe to store changes if available
-    if (window.languageStore?.subscribe) {
-      window.languageStore.subscribe(updateTranslation);
-    }
 </script>
