@@ -92,6 +92,16 @@ export function applyDomTranslations(root: ParentNode | Document = document) {
       }
     });
 
+    // Update <T> component outputs.
+    root.querySelectorAll?.("[data-t-key]")?.forEach((el) => {
+      const key = el.getAttribute("data-t-key");
+      if (!key) return;
+      const translated = t(key);
+      if (translated !== key && el.textContent !== translated) {
+        el.textContent = translated;
+      }
+    });
+
     root.querySelectorAll?.("[data-i18n-placeholder]")?.forEach((el) => {
       const key = el.getAttribute("data-i18n-placeholder");
       if (!key) return;
