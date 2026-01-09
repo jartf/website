@@ -143,12 +143,12 @@ function getCategoryTranslation(category: string): string {
           const artist = track?.getElementsByTagName("artist")[0]?.textContent || "";
           const url = track?.getElementsByTagName("url")[0]?.textContent || "";
 
-          const mediumImage = Array.from(track?.getElementsByTagName("image") || [])
-            .find((img) => img.getAttribute("size") === "medium")
+          const largeImage = Array.from(track?.getElementsByTagName("image") || [])
+            .find((img) => img.getAttribute("size") === "large")
             ?.textContent?.trim() || "";
 
           if (name && artist) {
-            items.push({ type: "lastfm", name, artist, url, nowplaying, image: mediumImage, dateObj: new Date() });
+            items.push({ type: "lastfm", name, artist, url, nowplaying, image: largeImage, dateObj: new Date() });
           }
         }
       }

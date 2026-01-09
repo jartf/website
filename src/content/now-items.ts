@@ -48,7 +48,7 @@ export const nowItems: NowItem[] = [
     contentSecondary: {
       en: "HoneyComeBear"
     },
-    image: "https://lastfm.freetls.fastly.net/i/u/64s/bf160d8ae5651e8f91fad2e7121bb8e2.jpg",
+    image: "https://lastfm.freetls.fastly.net/i/u/174s/bf160d8ae5651e8f91fad2e7121bb8e2.jpg",
     date: "2026-01-09T20:33:36+00:00",
   },
   {
