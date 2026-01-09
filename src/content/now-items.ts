@@ -49,7 +49,7 @@ export const nowItems: NowItem[] = [
       en: "HoneyComeBear"
     },
     image: "https://lastfm.freetls.fastly.net/i/u/64s/bf160d8ae5651e8f91fad2e7121bb8e2.jpg",
-    date: "2025-12-20T00:15:36+00:00",
+    date: "2026-01-09T20:33:36+00:00",
   },
   {
     id: 2,
@@ -69,7 +69,7 @@ export const nowItems: NowItem[] = [
       tok: "No recent Discord activity",
       vih: "空固活動𨑗 Discord 𧵆低",
     },
-    date: "2015-05-13T00:00:00+00:00",
+    date: "2015-05-13T00:00:00-07:00",
   },
   {
     id: 3,
@@ -89,7 +89,7 @@ export const nowItems: NowItem[] = [
       tok: "alasa sona pi mani ma, en nasin ni: ma Wije li kepeken lawa sona tawa wawa mani lon utala pi pali tomo ilo.",
       vih: "𠬠預案研究𧗱地經濟吧格越南盡用主權通信吧安寧數𫜵杶㔥地經濟𥪝局𨅮發展中心與料",
     },
-    date: "2025-12-20T15:05:05+00:00",
+    date: "2025-12-30T15:05:05+07:00",
   },
   {
     id: 4,
@@ -109,7 +109,7 @@ export const nowItems: NowItem[] = [
       tok: '"Joey Pigza Loses Control" tan jan Jack Gantos',
       vih: '「Joey Pigza Loses Control」（Joey Pigza 被𠅒檢詧）𧵑 Jack Gantos',
     },
-    date: "2025-12-12T21:32:18+07:00",
+    date: "2026-01-08T21:32:18+07:00",
   },
   {
     id: 5,
@@ -129,7 +129,7 @@ export const nowItems: NowItem[] = [
       tok: "mi pona e lipu ni: mi wile weka e ilo React, mi wile kepeken nasin HTML taso",
       vih: "改善張䇼尼抵𠃣附屬𠓨 React 欣吧𢮿吏使用 HTML 靜",
     },
-    date: "2025-12-20T17:09:36+00:00",
+    date: "2026-01-09T18:09:36+00:00",
   },
   {
     id: 6,
@@ -149,7 +149,7 @@ export const nowItems: NowItem[] = [
       tok: "telo lete pona",
       vih: "𠬠𡭧渃𠖾冷",
     },
-    date: "2025-12-19T00:10:18+00:00",
+    date: "2026-01-09T06:10:18+00:00",
   },
   {
     id: 7,
@@ -169,7 +169,7 @@ export const nowItems: NowItem[] = [
       tok: 'toki pi nasin ni: mi ken pali mute e ijo olin mi',
       vih: "𧗱格𨉟固体𫜵仍條𨉟㤇適常川欣",
     },
-    date: "2025-12-18T22:30:00+07:00",
+    date: "2026-01-06T22:30:00+07:00",
   },
   {
     id: 8,
@@ -189,7 +189,7 @@ export const nowItems: NowItem[] = [
       tok: 'sona mani pi ma ale',
       vih: "經濟對外",
     },
-    date: "2025-12-18T11:18:08+07:00",
+    date: "2026-01-06T11:18:08+07:00",
   },
 ];
 
