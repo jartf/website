@@ -219,19 +219,33 @@ const categoryIcons: Record<string, string> = {
     });
   }
 
+  // Track subscription for cleanup
+  let unsubscribe: (() => void) | null = null;
+  let languageChangeHandler: (() => void) | null = null;
+
   function init() {
     initLanguage();
     updateTranslations();
     setupHiddenPlatforms();
 
+    // Clean up previous subscription if exists
+    if (unsubscribe) {
+      unsubscribe();
+    }
+    if (languageChangeHandler) {
+      window.removeEventListener('languageChange', languageChangeHandler);
+    }
+
     // Subscribe to language changes
-    languageStore.subscribe(() => {
+    unsubscribe = languageStore.subscribe(() => {
       updateTranslations();
     });
 
-    window.addEventListener('languageChange', () => {
+    // Add language change event listener
+    languageChangeHandler = () => {
       updateTranslations();
-    });
+    };
+    window.addEventListener('languageChange', languageChangeHandler);
   }
 
   // Run on initial page load
@@ -240,5 +254,17 @@ const categoryIcons: Record<string, string> = {
   // Re-run on View Transitions navigation
   document.addEventListener('astro:page-load', () => {
     init();
+  });
+
+  // Cleanup on page leave
+  document.addEventListener('astro:before-preparation', () => {
+    if (unsubscribe) {
+      unsubscribe();
+      unsubscribe = null;
+    }
+    if (languageChangeHandler) {
+      window.removeEventListener('languageChange', languageChangeHandler);
+      languageChangeHandler = null;
+    }
   });
 </script>
