@@ -11,7 +11,7 @@ import { ActionSearchBar } from "@/components/ActionSearchBar";
 import { FirstVisitHint } from "@/components/FirstVisitHint";
 import { LanguageNotice } from "@/components/LanguageNotice";
 import { EasterEgg } from "@/components/EasterEgg";
-import { supportedLanguages, hrefLangLanguages } from "@/lib/constants";
+import { hrefLangLanguages } from "@/lib/constants";
 
 interface Props {
   title?: string;
@@ -107,7 +107,7 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <link rel="alternate" type="application/json" href={`${siteUrl}/feed.json`} title="Jarema's digital garden - JSON Feed" />
 
     <!-- Alternate language feeds -->
-    {supportedLanguages.map((lang) => (
+    {hrefLangLanguages.map((lang) => (
       <>
         <link rel="alternate" type="application/rss+xml" href={`${siteUrl}/rss/${lang.code}.xml`} title={`RSS Feed - ${lang.code.toUpperCase()}`} hreflang={lang.code} />
         <link rel="alternate" type="application/atom+xml" href={`${siteUrl}/atom/${lang.code}.xml`} title={`Atom Feed - ${lang.code.toUpperCase()}`} hreflang={lang.code} />
@@ -124,7 +124,7 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
 
     <!-- View Transitions for smooth page navigation -->
     <ClientRouter />
@@ -134,15 +134,14 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
       (function () {
         try {
           const stored = localStorage.getItem("theme");
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          const theme = stored === "dark" || stored === "light" ? stored : stored === "system" || !stored ? prefersDark ? "dark" : "light" : "dark";
+          // Default to dark mode if no preference is stored
+          const theme = stored === "dark" || stored === "light" ? stored : "dark";
           document.documentElement.classList.remove("light", "dark");
           document.documentElement.classList.add(theme);
           document.documentElement.style.colorScheme = theme;
         } catch (e) {
-          // Fallback to system preference
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          document.documentElement.classList.add(prefersDark ? "dark" : "light");
+          // Fallback to dark mode
+          document.documentElement.classList.add("dark");
         }
       })();
     </script>
