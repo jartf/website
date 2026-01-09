@@ -477,6 +477,7 @@
     "andChaos": "và vài tuần nghịch code"
   },
   "2048": {
+    "title": "2048",
     "description": "Kết hợp các ô để đạt đến số 2048",
     "score": "Điểm",
     "best": "Cao nhất",
@@ -491,12 +492,13 @@
     "instructions1": "Sử dụng phím mũi tên hoặc WASD để di chuyển các ô. Khi hai ô có cùng số được gộp vào nhau, chúng sẽ kết hợp thành số tổng của hai số đó.",
     "instructions2": "Sau mỗi lượt di chuyển, một ô mới (số 2 hoặc 4) xuất hiện.",
     "instructions3": "Hãy tạo một ô với số 2048 để thắng trò chơi nhé!",
+    "instructions4": "Sau khi đạt được 2048, bạn có thể tiếp tục chơi để đạt điểm cao hơn!",
     "controls": "Điều khiển",
     "moveLeft": "Di chuyển sang trái",
     "moveRight": "Di chuyển sang phải",
     "moveUp": "Di chuyển lên",
     "moveDown": "Di chuyển xuống",
-    "touchInstructions": "Trên điện thoại, hãy sử dụng các nút điều khiển ở trên màn hình.",
+    "touchInstructions": "Trên điện thoại, hãy vuốt theo bất kỳ hướng nào để di chuyển các ô.",
     "undo": "Hoàn tác"
   },
   "keyboardShortcuts": {

@@ -491,6 +491,7 @@
     "andChaos": "and a few weeks of screwing around"
   },
   "2048": {
+    "title": "2048",
     "description": "Join the tiles, get to 2048!",
     "score": "Score",
     "best": "Best",
@@ -505,12 +506,13 @@
     "instructions1": "Use your arrow keys or WASD to move the tiles. When two tiles with the same number touch, they merge into one!",
     "instructions2": "After each move, a new tile appears (either 2 or 4).",
     "instructions3": "Create a tile with the number 2048 to win the game!",
+    "instructions4": "After reaching 2048, you can continue playing to achieve even higher scores!",
     "controls": "Controls",
     "moveLeft": "Move left",
     "moveRight": "Move right",
     "moveUp": "Move up",
     "moveDown": "Move down",
-    "touchInstructions": "On mobile devices, use the on-screen controls to move tiles.",
+    "touchInstructions": "On mobile devices, swipe in any direction to move the tiles.",
     "undo": "Undo"
   },
   "keyboardShortcuts": {
