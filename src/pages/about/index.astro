@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
 const title = "About me";
 const description = "The story of who I am, where I come from, what my passion is, and what I'm working toward.";
@@ -59,11 +59,11 @@ const chapters = [
     <div class="space-y-16">
       <!-- Chapter 1: how i spawned -->
       <section id="chapter-1" class="scroll-mt-20">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
+        <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">1.</span>
           <T key="about.chapters.1.title" />
         </h2>
-        <div class="prose dark:prose-invert max-w-none space-y-4">
+        <div class="prose-lg max-w-none space-y-4 text-justify">
           <T key="about.chapters.1.content1" tag="p" />
           <T key="about.chapters.1.content2" tag="p" />
           <T key="about.chapters.1.content3" tag="p" />
@@ -72,11 +72,11 @@ const chapters = [
 
       <!-- Chapter 2: when i found out the world is rigged -->
       <section id="chapter-2" class="scroll-mt-20">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
+        <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">2.</span>
           <T key="about.chapters.2.title" />
         </h2>
-        <div class="prose dark:prose-invert max-w-none space-y-4">
+        <div class="prose-lg max-w-none space-y-4 text-justify">
           <T key="about.chapters.2.content1" tag="p" />
           <T key="about.chapters.2.content2" tag="p" />
           <T key="about.chapters.2.content3" tag="p" />
@@ -85,11 +85,11 @@ const chapters = [
 
       <!-- Chapter 3: coding, languages, and the ADHD grindset -->
       <section id="chapter-3" class="scroll-mt-20">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
+        <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">3.</span>
           <T key="about.chapters.3.title" />
         </h2>
-        <div class="prose dark:prose-invert max-w-none space-y-4">
+        <div class="prose-lg max-w-none space-y-4 text-justify">
           <T key="about.chapters.3.content1" tag="p" />
           <T key="about.chapters.3.content2" tag="p" />
           <T key="about.chapters.3.content3" tag="p" />
@@ -98,16 +98,15 @@ const chapters = [
 
       <!-- Chapter 4: activism and being too real online -->
       <section id="chapter-4" class="scroll-mt-20">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
+        <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">4.</span>
           <T key="about.chapters.4.title" />
         </h2>
-        <div class="prose dark:prose-invert max-w-none space-y-4">
+        <div class="prose-lg max-w-none space-y-4 text-justify">
           <T key="about.chapters.4.content1" tag="p" />
           <T key="about.chapters.4.content2" tag="p" />
           <blockquote class="border-l-4 border-primary pl-4 italic my-6">
             <T key="about.chapters.4.quote" tag="p" />
-            <T key="about.chapters.4.quoteTooltip" tag="cite" class="text-sm text-muted-foreground not-italic" />
           </blockquote>
           <T key="about.chapters.4.content3" tag="p" />
         </div>
@@ -115,11 +114,11 @@ const chapters = [
 
       <!-- Chapter 5: where i'm headed -->
       <section id="chapter-5" class="scroll-mt-20">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
+        <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">5.</span>
           <T key="about.chapters.5.title" />
         </h2>
-        <div class="prose dark:prose-invert max-w-none space-y-4">
+        <div class="prose-lg max-w-none space-y-4 text-justify">
           <T key="about.chapters.5.content1" tag="p" />
           <T key="about.chapters.5.content2" tag="p" />
           <T key="about.chapters.5.content3" tag="p" />
@@ -129,11 +128,11 @@ const chapters = [
 
       <!-- Chapter 6: i'm not done yet -->
       <section id="chapter-6" class="scroll-mt-20 hidden-chapter hidden">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-primary">
+        <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">6.</span>
           <T key="about.chapters.6.title" />
         </h2>
-        <div class="prose dark:prose-invert max-w-none space-y-4 italic text-muted-foreground">
+        <div class="prose-lg max-w-none space-y-4 text-justify">
           <T key="about.chapters.6.content1" tag="p" />
           <T key="about.chapters.6.content2" tag="p" />
           <T key="about.chapters.6.content3" tag="p" />
@@ -154,10 +153,10 @@ const chapters = [
 <script>
   // Check for hidden chapter reveal
   function checkHiddenChapter() {
-    const showHidden = sessionStorage.getItem('showHiddenChapter') === 'true';
+    const showHidden = sessionStorage.getItem("showHiddenChapter") === "true";
     if (showHidden) {
-      document.querySelectorAll('.hidden-chapter').forEach((el) => {
-        el.classList.remove('hidden');
+      document.querySelectorAll(".hidden-chapter").forEach((el) => {
+        el.classList.remove("hidden");
       });
     }
   }
