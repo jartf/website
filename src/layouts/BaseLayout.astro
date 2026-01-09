@@ -231,5 +231,30 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <!-- Global notices/easter eggs -->
     <LanguageNotice client:only="react" transition:persist />
     <EasterEgg client:only="react" transition:persist />
+
+    <!-- Global i18n DOM updater (handles View Transitions swaps) -->
+    <script type="module">
+      import { initLanguage, applyDomTranslations, languageStore } from "@/i18n";
+
+      // Ensure we only initialize once per browser session.
+      if (!window.__I18N_DOM_INIT__) {
+        window.__I18N_DOM_INIT__ = true;
+
+        const run = () => {
+          initLanguage();
+          applyDomTranslations(document);
+        };
+
+        // Initial load
+        run();
+
+        // React to explicit language changes
+        window.addEventListener("languageChange", run);
+        languageStore.subscribe(run);
+
+        // Re-apply after Astro ClientRouter swaps HTML.
+        document.addEventListener("astro:after-swap", run);
+      }
+    </script>
   </body>
 </html>

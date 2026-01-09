@@ -65,6 +65,44 @@ export const currentTranslations = computed(languageStore, (lang) => {
   return translations[lang] || translations.en;
 });
 
+// Apply translations to DOM elements marked with data attributes.
+// This is needed because Astro View Transitions swaps HTML without re-executing
+// page/component scripts, so we must re-apply i18n after navigation.
+export function applyDomTranslations(root: ParentNode | Document = document) {
+  if (typeof window === "undefined") return;
+
+  const doc = root as Document;
+  const html = (doc.documentElement || document.documentElement) as HTMLElement | null;
+
+  try {
+    html?.classList.add("i18n-updating");
+
+    root.querySelectorAll?.("[data-i18n]")?.forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (!key) return;
+      const translated = t(key);
+      if (translated !== key && el.textContent !== translated) {
+        el.textContent = translated;
+      }
+    });
+
+    root.querySelectorAll?.("[data-i18n-placeholder]")?.forEach((el) => {
+      const key = el.getAttribute("data-i18n-placeholder");
+      if (!key) return;
+      const translated = t(key);
+      if (translated !== key && el instanceof HTMLInputElement) {
+        if (el.placeholder !== translated) el.placeholder = translated;
+      }
+      if (translated !== key && el instanceof HTMLTextAreaElement) {
+        if (el.placeholder !== translated) el.placeholder = translated;
+      }
+    });
+  } finally {
+    // Let layout settle before removing the hint class.
+    requestAnimationFrame(() => html?.classList.remove("i18n-updating"));
+  }
+}
+
 // Initialize language from localStorage or browser
 export function initLanguage() {
   if (typeof window === "undefined") return "en";
