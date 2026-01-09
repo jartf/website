@@ -54,7 +54,8 @@
     "guestbookButton": "Skriv i min gästbok",
     "recentPosts": "Senaste blogginlägg",
     "latestNow": "Vad jag gör just nu",
-    "currentMood": "Nuvarande humör"
+    "currentMood": "Nuvarande humör",
+    "viewAllWebrings": "Se alla webbringar"
   },
   "guestbook": {
     "title": "Gästbok",

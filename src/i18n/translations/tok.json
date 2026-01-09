@@ -51,10 +51,11 @@
     "contactButton": "toki tawa mi",
     "aboutButton": "sona mi",
     "blogButton": "o lukin e lipu toki mi",
-    "guestbookButton": "o sitelen lon lipu pi jan kama",
+    "guestbookButton": "o sitelen lon lipu mi",
     "recentPosts": "lipu toki sin",
     "latestNow": "seme li lon mi lon tenpo ni",
-    "currentMood": "pilin mi lon tenpo ni"
+    "currentMood": "pilin mi lon tenpo ni",
+    "viewAllWebrings": "o lukin e sike lipu ale"
   },
   "guestbook": {
     "title": "lipu pi jan kama",

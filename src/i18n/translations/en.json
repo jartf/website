@@ -54,7 +54,8 @@
     "guestbookButton": "Sign my guestbook",
     "recentPosts": "Recent blog posts",
     "latestNow": "What I'm up to now",
-    "currentMood": "Current mood"
+    "currentMood": "Current mood",
+    "viewAllWebrings": "View all webrings"
   },
   "guestbook": {
     "title": "Guestbook",

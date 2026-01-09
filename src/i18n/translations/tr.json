@@ -61,7 +61,8 @@
     "guestbookButton": "Ziyaretçi defterime yaz",
     "recentPosts": "Son blog yazıları",
     "latestNow": "Şu anda ne yapıyorum",
-    "currentMood": "Şu anki ruh halim"
+    "currentMood": "Şu anki ruh halim",
+    "viewAllWebrings": "Tüm web çemberlerini gör"
   },
   "guestbook": {
     "title": "Ziyaretçi defteri",

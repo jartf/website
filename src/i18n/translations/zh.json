@@ -61,7 +61,8 @@
     "guestbookButton": "签写留言簿",
     "recentPosts": "最新博客文章",
     "latestNow": "我现在在做什么",
-    "currentMood": "当前心情"
+    "currentMood": "当前心情",
+    "viewAllWebrings": "查看所有网站环"
   },
   "guestbook": {
     "title": "留言簿",

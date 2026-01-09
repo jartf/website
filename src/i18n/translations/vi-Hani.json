@@ -51,8 +51,11 @@
     "contactButton": "聯繫𨉟",
     "aboutButton": "𧗱𨉟",
     "blogButton": "讀 blog 𧵑𨉟",
+    "guestbookButton": "𥙩𠸛留筆吏𨉟",
     "recentPosts": "Blog 𧵆低",
-    "latestNow": "𣊾𣇞𨉟當𫜵之？"
+    "latestNow": "𣊾𣇞𨉟當𫜵之？",
+    "currentMood": "心情現在",
+    "viewAllWebrings": "䀡悉哿 webring"
   },
   "guestbook": {
     "title": "數留筆",

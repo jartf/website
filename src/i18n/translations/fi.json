@@ -54,7 +54,8 @@
     "guestbookButton": "Kirjoita vieraskirjaani",
     "recentPosts": "Viimeisimmät blogikirjoitukset",
     "latestNow": "Mitä teen nyt",
-    "currentMood": "Nykyinen mieliala"
+    "currentMood": "Nykyinen mieliala",
+    "viewAllWebrings": "Näytä kaikki verkkorenkaat"
   },
   "guestbook": {
     "title": "Vieraskirja",

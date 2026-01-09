@@ -61,7 +61,8 @@
     "guestbookButton": "Оставь запись в гостевой книге",
     "recentPosts": "Последние посты в блоге",
     "latestNow": "Что я делаю сейчас",
-    "currentMood": "Текущее настроение"
+    "currentMood": "Текущее настроение",
+    "viewAllWebrings": "Посмотреть все веб-кольца"
   },
   "guestbook": {
     "title": "Гостевая книга",

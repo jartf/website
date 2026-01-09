@@ -51,10 +51,11 @@
     "contactButton": "Skontaktuj się ze mną",
     "aboutButton": "O mnie",
     "blogButton": "Czytaj mojego bloga",
-    "guestbookButton": "Wpisz się do księgi gości",
+    "guestbookButton": "Podpisz się w mojej książce gości",
     "recentPosts": "Ostatnie wpisy na blogu",
     "latestNow": "Co robię teraz",
-    "currentMood": "Obecny nastrój"
+    "currentMood": "Obecny nastrój",
+    "viewAllWebrings": "Zobacz wszystkie webringi"
   },
   "guestbook": {
     "title": "Księga gości",

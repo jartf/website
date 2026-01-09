@@ -61,7 +61,8 @@
     "guestbookButton": "Skriv i min gæstebog",
     "recentPosts": "Seneste blogindlæg",
     "latestNow": "Hvad jeg laver lige nu",
-    "currentMood": "Nuværende humør"
+    "currentMood": "Nuværende humør",
+    "viewAllWebrings": "Se alle webringe"
   },
   "guestbook": {
     "title": "Gæstebog",
