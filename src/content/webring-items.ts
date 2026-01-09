@@ -8,7 +8,7 @@ export type WebringItem = {
   description?: string;
 };
 
-export const webringItems: WebringItem[] = [
+export const activeWebringItems: WebringItem[] = [
   {
     name: 'IndieWeb Webring 🕸💍',
     url: 'https://xn--sr8hvo.ws',
@@ -89,6 +89,9 @@ export const webringItems: WebringItem[] = [
     next: 'https://webring.otomir23.me/jarema/next',
     description: 'This is otomir23\'s webring.',
   },
+];
+
+export const pendingWebringItems: WebringItem[] = [
   {
     name: 'Epic WebRing',
     url: 'https://epic1.nekoweb.org/webring/',

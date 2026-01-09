@@ -2,7 +2,7 @@
 // Webrings page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { webringItems } from "@/content/webring-items";
+import { activeWebringItems, pendingWebringItems } from "@/content/webring-items";
 ---
 
 <BaseLayout title="Webrings" description="Webrings I'm part of. Discover more independent websites and personal blogs.">
@@ -19,8 +19,9 @@ import { webringItems } from "@/content/webring-items";
         <T key="webrings.intro2" tag="p" class="text-sm text-muted-foreground" />
       </div>
 
-      <div class="space-y-4">
-        {webringItems.map((ring) => (
+      <!-- Active Webrings -->
+      <div class="space-y-4 mb-12">
+        {activeWebringItems.map((ring) => (
           <article class="border rounded-lg p-5 bg-card hover:shadow-md transition-shadow">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div class="flex-1">
@@ -72,6 +73,73 @@ import { webringItems } from "@/content/webring-items";
           </article>
         ))}
       </div>
+
+      <!-- Pending Webrings -->
+      {pendingWebringItems.length > 0 && (
+        <div class="mt-12">
+          <header class="mb-6">
+            <T key="webrings.pending.title" tag="h2" class="text-2xl font-bold mb-2" />
+            <T key="webrings.pending.description" tag="p" class="text-muted-foreground text-sm" />
+          </header>
+
+          <div class="space-y-4">
+            {pendingWebringItems.map((ring) => (
+              <article class="border rounded-lg p-5 bg-card/75 opacity-80">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="flex-1">
+                    <a
+                      href={ring.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary hover:underline font-semibold text-lg"
+                    >
+                      {ring.name}
+                    </a>
+                    <span class="ml-2 text-xs px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-700 dark:text-yellow-300">
+                      <T key="webrings.pending.badge" />
+                    </span>
+                    {ring.description && (
+                      <p class="text-sm text-muted-foreground mt-1 line-clamp-2">
+                        {ring.description}
+                      </p>
+                    )}
+                  </div>
+                  <nav class="flex items-center gap-2 opacity-50" aria-label={`Navigate ${ring.name} (pending)`}>
+                    <a
+                      href={ring.previous}
+                      class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
+                      title="Previous site"
+                      aria-label={`Previous site in ${ring.name}`}
+                    >
+                      <span data-i18n="webrings.previous">←</span>
+                    </a>
+                    {ring.random ? (
+                      <a
+                        href={ring.random}
+                        class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
+                        title="Random site"
+                        aria-label={`Random site in ${ring.name}`}
+                      >
+                        🎲
+                      </a>
+                    ) : (
+                      <span class="px-4 py-2 opacity-30" aria-hidden="true">🎲</span>
+                    )}
+                    <a
+                      href={ring.next}
+                      class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
+                      title="Next site"
+                      aria-label={`Next site in ${ring.name}`}
+                    >
+                      <span data-i18n="webrings.next">→</span>
+                    </a>
+                  </nav>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      )}
 
     </div>
   </div>

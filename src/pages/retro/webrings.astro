@@ -1,6 +1,6 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { webringItems } from "@/content/webring-items";
+import { activeWebringItems, pendingWebringItems } from "@/content/webring-items";
 ---
 
 <RetroLayout title="Webrings - Jarema's Retro Site">
@@ -35,8 +35,8 @@ import { webringItems } from "@/content/webring-items";
 
   <hr>
 
-  <!-- Webrings list -->
-  {webringItems.map((webring) => (
+  <!-- Active Webrings list -->
+  {activeWebringItems.map((webring) => (
     <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px groove #808080; margin-bottom: 10px;">
       <tr>
         <td align="center">
@@ -71,6 +71,63 @@ import { webringItems } from "@/content/webring-items";
   ))}
 
   <hr>
+
+  <!-- Pending Webrings -->
+  {pendingWebringItems.length > 0 && (
+    <>
+      <center>
+        <font size="4">
+          <b>⏳ Pending Approval</b>
+        </font>
+        <br>
+        <font size="2">
+          <i>Webrings I've applied to join and am waiting for approval</i>
+        </font>
+      </center>
+
+      <hr>
+
+      {pendingWebringItems.map((webring) => (
+        <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px groove #808080; margin-bottom: 10px; opacity: 0.7; background-color: #fffacd;">
+          <tr>
+            <td align="center">
+              <font size="3" color="#000080">
+                <b>
+                  <a href={webring.url}>{webring.name}</a>
+                </b>
+                {' '}
+                <font size="1" style="background-color: #ffeb3b; padding: 2px 5px; border: 1px solid #fbc02d;">
+                  <b>PENDING</b>
+                </font>
+              </font>
+              {webring.description && (
+                <>
+                  <br>
+                  <font size="2">
+                    <i>{webring.description}</i>
+                  </font>
+                </>
+              )}
+              <br><br>
+              <font size="2" style="opacity: 0.6;">
+                [<a href={webring.previous}>&lt;&lt; Previous</a>]
+                {webring.random && (
+                  <>
+                    {' '}
+                    [<a href={webring.random}>🎲 Random</a>]
+                  </>
+                )}
+                {' '}
+                [<a href={webring.next}>Next &gt;&gt;</a>]
+              </font>
+            </td>
+          </tr>
+        </table>
+      ))}
+
+      <hr>
+    </>
+  )}
 
   <!-- Discover CTA -->
   <table width="100%" border="0" cellpadding="15" cellspacing="0" style="border: 3px ridge #4caf50;">
