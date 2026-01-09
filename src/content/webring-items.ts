@@ -15,7 +15,7 @@ export const webringItems: WebringItem[] = [
     previous: 'https://xn--sr8hvo.ws/previous',
     random: 'https://xn--sr8hvo.ws/random',
     next: 'https://xn--sr8hvo.ws/next',
-    description: 'A webring for "folks adding IndieWeb building blocks to their personal websites to find (and be found by) other folks with IndieWeb building blocks on their sites!"',
+    description: 'A webring for "folks adding IndieWeb building blocks to their personal websites to find other folks with IndieWeb building blocks on their sites!"',
   },
   {
     name: 'Hotline Webring',
@@ -87,7 +87,7 @@ export const webringItems: WebringItem[] = [
     previous: 'https://webring.otomir23.me/jarema/prev',
     random: 'https://webring.otomir23.me/jarema/random',
     next: 'https://webring.otomir23.me/jarema/next',
-    description: 'This is otomir23\'s webring',
+    description: 'This is otomir23\'s webring.',
   },
   {
     name: 'Epic WebRing',
