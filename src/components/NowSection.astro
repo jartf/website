@@ -17,8 +17,10 @@ const categoryIcons: Record<string, string> = {
   studying: "📚",
 };
 
-// Get the latest 3 items for homepage display
-const displayItems = nowItems.slice(0, 3);
+// Get the latest 3 items for homepage display (by timestamp)
+const displayItems = [...nowItems]
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 3);
 
 // Helper function to get category translation
 function getCategoryTranslation(category: string): string {
@@ -37,6 +39,7 @@ function getCategoryTranslation(category: string): string {
       <article
         class={i < displayItems.length - 1 ? "border-b border-border pb-4" : ""}
         data-now-content={JSON.stringify(item.content)}
+        data-now-content-secondary={item.contentSecondary ? JSON.stringify(item.contentSecondary) : undefined}
         data-category={item.category}
       >
         <div class="flex items-center gap-2 font-semibold mb-1">
@@ -45,7 +48,25 @@ function getCategoryTranslation(category: string): string {
             {getCategoryTranslation(item.category)}
           </span>
         </div>
-        <p class="now-text text-sm break-words">{item.content.en}</p>
+        <div class="flex items-center gap-3 overflow-hidden">
+          {item.image ? (
+            <img
+              src={item.image}
+              alt="Cover art"
+              class="w-12 h-12 rounded-lg flex-shrink-0"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : null}
+          {item.contentSecondary ? (
+            <div class="flex-1 min-w-0 overflow-hidden">
+              <p class="now-text font-semibold break-words block">{item.content.en}</p>
+              <p class="now-subtext text-sm text-muted-foreground break-words">{item.contentSecondary.en}</p>
+            </div>
+          ) : (
+            <p class="now-text text-sm break-words min-w-0">{item.content.en}</p>
+          )}
+        </div>
         <time class="text-xs text-muted-foreground mt-1 block" datetime={item.date}>
           {new Date(item.date).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
         </time>
@@ -122,8 +143,12 @@ function getCategoryTranslation(category: string): string {
           const artist = track?.getElementsByTagName("artist")[0]?.textContent || "";
           const url = track?.getElementsByTagName("url")[0]?.textContent || "";
 
+          const mediumImage = Array.from(track?.getElementsByTagName("image") || [])
+            .find((img) => img.getAttribute("size") === "medium")
+            ?.textContent?.trim() || "";
+
           if (name && artist) {
-            items.push({ type: "lastfm", name, artist, url, nowplaying, dateObj: new Date() });
+            items.push({ type: "lastfm", name, artist, url, nowplaying, image: mediumImage, dateObj: new Date() });
           }
         }
       }
@@ -132,31 +157,45 @@ function getCategoryTranslation(category: string): string {
       if (premidRes?.ok) {
         const data = await premidRes.json();
         if (data.activities?.length > 0) {
-          items.push({ type: "premid", activities: data.activities.map((a: any) => a.activity) });
+          items.push({ type: "premid", activities: data.activities.map((a: any) => a.activity), dateObj: new Date() });
         }
       }
 
       // If we have live data, update the container
       if (items.length > 0) {
+        const hasLastfm = items.some((i) => i.type === "lastfm");
+        const hasPremid = items.some((i) => i.type === "premid");
+
         const staticItems = Array.from(container.querySelectorAll("article"))
-          .map((article) => ({
-            category: article.getAttribute("data-category"),
-            element: article
-          }))
+          .map((article) => {
+            const category = article.getAttribute("data-category");
+            const datetime = article.querySelector("time")?.getAttribute("datetime") || "";
+            const dateObj = datetime ? new Date(datetime) : new Date(0);
+            return { category, element: article, dateObj };
+          })
           .filter((item) => {
             // Remove static items that conflict with live data
-            if (item.category === "listening" && items.some((i) => i.type === "lastfm")) return false;
-            if (item.category === "premid" && items.some((i) => i.type === "premid")) return false;
+            if (item.category === "listening" && hasLastfm) return false;
+            if (item.category === "premid" && hasPremid) return false;
             return true;
+          });
+
+        const candidates = [
+          ...items.map((i) => ({ ...i, kind: "live" as const })),
+          ...staticItems.map((i) => ({ type: "static" as const, kind: "static" as const, element: i.element, dateObj: i.dateObj })),
+        ]
+          .sort((a, b) => {
+            const at = a.dateObj instanceof Date ? a.dateObj.getTime() : 0;
+            const bt = b.dateObj instanceof Date ? b.dateObj.getTime() : 0;
+            return bt - at;
           })
-          .slice(0, 3 - items.length);
+          .slice(0, 3);
 
         // Build new HTML
         let html = "";
-        const allItems = [...items, ...staticItems.map((i) => ({ type: "static", element: i.element }))].slice(0, 3);
 
-        allItems.forEach((item, i) => {
-          const divider = i < allItems.length - 1 ? "border-b border-border pb-4" : "";
+        candidates.forEach((item, i) => {
+          const divider = i < candidates.length - 1 ? "border-b border-border pb-4" : "";
 
           if (item.type === "lastfm") {
             html += `<article class="${divider}">`;
@@ -167,7 +206,14 @@ function getCategoryTranslation(category: string): string {
               html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
             }
             html += "</div>";
-            html += `<p class="text-sm break-words"><a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold">${item.name}</a> <span class="text-muted-foreground">by</span> ${item.artist}</p>`;
+            html += '<div class="flex items-center gap-3 overflow-hidden py-1">';
+            if (item.image) {
+              html += `<img src="${item.image}" alt="${item.name} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async" />`;
+            }
+            html += '<div class="flex-1 min-w-0 overflow-hidden">';
+            html += `<a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${item.name}</a>`;
+            html += `<p class="text-sm text-muted-foreground break-words">${item.artist}</p>`;
+            html += "</div></div>";
             html += "</article>";
           } else if (item.type === "premid") {
             html += `<article class="${divider}">`;
@@ -222,6 +268,16 @@ function getCategoryTranslation(category: string): string {
           const textEl = article.querySelector(".now-text");
           if (textEl) {
             textEl.textContent = langContent;
+          }
+
+          const secondaryData = article.getAttribute("data-now-content-secondary");
+          const subTextEl = article.querySelector(".now-subtext");
+          if (secondaryData && subTextEl) {
+            const secondary = JSON.parse(secondaryData);
+            const langSecondary = secondary[lang] || secondary.en;
+            subTextEl.textContent = langSecondary;
+          } else if (subTextEl) {
+            subTextEl.textContent = "";
           }
         } catch (e) {
           // Ignore parse errors

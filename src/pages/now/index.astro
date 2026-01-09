@@ -56,7 +56,12 @@ function getCategoryTranslation(category: string): string {
 
       <div class="grid gap-6" id="now-items-container">
         {sortedItems.map((item) => (
-            <article class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow" data-category={item.category} data-now-content={JSON.stringify(item.content)}>
+            <article
+              class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow"
+              data-category={item.category}
+              data-now-content={JSON.stringify(item.content)}
+              data-now-content-secondary={item.contentSecondary ? JSON.stringify(item.contentSecondary) : undefined}
+            >
               <div class="flex items-start gap-4">
                 <span class="text-3xl flex-shrink-0" aria-hidden="true">
                   {iconMap[item.icon] || "📌"}
@@ -65,7 +70,36 @@ function getCategoryTranslation(category: string): string {
                   <h2 class="font-semibold text-lg mb-2" data-i18n={`now.categories.${item.category}`}>
                     {getCategoryTranslation(item.category)}
                   </h2>
-                  <p class="now-text">{item.content.en}</p>
+                  {item.contentSecondary ? (
+                    <div class="flex items-center gap-3 overflow-hidden">
+                      {item.image ? (
+                        <img
+                          src={item.image}
+                          alt="Cover art"
+                          class="w-12 h-12 rounded-lg flex-shrink-0"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : null}
+                      <div class="flex-1 min-w-0 overflow-hidden">
+                        <p class="now-text font-semibold break-words block">{item.content.en}</p>
+                        <p class="now-subtext text-sm text-muted-foreground break-words">{item.contentSecondary.en}</p>
+                      </div>
+                    </div>
+                  ) : item.image ? (
+                    <div class="flex items-center gap-3 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt="Cover art"
+                        class="w-12 h-12 rounded-lg flex-shrink-0"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <p class="now-text min-w-0">{item.content.en}</p>
+                    </div>
+                  ) : (
+                    <p class="now-text">{item.content.en}</p>
+                  )}
                   <time
                     class="text-xs text-muted-foreground/70 mt-3 block"
                     datetime={item.date}
@@ -168,6 +202,10 @@ function getCategoryTranslation(category: string): string {
           const artist = track?.getElementsByTagName("artist")[0]?.textContent || "";
           const url = track?.getElementsByTagName("url")[0]?.textContent || "";
 
+          const mediumImage = Array.from(track?.getElementsByTagName("image") || [])
+            .find((img) => img.getAttribute("size") === "medium")
+            ?.textContent?.trim() || "";
+
           if (name && artist) {
             liveItems.push({
               type: "lastfm",
@@ -176,6 +214,7 @@ function getCategoryTranslation(category: string): string {
               artist,
               url,
               nowplaying,
+              image: mediumImage,
               dateObj: new Date(),
             });
           }
@@ -223,7 +262,14 @@ function getCategoryTranslation(category: string): string {
               html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
             }
             html += "</div>";
-            html += `<p><a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold">${item.name}</a> <span class="text-muted-foreground">by</span> ${item.artist}</p>`;
+            html += '<div class="flex items-center gap-3 overflow-hidden">';
+            if (item.image) {
+              html += `<img src="${item.image}" alt="${item.name} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async" />`;
+            }
+            html += '<div class="flex-1 min-w-0 overflow-hidden">';
+            html += `<a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${item.name}</a>`;
+            html += `<p class="text-sm text-muted-foreground break-words">${item.artist}</p>`;
+            html += "</div></div>";
           } else if (item.type === "premid") {
             html += '<div class="flex items-center gap-2 mb-2">';
             html += `<h2 class="font-semibold text-lg" data-i18n="now.categories.premid">${t("now.categories.premid") || "Discord activity"}</h2>`;
@@ -274,6 +320,16 @@ function getCategoryTranslation(category: string): string {
           const langContent = content[lang] || content.en;
           const textEl = article.querySelector(".now-text");
           if (textEl) { textEl.textContent = langContent; }
+
+          const secondaryData = article.getAttribute("data-now-content-secondary");
+          const subTextEl = article.querySelector(".now-subtext");
+          if (secondaryData && subTextEl) {
+            const secondary = JSON.parse(secondaryData);
+            const langSecondary = secondary[lang] || secondary.en;
+            subTextEl.textContent = langSecondary;
+          } else if (subTextEl) {
+            subTextEl.textContent = "";
+          }
         } catch (e) {
           // Ignore parse errors
         }

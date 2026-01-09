@@ -14,11 +14,15 @@ export type NowItemContent = {
   vih: string;
 };
 
+export type NowItemContentOptional = Partial<NowItemContent> & { en: string };
+
 export type NowItem = {
   id: number;
   category: string;
   icon: string; // Icon name from lucide
+  image?: string; // Optional image URL (e.g., cover art for listening)
   content: NowItemContent;
+  contentSecondary?: NowItemContentOptional; // Optional second line (e.g., artist)
   date: string;
 };
 
@@ -28,19 +32,23 @@ export const nowItems: NowItem[] = [
     category: "listening",
     icon: "Headphones",
     content: {
-      en: '"Hanataba" (Bouquet) by HoneyComeBear',
-      vi: '"Hanataba" (Bó hoa) của HoneyComeBear',
-      ru: '"Hanataba" (Букет) от HoneyComeBear',
-      et: '"Hanataba" (Lillekimp) HoneyComeBearilt',
-      da: '"Hanataba" (Buket) af HoneyComeBear',
-      tr: 'HoneyComeBear\'dan "Hanataba" (Çiçek Demeti)',
-      zh: 'HoneyComeBear 的《花束》',
-      pl: '"Hanataba" (Bukiet) autorstwa HoneyComeBear',
-      sv: '"Hanataba" (Bukett) av HoneyComeBear',
-      fi: 'HoneyComeBearin "Hanataba" (Kukkakimppu)',
-      tok: '"Hanataba" (kulupu kasi kule) tan HoneyComeBear',
-      vih: '「花束」𧵑 HoneyComeBear'
+      en: 'Hanataba (Bouquet)',
+      vi: 'Hanataba (Bó hoa)',
+      ru: 'Hanataba (Букет)',
+      et: 'Hanataba (Lillekimp)',
+      da: 'Hanataba (Buket)',
+      tr: 'Hanataba (Çiçek Demeti)',
+      zh: '花束',
+      pl: 'Hanataba (Bukiet)',
+      sv: 'Hanataba (Bukett)',
+      fi: 'Hanataba (Kukkakimppu)',
+      tok: 'Hanataba (kulupu kasi kule)',
+      vih: '花束'
     },
+    contentSecondary: {
+      en: "HoneyComeBear"
+    },
+    image: "https://lastfm.freetls.fastly.net/i/u/64s/bf160d8ae5651e8f91fad2e7121bb8e2.jpg",
     date: "2025-12-20T00:15:36+00:00",
   },
   {
