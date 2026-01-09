@@ -253,10 +253,10 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <!-- transition:persist keeps these components alive across page navigations -->
     <KeyboardNavigation client:only="react" transition:persist />
     <ActionSearchBar client:only="react" transition:persist />
-    <FirstVisitHint client:idle transition:persist />
+    <FirstVisitHint client:only="react" transition:persist />
 
     <!-- Global notices/easter eggs -->
-    <LanguageNotice client:idle transition:persist />
+    <LanguageNotice client:only="react" transition:persist />
     <EasterEgg client:idle transition:persist />
   </body>
 </html>
