@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { AlertCircle, X } from "lucide-react";
 
-import { languageStore, initLanguage, t } from "@/i18n";
+import { languageStore, t } from "@/i18n";
 import { completedLanguages } from "@/lib/constants";
 
 export function LanguageNotice() {
@@ -12,7 +12,6 @@ export function LanguageNotice() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    initLanguage();
     setMounted(true);
     try {
       const dismissed = localStorage.getItem(STORAGE_KEY);

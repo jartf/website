@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
-import { languageStore, setLanguage, supportedLanguages, initLanguage, currentTranslations, type SupportedLanguage } from '@/i18n';
+import { languageStore, setLanguage, supportedLanguages, currentTranslations, type SupportedLanguage } from '@/i18n';
 
 export function LanguageToggle() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,8 +14,6 @@ export function LanguageToggle() {
     const initialLang = (window as any).__INITIAL_LANG__;
     if (initialLang && initialLang !== languageStore.get()) {
       languageStore.set(initialLang);
-    } else {
-      initLanguage();
     }
     setMounted(true);
   }, []);
@@ -63,7 +61,7 @@ export function LanguageToggle() {
         onClick={() => setIsOpen(!isOpen)}
         className="relative z-50 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3"
         aria-label="Select language"
-        aria-expanded={isOpen}
+        aria-expanded={isOpen ? 'true' : 'false'}
         aria-haspopup="listbox"
       >
         <span className="mr-2">{currentLanguage.flag}</span>

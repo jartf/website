@@ -2,7 +2,7 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { PartyPopper, X } from "lucide-react";
 
-import { languageStore, initLanguage } from "@/i18n";
+import { languageStore } from "@/i18n";
 import { supportedLanguages } from "@/lib/constants";
 
 const LANGUAGE_TRACKER_KEY = "language-tracker";
@@ -33,7 +33,6 @@ export const EasterEgg = memo(function EasterEgg() {
   const [visited, setVisited] = useState<Set<string>>(() => readVisited());
 
   useEffect(() => {
-    initLanguage();
     setMounted(true);
   }, []);
 

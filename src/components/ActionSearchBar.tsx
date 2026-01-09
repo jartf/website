@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useStore } from "@nanostores/react";
-import { languageStore, setLanguage, initLanguage, supportedLanguages, translations, type SupportedLanguage } from "@/i18n";
+import { languageStore, setLanguage, supportedLanguages, t as i18nT, type SupportedLanguage } from "@/i18n";
 import {
   Search, Home, User, Code, BookOpen, Clock, Wrench, Mail, FileText,
   Moon, Sun, Languages, RefreshCw, Gamepad2, Slash, KeyRound, FlipHorizontal,
@@ -63,7 +63,6 @@ export function ActionSearchBar() {
   const lang = useStore(languageStore);
 
   useEffect(() => {
-    initLanguage();
     setMounted(true);
     setPathname(window.location.pathname);
     setThemeState(localStorage.getItem("theme") || "dark");
@@ -83,24 +82,19 @@ export function ActionSearchBar() {
     }
   }, []);
 
-  const t = useCallback((key: string, fallbackOrParams?: string | Record<string, any>): string => {
-    const trans = translations[lang] || translations.en;
-    const keys = key.split(".");
-    let value: any = trans;
-    for (const k of keys) {
-      value = value?.[k];
-    }
-    if (typeof value !== "string") {
-      return typeof fallbackOrParams === "string" ? fallbackOrParams : key;
-    }
-    // Handle interpolation like {{title}}
-    if (typeof fallbackOrParams === "object") {
-      for (const [paramKey, paramValue] of Object.entries(fallbackOrParams)) {
-        value = value.replace(new RegExp(`\\{\\{${paramKey}\\}\\}`, "g"), String(paramValue));
-        }
-      }
-      return value;
-  }, [lang]);
+  const t = useCallback(
+    (key: string, fallbackOrParams?: string | Record<string, any>): string => {
+      const isParams = fallbackOrParams && typeof fallbackOrParams === "object";
+      const translated = isParams
+        ? i18nT(key, fallbackOrParams as Record<string, any>)
+        : i18nT(key);
+
+      if (translated === key && typeof fallbackOrParams === "string") return fallbackOrParams;
+      return translated;
+    },
+    // Re-render translations on language changes.
+    [lang],
+  );
 
   // Build all actions
   const allActions = useMemo(() => {

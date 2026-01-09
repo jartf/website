@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { useStore } from "@nanostores/react";
-import { languageStore, initLanguage, translations } from "@/i18n";
+import { languageStore, t as i18nT } from "@/i18n";
 
 const STORAGE_KEY = "first-visit-hint-dismissed";
 
@@ -20,22 +20,17 @@ export function FirstVisitHint() {
   const [mounted, setMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const lang = useStore(languageStore);
+  void lang;
 
   useEffect(() => {
-    initLanguage();
     setMounted(true);
     // Check desktop on mount
     setIsDesktop(window.innerWidth >= 1280);
   }, []);
 
   const t = (key: string, fallback?: string): string => {
-    const trans = translations[lang] || translations.en;
-    const keys = key.split(".");
-    let value: any = trans;
-    for (const k of keys) {
-      value = value?.[k];
-    }
-    return typeof value === "string" ? value : fallback || key;
+    const translated = i18nT(key);
+    return translated === key ? fallback || key : translated;
   };
 
   useEffect(() => {

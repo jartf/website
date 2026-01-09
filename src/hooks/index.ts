@@ -1,6 +1,6 @@
 // Hooks for Astro v5
 import { useEffect, useRef } from 'react'
-import { languageStore, setLanguage, initLanguage, supportedLanguages, type SupportedLanguage } from '@/i18n'
+import { languageStore, setLanguage, supportedLanguages, type SupportedLanguage } from '@/i18n'
 import { routes, keyboardShortcuts, themes } from '@/lib/constants'
 
 // ============================================================================
@@ -25,11 +25,6 @@ const NAVIGATION_SHORTCUTS: Record<string, string> = {
 
 export function useKeyboardNavigation() {
   const refreshCatRef = useRef<Element | null>(null)
-
-  // Initialize on mount
-  useEffect(() => {
-    initLanguage()
-  }, [])
 
   // Find refresh cat button
   useEffect(() => {

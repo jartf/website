@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Keyboard, X } from "lucide-react";
 import { useStore } from "@nanostores/react";
-import { languageStore, initLanguage, translations } from "@/i18n";
+import { languageStore, t as i18nT } from "@/i18n";
 
 // Inline KeyboardShortcut component
 const KeyboardShortcut = ({ children }: { children: React.ReactNode }) => (
@@ -27,20 +27,15 @@ export function KeyboardShortcutsHelp() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const lang = useStore(languageStore);
+  void lang;
 
   useEffect(() => {
-    initLanguage();
     setMounted(true);
   }, []);
 
   const t = (key: string, fallback?: string): string => {
-    const trans = translations[lang] || translations.en;
-    const keys = key.split(".");
-    let value: any = trans;
-    for (const k of keys) {
-      value = value?.[k];
-    }
-    return typeof value === "string" ? value : fallback || key;
+    const translated = i18nT(key);
+    return translated === key ? fallback || key : translated;
   };
 
   // Determine page type for context-specific shortcuts
