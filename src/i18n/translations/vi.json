@@ -498,7 +498,7 @@
     "moveRight": "Di chuyển sang phải",
     "moveUp": "Di chuyển lên",
     "moveDown": "Di chuyển xuống",
-    "touchInstructions": "Trên điện thoại, hãy vuốt theo bất kỳ hướng nào để di chuyển các ô.",
+    "touchInstructions": "Trên điện thoại, hãy sử dụng các nút điều khiển trên màn hình để di chuyển các ô.",
     "undo": "Hoàn tác"
   },
   "keyboardShortcuts": {

@@ -512,7 +512,7 @@
     "moveRight": "Move right",
     "moveUp": "Move up",
     "moveDown": "Move down",
-    "touchInstructions": "On mobile devices, swipe in any direction to move the tiles.",
+    "touchInstructions": "On mobile devices, use the on-screen controls to move tiles.",
     "undo": "Undo"
   },
   "keyboardShortcuts": {

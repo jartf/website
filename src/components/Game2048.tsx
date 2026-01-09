@@ -1,7 +1,7 @@
 // 2048 - React component for Astro
 // Ported from Next.js v4
 
-import { useEffect, useCallback, useRef, useState } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useStore } from '@nanostores/react'
 import { languageStore, initLanguage, t as i18nT } from '@/i18n'
@@ -61,36 +61,6 @@ export default function Game2048() {
 
     return () => observer.disconnect()
   }, [])
-
-  // Touch handling
-  const touchStart = useRef<{ x: number; y: number } | null>(null)
-
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0]
-    touchStart.current = { x: touch.clientX, y: touch.clientY }
-  }, [])
-
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!touchStart.current) return
-
-    const touch = e.changedTouches[0]
-    const deltaX = touch.clientX - touchStart.current.x
-    const deltaY = touch.clientY - touchStart.current.y
-
-    const minSwipeDistance = 50
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (Math.abs(deltaX) > minSwipeDistance) {
-        processMove(deltaX > 0 ? 'right' : 'left')
-      }
-    } else {
-      if (Math.abs(deltaY) > minSwipeDistance) {
-        processMove(deltaY > 0 ? 'down' : 'up')
-      }
-    }
-
-    touchStart.current = null
-  }, [processMove])
 
   // Keyboard controls
   useEffect(() => {
@@ -158,11 +128,7 @@ export default function Game2048() {
             </div>
 
             {/* Game board */}
-            <div
-              className="bg-card border rounded-lg p-4 relative"
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-            >
+            <div className="bg-card border rounded-lg p-4 relative">
               <div
                 className="grid grid-cols-4 gap-2 bg-muted rounded-lg p-2 w-[min(80vw,340px)]"
               >
@@ -252,6 +218,50 @@ export default function Game2048() {
                   </motion.div>
                 )}
               </AnimatePresence>
+            </div>
+
+            {/* Mobile on-screen controls */}
+            <div className="md:hidden flex justify-center">
+              <div className="grid grid-cols-3 gap-2">
+                <div />
+                <button
+                  type="button"
+                  onClick={() => processMove('up')}
+                  disabled={gameOver || gameWon || isAnimating}
+                  aria-label={t('moveUp', 'Move up')}
+                  className="w-14 h-14 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  ↑
+                </button>
+                <div />
+                <button
+                  type="button"
+                  onClick={() => processMove('left')}
+                  disabled={gameOver || gameWon || isAnimating}
+                  aria-label={t('moveLeft', 'Move left')}
+                  className="w-14 h-14 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  onClick={() => processMove('down')}
+                  disabled={gameOver || gameWon || isAnimating}
+                  aria-label={t('moveDown', 'Move down')}
+                  className="w-14 h-14 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  ↓
+                </button>
+                <button
+                  type="button"
+                  onClick={() => processMove('right')}
+                  disabled={gameOver || gameWon || isAnimating}
+                  aria-label={t('moveRight', 'Move right')}
+                  className="w-14 h-14 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  →
+                </button>
+              </div>
             </div>
 
             {/* Buttons */}
