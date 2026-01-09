@@ -3,6 +3,10 @@
     {
       "source": "/stats/:match*",
       "destination": "https://cloud.umami.is/:match*"
+    },
+    {
+      "source": "/blog/default-apps-2024",
+      "destination": "/blog/2024/07/app-defaults-2024/"
     }
   ],
   "headers": [
