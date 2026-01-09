@@ -370,7 +370,12 @@
     "next": "𢖖󠄁",
     "previousAria": "張𠓀𥪝 {{name}}",
     "randomAria": "張偶然𥪝 {{name}}",
-    "nextAria": "張𢖖󠄁𥪝 {{name}}"
+    "nextAria": "張𢖖󠄁𥪝 {{name}}",
+    "pending": {
+      "title": "當䟻閱",
+      "description": "仍 webring 𨉟㐌登記參加吧當䟻批閱。",
+      "badge": "䟻閱"
+    }
   },
   "badges": {
     "title": "部搜集徽號䇼",

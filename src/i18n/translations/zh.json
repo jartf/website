@@ -393,7 +393,12 @@
     "next": "下一个",
     "previousAria": "{{name}} 中的上一个网站",
     "randomAria": "{{name}} 中的随机网站",
-    "nextAria": "{{name}} 中的下一个网站"
+    "nextAria": "{{name}} 中的下一个网站",
+    "pending": {
+      "title": "等待批准",
+      "description": "这些是我已申请加入并等待批准的网站环。",
+      "badge": "待批准"
+    }
   },
   "badges": {
     "title": "网页徽章合集",

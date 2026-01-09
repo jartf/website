@@ -395,7 +395,12 @@
     "next": "Next",
     "previousAria": "Previous site in {{name}}",
     "randomAria": "Random site in {{name}}",
-    "nextAria": "Next site in {{name}}"
+    "nextAria": "Next site in {{name}}",
+    "pending": {
+      "title": "Pending approval",
+      "description": "These are webrings I've applied to join and am waiting for approval.",
+      "badge": "Pending"
+    }
   },
   "badges": {
     "title": "Web badges collection",

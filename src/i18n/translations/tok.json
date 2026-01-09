@@ -384,7 +384,12 @@
     "next": "kama",
     "previousAria": "lipu pini lon {{name}}",
     "randomAria": "lipu nasa lon {{name}}",
-    "nextAria": "lipu kama lon {{name}}"
+    "nextAria": "lipu kama lon {{name}}",
+    "pending": {
+      "title": "awen lukin",
+      "description": "ni li sike lipu ni: mi wile kama lon. mi awen e wile.",
+      "badge": "awen"
+    }
   },
   "badges": {
     "title": "kulupu pi sitelen lili",

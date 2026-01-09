@@ -395,7 +395,12 @@
     "next": "Næste",
     "previousAria": "Forrige side i {{name}}",
     "randomAria": "Tilfældig side i {{name}}",
-    "nextAria": "Næste side i {{name}}"
+    "nextAria": "Næste side i {{name}}",
+    "pending": {
+      "title": "Afventer godkendelse",
+      "description": "Dette er webringe jeg har ansøgt om at blive medlem af og afventer godkendelse.",
+      "badge": "Afventer"
+    }
   },
   "badges": {
     "title": "Samling af web-badges",

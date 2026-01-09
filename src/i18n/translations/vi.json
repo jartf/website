@@ -381,7 +381,12 @@
     "next": "Sau",
     "previousAria": "Trang trước trong {{name}}",
     "randomAria": "Trang ngẫu nhiên trong {{name}}",
-    "nextAria": "Trang sau trong {{name}}"
+    "nextAria": "Trang sau trong {{name}}",
+    "pending": {
+      "title": "Đang chờ duyệt",
+      "description": "Những webring mình đã đăng ký tham gia và đang chờ phê duyệt.",
+      "badge": "Chờ duyệt"
+    }
   },
   "badges": {
     "title": "Bộ sưu tập huy hiệu web",

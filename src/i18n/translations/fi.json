@@ -381,7 +381,12 @@
     "next": "Seuraava",
     "previousAria": "Edellinen sivu ryhmässä {{name}}",
     "randomAria": "Satunnainen sivu ryhmässä {{name}}",
-    "nextAria": "Seuraava sivu ryhmässä {{name}}"
+    "nextAria": "Seuraava sivu ryhmässä {{name}}",
+    "pending": {
+      "title": "Odottaa hyväksyntää",
+      "description": "Nämä ovat verkkorenkaita, joihin olen hakenut ja odotan hyväksyntää.",
+      "badge": "Odottaa"
+    }
   },
   "badges": {
     "title": "Web-merkkien kokoelma",

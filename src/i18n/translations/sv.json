@@ -381,7 +381,12 @@
     "next": "Nästa",
     "previousAria": "Föregående sida i {{name}}",
     "randomAria": "Slumpmässig sida i {{name}}",
-    "nextAria": "Nästa sida i {{name}}"
+    "nextAria": "Nästa sida i {{name}}",
+    "pending": {
+      "title": "Väntar på Godkännande",
+      "description": "Dessa är webbringar jag har ansökt om att gå med i och väntar på godkännande.",
+      "badge": "Väntar"
+    }
   },
   "badges": {
     "title": "Samling av webbmärken",

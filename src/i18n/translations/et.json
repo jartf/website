@@ -381,7 +381,12 @@
     "next": "Järgmine",
     "previousAria": "Eelmine leht ringis {{name}}",
     "randomAria": "Juhuslik leht ringis {{name}}",
-    "nextAria": "Järgmine leht ringis {{name}}"
+    "nextAria": "Järgmine leht ringis {{name}}",
+    "pending": {
+      "title": "Ootel kinnitust",
+      "description": "Need on veebiringid, millega ma olen liitumiseks kandideerinud ja ootan kinnitust.",
+      "badge": "Ootel"
+    }
   },
   "badges": {
     "title": "Veebimärkide kogu",

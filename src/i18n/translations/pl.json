@@ -381,7 +381,12 @@
     "next": "Następna",
     "previousAria": "Poprzednia strona w {{name}}",
     "randomAria": "Losowa strona w {{name}}",
-    "nextAria": "Następna strona w {{name}}"
+    "nextAria": "Następna strona w {{name}}",
+    "pending": {
+      "title": "Oczekuje na zatwierdzenie",
+      "description": "To są webringi, do których aplikowałem i czekam na zatwierdzenie.",
+      "badge": "Oczekuje"
+    }
   },
   "badges": {
     "title": "Kolekcja odznak webowych",

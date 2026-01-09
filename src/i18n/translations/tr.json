@@ -393,7 +393,12 @@
     "next": "Sonraki",
     "previousAria": "{{name}} içindeki önceki site",
     "randomAria": "{{name}} içindeki rastgele site",
-    "nextAria": "{{name}} içindeki sonraki site"
+    "nextAria": "{{name}} içindeki sonraki site",
+    "pending": {
+      "title": "Onay bekliyor",
+      "description": "Katılmak için başvurduğum ve onay beklediğim web çemberleri.",
+      "badge": "Beklemede"
+    }
   },
   "badges": {
     "title": "Web rozetleri koleksiyonu",
