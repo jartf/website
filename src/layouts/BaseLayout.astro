@@ -6,7 +6,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Galaxy from "@/components/Galaxy.astro";
 import { KeyboardNavigation } from "@/components/KeyboardNavigation";
-import { CommandBar } from "@/components/CommandBar";
+import { CommandBarLazy } from "@/components/CommandBarLazy";
 import { FirstVisitHint } from "@/components/FirstVisitHint";
 import { LanguageNotice } from "@/components/LanguageNotice";
 import { EasterEgg } from "@/components/EasterEgg";
@@ -252,7 +252,7 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <!-- Global React components for keyboard navigation and search -->
     <!-- transition:persist keeps these components alive across page navigations -->
     <KeyboardNavigation client:only="react" transition:persist />
-    <CommandBar client:only="react" transition:persist />
+    <CommandBarLazy client:only="react" transition:persist />
     <FirstVisitHint client:only="react" transition:persist />
 
     <!-- Global notices/easter eggs -->

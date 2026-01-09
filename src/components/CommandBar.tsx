@@ -5,11 +5,9 @@ import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useStore } from "@nanostores/react";
 import { languageStore, setLanguage, supportedLanguages, t as i18nT, type SupportedLanguage } from "@/i18n";
 import {
-  Search, Home, User, Code, BookOpen, Clock, Wrench, Mail, FileText,
-  Moon, Sun, Languages, RefreshCw, Gamepad2, Slash, KeyRound, FlipHorizontal,
-  ArrowLeft, ArrowRight, ArrowUp, ArrowDown, X, Coffee, Headphones, Brain,
-  GraduationCap, Lightbulb, Laptop, Smartphone, Globe, Shield, Settings,
-  Map, ImageIcon, Palette, Server, Tag, MessagesSquare, Calendar,
+  ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, Calendar, Clock, Code, FileText,
+  FlipHorizontal, Gamepad2, Home, KeyRound, Languages, Mail, MessagesSquare, Moon, RefreshCw,
+  Search, Slash, Sun, Tag, User, Wrench, X,
 } from "lucide-react";
 
 // Inline KeyboardShortcut component
@@ -51,9 +49,13 @@ interface Action {
   showOn?: string[];
 }
 
-export function CommandBar() {
+export interface CommandBarProps {
+  initialOpen?: boolean;
+}
+
+export function CommandBar({ initialOpen = false }: CommandBarProps) {
   const [theme, setThemeState] = useState<string>("dark");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(initialOpen);
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
@@ -453,24 +455,14 @@ export function CommandBar() {
 
     // Now page - categories
     const nowCategories = ["reading", "coding", "drinking", "listening", "thinking", "studying", "planning"];
-    const CATEGORY_ICONS: Record<string, any> = {
-      reading: BookOpen,
-      coding: Code,
-      drinking: Coffee,
-      listening: Headphones,
-      thinking: Brain,
-      studying: GraduationCap,
-      planning: Lightbulb,
-    };
     const nowActions: Action[] = !isPage("/now")
       ? []
       : nowCategories.map((cat, idx) => {
-          const Icon = CATEGORY_ICONS[cat] || Clock;
           const label = t(`now.categories.${cat}`, cat);
           return {
             id: `now-${cat}`,
             label: t("actionSearch.now.jumpToCategory", { category: label }),
-            icon: <Icon className="h-4 w-4 text-green-500" />,
+            icon: <Clock className="h-4 w-4 text-green-500" />,
             shortcut: `${idx + 1}`,
             category: t("actionSearch.now.category", "Now"),
             action: () => {
@@ -483,16 +475,14 @@ export function CommandBar() {
 
     // Uses page - categories
     const usesCategories = ["hardware", "mobile", "audio", "os", "development", "email", "privacy", "mobile_tools", "mapping", "gaming", "multimedia"];
-    const USES_ICONS = [Laptop, Smartphone, Headphones, Globe, Code, Coffee, Shield, Settings, Map, Gamepad2, ImageIcon];
     const usesActions: Action[] = !isPage("/uses")
       ? []
       : usesCategories.map((cat, idx) => {
-          const Icon = USES_ICONS[idx] || Clock;
           const label = t(`uses.categories.${cat}`, cat);
           return {
             id: `uses-${idx}`,
             label: t("actionSearch.uses.jumpToCategory", { category: label }),
-            icon: <Icon className="h-4 w-4 text-blue-500" />,
+            icon: <Wrench className="h-4 w-4 text-blue-500" />,
             shortcut: idx < 9 ? `${idx + 1}` : idx === 9 ? "0" : "-",
             category: t("actionSearch.uses.category", "Uses"),
             action: () => {
@@ -505,16 +495,14 @@ export function CommandBar() {
 
     // Colophon page - sections
     const colophonSections = ["siteHistory", "technologyStack", "hosting", "inspiration"];
-    const COLOPHON_ICONS = [Palette, Code, Server, BookOpen];
     const colophonActions: Action[] = !isPage("/colophon")
       ? []
       : colophonSections.map((sec, idx) => {
-          const Icon = COLOPHON_ICONS[idx] || FileText;
           const label = t(`colophon.${sec}.title`, sec);
           return {
             id: `colophon-${idx}`,
             label: t("actionSearch.colophon.jumpToSection", { section: label }),
-            icon: <Icon className="h-4 w-4 text-purple-500" />,
+            icon: <FileText className="h-4 w-4 text-purple-500" />,
             shortcut: `${idx + 1}`,
             category: t("actionSearch.colophon.category", "Colophon"),
             action: () => {
