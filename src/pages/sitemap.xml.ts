@@ -27,11 +27,15 @@ export const GET: APIRoute = async ({ site }) => {
 
   // Build URLs array
   const urls = [
-    ...staticPages.map(page => `<url><loc>${siteUrl}${page ? `/${page}/` : '/'}</loc></url>`),
-    ...blogPosts.map((post: CollectionEntry<'blog'>) => `<url><loc>${siteUrl}/blog/${post.slug}/</loc></url>`),
+    ...staticPages.map(page => `  <url>\n    <loc>${siteUrl}${page ? `/${page}/` : '/'}</loc>\n  </url>`),
+    ...blogPosts.map((post: CollectionEntry<'blog'>) => `  <url>\n    <loc>${siteUrl}/blog/${post.slug}/</loc>\n  </url>`),
   ];
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}</urlset>`;
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join('\n')}
+</urlset>`;
 
   return new Response(sitemap, {
     headers: {
