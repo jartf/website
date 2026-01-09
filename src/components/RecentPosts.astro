@@ -3,41 +3,34 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import T from "@/components/T.astro";
 
-interface BlogPost {
+type RecentPost = {
   slug: string;
   title: string;
   excerpt: string;
-  date: string;
+  dateISO: string;
+  dateMs: number;
   readingTime: number;
-}
+  dateTextEn: string;
+};
 
-// Try to get posts from content collection, fallback to static data
-let posts: BlogPost[] = [];
+const dateFormatOptions: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
+const dateFormatter = new Intl.DateTimeFormat("en", dateFormatOptions);
 
-try {
-  const blogPosts = await getCollection("blog");
-  posts = blogPosts
-    .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-    .slice(0, 3)
-    .map((post: CollectionEntry<'blog'>) => ({
+const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft))
+  .sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+  .map((post: CollectionEntry<"blog">) => {
+    const dateISO = post.data.date.toISOString();
+    return {
       slug: post.slug,
       title: post.data.title,
-      excerpt: post.data.excerpt || "No excerpt available",
-      date: post.data.date instanceof Date ? post.data.date.toISOString() : post.data.date,
-      readingTime: post.data.readingTime || 5,
-    }));
-} catch {
-  // Fallback static data if content collection doesn't exist
-  posts = [
-    {
-      slug: "hello-world",
-      title: "Hello World",
-      excerpt: "Welcome to my blog! This is where I share my thoughts on economics, coding, and more.",
-      date: "2024-01-01",
-      readingTime: 3,
-    },
-  ];
-}
+      excerpt: post.data.excerpt ?? "No excerpt available",
+      dateISO,
+      dateMs: post.data.date.getTime(),
+      readingTime: post.data.readingTime ?? 5,
+      dateTextEn: dateFormatter.format(post.data.date),
+    };
+  });
 ---
 
 <section aria-labelledby="recent-posts-heading">
@@ -59,8 +52,8 @@ try {
                 {post.excerpt}
               </p>
               <div class="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                <time datetime={post.date} data-date={post.date}>
-                  {new Date(post.date).toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })}
+                <time datetime={post.dateISO} data-date-ms={post.dateMs}>
+                  {post.dateTextEn}
                 </time>
                 <span>•</span>
                 <span class="reading-time"><span data-reading-time>{post.readingTime}</span> <T key="blog.minRead" /></span>
@@ -85,20 +78,16 @@ try {
 <script>
   import { languageStore, initLanguage } from '@/i18n';
 
-  function updateDates() {
-    const lang = languageStore.get();
+  const dateFormatOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+  const rootSelector = 'section[aria-labelledby="recent-posts-heading"]';
 
-    // Update dates with locale
-    document.querySelectorAll('section[aria-labelledby="recent-posts-heading"] [data-date]').forEach((el) => {
-      const dateStr = el.getAttribute('data-date');
-      if (dateStr) {
-        const date = new Date(dateStr);
-        el.textContent = date.toLocaleDateString(lang, {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        });
-      }
+  function updateDates(lang?: string) {
+    const locale = typeof lang === 'string' && lang ? lang : languageStore.get();
+    const formatter = new Intl.DateTimeFormat(locale, dateFormatOptions);
+    document.querySelectorAll(`${rootSelector} [data-date-ms]`).forEach((el) => {
+      const dateMs = el.getAttribute('data-date-ms');
+      if (!dateMs) return;
+      el.textContent = formatter.format(new Date(Number(dateMs)));
     });
   }
 
@@ -110,12 +99,5 @@ try {
   }
 
   updateDates();
-
-  languageStore.subscribe(() => {
-    updateDates();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateDates();
-  });
+  window.addEventListener('languageChange', (e) => updateDates((e as CustomEvent<string>)?.detail));
 </script>
