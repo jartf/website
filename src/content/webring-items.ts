@@ -74,6 +74,22 @@ export const webringItems: WebringItem[] = [
     description: '"This is a webring for geeks of all sorts, except those who feel excluded by the use of the word geek."',
   },
   {
+    name: 'SSGRing',
+    url: 'https://jbc.lol/webrings/ssgring/',
+    previous: 'https://jbc.lol/webrings/ssgring/redirect?slug=jarema&way=prev',
+    random: 'https://jbc.lol/webrings/ssgring/redirect?slug=jarema&way=rand',
+    next: 'https://jbc.lol/webrings/ssgring/redirect?slug=jarema&way=next',
+    description: '"Webring for sites that uses any Static Site Generation frameworks."',
+  },
+  {
+    name: 'otoring webring',
+    url: 'https://webring.otomir23.me/',
+    previous: 'https://webring.otomir23.me/jarema/prev',
+    random: 'https://webring.otomir23.me/jarema/random',
+    next: 'https://webring.otomir23.me/jarema/next',
+    description: 'This is otomir23\'s webring',
+  },
+  {
     name: 'Epic WebRing',
     url: 'https://epic1.nekoweb.org/webring/',
     previous: 'https://links.app.tc/noJS/?d=prev&url=https://jarema.me',
