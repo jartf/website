@@ -155,87 +155,90 @@ const categoryIcons: Record<string, string> = {
         }
       }
     });
+  }
 
-    // Update item descriptions using uses.itemDescriptions from JSON
-    document.querySelectorAll('.item-description').forEach((el) => {
-      const key = el.getAttribute('data-description-key');
-      if (key) {
-        const translated = t(`uses.itemDescriptions.${key}`);
-        if (translated !== `uses.itemDescriptions.${key}`) {
-          el.textContent = translated;
-        }
+  function setupHiddenPlatforms() {
+    // Hidden platform reveal functionality
+    const platformData: Record<string, { name: string; description: string; link: string }> = {
+      revanced: {
+        name: 'ReVanced',
+        description: 'A patcher for YouTube that removes ads and adds features',
+        link: 'https://revanced.app/'
+      },
+      stremio: {
+        name: 'Stremio',
+        description: 'A media center for streaming movies and TV shows',
+        link: 'https://www.stremio.com/'
       }
+    };
+
+    document.querySelectorAll('.hidden-platform').forEach((el) => {
+      const platform = el.getAttribute('data-platform');
+      if (!platform) return;
+
+      el.addEventListener('click', () => {
+        let clicks = parseInt(el.getAttribute('data-clicks') || '0');
+        clicks++;
+        el.setAttribute('data-clicks', String(clicks));
+
+        const counter = el.querySelector('.platform-counter');
+        const remaining = 5 - clicks;
+
+        if (remaining > 0 && counter) {
+          counter.textContent = `(${remaining} click${remaining === 1 ? '' : 's'} to reveal)`;
+        }
+
+        if (clicks >= 5) {
+          const data = platformData[platform];
+          if (data) {
+            const nameEl = el.querySelector('.platform-name');
+            const descEl = el.querySelector('.platform-description');
+            const lockEl = el.querySelector('.platform-lock');
+
+            if (nameEl) {
+              nameEl.innerHTML = `<a href="${data.link}" target="_blank" rel="noopener noreferrer" class="hover:text-primary">${data.name} <span class="text-xs opacity-70">↗</span></a>`;
+            }
+            if (descEl) {
+              descEl.textContent = data.description;
+            }
+            if (counter) {
+              counter.remove();
+            }
+            if (lockEl) {
+              // Replace lock with unlock icon
+              lockEl.outerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
+              </svg>`;
+            }
+
+            el.classList.remove('cursor-pointer');
+          }
+        }
+      });
     });
   }
 
-  initLanguage();
-  updateTranslations();
-
-  languageStore.subscribe(() => {
+  function init() {
+    initLanguage();
     updateTranslations();
-  });
+    setupHiddenPlatforms();
 
-  window.addEventListener('languageChange', () => {
-    updateTranslations();
-  });
-
-  // Hidden platform reveal functionality
-  const platformData: Record<string, { name: string; description: string; link: string }> = {
-    revanced: {
-      name: 'ReVanced',
-      description: 'A patcher for YouTube that removes ads and adds features',
-      link: 'https://revanced.app/'
-    },
-    stremio: {
-      name: 'Stremio',
-      description: 'A media center for streaming movies and TV shows',
-      link: 'https://www.stremio.com/'
-    }
-  };
-
-  document.querySelectorAll('.hidden-platform').forEach((el) => {
-    const platform = el.getAttribute('data-platform');
-    if (!platform) return;
-
-    el.addEventListener('click', () => {
-      let clicks = parseInt(el.getAttribute('data-clicks') || '0');
-      clicks++;
-      el.setAttribute('data-clicks', String(clicks));
-
-      const counter = el.querySelector('.platform-counter');
-      const remaining = 5 - clicks;
-
-      if (remaining > 0 && counter) {
-        counter.textContent = `(${remaining} click${remaining === 1 ? '' : 's'} to reveal)`;
-      }
-
-      if (clicks >= 5) {
-        const data = platformData[platform];
-        if (data) {
-          const nameEl = el.querySelector('.platform-name');
-          const descEl = el.querySelector('.platform-description');
-          const lockEl = el.querySelector('.platform-lock');
-
-          if (nameEl) {
-            nameEl.innerHTML = `<a href="${data.link}" target="_blank" rel="noopener noreferrer" class="hover:text-primary">${data.name} <span class="text-xs opacity-70">↗</span></a>`;
-          }
-          if (descEl) {
-            descEl.textContent = data.description;
-          }
-          if (counter) {
-            counter.remove();
-          }
-          if (lockEl) {
-            // Replace lock with unlock icon
-            lockEl.outerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500">
-              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
-            </svg>`;
-          }
-
-          el.classList.remove('cursor-pointer');
-        }
-      }
+    // Subscribe to language changes
+    languageStore.subscribe(() => {
+      updateTranslations();
     });
+
+    window.addEventListener('languageChange', () => {
+      updateTranslations();
+    });
+  }
+
+  // Run on initial page load
+  init();
+
+  // Re-run on View Transitions navigation
+  document.addEventListener('astro:page-load', () => {
+    init();
   });
 </script>
