@@ -1,4 +1,4 @@
-// ActionSearchBar - Command palette / Quick actions search
+// Command palette
 // Ported from Next.js v4
 
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
@@ -51,7 +51,7 @@ interface Action {
   showOn?: string[];
 }
 
-export function ActionSearchBar() {
+export function CommandBar() {
   const [theme, setThemeState] = useState<string>("dark");
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
