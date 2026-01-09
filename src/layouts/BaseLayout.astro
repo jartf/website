@@ -233,28 +233,45 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <EasterEgg client:only="react" transition:persist />
 
     <!-- Global i18n DOM updater (handles View Transitions swaps) -->
-    <script type="module">
-      import { initLanguage, applyDomTranslations, languageStore } from "@/i18n";
-
-      // Ensure we only initialize once per browser session.
-      if (!window.__I18N_DOM_INIT__) {
+    <script is:inline>
+      (function () {
+        // Ensure we only initialize once per browser session.
+        if (window.__I18N_DOM_INIT__) return;
         window.__I18N_DOM_INIT__ = true;
 
-        const run = () => {
-          initLanguage();
-          applyDomTranslations(document);
-        };
+        function tryInit() {
+          var api = window.__I18N__;
+          if (!api) return false;
 
-        // Initial load
-        run();
+          var run = function () {
+            api.initLanguage();
+            api.applyDomTranslations(document);
+          };
 
-        // React to explicit language changes
-        window.addEventListener("languageChange", run);
-        languageStore.subscribe(run);
+          // Initial load
+          run();
 
-        // Re-apply after Astro ClientRouter swaps HTML.
-        document.addEventListener("astro:after-swap", run);
-      }
+          // React to explicit language changes
+          window.addEventListener("languageChange", run);
+          if (api.languageStore && api.languageStore.subscribe) {
+            api.languageStore.subscribe(run);
+          }
+
+          // Re-apply after Astro ClientRouter swaps HTML.
+          document.addEventListener("astro:after-swap", run);
+
+          return true;
+        }
+
+        // The i18n bundle is loaded via other page scripts (e.g. Header/Footer).
+        // If it hasn't executed yet, retry briefly.
+        if (tryInit()) return;
+        var attempts = 0;
+        var t = setInterval(function () {
+          attempts++;
+          if (tryInit() || attempts > 100) clearInterval(t);
+        }, 25);
+      })();
     </script>
   </body>
 </html>

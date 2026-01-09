@@ -6,6 +6,12 @@ import { supportedLanguages, type SupportedLanguage } from "@/lib/constants";
 declare global {
   interface Window {
     __INITIAL_LANG__?: string;
+    __I18N__?: {
+      initLanguage: typeof initLanguage;
+      applyDomTranslations: typeof applyDomTranslations;
+      languageStore: typeof languageStore;
+      t: typeof t;
+    };
     languageStore?: typeof languageStore;
   }
 }
@@ -196,6 +202,15 @@ export function t(
 // Make store available globally and handle View Transitions
 if (typeof window !== "undefined") {
   window.languageStore = languageStore;
+
+  // Provide a stable global bridge for non-bundled inline scripts.
+  // (Inline module imports like "@/i18n" won't resolve in the browser.)
+  window.__I18N__ = {
+    initLanguage,
+    applyDomTranslations,
+    languageStore,
+    t,
+  };
 
   // Re-sync on View Transitions page navigation
   document.addEventListener("astro:after-swap", () => {
