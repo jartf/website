@@ -116,7 +116,7 @@ export const nowItems: NowItem[] = [
     category: "coding",
     icon: "Code",
     content: {
-      en: "Improving this website to rely less on React and migrate back to Astro",
+      en: "Optimizing this website to rely less on React and migrate back to Astro",
       vi: "Tối ưu hóa trang web này để ít phụ thuộc vào React hơn và quay lại sử dụng Astro",
       ru: "Оптимизация сайта: снижаем зависимость от React и возвращаемся на Astro",
       et: "Veebisaidi täiustamine, et vähendada sõltuvust Reactist ja kolida tagasi Astrosse",
