@@ -73,6 +73,9 @@ export const activeWebringItems: WebringItem[] = [
     next: 'http://geekring.net/site/553/next',
     description: '"This is a webring for geeks of all sorts, except those who feel excluded by the use of the word geek."',
   },
+];
+
+export const pendingWebringItems: WebringItem[] = [
   {
     name: 'SSGRing',
     url: 'https://jbc.lol/webrings/ssgring/',
@@ -89,9 +92,6 @@ export const activeWebringItems: WebringItem[] = [
     next: 'https://links.app.tc/noJS/?d=next&url=https://jarema.me',
     description: '"This webring is for anyone who is tired of how boring and same-y the internet is today."',
   },
-];
-
-export const pendingWebringItems: WebringItem[] = [
   {
     name: 'NetLoop',
     url: 'https://netloop.netlify.app/',
