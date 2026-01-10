@@ -82,17 +82,6 @@ export const activeWebringItems: WebringItem[] = [
     description: '"Webring for sites that uses any Static Site Generation frameworks."',
   },
   {
-    name: 'otoring webring',
-    url: 'https://webring.otomir23.me/',
-    previous: 'https://webring.otomir23.me/jarema/prev',
-    random: 'https://webring.otomir23.me/jarema/random',
-    next: 'https://webring.otomir23.me/jarema/next',
-    description: 'This is otomir23\'s webring.',
-  },
-];
-
-export const pendingWebringItems: WebringItem[] = [
-  {
     name: 'Epic WebRing',
     url: 'https://epic1.nekoweb.org/webring/',
     previous: 'https://links.app.tc/noJS/?d=prev&url=https://jarema.me',
@@ -100,6 +89,9 @@ export const pendingWebringItems: WebringItem[] = [
     next: 'https://links.app.tc/noJS/?d=next&url=https://jarema.me',
     description: '"This webring is for anyone who is tired of how boring and same-y the internet is today."',
   },
+];
+
+export const pendingWebringItems: WebringItem[] = [
   {
     name: 'NetLoop',
     url: 'https://netloop.netlify.app/',
