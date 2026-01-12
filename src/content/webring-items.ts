@@ -73,6 +73,14 @@ export const activeWebringItems: WebringItem[] = [
     next: 'http://geekring.net/site/553/next',
     description: '"This is a webring for geeks of all sorts, except those who feel excluded by the use of the word geek."',
   },
+  {
+    name: 'The Online webring',
+    url: 'https://webring.ghostk.id/online/',
+    previous: 'https://webring.ghostk.id/online/jarema/previous',
+    random: 'https://webring.ghostk.id/online/random',
+    next: 'https://webring.ghostk.id/online/jarema/next',
+    description: 'A webring for "websites that are actively maintained and updated. No ghost towns here!"',
+  },
 ];
 
 export const pendingWebringItems: WebringItem[] = [
@@ -99,13 +107,5 @@ export const pendingWebringItems: WebringItem[] = [
     random: null,
     next: 'https://netloop.netlify.app/jarema/next',
     description: '"This is a webring!"',
-  },
-  {
-    name: 'The Online webring',
-    url: 'https://webring.ghostk.id/online/',
-    previous: 'https://webring.ghostk.id/online/jarema/previous',
-    random: 'https://webring.ghostk.id/online/random',
-    next: 'https://webring.ghostk.id/online/jarema/next',
-    description: 'A webring for "websites that are actively maintained and updated. No ghost towns here!"',
   },
 ];
