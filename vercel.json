@@ -40,7 +40,7 @@
       ]
     },
     {
-      "source": "/:path((?!(?:retro|about|blog|colophon|contact|guestbook|now|uses|webrings)(?:/|$)).*)",
+      "source": "/:path((?!(?:retro|about|blog|colophon|contact|guestbook|now|scrapbook|uses|webrings)(?:/|$)).*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
