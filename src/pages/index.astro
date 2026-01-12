@@ -89,7 +89,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
         <div class="mt-10 lg:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 lg:items-stretch">
           <section class="flex flex-col" aria-labelledby="current-mood-heading">
             <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
-            <div class="border rounded-lg p-6 bg-card text-center">
+            <div class="border rounded-lg p-6 bg-card text-center flex-1 flex items-center justify-center">
               <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
                 <img
                   src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
@@ -103,8 +103,16 @@ import RecentPosts from "@/components/RecentPosts.astro";
 
           <section class="flex flex-col" aria-labelledby="status-cafe-heading">
             <h2 id="status-cafe-heading" class="text-2xl font-bold mb-4 text-center">Current status</h2>
-            <div class="border rounded-lg p-6 bg-card">
-              <div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
+            <div class="border rounded-lg p-6 bg-card text-center flex-1 flex items-center justify-center">
+              <div class="w-full max-w-xl mx-auto">
+                <div id="statuscafe" class="w-full"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
+                <noscript>
+                  <div class="text-sm text-muted-foreground text-center">
+                    Status updates require JavaScript. You can see my status on
+                    <a href="https://status.cafe/users/jarema" class="text-primary hover:underline">status.cafe</a>.
+                  </div>
+                </noscript>
+              </div>
               <script src="https://status.cafe/current-status.js?name=jarema" defer></script>
             </div>
           </section>
