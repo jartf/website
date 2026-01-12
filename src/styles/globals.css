@@ -2,7 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Local Fonts */
+/* Status.cafe widget */
+#statuscafe {
+  text-align: center;
+}
+#statuscafe-username {
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+#statuscafe-username a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+}
+#statuscafe-username a:hover {
+  text-decoration: underline;
+}
+#statuscafe-content {
+  margin: 0 1em 0.5em 1em;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Local fonts */
 @font-face {
   font-family: 'Lexend';
   src: url('/fonts/Lexend-VariableFont_wght.ttf') format('truetype');

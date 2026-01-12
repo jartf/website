@@ -85,7 +85,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
           </section>
         </div>
 
-        <!-- Current Mood -->
+        <!-- Current mood -->
         <div>
           <section class="mt-10" aria-labelledby="current-mood-heading">
             <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
@@ -101,6 +101,18 @@ import RecentPosts from "@/components/RecentPosts.astro";
             </div>
           </section>
         </div>
+
+        <!-- Status.cafe -->
+        <div>
+          <section class="mt-10" aria-labelledby="status-cafe-heading">
+            <h2 id="status-cafe-heading" class="text-2xl font-bold mb-4 text-center">Current status</h2>
+            <div class="border rounded-lg p-6 bg-card">
+              <div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
+              <script src="https://status.cafe/current-status.js?name=jarema" defer></script>
+            </div>
+          </section>
+        </div>
+
       </div>
     </div>
   </div>
