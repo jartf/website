@@ -4,7 +4,7 @@ import T from "@/components/T.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 const entries = (await getCollection("scrapbook")).sort(
-  (a: CollectionEntry<"scrapbook">, b: CollectionEntry<"scrapbook">) => 
+  (a: CollectionEntry<"scrapbook">, b: CollectionEntry<"scrapbook">) =>
     new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 ---
