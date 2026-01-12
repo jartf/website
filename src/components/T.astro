@@ -1,13 +1,5 @@
 ---
-/**
- * Translation component for Astro
- * Pre-computes translations on the server and swaps text client-side.
- * This avoids flashes of English on first paint and during View Transitions.
- *
- * Usage:
- * <T key="home.heading" />
- * <T key="greetings.morning" params={{ name: "Jarema" }} />
- */
+// Translation component for Astro
 
 import { translations, supportedLanguages, type SupportedLanguage, getNestedValue, translateWithParams } from "@/i18n";
 
