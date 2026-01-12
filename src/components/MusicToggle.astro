@@ -8,6 +8,7 @@
   disabled
   aria-pressed="false"
   aria-label="Music currently unavailable"
+  aria-describedby="music-disabled-reason"
   title="Music currently unavailable"
   class="p-2 rounded-md hover:bg-muted transition-colors opacity-50 cursor-not-allowed"
 >
@@ -16,4 +17,5 @@
     <line x1="23" x2="17" y1="9" y2="15" />
     <line x1="17" x2="23" y1="9" y2="15" />
   </svg>
+  <span id="music-disabled-reason" class="sr-only">Background music feature is currently disabled as no audio file is configured</span>
 </button>

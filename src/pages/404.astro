@@ -97,6 +97,12 @@ import T from "@/components/T.astro";
   .animate-spin-slow {
     animation: spin-slow 8s linear infinite;
   }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .animate-spin-slow {
+      animation: none;
+    }
+  }
 </style>
 
 <script>
