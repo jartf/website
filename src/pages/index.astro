@@ -20,25 +20,17 @@ import RecentPosts from "@/components/RecentPosts.astro";
             <T key="home.heading" tag="h1" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" />
             <T key="home.subheading" tag="p" class="text-lg md:text-xl text-muted-foreground mb-8" />
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={routes.contact}>
-                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
-                  <T key="home.contactButton" />
-                </button>
+              <a href={routes.contact} class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
+                <T key="home.contactButton" />
               </a>
-              <a href={routes.about}>
-                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                  <T key="home.aboutButton" />
-                </button>
+              <a href={routes.about} class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+                <T key="home.aboutButton" />
               </a>
-              <a href={routes.blog}>
-                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                  <T key="home.blogButton" />
-                </button>
+              <a href={routes.blog} class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+                <T key="home.blogButton" />
               </a>
-              <a href={routes.guestbook}>
-                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                  <T key="home.guestbookButton" />
-                </button>
+              <a href={routes.guestbook} class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+                <T key="home.guestbookButton" />
               </a>
             </div>
           </div>
@@ -65,28 +57,27 @@ import RecentPosts from "@/components/RecentPosts.astro";
             <nav class="border rounded-lg p-4 bg-card divide-y text-sm" aria-label="Webring navigation">
               {activeWebringItems.map((ring) => (
                   <div class="flex items-center justify-between py-1.5 first:pt-0 last:pb-0">
-                    <a href={ring.url} class="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">
+                    <a href={ring.url} class="text-primary hover:underline font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm" target="_blank" rel="noopener noreferrer">
                       {ring.name}
                     </a>
                     <div class="flex items-center gap-2" role="group" aria-label={`Navigate ${ring.name}`}>
-                      <a href={ring.previous} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" title={`Previous site in ${ring.name}`}>←</a>
+                      <a href={ring.previous} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Previous site in ${ring.name}`}>←</a>
                       {ring.random ? (
-                        <a href={ring.random} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" title={`Random site in ${ring.name}`}>🎲</a>
+                        <a href={ring.random} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Random site in ${ring.name}`}>🎲</a>
                       ) : (
                         <span class="px-2 py-1 invisible" aria-hidden="true">🎲</span>
                       )}
-                      <a href={ring.next} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors" title={`Next site in ${ring.name}`}>→</a>
+                      <a href={ring.next} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Next site in ${ring.name}`}>→</a>
                     </div>
                   </div>
                 ))}
                 <div class="pt-4 text-center">
-                  <a href={routes.webring} aria-label="See all webrings">
-                    <button
-                      id="view-all-webrings"
-                      class="inline-flex items-center gap-2 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors group"
-                    >
-                      <T key="home.viewAllWebrings" /> →
-                    </button>
+                  <a
+                    href={routes.webring}
+                    id="view-all-webrings"
+                    class="inline-flex items-center gap-2 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  >
+                    <T key="home.viewAllWebrings" /> →
                   </a>
                 </div>
             </nav>
@@ -98,7 +89,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
           <section class="mt-10" aria-labelledby="current-mood-heading">
             <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
             <div class="border rounded-lg p-6 bg-card text-center">
-              <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
                 <img
                   src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
                   alt="The current mood of jarema at www.imood.com"
