@@ -159,89 +159,89 @@ export interface FooterBadge {
 export const footerBadges: FooterBadge[] = [
   {
     src: "/sweet.png",
-    alt: "A blue banner showing the text Sweet homepage in all caps, next to the word weet is a moon and two stars.",
+    alt: "Sweet homepage",
   },
   {
     src: "/best_viewed_with_eyes.gif",
-    alt: "An animated pixel art banner with the word Best in vertical and red background, next to the text viewed with Eyes in horizontal and gray background.",
+    alt: "Best viewed with Eyes",
   },
   {
     src: "/dumbass.gif",
-    alt: "An animated banner showing the text Danger in red background and vertical, next to the words Dumbass webmaster ahead in horizontal.",
+    alt: "Dumbass webmaster ahead",
   },
   {
     src: "/join_logo.gif",
-    alt: "An animated pixel art banner of a white cat sleeping on a red pillow, next to the word miaow.",
+    alt: "White cat sleeping on a red pillow, miaow",
   },
   {
     src: "/bannars.gif",
-    alt: "An animated pixel art banner with the text The Realm of Dream on a rainbow background.",
+    alt: "The Realm of Dream",
   },
   {
     src: "/teto.gif",
-    alt: "An animated banner showing Kasane Teto dancing left and right",
+    alt: "Kasane Teto dancing",
   },
   {
     src: "/button2019.gif",
-    alt: "A banner showing the text Still using buttons in 2019!",
+    alt: "Still using buttons in 2019!",
   },
   {
     src: "/people_pledge_badge_party_cream_pink_88x31.png",
-    alt: "A banner showing the text People Pledge.",
+    alt: "People Pledge",
     href: "https://people.pledge.party/",
   },
   {
     src: "/kagi-smallweb-yellow.gif",
-    alt: "An animated banner with Doggo of Kagi search engine.",
+    alt: "Kagi Small Web",
     href: "https://kagi.com/smallweb",
   },
   {
     src: "/internetprivacy.gif",
-    alt: "An animated pixel art banner with a spinning globe, next to the words Internet privacy Now!",
+    alt: "Internet privacy Now!",
   },
   {
     src: "/saynotoweb3_88x31.gif",
-    alt: "An animated black banner showing the text Keep the web free, say no to Web3.",
+    alt: "Keep the web free, say no to Web3",
     href: "https://yesterweb.org/no-to-web3/",
   },
   {
     src: "/valid-rss-rogers.png",
-    alt: "A banner showing the RSS logo next to the text Valid RSS.",
+    alt: "Valid RSS",
     href: "/rss.xml",
   },
   {
     src: "/valid-atom.png",
-    alt: "A banner showing the Atom logo next to the text Valid.",
+    alt: "Valid Atom",
     href: "/atom.xml",
   },
   {
     src: "/humanstxt.png",
-    alt: "A banner showing the humans.txt wordmark",
+    alt: "Humans.txt",
     href: "/humans.txt",
   },
-  { src: "/got_html.gif", alt: "A banner showing the text Got HTML?" },
+  { src: "/got_html.gif", alt: "Got HTML?" },
   {
     src: "/js-warning.gif",
-    alt: "A banner showing a caution sign next to the text Warning: Page contains JavaScript!",
+    alt: "Page contains JavaScript!",
   },
   {
     src: "/fedora.gif",
-    alt: "A banner showing Powered by Fedora Linux.",
+    alt: "Fedora Linux",
     href: "https://fedoraproject.org/",
   },
   {
     src: "/anythingbut.gif",
-    alt: "A banner showing the Chrome logo crossed out.",
+    alt: "Anything but Chrome",
     href: "/blog/2025/08/anything-but-chrome",
   },
   {
     src: "/perfectclear.gif",
-    alt: "An animated banner showing a Tetris gameplay.",
+    alt: "Tetris",
     href: "/tetris",
   },
   {
     src: "/retrokid.gif",
-    alt: "An animated retro-style banner showing the pixelated text retrokid.",
+    alt: "Retro kid",
     href: "/retro",
   },
 ];
