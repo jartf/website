@@ -24,11 +24,25 @@ const blogCollection = defineCollection({
   }),
 });
 
-// Scrapbook collection
+// Scrapbook collection with i18n support
 const scrapbookCollection = defineCollection({
-  type: "content",
+  type: "data",
   schema: z.object({
     date: z.coerce.date(),
+    content: z.object({
+      en: z.string(),
+      vi: z.string().optional(),
+      ru: z.string().optional(),
+      et: z.string().optional(),
+      da: z.string().optional(),
+      tr: z.string().optional(),
+      zh: z.string().optional(),
+      pl: z.string().optional(),
+      sv: z.string().optional(),
+      fi: z.string().optional(),
+      tok: z.string().optional(),
+      vih: z.string().optional(),
+    }),
   }),
 });
 

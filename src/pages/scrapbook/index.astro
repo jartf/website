@@ -3,17 +3,9 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
-const entries = (await getCollection("scrapbook"))
-  .sort(
-    (a: CollectionEntry<"scrapbook">, b: CollectionEntry<"scrapbook">) =>
-      new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
-  );
-
-const renderedEntries = await Promise.all(
-  entries.map(async (entry: CollectionEntry<"scrapbook">) => {
-    const { Content } = await entry.render();
-    return { entry, Content };
-  }),
+const entries = (await getCollection("scrapbook")).sort(
+  (a: CollectionEntry<"scrapbook">, b: CollectionEntry<"scrapbook">) => 
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 ---
 
@@ -25,11 +17,11 @@ const renderedEntries = await Promise.all(
         <T key="scrapbook.description" tag="p" class="mt-3 text-lg text-muted-foreground" />
       </header>
 
-      {renderedEntries.length === 0 ? (
+      {entries.length === 0 ? (
         <p class="text-muted-foreground">No entries yet.</p>
       ) : (
         <ol class="space-y-6">
-          {renderedEntries.map(({ entry, Content }) => (
+          {entries.map((entry: CollectionEntry<"scrapbook">) => (
             <li class="relative pl-6">
               <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
 
@@ -46,9 +38,12 @@ const renderedEntries = await Promise.all(
                   })}
                 </time>
 
-                <div class="prose prose-sm dark:prose-invert max-w-none mt-3">
-                  <Content />
-                </div>
+                <p
+                  class="mt-3 text-muted-foreground"
+                  data-scrapbook-content={JSON.stringify(entry.data.content)}
+                >
+                  {entry.data.content.en}
+                </p>
               </div>
             </li>
           ))}
@@ -63,8 +58,10 @@ const renderedEntries = await Promise.all(
 
   initLanguage();
 
-  function updateDates() {
+  function updateScrapbook() {
     const lang = languageStore.get();
+
+    // Update dates
     document.querySelectorAll("time[data-date]").forEach((el) => {
       const dateStr = el.getAttribute("data-date");
       if (!dateStr) return;
@@ -78,10 +75,24 @@ const renderedEntries = await Promise.all(
         day: "numeric",
       });
     });
+
+    // Update scrapbook content
+    document.querySelectorAll("[data-scrapbook-content]").forEach((el) => {
+      const contentStr = el.getAttribute("data-scrapbook-content");
+      if (!contentStr) return;
+
+      try {
+        const content = JSON.parse(contentStr);
+        const translatedText = content[lang] || content.en;
+        el.textContent = translatedText;
+      } catch (e) {
+        console.error("Failed to parse scrapbook content:", e);
+      }
+    });
   }
 
-  updateDates();
-  languageStore.subscribe(updateDates);
-  window.addEventListener("languageChange", updateDates);
-  document.addEventListener("astro:after-swap", updateDates);
+  updateScrapbook();
+  languageStore.subscribe(updateScrapbook);
+  window.addEventListener("languageChange", updateScrapbook);
+  document.addEventListener("astro:after-swap", updateScrapbook);
 </script>
