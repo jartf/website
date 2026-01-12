@@ -47,7 +47,7 @@ export function LanguageToggle() {
     return (
       <button
         className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3"
-        aria-label="Select language"
+        aria-label="EN - Select language"
       >
         <span className="mr-2">🌐</span>
         <span>EN</span>
@@ -60,8 +60,8 @@ export function LanguageToggle() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="relative z-50 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3"
-        aria-label="Select language"
-        aria-expanded={isOpen ? 'true' : 'false'}
+        aria-label={`${currentLanguage.name} - Select language`}
+        aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
         <span className="mr-2">{currentLanguage.flag}</span>
@@ -71,6 +71,7 @@ export function LanguageToggle() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
+          aria-hidden="true"
         >
           <path
             fillRule="evenodd"
@@ -118,7 +119,7 @@ export function LanguageToggle() {
                   <span className="mr-2">{lang.flag}</span>
                   <span className="truncate">{lang.name}</span>
                   {currentLang === lang.code && (
-                    <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   )}
@@ -145,7 +146,7 @@ export function LanguageToggle() {
                       <span className="mr-2">{lang.flag}</span>
                       <span className="truncate">{lang.name}</span>
                       {currentLang === lang.code && (
-                        <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       )}
@@ -174,7 +175,7 @@ export function LanguageToggle() {
                       <span className="mr-2">{lang.flag}</span>
                       <span className="truncate">{lang.name}</span>
                       {currentLang === lang.code && (
-                        <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       )}

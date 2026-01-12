@@ -42,6 +42,7 @@ import { Image } from 'astro:assets';
           href={href}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={alt}
           class="focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
         >
           <Image src={src} alt={alt} width={88} height={31} class="hover:opacity-90 transition-opacity" loading="lazy" />
