@@ -12,10 +12,12 @@
 }
 #statuscafe-username a {
   color: hsl(var(--primary));
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 #statuscafe-username a:hover {
   text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 #statuscafe-content {
   margin: 0 1em 0.5em 1em;
