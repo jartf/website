@@ -59,7 +59,7 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
                 <span class="reading-time"><span data-reading-time>{post.readingTime}</span> <T key="blog.minRead" /></span>
               </div>
             </div>
-            <div class="flex-shrink-0 text-2xl text-muted-foreground dark:text-muted-foreground/60 font-bold">
+            <div class="flex-shrink-0 text-2xl text-muted-foreground font-bold">
               {String(index + 1).padStart(2, '0')}
             </div>
           </div>
