@@ -58,7 +58,7 @@ import { activeWebringItems, pendingWebringItems } from "@/content/webring-items
                     🎲
                   </a>
                 ) : (
-                  <span class="px-4 py-2 opacity-30" aria-hidden="true">🎲</span>
+                  <span class="px-4 py-2 opacity-50" aria-hidden="true">🎲</span>
                 )}
                 <a
                   href={ring.next}
@@ -104,7 +104,7 @@ import { activeWebringItems, pendingWebringItems } from "@/content/webring-items
                       </p>
                     )}
                   </div>
-                  <nav class="flex items-center gap-2 opacity-50" aria-label={`Navigate ${ring.name} (pending)`}>
+                  <nav class="flex items-center gap-2 opacity-75" aria-label={`Navigate ${ring.name} (pending)`}>
                     <a
                       href={ring.previous}
                       class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
@@ -123,7 +123,7 @@ import { activeWebringItems, pendingWebringItems } from "@/content/webring-items
                         🎲
                       </a>
                     ) : (
-                      <span class="px-4 py-2 opacity-30" aria-hidden="true">🎲</span>
+                      <span class="px-4 py-2 opacity-50" aria-hidden="true">🎲</span>
                     )}
                     <a
                       href={ring.next}
