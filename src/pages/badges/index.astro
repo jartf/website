@@ -103,7 +103,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
         <div id="badges-compact" class="flex flex-wrap gap-2 justify-center p-4 border rounded-lg bg-card">
           {BADGES.map((badge) => (
                 badge.url ? (
-              <a href={badge.url} target={badge.url.startsWith('/') ? undefined : "_blank"} rel={badge.url.startsWith('/') ? undefined : "noopener noreferrer"} title={badge.name} data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
+              <a href={badge.url} target={badge.url.startsWith('/') ? undefined : "_blank"} rel={badge.url.startsWith('/') ? undefined : "noopener noreferrer"} title={badge.name} aria-label={badge.name} data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
                 <Image src={badge.src} alt={badge.alt} width={88} height={31} class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />
               </a>
             ) : (
@@ -120,7 +120,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
             <div class="border rounded-md p-4 flex flex-col h-full" data-badge-id={badge.id} data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
               <div class="mb-2 min-h-[31px] flex items-center">
                 {badge.url ? (
-                  <a href={badge.url} target={badge.url.startsWith('/') ? undefined : "_blank"} rel={badge.url.startsWith('/') ? undefined : "noopener noreferrer"}>
+                  <a href={badge.url} target={badge.url.startsWith('/') ? undefined : "_blank"} rel={badge.url.startsWith('/') ? undefined : "noopener noreferrer"} aria-label={badge.name}>
                     <Image src={badge.src} alt={badge.alt} width={88} height={31} class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />
                   </a>
                 ) : (

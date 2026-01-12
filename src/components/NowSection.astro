@@ -211,7 +211,7 @@ function getCategoryTranslation(category: string): string {
               html += `<img src="${item.image}" alt="${item.name} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async" />`;
             }
             html += '<div class="flex-1 min-w-0 overflow-hidden">';
-            html += `<a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${item.name}</a>`;
+            html += `<a href="${item.url}" target="_blank" rel="noopener noreferrer" aria-label="Listen to ${item.name} by ${item.artist} on Last.fm" class="hover:underline font-semibold break-words block">${item.name}</a>`;
             html += `<p class="text-sm text-muted-foreground break-words">${item.artist}</p>`;
             html += "</div></div>";
             html += "</article>";

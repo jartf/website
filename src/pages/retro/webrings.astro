@@ -55,15 +55,15 @@ import { activeWebringItems, pendingWebringItems } from "@/content/webring-items
           )}
           <br><br>
           <font size="2">
-            [<a href={webring.previous}>&lt;&lt; Previous</a>]
+            [<a href={webring.previous} aria-label={`Previous site in ${webring.name}`}>&lt;&lt; Previous</a>]
             {webring.random && (
               <>
                 {' '}
-                [<a href={webring.random}>🎲 Random</a>]
+                [<a href={webring.random} aria-label={`Random site in ${webring.name}`}>🎲 Random</a>]
               </>
             )}
             {' '}
-            [<a href={webring.next}>Next &gt;&gt;</a>]
+            [<a href={webring.next} aria-label={`Next site in ${webring.name}`}>Next &gt;&gt;</a>]
           </font>
         </td>
       </tr>
@@ -110,15 +110,15 @@ import { activeWebringItems, pendingWebringItems } from "@/content/webring-items
               )}
               <br><br>
               <font size="2" style="opacity: 0.6;">
-                [<a href={webring.previous}>&lt;&lt; Previous</a>]
+                [<a href={webring.previous} aria-label={`Previous site in ${webring.name}`}>&lt;&lt; Previous</a>]
                 {webring.random && (
                   <>
                     {' '}
-                    [<a href={webring.random}>🎲 Random</a>]
+                    [<a href={webring.random} aria-label={`Random site in ${webring.name}`}>🎲 Random</a>]
                   </>
                 )}
                 {' '}
-                [<a href={webring.next}>Next &gt;&gt;</a>]
+                [<a href={webring.next} aria-label={`Next site in ${webring.name}`}>Next &gt;&gt;</a>]
               </font>
             </td>
           </tr>
