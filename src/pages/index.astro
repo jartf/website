@@ -85,9 +85,9 @@ import RecentPosts from "@/components/RecentPosts.astro";
           </section>
         </div>
 
-        <!-- Current mood -->
-        <div>
-          <section class="mt-10" aria-labelledby="current-mood-heading">
+        <!-- Current mood & Status -->
+        <div class="mt-10 lg:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 lg:items-stretch">
+          <section class="flex flex-col" aria-labelledby="current-mood-heading">
             <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
             <div class="border rounded-lg p-6 bg-card text-center">
               <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
@@ -100,11 +100,8 @@ import RecentPosts from "@/components/RecentPosts.astro";
               </a>
             </div>
           </section>
-        </div>
 
-        <!-- Status.cafe -->
-        <div>
-          <section class="mt-10" aria-labelledby="status-cafe-heading">
+          <section class="flex flex-col" aria-labelledby="status-cafe-heading">
             <h2 id="status-cafe-heading" class="text-2xl font-bold mb-4 text-center">Current status</h2>
             <div class="border rounded-lg p-6 bg-card">
               <div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
