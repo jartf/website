@@ -171,6 +171,9 @@
     "allPosts": "Kaikkien julkaisujen syöte",
     "languageFeeds": "Kielikohtaiset syötteet",
     "rssDescription": "Tilaa RSS-syötteeni suosikkilukijassasi saadaksesi ilmoituksen uusista julkaisuista.",
+    "atom": "Atom-syöte",
+    "subscribeAtom": "Tilaa Atom-syöte",
+    "atomDescription": "Tilaa Atom-syötteeni suosikkilukijassasi saadaksesi ilmoituksen uusista julkaisuista.",
     "availableIn": "Tämä sivu on saatavilla myös",
     "comments": "Kommentit"
   },

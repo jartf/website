@@ -182,6 +182,9 @@
     "allPosts": "Feed med alle indlæg",
     "languageFeeds": "Sprogspecifikke feeds",
     "rssDescription": "Abonner på mine RSS-feeds i din foretrukne RSS-læser for at få besked om nye indlæg.",
+    "atom": "Atom-feed",
+    "subscribeAtom": "Abonner via Atom",
+    "atomDescription": "Abonner på mine Atom-feeds i din foretrukne feedlæser for at få besked om nye indlæg.",
     "availableIn": "Denne side er også tilgængelig på",
     "comments": "Kommentarer"
   },

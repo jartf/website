@@ -180,6 +180,9 @@
     "allPosts": "Tüm yazıların beslemesi",
     "languageFeeds": "Dile özel beslemeler",
     "rssDescription": "Yeni yazılardan haberdar olmak için favori RSS okuyucunuzdan RSS beslemelerime abone olun.",
+    "atom": "Atom beslemesi",
+    "subscribeAtom": "Atom ile abone ol",
+    "atomDescription": "Yeni yazılardan haberdar olmak için favori Atom okuyucunuzdan Atom beslemelerime abone olun.",
     "availableIn": "Bu sayfa şu dillerde de mevcut:",
     "comments": "Yorumlar"
   },

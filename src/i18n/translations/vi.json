@@ -171,6 +171,9 @@
     "allPosts": "Nguồn cho tất cả bài viết",
     "languageFeeds": "Nguồn cấp tin theo ngôn ngữ",
     "rssDescription": "Đăng ký nguồn tin RSS của mình trên trình đọc bạn thích để nhận thông báo về bài viết mới.",
+    "atom": "Nguồn cấp tin Atom",
+    "subscribeAtom": "Đăng ký qua Atom",
+    "atomDescription": "Đăng ký nguồn tin Atom của mình trên trình đọc bạn thích để nhận thông báo về bài viết mới.",
     "availableIn": "Trang này cũng được viết trong",
     "comments": "Bình luận"
   },

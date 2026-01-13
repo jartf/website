@@ -171,6 +171,9 @@
     "allPosts": "Kanał wszystkich wpisów",
     "languageFeeds": "Kanały dla poszczególnych języków",
     "rssDescription": "Zasubskrybuj moje kanały RSS w swoim ulubionym czytniku, aby otrzymywać powiadomienia o nowych wpisach.",
+    "atom": "Kanał Atom",
+    "subscribeAtom": "Subskrybuj przez Atom",
+    "atomDescription": "Zasubskrybuj moje kanały Atom w swoim ulubionym czytniku, aby otrzymywać powiadomienia o nowych wpisach.",
     "availableIn": "Ta strona jest także dostępna w",
     "comments": "Komentarze"
   },

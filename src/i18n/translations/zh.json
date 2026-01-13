@@ -180,6 +180,9 @@
     "allPosts": "所有文章源",
     "languageFeeds": "特定语言源",
     "rssDescription": "在您喜欢的阅读器中订阅我的 RSS 源，以便第一时间获取新文章通知。",
+    "atom": "Atom 订阅源",
+    "subscribeAtom": "通过 Atom 订阅",
+    "atomDescription": "在您喜欢的阅读器中订阅我的 Atom 源，以便第一时间获取新文章通知。",
     "availableIn": "此页面也有以下语言版本"
     ,"comments": "Comments"
   },

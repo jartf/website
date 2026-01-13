@@ -171,6 +171,9 @@
     "allPosts": "lipu ale",
     "languageFeeds": "lipu pi toki ante",
     "rssDescription": "o kama jo e lipu mi kepeken ilo lukin sina. sina ken kute e lipu sin.",
+    "atom": "lipu Atom",
+    "subscribeAtom": "o kama jo kepeken nasin Atom",
+    "atomDescription": "o kama jo e lipu mi kepeken ilo lukin sina. sina ken kute e lipu sin.",
     "availableIn": "lipu ni li lon toki ante",
     "comments": "nimi pi sitelen"
   },
