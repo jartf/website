@@ -155,6 +155,7 @@
     "language": "语言",
     "languageFilter": "按语言筛选",
     "tag": "标签",
+    "sort": "排序文章",
     "category": "类别",
     "noPosts": "还没有文章哦，稍后再来看看吧！",
     "search": "搜索文章...",

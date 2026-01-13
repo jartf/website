@@ -146,6 +146,7 @@
     "language": "Kieli",
     "languageFilter": "Suodata kielen mukaan",
     "tag": "Tunniste",
+    "sort": "Järjestä kirjoituksia",
     "category": "Kategoria",
     "noPosts": "Ei vielä kirjoituksia. Tule pian uudestaan!",
     "search": "Etsi kirjoituksia...",
