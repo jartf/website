@@ -187,8 +187,6 @@ import RecentPosts from "@/components/RecentPosts.astro";
     const user = r.dataset.statuscafeUser || "jarema";
     const base = `https://status.cafe/users/${encodeURIComponent(user)}`;
     const url = `${base}/status.json`;
-    const key = `statuscafe:${user}`;
-    const ttl = 30 * 60_000;
 
     const a = document.createElement("a");
     a.href = base;
@@ -209,20 +207,10 @@ import RecentPosts from "@/components/RecentPosts.astro";
       c.textContent = `${face ? face + " " : ""}${content}`.trim() || "No status yet.";
     };
 
-    try {
-      const cached = JSON.parse(localStorage.getItem(key) || "null");
-      if (cached && Date.now() - cached.t < ttl) return render(cached.d);
-    } catch {}
-
     c.textContent = "Loading status…";
     fetch(url, { headers: { Accept: "application/json" } })
       .then((res) => (res.ok ? res.json() : Promise.reject()))
-      .then((d) => {
-        render(d);
-        try {
-          localStorage.setItem(key, JSON.stringify({ t: Date.now(), d }));
-        } catch {}
-      })
+      .then((d) => render(d))
       .catch(() => {
         a.textContent = `@${user}`;
         t.textContent = "";
