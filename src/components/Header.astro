@@ -26,7 +26,13 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
         <span class="p-name font-heading font-bold text-xl sm:inline-block">∴ Jarema</span>
       </a>
 
-      <!-- Desktop Navigation -->
+      <!-- Additional h-card metadata -->
+      <div class="sr-only">
+        <span class="p-category">student</span>
+        <a class="u-key" href="/keys/gpg">/keys/gpg</a>
+      </div>
+
+      <!-- Desktop navigation -->
       <nav class="hidden lg:flex items-center ml-6 min-w-0" aria-label="Main navigation">
         <div class="flex items-center gap-4 lg:gap-6">
           {headerNavItems.map((item) => {
@@ -54,7 +60,7 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
     </div>
 
     <div class="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
-      <!-- Language toggle (React island for interactivity) -->
+      <!-- Language toggle (React) -->
       <LanguageToggle client:only="react" transition:persist />
 
       <!-- Theme toggle -->
