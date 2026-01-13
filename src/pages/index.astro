@@ -177,58 +177,56 @@ import RecentPosts from "@/components/RecentPosts.astro";
     updateGreetingEmoji();
   });
 
-  async function loadStatusCafe() {
-    const root = document.getElementById("statuscafe");
-    const usernameEl = document.getElementById("statuscafe-username");
-    const contentEl = document.getElementById("statuscafe-content");
-    if (!root || !usernameEl || !contentEl) return;
+  (() => {
+    const r = document.getElementById("statuscafe");
+    const u = document.getElementById("statuscafe-username");
+    const c = document.getElementById("statuscafe-content");
+    if (!r || !u || !c || r.dataset.statuscafeLoaded) return;
+    r.dataset.statuscafeLoaded = "1";
 
-    const user = root.getAttribute("data-statuscafe-user") || "jarema";
-    const profileUrl = `https://status.cafe/users/${encodeURIComponent(user)}`;
-    const jsonUrl = `${profileUrl}/status.json`;
+    const user = r.dataset.statuscafeUser || "jarema";
+    const base = `https://status.cafe/users/${encodeURIComponent(user)}`;
+    const url = `${base}/status.json`;
+    const key = `statuscafe:${user}`;
+    const ttl = 30 * 60_000;
 
-    usernameEl.textContent = `@${user}`;
-    contentEl.textContent = "Loading status…";
+    const a = document.createElement("a");
+    a.href = base;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    const t = document.createElement("span");
+    u.replaceChildren(a, t);
+    c.setAttribute("aria-live", "polite");
+
+    const s = (v: any) => (typeof v === "string" ? v : "");
+    const render = (d: any) => {
+      const author = s(d?.author) || user;
+      const content = s(d?.content);
+      const face = s(d?.face);
+      const timeAgo = s(d?.timeAgo);
+      a.textContent = `@${author}`;
+      t.textContent = timeAgo ? ` · ${timeAgo}` : "";
+      c.textContent = `${face ? face + " " : ""}${content}`.trim() || "No status yet.";
+    };
 
     try {
-      const res = await fetch(jsonUrl, { cache: "no-store" });
-      if (!res.ok) throw new Error(`${res.status}`);
+      const cached = JSON.parse(localStorage.getItem(key) || "null");
+      if (cached && Date.now() - cached.t < ttl) return render(cached.d);
+    } catch {}
 
-      const data: unknown = await res.json();
-      const author = typeof (data as any)?.author === "string" ? (data as any).author : user;
-      const content = typeof (data as any)?.content === "string" ? (data as any).content : "";
-      const face = typeof (data as any)?.face === "string" ? (data as any).face : "";
-      const timeAgo = typeof (data as any)?.timeAgo === "string" ? (data as any).timeAgo : "";
-
-      // Username + timestamp
-      usernameEl.replaceChildren();
-      const link = document.createElement("a");
-      link.href = profileUrl;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = `@${author}`;
-      usernameEl.appendChild(link);
-      if (timeAgo) {
-        const time = document.createElement("span");
-        time.textContent = ` · ${timeAgo}`;
-        usernameEl.appendChild(time);
-      }
-
-      // Status line
-      const line = `${face ? `${face} ` : ""}${content}`.trim();
-      contentEl.textContent = line || "No status yet.";
-    } catch {
-      // Keep the profile link available even if loading fails.
-      usernameEl.replaceChildren();
-      const link = document.createElement("a");
-      link.href = profileUrl;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = `@${user}`;
-      usernameEl.appendChild(link);
-      contentEl.textContent = "Couldn't load status.";
-    }
-  }
-
-  loadStatusCafe();
+    c.textContent = "Loading status…";
+    fetch(url, { headers: { Accept: "application/json" } })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((d) => {
+        render(d);
+        try {
+          localStorage.setItem(key, JSON.stringify({ t: Date.now(), d }));
+        } catch {}
+      })
+      .catch(() => {
+        a.textContent = `@${user}`;
+        t.textContent = "";
+        c.textContent = "Couldn't load status.";
+      });
+  })();
 </script>
