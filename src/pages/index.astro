@@ -178,43 +178,15 @@ import RecentPosts from "@/components/RecentPosts.astro";
   });
 
   (() => {
-    const r = document.getElementById("statuscafe");
-    const u = document.getElementById("statuscafe-username");
-    const c = document.getElementById("statuscafe-content");
-    if (!r || !u || !c || r.dataset.statuscafeLoaded) return;
-    r.dataset.statuscafeLoaded = "1";
-
-    const user = r.dataset.statuscafeUser || "jarema";
-    const base = `https://status.cafe/users/${encodeURIComponent(user)}`;
-    const url = `${base}/status.json`;
-
-    const a = document.createElement("a");
-    a.href = base;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    const t = document.createElement("span");
-    u.replaceChildren(a, t);
-    c.setAttribute("aria-live", "polite");
-
-    const s = (v: any) => (typeof v === "string" ? v : "");
-    const render = (d: any) => {
-      const author = s(d?.author) || user;
-      const content = s(d?.content);
-      const face = s(d?.face);
-      const timeAgo = s(d?.timeAgo);
-      a.textContent = `@${author}`;
-      t.textContent = timeAgo ? ` · ${timeAgo}` : "";
-      c.textContent = `${face ? face + " " : ""}${content}`.trim() || "No status yet.";
-    };
-
-    c.textContent = "Loading status…";
-    fetch(url, { headers: { Accept: "application/json" } })
-      .then((res) => (res.ok ? res.json() : Promise.reject()))
-      .then((d) => render(d))
-      .catch(() => {
-        a.textContent = `@${user}`;
-        t.textContent = "";
-        c.textContent = "Couldn't load status.";
-      });
+    const u = document.getElementById("statuscafe-username"), c = document.getElementById("statuscafe-content");
+    if (!u || !c) return;
+    fetch("https://status.cafe/users/jarema/status.json", { headers: { Accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((r) => {
+        if (!(r?.content || "").length) return (c.textContent = "No status yet.");
+        u.innerHTML = `<a href="https://status.cafe/users/jarema" target="_blank">@${r.author}</a> · ${r.face || ""} · ${r.timeAgo || ""}`;
+        c.textContent = r.content;
+      })
+      .catch(() => (c.textContent = "Couldn't load status."));
   })();
 </script>
