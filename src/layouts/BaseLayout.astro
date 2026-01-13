@@ -12,11 +12,17 @@ import { LanguageNotice } from "@/components/LanguageNotice";
 import { EasterEgg } from "@/components/EasterEgg";
 import { hrefLangLanguages } from "@/lib/constants";
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title?: string;
   description?: string;
   isHomePage?: boolean;
   lang?: string;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
@@ -24,6 +30,7 @@ const {
   description = "This site is the personal playground and digital garden for Jarema. I write some blog posts, sometimes content about economics, coding, and occasionally I post some cats too.",
   isHomePage = false,
   lang = "en",
+  breadcrumbs = [],
 } = Astro.props;
 
 const siteUrl = "https://jarema.me";
@@ -55,28 +62,43 @@ const ogLocaleMap: Record<string, string> = {
 
 const ogLocale = ogLocaleMap[lang] ?? "en_US";
 
+const structuredDataGraph: any[] = [
+  {
+    "@type": "Person",
+    "@id": `${siteUrl}/#person`,
+    name: personName,
+    url: siteUrl,
+    image: personImage,
+    email: `mailto:${personEmail}`,
+    sameAs: personSameAs,
+  },
+  {
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    url: siteUrl,
+    name: "Jarema's digital garden",
+    description: "Personal playground and digital garden.",
+    inLanguage: lang === "vih" ? "vi" : lang,
+    publisher: { "@id": `${siteUrl}/#person` },
+  },
+];
+
+// Add breadcrumb structured data if breadcrumbs are provided
+if (breadcrumbs.length > 0) {
+  structuredDataGraph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  });
+}
+
 const structuredData = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": `${siteUrl}/#person`,
-      name: personName,
-      url: siteUrl,
-      image: personImage,
-      email: `mailto:${personEmail}`,
-      sameAs: personSameAs,
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${siteUrl}/#website`,
-      url: siteUrl,
-      name: "Jarema's digital garden",
-      description: "Personal playground and digital garden.",
-      inLanguage: lang === "vih" ? "vi" : lang,
-      publisher: { "@id": `${siteUrl}/#person` },
-    },
-  ],
+  "@graph": structuredDataGraph,
 };
 ---
 
