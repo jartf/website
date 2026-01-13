@@ -18,21 +18,17 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
 <header class="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
   <div class="container flex h-16 items-center justify-between px-4">
     <div class="flex items-center gap-2 min-w-0 flex-1">
-      <!-- Logo -->
-      <a href="/" class="h-card u-url p-name flex items-center gap-2 transition-opacity hover:opacity-80 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md" aria-label="Jarema - Homepage">
-        <div class="relative size-8 overflow-hidden">
-          <Image src="/favicon.png" alt="Jarema's logo" width={32} height={32} class="u-photo size-8" aria-hidden="true" loading="eager" fetchpriority="high" />
-        </div>
-        <span class="font-heading font-bold text-xl sm:inline-block">∴ Jarema</span>
-          <!-- Additional hidden h-card metadata -->
-          <span class="sr-only p-category">student</span>
-          <a class="sr-only u-key" href="/keys/gpg">/keys/gpg</a>
-      </a>
-
-      <!-- Additional h-card metadata -->
-      <div class="sr-only">
-        <span class="p-category">student</span>
-        <a class="u-key" href="/keys/gpg">/keys/gpg</a>
+      <!-- Logo / h-card -->
+      <div class="h-card flex-shrink-0">
+        <a href="/" class="u-url u-uid flex items-center gap-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md" aria-label="Jarema - Homepage">
+          <div class="relative size-8 overflow-hidden">
+            <Image src="/favicon.png" alt="Jarema's logo" width={32} height={32} class="u-photo size-8" aria-hidden="true" loading="eager" fetchpriority="high" />
+          </div>
+          <span class="p-name font-heading font-bold text-xl sm:inline-block">∴ Jarema</span>
+        </a>
+        <!-- Additional hidden h-card metadata -->
+        <span class="sr-only p-category">student</span>
+        <a class="sr-only u-key" href="/keys/gpg">/keys/gpg</a>
       </div>
 
       <!-- Desktop navigation -->
