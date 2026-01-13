@@ -36,6 +36,37 @@ const {
 const siteUrl = "https://jarema.me";
 const fullTitle = isHomePage ? title : `${title} - Jarema's digital garden`;
 
+const defaultBreadcrumbs: BreadcrumbItem[] = (() => {
+  const pathname = Astro.url.pathname;
+  const segments = pathname.split("/").filter(Boolean);
+
+  const items: BreadcrumbItem[] = [
+    {
+      name: "Home",
+      url: siteUrl,
+    },
+  ];
+
+  if (segments.length === 0) return items;
+
+  const titleCrumb = title?.trim();
+  const prettify = (segment: string) =>
+    decodeURIComponent(segment)
+      .replace(/[-_]+/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  segments.forEach((segment, index) => {
+    const partialPath = `/${segments.slice(0, index + 1).join("/")}`;
+    const isLast = index === segments.length - 1;
+    items.push({
+      name: isLast && titleCrumb ? titleCrumb : prettify(segment),
+      url: new URL(partialPath, siteUrl).href,
+    });
+  });
+
+  return items;
+})();
+
 const personName = "Jarema";
 const personEmail = "hello@jarema.me";
 const personNote = "Economics major, sometimes coder, most times cat whisperer.";
@@ -83,18 +114,18 @@ const structuredDataGraph: any[] = [
   },
 ];
 
-// Add breadcrumb structured data if breadcrumbs are provided
-if (breadcrumbs.length > 0) {
-  structuredDataGraph.push({
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbs.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: item.url,
-    })),
-  });
-}
+const breadcrumbItems = breadcrumbs.length > 0 ? breadcrumbs : defaultBreadcrumbs;
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    item: item.url,
+  })),
+};
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -176,7 +207,8 @@ const structuredData = {
     <link rel="alternate" hreflang="x-default" href={Astro.url.href} />
 
     <!-- Structured data -->
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbStructuredData)}></script>
 
     <!-- Theme initialization script (runs before page render) -->
     <script is:inline>
