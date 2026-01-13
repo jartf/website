@@ -44,6 +44,10 @@ const blogPostingStructuredData: Record<string, unknown> = {
   isAccessibleForFree: true,
 };
 
+if (post.data.updated) {
+  blogPostingStructuredData.dateModified = post.data.updated.toISOString();
+}
+
 if (post.data.tags?.length) {
   blogPostingStructuredData.keywords = post.data.tags.join(", ");
 }

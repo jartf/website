@@ -10,6 +10,7 @@ const blogCollection = defineCollection({
     title: z.string(),
     excerpt: z.string().optional(),
     date: z.coerce.date(),
+    updated: z.coerce.date().optional(),
     mood: z.string().default("contemplative"),
     catApproved: z.boolean().default(true),
     readingTime: z.number().optional(),
