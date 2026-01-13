@@ -54,6 +54,30 @@ const ogLocaleMap: Record<string, string> = {
 };
 
 const ogLocale = ogLocaleMap[lang] ?? "en_US";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: personName,
+      url: siteUrl,
+      image: personImage,
+      email: `mailto:${personEmail}`,
+      sameAs: personSameAs,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "Jarema's digital garden",
+      description: "Personal playground and digital garden.",
+      inLanguage: lang === "vih" ? "vi" : lang,
+      publisher: { "@id": `${siteUrl}/#person` },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -130,31 +154,7 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <link rel="alternate" hreflang="x-default" href={Astro.url.href} />
 
     <!-- Structured data -->
-    <script type="application/ld+json" is:inline>
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Person",
-            "@id": `${siteUrl}/#person`,
-            name: personName,
-            url: siteUrl,
-            image: personImage,
-            email: `mailto:${personEmail}`,
-            sameAs: personSameAs,
-          },
-          {
-            "@type": "WebSite",
-            "@id": `${siteUrl}/#website`,
-            url: siteUrl,
-            name: "Jarema's digital garden",
-            description: "Personal playground and digital garden.",
-            inLanguage: lang === "vih" ? "vi" : lang,
-            publisher: { "@id": `${siteUrl}/#person` },
-          },
-        ],
-      })}
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <!-- Theme initialization script (runs before page render) -->
     <script is:inline>
