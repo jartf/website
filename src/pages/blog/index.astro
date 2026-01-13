@@ -29,55 +29,114 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
       <div class="flex justify-between items-center mb-6">
         <T key="blog.title" tag="h1" class="text-4xl font-bold" />
 
-        <!-- RSS Button with Popover -->
-        <div class="relative">
-          <button
-            id="rss-button"
-            class="flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 11a9 9 0 0 1 9 9"/>
-              <path d="M4 4a16 16 0 0 1 16 16"/>
-              <circle cx="5" cy="19" r="1"/>
-            </svg>
-            <T key="blog.rss" class="hidden sm:inline" />
-          </button>
+        <div class="flex items-center gap-2">
+          <!-- RSS button -->
+          <div class="relative">
+            <button
+              id="rss-button"
+              class="flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors"
+              aria-haspopup="dialog"
+              aria-controls="rss-popover"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 11a9 9 0 0 1 9 9"/>
+                <path d="M4 4a16 16 0 0 1 16 16"/>
+                <circle cx="5" cy="19" r="1"/>
+              </svg>
+              <T key="blog.rss" class="hidden sm:inline" />
+            </button>
 
-          <!-- RSS Popover Content -->
-          <div id="rss-popover" class="hidden absolute right-0 top-full mt-2 w-72 p-4 bg-popover border rounded-lg shadow-lg z-50">
-            <T key="blog.subscribeRSS" tag="h3" class="font-medium mb-3" />
+            <!-- RSS popover -->
+            <div id="rss-popover" class="hidden absolute right-0 top-full mt-2 w-72 p-4 bg-popover border rounded-lg shadow-lg z-50">
+              <T key="blog.subscribeRSS" tag="h3" class="font-medium mb-3" />
 
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <T key="blog.allPosts" class="text-sm font-medium" />
-                <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 px-2 py-1 rounded-md hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
-                  </svg>
-                  RSS
-                </a>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <T key="blog.allPosts" class="text-sm font-medium" />
+                  <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 px-2 py-1 rounded-md hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
+                    </svg>
+                    RSS
+                  </a>
+                </div>
+
+                <div class="border-t pt-3">
+                  <T key="blog.languageFeeds" tag="h4" class="text-sm font-medium mb-2" />
+                  <div class="grid grid-cols-2 gap-2">
+                    {Object.entries(languageNames).map(([code, name]) => (
+                      <a
+                        href={`/rss/${code}.xml`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-xs px-2 py-1 rounded-md flex items-center justify-between hover:bg-muted transition-colors"
+                      >
+                        <span>{name}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-orange-600 dark:text-orange-400">
+                          <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
+                        </svg>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <T key="blog.rssDescription" tag="p" class="text-xs text-muted-foreground mt-2" />
               </div>
+            </div>
+          </div>
 
-              <div class="border-t pt-3">
-                <T key="blog.languageFeeds" tag="h4" class="text-sm font-medium mb-2" />
-                <div class="grid grid-cols-2 gap-2">
-                  {Object.entries(languageNames).map(([code, name]) => (
-                    <a
-                      href={`/rss/${code}.xml`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-xs px-2 py-1 rounded-md flex items-center justify-between hover:bg-muted transition-colors"
-                    >
-                      <span>{name}</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-orange-600 dark:text-orange-400">
-                        <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
-                      </svg>
-                    </a>
-                  ))}
+          <!-- Atom button -->
+          <div class="relative">
+            <button
+              id="atom-button"
+              class="flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors"
+              aria-haspopup="dialog"
+              aria-controls="atom-popover"
+            >
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <path d="M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C0.588547 18.4728 2.59033 12.4675 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768ZM3.05768 3.05782C0.588349 5.52715 2.59013 11.5325 7.52879 16.4712C12.4674 21.4099 18.4728 23.4117 20.9421 20.9423C23.4115 18.473 21.4097 12.4676 16.471 7.52894C11.5324 2.59028 5.527 0.588485 3.05768 3.05782Z" stroke="currentColor" stroke-width="1.5" />
+                <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" fill="currentColor" />
+              </svg>
+              <T key="blog.atom" class="hidden sm:inline" />
+            </button>
+
+            <!-- Atom popover -->
+            <div id="atom-popover" class="hidden absolute right-0 top-full mt-2 w-72 p-4 bg-popover border rounded-lg shadow-lg z-50">
+              <T key="blog.subscribeAtom" tag="h3" class="font-medium mb-3" />
+
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <T key="blog.allPosts" class="text-sm font-medium" />
+                  <a href="/atom.xml" target="_blank" rel="noopener noreferrer" class="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 px-2 py-1 rounded-md hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-1">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+                      <path d="M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C0.588547 18.4728 2.59033 12.4675 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768ZM3.05768 3.05782C0.588349 5.52715 2.59013 11.5325 7.52879 16.4712C12.4674 21.4099 18.4728 23.4117 20.9421 20.9423C23.4115 18.473 21.4097 12.4676 16.471 7.52894C11.5324 2.59028 5.527 0.588485 3.05768 3.05782Z" stroke="currentColor" stroke-width="2" />
+                      <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" fill="currentColor" />
+                    </svg>
+                    <span>Atom</span>
+                  </a>
+                </div>
+
+                <div class="border-t pt-3">
+                  <T key="blog.languageFeeds" tag="h4" class="text-sm font-medium mb-2" />
+                  <div class="grid grid-cols-2 gap-2">
+                    {Object.entries(languageNames).map(([code, name]) => (
+                      <a
+                        href={`/atom/${code}.xml`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-xs px-2 py-1 rounded-md flex items-center justify-between hover:bg-muted transition-colors"
+                      >
+                        <span>{name}</span>
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="text-orange-600 dark:text-orange-400">
+                          <path d="M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C0.588547 18.4728 2.59033 12.4675 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768ZM3.05768 3.05782C0.588349 5.52715 2.59013 11.5325 7.52879 16.4712C12.4674 21.4099 18.4728 23.4117 20.9421 20.9423C23.4115 18.473 21.4097 12.4676 16.471 7.52894C11.5324 2.59028 5.527 0.588485 3.05768 3.05782Z" stroke="currentColor" stroke-width="2" />
+                          <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" fill="currentColor" />
+                        </svg>
+                      </a>
+                    ))}
+                  </div>
+                  <T key="blog.atomDescription" tag="p" class="text-xs text-muted-foreground mt-2" />
                 </div>
               </div>
-
-              <T key="blog.rssDescription" tag="p" class="text-xs text-muted-foreground mt-2" />
             </div>
           </div>
         </div>
@@ -668,16 +727,26 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
   // RSS popover toggle
   const rssButton = document.getElementById('rss-button');
   const rssPopover = document.getElementById('rss-popover');
+  const atomButton = document.getElementById('atom-button');
+  const atomPopover = document.getElementById('atom-popover');
+
   rssButton?.addEventListener('click', (e) => {
     e.stopPropagation();
     rssPopover?.classList.toggle('hidden');
+    atomPopover?.classList.add('hidden');
   });
 
-  // Close RSS popover when clicking outside
+  atomButton?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    atomPopover?.classList.toggle('hidden');
+    rssPopover?.classList.add('hidden');
+  });
+
+  // Close feed popovers when clicking outside
   document.addEventListener('click', (e) => {
-    if (!rssPopover?.contains(e.target as Node) && e.target !== rssButton) {
-      rssPopover?.classList.add('hidden');
-    }
+    const target = e.target as Node;
+    if (rssPopover && !rssPopover.contains(target)) rssPopover.classList.add('hidden');
+    if (atomPopover && !atomPopover.contains(target)) atomPopover.classList.add('hidden');
   });
 
   // Language filters

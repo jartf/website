@@ -178,6 +178,9 @@
     "allPosts": "Feed of all posts",
     "languageFeeds": "Language-specific feeds",
     "rssDescription": "Subscribe to my RSS feeds in your favorite RSS reader to get notified about new posts.",
+    "atom": "Atom feed",
+    "subscribeAtom": "Subscribe via Atom",
+    "atomDescription": "Subscribe to my Atom feeds in your favorite RSS reader to get notified about new posts.",
     "availableIn": "This page is also available in",
     "comments": "Comments"
   },
