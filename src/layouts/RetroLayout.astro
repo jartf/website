@@ -1,6 +1,5 @@
 ---
-// Retro Layout - HTML 3.2 compatible
-// Dark theme matching v4 design
+// Retro layout
 // No JavaScript, table-based layout, inline styles
 // Compatible with Lynx, Mosaic, and other vintage browsers
 
@@ -8,7 +7,7 @@ interface Props {
   title?: string;
 }
 
-const { title = "Jarema - Retro Version" } = Astro.props;
+const { title = "Jarema - Retro version" } = Astro.props;
 const siteName = "Jarema";
 const currentYear = new Date().getFullYear();
 const lastUpdated = new Date().toLocaleDateString('en-GB', {
@@ -29,7 +28,16 @@ const lastUpdated = new Date().toLocaleDateString('en-GB', {
 </head>
 <body style="background-color: #1a1625; color: #f2f2f2; font-family: Times New Roman, Times, serif; margin: 0; padding: 0;">
 
-<!-- Main layout table - the 90s way! -->
+<!-- Invisible h-card for parsers -->
+<div class="h-card" style="position: absolute; left: -9999px; top: -9999px;">
+  <a class="p-name u-url u-uid" href="https://jarema.me">Jarema</a>
+  <img class="u-photo" src="/favicon.png" alt="">
+  <a class="u-email" href="mailto:hello@jarema.me">hello@jarema.me</a>
+  <a class="u-key" href="/keys/gpg">/keys/gpg</a>
+  <span class="p-category">student</span>
+</div>
+
+<!-- Main layout table -->
 <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 800px; margin: 0 auto;">
   <tbody>
     <!-- Header row -->

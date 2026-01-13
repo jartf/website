@@ -230,6 +230,20 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     </style>
   </head>
   <body class="min-h-screen bg-background">
+    <!-- Invisible representative h-card (microformats2) for all pages -->
+    <div class="sr-only">
+      <div class="h-card">
+        <a class="p-name u-url u-uid" href={siteUrl}>Jarema</a>
+        <img class="u-photo" src="/favicon.png" alt="" />
+        <a class="u-email" href="mailto:hello@jarema.me">hello@jarema.me</a>
+        <a class="u-key" href="/keys/gpg">/keys/gpg</a>
+        <span class="p-category">student</span>
+
+        <!-- Mark this h-card as representative for the current page URL -->
+        <a class="u-url" rel="me" href={Astro.url.href}>{Astro.url.href}</a>
+      </div>
+    </div>
+
     <Galaxy />
 
     <div class="flex flex-col min-h-screen relative z-10">
