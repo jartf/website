@@ -21,7 +21,7 @@ interface Props {
 
 const {
   title = "Jarema's digital garden",
-  description = "A personal playground and digital garden for Jarema, featuring some blog posts, some content about economics, coding, and occasional catposting too.",
+  description = "This site is the personal playground and digital garden for Jarema. I write some blog posts, sometimes content about economics, coding, and occasionally I post some cats too.",
   isHomePage = false,
   lang = "en",
 } = Astro.props;
@@ -234,10 +234,12 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
     <div class="sr-only">
       <div class="h-card">
         <a class="p-name u-url u-uid" href={siteUrl}>Jarema</a>
-        <img class="u-photo" src="/favicon.png" alt="" />
-        <a class="u-email" href="mailto:hello@jarema.me">hello@jarema.me</a>
+        <img class="u-photo u-logo" src="/favicon.png" alt="" />
+        <span class="p-note">This site is the personal playground and digital garden for Jarema. I write some blog posts, sometimes content about economics, coding, and occasionally I post some cats too.</span>
+        <span class="u-email">hello [at] jarema.me</span>
         <a class="u-key" href="/keys/gpg">/keys/gpg</a>
         <span class="p-category">student</span>
+        <span class="p-country-name">Vietnam/Estonia</span>
 
         <!-- Mark this h-card as representative for the current page URL -->
         <a class="u-url" rel="me" href={Astro.url.href}>{Astro.url.href}</a>
