@@ -63,7 +63,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
             <T key="home.currentStatus" tag="h2" id="status-cafe-heading" class="text-2xl font-bold mb-4 text-center" />
             <div class="border rounded-lg p-3 bg-card text-center flex-1 flex items-center justify-center">
               <div class="w-full max-w-xl mx-auto h-[64px]">
-                <div id="statuscafe" class="w-full"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
+                <div id="statuscafe" class="w-full" data-statuscafe-user="jarema"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
                 <noscript>
                   <div class="text-sm text-muted-foreground text-center">
                     Status updates require JavaScript. You can see my status on
@@ -71,7 +71,6 @@ import RecentPosts from "@/components/RecentPosts.astro";
                   </div>
                 </noscript>
               </div>
-              <script src="https://status.cafe/current-status.js?name=jarema" defer></script>
             </div>
           </section>
         </div>
@@ -177,4 +176,59 @@ import RecentPosts from "@/components/RecentPosts.astro";
   window.addEventListener("languageChange", () => {
     updateGreetingEmoji();
   });
+
+  async function loadStatusCafe() {
+    const root = document.getElementById("statuscafe");
+    const usernameEl = document.getElementById("statuscafe-username");
+    const contentEl = document.getElementById("statuscafe-content");
+    if (!root || !usernameEl || !contentEl) return;
+
+    const user = root.getAttribute("data-statuscafe-user") || "jarema";
+    const profileUrl = `https://status.cafe/users/${encodeURIComponent(user)}`;
+    const jsonUrl = `${profileUrl}/status.json`;
+
+    usernameEl.textContent = `@${user}`;
+    contentEl.textContent = "Loading status…";
+
+    try {
+      const res = await fetch(jsonUrl, { cache: "no-store" });
+      if (!res.ok) throw new Error(`${res.status}`);
+
+      const data: unknown = await res.json();
+      const author = typeof (data as any)?.author === "string" ? (data as any).author : user;
+      const content = typeof (data as any)?.content === "string" ? (data as any).content : "";
+      const face = typeof (data as any)?.face === "string" ? (data as any).face : "";
+      const timeAgo = typeof (data as any)?.timeAgo === "string" ? (data as any).timeAgo : "";
+
+      // Username + timestamp
+      usernameEl.replaceChildren();
+      const link = document.createElement("a");
+      link.href = profileUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = `@${author}`;
+      usernameEl.appendChild(link);
+      if (timeAgo) {
+        const time = document.createElement("span");
+        time.textContent = ` · ${timeAgo}`;
+        usernameEl.appendChild(time);
+      }
+
+      // Status line
+      const line = `${face ? `${face} ` : ""}${content}`.trim();
+      contentEl.textContent = line || "No status yet.";
+    } catch {
+      // Keep the profile link available even if loading fails.
+      usernameEl.replaceChildren();
+      const link = document.createElement("a");
+      link.href = profileUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = `@${user}`;
+      usernameEl.appendChild(link);
+      contentEl.textContent = "Couldn't load status.";
+    }
+  }
+
+  loadStatusCafe();
 </script>
