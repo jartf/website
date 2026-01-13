@@ -28,13 +28,14 @@ const lastUpdated = new Date().toLocaleDateString('en-GB', {
 </head>
 <body style="background-color: #1a1625; color: #f2f2f2; font-family: Times New Roman, Times, serif; margin: 0; padding: 0;">
 
-<!-- Invisible h-card for parsers -->
-<div class="h-card" style="position: absolute; left: -9999px; top: -9999px;">
-  <a class="p-name u-url u-uid" href="https://jarema.me">Jarema</a>
-  <img class="u-photo" src="/favicon.png" alt="">
-  <a class="u-email" href="mailto:hello@jarema.me">hello@jarema.me</a>
-  <a class="u-key" href="/keys/gpg">/keys/gpg</a>
-  <span class="p-category">student</span>
+<!-- Invisible h-card/vCard for parsers -->
+<div class="h-card vcard" style="position: absolute; left: -9999px; top: -9999px;">
+  <a class="p-name u-url u-uid fn url uid" href="https://jarema.me">Jarema</a>
+  <img class="u-photo photo" src="/favicon.png" alt="">
+  <a class="u-email email" href="mailto:hello@jarema.me">hello@jarema.me</a>
+  <a class="u-key key" href="/keys/gpg">/keys/gpg</a>
+  <span class="p-category category">student</span>
+  <span class="p-country-name country-name">Vietnam/Estonia</span>
 </div>
 
 <!-- Main layout table -->

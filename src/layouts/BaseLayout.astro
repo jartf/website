@@ -28,6 +28,16 @@ const {
 
 const siteUrl = "https://jarema.me";
 const fullTitle = isHomePage ? title : `${title} - Jarema's digital garden`;
+
+const personName = "Jarema";
+const personEmail = "hello@jarema.me";
+const personNote = "Economics major, sometimes coder, most times cat whisperer.";
+const personImage = `${siteUrl}/favicons.png`;
+const personKeyUrl = `${siteUrl}/keys/gpg`;
+const personSameAs = [
+  "https://github.com/jartf",
+  "https://pronouns.page/@jerryv",
+];
 // Map site language codes to Open Graph locale values
 const ogLocaleMap: Record<string, string> = {
   en: "en_US",
@@ -119,6 +129,33 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
         <link rel="alternate" hreflang={lang.code} href={Astro.url.href} />
       ))}
     <link rel="alternate" hreflang="x-default" href={Astro.url.href} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" is:inline>
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": `${siteUrl}/#person`,
+            name: personName,
+            url: siteUrl,
+            image: personImage,
+            email: `mailto:${personEmail}`,
+            sameAs: personSameAs,
+          },
+          {
+            "@type": "WebSite",
+            "@id": `${siteUrl}/#website`,
+            url: siteUrl,
+            name: "Jarema's digital garden",
+            description: "Personal playground and digital garden.",
+            inLanguage: lang === "vih" ? "vi" : lang,
+            publisher: { "@id": `${siteUrl}/#person` },
+          },
+        ],
+      })}
+    </script>
 
     <!-- Theme initialization script (runs before page render) -->
     <script is:inline>
@@ -232,17 +269,21 @@ const ogLocale = ogLocaleMap[lang] ?? "en_US";
   <body class="min-h-screen bg-background">
     <!-- h-card -->
     <div class="sr-only">
-      <div class="h-card">
-        <a class="p-name u-url u-uid" href={siteUrl}>Jarema</a>
-        <img class="u-photo u-logo" src="/favicon.png" alt="" />
-        <span class="p-note">This site is the personal playground and digital garden for Jarema. I write some blog posts, sometimes content about economics, coding, and occasionally I post some cats too.</span>
-        <span class="u-email">hello [at] jarema.me</span>
-        <a class="u-key" href="/keys/gpg">/keys/gpg</a>
-        <span class="p-category">student</span>
-        <span class="p-country-name">Vietnam/Estonia</span>
+      <div class="h-card vcard">
+        <a class="p-name u-url u-uid fn url uid" href={siteUrl}>{personName}</a>
+        <img class="u-photo u-logo photo logo" src={personImage} alt="" />
+        <span class="p-note note">{personNote}</span>
+        <a class="u-email email" href={`mailto:${personEmail}`}>{personEmail}</a>
+        <a class="u-key key" href={personKeyUrl}>{personKeyUrl}</a>
+        <span class="p-category category">student</span>
+        <span class="p-country-name country-name">Vietnam/Estonia</span>
+
+        {personSameAs.map((url) => (
+          <a class="u-url url" rel="me" href={url}>{url}</a>
+        ))}
 
         <!-- Mark h-card as representative for current page URL -->
-        <a class="u-url" rel="me" href={Astro.url.href}>{Astro.url.href}</a>
+        <a class="u-url url" rel="me" href={Astro.url.href}>{Astro.url.href}</a>
       </div>
     </div>
 
