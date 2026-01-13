@@ -77,6 +77,7 @@ Create a new Markdown file in `src/content/blog/` with the beginning as follows:
 ---
 title: "Post title"           # Required
 date: "2025-01-08"            # Required
+updated: "2025-01-10"         # Optional
 excerpt: "Brief description"  # Optional
 language: "en"                # Default: "en"
 mood: "optimistic"            # Default: "contemplative"
