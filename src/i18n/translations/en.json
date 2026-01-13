@@ -154,6 +154,7 @@
     "languageFilter": "Filter by language",
     "tag": "Tag",
     "category": "Category",
+    "sort": "Sort posts",
     "noPosts": "No posts yet. Check back soon!",
     "search": "Search posts...",
     "sortNew": "Newest first",

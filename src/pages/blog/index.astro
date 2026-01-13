@@ -163,7 +163,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
           </div>
 
           <!-- Sort Dropdown -->
-          <label for="sort-select" class="sr-only">Sort posts</label>
+          <label for="sort-select" class="sr-only" data-i18n="blog.sort">Sort posts</label>
           <select id="sort-select" aria-label="Sort posts" class="px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 min-w-[150px]">
             <option value="newest" data-i18n="blog.sortNew">Newest first</option>
             <option value="oldest" data-i18n="blog.sortOld">Oldest first</option>
