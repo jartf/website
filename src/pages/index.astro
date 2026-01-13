@@ -48,13 +48,12 @@ import RecentPosts from "@/components/RecentPosts.astro";
         <div class="mt-10 lg:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 lg:items-stretch">
           <section class="flex flex-col" aria-labelledby="current-mood-heading">
             <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
-            <div class="border rounded-lg p-6 bg-card text-center flex-1 flex items-center justify-center">
+            <div class="border rounded-lg p-3 bg-card text-center flex-1 flex items-center justify-center">
               <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
                 <img
                   src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
                   alt="The current mood of jarema at www.imood.com"
-                  height="15"
-                  class="inline-block"
+                  class="inline-block h-[25px]"
                 />
               </a>
             </div>
@@ -62,8 +61,8 @@ import RecentPosts from "@/components/RecentPosts.astro";
 
           <section class="flex flex-col" aria-labelledby="status-cafe-heading">
             <T key="home.currentStatus" tag="h2" id="status-cafe-heading" class="text-2xl font-bold mb-4 text-center" />
-            <div class="border rounded-lg p-6 bg-card text-center flex-1 flex items-center justify-center">
-              <div class="w-full max-w-xl mx-auto">
+            <div class="border rounded-lg p-3 bg-card text-center flex-1 flex items-center justify-center">
+              <div class="w-full max-w-xl mx-auto h-[64px]">
                 <div id="statuscafe" class="w-full"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
                 <noscript>
                   <div class="text-sm text-muted-foreground text-center">
