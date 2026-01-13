@@ -23,6 +23,7 @@ interface Props {
   isHomePage?: boolean;
   lang?: string;
   breadcrumbs?: BreadcrumbItem[];
+  structuredData?: unknown | unknown[];
 }
 
 const {
@@ -31,7 +32,14 @@ const {
   isHomePage = false,
   lang = "en",
   breadcrumbs = [],
+  structuredData: structuredDataProp = [],
 } = Astro.props;
+
+const extraStructuredData = Array.isArray(structuredDataProp)
+  ? structuredDataProp
+  : structuredDataProp
+    ? [structuredDataProp]
+    : [];
 
 const siteUrl = "https://jarema.me";
 const fullTitle = isHomePage ? title : `${title} - Jarema's digital garden`;
@@ -218,6 +226,9 @@ const structuredData = {
     <!-- Structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbStructuredData)}></script>
+    {extraStructuredData.map((data) => (
+      <script type="application/ld+json" set:html={JSON.stringify(data)}></script>
+    ))}
 
     <!-- Theme initialization script (runs before page render) -->
     <script is:inline>
