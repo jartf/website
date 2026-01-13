@@ -40,6 +40,11 @@ const defaultBreadcrumbs: BreadcrumbItem[] = (() => {
   const pathname = Astro.url.pathname;
   const segments = pathname.split("/").filter(Boolean);
 
+  const isBlogDatedPath =
+    segments[0] === "blog" &&
+    /^\d{4}$/.test(segments[1] ?? "") &&
+    /^(0?[1-9]|1[0-2])$/.test(segments[2] ?? "");
+
   const items: BreadcrumbItem[] = [
     {
       name: "Home",
@@ -58,6 +63,10 @@ const defaultBreadcrumbs: BreadcrumbItem[] = (() => {
   segments.forEach((segment, index) => {
     const partialPath = `/${segments.slice(0, index + 1).join("/")}`;
     const isLast = index === segments.length - 1;
+
+    // For blog posts stored at /blog/YYYY/MM/slug, skip YYYY and MM crumbs
+    if (isBlogDatedPath && (index === 1 || index === 2)) return;
+
     items.push({
       name: isLast && titleCrumb ? titleCrumb : prettify(segment),
       url: new URL(partialPath, siteUrl).href,
