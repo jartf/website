@@ -144,10 +144,10 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
         </div>
       </div>
 
-      <!-- Search and Filter Bar -->
+      <!-- Search and filter bar -->
       <div class="mb-8 space-y-4">
         <div class="flex gap-2">
-          <!-- Search Input -->
+          <!-- Search input -->
           <div class="relative flex-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
               <circle cx="11" cy="11" r="8"/>
@@ -162,7 +162,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
             />
           </div>
 
-          <!-- Sort Dropdown -->
+          <!-- Sort dropdown -->
           <label for="sort-select" class="sr-only" data-i18n="blog.sort">Sort posts</label>
           <select id="sort-select" aria-label="Sort posts" class="px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 min-w-[150px]">
             <option value="newest" data-i18n="blog.sortNew">Newest first</option>
@@ -171,7 +171,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
             <option value="alphabetical" data-i18n="blog.sortABC">Alphabetical</option>
           </select>
 
-          <!-- Filter Button -->
+          <!-- Filter button -->
           <button
             id="filter-button"
             class="flex items-center gap-2 px-3 py-2 border rounded-lg hover:bg-accent transition-colors"
@@ -184,9 +184,9 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
           </button>
         </div>
 
-        <!-- Filter Panel (hidden by default) -->
+        <!-- Filter panel -->
         <div id="filter-panel" class="hidden p-4 border rounded-lg bg-card space-y-4">
-          <!-- Language Filter -->
+          <!-- Language filter -->
           <div>
             <h4 class="text-sm font-medium mb-2" data-i18n="blog.language">Language</h4>
             <div class="flex flex-wrap gap-2" id="language-filters">
@@ -199,7 +199,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
             </div>
           </div>
 
-          <!-- Mood Filter -->
+          <!-- Mood filter -->
           {uniqueMoods.length > 0 && (
             <div>
               <h4 class="text-sm font-medium mb-2" data-i18n="blog.mood">Mood</h4>
@@ -214,7 +214,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
             </div>
           )}
 
-          <!-- Category Filter -->
+          <!-- Category filter -->
           {uniqueCategories.length > 0 && (
             <div>
               <h4 class="text-sm font-medium mb-2" data-i18n="blog.category">Category</h4>
@@ -249,18 +249,18 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
           </button>
         </div>
 
-        <!-- Active Filters Display -->
+        <!-- Active filters display -->
         <div id="active-filters" class="hidden flex-wrap gap-2 items-center">
           <span class="text-sm text-muted-foreground" data-i18n="blog.activeFilter">Active filters:</span>
         </div>
       </div>
 
-      <!-- Results Count -->
+      <!-- Results count -->
       <div id="results-count" class="mb-4 text-sm text-muted-foreground" data-template="blog.showingPosts">
         Showing <span id="filtered-count">{posts.length}</span> of <span id="total-count">{posts.length}</span> posts
       </div>
 
-      <!-- Blog Posts List -->
+      <!-- Blog posts list -->
       <div class="space-y-6" id="blog-posts">
         {posts.map((post: CollectionEntry<"blog">) => (
           <article
@@ -280,7 +280,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
                 {post.data.title}
               </h2>
 
-              <!-- Metadata Row -->
+              <!-- Metadata row -->
               <div class="flex flex-wrap gap-3 text-sm text-muted-foreground mb-3">
                 <!-- Date -->
                 <div class="flex items-center">
@@ -292,7 +292,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
                   </time>
                 </div>
 
-                <!-- Reading Time -->
+                <!-- Reading time -->
                 <div class="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
                     <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
@@ -300,14 +300,14 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
                   <span>{post.data.readingTime || 5} <span data-i18n="blog.minRead">min read</span></span>
                 </div>
 
-                <!-- Mood Badge -->
+                <!-- Mood badge -->
                 {post.data.mood && (
                   <span class="inline-flex items-center px-2 py-0.5 rounded border text-xs">
                     <span data-i18n="blog.mood">Mood</span>: {post.data.mood}
                   </span>
                 )}
 
-                <!-- Language Badge -->
+                <!-- Language badge -->
                 {post.data.language && (
                   <span
                     class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-100"
@@ -320,7 +320,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
                   </span>
                 )}
 
-                <!-- Cat Approved Badge -->
+                <!-- Cat approved badge -->
                 {post.data.catApproved && (
                   <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -332,7 +332,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
                 )}
               </div>
 
-              <!-- Category and Tags -->
+              <!-- Category and tags -->
               <div class="flex flex-wrap gap-2 mb-3">
                 {post.data.category && (
                   <span class="px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
@@ -366,7 +366,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
         </div>
       )}
 
-      <!-- No Results Message -->
+      <!-- No results message -->
       <div id="no-results" class="hidden text-center py-12 bg-muted/20 rounded-lg">
         <p class="text-muted-foreground" data-i18n="blog.filterNoMatch">No posts match your filters. Try adjusting your search criteria.</p>
         <button id="reset-filters-empty" class="mt-2 text-primary hover:underline" data-i18n="blog.clearFilter">Reset all filters</button>
@@ -378,7 +378,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
 <script>
   import { languageStore, t, initLanguage } from '@/i18n';
 
-  // Language names map (for client-side)
+  // Language names map
   const languageNames: Record<string, string> = {
     en: "English",
     vi: "Tiếng Việt",
@@ -480,7 +480,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
       }
     });
 
-    // Special case for Vietnamese Han script
+    // Special case for Vietnamese Han Nom script
     if (baseLanguage === 'vih' || currentLang === 'vih') {
       filterLanguages = ['vi', 'vih'];
     } else if (hasPostsInCurrentLanguage) {
@@ -589,7 +589,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
     const container = document.getElementById('active-filters');
     if (!container) return;
 
-    // Clear existing filter badges (except the label)
+    // Clear existing filter badges
     const label = container.querySelector('span[data-i18n]');
     container.innerHTML = '';
     if (label) container.appendChild(label);
