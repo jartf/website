@@ -81,9 +81,6 @@ export const activeWebringItems: WebringItem[] = [
     next: 'https://webring.ghostk.id/online/jarema/next',
     description: 'A webring for "websites that are actively maintained and updated. No ghost towns here!"',
   },
-];
-
-export const pendingWebringItems: WebringItem[] = [
   {
     name: 'SSGRing',
     url: 'https://jbc.lol/webrings/ssgring/',
@@ -92,6 +89,9 @@ export const pendingWebringItems: WebringItem[] = [
     next: 'https://jbc.lol/webrings/ssgring/redirect?slug=jarema&way=next',
     description: '"Webring for sites that uses any Static Site Generation frameworks."',
   },
+];
+
+export const pendingWebringItems: WebringItem[] = [
   {
     name: 'Epic WebRing',
     url: 'https://epic1.nekoweb.org/webring/',
