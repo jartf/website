@@ -1,5 +1,5 @@
 /* TEAM */
-Developer: Jarema
+Developer: ∴ Jarema
 Contact email: hello@jarema.me. See https://jarema.me/contact for more contact methods.
 Website: https://jarema.me
 Location: Vietnam
@@ -7,9 +7,8 @@ Languages: Vietnamese, English, Russian, some Danish and Turkish. Emotions: work
 
 /* SITE */
 Last update: 2025-04-23
-Standards: HTML5, CSS3, JavaScript
-Components: Next.js, React, Tailwind CSS
-Software: VS Code, Git, Vercel. See https://jarema.me/colophon for more info.
+Components: Astro, React, Tailwind CSS, HTML5, CSS3, JavaScript
+Software: VS Code, Zed, Git, Vercel. See https://jarema.me/colophon for more info.
 
 /* THANKS */
 To the strangers who saw through the silence. To the ones who stayed, even when they were tired themselves. To those who showed up when they didn’t have to.
