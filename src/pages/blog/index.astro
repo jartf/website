@@ -480,7 +480,7 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
       }
     });
 
-    // Special case for Vietnamese Han Nom script
+    // Special case for Vietnamese Han Nom
     if (baseLanguage === 'vih' || currentLang === 'vih') {
       filterLanguages = ['vi', 'vih'];
     } else if (hasPostsInCurrentLanguage) {
