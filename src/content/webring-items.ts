@@ -89,6 +89,14 @@ export const activeWebringItems: WebringItem[] = [
     next: 'https://jbc.lol/webrings/ssgring/redirect?slug=jarema&way=next',
     description: '"Webring for sites that uses any Static Site Generation frameworks."',
   },
+  {
+    name: 'a11y-webring.club',
+    url: 'https://a11y-webring.club/',
+    previous: 'https://a11y-webring.club/prev',
+    random: 'https://a11y-webring.club/random',
+    next: 'https://a11y-webring.club/next',
+    description: '"A webring for digital accessibility practitioners."',
+  },
 ];
 
 export const pendingWebringItems: WebringItem[] = [
@@ -108,12 +116,4 @@ export const pendingWebringItems: WebringItem[] = [
     next: 'https://netloop.netlify.app/jarema/next',
     description: '"This is a webring!"',
   },
-  {
-    name: 'a11y-webring.club',
-    url: 'https://a11y-webring.club/',
-    previous: 'https://a11y-webring.club/prev',
-    random: 'https://a11y-webring.club/random',
-    next: 'https://a11y-webring.club/next',
-    description: '"A webring for digital accessibility practitioners."',
-  }
 ];
