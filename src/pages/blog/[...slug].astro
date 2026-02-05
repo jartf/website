@@ -76,7 +76,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
   lang={post.data.language ?? 'en'}
   structuredData={blogPostingStructuredData}
 >
-  <article class="container mx-auto px-4 py-8 lg:py-12 max-w-3xl">
+  <article class="h-entry container mx-auto px-4 py-8 lg:py-12 max-w-3xl">
     <header class="mb-8">
       <div class="flex items-center gap-3 text-sm text-muted-foreground mb-4">
         <a href="/blog/" class="hover:text-primary transition-colors">
@@ -84,16 +84,23 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
         </a>
       </div>
 
-      <h1 class="text-3xl md:text-4xl font-bold mb-4">{post.data.title}</h1>
+      <h1 class="p-name text-3xl md:text-4xl font-bold mb-4">{post.data.title}</h1>
+      {post.data.excerpt && (
+        <p class="p-summary hidden">{post.data.excerpt}</p>
+      )}
+      <a href={`/blog/${post.slug}/`} class="u-url u-uid hidden" aria-hidden="true">{`https://jarema.me/blog/${post.slug}/`}</a>
 
       <div class="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-        <time datetime={post.data.date.toISOString()} data-date={post.data.date.toISOString()}>
+        <time class="dt-published" datetime={post.data.date.toISOString()} data-date={post.data.date.toISOString()}>
           {post.data.date.toLocaleDateString('en', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
           })}
         </time>
+        {post.data.updated && (
+          <time class="dt-updated hidden" datetime={post.data.updated.toISOString()}>{post.data.updated.toISOString()}</time>
+        )}
         <span>•</span>
         <span><span id="reading-time-value">{post.data.readingTime || 5}</span> <span data-i18n="blog.minRead">min read</span></span>
         {post.data.mood && (
@@ -113,7 +120,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       {post.data.tags && post.data.tags.length > 0 && (
         <div class="flex gap-2 flex-wrap mt-4">
           {post.data.tags.map((tag: string) => (
-            <span class="text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
+            <span class="p-category text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
               {tag}
             </span>
           ))}
@@ -142,7 +149,11 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       )}
     </header>
 
-    <div class="prose prose-lg dark:prose-invert max-w-none blog-content">
+    <div class="p-author h-card hidden" aria-hidden="true">
+      <a class="p-name u-url" href="https://jarema.me">Jarema</a>
+    </div>
+
+    <div class="e-content prose prose-lg dark:prose-invert max-w-none blog-content">
       <Content />
     </div>
 
