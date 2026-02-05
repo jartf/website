@@ -133,16 +133,15 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
       {post.data.alternates && post.data.alternates.length > 0 && (
         <div class="mt-4 p-3 rounded-lg bg-muted/50 border">
-          <span class="text-sm text-muted-foreground" data-i18n="blog.availableIn">This page is also available in: </span>
+          <span class="text-sm text-muted-foreground" data-i18n="blog.availableIn">This page is also available in</span>
+          <span class="text-sm text-muted-foreground"> </span>
           {post.data.alternates.map((alt: { slug: string; language: string }, i: number) => (
             <>
               <a
                 href={`/blog/${alt.slug}/`}
                 class="text-sm text-primary hover:underline"
               >
-                {supportedLanguages.find(l => l.code === alt.language)?.name || alt.language.toUpperCase()}
-              </a>
-              {i < post.data.alternates!.length - 1 && <span class="text-muted-foreground">, </span>}
+                {supportedLanguages.find(l => l.code === alt.language)?.name || alt.language.toUpperCase()}</a>{i < post.data.alternates!.length - 1 && <span class="text-muted-foreground">, </span>}
             </>
           ))}
         </div>
