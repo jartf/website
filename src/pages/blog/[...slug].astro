@@ -80,7 +80,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     <header class="mb-8">
       <div class="flex items-center gap-3 text-sm text-muted-foreground mb-4">
         <a href="/blog/" class="hover:text-primary transition-colors">
-          <span data-i18n="blog.back">← Back to blog</span>
+          ← <span data-i18n="blog.back">Back to blog list</span>
         </a>
       </div>
 
@@ -165,7 +165,8 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
             href={`/blog/${prevPost.slug}/`}
             class="group p-4 border rounded-lg hover:border-primary/50 transition-colors"
           >
-            <span class="text-xs text-muted-foreground" data-i18n="blog.prev">← Previous</span>
+            <span class="text-xs text-muted-foreground">← </span>
+            <span class="text-xs text-muted-foreground" data-i18n="blog.prev">Previous post</span>
             <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">
               {prevPost.data.title}
             </p>
@@ -176,7 +177,8 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
             href={`/blog/${nextPost.slug}/`}
             class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto"
           >
-            <span class="text-xs text-muted-foreground" data-i18n="blog.next">Next →</span>
+            <span class="text-xs text-muted-foreground" data-i18n="blog.next">Next post</span>
+            <span class="text-xs text-muted-foreground"> →</span>
             <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">
               {nextPost.data.title}
             </p>
