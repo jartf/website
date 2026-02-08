@@ -2,7 +2,105 @@
 
 export const siteUrl = "https://jarema.me";
 export const siteName = "Jarema's digital garden";
-export const siteDescription = "Personal blog and portfolio website";
+export const siteDescription = "This site is the personal playground and digital garden for Jarema. I write some blog posts, sometimes content about economics, coding, and occasionally I post some cats too.";
+export const siteKeywords = "Jarema, jartf, digital garden, personal website, blog, economics, coding, tech, multilingual, student, cat, personal blog, digital playground, independent blog, independent writer, indie web, technology, now page, about page, personal reflections, ideas, thoughts, observation journal, how to build a personal site, economics and coding personal site";
+
+// Author/Person constants
+export const author = {
+  name: "Jarema",
+  displayName: "∴ Jarema",
+  email: "hello@jarema.me",
+  note: "Economics major, sometimes coder, most times cat whisperer.",
+  image: "/favicons.png",
+  keyUrl: "/keys/gpg",
+  country: "Vietnam/Estonia",
+  category: "student",
+  lastFmUsername: "jerryvu",
+  iMoodUsername: "jarema",
+  statusCafeUsername: "jarema",
+} as const;
+
+// Social media and identity links
+export const socialLinks = {
+  github: "https://github.com/jartf",
+  gitlab: "https://gitlab.com/jartf",
+  pronounsPage: "https://pronouns.page/@jerryv",
+  akkoma: "https://blob.cat/jar",
+  mastodon: "https://toot.io/@jar",
+  bluesky: "https://bsky.app/profile/jarema.me",
+  twitter: "https://twitter.com/jarema_me",
+  devto: "https://dev.to/jartf",
+  threads: "https://threads.net/@jarema.me",
+  instagram: "https://instagram.com/jarema.me",
+  messenger: "https://m.me/jaremame",
+  matrix: "https://matrix.to/#/@jar:envs.net",
+  discord: "https://discord.com/users/444078929314185217",
+  signal: "https://signal.me/#eu/wHpqXqMSQ6LSg0zijVcCCWm5PK5gwshaDFOAg0aj-aq5BSs94E9CLJ5ThNuy4t6A",
+  telegram: "https://t.me/jaremame",
+  calendar: "https://cal.com/jaremaa/secret",
+  googleDev: "https://g.dev/jarema",
+  indieWeb: "https://indieweb.org/User:Jarema.me",
+  openStreetMap: "https://openstreetmap.org/user/Equate",
+  waze: "https://www.waze.com/en/user/editor/vanhv",
+} as const;
+
+// Alternative domains/mirrors
+export const alternativeDomains = ["https://jar.tf"] as const;
+
+// External services configuration
+export const services = {
+  // Comments
+  cusdis: {
+    host: "https://cusdis.com",
+    scriptUrl: "https://cusdis.com/js/cusdis.es.js",
+    appId: "8b37c4ca-e35d-429e-8f80-6c47e93ab5cd",
+  },
+  // IndieAuth
+  indieAuth: {
+    authEndpoint: "https://indieauth.com/auth",
+    tokenEndpoint: "https://tokens.indieauth.com/token",
+  },
+  // Webmention
+  webmention: {
+    endpoint: "https://webmention.io/jarema.me/webmention",
+    microsubEndpoint: "https://aperture.p3k.io/microsub/1060",
+  },
+  // Last.fm
+  lastFm: {
+    apiUrl: "https://ws.audioscrobbler.com/2.0/",
+    apiKey: "c8526c48e3bd3c6f35e365480426f1be",
+  },
+  // iMood
+  iMood: {
+    profileUrl: "https://www.imood.com/users/jarema",
+    widgetUrl: "https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif",
+  },
+  // status.cafe
+  statusCafe: {
+    profileUrl: "https://status.cafe/users/jarema",
+  },
+  // Analytics (Umami)
+  analytics: {
+    scriptUrl: "/stats/script.js",
+    websiteIds: {
+      "jarema.me": "2e9dfa41-fbe7-4799-9adb-0a57b8141a54",
+      "z.is-a.dev": "bea729d4-bbf9-494e-a4d9-bcbf2a2ab2f3",
+    },
+  },
+} as const;
+
+// Theme colors
+export const themeColors = {
+  dark: "#2c2e84",
+  light: "#ffffff",
+} as const;
+
+// Pride flag colors (for footer)
+export const prideFlagColors = {
+  pink: "#D60270",
+  purple: "#9B4F96",
+  blue: "#0038A8",
+} as const;
 
 // Supported languages
 export const supportedLanguages = [
@@ -254,7 +352,7 @@ export const domainHashes: Record<string, string> = {
 };
 
 export const lastFmApiUrl =
-  "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jerryvu&api_key=c8526c48e3bd3c6f35e365480426f1be";
+  `${services.lastFm.apiUrl}?method=user.getrecenttracks&user=${author.lastFmUsername}&api_key=${services.lastFm.apiKey}`;
 
 export const preMidConfig = {
   authorizedUserId: "490457129090547733",

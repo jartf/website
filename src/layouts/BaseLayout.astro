@@ -10,7 +10,7 @@ import { CommandBarLazy } from "@/components/CommandBarLazy";
 import { FirstVisitHint } from "@/components/FirstVisitHint";
 import { LanguageNotice } from "@/components/LanguageNotice";
 import { EasterEgg } from "@/components/EasterEgg";
-import { hrefLangLanguages } from "@/lib/constants";
+import { hrefLangLanguages, siteUrl, siteName, siteDescription, siteKeywords, author, socialLinks, alternativeDomains, services, themeColors } from "@/lib/constants";
 
 interface BreadcrumbItem {
   name: string;
@@ -27,8 +27,8 @@ interface Props {
 }
 
 const {
-  title = "Jarema's digital garden",
-  description = "This site is the personal playground and digital garden for Jarema. I write some blog posts, sometimes content about economics, coding, and occasionally I post some cats too.",
+  title = siteName,
+  description = siteDescription,
   isHomePage = false,
   lang = "en",
   breadcrumbs = [],
@@ -41,8 +41,7 @@ const extraStructuredData = Array.isArray(structuredDataProp)
     ? [structuredDataProp]
     : [];
 
-const siteUrl = "https://jarema.me";
-const fullTitle = isHomePage ? title : `${title} - Jarema's digital garden`;
+const fullTitle = isHomePage ? title : `${title} - ${siteName}`;
 
 const defaultBreadcrumbs: BreadcrumbItem[] = (() => {
   const pathname = Astro.url.pathname;
@@ -84,13 +83,14 @@ const defaultBreadcrumbs: BreadcrumbItem[] = (() => {
   return items;
 })();
 
-const personName = "Jarema";
-const personEmail = "hello@jarema.me";
-const personNote = "Economics major, sometimes coder, most times cat whisperer.";
-const personImage = `${siteUrl}/favicons.png`;
-const personKeyUrl = `${siteUrl}/keys/gpg`;
+const personName = author.name;
+const personEmail = author.email;
+const personNote = author.note;
+const personImage = `${siteUrl}${author.image}`;
+const personKeyUrl = `${siteUrl}${author.keyUrl}`;
 const personSameAs = [
-  "https://jar.tf",
+  ...alternativeDomains,
+  socialLinks.github,
 ];
 // Map site language codes to Open Graph locale values
 const ogLocaleMap: Record<string, string> = {
@@ -124,8 +124,8 @@ const structuredDataGraph: any[] = [
     "@type": "WebSite",
     "@id": `${siteUrl}/#website`,
     url: siteUrl,
-    name: "Jarema's digital garden",
-    description: "Personal playground and digital garden.",
+    name: siteName,
+    description: siteDescription,
     inLanguage: lang === "vih" ? "vi" : lang,
     publisher: { "@id": `${siteUrl}/#person` },
   },
@@ -162,9 +162,9 @@ const structuredData = {
     <meta name="title" content={fullTitle} />
     <meta name="description" content={description} />
     <meta name="keywords"
-      content="Jarema, jartf, digital garden, personal website, blog, economics, coding, tech, multilingual, student, cat, personal blog, digital playground, independent blog, independent writer, indie web, technology, now page, about page, personal reflections, ideas, thoughts, observation journal, how to build a personal site, economics and coding personal site"
+      content={siteKeywords}
     />
-    <meta name="author" content="Jarema" />
+    <meta name="author" content={author.name} />
 
     <!-- Favicons -->
     <link rel="icon" href="/favicon.png" type="image/png" />
@@ -173,8 +173,8 @@ const structuredData = {
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Theme colors -->
-    <meta name="theme-color" content="#2c2e84" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content={themeColors.dark} media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content={themeColors.light} media="(prefers-color-scheme: light)" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -182,7 +182,7 @@ const structuredData = {
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={`${siteUrl}/android-chrome-512x512.png`} />
-    <meta property="og:site_name" content="Jarema's digital garden" />
+    <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content={ogLocale} />
 
     <!-- Twitter -->
@@ -192,21 +192,21 @@ const structuredData = {
     <meta name="twitter:image" content={`${siteUrl}/android-chrome-512x512.png`} />
 
     <!-- Identity verification -->
-    <link rel="me" href="https://github.com/jartf" />
-    <link rel="me" href="https://pronouns.page/@jerryv" />
+    <link rel="me" href={socialLinks.github} />
+    <link rel="me" href={socialLinks.pronounsPage} />
 
     <!-- IndieAuth endpoints -->
-    <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
-    <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+    <link rel="authorization_endpoint" href={services.indieAuth.authEndpoint} />
+    <link rel="token_endpoint" href={services.indieAuth.tokenEndpoint} />
 
     <!-- Webmention endpoint -->
-    <link rel="webmention" href="https://webmention.io/jarema.me/webmention" />
-    <link rel="microsub" href="https://aperture.p3k.io/microsub/1060" />
+    <link rel="webmention" href={services.webmention.endpoint} />
+    <link rel="microsub" href={services.webmention.microsubEndpoint} />
 
     <!-- RSS/Atom Feeds -->
-    <link rel="alternate" type="application/rss+xml" href={`${siteUrl}/rss.xml`} title="Jarema's digital garden - RSS Feed" />
-    <link rel="alternate" type="application/atom+xml" href={`${siteUrl}/atom.xml`} title="Jarema's digital garden - Atom Feed" />
-    <link rel="alternate" type="application/json" href={`${siteUrl}/feed.json`} title="Jarema's digital garden - JSON Feed" />
+    <link rel="alternate" type="application/rss+xml" href={`${siteUrl}/rss.xml`} title={`${siteName} - RSS Feed`} />
+    <link rel="alternate" type="application/atom+xml" href={`${siteUrl}/atom.xml`} title={`${siteName} - Atom Feed`} />
+    <link rel="alternate" type="application/json" href={`${siteUrl}/feed.json`} title={`${siteName} - JSON Feed`} />
 
     <!-- Alternate language feeds -->
     {hrefLangLanguages.map((lang) => (
@@ -313,12 +313,18 @@ const structuredData = {
             return;
           }
 
-          // Default website ID for jarema.me
-          let siteId = "2e9dfa41-fbe7-4799-9adb-0a57b8141a54";
+          // Map hostnames to website IDs
+          const websiteIds = {
+            "jarema.me": "2e9dfa41-fbe7-4799-9adb-0a57b8141a54",
+            "z.is-a.dev": "bea729d4-bbf9-494e-a4d9-bcbf2a2ab2f3",
+          };
 
-          // If running on z.is-a.dev use the alternate website ID
+          // Default to jarema.me ID
+          let siteId = websiteIds["jarema.me"];
+
+          // Check if running on alternative domain
           if (host === "z.is-a.dev" || host.endsWith(".z.is-a.dev")) {
-            siteId = "bea729d4-bbf9-494e-a4d9-bcbf2a2ab2f3";
+            siteId = websiteIds["z.is-a.dev"];
           }
 
           const s = document.createElement("script");
