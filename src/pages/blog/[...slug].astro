@@ -88,7 +88,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       {post.data.excerpt && (
         <p class="p-summary hidden">{post.data.excerpt}</p>
       )}
-      <a href={`/blog/${post.slug}/`} class="u-url u-uid hidden" aria-hidden="true">{`https://jarema.me/blog/${post.slug}/`}</a>
+      <a href={`${postUrl}/`} class="u-url u-uid hidden" aria-hidden="true">{`${postUrl}`}</a>
 
       <div class="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
         <time class="dt-published" datetime={post.data.date.toISOString()} data-date={post.data.date.toISOString()}>
@@ -128,7 +128,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       )}
 
       <div class="mt-6">
-        <ShareButtons title={post.data.title} url={`https://jarema.me/blog/${post.slug}/`} />
+        <ShareButtons title={post.data.title} url={`${postUrl}`} />
       </div>
 
       {post.data.alternates && post.data.alternates.length > 0 && (
@@ -195,7 +195,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
         data-host="https://cusdis.com"
         data-app-id="2a38d0a9-34a3-4f5e-b985-63fc014e30e5"
         data-page-id={post.slug}
-        data-page-url={`https://jarema.me/blog/${post.slug}/`}
+        data-page-url={`${postUrl}`}
         data-page-title={post.data.title}
         data-theme="dark"
       >
