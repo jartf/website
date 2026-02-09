@@ -222,7 +222,7 @@ const icons: Record<string, string> = {
   const updatePronouns = () => {
     const lang = languageStore.get();
     if (!pronounsLink) return;
-    
+
     const urls = JSON.parse(pronounsLink.getAttribute('data-urls') || '{}');
     pronounsLink.href = urls[lang] || urls.default;
 
@@ -233,7 +233,7 @@ const icons: Record<string, string> = {
     };
 
     const ruNote = 'Этот сайт имеет возрастное ограничение 18+. Оставаясь на сайте, вы подтверждаете, что достигли совершеннолетия, и самостоятельно несёте ответственность за свои действия.';
-    
+
     if (lang === 'ru') {
       if (elements.name) elements.name.textContent = 'Pronouns.page (18+)';
       if (elements.note) {
