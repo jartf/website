@@ -85,59 +85,38 @@ const icons: Record<string, string> = {
       <section class="mb-12">
         <T key="contact.sectionTitles.contactMe" tag="h2" class="text-2xl font-bold mb-6" />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {contactLinks.map((link) => (
-            <a
-              href={link.url}
-              target={link.url.startsWith("mailto:") ? undefined : "_blank"}
-              rel={link.url.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-              class={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${link.color}`}
-            >
-              <span set:html={icons[link.icon] || icons.mail} />
-              <span class="font-medium">{link.name}</span>
-              {!link.url.startsWith("mailto:") && (
-                <span class="opacity-70" set:html={icons.external} />
-              )}
-            </a>
-          ))}
-        </div>
-
-        <!-- QR code sections for Vietnamese/Chinese users -->
-        <div id="qr-zalo-container" class="mt-4 hidden">
-          <button
-            id="qr-zalo-toggle"
-            class="w-full flex items-center justify-center gap-2 p-3 rounded-lg border transition-colors hover:bg-muted/50"
-          >
-            <span set:html={icons["message-square"]} />
-            <span class="font-medium">Zalo</span>
-            <span class="transition-transform duration-200" id="zalo-chevron" set:html={icons["chevron-down"]} />
-          </button>
-          <div id="qr-zalo-content" class="hidden mt-2 border rounded-lg p-6 bg-card">
-            <div class="flex flex-col items-center">
-              <Image src="/zalo-qr.jpeg" alt="Zalo QR Code" width={192} height={192} class="w-48 h-48 object-contain mb-4" />
-              <p class="text-sm text-muted-foreground text-center">Quét mã QR để kết nối với tôi trên Zalo</p>
-              <a href="https://zaloapp.com/qr/p/ryw96g1vmzmw" target="_blank" rel="noopener noreferrer" class="mt-2 text-primary hover:underline">
-                Mở Zalo
+          {contactLinks.map(({ url, icon, name, color }) => {
+            const isMail = url.startsWith("mailto:");
+            return (
+              <a href={url} target={isMail ? undefined : "_blank"} rel={isMail ? undefined : "noopener noreferrer"} class={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${color}`}>
+                <span set:html={icons[icon] || icons.mail} />
+                <span class="font-medium">{name}</span>
+                {!isMail && <span class="opacity-70" set:html={icons.external} />}
               </a>
-            </div>
-          </div>
+            );
+          })}
         </div>
 
-        <div id="qr-wechat-container" class="mt-4 hidden">
-          <button
-            id="qr-wechat-toggle"
-            class="w-full flex items-center justify-center gap-2 p-3 rounded-lg border transition-colors hover:bg-muted/50"
-          >
-            <span set:html={icons["message-square"]} />
-            <span class="font-medium">微信</span>
-            <span class="transition-transform duration-200" id="wechat-chevron" set:html={icons["chevron-down"]} />
-          </button>
-          <div id="qr-wechat-content" class="hidden mt-2 border rounded-lg p-6 bg-card">
-            <div class="flex flex-col items-center">
-              <Image src="/wechat-qr.png" alt="WeChat QR Code" width={192} height={192} class="w-48 h-48 object-contain mb-4" />
-              <p class="text-sm text-muted-foreground text-center">扫一扫上面的二维码图案，加我为朋友。</p>
+        <!-- QR code dropdowns -->
+        {[
+          { id: "zalo", name: "Zalo", img: "/zalo-qr.jpeg", desc: "Quét mã QR để kết nối với tôi trên Zalo", link: "https://zaloapp.com/qr/p/ryw96g1vmzmw", linkText: "Mở Zalo" },
+          { id: "wechat", name: "微信", img: "/wechat-qr.png", desc: "扫一扫上面的二维码图案，加我为朋友。" }
+        ].map(({ id, name, img, desc, link, linkText }) => (
+          <div id={`qr-${id}-container`} class="mt-4 hidden">
+            <button id={`qr-${id}-toggle`} class="w-full flex items-center justify-center gap-2 p-3 rounded-lg border transition-colors hover:bg-muted/50">
+              <span set:html={icons["message-square"]} />
+              <span class="font-medium">{name}</span>
+              <span class="transition-transform duration-200" id={`${id}-chevron`} set:html={icons["chevron-down"]} />
+            </button>
+            <div id={`qr-${id}-content`} class="hidden mt-2 border rounded-lg p-6 bg-card">
+              <div class="flex flex-col items-center">
+                <Image src={img} alt={`${name} QR Code`} width={192} height={192} class="w-48 h-48 object-contain mb-4" />
+                <p class="text-sm text-muted-foreground text-center">{desc}</p>
+                {link && <a href={link} target="_blank" rel="noopener noreferrer" class="mt-2 text-primary hover:underline">{linkText}</a>}
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </section>
 
       <!-- Keys section -->
@@ -171,24 +150,15 @@ const icons: Record<string, string> = {
       <section class="mb-12">
         <T key="contact.sectionTitles.socialMedia" tag="h2" class="text-2xl font-bold mb-6" />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {socialLinksData.map((link) => (
-            <a
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer me"
-              class={`flex flex-col md:flex-row items-center justify-center gap-2 md:gap-3 p-4 rounded-lg border transition-colors ${link.color} w-full`}
-            >
+          {socialLinksData.map(({ url, icon, name, color, note }) => (
+            <a href={url} target="_blank" rel="noopener noreferrer me" class={`flex flex-col md:flex-row items-center justify-center gap-2 md:gap-3 p-4 rounded-lg border transition-colors ${color} w-full`}>
               <div class="flex items-center gap-3">
-                <span set:html={icons[link.icon] || icons["message-square"]} />
-                <span class="font-medium">{link.name}</span>
+                <span set:html={icons[icon] || icons["message-square"]} />
+                <span class="font-medium">{name}</span>
                 <span class="opacity-70" set:html={icons.external} />
-                {link.note && (
-                  <span class="hidden md:inline opacity-70" set:html={icons.info} title={link.note} />
-                )}
+                {note && <span class="hidden md:inline opacity-70" set:html={icons.info} title={note} />}
               </div>
-              {link.note && (
-                <p class="text-xs mt-1 md:hidden text-center opacity-80">{link.note}</p>
-              )}
+              {note && <p class="text-xs mt-1 md:hidden text-center opacity-80">{note}</p>}
             </a>
           ))}
         </div>
@@ -197,42 +167,24 @@ const icons: Record<string, string> = {
       <!-- Other platforms section -->
       <section class="mb-12">
         <T key="contact.sectionTitles.otherPlatforms" tag="h2" class="text-2xl font-bold mb-6" />
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="other-platforms">
-          {otherLinks.map((link) => {
-            if (link.urls) {
-              // Pronouns.page
-              return (
-                <a
-                  id="pronouns-link"
-                  href={link.urls.default}
-                  data-urls={JSON.stringify(link.urls)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class={`flex flex-col items-center justify-center gap-2 p-4 rounded-lg border transition-colors ${link.color}`}
-                >
-                  <div class="flex items-center gap-3">
-                    <span set:html={icons[link.icon] || icons.globe} />
-                    <span class="font-medium" id="pronouns-name">{link.name}</span>
-                    <span class="opacity-70" set:html={icons.external} />
-                    <span class="opacity-70" id="pronouns-info-icon" set:html={icons.info} />
-                  </div>
-                  <p class="text-xs mt-1 md:hidden text-center opacity-80 hidden" id="pronouns-note"></p>
-                </a>
-              );
-            }
-            return (
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${link.color}`}
-              >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {otherLinks.map((link) => link.urls ? (
+            <a id="pronouns-link" href={link.urls.default} data-urls={JSON.stringify(link.urls)} target="_blank" rel="noopener noreferrer" class={`flex flex-col items-center justify-center gap-2 p-4 rounded-lg border transition-colors ${link.color}`}>
+              <div class="flex items-center gap-3">
                 <span set:html={icons[link.icon] || icons.globe} />
-                <span class="font-medium">{link.name}</span>
+                <span class="font-medium" id="pronouns-name">{link.name}</span>
                 <span class="opacity-70" set:html={icons.external} />
-              </a>
-            );
-          })}
+                <span class="opacity-70" id="pronouns-info-icon" set:html={icons.info} />
+              </div>
+              <p class="text-xs mt-1 md:hidden text-center opacity-80 hidden" id="pronouns-note"></p>
+            </a>
+          ) : (
+            <a href={link.url} target="_blank" rel="noopener noreferrer" class={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${link.color}`}>
+              <span set:html={icons[link.icon] || icons.globe} />
+              <span class="font-medium">{link.name}</span>
+              <span class="opacity-70" set:html={icons.external} />
+            </a>
+          ))}
         </div>
       </section>
 
@@ -243,99 +195,65 @@ const icons: Record<string, string> = {
 <script>
   import { languageStore, initLanguage } from '@/i18n';
 
-  // Show QR codes based on language
-  function updateQRVisibility() {
-    const lang = languageStore.get();
-    const zaloContainer = document.getElementById('qr-zalo-container');
-    const wechatContainer = document.getElementById('qr-wechat-container');
+  const lang = languageStore.get();
+  const qrConfigs = [
+    { id: 'zalo', langs: ['vi', 'vih'] },
+    { id: 'wechat', langs: ['zh'] }
+  ];
 
-    if (zaloContainer) {
-      zaloContainer.classList.toggle('hidden', !['vi', 'vih'].includes(lang));
-    }
-    if (wechatContainer) {
-      wechatContainer.classList.toggle('hidden', lang !== 'zh');
-    }
-  }
+  // Setup QR toggles and visibility
+  qrConfigs.forEach(({ id, langs }) => {
+    const container = document.getElementById(`qr-${id}-container`);
+    const toggle = document.getElementById(`qr-${id}-toggle`);
+    const content = document.getElementById(`qr-${id}-content`);
+    const chevron = document.getElementById(`${id}-chevron`);
 
-  // Toggle QR code dropdowns
-  function setupQRToggles() {
-    const zaloToggle = document.getElementById('qr-zalo-toggle');
-    const zaloContent = document.getElementById('qr-zalo-content');
-    const zaloChevron = document.getElementById('zalo-chevron');
-
-    const wechatToggle = document.getElementById('qr-wechat-toggle');
-    const wechatContent = document.getElementById('qr-wechat-content');
-    const wechatChevron = document.getElementById('wechat-chevron');
-
-    if (zaloToggle && zaloContent && zaloChevron) {
-      zaloToggle.addEventListener('click', () => {
-        const isHidden = zaloContent.classList.contains('hidden');
-        zaloContent.classList.toggle('hidden');
-        zaloChevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+    if (container) container.classList.toggle('hidden', !langs.includes(lang));
+    if (toggle && content && chevron) {
+      toggle.addEventListener('click', () => {
+        const isHidden = content.classList.toggle('hidden');
+        chevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
       });
     }
+  });
 
-    if (wechatToggle && wechatContent && wechatChevron) {
-      wechatToggle.addEventListener('click', () => {
-        const isHidden = wechatContent.classList.contains('hidden');
-        wechatContent.classList.toggle('hidden');
-        wechatChevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
-      });
-    }
-  }
-
-  // Update Pronouns.page URL based on language
-  function updatePronounsLink() {
+  // Update Pronouns.page
+  const pronounsLink = document.getElementById('pronouns-link') as HTMLAnchorElement;
+  const updatePronouns = () => {
     const lang = languageStore.get();
-    const pronounsLink = document.getElementById('pronouns-link') as HTMLAnchorElement;
-    const pronounsName = document.getElementById('pronouns-name');
-    const pronounsNote = document.getElementById('pronouns-note');
-    const pronounsInfoIcon = document.getElementById('pronouns-info-icon');
+    if (!pronounsLink) return;
+    
+    const urls = JSON.parse(pronounsLink.getAttribute('data-urls') || '{}');
+    pronounsLink.href = urls[lang] || urls.default;
 
-    if (pronounsLink) {
-      const urlsData = pronounsLink.getAttribute('data-urls');
-      if (urlsData) {
-        const urls = JSON.parse(urlsData);
-        const url = urls[lang] || urls.default;
-        pronounsLink.href = url;
+    const elements = {
+      name: document.getElementById('pronouns-name'),
+      note: document.getElementById('pronouns-note'),
+      icon: document.getElementById('pronouns-info-icon')
+    };
 
-        // Show Russian 18+ note
-        if (lang === 'ru') {
-          const ruNote = 'Этот сайт имеет возрастное ограничение 18+. Оставаясь на сайте, вы подтверждаете, что достигли совершеннолетия, и самостоятельно несёте ответственность за свои действия.';
-          if (pronounsName) {
-            pronounsName.textContent = 'Pronouns.page (18+)';
-          }
-          if (pronounsNote) {
-            pronounsNote.textContent = ruNote;
-            pronounsNote.classList.remove('hidden');
-          }
-          if (pronounsInfoIcon) {
-            pronounsInfoIcon.setAttribute('title', ruNote);
-          }
-        } else {
-          if (pronounsName) {
-            pronounsName.textContent = 'Pronouns.page';
-          }
-          if (pronounsNote) {
-            pronounsNote.classList.add('hidden');
-          }
-        }
+    const ruNote = 'Этот сайт имеет возрастное ограничение 18+. Оставаясь на сайте, вы подтверждаете, что достигли совершеннолетия, и самостоятельно несёте ответственность за свои действия.';
+    
+    if (lang === 'ru') {
+      if (elements.name) elements.name.textContent = 'Pronouns.page (18+)';
+      if (elements.note) {
+        elements.note.textContent = ruNote;
+        elements.note.classList.remove('hidden');
       }
+      if (elements.icon) elements.icon.setAttribute('title', ruNote);
+    } else {
+      if (elements.name) elements.name.textContent = 'Pronouns.page';
+      if (elements.note) elements.note.classList.add('hidden');
     }
-  }
+
+    qrConfigs.forEach(({ id, langs }) => {
+      const container = document.getElementById(`qr-${id}-container`);
+      if (container) container.classList.toggle('hidden', !langs.includes(lang));
+    });
+  };
 
   initLanguage();
-  setupQRToggles();
-  updateQRVisibility();
-  updatePronounsLink();
-
-  languageStore.subscribe(() => {
-    updateQRVisibility();
-    updatePronounsLink();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateQRVisibility();
-    updatePronounsLink();
-  });
+  updatePronouns();
+  languageStore.subscribe(updatePronouns);
+  window.addEventListener('languageChange', updatePronouns);
 </script>
