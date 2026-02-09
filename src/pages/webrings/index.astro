@@ -1,146 +1,70 @@
 ---
-// Webrings page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { activeWebringItems, pendingWebringItems } from "@/content/webring-items";
+
+const navBtnClass = "px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm";
 ---
 
+{/* Webring Card Component */}
+{[...activeWebringItems.map(r => ({...r, pending: false})), ...pendingWebringItems.map(r => ({...r, pending: true}))].length && null}
+
+
 <BaseLayout title="Webrings" description="Webrings I'm part of. Discover more independent websites and personal blogs.">
-  <div class="container mx-auto px-4 py-8 lg:py-12">
-    <div class="max-w-3xl mx-auto">
-      <header class="mb-10 text-center">
-        <T key="webrings.title" tag="h1" class="text-4xl font-bold mb-4" />
-        <T key="webrings.description" tag="p" class="text-muted-foreground text-lg max-w-xl mx-auto" />
-      </header>
+  <div class="container mx-auto px-4 py-8 lg:py-12 max-w-3xl">
+    <header class="mb-10 text-center">
+      <T key="webrings.title" tag="h1" class="text-4xl font-bold mb-4" />
+      <T key="webrings.description" tag="p" class="text-muted-foreground text-lg max-w-xl mx-auto" />
+    </header>
 
-      <!-- Introduction -->
-      <div class="mb-10 p-6 bg-muted/30 rounded-lg text-justify">
-        <T key="webrings.intro1" tag="p" class="text-sm text-muted-foreground mb-3" />
-        <T key="webrings.intro2" tag="p" class="text-sm text-muted-foreground" />
-      </div>
-
-      <!-- Active Webrings -->
-      <div class="space-y-4 mb-12">
-        {activeWebringItems.map((ring) => (
-          <article class="border rounded-lg p-5 bg-card hover:shadow-md transition-shadow">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div class="flex-1">
-                <a
-                  href={ring.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-primary hover:underline font-semibold text-lg"
-                >
-                  {ring.name}
-                </a>
-                {ring.description && (
-                  <p class="text-sm text-muted-foreground mt-1 line-clamp-2">
-                    {ring.description}
-                  </p>
-                )}
-              </div>
-              <nav class="flex items-center gap-2" aria-label={`Navigate ${ring.name}`}>
-                <a
-                  href={ring.previous}
-                  class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
-                  title="Previous site"
-                  aria-label={`Previous site in ${ring.name}`}
-                >
-                  <span>←</span>
-                </a>
-                {ring.random ? (
-                  <a
-                    href={ring.random}
-                    class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
-                    title="Random site"
-                    aria-label={`Random site in ${ring.name}`}
-                  >
-                    🎲
-                  </a>
-                ) : (
-                  <span class="px-4 py-2 opacity-50" aria-hidden="true">🎲</span>
-                )}
-                <a
-                  href={ring.next}
-                  class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
-                  title="Next site"
-                  aria-label={`Next site in ${ring.name}`}
-                >
-                  <span>→</span>
-                </a>
-              </nav>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <!-- Pending Webrings -->
-      {pendingWebringItems.length > 0 && (
-        <div class="mt-12">
-          <header class="mb-6">
-            <T key="webrings.pending.title" tag="h2" class="text-2xl font-bold mb-2" />
-            <T key="webrings.pending.description" tag="p" class="text-muted-foreground text-sm" />
-          </header>
-
-          <div class="space-y-4">
-            {pendingWebringItems.map((ring) => (
-              <article class="border rounded-lg p-5 bg-card/75">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div class="flex-1">
-                    <a
-                      href={ring.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-primary hover:underline font-semibold text-lg"
-                    >
-                      {ring.name}
-                    </a>
-                    <span class="ml-2 text-xs px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-700 dark:text-yellow-300">
-                      <T key="webrings.pending.badge" />
-                    </span>
-                    {ring.description && (
-                      <p class="text-sm text-muted-foreground mt-1 line-clamp-2">
-                        {ring.description}
-                      </p>
-                    )}
-                  </div>
-                  <nav class="flex items-center gap-2 opacity-75" aria-label={`Navigate ${ring.name} (pending)`}>
-                    <a
-                      href={ring.previous}
-                      class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
-                      title="Previous site"
-                      aria-label={`Previous site in ${ring.name}`}
-                    >
-                      <span>←</span>
-                    </a>
-                    {ring.random ? (
-                      <a
-                        href={ring.random}
-                        class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
-                        title="Random site"
-                        aria-label={`Random site in ${ring.name}`}
-                      >
-                        🎲
-                      </a>
-                    ) : (
-                      <span class="px-4 py-2 opacity-50" aria-hidden="true">🎲</span>
-                    )}
-                    <a
-                      href={ring.next}
-                      class="px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm"
-                      title="Next site"
-                      aria-label={`Next site in ${ring.name}`}
-                    >
-                      <span>→</span>
-                    </a>
-                  </nav>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      )}
-
+    <div class="mb-10 p-6 bg-muted/30 rounded-lg text-justify">
+      <T key="webrings.intro1" tag="p" class="text-sm text-muted-foreground mb-3" />
+      <T key="webrings.intro2" tag="p" class="text-sm text-muted-foreground" />
     </div>
+
+    <div class="space-y-4 mb-12">
+      {activeWebringItems.map((ring) => (
+        <article class="border rounded-lg p-5 bg-card hover:shadow-md transition-shadow">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex-1">
+              <a href={ring.url} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-semibold text-lg">{ring.name}</a>
+              {ring.description && <p class="text-sm text-muted-foreground mt-1 line-clamp-2">{ring.description}</p>}
+            </div>
+            <nav class="flex items-center gap-2" aria-label={`Navigate ${ring.name}`}>
+              <a href={ring.previous} class={navBtnClass} title="Previous site" aria-label={`Previous site in ${ring.name}`}>←</a>
+              {ring.random ? <a href={ring.random} class={navBtnClass} title="Random site" aria-label={`Random site in ${ring.name}`}>🎲</a> : <span class="px-4 py-2 opacity-50" aria-hidden="true">🎲</span>}
+              <a href={ring.next} class={navBtnClass} title="Next site" aria-label={`Next site in ${ring.name}`}>→</a>
+            </nav>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {pendingWebringItems.length > 0 && (
+      <div class="mt-12">
+        <header class="mb-6">
+          <T key="webrings.pending.title" tag="h2" class="text-2xl font-bold mb-2" />
+          <T key="webrings.pending.description" tag="p" class="text-muted-foreground text-sm" />
+        </header>
+        <div class="space-y-4">
+          {pendingWebringItems.map((ring) => (
+            <article class="border rounded-lg p-5 bg-card/75">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex-1">
+                  <a href={ring.url} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-semibold text-lg">{ring.name}</a>
+                  <span class="ml-2 text-xs px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-700 dark:text-yellow-300"><T key="webrings.pending.badge" /></span>
+                  {ring.description && <p class="text-sm text-muted-foreground mt-1 line-clamp-2">{ring.description}</p>}
+                </div>
+                <nav class="flex items-center gap-2 opacity-75" aria-label={`Navigate ${ring.name} (pending)`}>
+                  <a href={ring.previous} class={navBtnClass} title="Previous site" aria-label={`Previous site in ${ring.name}`}>←</a>
+                  {ring.random ? <a href={ring.random} class={navBtnClass} title="Random site" aria-label={`Random site in ${ring.name}`}>🎲</a> : <span class="px-4 py-2 opacity-50" aria-hidden="true">🎲</span>}
+                  <a href={ring.next} class={navBtnClass} title="Next site" aria-label={`Next site in ${ring.name}`}>→</a>
+                </nav>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </BaseLayout>
