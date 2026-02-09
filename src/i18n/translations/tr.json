@@ -332,12 +332,15 @@
     "sectionTitles": {
       "contactMe": "Bana ulaş",
       "socialMedia": "Sosyal medyada ben",
-      "otherPlatforms": "Diğer platformlarda ben"
+      "otherPlatforms": "Diğer platformlarda ben",
+      "keys": "Açık anahtarlar"
     },
     "links": {
       "universityEmail": "Üniversite E-postası",
       "bookMeeting": "Benimle bir toplantı ayarla",
-      "messengerNote": "Facebook ve Messenger'da çok aktif değilim. Cevaplar elimden geldiğince olacak."
+      "messengerNote": "Facebook ve Messenger'da çok aktif değilim. Cevaplar elimden geldiğince olacak.",
+      "pgpKey": "PGP açık anahtar",
+      "sshKey": "SSH açık anahtar"
     },
     "secretButton": "Gizli düğme"
   },

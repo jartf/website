@@ -320,12 +320,15 @@
     "sectionTitles": {
       "contactMe": "Võtke minuga ühendust",
       "socialMedia": "Mina sotsiaalmeedias",
-      "otherPlatforms": "Mina teistel platvormidel"
+      "otherPlatforms": "Mina teistel platvormidel",
+      "keys": "Avalikud võtmed"
     },
     "links": {
       "universityEmail": "Ülikooli e-post",
       "bookMeeting": "Broneeri minuga kohtumine",
-      "messengerNote": "I'm very inactive on Facebook and Messenger. Replies will be on a best-effort basis."
+      "messengerNote": "I'm very inactive on Facebook and Messenger. Replies will be on a best-effort basis.",
+      "pgpKey": "PGP avalik võti",
+      "sshKey": "SSH avalik võti"
     },
     "secretButton": "Salajane nupp"
   },

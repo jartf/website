@@ -320,12 +320,15 @@
     "sectionTitles": {
       "contactMe": "Kontakta mig",
       "socialMedia": "Jag på sociala medier",
-      "otherPlatforms": "Jag på andra plattformar"
+      "otherPlatforms": "Jag på andra plattformar",
+      "keys": "Publika nycklar"
     },
     "links": {
       "universityEmail": "Universitetsmejl",
       "bookMeeting": "Boka möte med mig",
-      "messengerNote": "Jag är väldigt inaktiv på Facebook och Messenger. Svar sker i mån av tid."
+      "messengerNote": "Jag är väldigt inaktiv på Facebook och Messenger. Svar sker i mån av tid.",
+      "pgpKey": "PGP publik nyckel",
+      "sshKey": "SSH publik nyckel"
     },
     "secretButton": "Hemlig knapp"
   },

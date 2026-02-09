@@ -323,12 +323,15 @@
     "sectionTitles": {
       "contactMe": "toki tawa mi",
       "socialMedia": "mi lon lipu pi kulupu",
-      "otherPlatforms": "mi lon lipu ante"
+      "otherPlatforms": "mi lon lipu ante",
+      "keys": "ilo open ale"
     },
     "links": {
       "universityEmail": "e-mail pi kulupu sona",
       "bookMeeting": "o pana tenpo tawa mi",
-      "messengerNote": "mi lon Facebook en Messenger lili. mi ken pana toki kepeken wawa ala."
+      "messengerNote": "mi lon Facebook en Messenger lili. mi ken pana toki kepeken wawa ala.",
+      "pgpKey": "ilo open PGP",
+      "sshKey": "ilo open SSH"
     },
     "secretButton": "nupa len"
   },

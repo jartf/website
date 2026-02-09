@@ -330,12 +330,15 @@
     "sectionTitles": {
       "contactMe": "Связаться со мной",
       "socialMedia": "Я в соцсетях",
-      "otherPlatforms": "Я на других платформах"
+      "otherPlatforms": "Я на других платформах",
+      "keys": "Публичные ключи"
     },
     "links": {
       "universityEmail": "Университетская почта",
       "bookMeeting": "Забронировать встречу со мной",
-      "messengerNote": "Я очень неактивен на Facebook и в Messenger. Отвечаю по мере возможности."
+      "messengerNote": "Я очень неактивен на Facebook и в Messenger. Отвечаю по мере возможности.",
+      "pgpKey": "Публичный ключ PGP",
+      "sshKey": "Публичный ключ SSH"
     },
     "secretButton": "Секретная кнопочка"
   },

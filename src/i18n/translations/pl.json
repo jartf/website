@@ -320,12 +320,15 @@
     "sectionTitles": {
       "contactMe": "Skontaktuj się ze mną",
       "socialMedia": "Moje media społecznościowe",
-      "otherPlatforms": "Jestem też tutaj"
+      "otherPlatforms": "Jestem też tutaj",
+      "keys": "Klucze publiczne"
     },
     "links": {
       "universityEmail": "Mail uczelniany",
       "bookMeeting": "Umów spotkanie ze mną",
-      "messengerNote": "Jestem bardzo nieaktywny na Facebooku i Messengerze. Odpowiadam, jak się uda."
+      "messengerNote": "Jestem bardzo nieaktywny na Facebooku i Messengerze. Odpowiadam, jak się uda.",
+      "pgpKey": "Klucz publiczny PGP",
+      "sshKey": "Klucz publiczny SSH"
     },
     "secretButton": "Sekretny przycisk"
   },

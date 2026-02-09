@@ -320,12 +320,15 @@
     "sectionTitles": {
       "contactMe": "Liên hệ với mình",
       "socialMedia": "Mình trên mạng xã hội",
-      "otherPlatforms": "Mình trên các nền tảng khác"
+      "otherPlatforms": "Mình trên các nền tảng khác",
+      "keys": "Khoá công khai"
     },
     "links": {
       "universityEmail": "Email học viện",
       "bookMeeting": "Đặt lịch 1:1 với mình",
-      "messengerNote": "Mình khá ít hoạt động trên Facebook và Messenger. Mình không thể đảm bảo được sẽ trả lời nhanh nếu bạn nhắn tin qua đây."
+      "messengerNote": "Mình khá ít hoạt động trên Facebook và Messenger. Mình không thể đảm bảo được sẽ trả lời nhanh nếu bạn nhắn tin qua đây.",
+      "pgpKey": "Khóa công khai PGP",
+      "sshKey": "Khóa công khai SSH"
     },
     "secretButton": "Nút ấn bí hiểm"
   },

@@ -327,12 +327,15 @@
     "sectionTitles": {
       "contactMe": "Contact me",
       "socialMedia": "Me on social media",
-      "otherPlatforms": "Me on other platforms"
+      "otherPlatforms": "Me on other platforms",
+      "keys": "Public keys"
     },
     "links": {
       "universityEmail": "University email",
       "bookMeeting": "Book a meeting with me",
-      "messengerNote": "I'm very inactive on Facebook and Messenger. Replies will be on a best-effort basis."
+      "messengerNote": "I'm very inactive on Facebook and Messenger. Replies will be on a best-effort basis.",
+      "pgpKey": "PGP public key",
+      "sshKey": "SSH public key"
     },
     "secretButton": "Secret button"
   },

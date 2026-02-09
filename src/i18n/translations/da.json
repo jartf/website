@@ -334,12 +334,15 @@
     "sectionTitles": {
       "contactMe": "Kontakt mig",
       "socialMedia": "Mig på sociale medier",
-      "otherPlatforms": "Mig på andre platforme"
+      "otherPlatforms": "Mig på andre platforme",
+      "keys": "Offentlige nøgler"
     },
     "links": {
       "universityEmail": "Universitets-e-mail",
       "bookMeeting": "Book et møde med mig",
-      "messengerNote": "Jeg er meget inaktiv på Facebook og Messenger. Svar vil være efter bedste evne."
+      "messengerNote": "Jeg er meget inaktiv på Facebook og Messenger. Svar vil være efter bedste evne.",
+      "pgpKey": "PGP offentlig nøgle",
+      "sshKey": "SSH offentlig nøgle"
     },
     "secretButton": "Hemmelig knap"
   },

@@ -332,12 +332,15 @@
     "sectionTitles": {
       "contactMe": "联系我",
       "socialMedia": "我在社交媒体上",
-      "otherPlatforms": "我在其他平台上"
+      "otherPlatforms": "我在其他平台上",
+      "keys": "公钥"
     },
     "links": {
       "universityEmail": "学校邮箱",
       "bookMeeting": "预约与我 1 对 1 交流",
-      "messengerNote": "我不太活跃在 Facebook 和 Messenger 上。如果你通过这里发消息，我不能保证很快回复。"
+      "messengerNote": "我不太活跃在 Facebook 和 Messenger 上。如果你通过这里发消息，我不能保证很快回复。",
+      "pgpKey": "PGP 公钥",
+      "sshKey": "SSH 公钥"
     },
     "secretButton": "神秘按钮"
   },

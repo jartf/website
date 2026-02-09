@@ -320,12 +320,15 @@
     "sectionTitles": {
       "contactMe": "Ota yhteyttä",
       "socialMedia": "Minä somessa",
-      "otherPlatforms": "Minä muualla"
+      "otherPlatforms": "Minä muualla",
+      "keys": "Julkiset avaimet"
     },
     "links": {
       "universityEmail": "Yliopiston sähköposti",
       "bookMeeting": "Varaa tapaaminen kanssani",
-      "messengerNote": "Olen hyvin epäaktiivinen Facebookissa ja Messengerissä. Vastaukset tulevat jos tulevat."
+      "messengerNote": "Olen hyvin epäaktiivinen Facebookissa ja Messengerissä. Vastaukset tulevat jos tulevat.",
+      "pgpKey": "PGP julkinen avain",
+      "sshKey": "SSH julkinen avain"
     },
     "secretButton": "Salainen nappi"
   },

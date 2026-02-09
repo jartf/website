@@ -308,12 +308,15 @@
     "sectionTitles": {
       "contactMe": "聯繫貝𨉟",
       "socialMedia": "𨉟𨑗𦁸社會",
-      "otherPlatforms": "𨉟𨑗各𡋂磉恪"
+      "otherPlatforms": "𨉟𨑗各𡋂磉恪",
+      "keys": "銙公開"
     },
     "links": {
       "universityEmail": "伊𩄲學院",
       "bookMeeting": "撻曆𥢆貝𨉟",
-      "messengerNote": "𨉟可𠃣活動𨑗 Facebook 吧 Messenger。𨉟空体擔保得仕㨋𠳒𮞊一裊伴𠴍信過低。"
+      "messengerNote": "𨉟可𠃣活動𨑗 Facebook 吧 Messenger。𨉟空体擔保得仕㨋𠳒𮞊一裊伴𠴍信過低。",
+      "pgpKey": "銙公開 PGP",
+      "sshKey": "銙公開 SSH"
     },
     "secretButton": "𨨷秘險"
   },
