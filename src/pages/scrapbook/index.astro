@@ -5,8 +5,10 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 const entries = (await getCollection("scrapbook")).sort(
   (a: CollectionEntry<"scrapbook">, b: CollectionEntry<"scrapbook">) =>
-    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+    b.data.date.getTime() - a.data.date.getTime()
 );
+
+const dateFormat = { year: "numeric", month: "long", day: "numeric" } as const;
 ---
 
 <BaseLayout title="Devlog" description="Some development logs when I was building this site.">
@@ -17,31 +19,22 @@ const entries = (await getCollection("scrapbook")).sort(
         <T key="scrapbook.description" tag="p" class="mt-3 text-lg text-muted-foreground" />
       </header>
 
-      {entries.length === 0 ? (
+      {!entries.length ? (
         <p class="text-muted-foreground">No entries yet.</p>
       ) : (
         <ol class="space-y-6">
           {entries.map((entry: CollectionEntry<"scrapbook">) => (
             <li class="relative pl-6">
               <span class="absolute left-0 top-2 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
-
               <div class="rounded-lg border bg-card p-5">
                 <time
                   class="block font-mono text-sm text-muted-foreground"
                   datetime={entry.data.date.toISOString()}
                   data-date={entry.data.date.toISOString()}
                 >
-                  {entry.data.date.toLocaleDateString("en", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {entry.data.date.toLocaleDateString("en", dateFormat)}
                 </time>
-
-                <p
-                  class="mt-3 text-muted-foreground"
-                  data-scrapbook-content={JSON.stringify(entry.data.content)}
-                >
+                <p class="mt-3 text-muted-foreground" data-content={JSON.stringify(entry.data.content)}>
                   {entry.data.content.en}
                 </p>
               </div>
@@ -58,36 +51,23 @@ const entries = (await getCollection("scrapbook")).sort(
 
   initLanguage();
 
+  const dateFormat = { year: "numeric", month: "long", day: "numeric" } as const;
+
   function updateScrapbook() {
     const lang = languageStore.get();
 
-    // Update dates
     document.querySelectorAll("time[data-date]").forEach((el) => {
-      const dateStr = el.getAttribute("data-date");
-      if (!dateStr) return;
-
-      const date = new Date(dateStr);
-      if (Number.isNaN(date.getTime())) return;
-
-      el.textContent = date.toLocaleDateString(lang, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
+      const date = new Date(el.getAttribute("data-date")!);
+      if (!isNaN(date.getTime())) {
+        el.textContent = date.toLocaleDateString(lang, dateFormat);
+      }
     });
 
-    // Update scrapbook content
-    document.querySelectorAll("[data-scrapbook-content]").forEach((el) => {
-      const contentStr = el.getAttribute("data-scrapbook-content");
-      if (!contentStr) return;
-
+    document.querySelectorAll("[data-content]").forEach((el) => {
       try {
-        const content = JSON.parse(contentStr);
-        const translatedText = content[lang] || content.en;
-        el.textContent = translatedText;
-      } catch (e) {
-        console.error("Failed to parse scrapbook content:", e);
-      }
+        const content = JSON.parse(el.getAttribute("data-content")!);
+        el.textContent = content[lang] || content.en;
+      } catch {}
     });
   }
 
