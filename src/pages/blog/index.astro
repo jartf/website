@@ -1,146 +1,59 @@
 ---
-// Blog listing page with i18n support
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { supportedLanguages } from "@/i18n";
 
-// Create language names map from supportedLanguages
-const languageNames: Record<string, string> = Object.fromEntries(
-  supportedLanguages.map(lang => [lang.code, lang.name])
-);
-
-// Get all blog posts, sorted by date
+const languageNames = Object.fromEntries(supportedLanguages.map(lang => [lang.code, lang.name]));
 const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
-const posts = allPosts.sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
+const posts = allPosts.sort((a: any, b: any) => b.data.date.getTime() - a.data.date.getTime());
+const getUnique = (field: string) => [...new Set(posts.map((p: any) => p.data[field]).filter(Boolean))] as string[];
+const [uniqueMoods, uniqueCategories, uniqueLanguages] = [getUnique('mood'), getUnique('category'), [...new Set(posts.map((p: any) => p.data.language || 'en'))]];
 
-// Get unique values for filters
-const uniqueMoods = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.mood).filter(Boolean))] as string[];
-const uniqueCategories = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.category).filter(Boolean))] as string[];
-const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.data.language || 'en'))] as string[];
+const feedButtons = [
+  { id: 'rss', icon: '<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>', label: 'blog.rss', titleKey: 'blog.subscribeRSS', descKey: 'blog.rssDescription', path: '/rss' },
+  { id: 'atom', icon: '<path d="M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C0.588547 18.4728 2.59033 12.4675 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768ZM3.05768 3.05782C0.588349 5.52715 2.59013 11.5325 7.52879 16.4712C12.4674 21.4099 18.4728 23.4117 20.9421 20.9423C23.4115 18.473 21.4097 12.4676 16.471 7.52894C11.5324 2.59028 5.527 0.588485 3.05768 3.05782Z" stroke="currentColor" stroke-width="1.5"/><path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" fill="currentColor"/>', label: 'blog.atom', titleKey: 'blog.subscribeAtom', descKey: 'blog.atomDescription', path: '/atom' }
+];
 ---
 
 <BaseLayout title="Blog" description="Read my thoughts on economics, coding, and life.">
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-4xl mx-auto">
-      <!-- Header with title and RSS button -->
       <div class="flex justify-between items-center mb-6">
         <T key="blog.title" tag="h1" class="text-4xl font-bold" />
-
         <div class="flex items-center gap-2">
-          <!-- RSS button -->
-          <div class="relative">
-            <button
-              id="rss-button"
-              class="flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors"
-              aria-haspopup="dialog"
-              aria-controls="rss-popover"
-              aria-label="RSS feeds"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 11a9 9 0 0 1 9 9"/>
-                <path d="M4 4a16 16 0 0 1 16 16"/>
-                <circle cx="5" cy="19" r="1"/>
-              </svg>
-              <T key="blog.rss" class="hidden sm:inline" />
-            </button>
-
-            <!-- RSS popover -->
-            <div id="rss-popover" class="hidden absolute right-0 top-full mt-2 w-72 p-4 bg-popover border rounded-lg shadow-lg z-50">
-              <T key="blog.subscribeRSS" tag="h3" class="font-medium mb-3" />
-
-              <div class="space-y-3">
-                <div class="flex items-center justify-between">
-                  <T key="blog.allPosts" class="text-sm font-medium" />
-                  <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 px-2 py-1 rounded-md hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
-                    </svg>
-                    RSS
-                  </a>
-                </div>
-
-                <div class="border-t pt-3">
-                  <T key="blog.languageFeeds" tag="h4" class="text-sm font-medium mb-2" />
-                  <div class="grid grid-cols-2 gap-2">
-                    {Object.entries(languageNames).map(([code, name]) => (
-                      <a
-                        href={`/rss/${code}.xml`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-xs px-2 py-1 rounded-md flex items-center justify-between hover:bg-muted transition-colors"
-                      >
-                        <span>{name}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-orange-600 dark:text-orange-400">
-                          <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
-                        </svg>
-                      </a>
-                    ))}
+          {feedButtons.map(({ id, icon, label, titleKey, descKey, path }) => (
+            <div class="relative">
+              <button id={`${id}-button`} class="flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors" aria-haspopup="dialog" aria-label={`${id} feeds`}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={icon} />
+                <T key={label} class="hidden sm:inline" />
+              </button>
+              <div id={`${id}-popover`} class="hidden absolute right-0 top-full mt-2 w-72 p-4 bg-popover border rounded-lg shadow-lg z-50">
+                <T key={titleKey} tag="h3" class="font-medium mb-3" />
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <T key="blog.allPosts" class="text-sm font-medium" />
+                    <a href={`${path}.xml`} target="_blank" rel="noopener noreferrer" class="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 px-2 py-1 rounded-md hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={id === 'rss' ? '2' : '1.5'} set:html={icon} />
+                      <span>{id.toUpperCase()}</span>
+                    </a>
                   </div>
-                </div>
-
-                <T key="blog.rssDescription" tag="p" class="text-xs text-muted-foreground mt-2" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Atom button -->
-          <div class="relative">
-            <button
-              id="atom-button"
-              class="flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors"
-              aria-haspopup="dialog"
-              aria-controls="atom-popover"
-              aria-label="Atom feeds"
-            >
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-                <path d="M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C0.588547 18.4728 2.59033 12.4675 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768ZM3.05768 3.05782C0.588349 5.52715 2.59013 11.5325 7.52879 16.4712C12.4674 21.4099 18.4728 23.4117 20.9421 20.9423C23.4115 18.473 21.4097 12.4676 16.471 7.52894C11.5324 2.59028 5.527 0.588485 3.05768 3.05782Z" stroke="currentColor" stroke-width="1.5" />
-                <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" fill="currentColor" />
-              </svg>
-              <T key="blog.atom" class="hidden sm:inline" />
-            </button>
-
-            <!-- Atom popover -->
-            <div id="atom-popover" class="hidden absolute right-0 top-full mt-2 w-72 p-4 bg-popover border rounded-lg shadow-lg z-50">
-              <T key="blog.subscribeAtom" tag="h3" class="font-medium mb-3" />
-
-              <div class="space-y-3">
-                <div class="flex items-center justify-between">
-                  <T key="blog.allPosts" class="text-sm font-medium" />
-                  <a href="/atom.xml" target="_blank" rel="noopener noreferrer" class="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100 px-2 py-1 rounded-md hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-1">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
-                      <path d="M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C0.588547 18.4728 2.59033 12.4675 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768ZM3.05768 3.05782C0.588349 5.52715 2.59013 11.5325 7.52879 16.4712C12.4674 21.4099 18.4728 23.4117 20.9421 20.9423C23.4115 18.473 21.4097 12.4676 16.471 7.52894C11.5324 2.59028 5.527 0.588485 3.05768 3.05782Z" stroke="currentColor" stroke-width="2" />
-                      <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" fill="currentColor" />
-                    </svg>
-                    <span>Atom</span>
-                  </a>
-                </div>
-
-                <div class="border-t pt-3">
-                  <T key="blog.languageFeeds" tag="h4" class="text-sm font-medium mb-2" />
-                  <div class="grid grid-cols-2 gap-2">
-                    {Object.entries(languageNames).map(([code, name]) => (
-                      <a
-                        href={`/atom/${code}.xml`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-xs px-2 py-1 rounded-md flex items-center justify-between hover:bg-muted transition-colors"
-                      >
-                        <span>{name}</span>
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="text-orange-600 dark:text-orange-400">
-                          <path d="M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C0.588547 18.4728 2.59033 12.4675 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768ZM3.05768 3.05782C0.588349 5.52715 2.59013 11.5325 7.52879 16.4712C12.4674 21.4099 18.4728 23.4117 20.9421 20.9423C23.4115 18.473 21.4097 12.4676 16.471 7.52894C11.5324 2.59028 5.527 0.588485 3.05768 3.05782Z" stroke="currentColor" stroke-width="2" />
-                          <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" fill="currentColor" />
-                        </svg>
-                      </a>
-                    ))}
+                  <div class="border-t pt-3">
+                    <T key="blog.languageFeeds" tag="h4" class="text-sm font-medium mb-2" />
+                    <div class="grid grid-cols-2 gap-2">
+                      {Object.entries(languageNames).map(([code, name]) => (
+                        <a href={`${path}/${code}.xml`} target="_blank" rel="noopener noreferrer" class="text-xs px-2 py-1 rounded-md flex items-center justify-between hover:bg-muted transition-colors">
+                          <span>{name}</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={id === 'rss' ? '2' : '1.5'} class="text-orange-600 dark:text-orange-400" set:html={icon} />
+                        </a>
+                      ))}
+                    </div>
                   </div>
-                  <T key="blog.atomDescription" tag="p" class="text-xs text-muted-foreground mt-2" />
+                  <T key={descKey} tag="p" class="text-xs text-muted-foreground mt-2" />
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -186,24 +99,21 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
 
         <!-- Filter panel -->
         <div id="filter-panel" class="hidden p-4 border rounded-lg bg-card space-y-4">
-          <!-- Language filter -->
           <div>
             <h4 class="text-sm font-medium mb-2" data-i18n="blog.language">Language</h4>
-            <div class="flex flex-wrap gap-2" id="language-filters">
+            <div class="flex flex-wrap gap-2">
               {uniqueLanguages.map(lang => (
                 <label class="flex items-center gap-2 text-sm cursor-pointer">
-                  <input type="checkbox" value={lang} class="language-filter rounded" />
-                  <span>{languageNames[lang] || lang}</span>
+                  <input type="checkbox" value={lang as string} class="language-filter rounded" />
+                  <span>{languageNames[lang as string] || lang}</span>
                 </label>
               ))}
             </div>
           </div>
-
-          <!-- Mood filter -->
           {uniqueMoods.length > 0 && (
             <div>
               <h4 class="text-sm font-medium mb-2" data-i18n="blog.mood">Mood</h4>
-              <div class="flex flex-wrap gap-2" id="mood-filters">
+              <div class="flex flex-wrap gap-2">
                 {uniqueMoods.map(mood => (
                   <label class="flex items-center gap-2 text-sm cursor-pointer">
                     <input type="checkbox" value={mood} class="mood-filter rounded" />
@@ -213,12 +123,10 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
               </div>
             </div>
           )}
-
-          <!-- Category filter -->
           {uniqueCategories.length > 0 && (
             <div>
               <h4 class="text-sm font-medium mb-2" data-i18n="blog.category">Category</h4>
-              <div class="flex flex-wrap gap-2" id="category-filters">
+              <div class="flex flex-wrap gap-2">
                 {uniqueCategories.map(cat => (
                   <label class="flex items-center gap-2 text-sm cursor-pointer">
                     <input type="checkbox" value={cat} class="category-filter rounded" />
@@ -378,457 +286,162 @@ const uniqueLanguages = [...new Set(posts.map((p: CollectionEntry<"blog">) => p.
 <script>
   import { languageStore, t, initLanguage } from '@/i18n';
 
-  // Language names map
-  const languageNames: Record<string, string> = {
-    en: "English",
-    vi: "Tiếng Việt",
-    vih: "Tiếng Việt (Hán tự)",
-    ru: "Русский",
-    fi: "Suomi",
-    pl: "Polski",
-    sv: "Svenska",
-    da: "Dansk",
-    et: "Eesti",
-    tr: "Türkçe",
-    zh: "中文",
-    tok: "toki pona",
+  const languageNames: Record<string, string> = { en: "English", vi: "Tiếng Việt", vih: "Tiếng Việt (Hán tự)", ru: "Русский", fi: "Suomi", pl: "Polski", sv: "Svenska", da: "Dansk", et: "Eesti", tr: "Türkçe", zh: "中文", tok: "toki pona" };
+  const state = { search: '', sort: 'newest', langs: [] as string[], moods: [] as string[], cats: [] as string[], catApproved: null as boolean | null };
+
+  const updateTranslations = () => {
+    const lang = languageStore.get();
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (key) { const translated = t(key); if (translated !== key) el.textContent = translated; }
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (key) { const translated = t(key); if (translated !== key) (el as HTMLInputElement).placeholder = translated; }
+    });
+    updateResultsCount();
+    document.querySelectorAll('time[data-date]').forEach(el => {
+      const dateStr = el.getAttribute('data-date');
+      if (dateStr) el.textContent = new Date(dateStr).toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' });
+    });
+    updateActiveFiltersDisplay();
   };
 
-  function updateTranslations() {
-    const lang = languageStore.get();
-
-    // Update static i18n keys
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-
-    // Update placeholder attributes
-    document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          (el as HTMLInputElement).placeholder = translated;
-        }
-      }
-    });
-
-    // Update results count with template
-    updateResultsCount();
-
-    // Update dates with locale - only target time elements, not article elements
-    document.querySelectorAll('time[data-date]').forEach((el) => {
-      const dateStr = el.getAttribute('data-date');
-      if (dateStr) {
-        const date = new Date(dateStr);
-        el.textContent = date.toLocaleDateString(lang, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-      }
-    });
-
-    // Regenerate active filters display with new translations
-    updateActiveFiltersDisplay();
-  }
-
-  function updateResultsCount() {
-    const resultsEl = document.getElementById('results-count');
-    const filteredCountEl = document.getElementById('filtered-count');
-    const totalCountEl = document.getElementById('total-count');
-
-    if (resultsEl && filteredCountEl && totalCountEl) {
-      const current = filteredCountEl.textContent || '0';
-      const total = totalCountEl.textContent || '0';
+  const updateResultsCount = () => {
+    const [resultsEl, filteredEl, totalEl] = ['results-count', 'filtered-count', 'total-count'].map(id => document.getElementById(id));
+    if (resultsEl && filteredEl && totalEl) {
       const template = t('blog.showingPosts');
-
       if (template !== 'blog.showingPosts') {
-        resultsEl.innerHTML = template
-          .replace('{{current}}', `<span id="filtered-count">${current}</span>`)
-          .replace('{{total}}', `<span id="total-count">${total}</span>`);
+        resultsEl.innerHTML = template.replace('{{current}}', `<span id="filtered-count">${filteredEl.textContent}</span>`).replace('{{total}}', `<span id="total-count">${totalEl.textContent}</span>`);
       }
     }
-  }
+  };
 
-  // State
-  let searchQuery = '';
-  let sortOption = 'newest';
-  let filterLanguages: string[] = [];
-  let filterMoods: string[] = [];
-  let filterCategories: string[] = [];
-  let filterCatApproved: boolean | null = null;
+  const initDefaultLanguageFilter = () => {
+    const currentLang = languageStore.get(), baseLang = currentLang.split('-')[0];
+    const hasPostsInLang = Array.from(document.querySelectorAll('.blog-post')).some(p => [currentLang, baseLang].includes(p.getAttribute('data-language') || ''));
+    state.langs = baseLang === 'vih' || currentLang === 'vih' ? ['vi', 'vih'] : hasPostsInLang ? [baseLang] : ['en'];
+    document.querySelectorAll('.language-filter').forEach(cb => (cb as HTMLInputElement).checked = state.langs.includes((cb as HTMLInputElement).value));
+  };
 
-  // Initialize filters based on current language
-  function initDefaultLanguageFilter() {
-    const currentLang = languageStore.get();
-    const baseLanguage = currentLang.split('-')[0];
-    const posts = document.querySelectorAll('.blog-post');
-
-    // Check if there are posts in current language
-    let hasPostsInCurrentLanguage = false;
-    posts.forEach(post => {
-      const postLang = post.getAttribute('data-language');
-      if (postLang === currentLang || postLang === baseLanguage) {
-        hasPostsInCurrentLanguage = true;
-      }
-    });
-
-    // Special case for Vietnamese Han Nom
-    if (baseLanguage === 'vih' || currentLang === 'vih') {
-      filterLanguages = ['vi', 'vih'];
-    } else if (hasPostsInCurrentLanguage) {
-      filterLanguages = [baseLanguage];
-    } else {
-      filterLanguages = ['en'];
-    }
-
-    // Update checkboxes
-    document.querySelectorAll('.language-filter').forEach((checkbox) => {
-      const input = checkbox as HTMLInputElement;
-      input.checked = filterLanguages.includes(input.value);
-    });
-  }
-
-  function filterAndSortPosts() {
+  const filterAndSortPosts = () => {
     const posts = Array.from(document.querySelectorAll('.blog-post')) as HTMLElement[];
-    const container = document.getElementById('blog-posts');
-    const noResults = document.getElementById('no-results');
-    const filteredCountEl = document.getElementById('filtered-count');
-
-    // Filter posts
+    const [container, noResults, filteredCountEl] = ['blog-posts', 'no-results', 'filtered-count'].map(id => document.getElementById(id));
+    
     let visibleCount = 0;
     posts.forEach(post => {
-      const title = post.getAttribute('data-title') || '';
-      const tags = post.getAttribute('data-tags') || '';
-      const excerpt = post.getAttribute('data-excerpt') || '';
-      const category = post.getAttribute('data-category') || '';
-      const mood = post.getAttribute('data-mood') || '';
-      const language = post.getAttribute('data-language') || 'en';
-      const catApproved = post.getAttribute('data-cat-approved') === 'true';
-
-      // Search filter
-      const matchesSearch = searchQuery === '' ||
-        title.includes(searchQuery.toLowerCase()) ||
-        tags.includes(searchQuery.toLowerCase()) ||
-        excerpt.includes(searchQuery.toLowerCase()) ||
-        category.includes(searchQuery.toLowerCase());
-
-      // Language filter
-      const matchesLanguage = filterLanguages.length === 0 || filterLanguages.includes(language);
-
-      // Mood filter
-      const matchesMood = filterMoods.length === 0 || filterMoods.includes(mood);
-
-      // Category filter
-      const matchesCategory = filterCategories.length === 0 || filterCategories.includes(category);
-
-      // Cat approved filter
-      const matchesCat = filterCatApproved === null || catApproved === filterCatApproved;
-
-      const isVisible = matchesSearch && matchesLanguage && matchesMood && matchesCategory && matchesCat;
-      post.style.display = isVisible ? 'block' : 'none';
-      if (isVisible) visibleCount++;
+      const attrs = ['title', 'tags', 'excerpt', 'category', 'mood', 'language', 'cat-approved'].reduce((acc, key) => ({ ...acc, [key]: post.getAttribute(`data-${key}`) || '' }), {} as Record<string, string>);
+      const matches = (!state.search || ['title', 'tags', 'excerpt', 'category'].some(k => attrs[k].includes(state.search.toLowerCase()))) &&
+        (!state.langs.length || state.langs.includes(attrs.language || 'en')) &&
+        (!state.moods.length || state.moods.includes(attrs.mood)) &&
+        (!state.cats.length || state.cats.includes(attrs.category)) &&
+        (state.catApproved === null || attrs['cat-approved'] === String(state.catApproved));
+      post.style.display = matches ? 'block' : 'none';
+      if (matches) visibleCount++;
     });
 
-    // Sort visible posts
     const visiblePosts = posts.filter(p => p.style.display !== 'none');
     visiblePosts.sort((a, b) => {
-      switch (sortOption) {
-        case 'newest':
-          return new Date(b.getAttribute('data-date') || '').getTime() - new Date(a.getAttribute('data-date') || '').getTime();
-        case 'oldest':
-          return new Date(a.getAttribute('data-date') || '').getTime() - new Date(b.getAttribute('data-date') || '').getTime();
-        case 'readingTime':
-          return parseInt(a.getAttribute('data-reading-time') || '0') - parseInt(b.getAttribute('data-reading-time') || '0');
-        case 'alphabetical':
-          return (a.getAttribute('data-title') || '').localeCompare(b.getAttribute('data-title') || '');
-        default:
-          return 0;
-      }
+      const [aDate, bDate] = [a, b].map(p => new Date(p.getAttribute('data-date') || '').getTime());
+      const [aTime, bTime] = [a, b].map(p => parseInt(p.getAttribute('data-reading-time') || '0'));
+      const [aTitle, bTitle] = [a, b].map(p => p.getAttribute('data-title') || '');
+      return { newest: bDate - aDate, oldest: aDate - bDate, readingTime: aTime - bTime, alphabetical: aTitle.localeCompare(bTitle) }[state.sort] || 0;
     });
-
-    // Reorder in DOM
     visiblePosts.forEach(post => container?.appendChild(post));
 
-    // Show/hide no results message
-    if (noResults) {
-      noResults.classList.toggle('hidden', visibleCount > 0);
-    }
-    if (container) {
-      container.classList.toggle('hidden', visibleCount === 0);
-    }
-
-    // Update count
-    if (filteredCountEl) {
-      filteredCountEl.textContent = String(visibleCount);
-    }
-
-    // Update the full results count display
+    noResults?.classList.toggle('hidden', visibleCount > 0);
+    container?.classList.toggle('hidden', visibleCount === 0);
+    if (filteredCountEl) filteredCountEl.textContent = String(visibleCount);
     updateResultsCount();
 
-    // Update filter count badge
-    const filterCount = filterLanguages.length + filterMoods.length + filterCategories.length + (filterCatApproved !== null ? 1 : 0);
+    const filterCount = state.langs.length + state.moods.length + state.cats.length + (state.catApproved !== null ? 1 : 0);
     const filterCountEl = document.getElementById('filter-count');
-    if (filterCountEl) {
-      filterCountEl.textContent = String(filterCount);
-      filterCountEl.classList.toggle('hidden', filterCount === 0);
-    }
-
-    // Update active filters display
+    if (filterCountEl) { filterCountEl.textContent = String(filterCount); filterCountEl.classList.toggle('hidden', filterCount === 0); }
     updateActiveFiltersDisplay();
-  }
+  };
 
-  function updateActiveFiltersDisplay() {
-    const container = document.getElementById('active-filters');
-    if (!container) return;
-
-    // Clear existing filter badges
-    const label = container.querySelector('span[data-i18n]');
-    container.innerHTML = '';
-    if (label) container.appendChild(label);
-
-    const hasFilters = filterLanguages.length > 0 || filterMoods.length > 0 || filterCategories.length > 0 || filterCatApproved !== null;
-    container.classList.toggle('hidden', !hasFilters);
-    container.classList.toggle('flex', hasFilters);
-
-    if (!hasFilters) return;
-
-    // Add language filter badges
-    filterLanguages.forEach(lang => {
-      const badge = createFilterBadge('Language', languageNames[lang] || lang, () => {
-        filterLanguages = filterLanguages.filter(l => l !== lang);
-        (document.querySelector(`.language-filter[value="${lang}"]`) as HTMLInputElement).checked = false;
-        filterAndSortPosts();
-      });
-      container.appendChild(badge);
-    });
-
-    // Add mood filter badges
-    filterMoods.forEach(mood => {
-      const badge = createFilterBadge('Mood', mood, () => {
-        filterMoods = filterMoods.filter(m => m !== mood);
-        (document.querySelector(`.mood-filter[value="${mood}"]`) as HTMLInputElement).checked = false;
-        filterAndSortPosts();
-      });
-      container.appendChild(badge);
-    });
-
-    // Add category filter badges
-    filterCategories.forEach(cat => {
-      const badge = createFilterBadge('Category', cat, () => {
-        filterCategories = filterCategories.filter(c => c !== cat);
-        (document.querySelector(`.category-filter[value="${cat}"]`) as HTMLInputElement).checked = false;
-        filterAndSortPosts();
-      });
-      container.appendChild(badge);
-    });
-
-    // Add cat approved badge
-    if (filterCatApproved !== null) {
-      const badge = createFilterBadge('Cat Approved', filterCatApproved ? 'Yes' : 'No', () => {
-        filterCatApproved = null;
-        (document.getElementById('cat-approved-yes') as HTMLInputElement).checked = false;
-        (document.getElementById('cat-approved-no') as HTMLInputElement).checked = false;
-        filterAndSortPosts();
-      });
-      container.appendChild(badge);
-    }
-
-    // Add clear all button
-    const clearBtn = document.createElement('button');
-    clearBtn.className = 'text-xs text-muted-foreground hover:text-foreground ml-2';
-    clearBtn.textContent = t('blog.clearFilter');
-    clearBtn.onclick = resetFilters;
-    container.appendChild(clearBtn);
-  }
-
-  function createFilterBadge(type: string, value: string, onRemove: () => void): HTMLElement {
-    // Translate the type label
-    const typeTranslations: Record<string, string> = {
-      'Language': t('blog.language'),
-      'Mood': t('blog.mood'),
-      'Category': t('blog.category'),
-      'Cat Approved': t('blog.cat')
-    };
-    const translatedType = typeTranslations[type] || type;
-
+  const createFilterBadge = (type: string, value: string, onRemove: () => void) => {
+    const typeMap: Record<string, string> = { Language: t('blog.language'), Mood: t('blog.mood'), Category: t('blog.category'), 'Cat Approved': t('blog.cat') };
     const badge = document.createElement('span');
     badge.className = 'inline-flex items-center gap-1 px-2 py-1 rounded border text-xs';
-    badge.innerHTML = `<span class="font-medium">${translatedType}:</span> ${value}`;
-
+    badge.innerHTML = `<span class="font-medium">${typeMap[type] || type}:</span> ${value}`;
     const removeBtn = document.createElement('button');
     removeBtn.className = 'ml-1 hover:text-foreground';
-    removeBtn.setAttribute('aria-label', 'Remove filter');
     removeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
-    removeBtn.onclick = (e) => {
-      e.stopPropagation();
-      onRemove();
-    };
+    removeBtn.onclick = e => { e.stopPropagation(); onRemove(); };
     badge.appendChild(removeBtn);
-
     return badge;
-  }
+  };
 
-  function resetFilters() {
-    searchQuery = '';
-    sortOption = 'newest';
-    filterLanguages = [];
-    filterMoods = [];
-    filterCategories = [];
-    filterCatApproved = null;
+  const updateActiveFiltersDisplay = () => {
+    const container = document.getElementById('active-filters');
+    if (!container) return;
+    const label = container.querySelector('span[data-i18n]');
+    container.innerHTML = ''; if (label) container.appendChild(label);
+    const hasFilters = state.langs.length > 0 || state.moods.length > 0 || state.cats.length > 0 || state.catApproved !== null;
+    container.classList.toggle('hidden', !hasFilters); container.classList.toggle('flex', hasFilters);
+    if (!hasFilters) return;
 
-    // Reset UI
-    const searchInput = document.getElementById('blog-search') as HTMLInputElement;
-    if (searchInput) searchInput.value = '';
+    [...state.langs.map(l => ['Language', languageNames[l] || l, () => { state.langs = state.langs.filter(x => x !== l); (document.querySelector(`.language-filter[value="${l}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
+     ...state.moods.map(m => ['Mood', m, () => { state.moods = state.moods.filter(x => x !== m); (document.querySelector(`.mood-filter[value="${m}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
+     ...state.cats.map(c => ['Category', c, () => { state.cats = state.cats.filter(x => x !== c); (document.querySelector(`.category-filter[value="${c}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
+     ...(state.catApproved !== null ? [['Cat Approved', state.catApproved ? 'Yes' : 'No', () => { state.catApproved = null; ['cat-approved-yes', 'cat-approved-no'].forEach(id => (document.getElementById(id) as HTMLInputElement).checked = false); filterAndSortPosts(); }]] : [])
+    ].forEach(([type, value, onRemove]) => container.appendChild(createFilterBadge(type as string, value as string, onRemove as () => void)));
 
-    const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
-    if (sortSelect) sortSelect.value = 'newest';
+    const clearBtn = document.createElement('button');
+    clearBtn.className = 'text-xs text-muted-foreground hover:text-foreground ml-2';
+    clearBtn.textContent = t('blog.clearFilter'); clearBtn.onclick = resetFilters;
+    container.appendChild(clearBtn);
+  };
 
-    document.querySelectorAll('.language-filter, .mood-filter, .category-filter').forEach((el) => {
-      (el as HTMLInputElement).checked = false;
-    });
-
-    (document.getElementById('cat-approved-yes') as HTMLInputElement).checked = false;
-    (document.getElementById('cat-approved-no') as HTMLInputElement).checked = false;
-
-    // Don't re-apply default language filter after clearing all
+  const resetFilters = () => {
+    Object.assign(state, { search: '', sort: 'newest', langs: [], moods: [], cats: [], catApproved: null });
+    const searchInput = document.getElementById('blog-search') as HTMLInputElement; if (searchInput) searchInput.value = '';
+    const sortSelect = document.getElementById('sort-select') as HTMLSelectElement; if (sortSelect) sortSelect.value = 'newest';
+    document.querySelectorAll('.language-filter, .mood-filter, .category-filter').forEach(el => (el as HTMLInputElement).checked = false);
+    ['cat-approved-yes', 'cat-approved-no'].forEach(id => (document.getElementById(id) as HTMLInputElement).checked = false);
     filterAndSortPosts();
-  }
+  };
 
-  // Initialize
-  initLanguage();
-  updateTranslations();
-  initDefaultLanguageFilter();
+  initLanguage(); updateTranslations(); initDefaultLanguageFilter();
 
-  // Search input
-  const searchInput = document.getElementById('blog-search');
-  searchInput?.addEventListener('input', (e) => {
-    searchQuery = (e.target as HTMLInputElement).value;
-    filterAndSortPosts();
+  const handleCheckboxFilter = (selector: string, stateKey: 'langs' | 'moods' | 'cats') => {
+    document.querySelectorAll(selector).forEach(cb => cb.addEventListener('change', e => {
+      const { value, checked } = e.target as HTMLInputElement;
+      state[stateKey] = checked ? [...state[stateKey], value] : state[stateKey].filter(v => v !== value);
+      filterAndSortPosts();
+    }));
+  };
+
+  document.getElementById('blog-search')?.addEventListener('input', e => { state.search = (e.target as HTMLInputElement).value; filterAndSortPosts(); });
+  document.getElementById('sort-select')?.addEventListener('change', e => { state.sort = (e.target as HTMLSelectElement).value; filterAndSortPosts(); });
+  document.getElementById('filter-button')?.addEventListener('click', () => document.getElementById('filter-panel')?.classList.toggle('hidden'));
+
+  ['rss', 'atom'].forEach(type => {
+    const button = document.getElementById(`${type}-button`);
+    const popover = document.getElementById(`${type}-popover`);
+    const other = document.getElementById(type === 'rss' ? 'atom-popover' : 'rss-popover');
+    button?.addEventListener('click', e => { e.stopPropagation(); popover?.classList.toggle('hidden'); other?.classList.add('hidden'); });
   });
 
-  // Sort select
-  const sortSelect = document.getElementById('sort-select');
-  sortSelect?.addEventListener('change', (e) => {
-    sortOption = (e.target as HTMLSelectElement).value;
-    filterAndSortPosts();
-  });
+  document.addEventListener('click', e => ['rss-popover', 'atom-popover'].forEach(id => { const el = document.getElementById(id); if (el && !el.contains(e.target as Node)) el.classList.add('hidden'); }));
 
-  // Filter button toggle
-  const filterButton = document.getElementById('filter-button');
-  const filterPanel = document.getElementById('filter-panel');
-  filterButton?.addEventListener('click', () => {
-    filterPanel?.classList.toggle('hidden');
-  });
+  handleCheckboxFilter('.language-filter', 'langs');
+  handleCheckboxFilter('.mood-filter', 'moods');
+  handleCheckboxFilter('.category-filter', 'cats');
 
-  // RSS popover toggle
-  const rssButton = document.getElementById('rss-button');
-  const rssPopover = document.getElementById('rss-popover');
-  const atomButton = document.getElementById('atom-button');
-  const atomPopover = document.getElementById('atom-popover');
-
-  rssButton?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    rssPopover?.classList.toggle('hidden');
-    atomPopover?.classList.add('hidden');
-  });
-
-  atomButton?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    atomPopover?.classList.toggle('hidden');
-    rssPopover?.classList.add('hidden');
-  });
-
-  // Close feed popovers when clicking outside
-  document.addEventListener('click', (e) => {
-    const target = e.target as Node;
-    if (rssPopover && !rssPopover.contains(target)) rssPopover.classList.add('hidden');
-    if (atomPopover && !atomPopover.contains(target)) atomPopover.classList.add('hidden');
-  });
-
-  // Language filters
-  document.querySelectorAll('.language-filter').forEach((checkbox) => {
-    checkbox.addEventListener('change', (e) => {
-      const value = (e.target as HTMLInputElement).value;
-      const checked = (e.target as HTMLInputElement).checked;
-      if (checked) {
-        filterLanguages.push(value);
-      } else {
-        filterLanguages = filterLanguages.filter(l => l !== value);
-      }
+  ['yes', 'no'].forEach(val => {
+    document.getElementById(`cat-approved-${val}`)?.addEventListener('change', e => {
+      if ((e.target as HTMLInputElement).checked) {
+        state.catApproved = val === 'yes';
+        (document.getElementById(`cat-approved-${val === 'yes' ? 'no' : 'yes'}`) as HTMLInputElement).checked = false;
+      } else { state.catApproved = null; }
       filterAndSortPosts();
     });
   });
 
-  // Mood filters
-  document.querySelectorAll('.mood-filter').forEach((checkbox) => {
-    checkbox.addEventListener('change', (e) => {
-      const value = (e.target as HTMLInputElement).value;
-      const checked = (e.target as HTMLInputElement).checked;
-      if (checked) {
-        filterMoods.push(value);
-      } else {
-        filterMoods = filterMoods.filter(m => m !== value);
-      }
-      filterAndSortPosts();
-    });
-  });
-
-  // Category filters
-  document.querySelectorAll('.category-filter').forEach((checkbox) => {
-    checkbox.addEventListener('change', (e) => {
-      const value = (e.target as HTMLInputElement).value;
-      const checked = (e.target as HTMLInputElement).checked;
-      if (checked) {
-        filterCategories.push(value);
-      } else {
-        filterCategories = filterCategories.filter(c => c !== value);
-      }
-      filterAndSortPosts();
-    });
-  });
-
-  // Cat approved filters
-  document.getElementById('cat-approved-yes')?.addEventListener('change', (e) => {
-    if ((e.target as HTMLInputElement).checked) {
-      filterCatApproved = true;
-      (document.getElementById('cat-approved-no') as HTMLInputElement).checked = false;
-    } else {
-      filterCatApproved = null;
-    }
-    filterAndSortPosts();
-  });
-
-  document.getElementById('cat-approved-no')?.addEventListener('change', (e) => {
-    if ((e.target as HTMLInputElement).checked) {
-      filterCatApproved = false;
-      (document.getElementById('cat-approved-yes') as HTMLInputElement).checked = false;
-    } else {
-      filterCatApproved = null;
-    }
-    filterAndSortPosts();
-  });
-
-  // Reset filters buttons
-  document.getElementById('reset-filters')?.addEventListener('click', resetFilters);
-  document.getElementById('reset-filters-empty')?.addEventListener('click', resetFilters);
-
-  // Initial filter
+  ['reset-filters', 'reset-filters-empty'].forEach(id => document.getElementById(id)?.addEventListener('click', resetFilters));
   filterAndSortPosts();
-
-  // Subscribe to language changes
-  languageStore.subscribe(() => {
-    updateTranslations();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateTranslations();
-  });
+  languageStore.subscribe(updateTranslations);
+  window.addEventListener('languageChange', updateTranslations);
 </script>
