@@ -151,6 +151,8 @@ const structuredData = {
 ---
 
 <!doctype html>
+<!--- Hello from Jarema :D --->
+<!--- My code's a lil messy, please bear with me :p --->
 <html lang={lang === "vih" ? "vi" : lang} class="dark">
   <head>
     <meta charset="UTF-8" />
@@ -387,13 +389,9 @@ const structuredData = {
       <Footer />
     </div>
 
-    <!-- Global React components for keyboard navigation and search -->
-    <!-- transition:persist keeps these components alive across page navigations -->
     <KeyboardNavigation client:only="react" transition:persist />
     <CommandBarLazy client:only="react" transition:persist />
     <FirstVisitHint client:only="react" transition:persist />
-
-    <!-- Global notices/easter eggs -->
     <LanguageNotice client:only="react" transition:persist />
     <EasterEgg client:idle transition:persist />
   </body>
