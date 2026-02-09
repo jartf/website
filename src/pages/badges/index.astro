@@ -101,7 +101,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
           {BADGES.map((badge) => {
             const isExternal = badge.url && !badge.url.startsWith('/');
             const img = <Image src={badge.src} alt={badge.alt} width={88} height={31} class="pixelated hover:opacity-90 transition-opacity" loading="lazy" />;
-            
+
             return (
               <div class="badge-item" data-category={badge.category} data-name={badge.name.toLowerCase()} data-description={badge.description.toLowerCase()}>
                 {badge.url ? (
@@ -239,10 +239,10 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
     let visibleCount = 0;
 
     document.querySelectorAll('.badge-item').forEach((el) => {
-      const matches = 
+      const matches =
         (category === 'all' || el.getAttribute('data-category') === category) &&
         (!query || el.getAttribute('data-name')!.includes(query) || el.getAttribute('data-description')!.includes(query));
-      
+
       (el as HTMLElement).style.display = matches ? '' : 'none';
       if (matches) visibleCount++;
     });
