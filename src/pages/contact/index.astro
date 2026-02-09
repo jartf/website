@@ -195,9 +195,9 @@ const icons: Record<string, string> = {
                     <span set:html={icons[link.icon] || icons.globe} />
                     <span class="font-medium" id="pronouns-name">{link.name}</span>
                     <span class="opacity-70" set:html={icons.external} />
-                    <span class="hidden md:inline opacity-70" id="pronouns-info-icon" set:html={icons.info} />
+                    <span class="opacity-70" id="pronouns-info-icon" set:html={icons.info} />
                   </div>
-                  <p class="text-xs mt-1 text-center opacity-80 hidden" id="pronouns-note"></p>
+                  <p class="text-xs mt-1 md:hidden text-center opacity-80 hidden" id="pronouns-note"></p>
                 </a>
               );
             }
