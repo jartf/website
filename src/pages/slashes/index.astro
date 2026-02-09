@@ -1,28 +1,19 @@
 ---
-// Slashes page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 
-interface SlashPage {
-  path: string;
-  nameKey: string;
-  defaultName: string;
-  descriptionKey: string;
-  defaultDescription: string;
-}
-
-const slashPages: SlashPage[] = [
-  { path: "/about/", nameKey: "nav.about", defaultName: "About", descriptionKey: "about.description", defaultDescription: "Learn about me" },
-  { path: "/blog/", nameKey: "nav.blog", defaultName: "Blog", descriptionKey: "blog.description", defaultDescription: "Read my posts" },
-  { path: "/contact/", nameKey: "nav.contact", defaultName: "Contact", descriptionKey: "contact.description", defaultDescription: "Get in touch" },
-  { path: "/now/", nameKey: "nav.now", defaultName: "Now", descriptionKey: "now.description", defaultDescription: "What I'm doing now" },
-  { path: "/uses/", nameKey: "nav.uses", defaultName: "Uses", descriptionKey: "uses.description", defaultDescription: "Tech and tools I use" },
-  { path: "/colophon/", nameKey: "nav.colophon", defaultName: "Colophon", descriptionKey: "colophon.description", defaultDescription: "How this site is built" },
-  { path: "/guestbook/", nameKey: "nav.guestbook", defaultName: "Guestbook", descriptionKey: "guestbook.description", defaultDescription: "Leave a message" },
-  { path: "/webrings/", nameKey: "nav.webring", defaultName: "Webrings", descriptionKey: "webrings.description", defaultDescription: "Web communities" },
-  { path: "/badges/", nameKey: "keyboardShortcuts.navigation", defaultName: "Badges", descriptionKey: "badges.description", defaultDescription: "88x31 badges" },
-  { path: "/projects/", nameKey: "nav.projects", defaultName: "Projects", descriptionKey: "projects.description", defaultDescription: "Things I've built" },
-  { path: "/scrapbook/", nameKey: "nav.scrapbook", defaultName: "Devlog", descriptionKey: "scrapbook.description", defaultDescription: "Development log" },
+const slashPages = [
+  { path: "/about/", name: "nav.about", nameDefault: "About", desc: "about.description", descDefault: "Learn about me" },
+  { path: "/blog/", name: "nav.blog", nameDefault: "Blog", desc: "blog.description", descDefault: "Read my posts" },
+  { path: "/contact/", name: "nav.contact", nameDefault: "Contact", desc: "contact.description", descDefault: "Get in touch" },
+  { path: "/now/", name: "nav.now", nameDefault: "Now", desc: "now.description", descDefault: "What I'm doing now" },
+  { path: "/uses/", name: "nav.uses", nameDefault: "Uses", desc: "uses.description", descDefault: "Tech and tools I use" },
+  { path: "/colophon/", name: "nav.colophon", nameDefault: "Colophon", desc: "colophon.description", descDefault: "How this site is built" },
+  { path: "/guestbook/", name: "nav.guestbook", nameDefault: "Guestbook", desc: "guestbook.description", descDefault: "Leave a message" },
+  { path: "/webrings/", name: "nav.webring", nameDefault: "Webrings", desc: "webrings.description", descDefault: "Web communities" },
+  { path: "/badges/", name: "keyboardShortcuts.navigation", nameDefault: "Badges", desc: "badges.description", descDefault: "88x31 badges" },
+  { path: "/projects/", name: "nav.projects", nameDefault: "Projects", desc: "projects.description", descDefault: "Things I've built" },
+  { path: "/scrapbook/", name: "nav.scrapbook", nameDefault: "Devlog", desc: "scrapbook.description", descDefault: "Development log" },
 ];
 ---
 
@@ -41,16 +32,13 @@ const slashPages: SlashPage[] = [
       </header>
 
       <div class="space-y-3">
-        {slashPages.map((page) => (
-          <a
-            href={page.path}
-            class="flex items-start justify-between p-4 border rounded-lg bg-card hover:border-primary/50 transition-colors group"
-          >
+        {slashPages.map(({ path, name, nameDefault, desc, descDefault }) => (
+          <a href={path} class="flex items-start justify-between p-4 border rounded-lg bg-card hover:border-primary/50 transition-colors group">
             <div class="flex-1">
-              <span class="font-medium group-hover:text-primary transition-colors" data-i18n={page.nameKey}>{page.defaultName}</span>
-              <p class="text-sm text-muted-foreground" data-i18n={page.descriptionKey}>{page.defaultDescription}</p>
+              <span class="font-medium group-hover:text-primary transition-colors" data-i18n={name}>{nameDefault}</span>
+              <p class="text-sm text-muted-foreground" data-i18n={desc}>{descDefault}</p>
             </div>
-            <span class="text-muted-foreground font-mono text-sm self-start text-right ml-4">{page.path}</span>
+            <span class="text-muted-foreground font-mono text-sm self-start text-right ml-4">{path}</span>
           </a>
         ))}
       </div>
@@ -66,21 +54,13 @@ const slashPages: SlashPage[] = [
       const key = el.getAttribute('data-i18n');
       if (key) {
         const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
+        if (translated !== key) el.textContent = translated;
       }
     });
   }
 
   initLanguage();
   updateTranslations();
-
-  languageStore.subscribe(() => {
-    updateTranslations();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateTranslations();
-  });
+  languageStore.subscribe(updateTranslations);
+  window.addEventListener('languageChange', updateTranslations);
 </script>
