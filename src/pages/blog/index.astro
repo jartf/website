@@ -327,7 +327,7 @@ const feedButtons = [
   const filterAndSortPosts = () => {
     const posts = Array.from(document.querySelectorAll('.blog-post')) as HTMLElement[];
     const [container, noResults, filteredCountEl] = ['blog-posts', 'no-results', 'filtered-count'].map(id => document.getElementById(id));
-    
+
     let visibleCount = 0;
     posts.forEach(post => {
       const attrs = ['title', 'tags', 'excerpt', 'category', 'mood', 'language', 'cat-approved'].reduce((acc, key) => ({ ...acc, [key]: post.getAttribute(`data-${key}`) || '' }), {} as Record<string, string>);
