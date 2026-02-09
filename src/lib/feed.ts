@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { hrefLangLanguages, supportedLanguages, siteDescription, siteName, siteUrl } from "@/lib/constants";
+import { hrefLangLanguages, supportedLanguages, siteDescription, siteName, siteUrl, author } from "@/lib/constants";
 
 // Helper to get language name from code
 function getLanguageName(code: string): string {
@@ -138,7 +138,7 @@ export function generateAtomFeed({ posts, title, description, language, feedUrl 
   <link href="${siteUrl}" rel="alternate" type="text/html"/>
   <link href="${feedUrl}" rel="self" type="application/atom+xml"/>
   <updated>${new Date().toISOString()}</updated>
-  <author><name>Jarema</name></author>
+  <author><name>${author.name}</name></author>
   <id>${siteUrl}/</id>
   <subtitle>${escapeXml(description)}</subtitle>
 ${languageLinks}${entries}
@@ -152,7 +152,7 @@ export function generateJSONFeed({ posts, title, description, language, feedUrl 
     home_page_url: siteUrl,
     feed_url: feedUrl,
     description,
-    authors: [{ name: "Jarema", url: siteUrl }],
+    authors: [{ name: author.name, url: siteUrl }],
     language,
     items: posts.map((post) => ({
       id: `${siteUrl}/blog/${post.slug}/`,

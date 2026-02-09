@@ -4,6 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import ShareButtons from "@/components/blog/ShareButtons.astro";
 import { supportedLanguages } from "@/i18n";
+import { siteUrl, siteName, author, services } from "@/lib/constants";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -20,7 +21,6 @@ interface Props {
 const { post } = Astro.props;
 const { Content } = await post.render();
 
-const siteUrl = "https://jarema.me";
 const postUrl = Astro.url.href;
 const postLang = post.data.language ?? "en";
 const postInLanguage = postLang === "vih" ? "vi" : postLang;
@@ -34,7 +34,7 @@ const blogPostingStructuredData: Record<string, unknown> = {
     "@id": postUrl,
   },
   headline: post.data.title,
-  description: post.data.excerpt || `Read "${post.data.title}" on Jarema's digital garden.`,
+  description: post.data.excerpt || `Read "${post.data.title}" on ${siteName}.`,
   datePublished: post.data.date.toISOString(),
   inLanguage: postInLanguage,
   url: postUrl,
@@ -72,7 +72,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
 <BaseLayout
   title={post.data.title}
-  description={post.data.excerpt || `Read "${post.data.title}" on Jarema's digital garden.`}
+  description={post.data.excerpt || `Read "${post.data.title}" on ${siteName}.`}
   lang={post.data.language ?? 'en'}
   structuredData={blogPostingStructuredData}
 >
@@ -149,7 +149,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     </header>
 
     <div class="p-author h-card hidden" aria-hidden="true">
-      <a class="p-name u-url" href="https://jarema.me">Jarema</a>
+      <a class="p-name u-url" href={siteUrl}>{author.name}</a>
     </div>
 
     <div class="e-content prose prose-lg dark:prose-invert max-w-none blog-content">
@@ -192,8 +192,8 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       <div
         id="cusdis_thread"
         class="[&_iframe]:min-h-[380px] [&_iframe]:w-full"
-        data-host="https://cusdis.com"
-        data-app-id="2a38d0a9-34a3-4f5e-b985-63fc014e30e5"
+        data-host={services.cusdis.host}
+        data-app-id={services.cusdis.appId}
         data-page-id={post.slug}
         data-page-url={`${postUrl}`}
         data-page-title={post.data.title}
@@ -206,6 +206,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
 <script>
   import { languageStore, t, initLanguage } from '@/i18n';
+  import { services } from '@/lib/constants';
 
   // Declare CUSDIS on window
   declare global {
@@ -257,7 +258,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
   // Load Cusdis script
   const script = document.createElement('script');
-  script.src = 'https://cusdis.com/js/cusdis.es.js';
+  script.src = services.cusdis.scriptUrl;
   script.async = true;
   script.defer = true;
   document.body.appendChild(script);

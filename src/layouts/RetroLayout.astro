@@ -3,12 +3,14 @@
 // No JavaScript, table-based layout, inline styles
 // Compatible with Lynx, Mosaic, and other vintage browsers
 
+import { siteUrl, author, socialLinks } from "@/lib/constants";
+
 interface Props {
   title?: string;
 }
 
-const { title = "Jarema - Retro version" } = Astro.props;
-const siteName = "Jarema";
+const { title = `${author.name} - Retro version` } = Astro.props;
+const displaySiteName = author.name;
 const currentYear = new Date().getFullYear();
 const lastUpdated = new Date().toLocaleDateString('en-GB', {
   year: 'numeric',
@@ -30,12 +32,12 @@ const lastUpdated = new Date().toLocaleDateString('en-GB', {
 
 <!-- Invisible h-card/vCard for parsers -->
 <div class="h-card vcard" style="position: absolute; left: -9999px; top: -9999px;">
-  <a class="p-name u-url u-uid fn url uid" href="https://jarema.me">Jarema</a>
+  <a class="p-name u-url u-uid fn url uid" href={siteUrl}>{author.name}</a>
   <img class="u-photo photo" src="/favicon.png" alt="">
-  <a class="u-email email" href="mailto:hello@jarema.me">hello@jarema.me</a>
-  <a class="u-key key" href="/keys/gpg">/keys/gpg</a>
-  <span class="p-category category">student</span>
-  <span class="p-country-name country-name">Vietnam/Estonia</span>
+  <a class="u-email email" href={`mailto:${author.email}`}>{author.email}</a>
+  <a class="u-key key" href={author.keyUrl}>{author.keyUrl}</a>
+  <span class="p-category category">{author.category}</span>
+  <span class="p-country-name country-name">{author.country}</span>
 </div>
 
 <!-- Main layout table -->
@@ -49,7 +51,7 @@ const lastUpdated = new Date().toLocaleDateString('en-GB', {
             <tr>
               <td style="text-align: left;">
                 <font size="5" color="#ffffff">
-                  <b>☆ {siteName} ☆</b>
+                  <b>☆ {displaySiteName} ☆</b>
                 </font>
                 <br>
                 <font size="2" color="#5dd9f4">
@@ -142,7 +144,7 @@ const lastUpdated = new Date().toLocaleDateString('en-GB', {
                   </p>
                   <p>
                     <b>Webmaster:</b><br>
-                    ∴ Jarema
+                    {author.displayName}
                   </p>
                 </font>
 
@@ -155,7 +157,7 @@ const lastUpdated = new Date().toLocaleDateString('en-GB', {
                 <hr style="background-color: #3d2f5a; border: none; height: 2px;">
                 <font size="2">
                   <ul style="padding-left: 20px; margin: 5px 0;">
-                    <li><a href="https://github.com/jartf" style="color: #5dd9f4;">GitHub</a></li>
+                    <li><a href={socialLinks.github} style="color: #5dd9f4;">GitHub</a></li>
                     <li><a href="/rss.xml" style="color: #5dd9f4;">RSS feed</a></li>
                     <li><a href="/" style="color: #5dd9f4;">Modern site</a></li>
                   </ul>
@@ -183,9 +185,9 @@ const lastUpdated = new Date().toLocaleDateString('en-GB', {
       <td colspan="3" style="background-color: #2d1b4e; color: #ffffff; padding: 10px; text-align: center;">
         <font size="2" color="#ffffff">
           <p>
-            ∴ Jarema, {currentYear} - No rights reserved
+            {author.displayName}, {currentYear} - No rights reserved
             <br>
-            <a href="mailto:hello@jarema.me" style="color: #5dd9f4;">hello@jarema.me</a>
+            <a href={`mailto:${author.email}`} style="color: #5dd9f4;">{author.email}</a>
           </p>
           <p>
             <font size="2">

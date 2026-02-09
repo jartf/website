@@ -2,14 +2,14 @@
 // Homepage
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { routes } from "@/lib/constants";
+import { routes, siteName, author, services } from "@/lib/constants";
 import { activeWebringItems } from "@/content/webring-items";
 import MoodCat from "@/components/MoodCat.astro";
 import NowSection from "@/components/NowSection.astro";
 import RecentPosts from "@/components/RecentPosts.astro";
 ---
 
-<BaseLayout title="Jarema's digital garden" isHomePage={true}>
+<BaseLayout title={siteName} isHomePage={true}>
   <div class="relative min-h-screen w-full overflow-hidden">
     <div class="container mx-auto px-2 sm:px-4 lg:px-6 py-8 lg:py-12 relative z-10">
       <div class="max-w-6xl mx-auto">
@@ -49,9 +49,9 @@ import RecentPosts from "@/components/RecentPosts.astro";
           <section class="flex flex-col" aria-labelledby="current-mood-heading">
             <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
             <div class="border rounded-lg p-3 bg-card text-center flex-1 flex items-center justify-center">
-              <a href="https://www.imood.com/users/jarema" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
+              <a href={services.iMood.profileUrl} target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
                 <img
-                  src="https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif"
+                  src={services.iMood.widgetUrl}
                   alt="My current mood, loaded from imood"
                   class="inline-block h-[25px]"
                 />
@@ -63,11 +63,11 @@ import RecentPosts from "@/components/RecentPosts.astro";
             <T key="home.currentStatus" tag="h2" id="status-cafe-heading" class="text-2xl font-bold mb-4 text-center" />
             <div class="border rounded-lg p-3 bg-card text-center flex-1 flex items-center justify-center">
               <div class="w-full max-w-xl mx-auto h-[64px]">
-                <div id="statuscafe" class="w-full" data-statuscafe-user="jarema"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
+                <div id="statuscafe" class="w-full" data-statuscafe-user={author.statusCafeUsername}><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
                 <noscript>
                   <div class="text-sm text-muted-foreground text-center">
                     Status updates require JavaScript. You can see my status on
-                    <a href="https://status.cafe/users/jarema" class="text-primary hover:underline">status.cafe</a>.
+                    <a href={services.statusCafe.profileUrl} class="text-primary hover:underline">status.cafe</a>.
                   </div>
                 </noscript>
               </div>

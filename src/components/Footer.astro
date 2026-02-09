@@ -1,7 +1,7 @@
 ---
 // Footer component with badges, webring links, i18n support, and secret chapter 6 easter egg
 
-import { footerBadges } from "@/lib/constants";
+import { footerBadges, author, flagColors } from "@/lib/constants";
 import { KeyboardShortcutsHelp } from "./KeyboardShortcutsHelp";
 import { Image } from 'astro:assets';
 ---
@@ -13,7 +13,7 @@ import { Image } from 'astro:assets';
       class="flex flex-col xl:flex-row items-center gap-2 xl:gap-1 text-sm text-muted-foreground select-none cursor-default"
     >
       <p data-i18n="footer.copyright">
-        2026, ∴ Jarema, CC BY 4.0
+        2026, {author.displayName}, CC BY 4.0
       </p>
       <span class="hidden xl:inline">•</span>
       <p class="flex items-center gap-1.5 lowercase">
@@ -61,9 +61,9 @@ import { Image } from 'astro:assets';
   <!-- Pride flag stripe -->
   <svg height="15" width="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="block w-full" preserveAspectRatio="none">
     <title>Decorative footer stripe</title>
-    <rect fill="#D60270" height="5" width="100%" x="0" y="0"></rect>
-    <rect fill="#9B4F96" height="5" width="100%" x="0" y="5"></rect>
-    <rect fill="#0038A8" height="5" width="100%" x="0" y="10"></rect>
+    <rect fill={flagColors.pink} height="5" width="100%" x="0" y="0"></rect>
+    <rect fill={flagColors.purple} height="5" width="100%" x="0" y="5"></rect>
+    <rect fill={flagColors.blue} height="5" width="100%" x="0" y="10"></rect>
   </svg>
 
   <!-- Spacer -->

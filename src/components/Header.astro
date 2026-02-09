@@ -1,7 +1,7 @@
 ---
 // Static header
 
-import { navItems } from "@/lib/constants";
+import { navItems, author } from "@/lib/constants";
 import { isActivePath } from "@/lib/utils";
 import T from "@/components/T.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
@@ -20,11 +20,11 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
     <div class="flex items-center gap-2 min-w-0 flex-1">
       <!-- Logo -->
       <div class="flex-shrink-0">
-        <a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md" aria-label="Jarema - Homepage">
+        <a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md" aria-label={`${author.name} - Homepage`}>
           <div class="relative size-8 overflow-hidden">
-            <Image src="/favicon.png" alt="Jarema's logo" width={32} height={32} class="size-8" aria-hidden="true" loading="eager" fetchpriority="high" />
+            <Image src="/favicon.png" alt={`${author.name}'s logo`} width={32} height={32} class="size-8" aria-hidden="true" loading="eager" fetchpriority="high" />
           </div>
-          <span class="font-heading font-bold text-xl sm:inline-block">∴ Jarema</span>
+          <span class="font-heading font-bold text-xl sm:inline-block">{author.displayName}</span>
         </a>
       </div>
 
