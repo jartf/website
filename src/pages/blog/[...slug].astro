@@ -3,6 +3,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import ShareButtons from "@/components/blog/ShareButtons.astro";
+import T from "@/components/T.astro";
 import { supportedLanguages } from "@/i18n";
 import { siteUrl, siteName, author, services } from "@/lib/constants";
 
@@ -80,7 +81,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     <header class="mb-8">
       <div class="flex items-center gap-3 text-sm text-muted-foreground mb-4">
         <a href="/blog/" class="hover:text-primary transition-colors">
-          ← <span data-i18n="blog.back">Back to blog list</span>
+          ← <T key="blog.back" />
         </a>
       </div>
 
@@ -102,7 +103,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
           <time class="dt-updated hidden" datetime={post.data.updated.toISOString()}>{post.data.updated.toISOString()}</time>
         )}
         <span>•</span>
-        <span><span id="reading-time-value">{post.data.readingTime || 5}</span> <span data-i18n="blog.minRead">min read</span></span>
+        <span><span id="reading-time-value">{post.data.readingTime || 5}</span> <T key="blog.minRead" /></span>
         {post.data.mood && (
           <>
             <span>•</span>
@@ -112,7 +113,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
         {post.data.catApproved && (
           <>
             <span>•</span>
-            <span data-i18n="blog.catApproved" title="Cat approved!">🐱 ✓</span>
+            <span title="Cat approved!">🐱 ✓</span>
           </>
         )}
       </div>
@@ -133,7 +134,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
       {post.data.alternates && post.data.alternates.length > 0 && (
         <div class="mt-4 p-3 rounded-lg bg-muted/50 border">
-          <span class="text-sm text-muted-foreground" data-i18n="blog.availableIn">This page is also available in</span>
+          <T key="blog.availableIn" class="text-sm text-muted-foreground" />
           <span class="text-sm text-muted-foreground"> </span>
           {post.data.alternates.map((alt: { slug: string; language: string }, i: number) => (
             <>
@@ -165,7 +166,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
             class="group p-4 border rounded-lg hover:border-primary/50 transition-colors"
           >
             <span class="text-xs text-muted-foreground">← </span>
-            <span class="text-xs text-muted-foreground" data-i18n="blog.prev">Previous post</span>
+            <T key="blog.prev" class="text-xs text-muted-foreground" />
             <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">
               {prevPost.data.title}
             </p>
@@ -176,7 +177,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
             href={`/blog/${nextPost.slug}/`}
             class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto"
           >
-            <span class="text-xs text-muted-foreground" data-i18n="blog.next">Next post</span>
+            <T key="blog.next" class="text-xs text-muted-foreground" />
             <span class="text-xs text-muted-foreground"> →</span>
             <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">
               {nextPost.data.title}
@@ -188,7 +189,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
     <!-- Comments section (Cusdis) -->
     <section class="mt-12 pt-8 border-t">
-      <h2 class="text-2xl font-bold mb-6"><span data-i18n="blog.comments">Comments</span></h2>
+      <h2 class="text-2xl font-bold mb-6"><T key="blog.comments" /></h2>
       <div
         id="cusdis_thread"
         class="[&_iframe]:min-h-[380px] [&_iframe]:w-full"

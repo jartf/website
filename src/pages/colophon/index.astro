@@ -24,9 +24,9 @@ import T from "@/components/T.astro";
         <section id="technology-stack" class="scroll-mt-20">
           <T key="colophon.technologyStack.title" tag="h2" />
           <ul>
-            <li><strong>Astro:</strong> <span data-i18n="colophon.technologyStack.astro">Static site generator with island architecture</span></li>
-            <li><strong>Tailwind CSS:</strong> <span data-i18n="colophon.technologyStack.tailwind">Utility-first CSS framework</span></li>
-            <li><strong>TypeScript:</strong> <span data-i18n="colophon.technologyStack.typescript">Strongly typed programming language that builds on JavaScript</span></li>
+            <li><strong>Astro:</strong> Static site generator with island architecture</li>
+            <li><strong>Tailwind CSS:</strong> <T key="colophon.technologyStack.tailwind" /></li>
+            <li><strong>TypeScript:</strong> <T key="colophon.technologyStack.typescript" /></li>
             <li><strong>nanostores:</strong> Lightweight state management for i18n</li>
             <li><strong>Typography:</strong> Space Grotesk (headings), Lexend (body)</li>
           </ul>
@@ -36,14 +36,14 @@ import T from "@/components/T.astro";
         <section id="hosting" class="scroll-mt-20">
           <T key="colophon.hosting.title" tag="h2" />
           <p>
-            <span data-i18n="colophon.hosting.content1">The site is hosted on</span>{" "}
+            <T key="colophon.hosting.content1" />{" "}
             <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel</a>,{" "}
-            <span data-i18n="colophon.hosting.content2">which provides seamless deployment from GitHub, automatic HTTPS, and global CDN distribution.</span>
+            <T key="colophon.hosting.content2" />
           </p>
           <p>
-            <span data-i18n="colophon.hosting.content3">The domain is managed through</span>{" "}
+            <T key="colophon.hosting.content3" />{" "}
             <a href="https://cloudflare.com" target="_blank" rel="noopener noreferrer">Cloudflare</a>,{" "}
-            <span data-i18n="colophon.hosting.content4">which provides additional security and performance benefits.</span>
+            <T key="colophon.hosting.content4" />
           </p>
         </section>
 
@@ -63,11 +63,11 @@ import T from "@/components/T.astro";
               <a href="https://microformats.org/wiki/h-card" target="_blank" rel="noopener noreferrer">h-card</a>
               and
               <a href="https://microformats.org/wiki/h-entry" target="_blank" rel="noopener noreferrer">h-entry</a>
-              <span data-i18n="colophon.webStandards.microformats">microformats</span>
+              <T key="colophon.webStandards.microformats" />
             </li>
-            <li data-i18n="colophon.webStandards.feeds">RSS, Atom, and JSON feeds</li>
-            <li data-i18n="colophon.webStandards.robots">robots.txt and sitemap.xml</li>
-            <li data-i18n="colophon.webStandards.humans">humans.txt</li>
+            <li><T key="colophon.webStandards.feeds" /></li>
+            <li><T key="colophon.webStandards.robots" /></li>
+            <li><T key="colophon.webStandards.humans" /></li>
           </ul>
         </section>
 
@@ -76,15 +76,15 @@ import T from "@/components/T.astro";
           <T key="colophon.accessibility.title" tag="h2" />
           <T key="colophon.accessibility.intro" tag="p" />
           <ul>
-            <li data-i18n="colophon.accessibility.item1">Semantic HTML structure</li>
-            <li data-i18n="colophon.accessibility.item2">Skip-to-content links</li>
-            <li data-i18n="colophon.accessibility.item3">Proper heading hierarchy</li>
-            <li data-i18n="colophon.accessibility.item4">WCAG 2.1 AA color contrast</li>
-            <li data-i18n="colophon.accessibility.item5">Keyboard navigable</li>
-            <li data-i18n="colophon.accessibility.item6">Respects reduced motion preferences</li>
+            <li><T key="colophon.accessibility.item1" /></li>
+            <li><T key="colophon.accessibility.item2" /></li>
+            <li><T key="colophon.accessibility.item3" /></li>
+            <li><T key="colophon.accessibility.item4" /></li>
+            <li><T key="colophon.accessibility.item5" /></li>
+            <li><T key="colophon.accessibility.item6" /></li>
           </ul>
           <p>
-            <span data-i18n="colophon.accessibility.reportText">If you encounter any accessibility issues, please</span>
+            <T key="colophon.accessibility.reportText" />
             <a href="/contact/" data-i18n="colophon.accessibility.contactLink">let me know</a>.
           </p>
         </section>
@@ -93,9 +93,9 @@ import T from "@/components/T.astro";
         <section id="inspiration" class="scroll-mt-20">
           <T key="colophon.inspiration.title" tag="h2" />
           <p>
-            <span data-i18n="colophon.inspiration.content1">This page draws inspiration from</span>{" "}
+            <T key="colophon.inspiration.content1" />{" "}
             <a href="https://maggieappleton.com/colophon" target="_blank" rel="noopener noreferrer">Maggie Appleton's colophon</a>,{" "}
-            <span data-i18n="colophon.inspiration.content2">which in turn draws inspiration from</span>{" "}
+            <T key="colophon.inspiration.content2" />{" "}
             <a href="https://www.gwern.net/Colophon" target="_blank" rel="noopener noreferrer">Gwern Branwen's colophon</a>.
           </p>
         </section>

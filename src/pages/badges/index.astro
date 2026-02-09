@@ -44,32 +44,30 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
       <!-- My badge section -->
       <section class="mb-12">
         <details class="border rounded-lg bg-card overflow-hidden">
-          <summary class="p-4 cursor-pointer hover:bg-accent transition-colors font-semibold flex items-center gap-2" data-i18n="badges.myBadgeTitle">
-            My badge (click to expand)
+          <summary class="p-4 cursor-pointer hover:bg-accent transition-colors font-semibold flex items-center gap-2">
+            <T key="badges.myBadgeTitle" />
           </summary>
           <div class="p-6 border-t">
-            <p class="text-sm text-muted-foreground mb-4" data-i18n="badges.myBadgeIntro">
-              Use this badge to link to my website:
-            </p>
+            <T key="badges.myBadgeIntro" tag="p" class="text-sm text-muted-foreground mb-4" />
               <div class="text-center mb-6">
               <Image src="/badge.png" alt="Jarema's badge" width={176} height={62} class="pixelated mx-auto" />
             </div>
             <div class="mb-4">
-              <p class="text-xs text-muted-foreground mb-1" data-i18n="badges.hotlinkUrl">Hotlink URL:</p>
+              <T key="badges.hotlinkUrl" tag="p" class="text-xs text-muted-foreground mb-1" />
               <code class="block bg-muted p-2 rounded text-xs overflow-x-auto select-all">https://jarema.me/badge.png</code>
             </div>
             <div class="mb-4">
-              <p class="text-xs text-muted-foreground mb-1" data-i18n="badges.htmlCodeTitle">HTML code</p>
+              <T key="badges.htmlCodeTitle" tag="p" class="text-xs text-muted-foreground mb-1" />
               <pre class="bg-muted p-2 rounded text-xs overflow-x-auto select-all"><code>{`<a href="https://jarema.me/">
   <img src="https://jarema.me/badge.png" alt="Jarema's digital garden" width="88" height="31" style="image-rendering: pixelated;">
 </a>`}</code></pre>
             </div>
             <div class="text-xs text-muted-foreground space-y-1 mt-4 p-3 bg-muted/50 rounded">
-              <p class="font-medium" data-i18n="badges.embeddingSuggestionsTitle">Suggestions for embedding</p>
+              <T key="badges.embeddingSuggestionsTitle" tag="p" class="font-medium" />
               <ul class="list-disc list-inside space-y-1">
-                <li><span data-i18n="badges.suggestion1">Use</span> <code class="bg-muted px-1 rounded">image-rendering: pixelated</code> <span data-i18n="badges.suggestion1b">in your CSS to preserve the pixel art style.</span></li>
-                <li><span data-i18n="badges.suggestion2">Link directly to my homepage at</span> <code class="bg-muted px-1 rounded">https://jarema.me/</code></li>
-                <li><span data-i18n="badges.suggestion3">The badge is 88x31 pixels, double the width and height in your HTML to</span> <code class="bg-muted px-1 rounded">176x62</code> <span data-i18n="badges.suggestion3b">to make them easier to read on higher-resolution screens.</span></li>
+                <li><T key="badges.suggestion1" /> <code class="bg-muted px-1 rounded">image-rendering: pixelated</code> <T key="badges.suggestion1b" /></li>
+                <li><T key="badges.suggestion2" /> <code class="bg-muted px-1 rounded">https://jarema.me/</code></li>
+                <li><T key="badges.suggestion3" /> <code class="bg-muted px-1 rounded">176x62</code> <T key="badges.suggestion3b" /></li>
               </ul>
             </div>
           </div>
@@ -89,8 +87,8 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
             {CATEGORIES.map((cat) => <option value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>)}
           </select>
           <div class="flex gap-2">
-            <button id="view-verbose" class="view-btn h-10 px-4 rounded-md text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80" data-i18n="badges.verboseView">Verbose</button>
-            <button id="view-badge-only" class="view-btn h-10 px-4 rounded-md text-sm font-medium bg-primary text-primary-foreground" data-i18n="badges.badgeOnlyView">Badge only</button>
+            <button id="view-verbose" class="view-btn h-10 px-4 rounded-md text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80"><T key="badges.verboseView" /></button>
+            <button id="view-badge-only" class="view-btn h-10 px-4 rounded-md text-sm font-medium bg-primary text-primary-foreground"><T key="badges.badgeOnlyView" /></button>
           </div>
         </div>
 
@@ -121,7 +119,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
         </div>
 
         <div id="no-results" class="hidden text-center py-12 border rounded-md">
-          <p class="text-muted-foreground" data-i18n="badges.noResults">No badges found matching your search criteria</p>
+          <T key="badges.noResults" tag="p" class="text-muted-foreground" />
         </div>
       </section>
     </div>
