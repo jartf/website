@@ -1,30 +1,24 @@
 ---
-// Projects page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { projects } from "@/content/project-items";
 
-// Filter out hidden projects
 const visibleProjects = projects.filter(p => !p.hidden);
 
-// Group projects by status
-const completedProjects = visibleProjects.filter(p => p.status === 'completed');
-const inProgressProjects = visibleProjects.filter(p => p.status === 'in-progress');
-const plannedProjects = visibleProjects.filter(p => p.status === 'planned');
+const statusGroups = [
+  { key: 'in-progress', indicator: 'bg-yellow-500 motion-safe:animate-pulse', projects: visibleProjects.filter(p => p.status === 'in-progress') },
+  { key: 'completed', indicator: 'bg-green-500', projects: visibleProjects.filter(p => p.status === 'completed') },
+  { key: 'planned', indicator: 'bg-blue-500', projects: visibleProjects.filter(p => p.status === 'planned') },
+];
 
-// Status badge colors
 const statusColors = {
   'completed': 'bg-green-500/20 text-green-700 dark:text-green-300',
   'in-progress': 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-300',
   'planned': 'bg-blue-500/20 text-blue-700 dark:text-blue-300',
 };
 
-// Category icons
-const categoryIcons = {
-  'personal': '🧑‍💻',
-  'academic': '📚',
-  'activism': '✊',
-};
+const categoryIcons: Record<string, string> = { 'personal': '🧑‍💻', 'academic': '📚', 'activism': '✊' };
+const categories = Object.keys(categoryIcons);
 ---
 
 <BaseLayout title="Projects" description="A collection of my projects and experiments.">
@@ -35,86 +29,26 @@ const categoryIcons = {
         <T key="projects.description" tag="p" class="text-muted-foreground text-lg max-w-xl mx-auto" />
       </header>
 
-      <!-- Category filters -->
       <div class="flex flex-wrap justify-center gap-2 mb-8">
         <button class="filter-btn active px-4 py-2 rounded-full border transition-colors" data-filter="all">
           <T key="projects.filters.all" />
         </button>
-        <button class="filter-btn px-4 py-2 rounded-full border transition-colors" data-filter="personal">
-          🧑‍💻 <T key="projects.filters.personal" />
-        </button>
-        <button class="filter-btn px-4 py-2 rounded-full border transition-colors" data-filter="academic">
-          📚 <T key="projects.filters.academic" />
-        </button>
-        <button class="filter-btn px-4 py-2 rounded-full border transition-colors" data-filter="activism">
-          ✊ <T key="projects.filters.activism" />
-        </button>
+        {categories.map(cat => (
+          <button class="filter-btn px-4 py-2 rounded-full border transition-colors" data-filter={cat}>
+            {categoryIcons[cat]} <T key={`projects.filters.${cat}`} />
+          </button>
+        ))}
       </div>
 
-      <!-- In progress section -->
-      {inProgressProjects.length > 0 && (
+      {statusGroups.map(({ key, indicator, projects: groupProjects }) => groupProjects.length > 0 && (
         <section class="mb-12">
           <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-yellow-500 motion-safe:animate-pulse"></span>
-            <T key="projects.inProgress" />
+            <span class={`w-3 h-3 rounded-full ${indicator}`}></span>
+            <T key={`projects.${key.replace('-', '')}`} />
           </h2>
           <div class="grid gap-6 md:grid-cols-2">
-            {inProgressProjects.map((project) => (
-              <article
-                class="project-card group perspective"
-                data-category={project.category}
-                data-project-id={project.id}
-                data-project-content={JSON.stringify(project.content)}
-              >
-                <div class="card-inner relative w-full h-64 transition-transform duration-500 transform-style-preserve-3d">
-                  <!-- Front of card -->
-                  <div class="card-front absolute inset-0 backface-hidden rounded-xl border bg-card p-6 flex flex-col">
-                    <div class="flex items-start justify-between mb-3">
-                      <span class="text-2xl">{categoryIcons[project.category]}</span>
-                      <span class={`text-xs px-2 py-1 rounded-full ${statusColors[project.status]}`}>
-                        <span data-i18n={`projects.status.${project.status}`}>{project.status}</span>
-                      </span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2 project-title">{project.content.en.title}</h3>
-                    <p class="text-muted-foreground text-sm flex-1 project-description">{project.content.en.description}</p>
-                    <div class="flex flex-wrap gap-1 mt-3">
-                      {project.tags.slice(0, 4).map((tag) => (
-                        <span class="text-xs px-2 py-0.5 rounded bg-muted">{tag}</span>
-                      ))}
-                    </div>
-                    <T key="projects.clickToFlip" tag="p" class="text-xs text-muted-foreground mt-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  <!-- Back of card -->
-                  <div class="card-back absolute inset-0 backface-hidden rounded-xl border bg-card p-6 flex flex-col rotate-y-180">
-                    <T key="projects.what" tag="h4" class="font-semibold text-sm text-muted-foreground mb-2" />
-                    <p class="text-sm mb-3 project-what">{project.content.en.what}</p>
-                    <T key="projects.learned" tag="h4" class="font-semibold text-sm text-muted-foreground mb-2" />
-                    <p class="text-sm mb-3 project-learned">{project.content.en.learned}</p>
-                    <T key="projects.why" tag="h4" class="font-semibold text-sm text-muted-foreground mb-2" />
-                    <p class="text-sm flex-1 project-why">{project.content.en.why}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <!-- Completed section -->
-      {completedProjects.length > 0 && (
-        <section class="mb-12">
-          <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-green-500"></span>
-            <T key="projects.completed" />
-          </h2>
-          <div class="grid gap-6 md:grid-cols-2">
-            {completedProjects.map((project) => (
-              <article
-                class="project-card group perspective"
-                data-category={project.category}
-                data-project-id={project.id}
-                data-project-content={JSON.stringify(project.content)}
-              >
+            {groupProjects.map((project) => (
+              <article class="project-card group perspective" data-category={project.category} data-project-id={project.id} data-project-content={JSON.stringify(project.content)}>
                 <div class="card-inner relative w-full h-64 transition-transform duration-500 transform-style-preserve-3d">
                   <div class="card-front absolute inset-0 backface-hidden rounded-xl border bg-card p-6 flex flex-col">
                     <div class="flex items-start justify-between mb-3">
@@ -126,9 +60,7 @@ const categoryIcons = {
                     <h3 class="text-xl font-bold mb-2 project-title">{project.content.en.title}</h3>
                     <p class="text-muted-foreground text-sm flex-1 project-description">{project.content.en.description}</p>
                     <div class="flex flex-wrap gap-1 mt-3">
-                      {project.tags.slice(0, 4).map((tag) => (
-                        <span class="text-xs px-2 py-0.5 rounded bg-muted">{tag}</span>
-                      ))}
+                      {project.tags.slice(0, 4).map((tag) => <span class="text-xs px-2 py-0.5 rounded bg-muted">{tag}</span>)}
                     </div>
                     <T key="projects.clickToFlip" tag="p" class="text-xs text-muted-foreground mt-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
@@ -145,54 +77,7 @@ const categoryIcons = {
             ))}
           </div>
         </section>
-      )}
-
-      <!-- Planned section -->
-      {plannedProjects.length > 0 && (
-        <section class="mb-12">
-          <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
-            <T key="projects.planned" />
-          </h2>
-          <div class="grid gap-6 md:grid-cols-2">
-            {plannedProjects.map((project) => (
-              <article
-                class="project-card group perspective"
-                data-category={project.category}
-                data-project-id={project.id}
-                data-project-content={JSON.stringify(project.content)}
-              >
-                <div class="card-inner relative w-full h-64 transition-transform duration-500 transform-style-preserve-3d">
-                  <div class="card-front absolute inset-0 backface-hidden rounded-xl border bg-card p-6 flex flex-col">
-                    <div class="flex items-start justify-between mb-3">
-                      <span class="text-2xl">{categoryIcons[project.category]}</span>
-                      <span class={`text-xs px-2 py-1 rounded-full ${statusColors[project.status]}`}>
-                        <span data-i18n={`projects.status.${project.status}`}>{project.status}</span>
-                      </span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2 project-title">{project.content.en.title}</h3>
-                    <p class="text-muted-foreground text-sm flex-1 project-description">{project.content.en.description}</p>
-                    <div class="flex flex-wrap gap-1 mt-3">
-                      {project.tags.slice(0, 4).map((tag) => (
-                        <span class="text-xs px-2 py-0.5 rounded bg-muted">{tag}</span>
-                      ))}
-                    </div>
-                    <T key="projects.clickToFlip" tag="p" class="text-xs text-muted-foreground mt-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  <div class="card-back absolute inset-0 backface-hidden rounded-xl border bg-card p-6 flex flex-col rotate-y-180">
-                    <T key="projects.what" tag="h4" class="font-semibold text-sm text-muted-foreground mb-2" />
-                    <p class="text-sm mb-3 project-what">{project.content.en.what}</p>
-                    <T key="projects.learned" tag="h4" class="font-semibold text-sm text-muted-foreground mb-2" />
-                    <p class="text-sm mb-3 project-learned">{project.content.en.learned}</p>
-                    <T key="projects.why" tag="h4" class="font-semibold text-sm text-muted-foreground mb-2" />
-                    <p class="text-sm flex-1 project-why">{project.content.en.why}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
+      ))}
     </div>
   </div>
 </BaseLayout>
@@ -241,75 +126,46 @@ const categoryIcons = {
 <script>
   import { languageStore, initLanguage } from '@/i18n';
 
-  // Flip card functionality
-  document.querySelectorAll('.project-card').forEach((card) => {
-    card.addEventListener('click', () => {
-      const inner = card.querySelector('.card-inner');
-      inner?.classList.toggle('flipped');
-    });
-  });
-
-  // Filter functionality
+  const cards = document.querySelectorAll('.project-card');
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
 
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const filter = btn.getAttribute('data-filter');
+  // Flip cards on click
+  cards.forEach(card => card.addEventListener('click', () =>
+    card.querySelector('.card-inner')?.classList.toggle('flipped')
+  ));
 
-      // Update active state
-      filterBtns.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
+  // Filter by category
+  filterBtns.forEach(btn => btn.addEventListener('click', () => {
+    const filter = btn.getAttribute('data-filter');
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    cards.forEach(card => card.classList.toggle('hidden',
+      filter !== 'all' && card.getAttribute('data-category') !== filter
+    ));
+  }));
 
-      // Filter cards
-      projectCards.forEach((card) => {
-        const category = card.getAttribute('data-category');
-        if (filter === 'all' || category === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    });
-  });
-
-  // Update project content based on language
-  function updateProjectContent() {
+  // Update content on language change
+  const updateContent = () => {
     const lang = languageStore.get();
-
-    document.querySelectorAll('.project-card').forEach((card) => {
-      const contentData = card.getAttribute('data-project-content');
-      if (contentData) {
-        try {
-          const content = JSON.parse(contentData);
-          const langContent = content[lang] || content.en;
-
-          const titleEl = card.querySelector('.project-title');
-          const descEl = card.querySelector('.project-description');
-          const whatEl = card.querySelector('.project-what');
-          const learnedEl = card.querySelector('.project-learned');
-          const whyEl = card.querySelector('.project-why');
-
-          if (titleEl) titleEl.textContent = langContent.title;
-          if (descEl) descEl.textContent = langContent.description;
-          if (whatEl) whatEl.textContent = langContent.what;
-          if (learnedEl) learnedEl.textContent = langContent.learned;
-          if (whyEl) whyEl.textContent = langContent.why;
-        } catch (e) {
-          // Ignore parse errors
-        }
-      }
+    cards.forEach(card => {
+      try {
+        const content = JSON.parse(card.getAttribute('data-project-content') || '{}');
+        const langContent = content[lang] || content.en;
+        const update = (sel: string, key: string) => {
+          const el = card.querySelector(sel);
+          if (el && langContent[key]) el.textContent = langContent[key];
+        };
+        update('.project-title', 'title');
+        update('.project-description', 'description');
+        update('.project-what', 'what');
+        update('.project-learned', 'learned');
+        update('.project-why', 'why');
+      } catch {}
     });
-  }
+  };
 
   initLanguage();
-  updateProjectContent();
-
-  languageStore.subscribe(() => {
-    updateProjectContent();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateProjectContent();
-  });
+  updateContent();
+  languageStore.subscribe(updateContent);
+  window.addEventListener('languageChange', updateContent);
 </script>
