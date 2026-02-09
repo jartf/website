@@ -5,15 +5,7 @@ import { Image } from "astro:assets";
 
 const title = "About me";
 const description = "The story of who I am, where I come from, what my passion is, and what I'm working toward.";
-
-const chapters = [
-  { num: 1, key: "1" },
-  { num: 2, key: "2" },
-  { num: 3, key: "3" },
-  { num: 4, key: "4" },
-  { num: 5, key: "5" },
-  { num: 6, key: "6", hidden: true },
-];
+const chapters = [...[1, 2, 3, 4, 5].map(num => ({ num, key: String(num) })), { num: 6, key: "6", hidden: true }];
 ---
 
 <BaseLayout title={title} description={description}>
@@ -23,80 +15,38 @@ const chapters = [
       <T key="about.description" tag="p" class="text-muted-foreground text-lg max-w-2xl mx-auto" />
     </header>
 
-    <!-- h-card microformat -->
-    <div class="h-card mb-10 p-6 border rounded-lg bg-muted/10">
-      <div class="flex flex-col sm:flex-row items-center gap-4">
-        <Image src="/favicon.png" alt="Jarema" width={80} height={80} class="u-photo rounded-full" />
-        <div class="text-center sm:text-left">
-          <h2 class="p-name text-xl font-bold">Jarema</h2>
-          <p class="p-note mt-1 text-muted-foreground">Economics major, sometimes coder, most times cat whisperer.</p>
-          <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-2">
-            <a href="/" class="u-url u-uid text-sm text-primary hover:underline">jarema.me</a>
-            <a class="u-email text-sm text-primary hover:underline" href="mailto:hello@jarema.me">hello@jarema.me</a>
-          </div>
-          <span class="p-category hidden">student</span>
+    <div class="h-card mb-10 p-6 border rounded-lg bg-muted/10 flex flex-col sm:flex-row items-center gap-4">
+      <Image src="/favicon.png" alt="Jarema" width={80} height={80} class="u-photo rounded-full" />
+      <div class="text-center sm:text-left">
+        <h2 class="p-name text-xl font-bold">Jarema</h2>
+        <p class="p-note mt-1 text-muted-foreground">Economics major, sometimes coder, most times cat whisperer.</p>
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-2">
+          <a href="/" class="u-url u-uid text-sm text-primary hover:underline">jarema.me</a>
+          <a class="u-email text-sm text-primary hover:underline" href="mailto:hello@jarema.me">hello@jarema.me</a>
         </div>
+        <span class="p-category hidden">student</span>
       </div>
     </div>
 
-    <!-- Chapter navigation -->
     <nav class="flex flex-wrap justify-center gap-2 mb-10" aria-label="Chapter navigation">
       {chapters.map((ch) => (
-        <a
-          href={`#chapter-${ch.num}`}
-          class:list={[
-            "px-3 py-1.5 rounded-full border text-sm hover:bg-accent transition-colors",
-            ch.hidden && "hidden-chapter hidden"
-          ]}
-          data-hidden-chapter={ch.hidden ? "true" : undefined}
-        >
-          {ch.num}
-        </a>
+        <a href={`#chapter-${ch.num}`} class:list={["px-3 py-1.5 rounded-full border text-sm hover:bg-accent transition-colors", ('hidden' in ch) && "hidden-chapter hidden"]} data-hidden-chapter={('hidden' in ch) || undefined}>{ch.num}</a>
       ))}
     </nav>
 
-    <!-- Chapters -->
     <div class="space-y-16">
-      <!-- Chapter 1: how i spawned -->
-      <section id="chapter-1" class="scroll-mt-20">
-        <h2 class="text-2xl font-bold mb-6 text-primary">
-          <span class="text-muted-foreground mr-2">1.</span>
-          <T key="about.chapters.1.title" />
-        </h2>
-        <div class="prose-lg max-w-none space-y-4 text-justify">
-          <T key="about.chapters.1.content1" tag="p" />
-          <T key="about.chapters.1.content2" tag="p" />
-          <T key="about.chapters.1.content3" tag="p" />
-        </div>
-      </section>
+      {[1, 2, 3].map(num => (
+        <section id={`chapter-${num}`} class="scroll-mt-20">
+          <h2 class="text-2xl font-bold mb-6 text-primary">
+            <span class="text-muted-foreground mr-2">{num}.</span>
+            <T key={`about.chapters.${num}.title`} />
+          </h2>
+          <div class="prose-lg max-w-none space-y-4 text-justify">
+            {[1, 2, 3].map(i => <T key={`about.chapters.${num}.content${i}`} tag="p" />)}
+          </div>
+        </section>
+      ))}
 
-      <!-- Chapter 2: when i found out the world is rigged -->
-      <section id="chapter-2" class="scroll-mt-20">
-        <h2 class="text-2xl font-bold mb-6 text-primary">
-          <span class="text-muted-foreground mr-2">2.</span>
-          <T key="about.chapters.2.title" />
-        </h2>
-        <div class="prose-lg max-w-none space-y-4 text-justify">
-          <T key="about.chapters.2.content1" tag="p" />
-          <T key="about.chapters.2.content2" tag="p" />
-          <T key="about.chapters.2.content3" tag="p" />
-        </div>
-      </section>
-
-      <!-- Chapter 3: coding, languages, and the ADHD grindset -->
-      <section id="chapter-3" class="scroll-mt-20">
-        <h2 class="text-2xl font-bold mb-6 text-primary">
-          <span class="text-muted-foreground mr-2">3.</span>
-          <T key="about.chapters.3.title" />
-        </h2>
-        <div class="prose-lg max-w-none space-y-4 text-justify">
-          <T key="about.chapters.3.content1" tag="p" />
-          <T key="about.chapters.3.content2" tag="p" />
-          <T key="about.chapters.3.content3" tag="p" />
-        </div>
-      </section>
-
-      <!-- Chapter 4: activism and being too real online -->
       <section id="chapter-4" class="scroll-mt-20">
         <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">4.</span>
@@ -112,54 +62,36 @@ const chapters = [
         </div>
       </section>
 
-      <!-- Chapter 5: where i'm headed -->
       <section id="chapter-5" class="scroll-mt-20">
         <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">5.</span>
           <T key="about.chapters.5.title" />
         </h2>
         <div class="prose-lg max-w-none space-y-4 text-justify">
-          <T key="about.chapters.5.content1" tag="p" />
-          <T key="about.chapters.5.content2" tag="p" />
-          <T key="about.chapters.5.content3" tag="p" />
-          <T key="about.chapters.5.content4" tag="p" />
+          {[1, 2, 3, 4].map(i => <T key={`about.chapters.5.content${i}`} tag="p" />)}
         </div>
       </section>
 
-      <!-- Chapter 6: i'm not done yet -->
       <section id="chapter-6" class="scroll-mt-20 hidden-chapter hidden">
         <h2 class="text-2xl font-bold mb-6 text-primary">
           <span class="text-muted-foreground mr-2">6.</span>
           <T key="about.chapters.6.title" />
         </h2>
         <div class="prose-lg max-w-none space-y-4 text-justify">
-          <T key="about.chapters.6.content1" tag="p" />
-          <T key="about.chapters.6.content2" tag="p" />
-          <T key="about.chapters.6.content3" tag="p" />
+          {[1, 2, 3].map(i => <T key={`about.chapters.6.content${i}`} tag="p" />)}
           <T key="about.chapters.6.content4" tag="p" class="font-medium text-foreground not-italic" />
         </div>
       </section>
     </div>
 
-    <!-- Back to top -->
     <div class="text-center mt-16">
-      <a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">
-        ↑ Back to top
-      </a>
+      <a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">↑ Back to top</a>
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  // Check for hidden chapter reveal
-  function checkHiddenChapter() {
-    const showHidden = sessionStorage.getItem("showHiddenChapter") === "true";
-    if (showHidden) {
-      document.querySelectorAll(".hidden-chapter").forEach((el) => {
-        el.classList.remove("hidden");
-      });
-    }
+  if (sessionStorage.getItem("showHiddenChapter") === "true") {
+    document.querySelectorAll(".hidden-chapter").forEach(el => el.classList.remove("hidden"));
   }
-
-  checkHiddenChapter();
 </script>
