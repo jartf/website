@@ -96,7 +96,7 @@ export const themeColors = {
 } as const;
 
 // Pride flag colors (for footer)
-export const prideFlagColors = {
+export const flagColors = {
   pink: "#D60270",
   purple: "#9B4F96",
   blue: "#0038A8",
