@@ -23,25 +23,7 @@ export const author = {
 // Social media and identity links
 export const socialLinks = {
   github: "https://github.com/jartf",
-  gitlab: "https://gitlab.com/jartf",
   pronounsPage: "https://pronouns.page/@jerryv",
-  akkoma: "https://blob.cat/jar",
-  mastodon: "https://toot.io/@jar",
-  bluesky: "https://bsky.app/profile/jarema.me",
-  twitter: "https://twitter.com/jarema_me",
-  devto: "https://dev.to/jartf",
-  threads: "https://threads.net/@jarema.me",
-  instagram: "https://instagram.com/jarema.me",
-  messenger: "https://m.me/jaremame",
-  matrix: "https://matrix.to/#/@jar:envs.net",
-  discord: "https://discord.com/users/444078929314185217",
-  signal: "https://signal.me/#eu/wHpqXqMSQ6LSg0zijVcCCWm5PK5gwshaDFOAg0aj-aq5BSs94E9CLJ5ThNuy4t6A",
-  telegram: "https://t.me/jaremame",
-  calendar: "https://cal.com/jaremaa/secret",
-  googleDev: "https://g.dev/jarema",
-  indieWeb: "https://indieweb.org/User:Jarema.me",
-  openStreetMap: "https://openstreetmap.org/user/Equate",
-  waze: "https://www.waze.com/en/user/editor/vanhv",
 } as const;
 
 // Alternative domains/mirrors
