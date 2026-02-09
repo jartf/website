@@ -1,5 +1,4 @@
 ---
-// Homepage
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { routes, siteName, author, services } from "@/lib/constants";
@@ -7,6 +6,9 @@ import { activeWebringItems } from "@/content/webring-items";
 import MoodCat from "@/components/MoodCat.astro";
 import NowSection from "@/components/NowSection.astro";
 import RecentPosts from "@/components/RecentPosts.astro";
+
+const btnPrimary = "w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8";
+const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8";
 ---
 
 <BaseLayout title={siteName} isHomePage={true}>
@@ -14,25 +16,15 @@ import RecentPosts from "@/components/RecentPosts.astro";
     <div class="container mx-auto px-2 sm:px-4 lg:px-6 py-8 lg:py-12 relative z-10">
       <div class="max-w-6xl mx-auto">
         <!-- Hero Section -->
-        <div class="relative pt-10 pb-10 mb-8">
-          <div class="text-center">
-            <p class="text-lg text-muted-foreground mb-2" id="greeting"><span id="greeting-emoji">👋</span> <T key="greetings.morning" /></p>
-            <T key="home.heading" tag="h1" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" />
-            <T key="home.subheading" tag="p" class="text-lg md:text-xl text-muted-foreground mb-8" />
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={routes.contact} class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
-                <T key="home.contactButton" />
-              </a>
-              <a href={routes.about} class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                <T key="home.aboutButton" />
-              </a>
-              <a href={routes.blog} class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                <T key="home.blogButton" />
-              </a>
-              <a href={routes.guestbook} class="w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
-                <T key="home.guestbookButton" />
-              </a>
-            </div>
+        <div class="relative pt-10 pb-10 mb-8 text-center">
+          <p class="text-lg text-muted-foreground mb-2" id="greeting"><span id="greeting-emoji">👋</span> <T key="greetings.morning" /></p>
+          <T key="home.heading" tag="h1" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" />
+          <T key="home.subheading" tag="p" class="text-lg md:text-xl text-muted-foreground mb-8" />
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href={routes.contact} class={btnPrimary}><T key="home.contactButton" /></a>
+            <a href={routes.about} class={btnSecondary}><T key="home.aboutButton" /></a>
+            <a href={routes.blog} class={btnSecondary}><T key="home.blogButton" /></a>
+            <a href={routes.guestbook} class={btnSecondary}><T key="home.guestbookButton" /></a>
           </div>
         </div>
 
@@ -50,11 +42,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
             <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
             <div class="border rounded-lg p-3 bg-card text-center flex-1 flex items-center justify-center">
               <a href={services.iMood.profileUrl} target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
-                <img
-                  src={services.iMood.widgetUrl}
-                  alt="My current mood, loaded from imood"
-                  class="inline-block h-[25px]"
-                />
+                <img src={services.iMood.widgetUrl} alt="My current mood, loaded from imood" class="inline-block h-[25px]" />
               </a>
             </div>
           </section>
@@ -66,8 +54,7 @@ import RecentPosts from "@/components/RecentPosts.astro";
                 <div id="statuscafe" class="w-full" data-statuscafe-user={author.statusCafeUsername}><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
                 <noscript>
                   <div class="text-sm text-muted-foreground text-center">
-                    Status updates require JavaScript. You can see my status on
-                    <a href={services.statusCafe.profileUrl} class="text-primary hover:underline">status.cafe</a>.
+                    Status updates require JavaScript. You can see my status on <a href={services.statusCafe.profileUrl} class="text-primary hover:underline">status.cafe</a>.
                   </div>
                 </noscript>
               </div>
@@ -81,37 +68,24 @@ import RecentPosts from "@/components/RecentPosts.astro";
 
           <section aria-labelledby="webrings-heading" class="flex flex-col">
             <h2 id="webrings-heading" class="text-2xl font-bold mb-4 text-center">
-              <a href="/webrings/" tabindex="-1" class="no-underline hover:underline focus:underline text-inherit">
-                <T key="webrings.title" />
-              </a>
+              <a href="/webrings/" tabindex="-1" class="no-underline hover:underline focus:underline text-inherit"><T key="webrings.title" /></a>
             </h2>
             <nav class="border rounded-lg p-4 bg-card divide-y text-sm" aria-label="Webring navigation">
               {activeWebringItems.map((ring) => (
-                  <div class="flex items-center justify-between py-1.5 first:pt-0 last:pb-0">
-                    <a href={ring.url} class="text-primary hover:underline font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm" target="_blank" rel="noopener noreferrer">
-                      {ring.name}
-                    </a>
-                    <div class="flex items-center gap-2" role="group" aria-label={`Navigate ${ring.name}`}>
-                      <a href={ring.previous} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Previous site in ${ring.name}`}>←</a>
-                      {ring.random ? (
-                        <a href={ring.random} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Random site in ${ring.name}`}>🎲</a>
-                      ) : (
-                        <span class="px-2 py-1 invisible" aria-hidden="true">🎲</span>
-                      )}
-                      <a href={ring.next} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Next site in ${ring.name}`}>→</a>
-                    </div>
+                <div class="flex items-center justify-between py-1.5 first:pt-0 last:pb-0">
+                  <a href={ring.url} class="text-primary hover:underline font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm" target="_blank" rel="noopener noreferrer">{ring.name}</a>
+                  <div class="flex items-center gap-2" role="group" aria-label={`Navigate ${ring.name}`}>
+                    <a href={ring.previous} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Previous site in ${ring.name}`}>←</a>
+                    {ring.random ? <a href={ring.random} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Random site in ${ring.name}`}>🎲</a> : <span class="px-2 py-1 invisible" aria-hidden="true">🎲</span>}
+                    <a href={ring.next} class="text-primary hover:bg-primary/10 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" title={`Next site in ${ring.name}`}>→</a>
                   </div>
-                ))}
-                <div class="pt-4 text-center">
-                  <a
-                    href={routes.webring}
-                    id="view-all-webrings"
-                    class="inline-flex items-center gap-2 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                    aria-label="See all webrings"
-                  >
-                    <T key="home.viewAllWebrings" /> →
-                  </a>
                 </div>
+              ))}
+              <div class="pt-4 text-center">
+                <a href={routes.webring} id="view-all-webrings" class="inline-flex items-center gap-2 px-3 py-2 text-sm border rounded-lg hover:bg-accent transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" aria-label="See all webrings">
+                  <T key="home.viewAllWebrings" /> →
+                </a>
+              </div>
             </nav>
           </section>
         </div>
@@ -124,69 +98,42 @@ import RecentPosts from "@/components/RecentPosts.astro";
 <script>
   import { languageStore, initLanguage, t } from "@/i18n";
 
-  // Time-based greeting emoji update
+  const greetings = [
+    { hours: [5, 12], emoji: "🌅", key: "greetings.morning" },
+    { hours: [12, 17], emoji: "☀️", key: "greetings.afternoon" },
+    { hours: [17, 21], emoji: "🌆", key: "greetings.evening" },
+    { hours: [21, 5], emoji: "🌙", key: "greetings.night" }
+  ];
+
   function updateGreetingEmoji() {
     const hour = new Date().getHours();
     const emojiEl = document.getElementById("greeting-emoji");
-    if (!emojiEl) return;
+    const greetingTEl = document.querySelector('#greeting [data-t-key^="greetings."]');
+    if (!emojiEl || !greetingTEl) return;
 
-    let emoji = "🌅";
-    let greetingKey = "greetings.morning";
-
-    if (hour >= 5 && hour < 12) {
-      emoji = "🌅";
-      greetingKey = "greetings.morning";
-    } else if (hour >= 12 && hour < 17) {
-      emoji = "☀️";
-      greetingKey = "greetings.afternoon";
-    } else if (hour >= 17 && hour < 21) {
-      emoji = "🌆";
-      greetingKey = "greetings.evening";
-    } else {
-      emoji = "🌙";
-      greetingKey = "greetings.night";
-    }
-
-    emojiEl.textContent = emoji;
-
-    // Update the T component's key
-    const greetingTComponent = document.querySelector('#greeting [data-t-key="greetings.morning"]');
-    if (greetingTComponent) {
-      greetingTComponent.setAttribute("data-t-key", greetingKey);
-      const translated = t(greetingKey);
-      if (translated && translated !== greetingKey) greetingTComponent.textContent = translated;
-    }
+    const greeting = greetings.find(g => hour >= g.hours[0] && hour < g.hours[1]) || greetings[3];
+    emojiEl.textContent = greeting.emoji;
+    greetingTEl.setAttribute("data-t-key", greeting.key);
+    const translated = t(greeting.key);
+    if (translated && translated !== greeting.key) greetingTEl.textContent = translated;
   }
 
-  // Use pre-detected language if available
   const initialLang = (window as any).__INITIAL_LANG__;
-  if (initialLang && initialLang !== "en") {
-    languageStore.set(initialLang);
-  } else {
-    initLanguage();
-  }
+  initialLang && initialLang !== "en" ? languageStore.set(initialLang) : initLanguage();
 
   updateGreetingEmoji();
+  languageStore.subscribe(updateGreetingEmoji);
+  window.addEventListener("languageChange", updateGreetingEmoji);
 
-  // Listen for language changes to update dynamic greeting
-  languageStore.subscribe(() => {
-    updateGreetingEmoji();
-  });
-
-  window.addEventListener("languageChange", () => {
-    updateGreetingEmoji();
-  });
-
-  (() => {
-    const u = document.getElementById("statuscafe-username"), c = document.getElementById("statuscafe-content");
-    if (!u || !c) return;
+  const u = document.getElementById("statuscafe-username"), c = document.getElementById("statuscafe-content");
+  if (u && c) {
     fetch("https://status.cafe/users/jarema/status.json", { headers: { Accept: "application/json" } })
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((r) => {
-        if (!(r?.content || "").length) return (c.textContent = "No status yet.");
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(r => {
+        if (!r?.content?.length) return c.textContent = "No status yet.";
         u.innerHTML = `<a href="https://status.cafe/users/jarema" target="_blank">@${r.author}</a> · ${r.face || ""} · ${r.timeAgo || ""}`;
         c.textContent = r.content;
       })
-      .catch(() => (c.textContent = "Couldn't load status."));
-  })();
+      .catch(() => c.textContent = "Couldn't load status.");
+  }
 </script>
