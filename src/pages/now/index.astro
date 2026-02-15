@@ -80,44 +80,222 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
 </BaseLayout>
 
 <script>
-  import { languageStore } from "@/i18n";
-  import { fetchLiveData, renderCard, updateI18nElements, CONFLICT_MAP, DATE_FMT } from "@/lib/now-utils";
+  import { languageStore, t } from "@/i18n";
 
-  const enhance = async () => {
-    const container = document.getElementById("now-items-container");
-    if (!container) return;
-    try {
-      const live = await fetchLiveData();
-      if (!live.length) return;
-      const types = new Set<string>(live.map(i => i.type));
-      container.querySelectorAll("article").forEach(el => {
-        const cat = el.getAttribute("data-category") || "";
-        if (CONFLICT_MAP[cat] && types.has(CONFLICT_MAP[cat])) el.remove();
-      });
-      container.insertAdjacentHTML("afterbegin", live.map(renderCard).join(""));
-      translate();
-    } catch (e) { console.error("Failed to enhance with live data:", e); }
+  interface PremidActivity {
+    name: string;
+    details?: string;
+    state?: string;
+    assets?: {
+      large_image?: string;
+      large_text?: string;
+      small_image?: string;
+      small_text?: string;
+    };
+  }
+
+  const iconMap = { Headphones: "🎧", Activity: "📡" };
+
+  const createActivityCard = (activity: PremidActivity): string => {
+    const { assets } = activity;
+    const largeImg = assets?.large_image ?
+      `<div class="relative w-12 h-12 flex-shrink-0">
+        <img src="${assets.large_image}" alt="${assets.large_text || activity.name}" class="w-12 h-12 rounded-lg" loading="lazy" />
+        ${assets.small_image ? `<img src="${assets.small_image}" alt="${assets.small_text || ""}" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" loading="lazy" />` : ''}
+      </div>` : '';
+
+    return `<div class="flex items-center gap-3 overflow-hidden">${largeImg}
+      <div class="flex-1 min-w-0 overflow-hidden">
+        <span class="font-semibold break-words block">${activity.name}</span>
+        ${activity.details ? `<p class="text-sm break-words">${activity.details}</p>` : ''}
+        ${activity.state ? `<p class="text-sm text-muted-foreground break-words">${activity.state}</p>` : ''}
+      </div></div>`;
   };
 
-  const translate = () => {
+  const enhanceWithLiveData = async () => {
+    const container = document.getElementById("now-items-container");
+    if (!container) return;
+
+    try {
+      const [lastfmRes, premidRes] = await Promise.all([
+        fetch("/api/lastfm").catch(() => null),
+        fetch("/api/premid").catch(() => null),
+      ]);
+
+      const liveItems: any[] = [];
+
+      // Parse Last.fm
+      if (lastfmRes?.ok) {
+        const xml = await lastfmRes.text();
+        const doc = new DOMParser().parseFromString(xml, "application/xml");
+        const tracks = Array.from(doc.getElementsByTagName("track"));
+
+        if (tracks.length) {
+          const track = tracks.find(t => t.getAttribute("nowplaying") === "true") || tracks[0];
+          const name = track?.getElementsByTagName("name")[0]?.textContent || "";
+          const artist = track?.getElementsByTagName("artist")[0]?.textContent || "";
+
+          if (name && artist) {
+            const nowplaying = track?.getAttribute("nowplaying") === "true";
+            let date: string | undefined = undefined;
+
+            if (!nowplaying) {
+              const dateElem = track?.getElementsByTagName("date")[0];
+              if (dateElem) {
+                const uts = dateElem.getAttribute("uts");
+                if (uts) {
+                  date = new Date(Number(uts) * 1000).toLocaleString("en", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZoneName: "short",
+                  });
+                }
+              }
+            }
+
+            liveItems.push({
+              type: "lastfm",
+              category: "listening",
+              name,
+              artist,
+              url: track?.getElementsByTagName("url")[0]?.textContent || "",
+              nowplaying,
+              date,
+              image: Array.from(track?.getElementsByTagName("image") || [])
+                .find(img => img.getAttribute("size") === "large")?.textContent?.trim() || "",
+            });
+          }
+        }
+      }
+
+      // Parse PreMID
+      if (premidRes?.ok) {
+        const data = await premidRes.json();
+        if (data.activities?.length) {
+          liveItems.push({
+            type: "premid",
+            category: "premid",
+            activities: data.activities.map((a: any) => a.activity),
+          });
+        }
+      }
+
+      if (liveItems.length) {
+        // Remove conflicting static items
+        container.querySelectorAll("article").forEach(article => {
+          const category = article.getAttribute("data-category");
+          if ((category === "listening" && liveItems.some(i => i.type === "lastfm")) ||
+              (category === "premid" && liveItems.some(i => i.type === "premid"))) {
+            article.remove();
+          }
+        });
+
+        // Build and insert live items HTML
+        const html = liveItems.map(item => {
+          const icon = iconMap[item.type === "lastfm" ? "Headphones" : "Activity"];
+
+          let content = '';
+          if (item.type === "lastfm") {
+            const categoryLabel = t("now.categories.listening") || "Listening";
+            content = `
+              <div class="flex items-center gap-2 mb-2">
+                <h2 class="font-semibold text-lg" data-i18n="now.categories.listening">${categoryLabel}</h2>
+                ${item.nowplaying ? '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>' : ''}
+              </div>
+              <div class="flex items-center gap-3 overflow-hidden">
+                ${item.image ? `<img src="${item.image}" alt="${item.name} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async" />` : ''}
+                <div class="flex-1 min-w-0 overflow-hidden">
+                  <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${item.name}</a>
+                  <p class="text-sm text-muted-foreground break-words">${item.artist}</p>
+                </div>
+              </div>
+              ${item.date && !item.nowplaying ? `<div class="text-xs text-muted-foreground mt-2">${item.date}</div>` : ''}`;
+          } else {
+            const categoryLabel = t("now.categories.premid") || "Discord activity";
+            content = `
+              <div class="flex items-center gap-2 mb-2">
+                <h2 class="font-semibold text-lg" data-i18n="now.categories.premid">${categoryLabel}</h2>
+                <span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>
+              </div>
+              <div class="space-y-3">${item.activities.map(createActivityCard).join('')}</div>`;
+          }
+
+          return `<article class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <span class="text-3xl flex-shrink-0" aria-hidden="true">${icon}</span>
+              <div class="flex-1 min-w-0">${content}</div>
+            </div>
+          </article>`;
+        }).join('');
+
+        container.insertAdjacentHTML("afterbegin", html);
+        updateNowPageTranslations();
+      }
+    } catch (error) {
+      console.error("Failed to enhance with live data:", error);
+    }
+  };
+
+  const updateNowPageTranslations = () => {
     const page = document.getElementById("now-page");
     if (!page) return;
+
     const lang = languageStore.get();
-    updateI18nElements(page, lang);
+
+    // Update i18n keys
+    page.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (key) {
+        const translated = t(key);
+        if (translated !== key) el.textContent = translated;
+      }
+    });
+
+    // Update dynamic content
+    page.querySelectorAll("[data-now-content]").forEach(article => {
+      try {
+        const content = JSON.parse(article.getAttribute("data-now-content") || "");
+        const textEl = article.querySelector(".now-text");
+        if (textEl) textEl.textContent = content[lang] || content.en;
+
+        const secondaryData = article.getAttribute("data-now-content-secondary");
+        const subTextEl = article.querySelector(".now-subtext");
+        if (secondaryData && subTextEl) {
+          const secondary = JSON.parse(secondaryData);
+          subTextEl.textContent = secondary[lang] || secondary.en;
+        }
+      } catch {}
+    });
+
+    // Update dates
     page.querySelectorAll("[data-date]").forEach(el => {
-      const d = el.getAttribute("data-date");
-      if (d) el.textContent = new Date(d).toLocaleDateString(lang, DATE_FMT);
+      const dateStr = el.getAttribute("data-date");
+      if (dateStr) {
+        el.textContent = new Date(dateStr).toLocaleDateString(lang, {
+          year: "numeric", month: "long", day: "numeric",
+          hour: "2-digit", minute: "2-digit", timeZoneName: "short",
+        });
+      }
     });
   };
 
-  const setup = async () => { await enhance(); translate(); };
-  setup();
+  const setupNowPage = async () => {
+    await enhanceWithLiveData();
+    updateNowPageTranslations();
+  };
 
-  declare global { interface Window { __nowPageInit?: boolean } }
-  if (!window.__nowPageInit) {
-    window.__nowPageInit = true;
-    languageStore.subscribe(translate);
-    window.addEventListener("languageChange", translate);
-    document.addEventListener("astro:after-swap", setup);
+  // Initialize
+  setupNowPage();
+
+  declare global { interface Window { __nowPageInitialized?: boolean; } }
+
+  if (!window.__nowPageInitialized) {
+    window.__nowPageInitialized = true;
+    languageStore.subscribe(updateNowPageTranslations);
+    window.addEventListener("languageChange", updateNowPageTranslations);
+    document.addEventListener("astro:after-swap", setupNowPage);
   }
 </script>
