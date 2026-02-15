@@ -436,6 +436,47 @@
     "noResults": "No badges found matching your search criteria",
     "visitBadge": "Visit {{name}}"
   },
+  "brand": {
+    "pageTitle": "Brand",
+    "pageDescription": "Visual identity and brand elements. Use these if you want to reference or link to this site.",
+    "name": {
+      "title": "Name",
+      "nameLabel": "Name",
+      "displayNameLabel": "Display name",
+      "symbolNote": "The therefore symbol (∴) is always part of the display name. It's a personal choice that represents logical conclusions and creative connections."
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "Face only",
+      "faceAndBody": "Face and body",
+      "dimensions1": "384×384px (or larger multiples)",
+      "dimensions2": "512×512px (or larger multiples)"
+    },
+    "badge": {
+      "title": "Badge",
+      "urlLabel": "Direct URL",
+      "htmlLabel": "HTML code"
+    },
+    "colors": {
+      "title": "Colors",
+      "note": "All colors shown are from the dark theme. Light theme has different values but the same general palette."
+    },
+    "fonts": {
+      "title": "Fonts"
+    },
+    "usage": {
+      "title": "A few notes",
+      "point1Title": "Feel free to use these",
+      "point1Text": "You don't need to ask permission to use the badge, logo, or link to this site. That's literally what these are for. Grab them, hotlink them, slap them on your website. I don't care. Actually, I'd be delighted.",
+      "point2Title": "Keep the pixelated style",
+      "point2Text": "If you're using the logo or badge, please use image-rendering: pixelated (or crisp-edges for Firefox) in your CSS. Without it, browsers will blur the pixels and it'll look like garbage. These are pixel art. Treat them like pixel art.",
+      "point3Title": "Attribution is nice but optional",
+      "point3Text": "If you're writing about the site or using these in a blog post or article, a link back would be appreciated. But if you're just adding my badge to your links page, you don't need to do anything extra. The badge itself already links here.",
+      "point4Title": "Don't be weird about it",
+      "point4Text": "Don't use these to impersonate me, claim I endorsed something I didn't, or make it look like I'm affiliated with something sketchy. I trust you know the difference between linking to a site you like and pretending to be someone else. If you're unsure whether what you're doing is weird, it probably is.",
+      "footer": "That's it. These are here to be used. Just use them respectfully and we're good."
+    }
+  },
   "colophon": {
     "title": "Colophon",
     "description": "The story behind this website and how it was built",
