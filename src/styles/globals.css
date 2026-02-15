@@ -41,6 +41,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Noto Sans SC';
+  src: url('/fonts/NotoSansSC-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Han Nom Gothic';
+  src: url('/fonts/Han-Nom-Gothic.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 270 30% 10%;
@@ -67,6 +83,8 @@
     --font-space-grotesk: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
     --font-lexend: 'Lexend', ui-sans-serif, system-ui, sans-serif;
     --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+    --font-noto-sans-sc: 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
+    --font-han-nom: 'Han Nom Gothic', serif;
   }
 
   .light {
