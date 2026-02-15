@@ -64,7 +64,7 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
                     <p class="now-text min-w-0">{item.content.en}</p>
                   )}
                 </div>
-                <time class="text-xs text-muted-foreground/70 mt-3 block" datetime={item.date} data-date={item.date}>
+                <time class="text-xs text-muted-foreground mt-3 block" datetime={item.date} data-date={item.date}>
                   {new Date(item.date).toLocaleDateString("en", {
                     year: "numeric", month: "long", day: "numeric",
                     hour: "2-digit", minute: "2-digit", timeZoneName: "short",
@@ -136,13 +136,34 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
           const artist = track?.getElementsByTagName("artist")[0]?.textContent || "";
 
           if (name && artist) {
+            const nowplaying = track?.getAttribute("nowplaying") === "true";
+            let date: string | undefined = undefined;
+
+            if (!nowplaying) {
+              const dateElem = track?.getElementsByTagName("date")[0];
+              if (dateElem) {
+                const uts = dateElem.getAttribute("uts");
+                if (uts) {
+                  date = new Date(Number(uts) * 1000).toLocaleString("en", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZoneName: "short",
+                  });
+                }
+              }
+            }
+
             liveItems.push({
               type: "lastfm",
               category: "listening",
               name,
               artist,
               url: track?.getElementsByTagName("url")[0]?.textContent || "",
-              nowplaying: track?.getAttribute("nowplaying") === "true",
+              nowplaying,
+              date,
               image: Array.from(track?.getElementsByTagName("image") || [])
                 .find(img => img.getAttribute("size") === "large")?.textContent?.trim() || "",
             });
@@ -175,7 +196,6 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
         // Build and insert live items HTML
         const html = liveItems.map(item => {
           const icon = iconMap[item.type === "lastfm" ? "Headphones" : "Activity"];
-          const liveBadge = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
 
           let content = '';
           if (item.type === "lastfm") {
@@ -183,7 +203,7 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
             content = `
               <div class="flex items-center gap-2 mb-2">
                 <h2 class="font-semibold text-lg" data-i18n="now.categories.listening">${categoryLabel}</h2>
-                ${item.nowplaying ? liveBadge : ''}
+                ${item.nowplaying ? '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>' : ''}
               </div>
               <div class="flex items-center gap-3 overflow-hidden">
                 ${item.image ? `<img src="${item.image}" alt="${item.name} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async" />` : ''}
@@ -191,13 +211,14 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
                   <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${item.name}</a>
                   <p class="text-sm text-muted-foreground break-words">${item.artist}</p>
                 </div>
-              </div>`;
+              </div>
+              ${item.date && !item.nowplaying ? `<div class="text-xs text-muted-foreground mt-2">${item.date}</div>` : ''}`;
           } else {
             const categoryLabel = t("now.categories.premid") || "Discord activity";
             content = `
               <div class="flex items-center gap-2 mb-2">
                 <h2 class="font-semibold text-lg" data-i18n="now.categories.premid">${categoryLabel}</h2>
-                ${liveBadge}
+                <span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>
               </div>
               <div class="space-y-3">${item.activities.map(createActivityCard).join('')}</div>`;
           }

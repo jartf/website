@@ -147,8 +147,29 @@ function getCategoryTranslation(category: string): string {
             .find((img) => img.getAttribute("size") === "large")
             ?.textContent?.trim() || "";
 
+          let date: string | undefined = undefined;
+          let dateObj = new Date();
+
+          if (!nowplaying) {
+            const dateElem = track?.getElementsByTagName("date")[0];
+            if (dateElem) {
+              const uts = dateElem.getAttribute("uts");
+              if (uts) {
+                dateObj = new Date(Number(uts) * 1000);
+                date = dateObj.toLocaleString("en", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  timeZoneName: "short",
+                });
+              }
+            }
+          }
+
           if (name && artist) {
-            items.push({ type: "lastfm", name, artist, url, nowplaying, image: largeImage, dateObj: new Date() });
+            items.push({ type: "lastfm", name, artist, url, nowplaying, image: largeImage, date, dateObj });
           }
         }
       }
@@ -203,7 +224,7 @@ function getCategoryTranslation(category: string): string {
             html += '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary" aria-label="Headphones icon"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>';
             html += `<span class="now-category" data-i18n="now.categories.listening">${t("now.categories.listening") || "Listening"}</span>`;
             if (item.nowplaying) {
-              html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
+              html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>';
             }
             html += "</div>";
             html += '<div class="flex items-center gap-3 overflow-hidden py-1">';
@@ -214,13 +235,16 @@ function getCategoryTranslation(category: string): string {
             html += `<a href="${item.url}" target="_blank" rel="noopener noreferrer" aria-label="Listen to ${item.name} by ${item.artist} on Last.fm" class="hover:underline font-semibold break-words block">${item.name}</a>`;
             html += `<p class="text-sm text-muted-foreground break-words">${item.artist}</p>`;
             html += "</div></div>";
+            if (item.date && !item.nowplaying) {
+              html += `<div class="text-xs text-muted-foreground mt-1">${item.date}</div>`;
+            }
             html += "</article>";
           } else if (item.type === "premid") {
             html += `<article class="${divider}">`;
             html += '<div class="flex items-center gap-2 font-semibold mb-1">';
             html += '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary" aria-label="Activity icon"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>';
             html += `<span class="now-category" data-i18n="now.categories.premid">${t("now.categories.premid") || "Discord activity"}</span>`;
-            html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
+            html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>';
             html += "</div>";
             html += '<div class="space-y-3">';
             item.activities.forEach((a: PremidActivity) => {
