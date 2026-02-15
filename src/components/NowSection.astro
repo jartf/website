@@ -5,27 +5,17 @@ import { nowItems } from "@/content/now-items";
 import T from "@/components/T.astro";
 import { translations } from "@/i18n";
 
-// Icon mapping for categories
 const categoryIcons: Record<string, string> = {
-  listening: "🎧",
-  premid: "🎮",
-  planning: "📝",
-  reading: "📖",
-  coding: "💻",
-  drinking: "☕",
-  thinking: "💭",
-  studying: "📚",
+  listening: "🎧", premid: "🎮", planning: "📝", reading: "📖",
+  coding: "💻", drinking: "☕", thinking: "💭", studying: "📚",
 };
 
-// Get the latest 3 items for homepage display (by timestamp)
 const displayItems = [...nowItems]
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   .slice(0, 3);
 
-// Helper function to get category translation
-function getCategoryTranslation(category: string): string {
-    return translations.en.now?.categories?.[category] || category;
-}
+const getCategoryTranslation = (category: string) =>
+  translations.en.now?.categories?.[category] || category;
 ---
 
 <section aria-labelledby="now-heading" class="mb-12" id="now-section">
@@ -50,13 +40,7 @@ function getCategoryTranslation(category: string): string {
         </div>
         <div class="flex items-center gap-3 overflow-hidden">
           {item.image ? (
-            <img
-              src={item.image}
-              alt="Cover art"
-              class="w-12 h-12 rounded-lg flex-shrink-0"
-              loading="lazy"
-              decoding="async"
-            />
+            <img src={item.image} alt="Cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async" />
           ) : null}
           {item.contentSecondary ? (
             <div class="flex-1 min-w-0 overflow-hidden">
@@ -76,269 +60,45 @@ function getCategoryTranslation(category: string): string {
 </section>
 
 <script>
-  import { languageStore, t } from "@/i18n";
+  import { languageStore } from "@/i18n";
+  import { fetchLiveData, renderCompact, updateI18nElements, CONFLICT_MAP } from "@/lib/now-utils";
 
-  interface PremidActivity {
-    name: string;
-    details?: string;
-    state?: string;
-    assets?: {
-      large_image?: string;
-      large_text?: string;
-      small_image?: string;
-      small_text?: string;
-    };
-  }
-
-  function createActivityCard(activity: PremidActivity): string {
-    let html = '<div class="flex items-center gap-3 overflow-hidden">';
-
-    if (activity.assets?.large_image) {
-      html += '<div class="relative w-12 h-12 flex-shrink-0">';
-      html += `<img src="${activity.assets.large_image}" alt="${activity.assets.large_text || activity.name}" class="w-12 h-12 rounded-lg" loading="lazy" />`;
-      if (activity.assets?.small_image) {
-        html += `<img src="${activity.assets.small_image}" alt="${activity.assets.small_text || ""}" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" loading="lazy" />`;
-      }
-      html += "</div>";
-    }
-
-    html += '<div class="flex-1 min-w-0 overflow-hidden">';
-    html += `<span class="font-semibold break-words block">${activity.name}</span>`;
-    if (activity.details) {
-      html += `<p class="text-sm break-words">${activity.details}</p>`;
-    }
-    if (activity.state) {
-      html += `<p class="text-sm text-muted-foreground break-words">${activity.state}</p>`;
-    }
-    html += "</div></div>";
-
-    return html
-  }
-
-  async function enhanceWithLiveData() {
-    const section = document.getElementById("now-section");
-    if (!section) return;
-
-    const container = section.querySelector(".border.rounded-lg");
+  async function enhance() {
+    const container = document.getElementById("now-section")?.querySelector(".border.rounded-lg");
     if (!container) return;
 
     try {
-      const [lastfmRes, premidRes] = await Promise.all([
-        fetch("/api/lastfm").catch(() => null),
-        fetch("/api/premid").catch(() => null),
-      ]);
+      const live = await fetchLiveData();
+      if (!live.length) return;
 
-      const items: any[] = [];
+      const hasType = (t: string) => live.some(i => i.type === t);
+      const statics = Array.from(container.querySelectorAll("article"))
+        .map(el => ({ el, cat: el.getAttribute("data-category") || "", dateObj: new Date(el.querySelector("time")?.getAttribute("datetime") || 0) }))
+        .filter(s => !hasType(CONFLICT_MAP[s.cat]));
 
-      // Parse Last.fm
-      if (lastfmRes?.ok) {
-        const xml = await lastfmRes.text();
-        const doc = new window.DOMParser().parseFromString(xml,"application/xml");
-        const tracks = doc.getElementsByTagName("track");
+      const sorted = [
+        ...live.map(item => ({ dateObj: item.dateObj, html: (cls: string) => renderCompact(item, cls) })),
+        ...statics.map(s => ({ dateObj: s.dateObj, html: () => s.el.outerHTML })),
+      ].sort((a, b) => b.dateObj.getTime() - a.dateObj.getTime()).slice(0, 3);
 
-        if (tracks.length > 0) {
-          const track = Array.from(tracks).find((t) => t.getAttribute("nowplaying") === "true") || tracks[0];
-          const nowplaying = track?.getAttribute("nowplaying") === "true";
-          const name = track?.getElementsByTagName("name")[0]?.textContent || "";
-          const artist = track?.getElementsByTagName("artist")[0]?.textContent || "";
-          const url = track?.getElementsByTagName("url")[0]?.textContent || "";
-
-          const largeImage = Array.from(track?.getElementsByTagName("image") || [])
-            .find((img) => img.getAttribute("size") === "large")
-            ?.textContent?.trim() || "";
-
-          let date: string | undefined = undefined;
-          let dateObj = new Date();
-
-          if (!nowplaying) {
-            const dateElem = track?.getElementsByTagName("date")[0];
-            if (dateElem) {
-              const uts = dateElem.getAttribute("uts");
-              if (uts) {
-                dateObj = new Date(Number(uts) * 1000);
-                date = dateObj.toLocaleString("en", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  timeZoneName: "short",
-                });
-              }
-            }
-          }
-
-          if (name && artist) {
-            items.push({ type: "lastfm", name, artist, url, nowplaying, image: largeImage, date, dateObj });
-          }
-        }
-      }
-
-      // Parse PreMid
-      if (premidRes?.ok) {
-        const data = await premidRes.json();
-        if (data.activities?.length > 0) {
-          items.push({ type: "premid", activities: data.activities.map((a: any) => a.activity), dateObj: new Date() });
-        }
-      }
-
-      // If we have live data, update the container
-      if (items.length > 0) {
-        const hasLastfm = items.some((i) => i.type === "lastfm");
-        const hasPremid = items.some((i) => i.type === "premid");
-
-        const staticItems = Array.from(container.querySelectorAll("article"))
-          .map((article) => {
-            const category = article.getAttribute("data-category");
-            const datetime = article.querySelector("time")?.getAttribute("datetime") || "";
-            const dateObj = datetime ? new Date(datetime) : new Date(0);
-            return { category, element: article, dateObj };
-          })
-          .filter((item) => {
-            // Remove static items that conflict with live data
-            if (item.category === "listening" && hasLastfm) return false;
-            if (item.category === "premid" && hasPremid) return false;
-            return true;
-          });
-
-        const candidates = [
-          ...items.map((i) => ({ ...i, kind: "live" as const })),
-          ...staticItems.map((i) => ({ type: "static" as const, kind: "static" as const, element: i.element, dateObj: i.dateObj })),
-        ]
-          .sort((a, b) => {
-            const at = a.dateObj instanceof Date ? a.dateObj.getTime() : 0;
-            const bt = b.dateObj instanceof Date ? b.dateObj.getTime() : 0;
-            return bt - at;
-          })
-          .slice(0, 3);
-
-        // Build new HTML
-        let html = "";
-
-        candidates.forEach((item, i) => {
-          const divider = i < candidates.length - 1 ? "border-b border-border pb-4" : "";
-
-          if (item.type === "lastfm") {
-            html += `<article class="${divider}">`;
-            html += '<div class="flex items-center gap-2 font-semibold mb-1">';
-            html += '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary" aria-label="Headphones icon"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>';
-            html += `<span class="now-category" data-i18n="now.categories.listening">${t("now.categories.listening") || "Listening"}</span>`;
-            if (item.nowplaying) {
-              html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>';
-            }
-            html += "</div>";
-            html += '<div class="flex items-center gap-3 overflow-hidden py-1">';
-            if (item.image) {
-              html += `<img src="${item.image}" alt="${item.name} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async" />`;
-            }
-            html += '<div class="flex-1 min-w-0 overflow-hidden">';
-            html += `<a href="${item.url}" target="_blank" rel="noopener noreferrer" aria-label="Listen to ${item.name} by ${item.artist} on Last.fm" class="hover:underline font-semibold break-words block">${item.name}</a>`;
-            html += `<p class="text-sm text-muted-foreground break-words">${item.artist}</p>`;
-            html += "</div></div>";
-            if (item.date && !item.nowplaying) {
-              html += `<div class="text-xs text-muted-foreground mt-1">${item.date}</div>`;
-            }
-            html += "</article>";
-          } else if (item.type === "premid") {
-            html += `<article class="${divider}">`;
-            html += '<div class="flex items-center gap-2 font-semibold mb-1">';
-            html += '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary" aria-label="Activity icon"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>';
-            html += `<span class="now-category" data-i18n="now.categories.premid">${t("now.categories.premid") || "Discord activity"}</span>`;
-            html += '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>';
-            html += "</div>";
-            html += '<div class="space-y-3">';
-            item.activities.forEach((a: PremidActivity) => {
-              html += createActivityCard(a);
-            });
-            html += "</div></article>";
-          } else if (item.type === "static") {
-            html += item.element.outerHTML;
-          }
-        });
-
-        container.innerHTML = html;
-        // Update translations after rebuilding HTML
-        updateNowTranslations();
-      }
-    } catch (error) {
-      // Silently fail - keep SSR content
-      console.error("Failed to enhance with live data:", error);
-    }
+      container.innerHTML = sorted.map((c, i) => c.html(i < sorted.length - 1 ? "border-b border-border pb-4" : "")).join("");
+      translate();
+    } catch (e) { console.error("Failed to enhance with live data:", e); }
   }
 
-  function updateNowTranslations() {
-    const section = document.getElementById("now-section");
-      if (!section) return;
-    const lang = languageStore.get();
-
-    // Update static i18n keys
-    section.querySelectorAll("[data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-
-    // Update dynamic content
-    section.querySelectorAll("[data-now-content]").forEach((article) => {
-      const contentData = article.getAttribute("data-now-content");
-      if (contentData) {
-        try {
-          const content = JSON.parse(contentData);
-          const langContent = content[lang] || content.en;
-          const textEl = article.querySelector(".now-text");
-          if (textEl) {
-            textEl.textContent = langContent;
-          }
-
-          const secondaryData = article.getAttribute("data-now-content-secondary");
-          const subTextEl = article.querySelector(".now-subtext");
-          if (secondaryData && subTextEl) {
-            const secondary = JSON.parse(secondaryData);
-            const langSecondary = secondary[lang] || secondary.en;
-            subTextEl.textContent = langSecondary;
-          } else if (subTextEl) {
-            subTextEl.textContent = "";
-          }
-        } catch (e) {
-          // Ignore parse errors
-        }
-      }
-    });
+  function translate() {
+    const el = document.getElementById("now-section");
+    if (el) updateI18nElements(el, languageStore.get());
   }
 
-  // Setup function
-  function setupNowSection() {
-    // Initial enhancement
-    async function initialize() { await enhanceWithLiveData();  updateNowTranslations() }
-      initialize();
-  }
+  const setup = async () => { await enhance(); translate(); };
+  setup();
 
-  // Run setup initially
-  setupNowSection();
-
-  // Subscribe to language changes
-  declare global {
-    interface Window { __nowSectionInitialized?: boolean }
-  }
-
-  if (!window.__nowSectionInitialized) {
-    window.__nowSectionInitialized = true;
-
-    languageStore.subscribe(() => {
-      updateNowTranslations();
-    });
-
-    window.addEventListener("languageChange", () => {
-      updateNowTranslations();
-    });
-
-    // Handle view transitions
-    document.addEventListener("astro:after-swap", () => {
-      setupNowSection();
-    });
+  declare global { interface Window { __nowSectionInit?: boolean } }
+  if (!window.__nowSectionInit) {
+    window.__nowSectionInit = true;
+    languageStore.subscribe(translate);
+    window.addEventListener("languageChange", translate);
+    document.addEventListener("astro:after-swap", setup);
   }
 </script>
