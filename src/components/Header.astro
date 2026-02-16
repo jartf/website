@@ -1,22 +1,18 @@
 ---
-// Static header
-
 import { navItems, author } from "@/lib/constants";
 import T from "@/components/T.astro";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { Image } from "astro:assets";
 
-const isActivePath = (pathname: string, href: string) => {
-  if (href === "/" && pathname !== "/") return false;
-  return pathname === href || pathname.startsWith(href);
-};
-
 const pathname = Astro.url.pathname;
-const navState = navItems.map((item) => ({ ...item, isActive: isActivePath(pathname, item.href) }));
-const navBaseClasses = "text-sm transition-colors hover:text-primary whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm";
-const navActiveClass = "text-foreground font-medium";
-const navInactiveClass = "text-muted-foreground";
+const isActive = (href: string) => href === "/" ? pathname === "/" : pathname.startsWith(href);
+const navState = navItems.map((item) => ({ ...item, active: isActive(item.href) }));
 
+const navBase = "text-sm transition-colors hover:text-primary whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm";
+
+// Reused SVG path data
+const gearPath = "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z";
+const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round" as const, "stroke-linejoin": "round" as const, viewBox: "0 0 24 24" };
 ---
 
 <header class="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
@@ -35,18 +31,14 @@ const navInactiveClass = "text-muted-foreground";
       <!-- Desktop navigation -->
       <nav class="hidden lg:flex items-center ml-6 min-w-0" aria-label="Main navigation">
         <div class="flex items-center gap-4 lg:gap-6">
-          {navState.map(({ href, key, isActive }) => (
+          {navState.map(({ href, key, active }) => (
             <a
               href={href}
-              data-nav-key={key}
-              data-nav-item="true"
-              class:list={[navBaseClasses, isActive ? navActiveClass : navInactiveClass]}
-              aria-current={isActive ? "page" : undefined}
+              class:list={[navBase, active ? "text-foreground font-medium" : "text-muted-foreground"]}
+              aria-current={active ? "page" : undefined}
             >
               <T key={`nav.${key}`} />
-              {isActive && (
-                <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />
-              )}
+              {active && <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />}
             </a>
           ))}
         </div>
@@ -60,28 +52,26 @@ const navInactiveClass = "text-muted-foreground";
       <!-- Settings menu -->
       <details id="settings-menu" class="group relative">
         <summary class="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer list-none [&::-webkit-details-marker]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" aria-label="Settings">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-            <circle cx="12" cy="12" r="3" />
+          <svg {...iconBase} width="20" height="20" aria-hidden="true">
+            <path d={gearPath} /><circle cx="12" cy="12" r="3" />
           </svg>
         </summary>
         <div class="absolute right-0 top-full mt-2 w-72 rounded-md border bg-background/95 backdrop-blur-sm shadow-lg py-3 px-4 z-50 space-y-4" role="menu" aria-label="Settings">
-          <!-- Heading -->
           <h3 class="text-lg font-semibold text-foreground">Settings</h3>
           <hr class="border-border" />
+
           <!-- Theme -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground" aria-hidden="true">
-                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-                <circle cx="12" cy="12" r="3" />
+              <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
+                <path d={gearPath} /><circle cx="12" cy="12" r="3" />
               </svg>
               <span class="text-sm font-medium">Theme</span>
             </div>
             <div class="flex rounded-md border border-border overflow-hidden" role="radiogroup" aria-label="Theme selection">
               <button data-set-theme="system" class="settings-theme-btn px-2.5 py-1 text-xs font-medium transition-colors" role="radio" aria-checked="false" aria-label="Auto (system theme)">Auto</button>
               <button data-set-theme="light" class="settings-theme-btn px-2 py-1 transition-colors border-x border-border" role="radio" aria-checked="false" aria-label="Light theme">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg {...iconBase} width="14" height="14" aria-hidden="true">
                   <circle cx="12" cy="12" r="4" />
                   <path d="M12 2v2" /><path d="M12 20v2" />
                   <path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
@@ -90,29 +80,23 @@ const navInactiveClass = "text-muted-foreground";
                 </svg>
               </button>
               <button data-set-theme="dark" class="settings-theme-btn px-2 py-1 transition-colors" role="radio" aria-checked="false" aria-label="Dark theme">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg {...iconBase} width="14" height="14" aria-hidden="true">
                   <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                 </svg>
               </button>
             </div>
           </div>
 
-          <!-- Star effect -->
+          <!-- Star effects -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground" aria-hidden="true">
+              <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
               <span class="text-sm font-medium">Star effects</span>
             </div>
-            <button
-              id="settings-stars-toggle"
-              type="button"
-              role="switch"
-              aria-checked="true"
-              aria-label="Toggle star effects"
-              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-primary"
-            >
+            <button id="settings-stars-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle star effects"
+              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-primary">
               <span class="pointer-events-none block size-4 rounded-full bg-white shadow-sm translate-x-4 transition-transform" aria-hidden="true"></span>
             </button>
           </div>
@@ -120,20 +104,14 @@ const navInactiveClass = "text-muted-foreground";
           <!-- High contrast -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground" aria-hidden="true">
+              <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" />
               </svg>
               <span class="text-sm font-medium">High contrast</span>
             </div>
-            <button
-              id="settings-contrast-toggle"
-              type="button"
-              role="switch"
-              aria-checked="false"
-              aria-label="Toggle high contrast"
-              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-muted"
-            >
+            <button id="settings-contrast-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle high contrast"
+              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-muted">
               <span class="pointer-events-none block size-4 rounded-full bg-muted-foreground shadow-sm translate-x-0.5 transition-transform" aria-hidden="true"></span>
             </button>
           </div>
@@ -143,23 +121,17 @@ const navInactiveClass = "text-muted-foreground";
           <!-- Music -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground" aria-hidden="true">
+              <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
                 <path d="M11 5 6 9H2v6h4l5 4V5Z" />
-                <line x1="23" x2="17" y1="9" y2="15" />
-                <line x1="17" x2="23" y1="9" y2="15" />
+                <line x1="23" x2="17" y1="9" y2="15" /><line x1="17" x2="23" y1="9" y2="15" />
               </svg>
               <div>
                 <span class="text-sm font-medium">Music</span>
                 <p class="text-xs text-muted-foreground">Currently unavailable</p>
               </div>
             </div>
-            <button
-              type="button"
-              disabled
-              aria-pressed="false"
-              aria-label="Music currently unavailable"
-              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-not-allowed items-center rounded-full border border-border bg-muted opacity-50 transition-colors"
-            >
+            <button type="button" disabled aria-pressed="false" aria-label="Music currently unavailable"
+              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-not-allowed items-center rounded-full border border-border bg-muted opacity-50 transition-colors">
               <span class="pointer-events-none block size-4 rounded-full bg-muted-foreground shadow-sm translate-x-0.5 transition-transform" aria-hidden="true"></span>
             </button>
           </div>
@@ -169,21 +141,18 @@ const navInactiveClass = "text-muted-foreground";
       <!-- Mobile hamburger menu -->
       <details class="group lg:hidden relative">
         <summary class="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer list-none [&::-webkit-details-marker]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Toggle navigation menu">
-          <svg class="group-open:hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg class="hidden group-open:block" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          <svg class="group-open:hidden" {...iconBase} width="20" height="20" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg class="hidden group-open:block" {...iconBase} width="20" height="20" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </summary>
-        <nav
-          class="absolute right-0 top-full mt-2 w-48 rounded-md border bg-background/95 backdrop-blur-sm shadow-lg py-2 z-50"
-          aria-label="Mobile navigation"
-        >
-          {navState.map(({ href, key, isActive }) => (
+        <nav class="absolute right-0 top-full mt-2 w-48 rounded-md border bg-background/95 backdrop-blur-sm shadow-lg py-2 z-50" aria-label="Mobile navigation">
+          {navState.map(({ href, key, active }) => (
             <a
               href={href}
               class:list={[
                 "block px-4 py-2 text-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
-                isActive ? "text-foreground font-medium bg-muted/50" : "text-muted-foreground",
+                active ? "text-foreground font-medium bg-muted/50" : "text-muted-foreground",
               ]}
-              aria-current={isActive ? "page" : undefined}
+              aria-current={active ? "page" : undefined}
             >
               <T key={`nav.${key}`} />
             </a>
@@ -197,94 +166,76 @@ const navInactiveClass = "text-muted-foreground";
 <script>
   import { applyTheme } from '@/lib/theme-utils';
 
-  // Generic toggle helper
-  function initToggle(id: string, storageKey: string, onUpdate: (enabled: boolean) => void) {
+  const ACTIVE = ['bg-primary', 'text-primary-foreground'];
+  const INACTIVE = ['text-muted-foreground', 'hover:bg-muted'];
+
+  function setToggle(btn: HTMLButtonElement, on: boolean) {
+    btn.setAttribute('aria-checked', String(on));
+    const knob = btn.querySelector('span');
+    btn.classList.toggle('bg-primary', on);
+    btn.classList.toggle('bg-muted', !on);
+    knob?.classList.toggle('translate-x-4', on);
+    knob?.classList.toggle('translate-x-0.5', !on);
+    knob?.classList.toggle('bg-white', on);
+    knob?.classList.toggle('bg-muted-foreground', !on);
+  }
+
+  function bindToggle(id: string, key: string, onUpdate: (on: boolean) => void) {
     const btn = document.getElementById(id) as HTMLButtonElement | null;
     if (!btn) return;
-    const saved = localStorage.getItem(storageKey);
-    const enabled = saved === null ? btn.getAttribute('aria-checked') === 'true' : saved === 'true';
-    applyToggleVisual(btn, enabled);
-    onUpdate(enabled);
-
-    const clone = btn.cloneNode(true) as HTMLButtonElement;
-    btn.replaceWith(clone);
-    clone.addEventListener('click', () => {
-      const next = clone.getAttribute('aria-checked') !== 'true';
-      localStorage.setItem(storageKey, String(next));
-      applyToggleVisual(clone, next);
+    const on = (localStorage.getItem(key) ?? (btn.getAttribute('aria-checked') === 'true' ? 'true' : 'false')) === 'true';
+    setToggle(btn, on);
+    onUpdate(on);
+    btn.onclick = () => {
+      const next = btn.getAttribute('aria-checked') !== 'true';
+      localStorage.setItem(key, String(next));
+      setToggle(btn, next);
       onUpdate(next);
+    };
+  }
+
+  function updateThemeButtons() {
+    const current = localStorage.getItem('theme') || 'system';
+    document.querySelectorAll<HTMLButtonElement>('.settings-theme-btn').forEach((btn) => {
+      const active = btn.dataset.setTheme === current;
+      btn.setAttribute('aria-checked', String(active));
+      ACTIVE.forEach(c => btn.classList.toggle(c, active));
+      INACTIVE.forEach(c => btn.classList.toggle(c, !active));
     });
   }
 
-  function applyToggleVisual(btn: HTMLButtonElement, on: boolean) {
-    btn.setAttribute('aria-checked', String(on));
-    const knob = btn.querySelector('span');
-    if (on) {
-      btn.classList.replace('bg-muted', 'bg-primary');
-      knob?.classList.replace('translate-x-0.5', 'translate-x-4');
-      knob?.classList.replace('bg-muted-foreground', 'bg-white');
-    } else {
-      btn.classList.replace('bg-primary', 'bg-muted');
-      knob?.classList.replace('translate-x-4', 'translate-x-0.5');
-      knob?.classList.replace('bg-white', 'bg-muted-foreground');
-    }
-  }
+  let ac: AbortController;
 
-  function initSettingsMenu() {
-    // --- Theme buttons ---
-    const themeBtns = document.querySelectorAll<HTMLButtonElement>('.settings-theme-btn');
-    if (!themeBtns.length) return;
-
-    const activeClasses = 'bg-primary text-primary-foreground';
-    const inactiveClasses = 'text-muted-foreground hover:bg-muted';
-
-    const updateThemeButtons = () => {
-      const current = localStorage.getItem('theme') || 'system';
-      themeBtns.forEach((btn) => {
-        const isActive = btn.dataset.setTheme === current;
-        btn.setAttribute('aria-checked', String(isActive));
-        btn.classList.remove(...activeClasses.split(' '), ...inactiveClasses.split(' '));
-        btn.classList.add(...(isActive ? activeClasses : inactiveClasses).split(' '));
-      });
-    };
+  function init() {
+    ac?.abort();
+    ac = new AbortController();
+    const { signal } = ac;
 
     updateThemeButtons();
 
-    themeBtns.forEach((btn) => {
-      const clone = btn.cloneNode(true) as HTMLButtonElement;
-      btn.replaceWith(clone);
-      clone.addEventListener('click', () => {
-        const theme = clone.dataset.setTheme;
-        if (theme) {
-          applyTheme(theme);
-          initSettingsMenu();
+    document.querySelectorAll<HTMLButtonElement>('.settings-theme-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.setTheme) {
+          applyTheme(btn.dataset.setTheme);
+          updateThemeButtons();
         }
-      });
+      }, { signal });
     });
 
-    // --- Star effects toggle ---
-    initToggle('settings-stars-toggle', 'stars-enabled', (enabled) => {
-      document.documentElement.toggleAttribute('data-no-stars', !enabled);
-    });
+    bindToggle('settings-stars-toggle', 'stars-enabled', (on) =>
+      document.documentElement.toggleAttribute('data-no-stars', !on));
 
-    // --- High contrast toggle ---
-    initToggle('settings-contrast-toggle', 'high-contrast', (enabled) => {
-      document.documentElement.classList.toggle('high-contrast', enabled);
-    });
+    bindToggle('settings-contrast-toggle', 'high-contrast', (on) =>
+      document.documentElement.classList.toggle('high-contrast', on));
 
-    // --- Close on outside click ---
-    const details = document.getElementById('settings-menu') as HTMLDetailsElement | null;
-    if (details) {
-      const closeOnOutsideClick = (e: MouseEvent) => {
-        if (details.open && !details.contains(e.target as Node)) {
-          details.open = false;
-        }
-      };
-      document.removeEventListener('click', closeOnOutsideClick);
-      document.addEventListener('click', closeOnOutsideClick);
+    const menu = document.getElementById('settings-menu') as HTMLDetailsElement | null;
+    if (menu) {
+      document.addEventListener('click', (e) => {
+        if (menu.open && !menu.contains(e.target as Node)) menu.open = false;
+      }, { signal });
     }
   }
 
-  initSettingsMenu();
-  document.addEventListener('astro:after-swap', initSettingsMenu);
+  init();
+  document.addEventListener('astro:after-swap', init);
 </script>
