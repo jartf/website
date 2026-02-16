@@ -2,10 +2,14 @@
 // Static header
 
 import { navItems, author } from "@/lib/constants";
-import { isActivePath } from "@/lib/utils";
 import T from "@/components/T.astro";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { Image } from "astro:assets";
+
+const isActivePath = (pathname: string, href: string) => {
+  if (href === "/" && pathname !== "/") return false;
+  return pathname === href || pathname.startsWith(href);
+};
 
 const pathname = Astro.url.pathname;
 const navState = navItems.map((item) => ({ ...item, isActive: isActivePath(pathname, item.href) }));
