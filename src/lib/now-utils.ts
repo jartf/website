@@ -35,24 +35,23 @@ function sanitizeUrl(url: string): string {
   return '';
 }
 
-const SVG = {
-  headphones: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>',
-  activity: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
-};
-
 // --- Fetching ---
 
 export async function fetchLiveData(): Promise<LiveItem[]> {
   const [lfm, pre] = await Promise.all([fetch("/api/lastfm").catch(() => null), fetch("/api/premid").catch(() => null)]);
   const items: LiveItem[] = [];
   if (lfm?.ok) { const track = parseLastfm(await lfm.text()); if (track) items.push(track); }
-  if (pre?.ok) { const d = await pre.json(); if (d.activities?.length) items.push({ type: "premid", activities: d.activities.map((a: any) => a.activity), dateObj: new Date() }); }
+  if (pre?.ok) {
+    const data = await pre.json();
+    if (data.activities?.length) items.push({ type: "premid", activities: data.activities.map((a: any) => a.activity), dateObj: new Date() });
+  }
   return items;
 }
 
 function parseLastfm(xml: string): LastfmTrack | null {
   const doc = new DOMParser().parseFromString(xml, "application/xml");
-  const tracks = doc.getElementsByTagName("track");
+  if (doc.querySelector("parsererror")) return null;
+  const tracks = doc.getElementsByTagName("track");jank
   if (!tracks.length) return null;
 
   const track = Array.from(tracks).find(t => t.getAttribute("nowplaying") === "true") || tracks[0];
@@ -91,29 +90,33 @@ function activityCard({ name, details, state, assets }: PremidActivity): string 
   </div></div>`;
 }
 
-function liveContent(item: LiveItem): string {
+function liveContent(item: LiveItem, includeIcon = true): string {
   if (item.type === "lastfm") {
+    const imageSrc = item.image ? sanitizeUrl(item.image) : "";
+    const trackUrl = sanitizeUrl(item.url);
     return `<div class="flex items-center gap-2 font-semibold mb-1">
-      ${SVG.headphones}<span class="now-category" data-i18n="now.categories.listening">${t("now.categories.listening") || "Listening"}</span>${item.nowplaying ? BADGE : ""}
+      ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎧</span>' : ''}<span class="now-category" data-i18n="now.categories.listening">${t("now.categories.listening") || "Listening"}</span>${item.nowplaying ? BADGE : ""}
     </div><div class="flex items-center gap-3 overflow-hidden py-1">
-      ${item.image ? `<img src="${sanitizeUrl(item.image)}" alt="${escapeHtml(item.name)} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async"/>` : ''}
+      ${imageSrc ? `<img src="${imageSrc}" alt="${escapeHtml(item.name)} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async"/>` : ''}
       <div class="flex-1 min-w-0 overflow-hidden">
-        <a href="${sanitizeUrl(item.url)}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${escapeHtml(item.name)}</a>
+        ${trackUrl
+          ? `<a href="${trackUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${escapeHtml(item.name)}</a>`
+          : `<span class="font-semibold break-words block">${escapeHtml(item.name)}</span>`}
         <p class="text-sm text-muted-foreground break-words">${escapeHtml(item.artist)}</p>
       </div></div>${item.date && !item.nowplaying ? `<div class="text-xs text-muted-foreground mt-1">${item.date}</div>` : ""}`;
   }
   return `<div class="flex items-center gap-2 font-semibold mb-1">
-    ${SVG.activity}<span class="now-category" data-i18n="now.categories.premid">${t("now.categories.premid") || "Discord activity"}</span>${BADGE}
+    ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎮</span>' : ''}<span class="now-category" data-i18n="now.categories.premid">${t("now.categories.premid") || "Discord activity"}</span>${BADGE}
   </div><div class="space-y-3">${item.activities.map(activityCard).join("")}</div>`;
 }
 
 export const renderCompact = (item: LiveItem, cls: string) =>
-  `<article class="${cls}">${liveContent(item)}</article>`;
+  `<article class="${cls}">${liveContent(item, true)}</article>`;
 
 export const renderCard = (item: LiveItem) =>
   `<article class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow"><div class="flex items-start gap-4">
     <span class="text-3xl flex-shrink-0" aria-hidden="true">${item.type === "lastfm" ? "🎧" : "📡"}</span>
-    <div class="flex-1 min-w-0">${liveContent(item)}</div>
+    <div class="flex-1 min-w-0">${liveContent(item, false)}</div>
   </div></article>`;
 
 // --- i18n ---

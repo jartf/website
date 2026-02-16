@@ -15,16 +15,20 @@ interface Activity {
 interface ActivityEntry {
   activity: Activity;
   lastUpdate: number;
-  timeoutId: ReturnType<typeof setTimeout> | null;
 }
 
 const activities = new Map<string, ActivityEntry>();
+const MAX_REQUEST_BYTES = 8 * 1024;
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
+  "X-Content-Type-Options": "nosniff",
 } as const;
+
+const json = (data: unknown, status = 200): Response =>
+  Response.json(data, { status, headers: { ...CORS_HEADERS } });
 
 const isValidUrl = (url: string): boolean => {
   try {
@@ -90,23 +94,59 @@ const cleanupExpiredActivities = (): void => {
   const now = Date.now();
   for (const [key, entry] of activities.entries()) {
     if (now - entry.lastUpdate >= preMidConfig.activityTimeoutMs) {
-      entry.timeoutId && clearTimeout(entry.timeoutId);
       activities.delete(key);
     }
   }
 };
 
-const createActivityTimeout = (key: string): ReturnType<typeof setTimeout> =>
-  setTimeout(() => activities.delete(key), preMidConfig.activityTimeoutMs);
+const removeOldestActivity = (): void => {
+  let oldestKey: string | undefined;
+  let oldestTime = Number.POSITIVE_INFINITY;
+
+  for (const [key, entry] of activities.entries()) {
+    if (entry.lastUpdate < oldestTime) {
+      oldestKey = key;
+      oldestTime = entry.lastUpdate;
+    }
+  }
+
+  if (oldestKey) activities.delete(oldestKey);
+};
 
 async function fetchJsonWithTimeout(url: string, timeoutMs: number) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const response = await fetch(url, { signal: controller.signal });
+    const response = await fetch(url, {
+      signal: controller.signal,
+      redirect: "error",
+      headers: { Accept: "application/json" },
+    });
     return response;
   } finally {
     clearTimeout(timer);
+  }
+}
+
+async function parseRequestBody(request: Request): Promise<{ body?: any; error?: Response }> {
+  const contentLength = Number(request.headers.get("content-length") ?? "0");
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+    return { error: json({ error: "Payload too large" }, 413) };
+  }
+
+  const rawBody = await request.text();
+  if (new TextEncoder().encode(rawBody).length > MAX_REQUEST_BYTES) {
+    return { error: json({ error: "Payload too large" }, 413) };
+  }
+
+  if (!rawBody.trim()) {
+    return { error: json({ error: "Invalid JSON" }, 400) };
+  }
+
+  try {
+    return { body: JSON.parse(rawBody) };
+  } catch {
+    return { error: json({ error: "Invalid JSON" }, 400) };
   }
 }
 
@@ -115,36 +155,31 @@ export const OPTIONS: APIRoute = async () => {
 };
 
 export const POST: APIRoute = async ({ request }) => {
-  let body: any;
-  try {
-    body = await request.json();
-  } catch {
-    return Response.json({ error: "Invalid JSON" }, { status: 400, headers: { ...CORS_HEADERS } });
-  }
+  const parsed = await parseRequestBody(request);
+  if (parsed.error) return parsed.error;
+
+  const body = parsed.body;
 
   const { active_activity, extension } = body ?? {};
 
   if (!validateExtension(extension)) {
-    return Response.json({ error: "Invalid or missing extension data" }, { status: 400, headers: { ...CORS_HEADERS } });
+    return json({ error: "Invalid or missing extension data" }, 400);
   }
 
   if (extension.user_id !== preMidConfig.authorizedUserId) {
-    return Response.json({ error: "Unauthorized" }, { status: 403, headers: { ...CORS_HEADERS } });
+    return json({ error: "Unauthorized" }, 403);
   }
+
+  cleanupExpiredActivities();
 
   if (active_activity !== undefined && active_activity !== null) {
     if (!validateActivity(active_activity)) {
-      return Response.json({ error: "Invalid activity data" }, { status: 400, headers: { ...CORS_HEADERS } });
+      return json({ error: "Invalid activity data" }, 400);
     }
 
     if (activities.size >= preMidConfig.maxActivities) {
-      cleanupExpiredActivities();
       if (activities.size >= preMidConfig.maxActivities) {
-        const [oldestKey, oldestEntry] = Array.from(activities.entries()).reduce((oldest, current) =>
-          current[1].lastUpdate < oldest[1].lastUpdate ? current : oldest
-        );
-        oldestEntry.timeoutId && clearTimeout(oldestEntry.timeoutId);
-        activities.delete(oldestKey);
+        removeOldestActivity();
       }
     }
 
@@ -154,28 +189,24 @@ export const POST: APIRoute = async ({ request }) => {
     const shouldUpdate = !existing || getActivityScore(active_activity) >= getActivityScore(existing.activity);
 
     if (shouldUpdate) {
-      existing?.timeoutId && clearTimeout(existing.timeoutId);
-      activities.set(key, { activity: active_activity, lastUpdate: now, timeoutId: createActivityTimeout(key) });
+      activities.set(key, { activity: active_activity, lastUpdate: now });
     } else if (existing) {
       existing.lastUpdate = now;
-      existing.timeoutId && clearTimeout(existing.timeoutId);
-      existing.timeoutId = createActivityTimeout(key);
     }
   } else {
-    cleanupExpiredActivities();
     const now = Date.now();
     const hasRecentActivity = Array.from(activities.values()).some((entry) => now - entry.lastUpdate < preMidConfig.clearThresholdMs);
     if (!hasRecentActivity) {
-      for (const entry of activities.values()) entry.timeoutId && clearTimeout(entry.timeoutId);
       activities.clear();
     }
   }
 
-  return Response.json({ success: true }, { status: 200, headers: { ...CORS_HEADERS } });
+  return json({ success: true });
 };
 
 export const GET: APIRoute = async ({ request }) => {
-  const host = request.headers.get("host") ?? "";
+  const hostHeader = request.headers.get("x-forwarded-host") ?? request.headers.get("host") ?? "";
+  const host = hostHeader.split(",")[0].trim().toLowerCase().split(":")[0];
   const isProduction = preMidConfig.productionHosts.has(host);
 
   if (!isProduction) {
@@ -183,7 +214,7 @@ export const GET: APIRoute = async ({ request }) => {
       const response = await fetchJsonWithTimeout(preMidConfig.productionApiUrl, preMidConfig.apiTimeoutMs);
       if (!response.ok) throw new Error(`API returned ${response.status}: ${response.statusText}`);
       const data = await response.json();
-      return Response.json(data, { status: 200, headers: { ...CORS_HEADERS } });
+      return json(data);
     } catch (error) {
       console.error("Serving local data, failed to fetch from PreMID API:", {
         error: error instanceof Error ? error.message : "Unknown error",

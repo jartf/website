@@ -3,18 +3,41 @@ import { lastFmApiUrl } from "@/lib/constants";
 
 export const prerender = false;
 
+const UPSTREAM_TIMEOUT_MS = 5000;
+const MAX_XML_BYTES = 256 * 1024;
+
+async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, {
+      signal: controller.signal,
+      redirect: "error",
+      headers: { Accept: "application/xml, text/xml;q=0.9, */*;q=0.8" },
+    });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export const GET: APIRoute = async () => {
   try {
-    const response = await fetch(lastFmApiUrl);
+    const response = await fetchWithTimeout(lastFmApiUrl, UPSTREAM_TIMEOUT_MS);
     if (!response.ok) {
       return Response.json({ error: "Unable to fetch Last.fm data" }, { status: 502 });
     }
 
-    return new Response(await response.text(), {
+    const xml = await response.text();
+    if (new TextEncoder().encode(xml).length > MAX_XML_BYTES) {
+      return Response.json({ error: "Last.fm response too large" }, { status: 502 });
+    }
+
+    return new Response(xml, {
       status: 200,
       headers: {
-        "Content-Type": "application/xml",
+        "Content-Type": "application/xml; charset=utf-8",
         "Cache-Control": "public, max-age=60, s-maxage=60",
+        "X-Content-Type-Options": "nosniff",
       },
     });
   } catch (error) {
