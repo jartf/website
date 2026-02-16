@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useStore } from "@nanostores/react";
 import { languageStore, setLanguage, supportedLanguages, t as i18nT, type SupportedLanguage } from "@/i18n";
+import { routes } from "@/lib/constants";
 import {
   ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, Calendar, Clock, Code, FileText,
   FlipHorizontal, Gamepad2, Home, KeyRound, Languages, Mail, MessagesSquare, Moon, RefreshCw,
@@ -259,7 +260,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         icon: <Gamepad2 className="h-4 w-4 text-red-500" />,
         shortcut: "t",
         category: t("actionSearch.games", "Games"),
-        action: nav("/tetris/"),
+        action: nav(routes.tetris),
       },
       {
         id: "2048",
@@ -267,7 +268,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         icon: <Gamepad2 className="h-4 w-4 text-orange-500" />,
         shortcut: "z",
         category: t("actionSearch.games", "Games"),
-        action: nav("/2048/"),
+        action: nav(routes.game2048),
       },
       {
         id: "keyboard-shortcuts",

@@ -1,20 +1,21 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
+import { routes } from "@/lib/constants";
 
 const slashPages = [
-  { path: "/about/", name: "nav.about", nameDefault: "About", desc: "about.description", descDefault: "Learn about me" },
-  { path: "/blog/", name: "nav.blog", nameDefault: "Blog", desc: "blog.description", descDefault: "Read my posts" },
-  { path: "/contact/", name: "nav.contact", nameDefault: "Contact", desc: "contact.description", descDefault: "Get in touch" },
-  { path: "/now/", name: "nav.now", nameDefault: "Now", desc: "now.description", descDefault: "What I'm doing now" },
-  { path: "/uses/", name: "nav.uses", nameDefault: "Uses", desc: "uses.description", descDefault: "Tech and tools I use" },
-  { path: "/colophon/", name: "nav.colophon", nameDefault: "Colophon", desc: "colophon.description", descDefault: "How this site is built" },
-  { path: "/guestbook/", name: "nav.guestbook", nameDefault: "Guestbook", desc: "guestbook.description", descDefault: "Leave a message" },
-  { path: "/webrings/", name: "nav.webring", nameDefault: "Webrings", desc: "webrings.description", descDefault: "Web communities" },
-  { path: "/badges/", name: "keyboardShortcuts.navigation", nameDefault: "Badges", desc: "badges.description", descDefault: "88x31 badges" },
-  { path: "/projects/", name: "nav.projects", nameDefault: "Projects", desc: "projects.description", descDefault: "Things I've built" },
-  { path: "/scrapbook/", name: "nav.scrapbook", nameDefault: "Devlog", desc: "scrapbook.description", descDefault: "Development log" },
-  { path: "/brand/", name: "nav.brand", nameDefault: "Brand", desc: "brand.pageDescription", descDefault: "Visual identity and brand elements" },
+  { path: routes.about, name: "nav.about", nameDefault: "About", desc: "about.description", descDefault: "Learn about me" },
+  { path: routes.blog, name: "nav.blog", nameDefault: "Blog", desc: "blog.description", descDefault: "Read my posts" },
+  { path: routes.contact, name: "nav.contact", nameDefault: "Contact", desc: "contact.description", descDefault: "Get in touch" },
+  { path: routes.now, name: "nav.now", nameDefault: "Now", desc: "now.description", descDefault: "What I'm doing now" },
+  { path: routes.uses, name: "nav.uses", nameDefault: "Uses", desc: "uses.description", descDefault: "Tech and tools I use" },
+  { path: routes.colophon, name: "nav.colophon", nameDefault: "Colophon", desc: "colophon.description", descDefault: "How this site is built" },
+  { path: routes.guestbook, name: "nav.guestbook", nameDefault: "Guestbook", desc: "guestbook.description", descDefault: "Leave a message" },
+  { path: routes.webring, name: "nav.webring", nameDefault: "Webrings", desc: "webrings.description", descDefault: "Web communities" },
+  { path: routes.badges, name: "keyboardShortcuts.navigation", nameDefault: "Badges", desc: "badges.description", descDefault: "88x31 badges" },
+  { path: routes.projects, name: "nav.projects", nameDefault: "Projects", desc: "projects.description", descDefault: "Things I've built" },
+  { path: routes.scrapbook, name: "nav.scrapbook", nameDefault: "Devlog", desc: "scrapbook.description", descDefault: "Development log" },
+  { path: routes.brand, name: "nav.brand", nameDefault: "Brand", desc: "brand.pageDescription", descDefault: "Visual identity and brand elements" },
 ];
 ---
 

@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Keyboard, X } from "lucide-react";
 import { useStore } from "@nanostores/react";
 import { languageStore, t as i18nT } from "@/i18n";
+import { routes } from "@/lib/constants";
 
 // Inline KeyboardShortcut component
 const KeyboardShortcut = ({ children }: { children: React.ReactNode }) => (
@@ -44,14 +45,14 @@ export function KeyboardShortcutsHelp() {
     setPathname(window.location.pathname);
   }, []);
 
-  const isGamePage = pathname.includes("/2048") || pathname.includes("/tetris");
-  const isProjectsPage = pathname.includes("/projects");
-  const isAboutPage = pathname.includes("/about");
-  const isNowPage = pathname.includes("/now");
-  const isUsesPage = pathname.includes("/uses");
-  const isColophonPage = pathname.includes("/colophon");
-  const isBlogPage = pathname.includes("/blog");
-  const isBlogPostPage = pathname.includes("/blog/") && pathname !== "/blog" && pathname !== "/blog/";
+  const isGamePage = pathname.includes(routes.game2048) || pathname.includes(routes.tetris);
+  const isProjectsPage = pathname.includes(routes.projects);
+  const isAboutPage = pathname.includes(routes.about);
+  const isNowPage = pathname.includes(routes.now);
+  const isUsesPage = pathname.includes(routes.uses);
+  const isColophonPage = pathname.includes(routes.colophon);
+  const isBlogPage = pathname.includes(routes.blog);
+  const isBlogPostPage = pathname.includes(routes.blog) && pathname !== routes.blog && pathname !== routes.blog;
 
   // Handle keyboard shortcut to open dialog
   const handleKeyDown = useCallback((e: KeyboardEvent) => {

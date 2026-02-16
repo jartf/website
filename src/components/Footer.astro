@@ -1,7 +1,7 @@
 ---
 // Footer component with badges, webring links, i18n support, and secret chapter 6 easter egg
 
-import { footerBadges, flagColors } from "@/lib/constants";
+import { footerBadges, flagColors, routes } from "@/lib/constants";
 import { KeyboardShortcutsHelp } from "./KeyboardShortcutsHelp";
 import { Image } from 'astro:assets';
 import T from "@/components/T.astro";
@@ -106,7 +106,7 @@ import T from "@/components/T.astro";
           }
         } else {
           // Navigate to about page chapter 6
-          window.location.href = "/about/#chapter-6";
+          window.location.href = `${routes.about}#chapter-6`;
         }
 
         tapCount = 0;

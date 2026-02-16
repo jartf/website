@@ -2,6 +2,7 @@
 // Recent posts component
 import { getCollection, type CollectionEntry } from "astro:content";
 import T from "@/components/T.astro";
+import { routes } from "@/lib/constants";
 
 type RecentPost = {
   slug: string;
@@ -35,7 +36,7 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
 
 <section aria-labelledby="recent-posts-heading">
   <h2 id="recent-posts-heading" class="text-2xl font-bold mb-4 text-center">
-    <a href="/blog/" tabindex="-1" class="no-underline hover:underline focus:underline text-inherit">
+    <a href={routes.blog} tabindex="-1" class="no-underline hover:underline focus:underline text-inherit">
       <T key="home.recentPosts" />
     </a>
   </h2>
@@ -68,7 +69,7 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
     ))}
   </div>
   <div class="text-center mt-4">
-    <a href="/blog/" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg hover:bg-accent transition-colors">
+    <a href={routes.blog} class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg hover:bg-accent transition-colors">
       <T key="nav.blog" />
       <span>→</span>
     </a>
