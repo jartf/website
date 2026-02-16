@@ -15,6 +15,26 @@ export type LiveItem = LastfmTrack | PremidData;
 export const DATE_FMT: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" };
 
 const BADGE = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>';
+
+/** Escape HTML special characters to prevent XSS from external API data */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/** Sanitize a URL — only allow http(s) schemes */
+function sanitizeUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return parsed.href;
+  } catch {}
+  return '';
+}
+
 const SVG = {
   headphones: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>',
   activity: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
@@ -53,14 +73,21 @@ function parseLastfm(xml: string): LastfmTrack | null {
 // --- Rendering ---
 
 function activityCard({ name, details, state, assets }: PremidActivity): string {
-  const img = assets?.large_image ? `<div class="relative w-12 h-12 flex-shrink-0">
-    <img src="${assets.large_image}" alt="${assets.large_text || name}" class="w-12 h-12 rounded-lg" loading="lazy"/>
-    ${assets.small_image ? `<img src="${assets.small_image}" alt="${assets.small_text || ""}" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" loading="lazy"/>` : ""}
-  </div>` : "";
+  const safeName = escapeHtml(name);
+  const safeDetails = details ? escapeHtml(details) : '';
+  const safeState = state ? escapeHtml(state) : '';
+  const safeLargeAlt = escapeHtml(assets?.large_text || name);
+  const safeSmallAlt = escapeHtml(assets?.small_text || '');
+  const largeSrc = assets?.large_image ? sanitizeUrl(assets.large_image) : '';
+  const smallSrc = assets?.small_image ? sanitizeUrl(assets.small_image) : '';
+  const img = largeSrc ? `<div class="relative w-12 h-12 flex-shrink-0">
+    <img src="${largeSrc}" alt="${safeLargeAlt}" class="w-12 h-12 rounded-lg" loading="lazy"/>
+    ${smallSrc ? `<img src="${smallSrc}" alt="${safeSmallAlt}" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" loading="lazy"/>` : ''}
+  </div>` : '';
   return `<div class="flex items-center gap-3 overflow-hidden">${img}<div class="flex-1 min-w-0 overflow-hidden">
-    <span class="font-semibold break-words block">${name}</span>
-    ${details ? `<p class="text-sm break-words">${details}</p>` : ""}
-    ${state ? `<p class="text-sm text-muted-foreground break-words">${state}</p>` : ""}
+    <span class="font-semibold break-words block">${safeName}</span>
+    ${safeDetails ? `<p class="text-sm break-words">${safeDetails}</p>` : ''}
+    ${safeState ? `<p class="text-sm text-muted-foreground break-words">${safeState}</p>` : ''}
   </div></div>`;
 }
 
@@ -69,10 +96,10 @@ function liveContent(item: LiveItem): string {
     return `<div class="flex items-center gap-2 font-semibold mb-1">
       ${SVG.headphones}<span class="now-category" data-i18n="now.categories.listening">${t("now.categories.listening") || "Listening"}</span>${item.nowplaying ? BADGE : ""}
     </div><div class="flex items-center gap-3 overflow-hidden py-1">
-      ${item.image ? `<img src="${item.image}" alt="${item.name} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async"/>` : ""}
+      ${item.image ? `<img src="${sanitizeUrl(item.image)}" alt="${escapeHtml(item.name)} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async"/>` : ''}
       <div class="flex-1 min-w-0 overflow-hidden">
-        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${item.name}</a>
-        <p class="text-sm text-muted-foreground break-words">${item.artist}</p>
+        <a href="${sanitizeUrl(item.url)}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${escapeHtml(item.name)}</a>
+        <p class="text-sm text-muted-foreground break-words">${escapeHtml(item.artist)}</p>
       </div></div>${item.date && !item.nowplaying ? `<div class="text-xs text-muted-foreground mt-1">${item.date}</div>` : ""}`;
   }
   return `<div class="flex items-center gap-2 font-semibold mb-1">

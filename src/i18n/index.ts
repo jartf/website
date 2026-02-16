@@ -76,10 +76,27 @@ export function applyDomTranslations(root: ParentNode | Document = document) {
   try {
     html?.classList.add("i18n-updating");
 
-    // Update text content for both [data-i18n] and [data-t-key] elements
+    const lang = languageStore.get();
+
+    // Update text content for [data-i18n] and [data-t-key] elements.
+    // Elements with data-t-texts (from <T> component) use pre-rendered translations;
+    // others fall back to the t() lookup.
     root.querySelectorAll?.("[data-i18n], [data-t-key]")?.forEach((el) => {
       const key = el.getAttribute("data-i18n") || el.getAttribute("data-t-key");
       if (!key) return;
+
+      // Fast path: use pre-rendered translations embedded by <T> component
+      const textsAttr = el.getAttribute("data-t-texts");
+      if (textsAttr) {
+        try {
+          const texts = JSON.parse(textsAttr);
+          const text = texts[lang] || texts["en"] || key;
+          if (el.textContent !== text) el.textContent = text;
+          return;
+        } catch {}
+      }
+
+      // Slow path: dynamic lookup
       const translated = t(key);
       if (translated !== key && el.textContent !== translated) {
         el.textContent = translated;
@@ -125,10 +142,8 @@ export function initLanguage() {
 export function setLanguage(lang: SupportedLanguage) {
   if (translations[lang]) {
     languageStore.set(lang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("i18nextLng", lang);
-      document.documentElement.lang = lang === "vih" ? "vi" : lang;
-    }
+    // Note: localStorage and document.documentElement.lang are updated
+    // by the languageStore.subscribe handler above
   }
 }
 

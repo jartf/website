@@ -33,29 +33,6 @@ supportedLanguages.forEach((lang) => {
 const Tag = tag as any;
 ---
 
-<Tag class={className} data-t-key={key} {...rest}>
+<Tag class={className} data-t-key={key} data-t-texts={JSON.stringify(translatedTexts)} {...rest}>
   {translatedTexts["en"] || key}
 </Tag>
-
-<script is:inline define:vars={{ translatedTexts, tKey: key }}>
-  function getInitialLang() {
-    try {
-      return window.__INITIAL_LANG__ || localStorage.getItem("i18nextLng") || "en";
-    } catch (_) {
-      return "en";
-    }
-  }
-
-  function updateTranslation() {
-    const currentLang = getInitialLang();
-    const text = translatedTexts[currentLang] || translatedTexts["en"] || tKey;
-
-    document.querySelectorAll(`[data-t-key="${tKey}"]`).forEach((element) => {
-      if (element.textContent !== text) element.textContent = text;
-    });
-  }
-
-  updateTranslation();
-  window.addEventListener("languageChange", updateTranslation);
-  document.addEventListener("astro:after-swap", updateTranslation);
-</script>

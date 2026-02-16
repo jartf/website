@@ -124,7 +124,8 @@ const categories = Object.keys(categoryIcons);
 </style>
 
 <script>
-  import { languageStore, initLanguage } from '@/i18n';
+  import { setupPageI18n } from '@/lib/i18n-page';
+  import { languageStore } from '@/i18n';
 
   const cards = document.querySelectorAll('.project-card');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -164,8 +165,5 @@ const categories = Object.keys(categoryIcons);
     });
   };
 
-  initLanguage();
-  updateContent();
-  languageStore.subscribe(updateContent);
-  window.addEventListener('languageChange', updateContent);
+  setupPageI18n(updateContent);
 </script>

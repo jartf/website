@@ -5,13 +5,7 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "target": "ES2022",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@lib/*": ["src/lib/*"],
-      "@content/*": ["src/content/*"],
-      "@stores/*": ["src/stores/*"],
-      "@i18n/*": ["src/i18n/*"]
+      "@/*": ["src/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",

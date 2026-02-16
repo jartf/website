@@ -96,7 +96,8 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
 </BaseLayout>
 
 <script>
-  import { languageStore, initLanguage, t } from "@/i18n";
+  import { setupPageI18n } from '@/lib/i18n-page';
+  import { t } from "@/i18n";
   import { services } from "@/lib/constants";
 
   const statusCafeProfileUrl = services.statusCafe.profileUrl;
@@ -121,12 +122,7 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
     if (translated && translated !== greeting.key) greetingTEl.textContent = translated;
   }
 
-  const initialLang = (window as any).__INITIAL_LANG__;
-  initialLang && initialLang !== "en" ? languageStore.set(initialLang) : initLanguage();
-
-  updateGreetingEmoji();
-  languageStore.subscribe(updateGreetingEmoji);
-  window.addEventListener("languageChange", updateGreetingEmoji);
+  setupPageI18n(updateGreetingEmoji);
 
   const u = document.getElementById("statuscafe-username"), c = document.getElementById("statuscafe-content");
   if (u && c) {
@@ -134,7 +130,15 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(r => {
         if (!r?.content?.length) return c.textContent = "No status yet.";
-        u.innerHTML = `<a href="${statusCafeProfileUrl}" target="_blank">@${r.author}</a> · ${r.face || ""} · ${r.timeAgo || ""}`;
+        // Build status display safely — avoid injecting raw API data as HTML
+        u.textContent = '';
+        const link = document.createElement('a');
+        link.href = statusCafeProfileUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = `@${r.author}`;
+        u.appendChild(link);
+        u.append(` · ${r.face || ''} · ${r.timeAgo || ''}`);
         c.textContent = r.content;
       })
       .catch(() => c.textContent = "Couldn't load status.");

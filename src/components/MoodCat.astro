@@ -259,7 +259,7 @@ const initialCat = moodCats[0];
   // Get current language
   function getCurrentLang() {
     try {
-      return localStorage.getItem('preferredLanguage') || 'en';
+      return localStorage.getItem('i18nextLng') || 'en';
     } catch {
       return 'en';
     }

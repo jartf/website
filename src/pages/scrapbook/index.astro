@@ -47,9 +47,8 @@ const dateFormat = { year: "numeric", month: "long", day: "numeric" } as const;
 </BaseLayout>
 
 <script>
-  import { languageStore, initLanguage } from "@/i18n";
-
-  initLanguage();
+  import { setupPageI18n } from '@/lib/i18n-page';
+  import { languageStore } from '@/i18n';
 
   const dateFormat = { year: "numeric", month: "long", day: "numeric" } as const;
 
@@ -71,8 +70,5 @@ const dateFormat = { year: "numeric", month: "long", day: "numeric" } as const;
     });
   }
 
-  updateScrapbook();
-  languageStore.subscribe(updateScrapbook);
-  window.addEventListener("languageChange", updateScrapbook);
-  document.addEventListener("astro:after-swap", updateScrapbook);
+  setupPageI18n(updateScrapbook);
 </script>

@@ -193,7 +193,8 @@ const icons: Record<string, string> = {
 </BaseLayout>
 
 <script>
-  import { languageStore, initLanguage } from '@/i18n';
+  import { setupPageI18n } from '@/lib/i18n-page';
+  import { languageStore } from '@/i18n';
 
   const lang = languageStore.get();
   const qrConfigs = [
@@ -252,8 +253,5 @@ const icons: Record<string, string> = {
     });
   };
 
-  initLanguage();
-  updatePronouns();
-  languageStore.subscribe(updatePronouns);
-  window.addEventListener('languageChange', updatePronouns);
+  setupPageI18n(updatePronouns);
 </script>

@@ -206,7 +206,8 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 </BaseLayout>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+  import { setupPageI18n } from '@/lib/i18n-page';
+  import { languageStore, t } from '@/i18n';
   import { services } from '@/lib/constants';
 
   // Declare CUSDIS on window
@@ -217,9 +218,6 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       };
     }
   }
-
-  // Initialize i18n
-  initLanguage();
 
   function updateTranslations() {
     document.querySelectorAll('[data-i18n]').forEach((el) => {
@@ -247,15 +245,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     });
   }
 
-  updateTranslations();
-
-  languageStore.subscribe(() => {
-    updateTranslations();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateTranslations();
-  });
+  setupPageI18n(updateTranslations);
 
   // Load Cusdis script
   const script = document.createElement('script');
