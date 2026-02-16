@@ -3,9 +3,6 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { Image } from 'astro:assets';
 
-const title = "Brand";
-const description = "Visual identity and brand elements. Use these if you want to reference or link to this site.";
-
 const colors = [
   { name: "Primary", dark: { value: "195 100% 65%", hex: "#54D4FF" }, light: { value: "195 100% 40%", hex: "#0099CC" }, desc: "Main accent color" },
   { name: "Background", dark: { value: "270 30% 10%", hex: "#1A0F2E" }, light: { value: "0 0% 100%", hex: "#FFFFFF" }, desc: "Page background" },
@@ -13,6 +10,11 @@ const colors = [
   { name: "Foreground", dark: { value: "0 0% 95%", hex: "#F2F2F2" }, light: { value: "240 10% 3.9%", hex: "#0A0A0F" }, desc: "Main text color" },
   { name: "Muted", dark: { value: "270 25% 20%", hex: "#3A2F5A" }, light: { value: "240 4.8% 95.9%", hex: "#F4F4F5" }, desc: "Muted elements" },
   { name: "Border", dark: { value: "270 25% 25%", hex: "#4A3F6F" }, light: { value: "240 5.9% 90%", hex: "#E4E4E7" }, desc: "Borders and dividers" },
+];
+
+const logos = [
+  { key: "faceOnly", src: "/favicon", alt: "Jarema logo - face only", dimKey: "dimensions1" },
+  { key: "faceAndBody", src: "/favicons", alt: "Jarema logo - face and body", dimKey: "dimensions2" }
 ];
 
 const fontSamples = [
@@ -26,226 +28,154 @@ const fontSamples = [
 ];
 
 const fonts = [
-  {
-    name: "Space Grotesk",
-    usage: "Headings and titles",
-    weight: "400-700",
-    class: "font-heading",
-    link: "https://fonts.google.com/specimen/Space+Grotesk",
-    samples: fontSamples
-  },
-  {
-    name: "Lexend",
-    usage: "Body text and UI elements",
-    weight: "400-700",
-    class: "font-body",
-    link: "https://fonts.google.com/specimen/Lexend",
-    samples: fontSamples
-  },
-  {
-    name: "Noto Sans SC",
-    usage: "Chinese text (Simplified)",
-    weight: "400-700",
-    class: "font-noto-sans-sc",
-    link: "https://fonts.google.com/specimen/Noto+Sans+SC",
-    samples: [{ lang: "Chinese (Simplified)", text: "床前明月光，疑是地上霜。举头望明月，低头思故乡。" }]
-  },
-  {
-    name: "Han Nom Gothic",
-    usage: "Vietnamese Chữ Nôm",
-    weight: "400",
-    class: "font-han-nom",
-    link: "https://hannom-rcv.org/font.html",
-    samples: [{ lang: "Vietnamese Chữ Nôm", text: "身㛪辰𤽸分㛪𧷺，𠤩浽𠀧沉買渃𡽫，硍湼默油𢬣几揑，𦓡㛪刎𡨹𬌓𢚸𣘈。" }]
-  },
+  { name: "Space Grotesk", usage: "Headings and titles", weight: "400-700", class: "font-heading", link: "https://fonts.google.com/specimen/Space+Grotesk", samples: fontSamples },
+  { name: "Lexend", usage: "Body text and UI elements", weight: "400-700", class: "font-body", link: "https://fonts.google.com/specimen/Lexend", samples: fontSamples },
+  { name: "Noto Sans SC", usage: "Chinese text (Simplified)", weight: "400-700", class: "font-noto-sans-sc", link: "https://fonts.google.com/specimen/Noto+Sans+SC", samples: [{ lang: "Chinese (Simplified)", text: "床前明月光，疑是地上霜。举头望明月，低头思故乡。" }] },
+  { name: "Han Nom Gothic", usage: "Vietnamese Chữ Nôm", weight: "400", class: "font-han-nom", link: "https://hannom-rcv.org/font.html", samples: [{ lang: "Vietnamese Chữ Nôm", text: "身㛪辰𤽸分㛪𧷺，𠤩浽𠀧沉買渃𡽫，硍湼默油𢬣几揑，𦓡㛪刎𡨹𬌓𢚸𣘈。" }] }
 ];
+
+const usagePoints = ["point1", "point2", "point3", "point4"];
+const cardClasses = "bg-card border rounded-lg p-6";
 ---
 
-<BaseLayout title={title} description={description}>
-  <div class="container mx-auto px-4 py-8 lg:py-12">
-    <div class="max-w-4xl mx-auto">
-      <header class="mb-12 text-center">
-        <T key="brand.pageTitle" tag="h1" class="text-4xl font-bold mb-4" />
-        <T key="brand.pageDescription" tag="p" class="text-lg text-muted-foreground max-w-2xl mx-auto" />
-      </header>
+<BaseLayout title="Brand" description="Visual identity and brand elements. Use these if you want to reference or link to this site.">
+  <div class="container mx-auto px-4 py-8 lg:py-12 max-w-4xl">
+    <header class="mb-12 text-center">
+      <T key="brand.pageTitle" tag="h1" class="text-4xl font-bold mb-4" />
+      <T key="brand.pageDescription" tag="p" class="text-lg text-muted-foreground max-w-2xl mx-auto" />
+    </header>
 
-      <!-- Name Section -->
-      <section class="mb-12">
-        <T key="brand.name.title" tag="h2" class="text-2xl font-bold mb-6" />
-        <div class="bg-card border rounded-lg p-6 space-y-4">
+    <!-- Name -->
+    <section class="mb-12">
+      <T key="brand.name.title" tag="h2" class="text-2xl font-bold mb-6" />
+      <div class={cardClasses} class:list={["space-y-4"]}>
+        {[["nameLabel", "Jarema"], ["displayNameLabel", "∴ Jarema"]].map(([key, text], i) => (
           <div>
-            <p class="text-sm text-muted-foreground mb-2"><T key="brand.name.nameLabel" /></p>
-            <p class="text-2xl font-bold">Jarema</p>
+            <p class="text-sm text-muted-foreground mb-2"><T key={`brand.name.${key}`} /></p>
+            <p class="text-2xl font-bold">{text}</p>
+            {i === 1 && <p class="text-sm text-muted-foreground mt-2"><T key="brand.name.symbolNote" /></p>}
           </div>
-          <div>
-            <p class="text-sm text-muted-foreground mb-2"><T key="brand.name.displayNameLabel" /></p>
-            <p class="text-2xl font-bold">∴ Jarema</p>
-            <p class="text-sm text-muted-foreground mt-2">
-              <T key="brand.name.symbolNote" />
-            </p>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
+    </section>
 
-      <!-- Logo Section -->
-      <section class="mb-12">
-        <T key="brand.logo.title" tag="h2" class="text-2xl font-bold mb-6" />
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="bg-card border rounded-lg p-6">
-            <p class="text-sm font-medium mb-4"><T key="brand.logo.faceOnly" /></p>
+    <!-- Logo -->
+    <section class="mb-12">
+      <T key="brand.logo.title" tag="h2" class="text-2xl font-bold mb-6" />
+      <div class="grid md:grid-cols-2 gap-6">
+        {logos.map(({ key, src, alt, dimKey }) => (
+          <div class={cardClasses}>
+            <p class="text-sm font-medium mb-4"><T key={`brand.logo.${key}`} /></p>
             <div class="bg-background rounded p-8 mb-4 flex items-center justify-center">
-              <Image src="/favicon.png" alt="Jarema logo - face only" width={128} height={128} class="pixelated" />
+              <Image src={`${src}.png`} alt={alt} width={128} height={128} class="pixelated" />
             </div>
             <div class="space-y-2">
               <div class="flex gap-2">
-                <a href="/favicon.png" target="_blank" class="flex-1 text-sm bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-center transition-colors">PNG</a>
-                <a href="/favicon.svg" target="_blank" class="flex-1 text-sm bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-center transition-colors">SVG</a>
-              </div>
-              <p class="text-sm text-muted-foreground"><T key="brand.logo.dimensions1" /></p>
-            </div>
-          </div>
-          <div class="bg-card border rounded-lg p-6">
-            <p class="text-sm font-medium mb-4"><T key="brand.logo.faceAndBody" /></p>
-            <div class="bg-background rounded p-8 mb-4 flex items-center justify-center">
-              <Image src="/favicons.png" alt="Jarema logo - face and body" width={128} height={128} class="pixelated" />
-            </div>
-            <div class="space-y-2">
-              <div class="flex gap-2">
-                <a href="/favicons.png" target="_blank" class="flex-1 text-sm bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-center transition-colors">PNG</a>
-                <a href="/favicons.svg" target="_blank" class="flex-1 text-sm bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-center transition-colors">SVG</a>
-              </div>
-              <p class="text-sm text-muted-foreground"><T key="brand.logo.dimensions2" /></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Badge Section -->
-      <section class="mb-12">
-        <T key="brand.badge.title" tag="h2" class="text-2xl font-bold mb-6" />
-        <div class="bg-card border rounded-lg p-6">
-          <div class="text-center mb-6">
-            <Image src="/badge.png" alt="Jarema's badge" width={176} height={62} class="pixelated mx-auto" />
-          </div>
-          <div class="space-y-4">
-            <div>
-              <p class="text-sm text-muted-foreground mb-1"><T key="brand.badge.urlLabel" /></p>
-              <code class="block bg-muted p-2 rounded text-sm overflow-x-auto select-all">https://jarema.me/badge.png</code>
-            </div>
-            <div>
-              <p class="text-sm text-muted-foreground mb-1"><T key="brand.badge.htmlLabel" /></p>
-              <pre class="bg-muted p-2 rounded text-sm overflow-x-auto select-all"><code>{`<a href="https://jarema.me/">
-  <img src="https://jarema.me/badge.png" alt="Jarema's digital garden" width="88" height="31" style="image-rendering: pixelated;">
-</a>`}</code></pre>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Colors Section -->
-      <section class="mb-12">
-        <T key="brand.colors.title" tag="h2" class="text-2xl font-bold mb-6" />
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {colors.map(color => (
-            <div class="bg-card border rounded-lg p-4">
-              <div class="mb-3">
-                <p class="font-medium mb-1">{color.name}</p>
-                <p class="text-sm text-muted-foreground">{color.desc}</p>
-              </div>
-              <div class="space-y-3">
-                <div>
-                  <p class="text-sm text-muted-foreground mb-2">Dark mode</p>
-                  <div class="flex items-center gap-2 mb-1">
-                    <div
-                      class="w-8 h-8 rounded border border-border flex-shrink-0"
-                      style={`background-color: ${color.dark.hex}`}
-                      aria-label={`${color.name} dark mode color preview`}
-                    />
-                    <code class="text-sm bg-muted px-2 py-1 rounded flex-1">{color.dark.hex}</code>
-                  </div>
-                  <code class="block text-sm bg-muted px-2 py-1 rounded">hsl({color.dark.value})</code>
-                </div>
-                <div>
-                  <p class="text-sm text-muted-foreground mb-2">Light mode</p>
-                  <div class="flex items-center gap-2 mb-1">
-                    <div
-                      class="w-8 h-8 rounded border border-border flex-shrink-0"
-                      style={`background-color: ${color.light.hex}`}
-                      aria-label={`${color.name} light mode color preview`}
-                    />
-                    <code class="text-sm bg-muted px-2 py-1 rounded flex-1">{color.light.hex}</code>
-                  </div>
-                  <code class="block text-sm bg-muted px-2 py-1 rounded">hsl({color.light.value})</code>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- Fonts Section -->
-      <section class="mb-12">
-        <T key="brand.fonts.title" tag="h2" class="text-2xl font-bold mb-6" />
-        <div class="space-y-6">
-          {fonts.map(font => (
-            <div class="bg-card border rounded-lg p-6">
-              <div class="mb-4 flex items-start justify-between gap-4">
-                <div>
-                  <h3 class="font-bold text-lg mb-1">{font.name}</h3>
-                  <p class="text-sm text-muted-foreground mb-1">{font.usage}</p>
-                  <p class="text-sm text-muted-foreground">Weight: {font.weight}</p>
-                </div>
-                <a
-                  href={font.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-sm bg-muted hover:bg-muted/80 px-4 py-2 rounded transition-colors whitespace-nowrap"
-                >
-                  View on Google Fonts
-                </a>
-              </div>
-              <div class="bg-background rounded p-6 space-y-4">
-                {font.samples.map((sample, index) => (
-                  <div>
-                    <p class="text-sm text-muted-foreground mb-1">{sample.lang}</p>
-                    <p class={`${index === 0 ? 'text-xl' : 'text-base'} ${font.class}`}>{sample.text}</p>
-                  </div>
+                {["PNG", "SVG"].map(format => (
+                  <a href={`${src}.${format.toLowerCase()}`} target="_blank" class="flex-1 text-sm bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-center transition-colors">{format}</a>
                 ))}
               </div>
+              <p class="text-sm text-muted-foreground"><T key={`brand.logo.${dimKey}`} /></p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- Usage Notes Section -->
-      <section class="mb-12">
-        <T key="brand.usage.title" tag="h2" class="text-2xl font-bold mb-6" />
-        <div class="bg-card border rounded-lg p-6 space-y-4">
-          <div>
-            <p class="font-medium mb-2"><T key="brand.usage.point1Title" /></p>
-            <p class="text-sm text-muted-foreground"><T key="brand.usage.point1Text" /></p>
           </div>
-          <div>
-            <p class="font-medium mb-2"><T key="brand.usage.point2Title" /></p>
-            <p class="text-sm text-muted-foreground"><T key="brand.usage.point2Text" /></p>
-          </div>
-          <div>
-            <p class="font-medium mb-2"><T key="brand.usage.point3Title" /></p>
-            <p class="text-sm text-muted-foreground"><T key="brand.usage.point3Text" /></p>
-          </div>
-          <div>
-            <p class="font-medium mb-2"><T key="brand.usage.point4Title" /></p>
-            <p class="text-sm text-muted-foreground"><T key="brand.usage.point4Text" /></p>
-          </div>
-        </div>
-        <p class="text-sm text-muted-foreground mt-4 text-center">
-          <T key="brand.usage.footer" />
-        </p>
-      </section>
-
-      <div class="text-center">
-        <a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">↑ Back to top</a>
+        ))}
       </div>
+    </section>
+
+    <!-- Badge -->
+    <section class="mb-12">
+      <T key="brand.badge.title" tag="h2" class="text-2xl font-bold mb-6" />
+      <div class={cardClasses}>
+        <div class="text-center mb-6">
+          <Image src="/badge.png" alt="Jarema's badge" width={176} height={62} class="pixelated mx-auto" />
+        </div>
+        <div class="space-y-4">
+          <div>
+            <p class="text-sm text-muted-foreground mb-1"><T key="brand.badge.urlLabel" /></p>
+            <code class="block bg-muted p-2 rounded text-sm overflow-x-auto select-all">https://jarema.me/badge.png</code>
+          </div>
+          <div>
+            <p class="text-sm text-muted-foreground mb-1"><T key="brand.badge.htmlLabel" /></p>
+            <pre class="bg-muted p-2 rounded text-sm overflow-x-auto select-all"><code>{`<a href="https://jarema.me/">
+  <img src="https://jarema.me/badge.png" alt="Jarema's digital garden" width="88" height="31" style="image-rendering: pixelated;">
+</a>`}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colors -->
+    <section class="mb-12">
+      <T key="brand.colors.title" tag="h2" class="text-2xl font-bold mb-6" />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {colors.map(({ name, dark, light, desc }) => (
+          <div class={cardClasses} class:list={["p-4"]}>
+            <div class="mb-3">
+              <p class="font-medium mb-1">{name}</p>
+              <p class="text-sm text-muted-foreground">{desc}</p>
+            </div>
+            <div class="space-y-3">
+              {[{ mode: "Dark mode", data: dark }, { mode: "Light mode", data: light }].map(({ mode, data }) => (
+                <div>
+                  <p class="text-sm text-muted-foreground mb-2">{mode}</p>
+                  <div class="flex items-center gap-2 mb-1">
+                    <div class="w-8 h-8 rounded border border-border flex-shrink-0" style={`background-color: ${data.hex}`} aria-label={`${name} ${mode.toLowerCase()} color preview`} />
+                    <code class="text-sm bg-muted px-2 py-1 rounded flex-1">{data.hex}</code>
+                  </div>
+                  <code class="block text-sm bg-muted px-2 py-1 rounded">hsl({data.value})</code>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Fonts -->
+    <section class="mb-12">
+      <T key="brand.fonts.title" tag="h2" class="text-2xl font-bold mb-6" />
+      <div class="space-y-6">
+        {fonts.map(({ name, usage, weight, link, samples, class: fontClass }) => (
+          <div class={cardClasses}>
+            <div class="mb-4 flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-bold text-lg mb-1">{name}</h3>
+                <p class="text-sm text-muted-foreground mb-1">{usage}</p>
+                <p class="text-sm text-muted-foreground">Weight: {weight}</p>
+              </div>
+              <a href={link} target="_blank" rel="noopener noreferrer" class="text-sm bg-muted hover:bg-muted/80 px-4 py-2 rounded transition-colors whitespace-nowrap">
+                View on Google Fonts
+              </a>
+            </div>
+            <div class="bg-background rounded p-6 space-y-4">
+              {samples.map(({ lang, text }, i) => (
+                <div>
+                  <p class="text-sm text-muted-foreground mb-1">{lang}</p>
+                  <p class:list={[i === 0 ? "text-xl" : "text-base", fontClass]}>{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section class="mb-12">
+      <T key="brand.usage.title" tag="h2" class="text-2xl font-bold mb-6" />
+      <div class={cardClasses} class:list={["space-y-4"]}>
+        {usagePoints.map(point => (
+          <div>
+            <p class="font-medium mb-2"><T key={`brand.usage.${point}Title`} /></p>
+            <p class="text-sm text-muted-foreground"><T key={`brand.usage.${point}Text`} /></p>
+          </div>
+        ))}
+      </div>
+      <p class="text-sm text-muted-foreground mt-4 text-center"><T key="brand.usage.footer" /></p>
+    </section>
+
+    <div class="text-center">
+      <a href="#" class="text-sm text-muted-foreground hover:text-primary transition-colors">↑ Back to top</a>
     </div>
   </div>
 </BaseLayout>
