@@ -112,6 +112,26 @@
   .dark {
     /* Dark theme inherits from :root */
   }
+
+  /* High contrast overrides — dark */
+  .high-contrast {
+    --foreground: 0 0% 100%;
+    --muted-foreground: 270 5% 85%;
+    --border: 270 20% 40%;
+    --primary: 195 100% 70%;
+    --card: 270 30% 8%;
+    --popover: 270 30% 8%;
+  }
+
+  /* High contrast overrides — light */
+  .high-contrast.light {
+    --foreground: 240 10% 2%;
+    --muted-foreground: 240 5% 25%;
+    --border: 240 6% 70%;
+    --primary: 195 100% 30%;
+    --card: 0 0% 100%;
+    --popover: 0 0% 100%;
+  }
 }
 
 /*
@@ -245,6 +265,15 @@ html.i18n-updating [data-t-key] {
 .dark .stars-2a,
 .dark .stars-3a {
   visibility: visible;
+}
+
+/* Disable star effects when user preference is set */
+[data-no-stars] .stars-1a,
+[data-no-stars] .stars-2a,
+[data-no-stars] .stars-3a,
+[data-no-stars] .particles-1 {
+  visibility: hidden !important;
+  animation: none !important;
 }
 
 .stars-1a {
