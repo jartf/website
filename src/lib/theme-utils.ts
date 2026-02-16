@@ -12,7 +12,7 @@ export function applyTheme(theme: string) {
 }
 
 export function cycleTheme() {
-  const current = localStorage.getItem("theme") || "dark";
+  const current = localStorage.getItem("theme") || "system";
   const idx = themes.indexOf(current as any);
   applyTheme(themes[(idx + 1) % themes.length]);
 }

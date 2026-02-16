@@ -92,9 +92,9 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
     });
   }
 
-  const initialLang = (window as any).__INITIAL_LANG__;
+  const initialLang = window.__INITIAL_LANG__;
   if (initialLang && initialLang !== 'en') {
-    languageStore.set(initialLang);
+    languageStore.set(initialLang as import('@/lib/constants').SupportedLanguage);
   } else {
     initLanguage();
   }

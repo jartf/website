@@ -5,7 +5,7 @@ import { supportedLanguages, completedLanguages, type SupportedLanguage } from "
 // Global window types for i18n
 declare global {
   interface Window {
-    __INITIAL_LANG__?: string;
+    __INITIAL_LANG__?: SupportedLanguage;
   }
 }
 

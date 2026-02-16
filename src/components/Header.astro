@@ -125,7 +125,7 @@ const navInactiveClass = "text-muted-foreground";
 </header>
 
 <script>
-  import { applyTheme } from '@/lib/theme-utils';
+  import { cycleTheme } from '@/lib/theme-utils';
 
   function initThemeToggle() {
     const button = document.getElementById("theme-toggle");
@@ -146,10 +146,8 @@ const navInactiveClass = "text-muted-foreground";
     // Prevent duplicate listeners across View Transitions
     button.replaceWith(button.cloneNode(true));
     document.getElementById("theme-toggle")?.addEventListener("click", () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      const next = isDark ? "light" : "dark";
-      applyTheme(next);
-      updateIcons(next === "dark");
+      cycleTheme();
+      updateIcons(document.documentElement.classList.contains("dark"));
     });
   }
 

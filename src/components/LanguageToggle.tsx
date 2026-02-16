@@ -12,9 +12,9 @@ export function LanguageToggle() {
 
   useEffect(() => {
     // Use pre-detected language if available for faster initialization
-    const initialLang = (window as any).__INITIAL_LANG__;
+    const initialLang = window.__INITIAL_LANG__;
     if (initialLang && initialLang !== languageStore.get()) {
-      languageStore.set(initialLang);
+      languageStore.set(initialLang as SupportedLanguage);
     }
   }, []);
 

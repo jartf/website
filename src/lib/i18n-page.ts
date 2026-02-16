@@ -2,6 +2,11 @@
 // Eliminates the duplicated initLanguage/subscribe/languageChange pattern across pages
 import { languageStore, initLanguage, applyDomTranslations } from "@/i18n";
 
+// Dedup guard keys stored on window
+const guardMap = typeof window !== "undefined"
+  ? ((window as Window & { __i18nGuards?: Set<string> }).__i18nGuards ??= new Set<string>())
+  : new Set<string>();
+
 /**
  * Standard page i18n setup: init language, run callback, subscribe to changes.
  * Handles deduplication of subscriptions across View Transitions.
@@ -22,8 +27,8 @@ export function setupPageI18n(
 
   run();
 
-  if (!(window as any)[key]) {
-    (window as any)[key] = true;
+  if (!guardMap.has(key)) {
+    guardMap.add(key);
     languageStore.subscribe(run);
   }
 }

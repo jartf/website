@@ -13,12 +13,10 @@
   "dependencies": {
     "@astrojs/check": "0.9.6",
     "@astrojs/react": "4.4.2",
-    "@astrojs/sitemap": "^3.7.0",
     "@astrojs/tailwind": "^6.0.2",
     "@astrojs/vercel": "^9.0.4",
     "@nanostores/react": "^0.8.4",
     "astro": "^5.17.2",
-    "date-fns": "^4.1.0",
     "framer-motion": "^12.34.0",
     "lucide-react": "^0.562.0",
     "nanostores": "^0.11.4",

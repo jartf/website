@@ -237,14 +237,14 @@ const structuredData = {
     <script is:inline>
       (function () {
         try {
-          const stored = localStorage.getItem("theme");
-          // Default to dark mode if no preference is stored
-          const theme = stored === "dark" || stored === "light" ? stored : "dark";
+          var stored = localStorage.getItem("theme");
+          var resolved = stored === "light" ? "light"
+            : stored === "dark" ? "dark"
+            : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
           document.documentElement.classList.remove("light", "dark");
-          document.documentElement.classList.add(theme);
-          document.documentElement.style.colorScheme = theme;
+          document.documentElement.classList.add(resolved);
+          document.documentElement.style.colorScheme = resolved;
         } catch (e) {
-          // Fallback to dark mode
           document.documentElement.classList.add("dark");
         }
       })();
@@ -279,9 +279,9 @@ const structuredData = {
       import { applyDomTranslations, initLanguage, languageStore } from "@/i18n";
 
       // Avoid duplicate listeners/subscriptions across View Transitions.
-      // (Astro may execute head scripts on navigation.)
-      if (!(window as any).__I18N_RUNTIME_INIT__) {
-        (window as any).__I18N_RUNTIME_INIT__ = true;
+      const guard = window as Window & { __I18N_RUNTIME_INIT__?: boolean };
+      if (!guard.__I18N_RUNTIME_INIT__) {
+        guard.__I18N_RUNTIME_INIT__ = true;
 
         initLanguage();
         applyDomTranslations(document);

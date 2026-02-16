@@ -4,7 +4,7 @@
 import { useEffect, useCallback, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useStore } from '@nanostores/react'
-import { languageStore, initLanguage, t as i18nT } from '@/i18n'
+import { languageStore, initLanguage, t as i18nT, type SupportedLanguage } from '@/i18n'
 import { useGame2048, getTileColor, getFontSize } from '@/hooks/use-game-2048'
 
 // Size of each tile for animation calculations
@@ -17,9 +17,9 @@ export default function Game2048() {
 
   useEffect(() => {
     // Use pre-detected language if available for faster initialization
-    const initialLang = (window as any).__INITIAL_LANG__
+    const initialLang = window.__INITIAL_LANG__
     if (initialLang && initialLang !== languageStore.get()) {
-      languageStore.set(initialLang)
+      languageStore.set(initialLang as SupportedLanguage)
       return
     }
 
