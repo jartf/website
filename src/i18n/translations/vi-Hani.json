@@ -10,7 +10,8 @@
     "guestbook": "數留筆",
     "colophon": "通信",
     "webring": "Webring",
-    "scrapbook": "𥱬劄"
+    "scrapbook": "𥱬劄",
+    "brand": "部認面"
   },
   "languageNotice": {
     "message": "翻版㗂越平𡨸漢喃吻當得𡏦𥩯。𠬠數內容固体𣗓完整或被少、煩伴通感。（Phiên bản Tiếng Việt bằng chữ Hán Nôm vẫn đang được xây dựng. Một số nội dung có thể chưa hoàn chỉnh hoặc bị thiếu, phiền bạn thông cảm.）",
@@ -409,6 +410,94 @@
     "showingFiltered": "當顯示 {{filtered}} 𨑗總數 {{total}} 徽號",
     "noResults": "空尋𧡊徽號𱜢𨨤貝尋檢",
     "visitBadge": "㨳㖭探 {{name}}"
+  },
+    "brand": {
+    "pageTitle": "部認面",
+    "pageDescription": "部認面𧵑張䇼𧵑𨉟。唉使用𠇍丐尼裊伴㦖𠯅𦤾或引 link 𬧐張尼唲。",
+    "name": {
+      "title": "𠸜",
+      "nameLabel": "𠸜",
+      "displayNameLabel": "𠸜顯示",
+      "symbolNote": "記號『爲丕』（∴）㫻𱺵𠬠份𥪝𠸜顯示𧵑𨉟。伮代面朱結果、結論、點結𧵑嚨推擬。"
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "Chỉ mặt",
+      "faceAndBody": "Mặt và thân trên",
+      "dimensions1": "384×384px （或倍數𫰅或𡮈欣𧵑伮調得）",
+      "dimensions2": "512×512px （或倍數𫰅或𡮈欣𧵑伮調得）",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "徽號",
+      "urlLabel": "URL 直接",
+      "htmlLabel": "HTML"
+    },
+    "colors": {
+      "title": "𦭷色",
+      "names": {
+        "primary": "主導",
+        "background": "Nền",
+        "card": "Thẻ",
+        "foreground": "Tiền cảnh",
+        "muted": "Mờ",
+        "border": "Viền"
+      },
+      "descriptions": {
+        "primary": "Màu nhấn chính",
+        "background": "Nền trang",
+        "card": "Nền thẻ",
+        "foreground": "Màu chữ chính",
+        "muted": "Các phần tử phụ",
+        "border": "Viền và dải phân cách"
+      },
+      "darkMode": "Chế độ tối",
+      "lightMode": "Chế độ sáng"
+    },
+    "fonts": {
+      "title": "Phông chữ",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "漢喃 Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "標題",
+        "lexend": "內容吧交面 (UI)",
+        "notoSansSC": "㗂中",
+        "hanNomGothic": "𡨸喃"
+      },
+      "weight": "Độ dày:",
+      "viewOnGoogleFonts": "Xem trên kho phông chữ",
+      "languages": {
+        "english": "㗂英",
+        "vietnamese": "㗂越",
+        "polish": "㗂波蘭",
+        "russian": "㗂俄",
+        "japanese": "㗂日",
+        "hebrew": "㗂猶太",
+        "symbols": "記號",
+        "chineseSimplified": "㗂中（簡體）",
+        "chineseTraditional": "㗂中（繁體）",
+        "vietnameseHanNom": "㗂越（𡨸喃）"
+      }
+    },
+    "usage": {
+      "title": "留意𡮈",
+      "point1Title": "Cứ thoải mái dùng",
+      "point1Text": "Không cần xin phép để dùng huy hiệu, logo hay dẫn link tới web này đâu. Cứ lấy, hotlink, hay vứt lên web của bạn. Mình không quan tâm. Thực ra là mình còn thấy vui ấy chứ.",
+      "point2Title": "𡨺元 style pixel 𧵑徽號",
+      "point2Text": "Nếu dùng huy hiệu (badge), làm ơn thêm 'image-rendering: pixelated' (hoặc 'crisp-edges' trên Firefox) vào CSS. Không có nó, trình duyệt sẽ làm mờ pixel nhìn như rác ấy. Nó là pixel art, làm ơn hãy đối xử với nó như pixel art.",
+      "point3Title": "Ghi nguồn thì tốt, không thì cũng không sao",
+      "point3Text": "Nếu bạn viết bài về trang web này hay dùng tư liệu trong blog, dẫn link lại thì mình sẽ vui lắm. Nhưng nếu chỉ gắn cái badge vào trang liên kết thì không cần làm gì thêm đâu, cái mã HTML của badge mình đưa đã có link sẵn về đây rồi.",
+      "point4Title": "揨𫜵𠻀",
+      "point4Text": "Đừng dùng mấy cái này để giả danh mình, nhét chữ vào mình, hay làm như kiểu mình dính dáng tới cái gì mờ ám. Mình tin là bạn biết sự khác biệt giữa việc dẫn link tới trang bạn thích và việc giả mạo người khác. Nếu thấy lấn cấn không biết việc bạn định làm có kỳ cục không, thì khả năng cao là có đấy.",
+      "footer": "Thế thôi, cứ dùng đàng hoàng là được."
+    }
   },
   "colophon": {
     "title": "通信張䇼",
