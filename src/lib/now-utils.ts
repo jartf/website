@@ -51,7 +51,7 @@ export async function fetchLiveData(): Promise<LiveItem[]> {
 function parseLastfm(xml: string): LastfmTrack | null {
   const doc = new DOMParser().parseFromString(xml, "application/xml");
   if (doc.querySelector("parsererror")) return null;
-  const tracks = doc.getElementsByTagName("track");jank
+  const tracks = doc.getElementsByTagName("track");
   if (!tracks.length) return null;
 
   const track = Array.from(tracks).find(t => t.getAttribute("nowplaying") === "true") || tracks[0];
