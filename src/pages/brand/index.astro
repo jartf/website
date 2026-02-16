@@ -4,12 +4,12 @@ import T from "@/components/T.astro";
 import { Image } from 'astro:assets';
 
 const colors = [
-  { name: "Primary", dark: { value: "195 100% 65%", hex: "#54D4FF" }, light: { value: "195 100% 40%", hex: "#0099CC" }, desc: "Main accent color" },
-  { name: "Background", dark: { value: "270 30% 10%", hex: "#1A0F2E" }, light: { value: "0 0% 100%", hex: "#FFFFFF" }, desc: "Page background" },
-  { name: "Card", dark: { value: "270 25% 15%", hex: "#2A1F45" }, light: { value: "0 0% 100%", hex: "#FFFFFF" }, desc: "Card background" },
-  { name: "Foreground", dark: { value: "0 0% 95%", hex: "#F2F2F2" }, light: { value: "240 10% 3.9%", hex: "#0A0A0F" }, desc: "Main text color" },
-  { name: "Muted", dark: { value: "270 25% 20%", hex: "#3A2F5A" }, light: { value: "240 4.8% 95.9%", hex: "#F4F4F5" }, desc: "Muted elements" },
-  { name: "Border", dark: { value: "270 25% 25%", hex: "#4A3F6F" }, light: { value: "240 5.9% 90%", hex: "#E4E4E7" }, desc: "Borders and dividers" },
+  { key: "primary", dark: { value: "195 100% 65%", hex: "#54D4FF" }, light: { value: "195 100% 40%", hex: "#0099CC" } },
+  { key: "background", dark: { value: "270 30% 10%", hex: "#1A0F2E" }, light: { value: "0 0% 100%", hex: "#FFFFFF" } },
+  { key: "card", dark: { value: "270 25% 15%", hex: "#2A1F45" }, light: { value: "0 0% 100%", hex: "#FFFFFF" } },
+  { key: "foreground", dark: { value: "0 0% 95%", hex: "#F2F2F2" }, light: { value: "240 10% 3.9%", hex: "#0A0A0F" } },
+  { key: "muted", dark: { value: "270 25% 20%", hex: "#3A2F5A" }, light: { value: "240 4.8% 95.9%", hex: "#F4F4F5" } },
+  { key: "border", dark: { value: "270 25% 25%", hex: "#4A3F6F" }, light: { value: "240 5.9% 90%", hex: "#E4E4E7" } },
 ];
 
 const logos = [
@@ -18,20 +18,20 @@ const logos = [
 ];
 
 const fontSamples = [
-  { lang: "English", text: "Sphinx of black quartz, judge my vow" },
-  { lang: "Vietnamese", text: "Trời xanh quen với má hồng đánh ghen" },
-  { lang: "Polish", text: "Pchnąć w tę łódź jeża lub ośm skrzyń fig" },
-  { lang: "Russian", text: "Съешь ещё этих мягких французских булок, да выпей же чаю" },
-  { lang: "Japanese", text: "色は匂えど散りぬるを" },
-  { lang: "Hebrew", text: "דג סקרן שט בים, מאוכזב ולפתע מצא חברה" },
-  { lang: "Symbols", text: "0123456789-= !@#$%^&*()_+" }
+  { key: "english", text: "Sphinx of black quartz, judge my vow" },
+  { key: "vietnamese", text: "Trời xanh quen với má hồng đánh ghen" },
+  { key: "polish", text: "Pchnąć w tę łódź jeża lub ośm skrzyń fig" },
+  { key: "russian", text: "Съешь ещё этих мягких французских булок, да выпей же чаю" },
+  { key: "japanese", text: "色は匂えど散りぬるを" },
+  { key: "hebrew", text: "דג סקרן שט בים, מאוכזב ולפתע מצא חברה" },
+  { key: "symbols", text: "0123456789-= !@#$%^&*()_+" }
 ];
 
 const fonts = [
-  { name: "Space Grotesk", usage: "Headings and titles", weight: "400-700", class: "font-heading", link: "https://fonts.google.com/specimen/Space+Grotesk", samples: fontSamples },
-  { name: "Lexend", usage: "Body text and UI elements", weight: "400-700", class: "font-body", link: "https://fonts.google.com/specimen/Lexend", samples: fontSamples },
-  { name: "Noto Sans SC", usage: "Chinese text (Simplified)", weight: "400-700", class: "font-noto-sans-sc", link: "https://fonts.google.com/specimen/Noto+Sans+SC", samples: [{ lang: "Chinese (Simplified)", text: "床前明月光，疑是地上霜。举头望明月，低头思故乡。" }] },
-  { name: "Han Nom Gothic", usage: "Vietnamese Chữ Nôm", weight: "400", class: "font-han-nom", link: "https://hannom-rcv.org/font.html", samples: [{ lang: "Vietnamese Chữ Nôm", text: "身㛪辰𤽸分㛪𧷺，𠤩浽𠀧沉買渃𡽫，硍湼默油𢬣几揑，𦓡㛪刎𡨹𬌓𢚸𣘈。" }] }
+  { key: "spaceGrotesk", weight: "700", class: "font-heading", link: "https://fonts.google.com/specimen/Space+Grotesk", samples: fontSamples },
+  { key: "lexend", weight: "400-700", class: "font-body", link: "https://fonts.google.com/specimen/Lexend", samples: fontSamples },
+  { key: "notoSansSC", weight: "400-700", class: "font-noto-sans-sc", link: "https://fonts.google.com/specimen/Noto+Sans+SC", samples: [{ key: "chineseSimplified", text: "床前明月光，疑是地上霜。举头望明月，低头思故乡。" }, { key: "chineseTraditional", text: "床前明月光，疑似地上霜。 舉頭望明月，低頭思故鄉。" }] },
+  { key: "hanNomGothic", weight: "400", class: "font-han-nom", link: "https://hannom-rcv.org/font.html", samples: [{ key: "vietnameseHanNom", text: "身㛪辰𤽸分㛪𧷺，𠤩浽𠀧沉買渃𡽫，硍湼默油𢬣几揑，𦓡㛪刎𡨹𬌓𢚸𣘈。" }] }
 ];
 
 const usagePoints = ["point1", "point2", "point3", "point4"];
@@ -71,8 +71,8 @@ const cardClasses = "bg-card border rounded-lg p-6";
             </div>
             <div class="space-y-2">
               <div class="flex gap-2">
-                {["PNG", "SVG"].map(format => (
-                  <a href={`${src}.${format.toLowerCase()}`} target="_blank" class="flex-1 text-sm bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-center transition-colors">{format}</a>
+                {[{format: "png", key: "brand.logo.formats.png"}, {format: "svg", key: "brand.logo.formats.svg"}].map(({ format, key }) => (
+                  <a href={`${src}.${format}`} target="_blank" class="flex-1 text-sm bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-center transition-colors"><T key={key} /></a>
                 ))}
               </div>
               <p class="text-sm text-muted-foreground"><T key={`brand.logo.${dimKey}`} /></p>
@@ -108,18 +108,18 @@ const cardClasses = "bg-card border rounded-lg p-6";
     <section class="mb-12">
       <T key="brand.colors.title" tag="h2" class="text-2xl font-bold mb-6" />
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {colors.map(({ name, dark, light, desc }) => (
+        {colors.map(({ key, dark, light }) => (
           <div class={cardClasses} class:list={["p-4"]}>
             <div class="mb-3">
-              <p class="font-medium mb-1">{name}</p>
-              <p class="text-sm text-muted-foreground">{desc}</p>
+              <T key={`brand.colors.names.${key}`} tag="p" class="font-medium mb-1" />
+              <T key={`brand.colors.descriptions.${key}`} tag="p" class="text-sm text-muted-foreground" />
             </div>
             <div class="space-y-3">
-              {[{ mode: "Dark mode", data: dark }, { mode: "Light mode", data: light }].map(({ mode, data }) => (
+              {[{ modeKey: "darkMode", data: dark }, { modeKey: "lightMode", data: light }].map(({ modeKey, data }) => (
                 <div>
-                  <p class="text-sm text-muted-foreground mb-2">{mode}</p>
+                  <T key={`brand.colors.${modeKey}`} tag="p" class="text-sm text-muted-foreground mb-2" />
                   <div class="flex items-center gap-2 mb-1">
-                    <div class="w-8 h-8 rounded border border-border flex-shrink-0" style={`background-color: ${data.hex}`} aria-label={`${name} ${mode.toLowerCase()} color preview`} />
+                    <div class="w-8 h-8 rounded border border-border flex-shrink-0" style={`background-color: ${data.hex}`} />
                     <code class="text-sm bg-muted px-2 py-1 rounded flex-1">{data.hex}</code>
                   </div>
                   <code class="block text-sm bg-muted px-2 py-1 rounded">hsl({data.value})</code>
@@ -135,23 +135,23 @@ const cardClasses = "bg-card border rounded-lg p-6";
     <section class="mb-12">
       <T key="brand.fonts.title" tag="h2" class="text-2xl font-bold mb-6" />
       <div class="space-y-6">
-        {fonts.map(({ name, usage, weight, link, samples, class: fontClass }) => (
+        {fonts.map(({ key, weight, link, samples, class: fontClass }) => (
           <div class={cardClasses}>
             <div class="mb-4 flex items-start justify-between gap-4">
               <div>
-                <h3 class="font-bold text-lg mb-1">{name}</h3>
-                <p class="text-sm text-muted-foreground mb-1">{usage}</p>
-                <p class="text-sm text-muted-foreground">Weight: {weight}</p>
+                <T key={`brand.fonts.names.${key}`} tag="h3" class="font-bold text-lg mb-1" />
+                <T key={`brand.fonts.usage.${key}`} tag="p" class="text-sm text-muted-foreground mb-1" />
+                <p class="text-sm text-muted-foreground"><T key="brand.fonts.weight" /> {weight}</p>
               </div>
               <a href={link} target="_blank" rel="noopener noreferrer" class="text-sm bg-muted hover:bg-muted/80 px-4 py-2 rounded transition-colors whitespace-nowrap">
-                View on Google Fonts
+                <T key="brand.fonts.viewOnGoogleFonts" />
               </a>
             </div>
             <div class="bg-background rounded p-6 space-y-4">
-              {samples.map(({ lang, text }, i) => (
+              {samples.map(({ key: langKey, text }, i) => (
                 <div>
-                  <p class="text-sm text-muted-foreground mb-1">{lang}</p>
-                  <p class:list={[i === 0 ? "text-xl" : "text-base", fontClass]}>{text}</p>
+                  <T key={`brand.fonts.languages.${langKey}`} tag="p" class="text-sm text-muted-foreground mb-1" />
+                  <p class:list={["text-base", fontClass, key === "spaceGrotesk" && "font-bold"]}>{text}</p>
                 </div>
               ))}
             </div>
