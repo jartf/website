@@ -97,31 +97,33 @@ const navInactiveClass = "text-muted-foreground";
         </svg>
         <span id="music-disabled-reason" class="sr-only">Background music feature is currently disabled as no audio file is configured</span>
       </button>
+
+      <!-- Mobile hamburger menu (no JS) -->
+      <details class="group lg:hidden relative">
+        <summary class="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer list-none [&::-webkit-details-marker]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Toggle navigation menu">
+          <svg class="group-open:hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg class="hidden group-open:block" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </summary>
+        <nav
+          class="absolute right-0 top-full mt-2 w-48 rounded-md border bg-background/95 backdrop-blur-sm shadow-lg py-2 z-50"
+          aria-label="Mobile navigation"
+        >
+          {navState.map(({ href, key, isActive }) => (
+            <a
+              href={href}
+              class:list={[
+                "block px-4 py-2 text-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+                isActive ? "text-foreground font-medium bg-muted/50" : "text-muted-foreground",
+              ]}
+              aria-current={isActive ? "page" : undefined}
+            >
+              <T key={`nav.${key}`} />
+            </a>
+          ))}
+        </nav>
+      </details>
     </div>
   </div>
-
-  <!-- Mobile navigation bar -->
-  <nav
-    class="lg:hidden border-t bg-background/95 backdrop-blur-sm"
-    aria-label="Mobile navigation"
-  >
-    <div class="container px-4 py-2">
-      <div class="flex items-center justify-center gap-3 md:gap-5 gap-y-1 flex-wrap">
-        {navState.map(({ href, key, isActive }) => (
-          <a
-            href={href}
-            class:list={[`${navBaseClasses} py-1`, isActive ? navActiveClass : navInactiveClass]}
-            aria-current={isActive ? "page" : undefined}
-          >
-            <T key={`nav.${key}`} />
-            {isActive && (
-              <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />
-            )}
-          </a>
-        ))}
-      </div>
-    </div>
-  </nav>
 </header>
 
 <script>
