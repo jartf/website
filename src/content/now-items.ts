@@ -36,7 +36,7 @@ export const nowItems: NowItem[] = [
       en: "HoneyComeBear"
     },
     image: "https://lastfm.freetls.fastly.net/i/u/174s/bf160d8ae5651e8f91fad2e7121bb8e2.jpg",
-    date: "2026-01-09T20:33:36+00:00",
+    date: "2026-02-09T20:33:36+00:00",
   },
   {
     id: 2,
@@ -96,7 +96,7 @@ export const nowItems: NowItem[] = [
       tok: '"Joey Pigza Loses Control" tan jan Jack Gantos',
       vih: '「Joey Pigza Loses Control」（Joey Pigza 被𠅒檢詧）𧵑 Jack Gantos',
     },
-    date: "2026-01-08T21:32:18+07:00",
+    date: "2026-02-15T21:32:18+07:00",
   },
   {
     id: 5,
@@ -116,7 +116,7 @@ export const nowItems: NowItem[] = [
       tok: "mi pona e lipu ni. mi wile kepeken lili e ilo React. mi wile kepeken sin e ilo Astro",
       vih: "最優化張䇼尼抵𠃣附屬𠓨 React 欣吧𢮿吏使用 Astro",
     },
-    date: "2026-01-09T18:09:36+00:00",
+    date: "2026-02-15T18:09:36+00:00",
   },
   {
     id: 6,
@@ -136,7 +136,7 @@ export const nowItems: NowItem[] = [
       tok: "telo lete pona",
       vih: "𠬠𡭧渃𠖾冷",
     },
-    date: "2026-01-09T06:10:18+00:00",
+    date: "2026-02-14T06:10:18+00:00",
   },
   {
     id: 7,
@@ -156,7 +156,7 @@ export const nowItems: NowItem[] = [
       tok: 'toki pi nasin ni: mi ken pali mute e ijo olin mi',
       vih: "𧗱格𨉟固体𫜵仍條𨉟㤇適常川欣",
     },
-    date: "2026-01-06T22:30:00+07:00",
+    date: "2026-02-06T22:30:00+07:00",
   },
   {
     id: 8,
