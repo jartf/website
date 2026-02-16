@@ -171,66 +171,6 @@ export const navItems = [
   { href: routes.slashes, key: "slashes" },
 ] as const;
 
-// Webrings data
-export const webrings = [
-  [
-    "IndieWeb Webring 🕸💍",
-    "https://xn--sr8hvo.ws",
-    "https://xn--sr8hvo.ws/previous",
-    "https://xn--sr8hvo.ws/random",
-    "https://xn--sr8hvo.ws/next",
-  ],
-  [
-    "The retronaut webring",
-    "https://webring.dinhe.net/",
-    "https://webring.dinhe.net/prev/https://jarema.me",
-    "https://webring.dinhe.net/random",
-    "https://webring.dinhe.net/next/https://jarema.me",
-  ],
-  [
-    "Hotline Webring",
-    "https://hotlinewebring.club/",
-    "https://hotlinewebring.club/jar/previous",
-    null,
-    "https://hotlinewebring.club/jar/next",
-  ],
-  [
-    "Bucket webring",
-    "https://webring.bucketfish.me",
-    "https://webring.bucketfish.me/redirect.html?to=prev&name=Jarema",
-    "https://webring.bucketfish.me/redirect.html?to=random&name=Jarema",
-    "https://webring.bucketfish.me/redirect.html?to=next&name=Jarema",
-  ],
-  [
-    "Meta Ring",
-    "https://meta-ring.hedy.dev/",
-    "https://meta-ring.hedy.dev/previous",
-    "https://meta-ring.hedy.dev/random",
-    "https://meta-ring.hedy.dev/next",
-  ],
-  [
-    "☆ Webmaster Webring ☆",
-    "https://webmasterwebring.netlify.app/",
-    "https://webmasterwebring.netlify.app?jarema-previous",
-    "https://webmasterwebring.netlify.app?jarema-random",
-    "https://webmasterwebring.netlify.app?jarema-next",
-  ],
-  [
-    "Fediring",
-    "https://fediring.net/",
-    "https://fediring.net/previous?host=jarema.me",
-    "https://fediring.net/random",
-    "https://fediring.net/next?host=jarema.me",
-  ],
-  [
-    "Geekring",
-    "http://geekring.net/",
-    "http://geekring.net/site/553/previous",
-    "http://geekring.net/site/553/random",
-    "http://geekring.net/site/553/next",
-  ],
-] as const;
-
 // Footer badges
 export interface FooterBadge {
   src: string;
