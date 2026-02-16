@@ -1,6 +1,6 @@
 // i18n configuration and utilities
 import { atom, computed } from "nanostores";
-import { supportedLanguages, type SupportedLanguage } from "@/lib/constants";
+import { supportedLanguages, completedLanguages, type SupportedLanguage } from "@/lib/constants";
 
 // Global window types for i18n
 declare global {
@@ -110,11 +110,11 @@ export function initLanguage() {
     return stored;
   }
 
-  // Detect from browser
+  // Detect from browser, only auto-switch to completed languages
   const browserLang = navigator.language.split("-")[0];
-  if (translations[browserLang]) {
+  if (translations[browserLang] && (completedLanguages as readonly string[]).includes(browserLang)) {
     languageStore.set(browserLang as SupportedLanguage);
-    document.documentElement.lang = browserLang === "vih" ? "vi" : browserLang;
+    document.documentElement.lang = browserLang;
     return browserLang;
   }
 
