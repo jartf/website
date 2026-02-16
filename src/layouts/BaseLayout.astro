@@ -239,8 +239,8 @@ const structuredData = {
         try {
           var stored = localStorage.getItem("theme");
           var resolved = stored === "light" ? "light"
-            : stored === "dark" ? "dark"
-            : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            : stored === "system" ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+            : "dark";
           document.documentElement.classList.remove("light", "dark");
           document.documentElement.classList.add(resolved);
           document.documentElement.style.colorScheme = resolved;
