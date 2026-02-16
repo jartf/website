@@ -3,11 +3,12 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { Image } from 'astro:assets';
+import { siteUrl, siteName } from '@/lib/constants';
 
 // Badge data
 const BADGES = [
-  { id: "personal", name: "Jarema's badge", src: "/badge.png", alt: "A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones", category: "personal", url: "https://jarema.me/", description: "My personal badge depicting me in headphones under the stars." },
-  { id: "badge-eesti", name: "Eesti", src: "/badge-eesti.png", alt: "My personal badge, with a frame of Estonia's flag.", category: "personal", url: "https://jarema.me/", description: "The same personal badge, just with the Estonia flag frame." },
+  { id: "personal", name: "Jarema's badge", src: "/badge.png", alt: "A pixel art banner with a thin blue border of a smiling boy with brown hair and blue headphones", category: "personal", url: siteUrl, description: "My personal badge depicting me in headphones under the stars." },
+  { id: "badge-eesti", name: "Eesti", src: "/badge-eesti.png", alt: "My personal badge, with a frame of Estonia's flag.", category: "personal", url: siteUrl, description: "The same personal badge, just with the Estonia flag frame." },
   { id: "retrokid", name: "retrokid", src: "/retrokid.gif", alt: "An animated retro banner showing the pixelated text retrokid.", category: "web", url: "/retro", description: "A retro badge for the retro mode! I have a site version for Netscape!" },
   { id: "humanstxt", name: "humans.txt", src: "/humanstxt.png", alt: "A banner showing the humans.txt wordmark", category: "validation", url: "/humans.txt", description: "Information about me! Hi, I'm the human behind this website." },
   { id: "valid-rss", name: "Valid RSS", src: "/valid-rss-rogers.png", alt: "A banner showing the RSS logo next to the text Valid RSS", category: "validation", url: "/rss.xml", description: "Valid RSS feed" },
@@ -54,19 +55,19 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
             </div>
             <div class="mb-4">
               <T key="badges.hotlinkUrl" tag="p" class="text-xs text-muted-foreground mb-1" />
-              <code class="block bg-muted p-2 rounded text-xs overflow-x-auto select-all">https://jarema.me/badge.png</code>
+              <code class="block bg-muted p-2 rounded text-xs overflow-x-auto select-all">{siteUrl}/badge.png</code>
             </div>
             <div class="mb-4">
               <T key="badges.htmlCodeTitle" tag="p" class="text-xs text-muted-foreground mb-1" />
-              <pre class="bg-muted p-2 rounded text-xs overflow-x-auto select-all"><code>{`<a href="https://jarema.me/">
-  <img src="https://jarema.me/badge.png" alt="Jarema's digital garden" width="88" height="31" style="image-rendering: pixelated;">
+              <pre class="bg-muted p-2 rounded text-xs overflow-x-auto select-all"><code>{`<a href="${siteUrl}/">
+  <img src="${siteUrl}/badge.png" alt="${siteName}" width="88" height="31" style="image-rendering: pixelated;">
 </a>`}</code></pre>
             </div>
             <div class="text-xs text-muted-foreground space-y-1 mt-4 p-3 bg-muted/50 rounded">
               <T key="badges.embeddingSuggestionsTitle" tag="p" class="font-medium" />
               <ul class="list-disc list-inside space-y-1">
                 <li><T key="badges.suggestion1" /> <code class="bg-muted px-1 rounded">image-rendering: pixelated</code> <T key="badges.suggestion1b" /></li>
-                <li><T key="badges.suggestion2" /> <code class="bg-muted px-1 rounded">https://jarema.me/</code></li>
+                <li><T key="badges.suggestion2" /> <code class="bg-muted px-1 rounded">{siteUrl}/</code></li>
                 <li><T key="badges.suggestion3" /> <code class="bg-muted px-1 rounded">176x62</code> <T key="badges.suggestion3b" /></li>
               </ul>
             </div>

@@ -12,6 +12,9 @@ import { LanguageNotice } from "@/components/LanguageNotice";
 import { EasterEgg } from "@/components/EasterEgg";
 import { hrefLangLanguages, siteUrl, siteName, siteDescription, siteKeywords, author, socialLinks, alternativeDomains, services, themeColors } from "@/lib/constants";
 
+const analyticsWebsiteIds = services.analytics.websiteIds;
+const analyticsScriptUrl = services.analytics.scriptUrl;
+
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -299,7 +302,7 @@ const structuredData = {
       }
     </script>
 
-    <script is:inline>
+    <script is:inline define:vars={{ analyticsWebsiteIds, analyticsScriptUrl }}>
       (function () {
         try {
           const host = location.hostname;
@@ -315,11 +318,8 @@ const structuredData = {
             return;
           }
 
-          // Map hostnames to website IDs
-          const websiteIds = {
-            "jarema.me": "2e9dfa41-fbe7-4799-9adb-0a57b8141a54",
-            "z.is-a.dev": "bea729d4-bbf9-494e-a4d9-bcbf2a2ab2f3",
-          };
+          // Use website IDs from constants
+          const websiteIds = analyticsWebsiteIds;
 
           // Default to jarema.me ID
           let siteId = websiteIds["jarema.me"];
@@ -331,7 +331,7 @@ const structuredData = {
 
           const s = document.createElement("script");
           s.defer = true;
-          s.src = "/stats/script.js";
+          s.src = analyticsScriptUrl;
           s.setAttribute("data-website-id", siteId);
           document.head.appendChild(s);
         } catch (e) {
@@ -356,8 +356,8 @@ const structuredData = {
         <span class="p-note note">{personNote}</span>
         <a class="u-email email" href={`mailto:${personEmail}`}>{personEmail}</a>
         <a class="u-key key" href={personKeyUrl}>{personKeyUrl}</a>
-        <span class="p-category category">student</span>
-        <span class="p-country-name country-name">Vietnam/Estonia</span>
+        <span class="p-category category">{author.category}</span>
+        <span class="p-country-name country-name">{author.country}</span>
 
         {personSameAs.map((url) => (
           <a class="u-url url" rel="me" href={url}>{url}</a>

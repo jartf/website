@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { Image } from "astro:assets";
+import { author } from '@/lib/constants';
 
 const title = "About me";
 const description = "The story of who I am, where I come from, what my passion is, and what I'm working toward.";
@@ -16,15 +17,15 @@ const chapters = [...[1, 2, 3, 4, 5].map(num => ({ num, key: String(num) })), { 
     </header>
 
     <div class="h-card mb-10 p-6 border rounded-lg bg-muted/10 flex flex-col sm:flex-row items-center gap-4">
-      <Image src="/favicon.png" alt="Jarema" width={80} height={80} class="u-photo rounded-full" />
+      <Image src="/favicon.png" alt={author.name} width={80} height={80} class="u-photo rounded-full" />
       <div class="text-center sm:text-left">
-        <h2 class="p-name text-xl font-bold">Jarema</h2>
-        <p class="p-note mt-1 text-muted-foreground">Economics major, sometimes coder, most times cat whisperer.</p>
+        <h2 class="p-name text-xl font-bold">{author.name}</h2>
+        <p class="p-note mt-1 text-muted-foreground">{author.note}</p>
         <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-2">
           <a href="/" class="u-url u-uid text-sm text-primary hover:underline">jarema.me</a>
-          <a class="u-email text-sm text-primary hover:underline" href="mailto:hello@jarema.me">hello@jarema.me</a>
+          <a class="u-email text-sm text-primary hover:underline" href={`mailto:${author.email}`}>{author.email}</a>
         </div>
-        <span class="p-category hidden">student</span>
+        <span class="p-category hidden">{author.category}</span>
       </div>
     </div>
 

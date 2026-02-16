@@ -1,8 +1,9 @@
 import type { APIRoute } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { siteUrl as constantSiteUrl } from '@/lib/constants';
 
 export const GET: APIRoute = async ({ site }) => {
-  const siteUrl = (site?.toString() || 'https://jarema.me').replace(/\/$/, '');
+  const siteUrl = (site?.toString() || constantSiteUrl).replace(/\/$/, '');
 
   // Get all blog posts
   const blogPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => !data.draft);

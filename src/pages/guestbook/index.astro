@@ -2,6 +2,7 @@
 // Guestbook page
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
+import { author } from '@/lib/constants';
 ---
 
 <BaseLayout title="Guestbook" description="Leave a message in my guestbook!">
@@ -25,7 +26,7 @@ import T from "@/components/T.astro";
           <div class="p-6 text-center">
             <p class="text-muted-foreground">
               The guestbook requires JavaScript to be enabled.
-              Alternatively, you can <a href="mailto:hello@jarema.me" class="text-primary hover:underline">email me</a> directly.
+              Alternatively, you can <a href={`mailto:${author.email}`} class="text-primary hover:underline">email me</a> directly.
             </p>
           </div>
         </noscript>

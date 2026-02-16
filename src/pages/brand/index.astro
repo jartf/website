@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { Image } from 'astro:assets';
+import { siteUrl, siteName } from '@/lib/constants';
 
 const colors = [
   { key: "primary", dark: { value: "195 100% 65%", hex: "#54D4FF" }, light: { value: "195 100% 40%", hex: "#0099CC" } },
@@ -92,12 +93,12 @@ const cardClasses = "bg-card border rounded-lg p-6";
         <div class="space-y-4">
           <div>
             <p class="text-sm text-muted-foreground mb-1"><T key="brand.badge.urlLabel" /></p>
-            <code class="block bg-muted p-2 rounded text-sm overflow-x-auto select-all">https://jarema.me/badge.png</code>
+            <code class="block bg-muted p-2 rounded text-sm overflow-x-auto select-all">{siteUrl}/badge.png</code>
           </div>
           <div>
             <p class="text-sm text-muted-foreground mb-1"><T key="brand.badge.htmlLabel" /></p>
-            <pre class="bg-muted p-2 rounded text-sm overflow-x-auto select-all"><code>{`<a href="https://jarema.me/">
-  <img src="https://jarema.me/badge.png" alt="Jarema's digital garden" width="88" height="31" style="image-rendering: pixelated;">
+            <pre class="bg-muted p-2 rounded text-sm overflow-x-auto select-all"><code>{`<a href="${siteUrl}/">
+  <img src="${siteUrl}/badge.png" alt="${siteName}" width="88" height="31" style="image-rendering: pixelated;">
 </a>`}</code></pre>
           </div>
         </div>

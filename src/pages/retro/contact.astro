@@ -1,5 +1,6 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
+import { author } from '@/lib/constants';
 ---
 
 <RetroLayout title="Contact - Jarema's Retro Site">
@@ -37,8 +38,8 @@ import RetroLayout from "@/layouts/RetroLayout.astro";
         <font size="3">
           The best way to reach me!
           <br><br>
-          <a href="mailto:hello@jarema.me">
-            <b>hello@jarema.me</b>
+          <a href={`mailto:${author.email}`}>
+            <b>{author.email}</b>
           </a>
         </font>
       </td>

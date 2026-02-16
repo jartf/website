@@ -97,6 +97,9 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
 
 <script>
   import { languageStore, initLanguage, t } from "@/i18n";
+  import { services } from "@/lib/constants";
+
+  const statusCafeProfileUrl = services.statusCafe.profileUrl;
 
   const greetings = [
     { hours: [5, 12], emoji: "🌅", key: "greetings.morning" },
@@ -127,11 +130,11 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
 
   const u = document.getElementById("statuscafe-username"), c = document.getElementById("statuscafe-content");
   if (u && c) {
-    fetch("https://status.cafe/users/jarema/status.json", { headers: { Accept: "application/json" } })
+    fetch(`${statusCafeProfileUrl}/status.json`, { headers: { Accept: "application/json" } })
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(r => {
         if (!r?.content?.length) return c.textContent = "No status yet.";
-        u.innerHTML = `<a href="https://status.cafe/users/jarema" target="_blank">@${r.author}</a> · ${r.face || ""} · ${r.timeAgo || ""}`;
+        u.innerHTML = `<a href="${statusCafeProfileUrl}" target="_blank">@${r.author}</a> · ${r.face || ""} · ${r.timeAgo || ""}`;
         c.textContent = r.content;
       })
       .catch(() => c.textContent = "Couldn't load status.");

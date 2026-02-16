@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro';
+import { siteUrl as constantSiteUrl } from '@/lib/constants';
 
 export const GET: APIRoute = async ({ site }) => {
-  const siteUrl = (site?.toString() || 'https://jarema.me').replace(/\/$/, '');
+  const siteUrl = (site?.toString() || constantSiteUrl).replace(/\/$/, '');
 
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>${siteUrl}/sitemap.xml</loc></sitemap></sitemapindex>`;
 
