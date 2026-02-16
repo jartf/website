@@ -434,6 +434,94 @@
     "noResults": "未找到符合搜索条件的徽章",
     "visitBadge": "访问 {{name}}"
   },
+  "brand": {
+    "pageTitle": "品牌",
+    "pageDescription": "视觉识别和品牌元素。如果你想引用或链接到本站，请使用这些素材。",
+    "name": {
+      "title": "名称",
+      "nameLabel": "名字",
+      "displayNameLabel": "显示名称",
+      "symbolNote": "“所以”符号 (∴) 始终是我显示名称的一部分。它代表结果、逻辑结论、连接以及思维过程的终点；它直接且形状稳定。"
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "仅头像",
+      "faceAndBody": "半身像",
+      "dimensions1": "384×384px (或其倍数)",
+      "dimensions2": "512×512px (或其倍数)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "徽章",
+      "urlLabel": "直接链接",
+      "htmlLabel": "HTML 代码"
+    },
+    "colors": {
+      "title": "颜色",
+      "names": {
+        "primary": "主色",
+        "background": "背景",
+        "card": "卡片",
+        "foreground": "前景",
+        "muted": "柔和",
+        "border": "边框"
+      },
+      "descriptions": {
+        "primary": "主要强调色",
+        "background": "页面背景",
+        "card": "卡片背景",
+        "foreground": "主要文本颜色",
+        "muted": "次要元素",
+        "border": "边框和分割线"
+      },
+      "darkMode": "深色模式",
+      "lightMode": "浅色模式"
+    },
+    "fonts": {
+      "title": "字体",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Han Nom Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "标题",
+        "lexend": "正文和界面 (UI)",
+        "notoSansSC": "中文文本",
+        "hanNomGothic": "越南语字喃 (Chữ Nôm)"
+      },
+      "weight": "字重：",
+      "viewOnGoogleFonts": "在字体库中查看",
+      "languages": {
+        "english": "英语",
+        "vietnamese": "越南语",
+        "polish": "波兰语",
+        "russian": "俄语",
+        "japanese": "日语",
+        "hebrew": "希伯来语",
+        "symbols": "符号",
+        "chineseSimplified": "中文 (简体)",
+        "chineseTraditional": "中文 (繁体)",
+        "vietnameseHanNom": "越南语 (字喃)"
+      }
+    },
+    "usage": {
+      "title": "几点说明",
+      "point1Title": "随意使用",
+      "point1Text": "使用徽章、Logo 或链接到本站无需申请许可。拿去用，做热链 (hotlink)，或者直接甩到你的网站上。我不在乎。实际上，我反而会很开心。",
+      "point2Title": "保持徽章的像素风格",
+      "point2Text": "如果你使用徽章 (badge)，请务必在 CSS 中添加 'image-rendering: pixelated' (Firefox 用 'crisp-edges')。没有它，浏览器会把像素搞得模糊不清，看起来像垃圾一样。这是像素艺术，请把它当成像素艺术来对待。",
+      "point3Title": "署名很好，但非必须",
+      "point3Text": "如果你写文章介绍本站或在博客中使用这些素材，能加个回链我会很感激。但如果你只是把我的徽章加到友情链接页，那就不用做多余的事了。我提供的徽章 HTML 代码已经包含链接了。",
+      "point4Title": "别搞些奇怪的",
+      "point4Text": "别用这些素材来冒充我，声称我支持某些我并不支持的东西，或者搞得像我跟什么不正经的东西有关系似的。我相信你分得清“链接到喜欢的网站”和“冒充他人”的区别。如果你不确定自己在做的事是不是很怪，那八成就是很怪。",
+      "footer": "就这样，只要用得体面点，咱们就没问题。"
+    }
+  },
   "colophon": {
     "title": "网站信息",
     "description": "这个网站背后的故事",

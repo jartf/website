@@ -422,6 +422,94 @@
     "noResults": "Không tìm thấy huy hiệu nào khớp với tìm kiếm",
     "visitBadge": "Ghé thăm {{name}}"
   },
+  "brand": {
+    "pageTitle": "Bộ nhận diện",
+    "pageDescription": "Bộ nhận diện của trang web của mình. Hãy dùng mấy cái này nếu bạn muốn nhắc đến hoặc dẫn link tới trang này nhé.",
+    "name": {
+      "title": "Tên",
+      "nameLabel": "Tên",
+      "displayNameLabel": "Tên hiển thị",
+      "symbolNote": "Ký hiệu 'vì vậy' (∴) luôn là một phần trong tên hiển thị của mình. Nó đại diện cho kết quả, kết luận, điểm kết của luồng suy nghĩ."
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "Chỉ mặt",
+      "faceAndBody": "Mặt và thân trên",
+      "dimensions1": "384×384px (hoặc bội số to hoặc nhỏ hơn của nó đều được)",
+      "dimensions2": "512×512px (hoặc bội số to hoặc nhỏ hơn của nó đều được)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "Huy hiệu",
+      "urlLabel": "URL trực tiếp",
+      "htmlLabel": "Mã HTML"
+    },
+    "colors": {
+      "title": "Màu sắc",
+      "names": {
+        "primary": "Chủ đạo",
+        "background": "Nền",
+        "card": "Thẻ",
+        "foreground": "Tiền cảnh",
+        "muted": "Mờ",
+        "border": "Viền"
+      },
+      "descriptions": {
+        "primary": "Màu nhấn chính",
+        "background": "Nền trang",
+        "card": "Nền thẻ",
+        "foreground": "Màu chữ chính",
+        "muted": "Các phần tử phụ",
+        "border": "Viền và dải phân cách"
+      },
+      "darkMode": "Chế độ tối",
+      "lightMode": "Chế độ sáng"
+    },
+    "fonts": {
+      "title": "Phông chữ",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Hán Nôm Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "Tiêu đề",
+        "lexend": "Nội dung và giao diện (UI)",
+        "notoSansSC": "Tiếng Trung",
+        "hanNomGothic": "Chữ Nôm"
+      },
+      "weight": "Độ dày:",
+      "viewOnGoogleFonts": "Xem trên kho phông chữ",
+      "languages": {
+        "english": "Tiếng Anh",
+        "vietnamese": "Tiếng Việt",
+        "polish": "Tiếng Ba Lan",
+        "russian": "Tiếng Nga",
+        "japanese": "Tiếng Nhật",
+        "hebrew": "Tiếng Do Thái",
+        "symbols": "Ký hiệu",
+        "chineseSimplified": "Tiếng Trung (Giản thể)",
+        "chineseTraditional": "Tiếng Trung (Phồn thể)",
+        "vietnameseHanNom": "Tiếng Việt (Chữ Nôm)"
+      }
+    },
+    "usage": {
+      "title": "Lưu ý nhỏ",
+      "point1Title": "Cứ thoải mái dùng",
+      "point1Text": "Không cần xin phép để dùng huy hiệu, logo hay dẫn link tới web này đâu. Cứ lấy, hotlink, hay vứt lên web của bạn. Mình không quan tâm. Thực ra là mình còn thấy vui ấy chứ.",
+      "point2Title": "Giữ nguyên style pixel của huy hiệu",
+      "point2Text": "Nếu dùng huy hiệu (badge), làm ơn thêm 'image-rendering: pixelated' (hoặc 'crisp-edges' trên Firefox) vào CSS. Không có nó, trình duyệt sẽ làm mờ pixel nhìn như rác ấy. Nó là pixel art, làm ơn hãy đối xử với nó như pixel art.",
+      "point3Title": "Ghi nguồn thì tốt, không thì cũng không sao",
+      "point3Text": "Nếu bạn viết bài về trang web này hay dùng tư liệu trong blog, dẫn link lại thì mình sẽ vui lắm. Nhưng nếu chỉ gắn cái badge vào trang liên kết thì không cần làm gì thêm đâu, cái mã HTML của badge mình đưa đã có link sẵn về đây rồi.",
+      "point4Title": "Đừng có làm trò",
+      "point4Text": "Đừng dùng mấy cái này để giả danh mình, nhét chữ vào mình, hay làm như kiểu mình dính dáng tới cái gì mờ ám. Mình tin là bạn biết sự khác biệt giữa việc dẫn link tới trang bạn thích và việc giả mạo người khác. Nếu thấy lấn cấn không biết việc bạn định làm có kỳ cục không, thì khả năng cao là có đấy.",
+      "footer": "Thế thôi, cứ dùng đàng hoàng là được."
+    }
+  },
   "colophon": {
     "title": "Thông tin trang web",
     "description": "Câu chuyện đằng sau trang web này",

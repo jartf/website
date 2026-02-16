@@ -425,6 +425,94 @@
     "noResults": "mi alasa, taso mi lukin ala e sitelen",
     "visitBadge": "o tawa {{name}}"
   },
+  "brand": {
+    "pageTitle": "lukin mi",
+    "pageDescription": "ni li lukin pi lipu mi. o kepeken ni tawa ni: sina wile toki e ijo pi lipu mi.",
+    "name": {
+      "title": "nimi",
+      "nameLabel": "nimi",
+      "displayNameLabel": "nimi lukin",
+      "symbolNote": "sitelen ∴ li lon nimi mi. ona li pini pi toki mi. ona li sama komsi, li sama pini. ona li kiwen."
+    },
+    "logo": {
+      "title": "sitelen",
+      "faceOnly": "sinpin taso",
+      "faceAndBody": "sinpin en sijelo",
+      "dimensions1": "leko 384×384 (anu mute ni)",
+      "dimensions2": "leko 512×512 (anu mute ni)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "sitelen lili",
+      "urlLabel": "nasin URL",
+      "htmlLabel": "nasin HTML"
+    },
+    "colors": {
+      "title": "kule",
+      "names": {
+        "primary": "kule suli",
+        "background": "kule du",
+        "card": "kule lipu lili",
+        "foreground": "kule sinpin",
+        "muted": "kule pi wawa lili",
+        "border": "kule selo"
+      },
+      "descriptions": {
+        "primary": "kule pi lukin suli",
+        "background": "kule monsi",
+        "card": "kule pi lipu lili",
+        "foreground": "kule sitelen",
+        "muted": "ijo pi wawa lili",
+        "border": "selo en kipisi"
+      },
+      "darkMode": "lukin pimeja",
+      "lightMode": "lukin walo"
+    },
+    "fonts": {
+      "title": "nasin sitelen",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Han Nom Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "nimi suli",
+        "lexend": "sitelen tawa jan",
+        "notoSansSC": "toki Sonko",
+        "hanNomGothic": "toki Wije (nasin Han Nom)"
+      },
+      "weight": "suli:",
+      "viewOnGoogleFonts": "o lukin lon ma sitelen",
+      "languages": {
+        "english": "toki Inli",
+        "vietnamese": "toki Wije",
+        "polish": "toki Posuka",
+        "russian": "toki Losi",
+        "japanese": "toki Nipon",
+        "hebrew": "toki Iwisi",
+        "symbols": "sitelen",
+        "chineseSimplified": "toki Sonko (sin)",
+        "chineseTraditional": "toki Sonko (majuna)",
+        "vietnameseHanNom": "toki Wije (Han Nom)"
+      }
+    },
+    "usage": {
+      "title": "toki lili",
+      "point1Title": "o kepeken!",
+      "point1Text": "sina wile ala toki e 'mi ken ala ken?' tawa ni: sina kepeken sitelen mi. o kama jo e ona. o kepeken ona lon lipu sina. mi wile e ni. ni li pona tawa mi.",
+      "point2Title": "o awen e lukin leko",
+      "point2Text": "sina kepeken sitelen lili la, o kepeken nasin 'image-rendering: pixelated' (anu 'crisp-edges') lon nasin CSS. sina kepeken ala e ni la, ilo li pakala e lukin leko. ona li lukin jaki. ni li sitelen leko. o lukin e ona sama sitelen leko.",
+      "point3Title": "toki tan li pona, taso wile ala",
+      "point3Text": "sina sitelen e ijo pi lipu mi la, o toki e ni: lipu mi li lon. ni li pona. taso, sina pana e sitelen lili mi tawa lipu sina la, sina wile pali e ala. nasin HTML mi li jo e nasin tawa lipu mi.",
+      "point4Title": "o nasa ala",
+      "point4Text": "o kepeken ala ni tawa ni: sina lukin sama mi, anu sina toki e ni: 'Jarema li olin e ni', taso mi olin ala e ona. mi pilin e ni: sina sona e ante pi 'pana e nasin tawa lipu' en 'lukin sama jan ante'. sina sona ala e ni: 'pali mi li nasa, anu seme?', la ona li nasa.",
+      "footer": "ni taso. o kepeken pona la, ale li pona."
+    }
+  },
   "colophon": {
     "title": "tan lipu",
     "description": "toki pi lipu ni en nasin pali ona",

@@ -422,6 +422,94 @@
     "noResults": "Otsingukriteeriumidele vastavaid märke ei leitud",
     "visitBadge": "Külasta {{name}}"
   },
+  "brand": {
+    "pageTitle": "Bränd",
+    "pageDescription": "Visuaalne identiteet ja brändielemendid. Kasuta neid, kui soovid sellele saidile viidata või linkida.",
+    "name": {
+      "title": "Nimi",
+      "nameLabel": "Nimi",
+      "displayNameLabel": "Kuvatav nimi",
+      "symbolNote": "Sümbol 'järelikult' (∴) on alati osa minu kuvatavast nimest. See tähistab tulemusi, loogilisi järeldusi, seoseid, mõttekäigu lõppu; see on otsene ja stabiilne kujund."
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "Ainult nägu",
+      "faceAndBody": "Nägu ja keha",
+      "dimensions1": "384×384px (või selle kordsed)",
+      "dimensions2": "512×512px (või selle kordsed)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "Märk",
+      "urlLabel": "Otsene URL",
+      "htmlLabel": "HTML-kood"
+    },
+    "colors": {
+      "title": "Värvid",
+      "names": {
+        "primary": "Põhivärv",
+        "background": "Taust",
+        "card": "Kaart",
+        "foreground": "Esiplaan",
+        "muted": "Summutatud",
+        "border": "Ääris"
+      },
+      "descriptions": {
+        "primary": "Peamine aktsentvärv",
+        "background": "Lehe taust",
+        "card": "Kaardi taust",
+        "foreground": "Peamine tekstivärv",
+        "muted": "Vähemolulised elemendid",
+        "border": "Äärised ja eraldajad"
+      },
+      "darkMode": "Tume režiim",
+      "lightMode": "Hele režiim"
+    },
+    "fonts": {
+      "title": "Fondid",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Han Nom Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "Pealkirjad",
+        "lexend": "Põhitekst ja kasutajaliides",
+        "notoSansSC": "Hiina keel",
+        "hanNomGothic": "Vietnami Chữ Nôm"
+      },
+      "weight": "Paksus:",
+      "viewOnGoogleFonts": "Vaata fondihoidlas",
+      "languages": {
+        "english": "Inglise",
+        "vietnamese": "Vietnami",
+        "polish": "Poola",
+        "russian": "Vene",
+        "japanese": "Jaapani",
+        "hebrew": "Heebrea",
+        "symbols": "Sümbolid",
+        "chineseSimplified": "Hiina (Lihtsustatud)",
+        "chineseTraditional": "Hiina (Traditsiooniline)",
+        "vietnameseHanNom": "Vietnami (Chữ Nôm)"
+      }
+    },
+    "usage": {
+      "title": "Paar märkust",
+      "point1Title": "Kasuta julgelt",
+      "point1Text": "Sa ei pea küsima luba, et kasutada märki, logo või sellele saidile linkida. Lihtsalt võta need, hotlinki, viska oma kodulehele. Mul on ükskõik. Tegelikult oleks mul isegi hea meel.",
+      "point2Title": "Säilita märgi piksli-stiil",
+      "point2Text": "Kui kasutad märki (badge), palun kasuta oma CSS-is 'image-rendering: pixelated' (või Firefoxi puhul 'crisp-edges'). Ilma selleta muudavad brauserid pikslid uduseks ja see näeb välja nagu prügi. See on pikslikunst, palun kohtle seda kui pikslikunsti.",
+      "point3Title": "Viitamine on tore, aga vabatahtlik",
+      "point3Text": "Kui kirjutad sellest saidist või kasutad neid materjale blogipostituses või artiklis, oleks tagasilink teretulnud. Aga kui lisad minu märgi lihtsalt oma linkide lehele, ei pea sa midagi lisaks tegema. Märgi HTML-kood viitab juba ise siia.",
+      "point4Title": "Ära tee midagi kahtlast",
+      "point4Text": "Ära kasuta neid minu teesklemiseks, väitmaks, et toetan midagi, mida ma ei toeta, või jätmaks muljet, et olen seotud millegi kahtlasega. Usun, et tead vahet lingi jagamisel saidile, mis sulle meeldib, ja kellegi teisena esinemisel. Kui sa pole kindel, kas see, mida teed, on imelik, siis tõenäoliselt ongi.",
+      "footer": "Ongi kõik, kasuta neid lihtsalt lugupidavalt ja kõik on korras."
+    }
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Selle veebisaidi taga peituv lugu ja selle loomine",

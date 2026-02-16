@@ -443,14 +443,14 @@
       "title": "Name",
       "nameLabel": "Name",
       "displayNameLabel": "Display name",
-      "symbolNote": "The therefore symbol (∴) is always part of the display name. It's a personal choice that represents logical conclusions and creative connections."
+      "symbolNote": "The therefore symbol (∴) is always part of my display name. It represents the results, logical conclusions, connections, the end of a thought process, it's direct and it's a stable shape."
     },
     "logo": {
       "title": "Logo",
       "faceOnly": "Face only",
       "faceAndBody": "Face and body",
-      "dimensions1": "384×384px (or larger multiples)",
-      "dimensions2": "512×512px (or larger multiples)",
+      "dimensions1": "384×384px (or its multiples)",
+      "dimensions2": "512×512px (or its multiples)",
       "formats": {
         "png": "PNG",
         "svg": "SVG"

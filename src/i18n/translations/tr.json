@@ -434,6 +434,94 @@
     "noResults": "Arama kriterlerinle eşleşen rozet bulunamadı",
     "visitBadge": "Ziyaret et: {{name}}"
   },
+  "brand": {
+    "pageTitle": "Marka",
+    "pageDescription": "Görsel kimlik ve marka unsurları. Bu siteye atıfta bulunmak veya bağlantı vermek isterseniz bunları kullanın.",
+    "name": {
+      "title": "İsim",
+      "nameLabel": "İsim",
+      "displayNameLabel": "Görünen İsim",
+      "symbolNote": "'Bu nedenle' sembolü (∴) her zaman görünen ismimin bir parçasıdır. Sonuçları, mantıksal çıkarımları, bağlantıları ve bir düşünce sürecinin sonunu temsil eder; dolaysızdır ve kararlı bir şekildir."
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "Sadece yüz",
+      "faceAndBody": "Yüz ve gövde",
+      "dimensions1": "384×384px (veya katları)",
+      "dimensions2": "512×512px (veya katları)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "Rozet",
+      "urlLabel": "Doğrudan URL",
+      "htmlLabel": "HTML kodu"
+    },
+    "colors": {
+      "title": "Renkler",
+      "names": {
+        "primary": "Birincil",
+        "background": "Arkaplan",
+        "card": "Kart",
+        "foreground": "Önplan",
+        "muted": "Sönük",
+        "border": "Kenarlık"
+      },
+      "descriptions": {
+        "primary": "Ana vurgu rengi",
+        "background": "Sayfa arkaplanı",
+        "card": "Kart arkaplanı",
+        "foreground": "Ana metin rengi",
+        "muted": "İkincil öğeler",
+        "border": "Kenarlıklar ve ayırıcılar"
+      },
+      "darkMode": "Karanlık mod",
+      "lightMode": "Aydınlık mod"
+    },
+    "fonts": {
+      "title": "Yazı Tipleri",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Han Nom Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "Başlıklar",
+        "lexend": "Gövde metni ve arayüz",
+        "notoSansSC": "Çince metin",
+        "hanNomGothic": "Vietnamca Chữ Nôm"
+      },
+      "weight": "Kalınlık:",
+      "viewOnGoogleFonts": "Yazı tipi deposunda görüntüle",
+      "languages": {
+        "english": "İngilizce",
+        "vietnamese": "Vietnamca",
+        "polish": "Lehçe",
+        "russian": "Rusça",
+        "japanese": "Japonca",
+        "hebrew": "İbranice",
+        "symbols": "Semboller",
+        "chineseSimplified": "Çince (Basitleştirilmiş)",
+        "chineseTraditional": "Çince (Geleneksel)",
+        "vietnameseHanNom": "Vietnamca (Chữ Nôm)"
+      }
+    },
+    "usage": {
+      "title": "Birkaç not",
+      "point1Title": "Rahatça kullanın",
+      "point1Text": "Rozeti veya logoyu kullanmak ya da bu siteye link vermek için izin istemenize gerek yok. Alın, hotlink yapın, sitenize yapıştırın. Umurumda değil. Aslında, memnun bile olurum.",
+      "point2Title": "Rozetin piksel stilini koruyun",
+      "point2Text": "Rozeti (badge) kullanıyorsanız, lütfen CSS'inizde 'image-rendering: pixelated' (veya Firefox için 'crisp-edges') kullanın. Bu olmazsa tarayıcılar pikselleri bulanıklaştırır ve çöp gibi görünür. Bu bir piksel sanatı, lütfen ona piksel sanatı muamelesi yapın.",
+      "point3Title": "Atıfta bulunmak güzel ama isteğe bağlı",
+      "point3Text": "Site hakkında yazıyorsanız veya bunları bir blog yazısında kullanıyorsanız, bir geri bağlantı (link) makbule geçer. Ancak rozetimi sadece linkler sayfanıza ekliyorsanız, fazladan bir şey yapmanıza gerek yok. Rozet için verdiğim HTML kodu zaten buraya link veriyor.",
+      "point4Title": "Saçmalamayın",
+      "point4Text": "Bunları beni taklit etmek, desteklemediğim bir şeyi destekliyormuşum gibi göstermek veya tekinsiz bir şeyle ilişkilendirmek için kullanmayın. Sevdiğiniz bir siteye link vermekle başkası gibi davranmak arasındaki farkı bildiğinize inanıyorum. Yaptığınız şeyin garip olup olmadığından emin değilseniz, muhtemelen gariptir.",
+      "footer": "Bu kadar, sadece saygılı kullanın yeter."
+    }
+  },
   "colophon": {
     "title": "Künye",
     "description": "Bu web sitesinin arkasındaki hikaye ve nasıl oluşturulduğu",

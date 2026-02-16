@@ -422,6 +422,94 @@
     "noResults": "Inga märken hittades som matchar dina sökkriterier",
     "visitBadge": "Besök {{name}}"
   },
+  "brand": {
+    "pageTitle": "Profil",
+    "pageDescription": "Visuell identitet och element. Använd dessa om du vill referera eller länka till denna sida.",
+    "name": {
+      "title": "Namn",
+      "nameLabel": "Namn",
+      "displayNameLabel": "Visningsnamn",
+      "symbolNote": "Symbolen för 'därför' (∴) är alltid en del av mitt visningsnamn. Den representerar resultat, logiska slutsatser, kopplingar, slutet på en tankeprocess; den är direkt och en stabil form."
+    },
+    "logo": {
+      "title": "Logotyp",
+      "faceOnly": "Endast ansikte",
+      "faceAndBody": "Ansikte och kropp",
+      "dimensions1": "384×384px (eller multiplar)",
+      "dimensions2": "512×512px (eller multiplar)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "Badge",
+      "urlLabel": "Direkt URL",
+      "htmlLabel": "HTML-kod"
+    },
+    "colors": {
+      "title": "Färger",
+      "names": {
+        "primary": "Primär",
+        "background": "Bakgrund",
+        "card": "Kort",
+        "foreground": "Förgrund",
+        "muted": "Dämpad",
+        "border": "Kantlinje"
+      },
+      "descriptions": {
+        "primary": "Huvudaccentfärg",
+        "background": "Sidbakgrund",
+        "card": "Kortbakgrund",
+        "foreground": "Huvudtextfärg",
+        "muted": "Sekundära element",
+        "border": "Kanter och avdelare"
+      },
+      "darkMode": "Mörkt läge",
+      "lightMode": "Ljust läge"
+    },
+    "fonts": {
+      "title": "Typsnitt",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Han Nom Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "Rubriker och titlar",
+        "lexend": "Brödtext och UI",
+        "notoSansSC": "Kinesisk text",
+        "hanNomGothic": "Vietnamesisk Chữ Nôm"
+      },
+      "weight": "Vikt:",
+      "viewOnGoogleFonts": "Visa i arkivet",
+      "languages": {
+        "english": "Engelska",
+        "vietnamese": "Vietnamesiska",
+        "polish": "Polska",
+        "russian": "Ryska",
+        "japanese": "Japanska",
+        "hebrew": "Hebreiska",
+        "symbols": "Symboler",
+        "chineseSimplified": "Kinesiska (Förenklad)",
+        "chineseTraditional": "Kinesiska (Traditionell)",
+        "vietnameseHanNom": "Vietnamesiska (Chữ Nôm)"
+      }
+    },
+    "usage": {
+      "title": "Några noter",
+      "point1Title": "Använd dem gärna",
+      "point1Text": "Du behöver inte be om lov för att använda badgen, loggan eller länka till sidan. Ta dem, hotlinka, släng upp dem på din sajt. Jag bryr mig inte. Faktiskt skulle jag bli glad.",
+      "point2Title": "Behåll badgens pixliga stil",
+      "point2Text": "Om du använder badgen, snälla använd 'image-rendering: pixelated' (eller 'crisp-edges' för Firefox) i din CSS. Utan det kommer webbläsare göra pixlarna suddiga och det ser ut som skit. Det är pixel art, behandla det som pixel art.",
+      "point3Title": "Erkännande är trevligt men valfritt",
+      "point3Text": "Om du skriver om sajten eller använder detta i ett blogginlägg, vore en länk tillbaka uppskattat. Men om du bara lägger till min badge på din länksida behöver du inte göra något extra. Min HTML-kod för badgen länkar redan hit.",
+      "point4Title": "Gör inget konstigt",
+      "point4Text": "Använd inte dessa för att utge dig för att vara jag, påstå att jag stödjer något jag inte gör, eller få det att se ut som att jag är associerad med något skumt. Jag litar på att du vet skillnaden på att länka till en sida du gillar och att låtsas vara någon annan. Om du är osäker på om det du gör är konstigt, så är det förmodligen det.",
+      "footer": "Det var allt, använd dem med respekt så är vi lugna."
+    }
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historien bakom denna webbplats och hur den byggdes",

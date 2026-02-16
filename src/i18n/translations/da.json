@@ -436,6 +436,94 @@
     "noResults": "Ingen badges matcher din søgning",
     "visitBadge": "Besøg {{name}}"
   },
+  "brand": {
+    "pageTitle": "Brand",
+    "pageDescription": "Visuel identitet og brandelementer. Brug disse, hvis du vil henvise eller linke til dette site.",
+    "name": {
+      "title": "Navn",
+      "nameLabel": "Navn",
+      "displayNameLabel": "Visningsnavn",
+      "symbolNote": "Symbolet for 'derfor' (∴) er altid en del af mit visningsnavn. Det repræsenterer resultater, logiske konklusioner, forbindelser, slutningen på en tankeproces; det er direkte og en stabil form."
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "Kun ansigt",
+      "faceAndBody": "Ansigt og krop",
+      "dimensions1": "384×384px (eller multipla heraf)",
+      "dimensions2": "512×512px (eller multipla heraf)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "Badge",
+      "urlLabel": "Direkte URL",
+      "htmlLabel": "HTML-kode"
+    },
+    "colors": {
+      "title": "Farver",
+      "names": {
+        "primary": "Primær",
+        "background": "Baggrund",
+        "card": "Kort",
+        "foreground": "Forgrund",
+        "muted": "Dæmpet",
+        "border": "Kant"
+      },
+      "descriptions": {
+        "primary": "Hoved-accentfarve",
+        "background": "Sidebaggrund",
+        "card": "Kortbaggrund",
+        "foreground": "Hovedtekstfarve",
+        "muted": "Dæmpede elementer",
+        "border": "Kanter og opdelere"
+      },
+      "darkMode": "Mørk tilstand",
+      "lightMode": "Lys tilstand"
+    },
+    "fonts": {
+      "title": "Skrifttyper",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Han Nom Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "Overskrifter og titler",
+        "lexend": "Brødtekst og UI-elementer",
+        "notoSansSC": "Kinesisk tekst",
+        "hanNomGothic": "Vietnamesisk Chữ Nôm"
+      },
+      "weight": "Vægt:",
+      "viewOnGoogleFonts": "Se i font-repository",
+      "languages": {
+        "english": "Engelsk",
+        "vietnamese": "Vietnamesisk",
+        "polish": "Polsk",
+        "russian": "Russisk",
+        "japanese": "Japansk",
+        "hebrew": "Hebraisk",
+        "symbols": "Symboler",
+        "chineseSimplified": "Kinesisk (Forenklet)",
+        "chineseTraditional": "Kinesisk (Traditionelt)",
+        "vietnameseHanNom": "Vietnamesisk (Chữ Nôm)"
+      }
+    },
+    "usage": {
+      "title": "Et par noter",
+      "point1Title": "Brug dem bare",
+      "point1Text": "Du behøver ikke spørge om lov til at bruge badget, logoet eller linke til dette site. Bare tag dem, hotlink dem, smid dem på din hjemmeside. Jeg er ligeglad. Faktisk ville jeg blive glad.",
+      "point2Title": "Behold badgets pixelerede stil",
+      "point2Text": "Hvis du bruger badget, så brug venligst 'image-rendering: pixelated' (eller 'crisp-edges' til Firefox) i din CSS. Uden det vil browsere sløre pixlerne, og det vil ligne lort. Det er pixelkunst, behandl det venligst som pixelkunst.",
+      "point3Title": "Kreditering er rart, men valgfrit",
+      "point3Text": "Hvis du skriver om sitet eller bruger disse i et blogindlæg eller en artikel, ville et link tilbage være værdsat. Men hvis du bare tilføjer mit badge til din linkside, behøver du ikke gøre noget ekstra. Min HTML-snippet til badget linker allerede hertil.",
+      "point4Title": "Lad være med at være mærkelig",
+      "point4Text": "Brug ikke disse til at udgive dig for at være mig, påstå at jeg støtter noget jeg ikke gør, eller få det til at se ud som om jeg er associeret med noget skummelt. Jeg stoler på, at du kender forskellen på at linke til et site du kan lide, og at lade som om du er en anden. Hvis du er i tvivl om, hvorvidt det du gør er mærkeligt, så er det det sandsynligvis." ,
+      "footer": "Det var det hele, bare brug dem med respekt, så er vi gode."
+    }
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historien bag dette websted, og hvordan det blev bygget",

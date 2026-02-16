@@ -422,6 +422,94 @@
     "noResults": "Hakukriteerejä vastaavia merkkejä ei löytynyt",
     "visitBadge": "Vieraile {{name}}"
   },
+  "brand": {
+    "pageTitle": "Brändi",
+    "pageDescription": "Visuaalinen ilme ja brändielementit. Käytä näitä, jos haluat viitata tai linkittää tälle sivustolle.",
+    "name": {
+      "title": "Nimi",
+      "nameLabel": "Nimi",
+      "displayNameLabel": "Näyttönimi",
+      "symbolNote": "Symboli 'siis' (∴) on aina osa näyttönimeäni. Se edustaa tuloksia, loogisia johtopäätöksiä, yhteyksiä, ajatusprosessin päätöstä; se on suora ja vakaa muoto."
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "Vain kasvot",
+      "faceAndBody": "Kasvot ja vartalo",
+      "dimensions1": "384×384px (tai sen kerrannaiset)",
+      "dimensions2": "512×512px (tai sen kerrannaiset)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "Merkki",
+      "urlLabel": "Suora URL",
+      "htmlLabel": "HTML-koodi"
+    },
+    "colors": {
+      "title": "Värit",
+      "names": {
+        "primary": "Ensisijainen",
+        "background": "Tausta",
+        "card": "Kortti",
+        "foreground": "Edusta",
+        "muted": "Himmeä",
+        "border": "Reuna"
+      },
+      "descriptions": {
+        "primary": "Pääkorostusväri",
+        "background": "Sivun tausta",
+        "card": "Kortin tausta",
+        "foreground": "Päätekstin väri",
+        "muted": "Toissijaiset elementit",
+        "border": "Reunat ja jakajat"
+      },
+      "darkMode": "Tumma tila",
+      "lightMode": "Vaalea tila"
+    },
+    "fonts": {
+      "title": "Fontit",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Han Nom Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "Otsikot",
+        "lexend": "Leipäteksti ja käyttöliittymä",
+        "notoSansSC": "Kiina",
+        "hanNomGothic": "Vietnamilainen Chữ Nôm"
+      },
+      "weight": "Paksuus:",
+      "viewOnGoogleFonts": "Katso fonttivarastosta",
+      "languages": {
+        "english": "Englanti",
+        "vietnamese": "Vietnam",
+        "polish": "Puola",
+        "russian": "Venäjä",
+        "japanese": "Japani",
+        "hebrew": "Heprea",
+        "symbols": "Symbolit",
+        "chineseSimplified": "Kiina (Yksinkertaistettu)",
+        "chineseTraditional": "Kiina (Perinteinen)",
+        "vietnameseHanNom": "Vietnam (Chữ Nôm)"
+      }
+    },
+    "usage": {
+      "title": "Pari huomiota",
+      "point1Title": "Käytä vapaasti",
+      "point1Text": "Sinun ei tarvitse kysyä lupaa merkin tai logon käyttämiseen tai sivustolle linkittämiseen. Ota ne, hotlinkkaa, lätkäise ne sivullesi. Ei kiinnosta. Itse asiassa olisin iloinen.",
+      "point2Title": "Säilytä merkin pikselityyli",
+      "point2Text": "Jos käytät merkkiä (badge), käytä CSS:ssäsi 'image-rendering: pixelated' (tai Firefoxissa 'crisp-edges'). Ilman sitä selaimet sumentavat pikselit ja se näyttää roskalta. Se on pikselitaidetta, kohtele sitä kuten pikselitaidetta.",
+      "point3Title": "Maininta on kiva, mutta vapaaehtoinen",
+      "point3Text": "Jos kirjoitat sivustosta tai käytät näitä blogikirjoituksessa tai artikkelissa, linkki takaisin olisi arvostettu. Mutta jos lisäät merkkini vain linkkisivullesi, sinun ei tarvitse tehdä mitään ylimääräistä. Merkin HTML-pätkä linkittää jo tänne.",
+      "point4Title": "Älä sekoile",
+      "point4Text": "Älä käytä näitä esiintyäksesi minuna, väittääksesi minun suosittelevan jotain mitä en suosittele, tai antaaksesi ymmärtää minun liittyvän johonkin hämärään. Luotan siihen, että tiedät eron tykkäämäsi sivuston linkittämisen ja toisena esiintymisen välillä. Jos olet epävarma siitä, onko tekemisesi outoa, se todennäköisesti on.",
+      "footer": "Siinä kaikki, käytä niitä kunnioittavasti niin olemme sujut."
+    }
+  },
   "colophon": {
     "title": "Kolofoni",
     "description": "Tarinani tämän sivuston takana ja miten se rakennettiin",

@@ -422,6 +422,94 @@
     "noResults": "Nie znaleziono odznak pasujących do kryteriów wyszukiwania",
     "visitBadge": "Odwiedź {{name}}"
   },
+  "brand": {
+    "pageTitle": "Marka",
+    "pageDescription": "Identyfikacja wizualna i elementy marki. Użyj ich, jeśli chcesz wspomnieć o tej stronie lub do niej podlinkować.",
+    "name": {
+      "title": "Nazwa",
+      "nameLabel": "Imię",
+      "displayNameLabel": "Nazwa wyświetlana",
+      "symbolNote": "Symbol 'dlatego' (∴) jest zawsze częścią mojej nazwy wyświetlanej. Reprezentuje wyniki, logiczne wnioski, połączenia, koniec procesu myślowego; jest bezpośredni i ma stabilny kształt."
+    },
+    "logo": {
+      "title": "Logo",
+      "faceOnly": "Tylko twarz",
+      "faceAndBody": "Twarz i tułów",
+      "dimensions1": "384×384px (lub wielokrotności)",
+      "dimensions2": "512×512px (lub wielokrotności)",
+      "formats": {
+        "png": "PNG",
+        "svg": "SVG"
+      }
+    },
+    "badge": {
+      "title": "Odznaka",
+      "urlLabel": "Bezpośredni URL",
+      "htmlLabel": "Kod HTML"
+    },
+    "colors": {
+      "title": "Kolory",
+      "names": {
+        "primary": "Główny",
+        "background": "Tło",
+        "card": "Karta",
+        "foreground": "Pierwszy plan",
+        "muted": "Przygaszony",
+        "border": "Obramowanie"
+      },
+      "descriptions": {
+        "primary": "Główny kolor akcentu",
+        "background": "Tło strony",
+        "card": "Tło karty",
+        "foreground": "Główny kolor tekstu",
+        "muted": "Elementy poboczne",
+        "border": "Obramowania i podziały"
+      },
+      "darkMode": "Tryb ciemny",
+      "lightMode": "Tryb jasny"
+    },
+    "fonts": {
+      "title": "Czcionki",
+      "names": {
+        "spaceGrotesk": "Space Grotesk",
+        "lexend": "Lexend",
+        "notoSansSC": "Noto Sans SC",
+        "hanNomGothic": "Han Nom Gothic"
+      },
+      "usage": {
+        "spaceGrotesk": "Nagłówki i tytuły",
+        "lexend": "Tekst główny i interfejs",
+        "notoSansSC": "Tekst chiński",
+        "hanNomGothic": "Wietnamski Chữ Nôm"
+      },
+      "weight": "Waga:",
+      "viewOnGoogleFonts": "Zobacz w repozytorium",
+      "languages": {
+        "english": "Angielski",
+        "vietnamese": "Wietnamski",
+        "polish": "Polski",
+        "russian": "Rosyjski",
+        "japanese": "Japoński",
+        "hebrew": "Hebrajski",
+        "symbols": "Symbole",
+        "chineseSimplified": "Chiński (Uproszczony)",
+        "chineseTraditional": "Chiński (Tradycyjny)",
+        "vietnameseHanNom": "Wietnamski (Chữ Nôm)"
+      }
+    },
+    "usage": {
+      "title": "Kilka uwag",
+      "point1Title": "Śmiało korzystaj",
+      "point1Text": "Nie musisz pytać o zgodę na użycie odznaki, logo czy linkowanie do tej strony. Bierz, hotlinkuj, wrzucaj na swoją stronę. Nie obchodzi mnie to. A wręcz byłoby mi miło.",
+      "point2Title": "Zachowaj pikselowy styl odznaki",
+      "point2Text": "Jeśli używasz odznaki (badge), proszę dodaj 'image-rendering: pixelated' (lub 'crisp-edges' w Firefox) w swoim CSS. Bez tego przeglądarki rozmyją piksele i będzie to wyglądać jak śmieć. To pixel art, traktuj to jak pixel art.",
+      "point3Title": "Atrybucja jest miła, ale opcjonalna",
+      "point3Text": "Jeśli piszesz o stronie lub używasz tych materiałów w poście na blogu, link zwrotny byłby mile widziany. Ale jeśli tylko wrzucasz moją odznakę na swoją stronę z linkami, nie musisz robić nic więcej. Mój kod HTML dla odznaki już tu linkuje.",
+      "point4Title": "Bez dziwactw",
+      "point4Text": "Nie używaj tego, żeby się pode mnie podszywać, twierdzić, że popieram coś, czego nie popieram, albo sprawiać wrażenie, że jestem powiązany z czymś podejrzanym. Wierzę, że znasz różnicę między linkowaniem do strony, którą lubisz, a udawaniem kogoś innego. Jeśli nie jesteś pewien, czy to co robisz jest dziwne, to prawdopodobnie jest.",
+      "footer": "To tyle, po prostu używaj z szacunkiem i będzie git."
+    }
+  },
   "colophon": {
     "title": "Kolofon",
     "description": "Historia tej strony i jak powstała",
