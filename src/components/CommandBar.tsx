@@ -9,7 +9,7 @@ import { applyTheme } from "@/lib/theme-utils";
 import { useMounted, isTypingInInput } from "@/hooks";
 import {
   ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, Calendar, Clock, Code, FileText,
-  FlipHorizontal, Gamepad2, Home, KeyRound, Languages, Mail, MessagesSquare, Moon, RefreshCw,
+  FlipHorizontal, Gamepad2, Home, Languages, Mail, MessagesSquare, Moon, RefreshCw,
   Search, Slash, Sun, Tag, User, Wrench, X
 } from "lucide-react";
 
@@ -176,17 +176,6 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         shortcut: "z",
         category: t("actionSearch.games", "Games"),
         action: nav("/2048/"),
-      },
-      {
-        id: "keyboard-shortcuts",
-        label: t("keyboardShortcuts.openShortcuts", "Keyboard shortcuts"),
-        icon: <KeyRound className="h-4 w-4 text-gray-500" />,
-        shortcut: ",",
-        category: t("actionSearch.help", "Help"),
-        action: () => {
-          dispatchKey(",");
-          close();
-        },
       },
     ];
 

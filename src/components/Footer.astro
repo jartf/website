@@ -2,7 +2,6 @@
 // Footer component with badges, webring links, i18n support, and secret chapter 6 easter egg
 
 import { footerBadges, flagColors } from "@/lib/constants";
-import { KeyboardShortcutsHelp } from "./KeyboardShortcutsHelp";
 import { Image } from 'astro:assets';
 import T from "@/components/T.astro";
 ---
@@ -24,9 +23,25 @@ import T from "@/components/T.astro";
       </p>
     </div>
 
-    <!-- Keyboard shortcuts help (desktop only) -->
+    <!-- Command bar button (desktop only) -->
     <div class="hidden xl:block absolute right-4">
-      <KeyboardShortcutsHelp client:only="react" />
+      <button
+        id="footer-command-bar-trigger"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent"
+        aria-label="Open command bar"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-keyboard">
+          <path d="M10 8h.01"/>
+          <path d="M12 12h.01"/>
+          <path d="M14 8h.01"/>
+          <path d="M16 12h.01"/>
+          <path d="M18 8h.01"/>
+          <path d="M6 8h.01"/>
+          <path d="M7 16h10"/>
+          <path d="M8 12h.01"/>
+          <rect width="20" height="16" x="2" y="4" rx="2"/>
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -111,6 +126,24 @@ import T from "@/components/T.astro";
 
         tapCount = 0;
       }
+    });
+  })();
+</script>
+
+<script is:inline>
+  // Command bar trigger button
+  (function () {
+    const trigger = document.getElementById("footer-command-bar-trigger");
+    if (!trigger) return;
+
+    trigger.addEventListener("click", () => {
+      // Simulate "." keypress to open command bar
+      const event = new KeyboardEvent("keydown", {
+        key: ".",
+        bubbles: true,
+        cancelable: true
+      });
+      window.dispatchEvent(event);
     });
   })();
 </script>
