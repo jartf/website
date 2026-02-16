@@ -229,10 +229,10 @@ const structuredData = {
     <link rel="alternate" hreflang="x-default" href={Astro.url.href} />
 
     <!-- Structured data -->
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbStructuredData)}></script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)}></script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbStructuredData)}></script>
     {extraStructuredData.map((data) => (
-      <script type="application/ld+json" set:html={JSON.stringify(data)}></script>
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(data)}></script>
     ))}
 
     <!-- Theme initialization script (runs before page render) -->

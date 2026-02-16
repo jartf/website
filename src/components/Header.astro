@@ -4,12 +4,14 @@
 import { navItems, author } from "@/lib/constants";
 import { isActivePath } from "@/lib/utils";
 import T from "@/components/T.astro";
-import ThemeToggle from "@/components/ThemeToggle.astro";
 import { LanguageToggle } from "@/components/LanguageToggle";
-import MusicToggle from "@/components/MusicToggle.astro";
 import { Image } from "astro:assets";
 
 const pathname = Astro.url.pathname;
+const navState = navItems.map((item) => ({ ...item, isActive: isActivePath(pathname, item.href) }));
+const navBaseClasses = "text-sm transition-colors hover:text-primary whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm";
+const navActiveClass = "text-foreground font-medium";
+const navInactiveClass = "text-muted-foreground";
 
 ---
 
@@ -29,26 +31,20 @@ const pathname = Astro.url.pathname;
       <!-- Desktop navigation -->
       <nav class="hidden lg:flex items-center ml-6 min-w-0" aria-label="Main navigation">
         <div class="flex items-center gap-4 lg:gap-6">
-          {navItems.map((item) => {
-            const isActive = isActivePath(pathname, item.href);
-            return (
-              <a
-                href={item.href}
-                data-nav-key={item.key}
-                data-nav-item="true"
-                class:list={[
-                  "text-sm transition-colors hover:text-primary whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
-                  isActive ? "text-foreground font-medium" : "text-muted-foreground",
-                ]}
-                aria-current={isActive ? "page" : undefined}
-              >
-                <T key={`nav.${item.key}`} />
-                {isActive && (
-                  <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />
-                )}
-              </a>
-            );
-          })}
+          {navState.map(({ href, key, isActive }) => (
+            <a
+              href={href}
+              data-nav-key={key}
+              data-nav-item="true"
+              class:list={[navBaseClasses, isActive ? navActiveClass : navInactiveClass]}
+              aria-current={isActive ? "page" : undefined}
+            >
+              <T key={`nav.${key}`} />
+              {isActive && (
+                <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />
+              )}
+            </a>
+          ))}
         </div>
       </nav>
     </div>
@@ -58,10 +54,45 @@ const pathname = Astro.url.pathname;
       <LanguageToggle client:only="react" transition:persist />
 
       <!-- Theme toggle -->
-      <ThemeToggle />
+      <button
+        id="theme-toggle"
+        class="p-2 rounded-md hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        aria-label="Toggle theme"
+        title="Toggle theme"
+      >
+        <svg id="theme-toggle-dark-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        </svg>
+        <svg id="theme-toggle-light-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2" />
+          <path d="M12 20v2" />
+          <path d="m4.93 4.93 1.41 1.41" />
+          <path d="m17.66 17.66 1.41 1.41" />
+          <path d="M2 12h2" />
+          <path d="M20 12h2" />
+          <path d="m6.34 17.66-1.41 1.41" />
+          <path d="m19.07 4.93-1.41 1.41" />
+        </svg>
+      </button>
 
-      <!-- Music toggle -->
-      <MusicToggle />
+      <!-- Music toggle (disabled placeholder) -->
+      <button
+        type="button"
+        disabled
+        aria-pressed="false"
+        aria-label="Music currently unavailable"
+        aria-describedby="music-disabled-reason"
+        title="Music currently unavailable"
+        class="p-2 rounded-md hover:bg-muted transition-colors opacity-50 cursor-not-allowed"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+          <line x1="23" x2="17" y1="9" y2="15" />
+          <line x1="17" x2="23" y1="9" y2="15" />
+        </svg>
+        <span id="music-disabled-reason" class="sr-only">Background music feature is currently disabled as no audio file is configured</span>
+      </button>
     </div>
   </div>
 
@@ -72,25 +103,57 @@ const pathname = Astro.url.pathname;
   >
     <div class="container px-4 py-2">
       <div class="flex items-center justify-center gap-3 md:gap-5 gap-y-1 flex-wrap">
-        {navItems.map((item) => {
-            const isActive = isActivePath(pathname, item.href);
-            return (
-              <a
-                href={item.href}
-                class:list={[
-                  "text-sm transition-colors hover:text-primary whitespace-nowrap py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
-                  isActive ? "text-foreground font-medium" : "text-muted-foreground",
-                ]}
-                aria-current={isActive ? "page" : undefined}
-              >
-                <T key={`nav.${item.key}`} />
-                {isActive && (
-                  <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />
-                )}
-              </a>
-            );
-          })}
+        {navState.map(({ href, key, isActive }) => (
+          <a
+            href={href}
+            class:list={[`${navBaseClasses} py-1`, isActive ? navActiveClass : navInactiveClass]}
+            aria-current={isActive ? "page" : undefined}
+          >
+            <T key={`nav.${key}`} />
+            {isActive && (
+              <div class="h-0.5 bg-primary mt-0.5" aria-hidden="true" />
+            )}
+          </a>
+        ))}
       </div>
     </div>
   </nav>
 </header>
+
+<script>
+  function initThemeToggle() {
+    const button = document.getElementById("theme-toggle");
+    const darkIcon = document.getElementById("theme-toggle-dark-icon");
+    const lightIcon = document.getElementById("theme-toggle-light-icon");
+    if (!button || !darkIcon || !lightIcon) return;
+
+    const updateIcons = (isDark: boolean) => {
+      darkIcon.classList[isDark ? "add" : "remove"]("hidden");
+      lightIcon.classList[isDark ? "remove" : "add"]("hidden");
+    };
+
+    const toggleTheme = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      const next = isDark ? "light" : "dark";
+      localStorage.setItem("theme", next);
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(next);
+      document.documentElement.style.colorScheme = next;
+      updateIcons(next === "dark");
+      button.setAttribute("aria-label", `Switch to ${next === "dark" ? "light" : "dark"} mode`);
+      button.setAttribute("title", `Switch to ${next === "dark" ? "light" : "dark"} mode`);
+    };
+
+    const current = document.documentElement.classList.contains("dark") ? "dark" : "light";
+    updateIcons(current === "dark");
+    button.setAttribute("aria-label", `Switch to ${current === "dark" ? "light" : "dark"} mode`);
+    button.setAttribute("title", `Switch to ${current === "dark" ? "light" : "dark"} mode`);
+
+    button.replaceWith(button.cloneNode(true));
+    const freshButton = document.getElementById("theme-toggle");
+    freshButton?.addEventListener("click", toggleTheme);
+  }
+
+  initThemeToggle();
+  document.addEventListener("astro:after-swap", initThemeToggle);
+</script>
