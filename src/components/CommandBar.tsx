@@ -202,6 +202,14 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         category: t("keyboardShortcuts.navigation", "Navigation"),
         action: nav("/slashes/"),
       },
+      {
+        id: "brand",
+        label: t("nav.brand", "Brand"),
+        icon: <Tag className="h-4 w-4 text-primary" />,
+        shortcut: "k",
+        category: t("keyboardShortcuts.navigation", "Navigation"),
+        action: nav("/brand/"),
+      },
     ];
 
     // Theme + language

@@ -19,6 +19,7 @@ const NAVIGATION_SHORTCUTS: Record<string, string> = {
   [keyboardShortcuts.webring]: routes.webring,
   [keyboardShortcuts.slashes]: routes.slashes,
   [keyboardShortcuts.scrapbook]: routes.scrapbook,
+  [keyboardShortcuts.brand]: routes.brand,
   [keyboardShortcuts.game2048]: routes.game2048,
   [keyboardShortcuts.tetris]: routes.tetris,
 }

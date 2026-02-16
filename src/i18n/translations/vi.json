@@ -10,7 +10,8 @@
     "guestbook": "Sổ lưu bút",
     "colophon": "Thông tin",
     "webring": "Webring",
-    "scrapbook": "Ghi chép"
+    "scrapbook": "Ghi chép",
+    "brand": "Bộ nhận diện"
   },
   "languageNotice": {
     "message": "Bản dịch cho ngôn ngữ này vẫn đang được xây dựng. Một số nội dung có thể chưa hoàn chỉnh hoặc bị thiếu.",
@@ -453,7 +454,7 @@
         "primary": "Chủ đạo",
         "background": "Nền",
         "card": "Thẻ",
-        "foreground": "Tiền cảnh",
+        "foreground": "Màu trước",
         "muted": "Mờ",
         "border": "Viền"
       },
@@ -505,7 +506,7 @@
       "point2Text": "Nếu dùng huy hiệu (badge), làm ơn thêm 'image-rendering: pixelated' (hoặc 'crisp-edges' trên Firefox) vào CSS. Không có nó, trình duyệt sẽ làm mờ pixel nhìn như rác ấy. Nó là pixel art, làm ơn hãy đối xử với nó như pixel art.",
       "point3Title": "Ghi nguồn thì tốt, không thì cũng không sao",
       "point3Text": "Nếu bạn viết bài về trang web này hay dùng tư liệu trong blog, dẫn link lại thì mình sẽ vui lắm. Nhưng nếu chỉ gắn cái badge vào trang liên kết thì không cần làm gì thêm đâu, cái mã HTML của badge mình đưa đã có link sẵn về đây rồi.",
-      "point4Title": "Đừng có làm trò",
+      "point4Title": "Đừng làm trò",
       "point4Text": "Đừng dùng mấy cái này để giả danh mình, nhét chữ vào mình, hay làm như kiểu mình dính dáng tới cái gì mờ ám. Mình tin là bạn biết sự khác biệt giữa việc dẫn link tới trang bạn thích và việc giả mạo người khác. Nếu thấy lấn cấn không biết việc bạn định làm có kỳ cục không, thì khả năng cao là có đấy.",
       "footer": "Thế thôi, cứ dùng đàng hoàng là được."
     }
