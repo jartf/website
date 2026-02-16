@@ -4,15 +4,15 @@ import { AlertCircle, X } from "lucide-react";
 
 import { languageStore, t } from "@/i18n";
 import { completedLanguages } from "@/lib/constants";
+import { useMounted } from "@/hooks";
 
 export function LanguageNotice() {
   const currentLang = useStore(languageStore);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const STORAGE_KEY = "languageNoticeDismissed";
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    setMounted(true);
     try {
       const dismissed = localStorage.getItem(STORAGE_KEY);
       if (dismissed === "true") setVisible(false);

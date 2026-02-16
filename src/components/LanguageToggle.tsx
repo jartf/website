@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { languageStore, setLanguage, supportedLanguages, currentTranslations, type SupportedLanguage } from '@/i18n';
+import { useMounted } from '@/hooks';
 
 export function LanguageToggle() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [searchQuery, setSearchQuery] = useState('');
   const currentLang = useStore(languageStore);
   const translations = useStore(currentTranslations);
@@ -15,7 +16,6 @@ export function LanguageToggle() {
     if (initialLang && initialLang !== languageStore.get()) {
       languageStore.set(initialLang);
     }
-    setMounted(true);
   }, []);
 
   const currentLanguage = supportedLanguages.find(l => l.code === currentLang) || supportedLanguages[0];

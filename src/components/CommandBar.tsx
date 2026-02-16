@@ -6,6 +6,7 @@ import { useStore } from "@nanostores/react";
 import { languageStore, cycleLanguage, t as i18nT } from "@/i18n";
 import { routes, keyboardShortcuts } from "@/lib/constants";
 import { applyTheme } from "@/lib/theme-utils";
+import { useMounted, isTypingInInput } from "@/hooks";
 import {
   ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, Calendar, Clock, Code, FileText,
   FlipHorizontal, Gamepad2, Home, KeyRound, Languages, Mail, MessagesSquare, Moon, RefreshCw,
@@ -60,14 +61,13 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
   const [open, setOpen] = useState(initialOpen);
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [pathname, setPathname] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const debouncedQuery = useDebounce(query, 200);
   const lang = useStore(languageStore);
 
   useEffect(() => {
-    setMounted(true);
     setPathname(window.location.pathname);
     setThemeState(localStorage.getItem("theme") || "dark");
   }, []);
@@ -469,9 +469,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
     const handleKey = (e: KeyboardEvent) => {
       // Skip if typing in input (except for our search input)
       const el = document.activeElement;
-      if (el instanceof HTMLInputElement && el !== inputRef.current) return;
-      if (el instanceof HTMLTextAreaElement) return;
-      if (el?.getAttribute("contenteditable") === "true") return;
+      if (el !== inputRef.current && isTypingInInput()) return;
 
       if (e.key === "." && !open && !e.metaKey && !e.ctrlKey) {
         e.preventDefault();

@@ -1,8 +1,25 @@
 // Hooks for Astro v5
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { cycleLanguage } from '@/i18n'
 import { routes, keyboardShortcuts } from '@/lib/constants'
 import { cycleTheme } from '@/lib/theme-utils'
+
+// Shared hook: returns true after first mount (SSR-safe)
+export function useMounted() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+  return mounted
+}
+
+// Shared utility: check if user is typing in an input field
+export function isTypingInInput(): boolean {
+  const el = document.activeElement
+  return (
+    el instanceof HTMLInputElement ||
+    el instanceof HTMLTextAreaElement ||
+    el?.getAttribute('contenteditable') === 'true'
+  )
+}
 
 const NAV_SHORTCUTS: Record<string, string> = Object.fromEntries(
   Object.entries(keyboardShortcuts)
@@ -22,8 +39,7 @@ export function useKeyboardNavigation() {
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      const el = document.activeElement
-      if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el?.getAttribute('contenteditable') === 'true') return
+      if (isTypingInInput()) return
       if (e.ctrlKey || e.metaKey || e.altKey) return
 
       const path = window.location.pathname

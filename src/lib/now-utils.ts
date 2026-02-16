@@ -1,5 +1,5 @@
 // Shared utilities for Now section and Now page
-import { t } from "@/i18n";
+import { t, applyDomTranslations } from "@/i18n";
 
 export interface PremidActivity {
   name: string;
@@ -92,11 +92,9 @@ export const renderCard = (item: LiveItem) =>
 // --- i18n ---
 
 export function updateI18nElements(root: Element, lang: string) {
-  root.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n")!;
-    const val = t(key);
-    if (val !== key) el.textContent = val;
-  });
+  // Delegate [data-i18n] to the shared implementation
+  applyDomTranslations(root);
+  // Now-specific: update multilingual content blocks
   root.querySelectorAll("[data-now-content]").forEach(article => {
     try {
       const content = JSON.parse(article.getAttribute("data-now-content")!);

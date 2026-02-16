@@ -6,6 +6,7 @@ import { Keyboard, X } from "lucide-react";
 import { useStore } from "@nanostores/react";
 import { languageStore, t as i18nT } from "@/i18n";
 import { routes } from "@/lib/constants";
+import { useMounted, isTypingInInput } from "@/hooks";
 
 // Inline KeyboardShortcut component
 const KeyboardShortcut = ({ children }: { children: React.ReactNode }) => (
@@ -26,13 +27,9 @@ interface ShortcutCategory {
 
 export function KeyboardShortcutsHelp() {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const lang = useStore(languageStore);
   void lang;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const t = (key: string, fallback?: string): string => {
     const translated = i18nT(key);
@@ -56,13 +53,7 @@ export function KeyboardShortcutsHelp() {
 
   // Handle keyboard shortcut to open dialog
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (
-      document.activeElement instanceof HTMLInputElement ||
-      document.activeElement instanceof HTMLTextAreaElement ||
-      document.activeElement?.getAttribute("contenteditable") === "true"
-    ) {
-      return;
-    }
+    if (isTypingInInput()) return;
 
     if (e.key === ",") {
       e.preventDefault();

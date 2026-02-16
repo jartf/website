@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ComponentType } from "react";
 
 import type { CommandBarProps } from "@/components/CommandBar";
-import { useKeyboardNavigation } from "@/hooks";
+import { useKeyboardNavigation, isTypingInInput } from "@/hooks";
 
 type CommandBarComponent = ComponentType<CommandBarProps>;
 
@@ -18,12 +18,7 @@ export function CommandBarLazy() {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key !== "." || e.metaKey || e.ctrlKey) return;
       if (CommandBar) return;
-
-      // Skip if typing in an input/textarea/contenteditable.
-      const el = document.activeElement;
-      if (el instanceof HTMLInputElement) return;
-      if (el instanceof HTMLTextAreaElement) return;
-      if (el?.getAttribute("contenteditable") === "true") return;
+      if (isTypingInInput()) return;
 
       e.preventDefault();
       openOnLoadRef.current = true;

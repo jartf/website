@@ -1,5 +1,16 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { hrefLangLanguages, supportedLanguages, siteDescription, siteName, siteUrl, author } from "@/lib/constants";
+import { hrefLangLanguages, supportedLanguages, siteDescription, siteName, siteUrl, author, type SupportedLanguage } from "@/lib/constants";
+
+// Shared static paths and language validation for feed routes
+export function feedStaticPaths() {
+  return supportedLanguages.map((lang) => ({ params: { lang: lang.code } }));
+}
+
+const validLangCodes = new Set(supportedLanguages.map((l) => l.code));
+
+export function validateFeedLang(lang: string | undefined): lang is SupportedLanguage {
+  return !!lang && validLangCodes.has(lang as SupportedLanguage);
+}
 
 // Helper to get language name from code
 function getLanguageName(code: string): string {

@@ -1,18 +1,5 @@
 // Now items with multilingual support
-export type NowItemContent = {
-  en: string;
-  vi: string;
-  ru: string;
-  et: string;
-  da: string;
-  tr: string;
-  zh: string;
-  pl: string;
-  sv: string;
-  fi: string;
-  tok: string;
-  vih: string;
-};
+export type NowItemContent = Record<'en' | 'vi' | 'ru' | 'et' | 'da' | 'tr' | 'zh' | 'pl' | 'sv' | 'fi' | 'tok' | 'vih', string>;
 
 export type NowItemContentOptional = Partial<NowItemContent> & { en: string };
 

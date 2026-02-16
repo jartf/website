@@ -1,82 +1,12 @@
-export type ProjectContent = {
-  en: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  vi: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  et: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  ru: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  da: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  tr: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  zh: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  pl: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  fi: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  sv: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
-  tok: {
-    title: string
-    description: string
-    what: string
-    learned: string
-    why: string
-  }
+type ProjectFields = {
+  title: string
+  description: string
+  what: string
+  learned: string
+  why: string
 }
+
+export type ProjectContent = Record<'en' | 'vi' | 'et' | 'ru' | 'da' | 'tr' | 'zh' | 'pl' | 'fi' | 'sv' | 'tok', ProjectFields>
 
 export type Project = {
   id: number

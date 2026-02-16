@@ -76,18 +76,9 @@ export function applyDomTranslations(root: ParentNode | Document = document) {
   try {
     html?.classList.add("i18n-updating");
 
-    root.querySelectorAll?.("[data-i18n]")?.forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      if (!key) return;
-      const translated = t(key);
-      if (translated !== key && el.textContent !== translated) {
-        el.textContent = translated;
-      }
-    });
-
-    // Update <T> component outputs.
-    root.querySelectorAll?.("[data-t-key]")?.forEach((el) => {
-      const key = el.getAttribute("data-t-key");
+    // Update text content for both [data-i18n] and [data-t-key] elements
+    root.querySelectorAll?.("[data-i18n], [data-t-key]")?.forEach((el) => {
+      const key = el.getAttribute("data-i18n") || el.getAttribute("data-t-key");
       if (!key) return;
       const translated = t(key);
       if (translated !== key && el.textContent !== translated) {
@@ -99,15 +90,11 @@ export function applyDomTranslations(root: ParentNode | Document = document) {
       const key = el.getAttribute("data-i18n-placeholder");
       if (!key) return;
       const translated = t(key);
-      if (translated !== key && el instanceof HTMLInputElement) {
-        if (el.placeholder !== translated) el.placeholder = translated;
-      }
-      if (translated !== key && el instanceof HTMLTextAreaElement) {
+      if (translated !== key && (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement)) {
         if (el.placeholder !== translated) el.placeholder = translated;
       }
     });
   } finally {
-    // Let layout settle before removing the hint class.
     requestAnimationFrame(() => html?.classList.remove("i18n-updating"));
   }
 }

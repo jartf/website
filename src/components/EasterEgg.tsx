@@ -4,6 +4,7 @@ import { PartyPopper, X } from "lucide-react";
 
 import { languageStore } from "@/i18n";
 import { supportedLanguages } from "@/lib/constants";
+import { useMounted } from "@/hooks";
 
 const LANGUAGE_TRACKER_KEY = "language-tracker";
 
@@ -28,13 +29,9 @@ function writeVisited(value: Set<string>) {
 
 export const EasterEgg = memo(function EasterEgg() {
   const currentLang = useStore(languageStore);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [visible, setVisible] = useState(false);
   const [visited, setVisited] = useState<Set<string>>(() => readVisited());
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!mounted) return;

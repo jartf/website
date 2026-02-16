@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { useStore } from "@nanostores/react";
 import { languageStore, t as i18nT } from "@/i18n";
+import { useMounted } from "@/hooks";
 
 const STORAGE_KEY = "first-visit-hint-dismissed";
 
@@ -17,13 +18,12 @@ const KeyboardShortcut = ({ children }: { children: React.ReactNode }) => (
 
 export function FirstVisitHint() {
   const [visible, setVisible] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [isDesktop, setIsDesktop] = useState(false);
   const lang = useStore(languageStore);
   void lang;
 
   useEffect(() => {
-    setMounted(true);
     // Check desktop on mount
     setIsDesktop(window.innerWidth >= 1280);
   }, []);

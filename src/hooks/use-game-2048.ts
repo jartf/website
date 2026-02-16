@@ -88,145 +88,60 @@ export const hasWon = (board: GameBoard): boolean => {
   return false
 }
 
+// Slide and merge a single line toward index 0
+function processLine(line: number[]): { result: number[]; score: number; mergedIndices: number[] } {
+  let filtered = line.filter((v) => v !== 0)
+  let score = 0
+  const mergedIndices: number[] = []
+
+  for (let i = 0; i < filtered.length - 1; i++) {
+    if (filtered[i] === filtered[i + 1] && !mergedIndices.includes(i)) {
+      filtered[i] *= 2
+      score += filtered[i]
+      filtered[i + 1] = 0
+      mergedIndices.push(i)
+    }
+  }
+
+  filtered = filtered.filter((v) => v !== 0)
+  while (filtered.length < 4) filtered.push(0)
+  return { result: filtered, score, mergedIndices }
+}
+
+// Extract a row or column from the board
+function getLine(board: GameBoard, index: number, vertical: boolean): number[] {
+  return vertical ? [0, 1, 2, 3].map((i) => board[i][index]) : [...board[index]]
+}
+
+// Write a row or column back to the board
+function setLine(board: GameBoard, index: number, vertical: boolean, line: number[]) {
+  if (vertical) { for (let i = 0; i < 4; i++) board[i][index] = line[i] }
+  else { board[index] = line }
+}
+
+// Generic move: vertical=false for left/right, vertical=true for up/down, reverse=true for right/down
+function move(board: GameBoard, vertical: boolean, reverse: boolean): MoveResult {
+  const newBoard = board.map((row) => [...row])
+  let score = 0
+  const tileAnimations: TileAnimations = {}
+
+  for (let i = 0; i < 4; i++) {
+    let line = getLine(newBoard, i, vertical)
+    if (reverse) line.reverse()
+    const { result, score: lineScore } = processLine(line)
+    if (reverse) result.reverse()
+    score += lineScore
+    setLine(newBoard, i, vertical, result)
+  }
+
+  return { newBoard, score, tileAnimations }
+}
+
 // Move functions
-export const moveLeft = (board: GameBoard): MoveResult => {
-  const newBoard = board.map((row) => [...row])
-  let score = 0
-  const tileAnimations: TileAnimations = {}
-
-  for (let i = 0; i < 4; i++) {
-    const originalRow = [...newBoard[i]]
-    let row = newBoard[i].filter((val) => val !== 0)
-    const mergedIndices: number[] = []
-
-    for (let j = 0; j < row.length - 1; j++) {
-      if (row[j] === row[j + 1] && !mergedIndices.includes(j)) {
-        row[j] *= 2
-        score += row[j]
-        row[j + 1] = 0
-        mergedIndices.push(j)
-      }
-    }
-
-    row = row.filter((val) => val !== 0)
-    while (row.length < 4) row.push(0)
-
-    for (let j = 0; j < 4; j++) {
-      if (row[j] !== 0) {
-        let originalCol = -1
-        for (let k = 0; k < 4; k++) {
-          if (originalRow[k] === row[j] || (mergedIndices.includes(j) && originalRow[k] === row[j] / 2)) {
-            originalCol = k
-            break
-          }
-        }
-        if (originalCol !== -1 && originalCol !== j) {
-          tileAnimations[`${i}-${j}-${row[j]}`] = {
-            from: { row: i, col: originalCol },
-            merged: mergedIndices.includes(j),
-          }
-        }
-      }
-    }
-
-    newBoard[i] = row
-  }
-
-  return { newBoard, score, tileAnimations }
-}
-
-export const moveRight = (board: GameBoard): MoveResult => {
-  const newBoard = board.map((row) => [...row])
-  let score = 0
-  const tileAnimations: TileAnimations = {}
-
-  for (let i = 0; i < 4; i++) {
-    let row = newBoard[i].filter((val) => val !== 0)
-    const mergedIndices: number[] = []
-
-    for (let j = row.length - 1; j > 0; j--) {
-      if (row[j] === row[j - 1] && !mergedIndices.includes(j)) {
-        row[j] *= 2
-        score += row[j]
-        row[j - 1] = 0
-        mergedIndices.push(j)
-      }
-    }
-
-    row = row.filter((val) => val !== 0)
-    while (row.length < 4) row.unshift(0)
-
-    newBoard[i] = row
-  }
-
-  return { newBoard, score, tileAnimations }
-}
-
-export const moveUp = (board: GameBoard): MoveResult => {
-  const newBoard = board.map((row) => [...row])
-  let score = 0
-  const tileAnimations: TileAnimations = {}
-
-  for (let j = 0; j < 4; j++) {
-    let column = []
-    for (let i = 0; i < 4; i++) {
-      if (newBoard[i][j] !== 0) column.push(newBoard[i][j])
-    }
-
-    const mergedIndices: number[] = []
-
-    for (let i = 0; i < column.length - 1; i++) {
-      if (column[i] === column[i + 1] && !mergedIndices.includes(i)) {
-        column[i] *= 2
-        score += column[i]
-        column[i + 1] = 0
-        mergedIndices.push(i)
-      }
-    }
-
-    column = column.filter((val) => val !== 0)
-    while (column.length < 4) column.push(0)
-
-    for (let i = 0; i < 4; i++) {
-      newBoard[i][j] = column[i]
-    }
-  }
-
-  return { newBoard, score, tileAnimations }
-}
-
-export const moveDown = (board: GameBoard): MoveResult => {
-  const newBoard = board.map((row) => [...row])
-  let score = 0
-  const tileAnimations: TileAnimations = {}
-
-  for (let j = 0; j < 4; j++) {
-    let column = []
-    for (let i = 0; i < 4; i++) {
-      if (newBoard[i][j] !== 0) column.push(newBoard[i][j])
-    }
-
-    const mergedIndices: number[] = []
-
-    for (let i = column.length - 1; i > 0; i--) {
-      if (column[i] === column[i - 1] && !mergedIndices.includes(i)) {
-        column[i] *= 2
-        score += column[i]
-        column[i - 1] = 0
-        mergedIndices.push(i)
-      }
-    }
-
-    column = column.filter((val) => val !== 0)
-    while (column.length < 4) column.unshift(0)
-
-    for (let i = 0; i < 4; i++) {
-      newBoard[i][j] = column[i]
-    }
-  }
-
-  return { newBoard, score, tileAnimations }
-}
+export const moveLeft = (board: GameBoard): MoveResult => move(board, false, false)
+export const moveRight = (board: GameBoard): MoveResult => move(board, false, true)
+export const moveUp = (board: GameBoard): MoveResult => move(board, true, false)
+export const moveDown = (board: GameBoard): MoveResult => move(board, true, true)
 
 // Get tile color based on value
 export const getTileColor = (value: number, isDark: boolean): string => {

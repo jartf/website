@@ -191,18 +191,16 @@ export default function TetrisGame() {
   }, [])
 
   // Lock piece to board
-  const lockPiece = useCallback(() => {
-    if (!currentPiece) return
-
+  // Place piece on board, clear lines, spawn next piece
+  const placePieceAndSpawn = useCallback((pieceType: TetrominoType, shape: number[][], px: number, py: number) => {
     const newBoard = board.map(row => [...row])
-    const { type, shape, x, y } = currentPiece
-    const color = TETROMINOS[type].color
+    const color = TETROMINOS[pieceType].color
 
     for (let row = 0; row < shape.length; row++) {
       for (let col = 0; col < shape[row].length; col++) {
         if (shape[row][col]) {
-          const newY = y + row
-          const newX = x + col
+          const newY = py + row
+          const newX = px + col
           if (newY >= 0 && newY < BOARD_HEIGHT && newX >= 0 && newX < BOARD_WIDTH) {
             newBoard[newY][newX] = color
           }
@@ -217,45 +215,41 @@ export default function TetrisGame() {
       if (isFull) linesCleared++
       return !isFull
     })
-
-    // Add empty rows at top
     while (finalBoard.length < BOARD_HEIGHT) {
       finalBoard.unshift(Array(BOARD_WIDTH).fill(null))
     }
 
-    // Update score
     if (linesCleared > 0) {
       const points = [0, 100, 300, 500, 800][linesCleared] * level
       setScore(prev => prev + points)
       setLines(prev => {
         const newLines = prev + linesCleared
         const newLevel = Math.floor(newLines / 10) + 1
-        if (newLevel > level) {
-          setLevel(newLevel)
-        }
+        if (newLevel > level) setLevel(newLevel)
         return newLines
       })
     }
 
     setBoard(finalBoard)
 
-    // Spawn new piece
     const newType = nextPiece
     const newShape = TETROMINOS[newType].shape
     const startX = Math.floor((BOARD_WIDTH - newShape[0].length) / 2)
 
     if (checkCollision(newShape, startX, 0, finalBoard)) {
       setGameOver(true)
+      setCurrentPiece(null)
     } else {
-      setCurrentPiece({
-        type: newType,
-        shape: newShape,
-        x: startX,
-        y: 0
-      })
+      setCurrentPiece({ type: newType, shape: newShape, x: startX, y: 0 })
       setNextPiece(getRandomTetromino())
     }
-  }, [board, currentPiece, nextPiece, level, checkCollision])
+  }, [board, nextPiece, level, checkCollision])
+
+  // Lock piece to board
+  const lockPiece = useCallback(() => {
+    if (!currentPiece) return
+    placePieceAndSpawn(currentPiece.type, currentPiece.shape, currentPiece.x, currentPiece.y)
+  }, [currentPiece, placePieceAndSpawn])
 
   // Move piece
   const movePiece = useCallback((dx: number, dy: number) => {
@@ -277,15 +271,12 @@ export default function TetrisGame() {
 
     const rotated = rotateMatrix(currentPiece.shape)
 
-    // Try normal rotation
     if (!checkCollision(rotated, currentPiece.x, currentPiece.y, board)) {
       setCurrentPiece(prev => prev ? { ...prev, shape: rotated } : null)
       return
     }
 
-    // Wall kick attempts
-    const kicks = [-1, 1, -2, 2]
-    for (const kick of kicks) {
+    for (const kick of [-1, 1, -2, 2]) {
       if (!checkCollision(rotated, currentPiece.x + kick, currentPiece.y, board)) {
         setCurrentPiece(prev => prev ? { ...prev, shape: rotated, x: prev.x + kick } : null)
         return
@@ -293,80 +284,16 @@ export default function TetrisGame() {
     }
   }, [currentPiece, board, gameOver, isPaused, checkCollision])
 
-  // Hard drop - drops piece instantly and locks it immediately
+  // Hard drop
   const hardDrop = useCallback(() => {
     if (!currentPiece || gameOver || isPaused) return
 
-    const { type, shape, x } = currentPiece
-    const color = TETROMINOS[type].color
-
-    // Find the lowest valid position
     let dropY = currentPiece.y
-    while (!checkCollision(shape, x, dropY + 1, board)) {
+    while (!checkCollision(currentPiece.shape, currentPiece.x, dropY + 1, board)) {
       dropY++
     }
-
-    // Immediately create the new board with piece placed
-    const newBoard = board.map(row => [...row])
-    for (let row = 0; row < shape.length; row++) {
-      for (let col = 0; col < shape[row].length; col++) {
-        if (shape[row][col]) {
-          const newY = dropY + row
-          const newX = x + col
-          if (newY >= 0 && newY < BOARD_HEIGHT && newX >= 0 && newX < BOARD_WIDTH) {
-            newBoard[newY][newX] = color
-          }
-        }
-      }
-    }
-
-    // Clear completed lines
-    let linesCleared = 0
-    const finalBoard = newBoard.filter(row => {
-      const isFull = row.every(cell => cell !== null)
-      if (isFull) linesCleared++
-      return !isFull
-    })
-
-    // Add empty rows at top
-    while (finalBoard.length < BOARD_HEIGHT) {
-      finalBoard.unshift(Array(BOARD_WIDTH).fill(null))
-    }
-
-    // Update score
-    if (linesCleared > 0) {
-      const points = [0, 100, 300, 500, 800][linesCleared] * level
-      setScore(prev => prev + points)
-      setLines(prev => {
-        const newLines = prev + linesCleared
-        const newLevel = Math.floor(newLines / 10) + 1
-        if (newLevel > level) {
-          setLevel(newLevel)
-        }
-        return newLines
-      })
-    }
-
-    setBoard(finalBoard)
-
-    // Spawn new piece
-    const newType = nextPiece
-    const newShape = TETROMINOS[newType].shape
-    const startX = Math.floor((BOARD_WIDTH - newShape[0].length) / 2)
-
-    if (checkCollision(newShape, startX, 0, finalBoard)) {
-      setGameOver(true)
-      setCurrentPiece(null)
-    } else {
-      setCurrentPiece({
-        type: newType,
-        shape: newShape,
-        x: startX,
-        y: 0
-      })
-      setNextPiece(getRandomTetromino())
-    }
-  }, [currentPiece, board, gameOver, isPaused, nextPiece, level, checkCollision])
+    placePieceAndSpawn(currentPiece.type, currentPiece.shape, currentPiece.x, dropY)
+  }, [currentPiece, board, gameOver, isPaused, checkCollision, placePieceAndSpawn])
 
   // Start game
   const startGame = useCallback(() => {
