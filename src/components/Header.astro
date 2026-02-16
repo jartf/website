@@ -12,7 +12,6 @@ import { Image } from "astro:assets";
 const pathname = Astro.url.pathname;
 
 // Filter out 'projects' from nav items (as in original)
-const headerNavItems = navItems.filter((item) => item.key !== "projects");
 ---
 
 <header class="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
@@ -31,7 +30,7 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
       <!-- Desktop navigation -->
       <nav class="hidden lg:flex items-center ml-6 min-w-0" aria-label="Main navigation">
         <div class="flex items-center gap-4 lg:gap-6">
-          {headerNavItems.map((item) => {
+          {navItems.map((item) => {
             const isActive = isActivePath(pathname, item.href);
             return (
               <a
@@ -74,7 +73,7 @@ const headerNavItems = navItems.filter((item) => item.key !== "projects");
   >
     <div class="container px-4 py-2">
       <div class="flex items-center justify-center gap-3 md:gap-5 gap-y-1 flex-wrap">
-        {headerNavItems.map((item) => {
+        {navItems.map((item) => {
             const isActive = isActivePath(pathname, item.href);
             return (
               <a

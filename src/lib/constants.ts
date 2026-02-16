@@ -161,7 +161,6 @@ export const keyboardShortcuts: Record<string, string> = {
 export const navItems = [
   { href: routes.home, key: "home" },
   { href: routes.about, key: "about" },
-  { href: routes.projects, key: "projects" },
   { href: routes.blog, key: "blog" },
   { href: routes.now, key: "now" },
   { href: routes.uses, key: "uses" },
