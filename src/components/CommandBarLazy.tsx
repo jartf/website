@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState, type ComponentType } from "react";
 
 import type { CommandBarProps } from "@/components/CommandBar";
+import { useKeyboardNavigation } from "@/hooks";
 
 type CommandBarComponent = ComponentType<CommandBarProps>;
 
 export function CommandBarLazy() {
+  useKeyboardNavigation();
+
   const [CommandBar, setCommandBar] = useState<CommandBarComponent | null>(null);
   const openOnLoadRef = useRef(false);
   const isLoadingRef = useRef(false);

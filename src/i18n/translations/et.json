@@ -1,4 +1,34 @@
 {
+  "404": {
+    "title": "You've wandered off the map",
+    "description": "The cat doesn't even know this place.",
+    "button": "Mine tagasi koju",
+    "sitemap": "Vaata saidikaarti",
+    "enjoycat": "While you're lost, enjoy this cat:"
+  },
+  "2048": {
+    "description": "Join the tiles, get to 2048!",
+    "score": "Skoor",
+    "best": "Parim",
+    "gameOver": "Mäng läbi!",
+    "finalScore": "Lõppskoor",
+    "tryAgain": "Try again",
+    "youWin": "Sa võidad!",
+    "currentScore": "Praegune tulemus",
+    "keepPlaying": "Keep playing",
+    "newGame": "Uus mäng",
+    "howToPlay": "Mängujuhend",
+    "instructions1": "Use your arrow keys or WASD to move the tiles. When two tiles with the same number touch, they merge into one!",
+    "instructions2": "After each move, a new tile appears (either 2 or 4).",
+    "instructions3": "Create a tile with the number 2048 to win the game!",
+    "controls": "Juhtimiselemendid",
+    "moveLeft": "Liiguta vasakule",
+    "moveRight": "Liiguta paremale",
+    "moveUp": "Liiguta üles",
+    "moveDown": "Liiguta alla",
+    "touchInstructions": "On mobile devices, use the on-screen controls to move tiles.",
+    "undo": "Võta tagasi"
+  },
   "nav": {
     "home": "Avaleht",
     "about": "Minust",
@@ -352,9 +382,16 @@
     "score": "Skoor",
     "level": "Level",
     "status": "Staatus",
+    "next": "Järgmine",
     "gameOver": "Mäng läbi",
     "paused": "Peatatud",
     "playing": "Mängib",
+    "ready": "Valmis",
+    "playAgain": "Mängi uuesti",
+    "pause": "Paus",
+    "resume": "Jätka mängu",
+    "start": "Alusta",
+    "reset": "Lähtesta",
     "controls": "Juhtimiselemendid",
     "moveLeft": "Liiguta vasakule",
     "moveRight": "Liiguta paremale",
@@ -362,22 +399,9 @@
     "rotate": "Rotate block",
     "hardDrop": "Hard drop",
     "pauseGame": "Mängu peatamine",
-    "playAgain": "Mängi uuesti",
-    "resetGame": "Lähtesta mäng",
-    "resume": "Jätka mängu",
-    "pause": "Paus",
-    "drop": "Drop",
     "musicOn": "Muusika sees",
     "musicOff": "Muusika välja lülitatud",
-    "gameOverMessage": "Mäng läbi!",
-    "finalScore": "Teie lõppskoor:"
-  },
-  "404": {
-    "title": "You've wandered off the map",
-    "description": "The cat doesn't even know this place.",
-    "button": "Mine tagasi koju",
-    "sitemap": "Vaata saidikaarti",
-    "enjoycat": "While you're lost, enjoy this cat:"
+    "nowPlaying": "Praegu mängib"
   },
   "scrapbook": {
     "title": "Devlogi"
@@ -574,30 +598,8 @@
     "madeWith": "armastusega tehtud",
     "andChaos": "ja paar nädalat mängimist"
   },
-  "2048": {
-    "description": "Join the tiles, get to 2048!",
-    "score": "Skoor",
-    "best": "Parim",
-    "gameOver": "Mäng läbi!",
-    "finalScore": "Lõppskoor",
-    "tryAgain": "Try again",
-    "youWin": "Sa võidad!",
-    "currentScore": "Praegune tulemus",
-    "keepPlaying": "Keep playing",
-    "newGame": "Uus mäng",
-    "howToPlay": "Mängujuhend",
-    "instructions1": "Use your arrow keys or WASD to move the tiles. When two tiles with the same number touch, they merge into one!",
-    "instructions2": "After each move, a new tile appears (either 2 or 4).",
-    "instructions3": "Create a tile with the number 2048 to win the game!",
-    "controls": "Juhtimiselemendid",
-    "moveLeft": "Liiguta vasakule",
-    "moveRight": "Liiguta paremale",
-    "moveUp": "Liiguta üles",
-    "moveDown": "Liiguta alla",
-    "touchInstructions": "On mobile devices, use the on-screen controls to move tiles.",
-    "undo": "Võta tagasi"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "Kiirklahvid",
     "navigation": "Navigation",
     "actions": "Toimingud",
@@ -613,7 +615,6 @@
     "slashes": "Sisukaart",
     "scrapbook": "Devlogi",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "Keelte vahel liikumine",
     "cycleTheme": "Heledate/tumedate teemade vaheldumisi vahetamine",
     "refreshCat": "Refresh mood cat",
@@ -622,6 +623,7 @@
     "actionSearch": "Open Action Search"
   },
   "actionSearch": {
+    "2048": "Mängi 2048",
     "title": "Otsingutoimingud",
     "placeholder": "Otsingutoimingud...",
     "noResults": "Toiminguid ei leitud",
@@ -639,7 +641,6 @@
     "fun": "Fun",
     "games": "Mängud",
     "tetris": "Mängi Tetrist",
-    "2048": "Mängi 2048",
     "help": "Help",
     "projects": {
       "category": "Navigate through project cards",
@@ -693,9 +694,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "Vihje:",
-      "message": "Otsinguriba avamiseks võid vajutada",
-      "suffix": "klahvi :D",
-      "dismiss": "Sulge vihje"
+    "prefix": "Vihje:",
+    "message": "Otsinguriba avamiseks võid vajutada",
+    "suffix": "klahvi :D",
+    "dismiss": "Sulge vihje"
   }
 }

@@ -284,21 +284,13 @@ const feedButtons = [
 </BaseLayout>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+  import { languageStore, t } from '@/i18n';
+  import { setupPageI18n } from '@/lib/i18n-page';
 
   const languageNames: Record<string, string> = { en: "English", vi: "Tiếng Việt", vih: "Tiếng Việt (Hán tự)", ru: "Русский", fi: "Suomi", pl: "Polski", sv: "Svenska", da: "Dansk", et: "Eesti", tr: "Türkçe", zh: "中文", tok: "toki pona" };
   const state = { search: '', sort: 'newest', langs: [] as string[], moods: [] as string[], cats: [] as string[], catApproved: null as boolean | null };
 
-  const updateTranslations = () => {
-    const lang = languageStore.get();
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (key) { const translated = t(key); if (translated !== key) el.textContent = translated; }
-    });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      if (key) { const translated = t(key); if (translated !== key) (el as HTMLInputElement).placeholder = translated; }
-    });
+  const updateBlogTranslations = (lang: string) => {
     updateResultsCount();
     document.querySelectorAll('time[data-date]').forEach(el => {
       const dateStr = el.getAttribute('data-date');
@@ -306,6 +298,8 @@ const feedButtons = [
     });
     updateActiveFiltersDisplay();
   };
+
+  setupPageI18n(updateBlogTranslations);
 
   const updateResultsCount = () => {
     const [resultsEl, filteredEl, totalEl] = ['results-count', 'filtered-count', 'total-count'].map(id => document.getElementById(id));
@@ -403,7 +397,7 @@ const feedButtons = [
     filterAndSortPosts();
   };
 
-  initLanguage(); updateTranslations(); initDefaultLanguageFilter();
+  initDefaultLanguageFilter();
 
   const handleCheckboxFilter = (selector: string, stateKey: 'langs' | 'moods' | 'cats') => {
     document.querySelectorAll(selector).forEach(cb => cb.addEventListener('change', e => {
@@ -442,6 +436,4 @@ const feedButtons = [
 
   ['reset-filters', 'reset-filters-empty'].forEach(id => document.getElementById(id)?.addEventListener('click', resetFilters));
   filterAndSortPosts();
-  languageStore.subscribe(updateTranslations);
-  window.addEventListener('languageChange', updateTranslations);
 </script>

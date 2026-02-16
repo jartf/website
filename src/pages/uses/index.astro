@@ -107,22 +107,12 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
 </BaseLayout>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+  import { setupPageI18n } from '@/lib/i18n-page';
 
   const platformData: Record<string, { name: string; description: string; link: string }> = {
     revanced: { name: 'ReVanced', description: 'A patcher for YouTube that removes ads and adds features', link: 'https://revanced.app/' },
     stremio: { name: 'Stremio', description: 'A media center for streaming movies and TV shows', link: 'https://www.stremio.com/' }
   };
-
-  function updateTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) el.textContent = translated;
-      }
-    });
-  }
 
   function setupHiddenPlatforms() {
     document.querySelectorAll('.hidden-platform').forEach((el) => {
@@ -155,14 +145,6 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
     });
   }
 
-  function init() {
-    initLanguage();
-    updateTranslations();
-    setupHiddenPlatforms();
-    languageStore.subscribe(updateTranslations);
-    window.addEventListener('languageChange', updateTranslations);
-  }
-
-  init();
-  document.addEventListener('astro:page-load', init);
+  setupPageI18n();
+  setupHiddenPlatforms();
 </script>

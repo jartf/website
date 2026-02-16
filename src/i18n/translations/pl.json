@@ -1,4 +1,34 @@
 {
+  "404": {
+    "title": "Zgubiłeś się",
+    "description": "Nawet kot nie zna tego miejsca.",
+    "button": "Wróć do domu",
+    "sitemap": "Zobacz mapę strony",
+    "enjoycat": "Skoro już się zgubiłeś, zobacz tego kota:"
+  },
+  "2048": {
+    "description": "Łącz płytki, dojdź do 2048!",
+    "score": "Wynik",
+    "best": "Rekord",
+    "gameOver": "Koniec gry!",
+    "finalScore": "Końcowy wynik",
+    "tryAgain": "Spróbuj ponownie",
+    "youWin": "Wygrałeś!",
+    "currentScore": "Aktualny wynik",
+    "keepPlaying": "Graj dalej",
+    "newGame": "Nowa gra",
+    "howToPlay": "Jak grać",
+    "instructions1": "Użyj strzałek lub WASD, by przesuwać płytki. Gdy dwie płytki z tą samą liczbą się zetkną, łączą się w jedną!",
+    "instructions2": "Po każdym ruchu pojawia się nowa płytka (2 lub 4).",
+    "instructions3": "Stwórz płytkę z liczbą 2048, by wygrać!",
+    "controls": "Sterowanie",
+    "moveLeft": "W lewo",
+    "moveRight": "W prawo",
+    "moveUp": "W górę",
+    "moveDown": "W dół",
+    "touchInstructions": "Na telefonie użyj przycisków na ekranie.",
+    "undo": "Cofnij"
+  },
   "nav": {
     "home": "Strona główna",
     "about": "O mnie",
@@ -352,9 +382,16 @@
     "score": "Wynik",
     "level": "Poziom",
     "status": "Status",
+    "next": "Następny",
     "gameOver": "Koniec gry",
     "paused": "Pauza",
     "playing": "Grasz",
+    "ready": "Gotowy",
+    "playAgain": "Zagraj ponownie",
+    "pause": "Pauza",
+    "resume": "Wznów",
+    "start": "Start",
+    "reset": "Zresetuj",
     "controls": "Sterowanie",
     "moveLeft": "W lewo",
     "moveRight": "W prawo",
@@ -362,22 +399,9 @@
     "rotate": "Obróć",
     "hardDrop": "Szybki rzut",
     "pauseGame": "Pauza",
-    "playAgain": "Zagraj ponownie",
-    "resetGame": "Zresetuj grę",
-    "resume": "Wznów",
-    "pause": "Pauza",
-    "drop": "Rzuć",
     "musicOn": "Muzyka włączona",
     "musicOff": "Muzyka wyłączona",
-    "gameOverMessage": "Koniec gry!",
-    "finalScore": "Twój końcowy wynik:"
-  },
-  "404": {
-    "title": "Zgubiłeś się",
-    "description": "Nawet kot nie zna tego miejsca.",
-    "button": "Wróć do domu",
-    "sitemap": "Zobacz mapę strony",
-    "enjoycat": "Skoro już się zgubiłeś, zobacz tego kota:"
+    "nowPlaying": "Teraz gra"
   },
   "scrapbook": {
     "title": "Devlog"
@@ -574,30 +598,8 @@
     "madeWith": "zrobione z miłością",
     "andChaos": "i kilkoma dniami kodowania"
   },
-  "2048": {
-    "description": "Łącz płytki, dojdź do 2048!",
-    "score": "Wynik",
-    "best": "Rekord",
-    "gameOver": "Koniec gry!",
-    "finalScore": "Końcowy wynik",
-    "tryAgain": "Spróbuj ponownie",
-    "youWin": "Wygrałeś!",
-    "currentScore": "Aktualny wynik",
-    "keepPlaying": "Graj dalej",
-    "newGame": "Nowa gra",
-    "howToPlay": "Jak grać",
-    "instructions1": "Użyj strzałek lub WASD, by przesuwać płytki. Gdy dwie płytki z tą samą liczbą się zetkną, łączą się w jedną!",
-    "instructions2": "Po każdym ruchu pojawia się nowa płytka (2 lub 4).",
-    "instructions3": "Stwórz płytkę z liczbą 2048, by wygrać!",
-    "controls": "Sterowanie",
-    "moveLeft": "W lewo",
-    "moveRight": "W prawo",
-    "moveUp": "W górę",
-    "moveDown": "W dół",
-    "touchInstructions": "Na telefonie użyj przycisków na ekranie.",
-    "undo": "Cofnij"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "Skróty klawiaturowe",
     "navigation": "Nawigacja",
     "actions": "Akcje",
@@ -613,7 +615,6 @@
     "slashes": "Mapa strony",
     "scrapbook": "Devlog",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "Zmień język",
     "cycleTheme": "Zmień motyw",
     "refreshCat": "Odśwież kota nastroju",
@@ -622,6 +623,7 @@
     "actionSearch": "Otwórz wyszukiwarkę akcji"
   },
   "actionSearch": {
+    "2048": "Zagraj w 2048",
     "title": "Szukaj akcji",
     "placeholder": "Szukaj akcji...",
     "noResults": "Nie znaleziono akcji",
@@ -639,7 +641,6 @@
     "fun": "Zabawa",
     "games": "Gry",
     "tetris": "Zagraj w Tetris",
-    "2048": "Zagraj w 2048",
     "help": "Pomoc",
     "projects": {
       "category": "Nawigacja po kartach projektów",
@@ -693,9 +694,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "Wskazówka:",
-      "message": "Naciśnij klawisz",
-      "suffix": ", aby otworzyć wyszukiwarkę :D",
-      "dismiss": "Ukryj"
+    "prefix": "Wskazówka:",
+    "message": "Naciśnij klawisz",
+    "suffix": ", aby otworzyć wyszukiwarkę :D",
+    "dismiss": "Ukryj"
   }
 }

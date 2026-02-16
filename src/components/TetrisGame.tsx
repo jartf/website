@@ -1,10 +1,9 @@
 // Tetris Game - React component for Astro
-// Ported from Next.js v4 with i18n adapted for Astro's t() function
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useStore } from '@nanostores/react'
-import { languageStore, initLanguage } from '@/i18n'
+import { languageStore, initLanguage, t as i18nT } from '@/i18n'
 
 // Tetromino shapes and colors
 const TETROMINOS = {
@@ -123,362 +122,16 @@ const rotateMatrix = (matrix: number[][]): number[][] => {
   return rotated
 }
 
-// Translations for all supported languages
-const translations: Record<string, Record<string, string>> = {
-  en: {
-    title: 'Tetris',
-    description: 'A classic game of falling blocks and disappearing lines',
-    gameInfo: 'Game info',
-    score: 'Score',
-    level: 'Level',
-    status: 'Status',
-    next: 'Next',
-    gameOver: 'Game over',
-    paused: 'Paused',
-    playing: 'Playing',
-    ready: 'Ready',
-    playAgain: 'Play again',
-    pause: 'Pause',
-    resume: 'Resume',
-    start: 'Start',
-    reset: 'Reset',
-    controls: 'Controls',
-    moveLeft: 'Move left',
-    moveRight: 'Move right',
-    moveDown: 'Move down',
-    rotate: 'Rotate block',
-    hardDrop: 'Hard drop',
-    pauseGame: 'Pause game',
-    musicOn: 'Music on',
-    musicOff: 'Music off',
-    nowPlaying: 'Now playing',
-  },
-  vi: {
-    title: 'Tetris',
-    description: 'Trò chơi xếp hình cổ điển gắn liền với tuổi thơ của bao thế hệ.',
-    gameInfo: 'Thông tin màn chơi',
-    score: 'Điểm',
-    level: 'Cấp độ',
-    status: 'Trạng thái',
-    next: 'Tiếp theo',
-    gameOver: 'Kết thúc',
-    paused: 'Tạm dừng',
-    playing: 'Đang chơi',
-    ready: 'Sẵn sàng',
-    playAgain: 'Chơi lại',
-    pause: 'Tạm dừng',
-    resume: 'Tiếp tục',
-    start: 'Bắt đầu',
-    reset: 'Đặt lại',
-    controls: 'Điều khiển',
-    moveLeft: 'Di chuyển sang trái',
-    moveRight: 'Di chuyển sang phải',
-    moveDown: 'Di chuyển xuống',
-    rotate: 'Xoay khối',
-    hardDrop: 'Thả nhanh',
-    pauseGame: 'Tạm dừng trò chơi',
-    musicOn: 'Bật nhạc',
-    musicOff: 'Tắt nhạc',
-    nowPlaying: 'Đang phát',
-  },
-  da: {
-    title: 'Tetris',
-    description: 'Et klassisk spil med faldende blokke og forsvindende linjer',
-    gameInfo: 'Spilinformation',
-    score: 'Score',
-    level: 'Niveau',
-    status: 'Status',
-    next: 'Næste',
-    gameOver: 'Spil slut',
-    paused: 'Pauset',
-    playing: 'Spiller',
-    ready: 'Klar',
-    playAgain: 'Spil igen',
-    pause: 'Pause',
-    resume: 'Fortsæt',
-    start: 'Start',
-    reset: 'Nulstil',
-    controls: 'Kontroller',
-    moveLeft: 'Flyt til venstre',
-    moveRight: 'Flyt til højre',
-    moveDown: 'Flyt ned',
-    rotate: 'Rotér',
-    hardDrop: 'Hård drop',
-    pauseGame: 'Pause spil',
-    musicOn: 'Musik til',
-    musicOff: 'Musik fra',
-    nowPlaying: 'Spiller nu',
-  },
-  et: {
-    title: 'Tetris',
-    description: 'A classic game of falling blocks and disappearing lines',
-    gameInfo: 'Mängu info',
-    score: 'Skoor',
-    level: 'Level',
-    status: 'Staatus',
-    next: 'Järgmine',
-    gameOver: 'Mäng läbi',
-    paused: 'Peatatud',
-    playing: 'Mängib',
-    ready: 'Valmis',
-    playAgain: 'Mängi uuesti',
-    pause: 'Paus',
-    resume: 'Jätka mängu',
-    start: 'Alusta',
-    reset: 'Lähtesta',
-    controls: 'Juhtimiselemendid',
-    moveLeft: 'Liiguta vasakule',
-    moveRight: 'Liiguta paremale',
-    moveDown: 'Liiguta alla',
-    rotate: 'Rotate block',
-    hardDrop: 'Hard drop',
-    pauseGame: 'Mängu peatamine',
-    musicOn: 'Muusika sees',
-    musicOff: 'Muusika välja lülitatud',
-    nowPlaying: 'Praegu mängib',
-  },
-  fi: {
-    title: 'Tetris',
-    description: 'Klassinen peli putoavista palikoista ja katoavista riveistä',
-    gameInfo: 'Pelinfo',
-    score: 'Pisteet',
-    level: 'Taso',
-    status: 'Tila',
-    next: 'Seuraava',
-    gameOver: 'Peli ohi',
-    paused: 'Tauolla',
-    playing: 'Pelaa',
-    ready: 'Valmis',
-    playAgain: 'Pelaa uudelleen',
-    pause: 'Tauko',
-    resume: 'Jatka',
-    start: 'Aloita',
-    reset: 'Nollaa',
-    controls: 'Ohjaimet',
-    moveLeft: 'Siirrä vasemmalle',
-    moveRight: 'Siirrä oikealle',
-    moveDown: 'Siirrä alas',
-    rotate: 'Kierrä palikkaa',
-    hardDrop: 'Nopea pudotus',
-    pauseGame: 'Tauota peli',
-    musicOn: 'Musiikki päällä',
-    musicOff: 'Musiikki pois',
-    nowPlaying: 'Nyt soi',
-  },
-  pl: {
-    title: 'Tetris',
-    description: 'Klasyczna gra z opadającymi klockami i znikającymi liniami',
-    gameInfo: 'Informacje o grze',
-    score: 'Wynik',
-    level: 'Poziom',
-    status: 'Status',
-    next: 'Następny',
-    gameOver: 'Koniec gry',
-    paused: 'Pauza',
-    playing: 'Grasz',
-    ready: 'Gotowy',
-    playAgain: 'Zagraj ponownie',
-    pause: 'Pauza',
-    resume: 'Wznów',
-    start: 'Start',
-    reset: 'Zresetuj',
-    controls: 'Sterowanie',
-    moveLeft: 'W lewo',
-    moveRight: 'W prawo',
-    moveDown: 'W dół',
-    rotate: 'Obróć',
-    hardDrop: 'Szybki rzut',
-    pauseGame: 'Pauza',
-    musicOn: 'Muzyka włączona',
-    musicOff: 'Muzyka wyłączona',
-    nowPlaying: 'Teraz gra',
-  },
-  ru: {
-    title: 'Тетрис',
-    description: 'Классическая игра с падающими блоками и исчезающими линиями',
-    gameInfo: 'Информация об игре',
-    score: 'Счет',
-    level: 'Уровень',
-    status: 'Статус',
-    next: 'Следующий',
-    gameOver: 'Игра окончена',
-    paused: 'Пауза',
-    playing: 'Игра',
-    ready: 'Готов',
-    playAgain: 'Играть снова',
-    pause: 'Пауза',
-    resume: 'Продолжить',
-    start: 'Старт',
-    reset: 'Сбросить',
-    controls: 'Управление',
-    moveLeft: 'Влево',
-    moveRight: 'Вправо',
-    moveDown: 'Вниз',
-    rotate: 'Повернуть',
-    hardDrop: 'Сбросить',
-    pauseGame: 'Пауза',
-    musicOn: 'Музыка вкл',
-    musicOff: 'Музыка выкл',
-    nowPlaying: 'Сейчас играет',
-  },
-  sv: {
-    title: 'Tetris',
-    description: 'Ett klassiskt spel med fallande block och försvinnande rader',
-    gameInfo: 'Spelinformation',
-    score: 'Poäng',
-    level: 'Nivå',
-    status: 'Status',
-    next: 'Nästa',
-    gameOver: 'Spelet över',
-    paused: 'Pausad',
-    playing: 'Spelar',
-    ready: 'Redo',
-    playAgain: 'Spela igen',
-    pause: 'Paus',
-    resume: 'Fortsätt',
-    start: 'Starta',
-    reset: 'Återställ',
-    controls: 'Kontroller',
-    moveLeft: 'Flytta vänster',
-    moveRight: 'Flytta höger',
-    moveDown: 'Flytta ner',
-    rotate: 'Rotera block',
-    hardDrop: 'Snabbsläpp',
-    pauseGame: 'Pausa spelet',
-    musicOn: 'Musik på',
-    musicOff: 'Musik av',
-    nowPlaying: 'Spelar nu',
-  },
-  tok: {
-    title: 'Tetris',
-    description: 'musi sinpin pi palisa anpa en linja weka',
-    gameInfo: 'sona musi',
-    score: 'nanpa',
-    level: 'nanpa ma',
-    status: 'kule',
-    next: 'kama',
-    gameOver: 'musi li pini',
-    paused: 'awen',
-    playing: 'musi lon',
-    ready: 'pali',
-    playAgain: 'o musi sin',
-    pause: 'awen',
-    resume: 'o kama musi',
-    start: 'open',
-    reset: 'o sin',
-    controls: 'nasin noka',
-    moveLeft: 'tawa lete',
-    moveRight: 'tawa poka',
-    moveDown: 'tawa anpa',
-    rotate: 'o sike palisa',
-    hardDrop: 'anpa wawa',
-    pauseGame: 'o awen e musi',
-    musicOn: 'kalama lon',
-    musicOff: 'kalama weka',
-    nowPlaying: 'kalama ni',
-  },
-  tr: {
-    title: 'Tetris',
-    description: 'Düşen bloklar ve kaybolan çizgilerle klasik bir oyun',
-    gameInfo: 'Oyun Bilgisi',
-    score: 'Puan',
-    level: 'Seviye',
-    status: 'Durum',
-    next: 'Sonraki',
-    gameOver: 'Oyun Bitti',
-    paused: 'Duraklatıldı',
-    playing: 'Oynanıyor',
-    ready: 'Hazır',
-    playAgain: 'Tekrar Oyna',
-    pause: 'Duraklat',
-    resume: 'Devam Et',
-    start: 'Başla',
-    reset: 'Sıfırla',
-    controls: 'Kontroller',
-    moveLeft: 'Sola Git',
-    moveRight: 'Sağa Git',
-    moveDown: 'Aşağı Git',
-    rotate: 'Döndür',
-    hardDrop: 'Hızlı Düşür',
-    pauseGame: 'Oyunu Duraklat',
-    musicOn: 'Müzik Açık',
-    musicOff: 'Müzik Kapalı',
-    nowPlaying: 'Şimdi çalıyor',
-  },
-  'vi-Hani': {
-    title: 'Tetris',
-    description: '𠻀𨔈攝形古典𮇜連貝歲苴𧵑別包世系。',
-    gameInfo: '通信幔𨔈',
-    score: '點數',
-    level: '級度',
-    status: '狀態',
-    next: '接續',
-    gameOver: '結束',
-    paused: '暫仃',
-    playing: '當𨔈',
-    ready: '淍損',
-    playAgain: '𨔈吏',
-    pause: '暫仃',
-    resume: '接續',
-    start: '𢲧頭',
-    reset: '撻吏',
-    controls: '調遣',
-    moveLeft: '移轉𨖅債',
-    moveRight: '移轉𨖅沛',
-    moveDown: '移轉𬺗',
-    rotate: '𢮿塊',
-    hardDrop: '抯𬺗𮞊',
-    pauseGame: '暫仃𠻀𨔈',
-    musicOn: '弼樂',
-    musicOff: '𤎕樂',
-    nowPlaying: '當發',
-  },
-  zh: {
-    title: '俄罗斯方块',
-    description: '一个经典的下落方块和消除行的游戏',
-    gameInfo: '游戏信息',
-    score: '分数',
-    level: '等级',
-    status: '状态',
-    next: '下一个',
-    gameOver: '游戏结束',
-    paused: '已暂停',
-    playing: '游戏中',
-    ready: '准备好',
-    playAgain: '再玩一次',
-    pause: '暂停',
-    resume: '继续',
-    start: '开始',
-    reset: '重置',
-    controls: '控制',
-    moveLeft: '向左移动',
-    moveRight: '向右移动',
-    moveDown: '向下移动',
-    rotate: '旋转',
-    hardDrop: '快速下落',
-    pauseGame: '暂停游戏',
-    musicOn: '音乐开',
-    musicOff: '音乐关',
-    nowPlaying: '正在播放',
-  },
-}
-
-interface TetrisGameProps {
-  lang?: string
-}
-
-export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
-  // Use language from store, fallback to prop
+export default function TetrisGame() {
   const storeLang = useStore(languageStore)
-  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     initLanguage()
-    setMounted(true)
   }, [])
 
-  const lang = mounted ? storeLang : (propLang || 'en')
-  const t = translations[lang] || translations.en
+  // Re-render on language change
+  void storeLang
+  const t = (key: string) => i18nT(`tetris.${key}`)
 
   // Game state
   const [board, setBoard] = useState(createEmptyBoard())
@@ -970,9 +623,9 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t("title")}</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t.description}
+            {t("description")}
           </p>
         </div>
 
@@ -1024,7 +677,7 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
                       onClick={startGame}
                       className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-bold text-lg hover:bg-primary/90 transition-colors"
                     >
-                      {t.start}
+                      {t("start")}
                     </button>
                   </motion.div>
                 )}
@@ -1036,12 +689,12 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
                     exit={{ opacity: 0 }}
                     className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 rounded-lg"
                   >
-                    <p className="text-2xl font-bold mb-4">{t.pause}</p>
+                    <p className="text-2xl font-bold mb-4">{t("pause")}</p>
                     <button
                       onClick={togglePause}
                       className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-bold hover:bg-primary/90 transition-colors"
                     >
-                      {t.resume}
+                      {t("resume")}
                     </button>
                   </motion.div>
                 )}
@@ -1053,13 +706,13 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
                     exit={{ opacity: 0 }}
                     className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 rounded-lg"
                   >
-                    <p className="text-3xl font-bold mb-2 text-red-500">{t.gameOver}</p>
-                    <p className="text-xl mb-4">{t.score}: {score}</p>
+                    <p className="text-3xl font-bold mb-2 text-red-500">{t("gameOver")}</p>
+                    <p className="text-xl mb-4">{t("score")}: {score}</p>
                     <button
                       onClick={startGame}
                       className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-bold hover:bg-primary/90 transition-colors"
                     >
-                      {t.playAgain}
+                      {t("playAgain")}
                     </button>
                   </motion.div>
                 )}
@@ -1071,27 +724,27 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
           <div className="flex flex-col gap-6 w-full max-w-md">
             {/* Game Info panel */}
             <div className="bg-card border rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-4">{t.gameInfo}</h2>
+              <h2 className="text-2xl font-bold mb-4">{t("gameInfo")}</h2>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="font-medium">{t.score}:</span>
+                  <span className="font-medium">{t("score")}:</span>
                   <span className="text-primary font-bold">{score}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="font-medium">{t.level}:</span>
+                  <span className="font-medium">{t("level")}:</span>
                   <span className="text-primary font-bold">{level}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="font-medium">{t.status}:</span>
+                  <span className="font-medium">{t("status")}:</span>
                   <span className={`font-bold ${gameOver ? 'text-red-500' : isPaused ? 'text-amber-500' : 'text-green-500'}`}>
-                    {gameOver ? t.gameOver : isPaused ? t.paused : isStarted ? t.playing : t.ready}
+                    {gameOver ? t("gameOver") : isPaused ? t("paused") : isStarted ? t("playing") : t("ready")}
                   </span>
                 </div>
               </div>
 
               {/* Next piece preview */}
               <div className="mt-4 pt-4 border-t">
-                <p className="text-sm text-muted-foreground mb-2">{t.next}</p>
+                <p className="text-sm text-muted-foreground mb-2">{t("next")}</p>
                 <div className="flex justify-center">
                   <div className="grid gap-px" style={{ gridTemplateColumns: `repeat(${TETROMINOS[nextPiece].shape[0].length}, 20px)` }}>
                     {TETROMINOS[nextPiece].shape.map((row, y) =>
@@ -1109,43 +762,43 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
 
             {/* Controls panel */}
             <div className="bg-card border rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-4">{t.controls}</h2>
+              <h2 className="text-2xl font-bold mb-4">{t("controls")}</h2>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
                     <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">←</span>
                     <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">A</span>
                   </div>
-                  <span>{t.moveLeft}</span>
+                  <span>{t("moveLeft")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
                     <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">→</span>
                     <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">D</span>
                   </div>
-                  <span>{t.moveRight}</span>
+                  <span>{t("moveRight")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
                     <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">↓</span>
                     <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">S</span>
                   </div>
-                  <span>{t.moveDown}</span>
+                  <span>{t("moveDown")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
                     <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">↑</span>
                     <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">W</span>
                   </div>
-                  <span>{t.rotate}</span>
+                  <span>{t("rotate")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="inline-flex min-w-[65px] h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded px-2">Space</span>
-                  <span>{t.hardDrop}</span>
+                  <span>{t("hardDrop")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="inline-flex w-8 h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded">P</span>
-                  <span>{t.pauseGame}</span>
+                  <span>{t("pauseGame")}</span>
                 </div>
               </div>
             </div>
@@ -1159,7 +812,7 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                {gameOver ? t.playAgain : t.reset}
+                {gameOver ? t("playAgain") : t("reset")}
               </button>
               <button
                 onClick={toggleMusic}
@@ -1168,14 +821,14 @@ export default function TetrisGame({ lang: propLang }: TetrisGameProps) {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                 </svg>
-                {isMusicPlaying ? t.musicOn : t.musicOff}
+                {isMusicPlaying ? t("musicOn") : t("musicOff")}
               </button>
             </div>
 
             {/* Now playing */}
             {isMusicPlaying && (
               <div className="text-sm text-muted-foreground">
-                🎵 {t.nowPlaying}: {MUSIC_PLAYLIST[currentTrackIndex].title}
+                🎵 {t("nowPlaying")}: {MUSIC_PLAYLIST[currentTrackIndex].title}
               </div>
             )}
           </div>

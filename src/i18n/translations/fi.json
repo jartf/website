@@ -1,4 +1,34 @@
 {
+  "404": {
+    "title": "Olet eksynyt kartalta",
+    "description": "Kissakaan ei tiedä missä olet.",
+    "button": "Palaa kotiin",
+    "sitemap": "Näytä sivukartta",
+    "enjoycat": "Kun olet eksyksissä, katso tätä kissaa:"
+  },
+  "2048": {
+    "description": "Yhdistä laatat, pääse 2048:aan!",
+    "score": "Pisteet",
+    "best": "Paras",
+    "gameOver": "Peli ohi!",
+    "finalScore": "Loppupisteet",
+    "tryAgain": "Yritä uudelleen",
+    "youWin": "Voitit!",
+    "currentScore": "Nykyiset pisteet",
+    "keepPlaying": "Jatka peliä",
+    "newGame": "Uusi peli",
+    "howToPlay": "Kuinka pelata",
+    "instructions1": "Käytä nuolinäppäimiä tai WASD:ta siirtääksesi laattoja. Kun kaksi samanlaista laattaa koskettaa, ne yhdistyvät!",
+    "instructions2": "Jokaisen siirron jälkeen ilmestyy uusi laatta (2 tai 4).",
+    "instructions3": "Luo laatta, jossa on numero 2048, voittaaksesi pelin!",
+    "controls": "Ohjaimet",
+    "moveLeft": "Siirrä vasemmalle",
+    "moveRight": "Siirrä oikealle",
+    "moveUp": "Siirrä ylös",
+    "moveDown": "Siirrä alas",
+    "touchInstructions": "Mobiililaitteilla käytä ruudun ohjaimia siirtääksesi laattoja.",
+    "undo": "Kumoa"
+  },
   "nav": {
     "home": "Koti",
     "about": "Minusta",
@@ -352,9 +382,16 @@
     "score": "Pisteet",
     "level": "Taso",
     "status": "Tila",
+    "next": "Seuraava",
     "gameOver": "Peli ohi",
     "paused": "Tauolla",
     "playing": "Pelaa",
+    "ready": "Valmis",
+    "playAgain": "Pelaa uudelleen",
+    "pause": "Tauko",
+    "resume": "Jatka",
+    "start": "Aloita",
+    "reset": "Nollaa",
     "controls": "Ohjaimet",
     "moveLeft": "Siirrä vasemmalle",
     "moveRight": "Siirrä oikealle",
@@ -362,22 +399,9 @@
     "rotate": "Kierrä palikkaa",
     "hardDrop": "Nopea pudotus",
     "pauseGame": "Tauota peli",
-    "playAgain": "Pelaa uudelleen",
-    "resetGame": "Nollaa peli",
-    "resume": "Jatka",
-    "pause": "Tauko",
-    "drop": "Pudota",
     "musicOn": "Musiikki päällä",
     "musicOff": "Musiikki pois",
-    "gameOverMessage": "Peli ohi!",
-    "finalScore": "Loppupisteesi:"
-  },
-  "404": {
-    "title": "Olet eksynyt kartalta",
-    "description": "Kissakaan ei tiedä missä olet.",
-    "button": "Palaa kotiin",
-    "sitemap": "Näytä sivukartta",
-    "enjoycat": "Kun olet eksyksissä, katso tätä kissaa:"
+    "nowPlaying": "Nyt soi"
   },
   "scrapbook": {
     "title": "Devlogi"
@@ -574,30 +598,8 @@
     "madeWith": "tehty rakkaudella",
     "andChaos": "ja muutaman viikon säätämisellä"
   },
-  "2048": {
-    "description": "Yhdistä laatat, pääse 2048:aan!",
-    "score": "Pisteet",
-    "best": "Paras",
-    "gameOver": "Peli ohi!",
-    "finalScore": "Loppupisteet",
-    "tryAgain": "Yritä uudelleen",
-    "youWin": "Voitit!",
-    "currentScore": "Nykyiset pisteet",
-    "keepPlaying": "Jatka peliä",
-    "newGame": "Uusi peli",
-    "howToPlay": "Kuinka pelata",
-    "instructions1": "Käytä nuolinäppäimiä tai WASD:ta siirtääksesi laattoja. Kun kaksi samanlaista laattaa koskettaa, ne yhdistyvät!",
-    "instructions2": "Jokaisen siirron jälkeen ilmestyy uusi laatta (2 tai 4).",
-    "instructions3": "Luo laatta, jossa on numero 2048, voittaaksesi pelin!",
-    "controls": "Ohjaimet",
-    "moveLeft": "Siirrä vasemmalle",
-    "moveRight": "Siirrä oikealle",
-    "moveUp": "Siirrä ylös",
-    "moveDown": "Siirrä alas",
-    "touchInstructions": "Mobiililaitteilla käytä ruudun ohjaimia siirtääksesi laattoja.",
-    "undo": "Kumoa"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "Pikanäppäimet",
     "navigation": "Navigointi",
     "actions": "Toiminnot",
@@ -613,7 +615,6 @@
     "slashes": "Sivukartta",
     "scrapbook": "Devlogi",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "Vaihda kieltä",
     "cycleTheme": "Vaihda teemaa",
     "refreshCat": "Päivitä kissatunnelma",
@@ -622,6 +623,7 @@
     "actionSearch": "Avaa toimintohaku"
   },
   "actionSearch": {
+    "2048": "Pelaa 2048",
     "title": "Toimintohaku",
     "placeholder": "Hae toimintoja...",
     "noResults": "Ei löytynyt toimintoja",
@@ -639,7 +641,6 @@
     "fun": "Hauskaa",
     "games": "Pelit",
     "tetris": "Pelaa Tetrikstä",
-    "2048": "Pelaa 2048",
     "help": "Apua",
     "projects": {
       "category": "Selaa projektikortteja",
@@ -693,9 +694,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "Vinkki:",
-      "message": "Voit avata haun painamalla",
-      "suffix": "-näppäintä :D",
-      "dismiss": "Sulje vinkki"
+    "prefix": "Vinkki:",
+    "message": "Voit avata haun painamalla",
+    "suffix": "-näppäintä :D",
+    "dismiss": "Sulje vinkki"
   }
 }

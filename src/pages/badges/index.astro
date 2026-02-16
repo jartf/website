@@ -187,28 +187,10 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
 </style>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
+  import { t } from '@/i18n';
+  import { setupPageI18n } from '@/lib/i18n-page';
 
-  const updateTranslations = () => {
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) el.textContent = translated;
-      }
-    });
-    const searchInput = document.getElementById('badge-search') as HTMLInputElement;
-    const key = searchInput?.getAttribute('data-i18n-placeholder');
-    if (key) {
-      const translated = t(key);
-      if (translated !== key) searchInput.placeholder = translated;
-    }
-  };
-
-  initLanguage();
-  updateTranslations();
-  languageStore.subscribe(updateTranslations);
-  window.addEventListener('languageChange', updateTranslations);
+  setupPageI18n();
 
   // View mode toggle
   const container = document.getElementById('badges-container')!;

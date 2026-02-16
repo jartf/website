@@ -5,7 +5,6 @@ import "@/styles/globals.css";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Galaxy from "@/components/Galaxy.astro";
-import { KeyboardNavigation } from "@/components/KeyboardNavigation";
 import { CommandBarLazy } from "@/components/CommandBarLazy";
 import { FirstVisitHint } from "@/components/FirstVisitHint";
 import { LanguageNotice } from "@/components/LanguageNotice";
@@ -389,7 +388,6 @@ const structuredData = {
       <Footer />
     </div>
 
-    <KeyboardNavigation client:only="react" transition:persist />
     <CommandBarLazy client:only="react" transition:persist />
     <FirstVisitHint client:only="react" transition:persist />
     <LanguageNotice client:only="react" transition:persist />

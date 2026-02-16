@@ -105,29 +105,6 @@ import T from "@/components/T.astro";
 </BaseLayout>
 
 <script>
-  import { languageStore, t, initLanguage } from '@/i18n';
-
-  // Only update inline spans with data-i18n (for complex mixed content)
-  function updateInlineTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-  }
-
-  initLanguage();
-  updateInlineTranslations();
-
-  languageStore.subscribe(() => {
-    updateInlineTranslations();
-  });
-
-  window.addEventListener('languageChange', () => {
-    updateInlineTranslations();
-  });
+  import { setupPageI18n } from '@/lib/i18n-page';
+  setupPageI18n();
 </script>

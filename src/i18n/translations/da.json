@@ -1,4 +1,34 @@
 {
+  "404": {
+    "title": "Du er faret vild",
+    "description": "Katten kender ikke engang dette sted.",
+    "button": "Gå tilbage til hjemmet",
+    "sitemap": "Se sitemap",
+    "enjoycat": "Mens du er faret vild, nyd denne kat:"
+  },
+  "2048": {
+    "description": "Saml brikkerne, nå til 2048!",
+    "score": "Score",
+    "best": "Bedste",
+    "gameOver": "Spillet er slut!",
+    "finalScore": "Endelig score",
+    "tryAgain": "Prøv igen",
+    "youWin": "Du vandt!",
+    "currentScore": "Nuværende score",
+    "keepPlaying": "Fortsæt spillet",
+    "newGame": "Nyt spil",
+    "howToPlay": "Sådan spiller du",
+    "instructions1": "Brug piletasterne eller WASD til at flytte brikkerne. Når to brikker med samme tal rører hinanden, smelter de sammen til én!",
+    "instructions2": "Efter hvert træk dukker en ny brik op (enten 2 eller 4).",
+    "instructions3": "Skab en brik med tallet 2048 for at vinde spillet!",
+    "controls": "Kontroller",
+    "moveLeft": "Flyt til venstre",
+    "moveRight": "Flyt til højre",
+    "moveUp": "Flyt op",
+    "moveDown": "Flyt ned",
+    "touchInstructions": "På mobile enheder, swipe for at flytte brikker eller brug knapperne på skærmen.",
+    "undo": "Fortryd"
+  },
   "nav": {
     "home": "Hjem",
     "about": "Om mig",
@@ -366,9 +396,16 @@
     "score": "Score",
     "level": "Niveau",
     "status": "Status",
+    "next": "Næste",
     "gameOver": "Spil slut",
     "paused": "Pauset",
     "playing": "Spiller",
+    "ready": "Klar",
+    "playAgain": "Spil igen",
+    "pause": "Pause",
+    "resume": "Fortsæt",
+    "start": "Start",
+    "reset": "Nulstil",
     "controls": "Kontroller",
     "moveLeft": "Flyt til venstre",
     "moveRight": "Flyt til højre",
@@ -376,22 +413,9 @@
     "rotate": "Rotér",
     "hardDrop": "Hård drop",
     "pauseGame": "Pause spil",
-    "playAgain": "Spil igen",
-    "resetGame": "Nulstil spil",
-    "resume": "Fortsæt",
-    "pause": "Pause",
-    "drop": "Drop",
     "musicOn": "Musik til",
     "musicOff": "Musik fra",
-    "gameOverMessage": "Spil slut!",
-    "finalScore": "Din endelige score:"
-  },
-  "404": {
-    "title": "Du er faret vild",
-    "description": "Katten kender ikke engang dette sted.",
-    "button": "Gå tilbage til hjemmet",
-    "sitemap": "Se sitemap",
-    "enjoycat": "Mens du er faret vild, nyd denne kat:"
+    "nowPlaying": "Spiller nu"
   },
   "scrapbook": {
     "title": "Devlog"
@@ -522,7 +546,7 @@
       "point3Title": "Kreditering er rart, men valgfrit",
       "point3Text": "Hvis du skriver om sitet eller bruger disse i et blogindlæg eller en artikel, ville et link tilbage være værdsat. Men hvis du bare tilføjer mit badge til din linkside, behøver du ikke gøre noget ekstra. Min HTML-snippet til badget linker allerede hertil.",
       "point4Title": "Lad være med at være mærkelig",
-      "point4Text": "Brug ikke disse til at udgive dig for at være mig, påstå at jeg støtter noget jeg ikke gør, eller få det til at se ud som om jeg er associeret med noget skummelt. Jeg stoler på, at du kender forskellen på at linke til et site du kan lide, og at lade som om du er en anden. Hvis du er i tvivl om, hvorvidt det du gør er mærkeligt, så er det det sandsynligvis." ,
+      "point4Text": "Brug ikke disse til at udgive dig for at være mig, påstå at jeg støtter noget jeg ikke gør, eller få det til at se ud som om jeg er associeret med noget skummelt. Jeg stoler på, at du kender forskellen på at linke til et site du kan lide, og at lade som om du er en anden. Hvis du er i tvivl om, hvorvidt det du gør er mærkeligt, så er det det sandsynligvis.",
       "footer": "Det var det hele, bare brug dem med respekt, så er vi gode."
     }
   },
@@ -588,30 +612,8 @@
     "madeWith": "lavet med kærlighed",
     "andChaos": "og et par dages kodning"
   },
-  "2048": {
-    "description": "Saml brikkerne, nå til 2048!",
-    "score": "Score",
-    "best": "Bedste",
-    "gameOver": "Spillet er slut!",
-    "finalScore": "Endelig score",
-    "tryAgain": "Prøv igen",
-    "youWin": "Du vandt!",
-    "currentScore": "Nuværende score",
-    "keepPlaying": "Fortsæt spillet",
-    "newGame": "Nyt spil",
-    "howToPlay": "Sådan spiller du",
-    "instructions1": "Brug piletasterne eller WASD til at flytte brikkerne. Når to brikker med samme tal rører hinanden, smelter de sammen til én!",
-    "instructions2": "Efter hvert træk dukker en ny brik op (enten 2 eller 4).",
-    "instructions3": "Skab en brik med tallet 2048 for at vinde spillet!",
-    "controls": "Kontroller",
-    "moveLeft": "Flyt til venstre",
-    "moveRight": "Flyt til højre",
-    "moveUp": "Flyt op",
-    "moveDown": "Flyt ned",
-    "touchInstructions": "På mobile enheder, swipe for at flytte brikker eller brug knapperne på skærmen.",
-    "undo": "Fortryd"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "Tastaturgenveje",
     "navigation": "Navigation",
     "actions": "Handlinger",
@@ -627,7 +629,6 @@
     "slashes": "Sideoversigt",
     "scrapbook": "Devlog",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "Skift sprog",
     "cycleTheme": "Skift tema",
     "refreshCat": "Opdatér humørkatten",
@@ -636,6 +637,7 @@
     "actionSearch": "Åbn Handlingssøgning"
   },
   "actionSearch": {
+    "2048": "Spil 2048",
     "title": "Søg handlinger",
     "placeholder": "Søg handlinger...",
     "noResults": "Ingen handlinger fundet",
@@ -653,7 +655,6 @@
     "fun": "Sjov",
     "games": "Spil",
     "tetris": "Spil Tetris",
-    "2048": "Spil 2048",
     "help": "Hjælp",
     "projects": {
       "category": "Navigér mellem projekter",
@@ -707,9 +708,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "Hint:",
-      "message": "Du kan trykke på",
-      "suffix": "-tasten for at åbne søgefeltet :D",
-      "dismiss": "Afvis hint"
+    "prefix": "Hint:",
+    "message": "Du kan trykke på",
+    "suffix": "-tasten for at åbne søgefeltet :D",
+    "dismiss": "Afvis hint"
   }
 }

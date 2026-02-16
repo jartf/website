@@ -43,6 +43,28 @@ export function LanguageToggle() {
     window.dispatchEvent(new CustomEvent('languageChange', { detail: code }));
   };
 
+  const LanguageGrid = ({ langs }: { langs: readonly typeof supportedLanguages[number][] }) => (
+    <div className="grid grid-cols-2 gap-1">
+      {langs.map((lang) => (
+        <button
+          key={lang.code}
+          onClick={() => handleSelect(lang.code)}
+          className={`relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground ${
+            currentLang === lang.code ? 'bg-accent' : ''
+          }`}
+        >
+          <span className="mr-2">{lang.flag}</span>
+          <span className="truncate">{lang.name}</span>
+          {currentLang === lang.code && (
+            <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          )}
+        </button>
+      ))}
+    </div>
+  );
+
   if (!mounted) {
     return (
       <button
@@ -107,25 +129,7 @@ export function LanguageToggle() {
             <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground" data-i18n="language.main">
               {translations.language?.main || 'Main languages'}
             </div>
-            <div className="grid grid-cols-2 gap-1">
-              {mainLanguages.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => handleSelect(lang.code)}
-                  className={`relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground ${
-                    currentLang === lang.code ? 'bg-accent' : ''
-                  }`}
-                >
-                  <span className="mr-2">{lang.flag}</span>
-                  <span className="truncate">{lang.name}</span>
-                  {currentLang === lang.code && (
-                    <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  )}
-                </button>
-              ))}
-            </div>
+            <LanguageGrid langs={mainLanguages} />
 
             {/* Beta languages */}
             {betaLanguages.length > 0 && (
@@ -134,25 +138,7 @@ export function LanguageToggle() {
                 <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground" data-i18n="language.beta">
                   {translations.language?.beta || 'Languages in beta'}
                 </div>
-                <div className="grid grid-cols-2 gap-1">
-                  {betaLanguages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => handleSelect(lang.code)}
-                      className={`relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground ${
-                        currentLang === lang.code ? 'bg-accent' : ''
-                      }`}
-                    >
-                      <span className="mr-2">{lang.flag}</span>
-                      <span className="truncate">{lang.name}</span>
-                      {currentLang === lang.code && (
-                        <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
-                    </button>
-                  ))}
-                </div>
+                <LanguageGrid langs={betaLanguages} />
               </>
             )}
 
@@ -163,25 +149,7 @@ export function LanguageToggle() {
                 <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground" data-i18n="language.other">
                   {translations.language?.other || 'Other languages'}
                 </div>
-                <div className="grid grid-cols-2 gap-1">
-                  {otherLanguages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => handleSelect(lang.code)}
-                      className={`relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground ${
-                        currentLang === lang.code ? 'bg-accent' : ''
-                      }`}
-                    >
-                      <span className="mr-2">{lang.flag}</span>
-                      <span className="truncate">{lang.name}</span>
-                      {currentLang === lang.code && (
-                        <svg className="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
-                    </button>
-                  ))}
-                </div>
+                <LanguageGrid langs={otherLanguages} />
               </>
             )}
           </div>

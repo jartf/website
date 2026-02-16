@@ -1,4 +1,34 @@
 {
+  "404": {
+    "title": "sina tawa lon ma ante",
+    "description": "soweli kin li sona ala e ma ni.",
+    "button": "o tawa lipu open",
+    "sitemap": "o lukin e sitelen ma",
+    "enjoycat": "sina lape ala lon ala la, o lukin e soweli ni:"
+  },
+  "2048": {
+    "description": "o wan e palisa nanpa; o kama 2048!",
+    "score": "nanpa",
+    "best": "nanpa suli",
+    "gameOver": "musi li pini!",
+    "finalScore": "nanpa pini",
+    "tryAgain": "o pali sin",
+    "youWin": "sina kama!",
+    "currentScore": "nanpa ni",
+    "keepPlaying": "o awen musi",
+    "newGame": "musi sin",
+    "howToPlay": "nasin musi",
+    "instructions1": "o kepeken noka sitelen anu WASD tawa palisa. palisa tu pi nanpa sama la, ona li kama wan!",
+    "instructions2": "tenpo ale la, palisa sin (2 anu 4) li kama.",
+    "instructions3": "o pali e palisa nanpa 2048 tawa kama!",
+    "controls": "nasin noka",
+    "moveLeft": "tawa lete",
+    "moveRight": "tawa poka",
+    "moveUp": "tawa sewi",
+    "moveDown": "tawa anpa",
+    "touchInstructions": "lon ilo tawa la, o kepeken noka poka lon insa sitelen.",
+    "undo": "wekamoli"
+  },
   "nav": {
     "home": "lipu open",
     "about": "sona mi",
@@ -355,9 +385,16 @@
     "score": "nanpa",
     "level": "nanpa ma",
     "status": "kule",
+    "next": "kama",
     "gameOver": "musi li pini",
     "paused": "awen",
     "playing": "musi lon",
+    "ready": "pali",
+    "playAgain": "o musi sin",
+    "pause": "awen",
+    "resume": "o kama musi",
+    "start": "open",
+    "reset": "o sin",
     "controls": "nasin noka",
     "moveLeft": "tawa lete",
     "moveRight": "tawa poka",
@@ -365,22 +402,9 @@
     "rotate": "o sike palisa",
     "hardDrop": "anpa wawa",
     "pauseGame": "o awen e musi",
-    "playAgain": "o musi sin",
-    "resetGame": "o sin e musi",
-    "resume": "o kama musi",
-    "pause": "awen",
-    "drop": "anpa",
     "musicOn": "kalama lon",
     "musicOff": "kalama weka",
-    "gameOverMessage": "musi li pini!",
-    "finalScore": "nanpa pini sina:"
-  },
-  "404": {
-    "title": "sina tawa lon ma ante",
-    "description": "soweli kin li sona ala e ma ni.",
-    "button": "o tawa lipu open",
-    "sitemap": "o lukin e sitelen ma",
-    "enjoycat": "sina lape ala lon ala la, o lukin e soweli ni:"
+    "nowPlaying": "kalama ni"
   },
   "scrapbook": {
     "title": "toki pali"
@@ -577,30 +601,8 @@
     "madeWith": "mi pali kepeken olin",
     "andChaos": "en tenpo lili pi musi ilo"
   },
-  "2048": {
-    "description": "o wan e palisa nanpa; o kama 2048!",
-    "score": "nanpa",
-    "best": "nanpa suli",
-    "gameOver": "musi li pini!",
-    "finalScore": "nanpa pini",
-    "tryAgain": "o pali sin",
-    "youWin": "sina kama!",
-    "currentScore": "nanpa ni",
-    "keepPlaying": "o awen musi",
-    "newGame": "musi sin",
-    "howToPlay": "nasin musi",
-    "instructions1": "o kepeken noka sitelen anu WASD tawa palisa. palisa tu pi nanpa sama la, ona li kama wan!",
-    "instructions2": "tenpo ale la, palisa sin (2 anu 4) li kama.",
-    "instructions3": "o pali e palisa nanpa 2048 tawa kama!",
-    "controls": "nasin noka",
-    "moveLeft": "tawa lete",
-    "moveRight": "tawa poka",
-    "moveUp": "tawa sewi",
-    "moveDown": "tawa anpa",
-    "touchInstructions": "lon ilo tawa la, o kepeken noka poka lon insa sitelen.",
-    "undo": "wekamoli"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "nasin noka",
     "navigation": "tawa",
     "actions": "pali",
@@ -616,7 +618,6 @@
     "slashes": "lipu ale",
     "scrapbook": "toki pali",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "ante e toki",
     "cycleTheme": "ante e kule",
     "refreshCat": "sin e soweli pilin",
@@ -625,6 +626,7 @@
     "actionSearch": "open e alasa pali"
   },
   "actionSearch": {
+    "2048": "musi 2048",
     "title": "alasa pali",
     "placeholder": "alasa pali...",
     "noResults": "pali ala lon",
@@ -642,7 +644,6 @@
     "fun": "musi",
     "games": "musi",
     "tetris": "musi Tetris",
-    "2048": "musi 2048",
     "help": "kama sona",
     "projects": {
       "category": "tawa lon poki pali",
@@ -696,9 +697,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "sona:",
-      "message": "o luka e nena",
-      "suffix": "tawa open e ilo alasa :D",
-      "dismiss": "weka e sona"
+    "prefix": "sona:",
+    "message": "o luka e nena",
+    "suffix": "tawa open e ilo alasa :D",
+    "dismiss": "weka e sona"
   }
 }

@@ -1,4 +1,36 @@
 {
+  "404": {
+    "title": "Bạn đi lạc khỏi map mất rồi :))",
+    "description": "Mấy con mèo cũng chẳng biết đây là đâu.",
+    "button": "Quay về trang chủ",
+    "sitemap": "Xem sơ đồ trang web",
+    "enjoycat": "Trong lúc bạn đang lạc, hãy xem chú mèo này:"
+  },
+  "2048": {
+    "title": "2048",
+    "description": "Kết hợp các ô để đạt đến số 2048",
+    "score": "Điểm",
+    "best": "Cao nhất",
+    "gameOver": "Trò chơi kết thúc!",
+    "finalScore": "Điểm cuối cùng",
+    "tryAgain": "Chơi lại",
+    "youWin": "Bạn đã thắng!",
+    "currentScore": "Điểm hiện tại",
+    "keepPlaying": "Tiếp tục chơi",
+    "newGame": "Chơi ván mới",
+    "howToPlay": "Cách chơi",
+    "instructions1": "Sử dụng phím mũi tên hoặc WASD để di chuyển các ô. Khi hai ô có cùng số được gộp vào nhau, chúng sẽ kết hợp thành số tổng của hai số đó.",
+    "instructions2": "Sau mỗi lượt di chuyển, một ô mới (số 2 hoặc 4) xuất hiện.",
+    "instructions3": "Hãy tạo một ô với số 2048 để thắng trò chơi nhé!",
+    "instructions4": "Sau khi đạt được 2048, bạn có thể tiếp tục chơi để đạt điểm cao hơn!",
+    "controls": "Điều khiển",
+    "moveLeft": "Di chuyển sang trái",
+    "moveRight": "Di chuyển sang phải",
+    "moveUp": "Di chuyển lên",
+    "moveDown": "Di chuyển xuống",
+    "touchInstructions": "Trên điện thoại, hãy sử dụng các nút điều khiển trên màn hình để di chuyển các ô.",
+    "undo": "Hoàn tác"
+  },
   "nav": {
     "home": "Trang chủ",
     "about": "Giới thiệu",
@@ -352,9 +384,16 @@
     "score": "Điểm",
     "level": "Cấp độ",
     "status": "Trạng thái",
+    "next": "Tiếp theo",
     "gameOver": "Kết thúc",
     "paused": "Tạm dừng",
     "playing": "Đang chơi",
+    "ready": "Sẵn sàng",
+    "playAgain": "Chơi lại",
+    "pause": "Tạm dừng",
+    "resume": "Tiếp tục",
+    "start": "Bắt đầu",
+    "reset": "Đặt lại",
     "controls": "Điều khiển",
     "moveLeft": "Di chuyển sang trái",
     "moveRight": "Di chuyển sang phải",
@@ -362,22 +401,9 @@
     "rotate": "Xoay khối",
     "hardDrop": "Thả nhanh",
     "pauseGame": "Tạm dừng trò chơi",
-    "playAgain": "Chơi lại",
-    "resetGame": "Đặt lại về ban đầu",
-    "resume": "Tiếp tục",
-    "pause": "Tạm dừng",
-    "drop": "Thả",
     "musicOn": "Bật nhạc",
     "musicOff": "Tắt nhạc",
-    "gameOverMessage": "Trò chơi kết thúc!",
-    "finalScore": "Điểm cuối cùng của bạn:"
-  },
-  "404": {
-    "title": "Bạn đi lạc khỏi map mất rồi :))",
-    "description": "Mấy con mèo cũng chẳng biết đây là đâu.",
-    "button": "Quay về trang chủ",
-    "sitemap": "Xem sơ đồ trang web",
-    "enjoycat": "Trong lúc bạn đang lạc, hãy xem chú mèo này:"
+    "nowPlaying": "Đang phát"
   },
   "scrapbook": {
     "title": "Devlog"
@@ -574,32 +600,8 @@
     "madeWith": "làm với mọi yêu thương",
     "andChaos": "và vài tuần nghịch code"
   },
-  "2048": {
-    "title": "2048",
-    "description": "Kết hợp các ô để đạt đến số 2048",
-    "score": "Điểm",
-    "best": "Cao nhất",
-    "gameOver": "Trò chơi kết thúc!",
-    "finalScore": "Điểm cuối cùng",
-    "tryAgain": "Chơi lại",
-    "youWin": "Bạn đã thắng!",
-    "currentScore": "Điểm hiện tại",
-    "keepPlaying": "Tiếp tục chơi",
-    "newGame": "Chơi ván mới",
-    "howToPlay": "Cách chơi",
-    "instructions1": "Sử dụng phím mũi tên hoặc WASD để di chuyển các ô. Khi hai ô có cùng số được gộp vào nhau, chúng sẽ kết hợp thành số tổng của hai số đó.",
-    "instructions2": "Sau mỗi lượt di chuyển, một ô mới (số 2 hoặc 4) xuất hiện.",
-    "instructions3": "Hãy tạo một ô với số 2048 để thắng trò chơi nhé!",
-    "instructions4": "Sau khi đạt được 2048, bạn có thể tiếp tục chơi để đạt điểm cao hơn!",
-    "controls": "Điều khiển",
-    "moveLeft": "Di chuyển sang trái",
-    "moveRight": "Di chuyển sang phải",
-    "moveUp": "Di chuyển lên",
-    "moveDown": "Di chuyển xuống",
-    "touchInstructions": "Trên điện thoại, hãy sử dụng các nút điều khiển trên màn hình để di chuyển các ô.",
-    "undo": "Hoàn tác"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "Phím tắt",
     "navigation": "Điều hướng",
     "actions": "Hành động",
@@ -615,7 +617,6 @@
     "slashes": "Sơ đồ trang web",
     "scrapbook": "Devlog",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "Chuyển đổi ngôn ngữ",
     "cycleTheme": "Chuyển đổi chủ đề",
     "refreshCat": "Thay đổi ảnh mèo",
@@ -624,6 +625,7 @@
     "actionSearch": "Mở thanh tìm kiếm"
   },
   "actionSearch": {
+    "2048": "Chơi 2048",
     "title": "Tìm kiếm hành động",
     "placeholder": "Gõ để tìm hành động...",
     "noResults": "Không tìm thấy hành động nào",
@@ -641,7 +643,6 @@
     "fun": "Chơi vui",
     "games": "Trò chơi",
     "tetris": "Chơi Tetris",
-    "2048": "Chơi 2048",
     "help": "Trợ giúp",
     "projects": {
       "category": "Điều hướng qua các dự án",
@@ -695,9 +696,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "Mách nhỏ:",
-      "message": "Bạn có thể nhấn phím",
-      "suffix": "để mở thanh tìm kiếm :D",
-      "dismiss": "Bỏ qua"
+    "prefix": "Mách nhỏ:",
+    "message": "Bạn có thể nhấn phím",
+    "suffix": "để mở thanh tìm kiếm :D",
+    "dismiss": "Bỏ qua"
   }
 }

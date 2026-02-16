@@ -1,4 +1,34 @@
 {
+  "404": {
+    "title": "Du har gått vilse",
+    "description": "Katten vet inte ens var detta är.",
+    "button": "Gå tillbaka hem",
+    "sitemap": "Visa webbplatskarta",
+    "enjoycat": "Medan du är vilse, njut av denna katt:"
+  },
+  "2048": {
+    "description": "Slå ihop brickorna, nå 2048!",
+    "score": "Poäng",
+    "best": "Bästa",
+    "gameOver": "Spelet över!",
+    "finalScore": "Slutpoäng",
+    "tryAgain": "Försök igen",
+    "youWin": "Du vann!",
+    "currentScore": "Nuvarande poäng",
+    "keepPlaying": "Fortsätt spela",
+    "newGame": "Nytt spel",
+    "howToPlay": "Hur man spelar",
+    "instructions1": "Använd piltangenterna eller WASD för att flytta brickorna. När två brickor med samma nummer möts, slås de ihop!",
+    "instructions2": "Efter varje drag dyker en ny bricka upp (antingen 2 eller 4).",
+    "instructions3": "Skapa en bricka med siffran 2048 för att vinna spelet!",
+    "controls": "Kontroller",
+    "moveLeft": "Flytta vänster",
+    "moveRight": "Flytta höger",
+    "moveUp": "Flytta upp",
+    "moveDown": "Flytta ner",
+    "touchInstructions": "På mobila enheter, använd knapparna på skärmen för att flytta brickor.",
+    "undo": "Ångra"
+  },
   "nav": {
     "home": "Hem",
     "about": "Om mig",
@@ -352,9 +382,16 @@
     "score": "Poäng",
     "level": "Nivå",
     "status": "Status",
+    "next": "Nästa",
     "gameOver": "Spelet över",
     "paused": "Pausad",
     "playing": "Spelar",
+    "ready": "Redo",
+    "playAgain": "Spela igen",
+    "pause": "Paus",
+    "resume": "Fortsätt",
+    "start": "Starta",
+    "reset": "Återställ",
     "controls": "Kontroller",
     "moveLeft": "Flytta vänster",
     "moveRight": "Flytta höger",
@@ -362,22 +399,9 @@
     "rotate": "Rotera block",
     "hardDrop": "Snabbsläpp",
     "pauseGame": "Pausa spelet",
-    "playAgain": "Spela igen",
-    "resetGame": "Återställ spel",
-    "resume": "Fortsätt",
-    "pause": "Paus",
-    "drop": "Släpp",
     "musicOn": "Musik på",
     "musicOff": "Musik av",
-    "gameOverMessage": "Spelet över!",
-    "finalScore": "Din slutpoäng:"
-  },
-  "404": {
-    "title": "Du har gått vilse",
-    "description": "Katten vet inte ens var detta är.",
-    "button": "Gå tillbaka hem",
-    "sitemap": "Visa webbplatskarta",
-    "enjoycat": "Medan du är vilse, njut av denna katt:"
+    "nowPlaying": "Spelar nu"
   },
   "scrapbook": {
     "title": "Devlogg"
@@ -574,30 +598,8 @@
     "madeWith": "gjord med kärlek",
     "andChaos": "och några veckors kodande"
   },
-  "2048": {
-    "description": "Slå ihop brickorna, nå 2048!",
-    "score": "Poäng",
-    "best": "Bästa",
-    "gameOver": "Spelet över!",
-    "finalScore": "Slutpoäng",
-    "tryAgain": "Försök igen",
-    "youWin": "Du vann!",
-    "currentScore": "Nuvarande poäng",
-    "keepPlaying": "Fortsätt spela",
-    "newGame": "Nytt spel",
-    "howToPlay": "Hur man spelar",
-    "instructions1": "Använd piltangenterna eller WASD för att flytta brickorna. När två brickor med samma nummer möts, slås de ihop!",
-    "instructions2": "Efter varje drag dyker en ny bricka upp (antingen 2 eller 4).",
-    "instructions3": "Skapa en bricka med siffran 2048 för att vinna spelet!",
-    "controls": "Kontroller",
-    "moveLeft": "Flytta vänster",
-    "moveRight": "Flytta höger",
-    "moveUp": "Flytta upp",
-    "moveDown": "Flytta ner",
-    "touchInstructions": "På mobila enheter, använd knapparna på skärmen för att flytta brickor.",
-    "undo": "Ångra"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "Tangentbordsgenvägar",
     "navigation": "Navigering",
     "actions": "Åtgärder",
@@ -613,7 +615,6 @@
     "slashes": "Sidkarta",
     "scrapbook": "Devlogg",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "Byt språk",
     "cycleTheme": "Byt tema",
     "refreshCat": "Uppdatera humörkatt",
@@ -622,6 +623,7 @@
     "actionSearch": "Öppna åtgärdssökning"
   },
   "actionSearch": {
+    "2048": "Spela 2048",
     "title": "Sök åtgärder",
     "placeholder": "Sök åtgärder...",
     "noResults": "Inga åtgärder hittades",
@@ -639,7 +641,6 @@
     "fun": "Kul",
     "games": "Spel",
     "tetris": "Spela Tetris",
-    "2048": "Spela 2048",
     "help": "Hjälp",
     "projects": {
       "category": "Navigera bland projektkort",
@@ -693,9 +694,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "Tips:",
-      "message": "Du kan trycka på",
-      "suffix": "-tangenten för att öppna sökfältet :D",
-      "dismiss": "Dölj"
+    "prefix": "Tips:",
+    "message": "Du kan trycka på",
+    "suffix": "-tangenten för att öppna sökfältet :D",
+    "dismiss": "Dölj"
   }
 }

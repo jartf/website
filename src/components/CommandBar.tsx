@@ -3,12 +3,13 @@
 
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useStore } from "@nanostores/react";
-import { languageStore, setLanguage, supportedLanguages, t as i18nT, type SupportedLanguage } from "@/i18n";
-import { routes } from "@/lib/constants";
+import { languageStore, cycleLanguage, t as i18nT } from "@/i18n";
+import { routes, keyboardShortcuts } from "@/lib/constants";
+import { applyTheme } from "@/lib/theme-utils";
 import {
   ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, Calendar, Clock, Code, FileText,
   FlipHorizontal, Gamepad2, Home, KeyRound, Languages, Mail, MessagesSquare, Moon, RefreshCw,
-  Search, Slash, Sun, Tag, User, Wrench, X,
+  Search, Slash, Sun, Tag, User, Wrench, X
 } from "lucide-react";
 
 // Inline KeyboardShortcut component
@@ -73,16 +74,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
 
   const setTheme = useCallback((newTheme: string) => {
     setThemeState(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.remove("light", "dark");
-    if (newTheme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      document.documentElement.classList.add(systemTheme);
-      document.documentElement.style.colorScheme = systemTheme;
-    } else {
-      document.documentElement.classList.add(newTheme);
-      document.documentElement.style.colorScheme = newTheme;
-    }
+    applyTheme(newTheme);
   }, []);
 
   const t = useCallback(
@@ -105,113 +97,31 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
     const close = () => setOpen(false);
     const nav = (path: string) => () => { window.location.href = path; close() };
 
-    // Navigation actions
-    const navItems: Action[] = [
-      {
-        id: "home",
-        label: t("nav.home", "Home"),
-        icon: <Home className="h-4 w-4 text-primary" />,
-        shortcut: "h",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/"),
-      },
-      {
-        id: "about",
-        label: t("nav.about", "About"),
-        icon: <User className="h-4 w-4 text-primary" />,
-        shortcut: "a",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/about/"),
-      },
-      {
-        id: "projects",
-        label: t("nav.projects", "Projects"),
-        icon: <Code className="h-4 w-4 text-primary" />,
-        shortcut: "p",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/projects/"),
-      },
-      {
-        id: "blog",
-        label: t("nav.blog", "Blog"),
-        icon: <BookOpen className="h-4 w-4 text-primary" />,
-        shortcut: "b",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/blog/"),
-      },
-      {
-        id: "now",
-        label: t("nav.now", "Now"),
-        icon: <Clock className="h-4 w-4 text-primary" />,
-        shortcut: "n",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/now/"),
-      },
-      {
-        id: "uses",
-        label: t("nav.uses", "Uses"),
-        icon: <Wrench className="h-4 w-4 text-primary" />,
-        shortcut: "u",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/uses/"),
-      },
-      {
-        id: "contact",
-        label: t("nav.contact", "Contact"),
-        icon: <Mail className="h-4 w-4 text-primary" />,
-        shortcut: "c",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/contact/"),
-      },
-      {
-        id: "guestbook",
-        label: t("nav.guestbook", "Guestbook"),
-        icon: <MessagesSquare className="h-4 w-4 text-primary" />,
-        shortcut: "g",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/guestbook/"),
-      },
-      {
-        id: "colophon",
-        label: t("nav.colophon", "Colophon"),
-        icon: <FileText className="h-4 w-4 text-primary" />,
-        shortcut: "l",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/colophon/"),
-      },
-      {
-        id: "webring",
-        label: t("nav.webring", "Webrings"),
-        icon: <FlipHorizontal className="h-4 w-4 text-primary" />,
-        shortcut: "w",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/webrings/"),
-      },
-      {
-        id: "scrapbook",
-        label: t("nav.scrapbook", "Scrapbook"),
-        icon: <Calendar className="h-4 w-4 text-primary" />,
-        shortcut: "d",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/scrapbook/"),
-      },
-      {
-        id: "slashes",
-        label: "Slashes",
-        icon: <Slash className="h-4 w-4 text-primary" />,
-        shortcut: "/",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/slashes/"),
-      },
-      {
-        id: "brand",
-        label: t("nav.brand", "Brand"),
-        icon: <Tag className="h-4 w-4 text-primary" />,
-        shortcut: "k",
-        category: t("keyboardShortcuts.navigation", "Navigation"),
-        action: nav("/brand/"),
-      },
-    ];
+    // Navigation actions (data-driven)
+    const navIcons: Record<string, React.ReactNode> = {
+      home: <Home className="h-4 w-4 text-primary" />,
+      about: <User className="h-4 w-4 text-primary" />,
+      projects: <Code className="h-4 w-4 text-primary" />,
+      blog: <BookOpen className="h-4 w-4 text-primary" />,
+      now: <Clock className="h-4 w-4 text-primary" />,
+      uses: <Wrench className="h-4 w-4 text-primary" />,
+      contact: <Mail className="h-4 w-4 text-primary" />,
+      guestbook: <MessagesSquare className="h-4 w-4 text-primary" />,
+      colophon: <FileText className="h-4 w-4 text-primary" />,
+      webring: <FlipHorizontal className="h-4 w-4 text-primary" />,
+      scrapbook: <Calendar className="h-4 w-4 text-primary" />,
+      slashes: <Slash className="h-4 w-4 text-primary" />,
+      brand: <Tag className="h-4 w-4 text-primary" />,
+    };
+    const navCategory = t("keyboardShortcuts.navigation", "Navigation");
+    const navItems: Action[] = Object.entries(navIcons).map(([id, icon]) => ({
+      id,
+      label: t(`nav.${id}`, id.charAt(0).toUpperCase() + id.slice(1)),
+      icon,
+      shortcut: keyboardShortcuts[id],
+      category: navCategory,
+      action: nav(routes[id as keyof typeof routes] || `/${id}/`),
+    }));
 
     // Theme + language
     const themeActions: Action[] = [
@@ -230,10 +140,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         shortcut: "y",
         category: t("blog.language", "Language"),
         action: () => {
-          const codes = supportedLanguages.map((l) => l.code);
-          const idx = codes.indexOf(lang);
-          const nextIdx = idx === -1 ? 0 : (idx + 1) % codes.length;
-          setLanguage(codes[nextIdx] as SupportedLanguage);
+          cycleLanguage();
           close();
         },
       },
@@ -260,7 +167,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         icon: <Gamepad2 className="h-4 w-4 text-red-500" />,
         shortcut: "t",
         category: t("actionSearch.games", "Games"),
-        action: nav(routes.tetris),
+        action: nav("/tetris/"),
       },
       {
         id: "2048",
@@ -268,7 +175,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         icon: <Gamepad2 className="h-4 w-4 text-orange-500" />,
         shortcut: "z",
         category: t("actionSearch.games", "Games"),
-        action: nav(routes.game2048),
+        action: nav("/2048/"),
       },
       {
         id: "keyboard-shortcuts",

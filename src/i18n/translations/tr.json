@@ -1,4 +1,34 @@
 {
+  "404": {
+    "title": "Haritanın dışına çıktın",
+    "description": "Kedi bile burayı bilmiyor.",
+    "button": "Ana sayfaya dön",
+    "sitemap": "Site haritasını görüntüle",
+    "enjoycat": "Kaybolmuşken, bu kediyi seyret:"
+  },
+  "2048": {
+    "description": "Karoları birleştirin, 2048'e ulaşın!",
+    "score": "Puan",
+    "best": "En İyi",
+    "gameOver": "Oyun Bitti!",
+    "finalScore": "Son Puan",
+    "tryAgain": "Tekrar Dene",
+    "youWin": "Kazandınız!",
+    "currentScore": "Mevcut Puan",
+    "keepPlaying": "Oynamaya Devam Et",
+    "newGame": "Yeni Oyun",
+    "howToPlay": "Nasıl Oynanır",
+    "instructions1": "Karoları hareket ettirmek için ok tuşlarını veya WASD'yi kullanın. Aynı sayıya sahip iki karo birbirine dokunduğunda, birleşerek tek bir karo oluşturur!",
+    "instructions2": "Her hareketten sonra yeni bir karo belirir (2 veya 4).",
+    "instructions3": "2048 sayısına sahip bir karo oluşturarak oyunu kazanın!",
+    "controls": "Kontroller",
+    "moveLeft": "Sola Hareket",
+    "moveRight": "Sağa Hareket",
+    "moveUp": "Yukarı Hareket",
+    "moveDown": "Aşağı Hareket",
+    "touchInstructions": "Mobil cihazlarda, karolar�� hareket ettirmek için kaydırın veya ekrandaki kontrolleri kullanın.",
+    "undo": "Geri Al"
+  },
   "nav": {
     "home": "Ana sayfa",
     "about": "Hakkında",
@@ -364,9 +394,16 @@
     "score": "Puan",
     "level": "Seviye",
     "status": "Durum",
+    "next": "Sonraki",
     "gameOver": "Oyun Bitti",
     "paused": "Duraklatıldı",
     "playing": "Oynanıyor",
+    "ready": "Hazır",
+    "playAgain": "Tekrar Oyna",
+    "pause": "Duraklat",
+    "resume": "Devam Et",
+    "start": "Başla",
+    "reset": "Sıfırla",
     "controls": "Kontroller",
     "moveLeft": "Sola Git",
     "moveRight": "Sağa Git",
@@ -374,22 +411,9 @@
     "rotate": "Döndür",
     "hardDrop": "Hızlı Düşür",
     "pauseGame": "Oyunu Duraklat",
-    "playAgain": "Tekrar Oyna",
-    "resetGame": "Oyunu Sıfırla",
-    "resume": "Devam Et",
-    "pause": "Duraklat",
-    "drop": "Düşür",
     "musicOn": "Müzik Açık",
     "musicOff": "Müzik Kapalı",
-    "gameOverMessage": "Oyun Bitti!",
-    "finalScore": "Son puanınız:"
-  },
-  "404": {
-    "title": "Haritanın dışına çıktın",
-    "description": "Kedi bile burayı bilmiyor.",
-    "button": "Ana sayfaya dön",
-    "sitemap": "Site haritasını görüntüle",
-    "enjoycat": "Kaybolmuşken, bu kediyi seyret:"
+    "nowPlaying": "Şimdi çalıyor"
   },
   "scrapbook": {
     "title": "Geliştirme Günlüğü"
@@ -586,30 +610,8 @@
     "madeWith": "sevgiyle yapıldı",
     "andChaos": "ve birkaç günlük kodlamayla"
   },
-  "2048": {
-    "description": "Karoları birleştirin, 2048'e ulaşın!",
-    "score": "Puan",
-    "best": "En İyi",
-    "gameOver": "Oyun Bitti!",
-    "finalScore": "Son Puan",
-    "tryAgain": "Tekrar Dene",
-    "youWin": "Kazandınız!",
-    "currentScore": "Mevcut Puan",
-    "keepPlaying": "Oynamaya Devam Et",
-    "newGame": "Yeni Oyun",
-    "howToPlay": "Nasıl Oynanır",
-    "instructions1": "Karoları hareket ettirmek için ok tuşlarını veya WASD'yi kullanın. Aynı sayıya sahip iki karo birbirine dokunduğunda, birleşerek tek bir karo oluşturur!",
-    "instructions2": "Her hareketten sonra yeni bir karo belirir (2 veya 4).",
-    "instructions3": "2048 sayısına sahip bir karo oluşturarak oyunu kazanın!",
-    "controls": "Kontroller",
-    "moveLeft": "Sola Hareket",
-    "moveRight": "Sağa Hareket",
-    "moveUp": "Yukarı Hareket",
-    "moveDown": "Aşağı Hareket",
-    "touchInstructions": "Mobil cihazlarda, karolar�� hareket ettirmek için kaydırın veya ekrandaki kontrolleri kullanın.",
-    "undo": "Geri Al"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "Klavye kısayolları",
     "navigation": "Gezinme",
     "actions": "Eylemler",
@@ -625,7 +627,6 @@
     "slashes": "Site haritası",
     "scrapbook": "Geliştirici günlüğü",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "Dilleri döngüyle değiştir",
     "cycleTheme": "Temaları sırayla değiştir",
     "refreshCat": "Mod kedisini yenile",
@@ -634,6 +635,7 @@
     "actionSearch": "Eylem Aramasını Aç"
   },
   "actionSearch": {
+    "2048": "2048 oyna",
     "title": "Eylemleri ara",
     "placeholder": "Eylem ara...",
     "noResults": "Hiçbir eylem bulunamadı",
@@ -651,7 +653,6 @@
     "fun": "Eğlence",
     "games": "Oyunlar",
     "tetris": "Tetris oyna",
-    "2048": "2048 oyna",
     "help": "Yardım",
     "projects": {
       "category": "Projeler arasında gezin",
@@ -705,9 +706,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "İpucu:",
-      "message": "Arama çubuğunu açmak için",
-      "suffix": "tuşuna basabilirsin :D",
-      "dismiss": "Kapat"
+    "prefix": "İpucu:",
+    "message": "Arama çubuğunu açmak için",
+    "suffix": "tuşuna basabilirsin :D",
+    "dismiss": "Kapat"
   }
 }

@@ -1,4 +1,34 @@
 {
+  "404": {
+    "title": "伴𠫾落塘𠺌張䇼𠅒耒 :))",
+    "description": "𠇍𡥵貓拱拯別低𱺵坭𱜢。",
+    "button": "𢮿𧗱張主",
+    "sitemap": "䀡疏圖張䇼",
+    "enjoycat": "𥪝𣅶伴當落塘、唉䀡𡥵貓尼："
+  },
+  "2048": {
+    "description": "Kết hợp các ô để đạt đến số 2048",
+    "score": "Điểm",
+    "best": "Cao nhất",
+    "gameOver": "Trò chơi kết thúc!",
+    "finalScore": "Điểm cuối cùng",
+    "tryAgain": "Chơi lại",
+    "youWin": "Bạn đã thắng!",
+    "currentScore": "Điểm hiện tại",
+    "keepPlaying": "Tiếp tục chơi",
+    "newGame": "Chơi ván mới",
+    "howToPlay": "Cách chơi",
+    "instructions1": "Sử dụng phím mũi tên hoặc WASD để di chuyển các ô. Khi hai ô có cùng số được gộp vào nhau, chúng sẽ kết hợp thành số tổng của hai số đó.",
+    "instructions2": "Sau mỗi lượt di chuyển, một ô mới (số 2 hoặc 4) xuất hiện.",
+    "instructions3": "Hãy tạo một ô với số 2048 để thắng trò chơi nhé!",
+    "controls": "Điều khiển",
+    "moveLeft": "Di chuyển sang trái",
+    "moveRight": "Di chuyển sang phải",
+    "moveUp": "Di chuyển lên",
+    "moveDown": "Di chuyển xuống",
+    "touchInstructions": "Trên điện thoại, hãy sử dụng các nút điều khiển ở trên màn hình.",
+    "undo": "Hoàn tác"
+  },
   "nav": {
     "home": "張主",
     "about": "介紹",
@@ -168,8 +198,8 @@
     "back": "𢮿吏名冊 blog",
     "showingPosts": "當顯示{{current}}𨑗總數{{total}}排曰",
     "minRead": "丿讀",
-    "availableIn": "排曰尼拱得曰𥪝"
-    ,"comments": "Comments"
+    "availableIn": "排曰尼拱得曰𥪝",
+    "comments": "Comments"
   },
   "now": {
     "title": "現在",
@@ -340,9 +370,16 @@
     "score": "點數",
     "level": "級度",
     "status": "狀態",
+    "next": "接續",
     "gameOver": "結束",
     "paused": "暫仃",
     "playing": "當𨔈",
+    "ready": "淍損",
+    "playAgain": "𨔈吏",
+    "pause": "暫仃",
+    "resume": "接續",
+    "start": "𢲧頭",
+    "reset": "撻吏",
     "controls": "調遣",
     "moveLeft": "移轉𨖅債",
     "moveRight": "移轉𨖅沛",
@@ -350,22 +387,9 @@
     "rotate": "𢮿塊",
     "hardDrop": "抯𬺗𮞊",
     "pauseGame": "暫仃𠻀𨔈",
-    "playAgain": "𨔈吏",
-    "resetGame": "撻吏𧗱班頭",
-    "resume": "接續",
-    "pause": "暫仃",
-    "drop": "抯",
     "musicOn": "弼樂",
     "musicOff": "𤎕樂",
-    "gameOverMessage": "𠻀𨔈結束！",
-    "finalScore": "點𡳳窮𧵑伴："
-  },
-  "404": {
-    "title": "伴𠫾落塘𠺌張䇼𠅒耒 :))",
-    "description": "𠇍𡥵貓拱拯別低𱺵坭𱜢。",
-    "button": "𢮿𧗱張主",
-    "sitemap": "䀡疏圖張䇼",
-    "enjoycat": "𥪝𣅶伴當落塘、唉䀡𡥵貓尼："
+    "nowPlaying": "當發"
   },
   "scrapbook": {
     "title": "Devlog"
@@ -412,7 +436,7 @@
     "noResults": "空尋𧡊徽號𱜢𨨤貝尋檢",
     "visitBadge": "㨳㖭探 {{name}}"
   },
-    "brand": {
+  "brand": {
     "pageTitle": "部認面",
     "pageDescription": "部認面𧵑張䇼𧵑𨉟。唉使用𠇍丐尼裊伴㦖𠯅𦤾或引 link 𬧐張尼唲。",
     "name": {
@@ -537,30 +561,8 @@
     "madeWith": "làm với mọi yêu thương",
     "andChaos": "và vài tuần nghịch code"
   },
-  "2048": {
-    "description": "Kết hợp các ô để đạt đến số 2048",
-    "score": "Điểm",
-    "best": "Cao nhất",
-    "gameOver": "Trò chơi kết thúc!",
-    "finalScore": "Điểm cuối cùng",
-    "tryAgain": "Chơi lại",
-    "youWin": "Bạn đã thắng!",
-    "currentScore": "Điểm hiện tại",
-    "keepPlaying": "Tiếp tục chơi",
-    "newGame": "Chơi ván mới",
-    "howToPlay": "Cách chơi",
-    "instructions1": "Sử dụng phím mũi tên hoặc WASD để di chuyển các ô. Khi hai ô có cùng số được gộp vào nhau, chúng sẽ kết hợp thành số tổng của hai số đó.",
-    "instructions2": "Sau mỗi lượt di chuyển, một ô mới (số 2 hoặc 4) xuất hiện.",
-    "instructions3": "Hãy tạo một ô với số 2048 để thắng trò chơi nhé!",
-    "controls": "Điều khiển",
-    "moveLeft": "Di chuyển sang trái",
-    "moveRight": "Di chuyển sang phải",
-    "moveUp": "Di chuyển lên",
-    "moveDown": "Di chuyển xuống",
-    "touchInstructions": "Trên điện thoại, hãy sử dụng các nút điều khiển ở trên màn hình.",
-    "undo": "Hoàn tác"
-  },
   "keyboardShortcuts": {
+    "2048": "2048",
     "title": "Phím tắt",
     "navigation": "Điều hướng",
     "actions": "Hành động",
@@ -576,7 +578,6 @@
     "slashes": "疏圖張䇼",
     "scrapbook": "Devlog",
     "tetris": "Tetris",
-    "2048": "2048",
     "cycleLanguage": "Chuyển đổi ngôn ngữ",
     "cycleTheme": "Chuyển đổi chủ đề",
     "refreshCat": "Thay đổi ảnh mèo",
@@ -585,6 +586,7 @@
     "actionSearch": "Mở thanh tìm kiếm"
   },
   "actionSearch": {
+    "2048": "Chơi 2048",
     "title": "Tìm kiếm hành động",
     "placeholder": "Gõ để tìm hành động...",
     "noResults": "Không tìm thấy hành động nào",
@@ -602,7 +604,6 @@
     "fun": "Chơi vui",
     "games": "Trò chơi",
     "tetris": "Chơi Tetris",
-    "2048": "Chơi 2048",
     "help": "Trợ giúp",
     "projects": {
       "category": "Điều hướng qua các dự án",
@@ -656,9 +657,9 @@
     }
   },
   "firstVisitHint": {
-      "prefix": "𠼽𡮈:",
-      "message": "伴固体扨柉",
-      "suffix": "抵𢲫工具尋檢 :D",
-      "dismiss": "𠬃過"
+    "prefix": "𠼽𡮈:",
+    "message": "伴固体扨柉",
+    "suffix": "抵𢲫工具尋檢 :D",
+    "dismiss": "𠬃過"
   }
 }
