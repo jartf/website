@@ -169,6 +169,7 @@ export const navItems = [
   { href: routes.guestbook, key: "guestbook" },
   { href: routes.colophon, key: "colophon" },
   { href: routes.webring, key: "webring" },
+  { href: routes.slashes, key: "slashes" },
 ] as const;
 
 // Webrings data

@@ -11,6 +11,7 @@
     "colophon": "Thông tin",
     "webring": "Webring",
     "scrapbook": "Ghi chép",
+    "slashes": "Sơ đồ trang web",
     "brand": "Bộ nhận diện"
   },
   "languageNotice": {
@@ -609,9 +610,9 @@
     "projects": "Dự án",
     "now": "Hiện tại",
     "uses": "Công cụ",
-    "contact": "Contact",
+    "contact": "Liên hệ",
     "colophon": "Thông tin",
-    "slashes": "Slashes",
+    "slashes": "Sơ đồ trang web",
     "scrapbook": "Devlog",
     "tetris": "Tetris",
     "2048": "2048",

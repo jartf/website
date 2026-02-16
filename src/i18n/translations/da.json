@@ -11,6 +11,7 @@
     "colophon": "Kolofon",
     "webring": "Webring",
     "scrapbook": "Scrapbog",
+    "slashes": "Sideoversigt",
     "brand": "Brand-kit"
   },
   "languageNotice": {
@@ -623,7 +624,7 @@
     "uses": "Værktøjer",
     "contact": "Kontakt",
     "colophon": "Kolofon",
-    "slashes": "Skåstreger",
+    "slashes": "Sideoversigt",
     "scrapbook": "Devlog",
     "tetris": "Tetris",
     "2048": "2048",

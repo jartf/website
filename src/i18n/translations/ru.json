@@ -11,6 +11,7 @@
     "colophon": "Колофон",
     "webring": "Веб-кольца",
     "scrapbook": "Альбом",
+    "slashes": "Карта сайта",
     "brand": "Бренд-кит"
   },
   "languageNotice": {
@@ -619,7 +620,7 @@
     "uses": "Что я использую",
     "contact": "Контакты",
     "colophon": "Колофон",
-    "slashes": "Слэши",
+    "slashes": "Карта сайта",
     "scrapbook": "Девлог",
     "tetris": "Тетрис",
     "2048": "2048",
