@@ -299,8 +299,6 @@ const feedButtons = [
     updateActiveFiltersDisplay();
   };
 
-  setupPageI18n(updateBlogTranslations);
-
   const updateResultsCount = () => {
     const [resultsEl, filteredEl, totalEl] = ['results-count', 'filtered-count', 'total-count'].map(id => document.getElementById(id));
     if (resultsEl && filteredEl && totalEl) {
@@ -397,6 +395,7 @@ const feedButtons = [
     filterAndSortPosts();
   };
 
+  setupPageI18n(updateBlogTranslations);
   initDefaultLanguageFilter();
 
   const handleCheckboxFilter = (selector: string, stateKey: 'langs' | 'moods' | 'cats') => {
