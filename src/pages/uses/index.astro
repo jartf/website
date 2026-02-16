@@ -131,13 +131,56 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
         } else if (clicks >= 5) {
           const data = platformData[platform];
           if (data) {
-            el.querySelector('.platform-name')!.innerHTML = `<a href="${data.link}" target="_blank" rel="noopener noreferrer" class="hover:text-primary">${data.name} <span class="text-xs opacity-70">↗</span></a>`;
-            el.querySelector('.platform-description')!.textContent = data.description;
+            const nameEl = el.querySelector('.platform-name');
+            if (nameEl) {
+              const link = document.createElement('a');
+              link.href = data.link;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.className = 'hover:text-primary';
+              link.append(document.createTextNode(data.name), ' ');
+
+              const arrow = document.createElement('span');
+              arrow.className = 'text-xs opacity-70';
+              arrow.textContent = '↗';
+              link.appendChild(arrow);
+
+              nameEl.replaceChildren(link);
+            }
+
+            const descriptionEl = el.querySelector('.platform-description');
+            if (descriptionEl) descriptionEl.textContent = data.description;
+
             counter?.remove();
-            el.querySelector('.platform-lock')!.outerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500">
-              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
-            </svg>`;
+
+            const lock = el.querySelector('.platform-lock');
+            if (lock) {
+              const unlocked = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+              unlocked.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+              unlocked.setAttribute('width', '16');
+              unlocked.setAttribute('height', '16');
+              unlocked.setAttribute('viewBox', '0 0 24 24');
+              unlocked.setAttribute('fill', 'none');
+              unlocked.setAttribute('stroke', 'currentColor');
+              unlocked.setAttribute('stroke-width', '2');
+              unlocked.setAttribute('stroke-linecap', 'round');
+              unlocked.setAttribute('stroke-linejoin', 'round');
+              unlocked.classList.add('text-green-500');
+
+              const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+              rect.setAttribute('width', '18');
+              rect.setAttribute('height', '11');
+              rect.setAttribute('x', '3');
+              rect.setAttribute('y', '11');
+              rect.setAttribute('rx', '2');
+              rect.setAttribute('ry', '2');
+
+              const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+              path.setAttribute('d', 'M7 11V7a5 5 0 0 1 9.9-1');
+
+              unlocked.append(rect, path);
+              lock.replaceWith(unlocked);
+            }
             el.classList.remove('cursor-pointer');
           }
         }

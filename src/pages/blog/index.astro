@@ -299,14 +299,40 @@ const feedButtons = [
     updateActiveFiltersDisplay();
   };
 
+  const renderResultsCount = (current: string, total: string) => {
+    const resultsEl = document.getElementById('results-count');
+    if (!resultsEl) return;
+
+    const template = t('blog.showingPosts');
+    const fallback = 'Showing {{current}} of {{total}} posts';
+    const message = template !== 'blog.showingPosts' ? template : fallback;
+
+    const [beforeCurrent = '', rest = ''] = message.split('{{current}}');
+    const [between = '', afterTotal = ''] = rest.split('{{total}}');
+
+    const fragment = document.createDocumentFragment();
+    fragment.append(document.createTextNode(beforeCurrent));
+
+    const currentSpan = document.createElement('span');
+    currentSpan.id = 'filtered-count';
+    currentSpan.textContent = current;
+    fragment.append(currentSpan);
+
+    fragment.append(document.createTextNode(between));
+
+    const totalSpan = document.createElement('span');
+    totalSpan.id = 'total-count';
+    totalSpan.textContent = total;
+    fragment.append(totalSpan);
+
+    if (afterTotal) fragment.append(document.createTextNode(afterTotal));
+    resultsEl.replaceChildren(fragment);
+  };
+
   const updateResultsCount = () => {
-    const [resultsEl, filteredEl, totalEl] = ['results-count', 'filtered-count', 'total-count'].map(id => document.getElementById(id));
-    if (resultsEl && filteredEl && totalEl) {
-      const template = t('blog.showingPosts');
-      if (template !== 'blog.showingPosts') {
-        resultsEl.innerHTML = template.replace('{{current}}', `<span id="filtered-count">${filteredEl.textContent}</span>`).replace('{{total}}', `<span id="total-count">${totalEl.textContent}</span>`);
-      }
-    }
+    const filtered = document.getElementById('filtered-count')?.textContent ?? '0';
+    const total = document.getElementById('total-count')?.textContent ?? String(document.querySelectorAll('.blog-post').length);
+    renderResultsCount(filtered, total);
   };
 
   const initDefaultLanguageFilter = () => {
@@ -344,7 +370,9 @@ const feedButtons = [
     noResults?.classList.toggle('hidden', visibleCount > 0);
     container?.classList.toggle('hidden', visibleCount === 0);
     if (filteredCountEl) filteredCountEl.textContent = String(visibleCount);
-    updateResultsCount();
+    const total = String(posts.length);
+    const current = String(visibleCount);
+    renderResultsCount(current, total);
 
     const filterCount = state.langs.length + state.moods.length + state.cats.length + (state.catApproved !== null ? 1 : 0);
     const filterCountEl = document.getElementById('filter-count');
@@ -356,11 +384,32 @@ const feedButtons = [
     const typeMap: Record<string, string> = { Language: t('blog.language'), Mood: t('blog.mood'), Category: t('blog.category'), 'Cat Approved': t('blog.cat') };
     const badge = document.createElement('span');
     badge.className = 'inline-flex items-center gap-1 px-2 py-1 rounded border text-xs';
-    badge.innerHTML = `<span class="font-medium">${typeMap[type] || type}:</span> ${value}`;
+
+    const label = document.createElement('span');
+    label.className = 'font-medium';
+    label.textContent = `${typeMap[type] || type}:`;
+    badge.append(label, document.createTextNode(` ${value}`));
+
     const removeBtn = document.createElement('button');
     removeBtn.className = 'ml-1 hover:text-foreground';
-    removeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
     removeBtn.onclick = e => { e.stopPropagation(); onRemove(); };
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svg.setAttribute('width', '12');
+    svg.setAttribute('height', '12');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2');
+
+    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path1.setAttribute('d', 'M18 6 6 18');
+    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path2.setAttribute('d', 'm6 6 12 12');
+    svg.append(path1, path2);
+
+    removeBtn.appendChild(svg);
     badge.appendChild(removeBtn);
     return badge;
   };
