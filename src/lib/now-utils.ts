@@ -1,5 +1,6 @@
 // Shared utilities for Now section and Now page
 import { t, applyDomTranslations } from "@/i18n";
+import { getTimezoneOption } from "@/lib/timezone-utils";
 
 export interface PremidActivity {
   name: string;
@@ -63,7 +64,7 @@ function parseLastfm(xml: string): LastfmTrack | null {
   let date: string | undefined, dateObj = new Date();
   if (!nowplaying) {
     const uts = track.getElementsByTagName("date")[0]?.getAttribute("uts");
-    if (uts) { dateObj = new Date(+uts * 1000); date = dateObj.toLocaleString("en", DATE_FMT); }
+    if (uts) { dateObj = new Date(+uts * 1000); date = dateObj.toLocaleString("en", { ...DATE_FMT, ...getTimezoneOption() }); }
   }
   const image = Array.from(track.getElementsByTagName("image")).find(i => i.getAttribute("size") === "large")?.textContent?.trim() || "";
   return { type: "lastfm", name, artist, url: tag("url"), nowplaying, image, date, dateObj };
@@ -103,7 +104,7 @@ function liveContent(item: LiveItem, includeIcon = true): string {
           ? `<a href="${trackUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${escapeHtml(item.name)}</a>`
           : `<span class="font-semibold break-words block">${escapeHtml(item.name)}</span>`}
         <p class="text-sm text-muted-foreground break-words">${escapeHtml(item.artist)}</p>
-      </div></div>${item.date && !item.nowplaying ? `<div class="text-xs text-muted-foreground mt-1">${item.date}</div>` : ""}`;
+      </div></div>${item.date && !item.nowplaying ? `<time data-date="${item.dateObj.toISOString()}" class="text-xs text-muted-foreground mt-1 block">${item.date}</time>` : ""}`;
   }
   return `<div class="flex items-center gap-2 font-semibold mb-1">
     ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎮</span>' : ''}<span class="now-category" data-i18n="now.categories.premid">${t("now.categories.premid") || "Discord activity"}</span>${BADGE}

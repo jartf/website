@@ -30,5 +30,6 @@ export function setupPageI18n(
   if (!guardMap.has(key)) {
     guardMap.add(key);
     languageStore.subscribe(run);
+    document.addEventListener('timezone-change', run);
   }
 }

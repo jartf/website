@@ -51,7 +51,7 @@ const getCategoryTranslation = (category: string) =>
             <p class="now-text text-sm break-words min-w-0">{item.content.en}</p>
           )}
         </div>
-        <time class="text-xs text-muted-foreground mt-1 block" datetime={item.date}>
+        <time class="text-xs text-muted-foreground mt-1 block" datetime={item.date} data-date={item.date}>
           {new Date(item.date).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
         </time>
       </article>
@@ -61,7 +61,8 @@ const getCategoryTranslation = (category: string) =>
 
 <script>
   import { languageStore } from "@/i18n";
-  import { fetchLiveData, renderCompact, updateI18nElements, CONFLICT_MAP } from "@/lib/now-utils";
+  import { fetchLiveData, renderCompact, updateI18nElements, CONFLICT_MAP, DATE_FMT } from "@/lib/now-utils";
+  import { getTimezoneOption } from "@/lib/timezone-utils";
 
   async function enhance() {
     const container = document.getElementById("now-section")?.querySelector(".border.rounded-lg");
@@ -88,7 +89,13 @@ const getCategoryTranslation = (category: string) =>
 
   function translate() {
     const el = document.getElementById("now-section");
-    if (el) updateI18nElements(el, languageStore.get());
+    if (!el) return;
+    const lang = languageStore.get();
+    updateI18nElements(el, lang);
+    el.querySelectorAll('time[data-date]').forEach(t => {
+      const d = t.getAttribute('data-date');
+      if (d) t.textContent = new Date(d).toLocaleDateString(lang, { ...DATE_FMT, ...getTimezoneOption() });
+    });
   }
 
   const setup = async () => { await enhance(); translate(); };
@@ -100,5 +107,6 @@ const getCategoryTranslation = (category: string) =>
     languageStore.subscribe(translate);
     window.addEventListener("languageChange", translate);
     document.addEventListener("astro:after-swap", setup);
+    document.addEventListener("timezone-change", translate);
   }
 </script>

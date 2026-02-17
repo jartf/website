@@ -78,13 +78,14 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
 
 <script>
   import { languageStore, initLanguage } from '@/i18n';
+  import { getTimezoneOption } from '@/lib/timezone-utils';
 
   const dateFormatOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
   const rootSelector = 'section[aria-labelledby="recent-posts-heading"]';
 
   function updateDates(lang?: string) {
     const locale = typeof lang === 'string' && lang ? lang : languageStore.get();
-    const formatter = new Intl.DateTimeFormat(locale, dateFormatOptions);
+    const formatter = new Intl.DateTimeFormat(locale, { ...dateFormatOptions, ...getTimezoneOption() });
     document.querySelectorAll(`${rootSelector} [data-date-ms]`).forEach((el) => {
       const dateMs = el.getAttribute('data-date-ms');
       if (!dateMs) return;
@@ -101,4 +102,5 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
 
   updateDates();
   window.addEventListener('languageChange', (e) => updateDates((e as CustomEvent<string>)?.detail));
+  document.addEventListener('timezone-change', () => updateDates());
 </script>

@@ -82,6 +82,7 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
 <script>
   import { languageStore } from "@/i18n";
   import { fetchLiveData, renderCard, updateI18nElements, CONFLICT_MAP, DATE_FMT } from "@/lib/now-utils";
+  import { getTimezoneOption } from "@/lib/timezone-utils";
 
   const enhance = async () => {
     const container = document.getElementById("now-items-container");
@@ -106,7 +107,7 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
     updateI18nElements(page, lang);
     page.querySelectorAll("[data-date]").forEach(el => {
       const d = el.getAttribute("data-date");
-      if (d) el.textContent = new Date(d).toLocaleDateString(lang, DATE_FMT);
+      if (d) el.textContent = new Date(d).toLocaleDateString(lang, { ...DATE_FMT, ...getTimezoneOption() });
     });
   };
 
@@ -118,5 +119,6 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
     window.__nowPageInit = true;
     languageStore.subscribe(translate);
     document.addEventListener("astro:after-swap", setup);
+    document.addEventListener("timezone-change", translate);
   }
 </script>

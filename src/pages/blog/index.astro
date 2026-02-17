@@ -286,6 +286,7 @@ const feedButtons = [
 <script>
   import { languageStore, t } from '@/i18n';
   import { setupPageI18n } from '@/lib/i18n-page';
+  import { getTimezoneOption } from '@/lib/timezone-utils';
 
   const languageNames: Record<string, string> = { en: "English", vi: "Tiếng Việt", vih: "Tiếng Việt (Hán tự)", ru: "Русский", fi: "Suomi", pl: "Polski", sv: "Svenska", da: "Dansk", et: "Eesti", tr: "Türkçe", zh: "中文", tok: "toki pona" };
   const state = { search: '', sort: 'newest', langs: [] as string[], moods: [] as string[], cats: [] as string[], catApproved: null as boolean | null };
@@ -294,7 +295,7 @@ const feedButtons = [
     updateResultsCount();
     document.querySelectorAll('time[data-date]').forEach(el => {
       const dateStr = el.getAttribute('data-date');
-      if (dateStr) el.textContent = new Date(dateStr).toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' });
+      if (dateStr) el.textContent = new Date(dateStr).toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric', ...getTimezoneOption() });
     });
     updateActiveFiltersDisplay();
   };
