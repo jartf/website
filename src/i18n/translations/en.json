@@ -416,6 +416,22 @@
     "title": "Devlog",
     "description": "Some development logs when I was building this site."
   },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "themeAuto": "Auto",
+    "themeLight": "Light theme",
+    "themeDark": "Dark theme",
+    "stars": "Twinkling stars",
+    "reduceMotion": "Reduce motion",
+    "highContrast": "High contrast",
+    "dyslexiaFont": "Dyslexia font",
+    "timezone": "Timezone",
+    "tzYours": "Yours",
+    "tzAuthor": "Jarema's",
+    "music": "Music",
+    "musicUnavailable": "Currently unavailable"
+  },
   "slashes": {
     "title": "Slashes",
     "descriptionStart": "Common pages available on this site, following the",
