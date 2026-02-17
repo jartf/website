@@ -1,7 +1,7 @@
 ---
 import { navItems, author } from "@/lib/constants";
 import T from "@/components/T.astro";
-import { LanguageToggle } from "@/components/LanguageToggle";
+import LanguageToggle from "@/components/LanguageToggle.astro";
 import { Image } from "astro:assets";
 
 const pathname = Astro.url.pathname;
@@ -69,7 +69,7 @@ const toggleIcons: Record<string, string> = {
 
     <div class="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
       <!-- Language toggle (React) -->
-      <LanguageToggle client:only="react" transition:persist />
+      <LanguageToggle transition:persist />
 
       <!-- Settings menu -->
       <details id="settings-menu" class="group relative">
