@@ -6,9 +6,13 @@
 
 <script>
   import { routes, keyboardShortcuts } from "@/lib/constants";
-  import { isTypingInInput } from "@/hooks";
   import { cycleTheme } from "@/lib/theme-utils";
   import { cycleLanguage } from "@/i18n";
+
+  const isTypingInInput = () => {
+    const el = document.activeElement;
+    return el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el?.getAttribute("contenteditable") === "true";
+  };
 
   // Build nav shortcut map: shortcut key → route path
   const NAV_SHORTCUTS: Record<string, string> = {};

@@ -6,8 +6,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Galaxy from "@/components/Galaxy.astro";
 import BarListener from "@/components/BarListener.astro";
-import LanguageNotice from "@/components/LanguageNotice.astro";
-import EasterEgg from "@/components/EasterEgg.astro";
+import Banners from "@/components/Banners.astro";
 import { hrefLangLanguages, siteUrl, siteName, siteDescription, siteKeywords, author, socialLinks, alternativeDomains, services, themeColors } from "@/lib/constants";
 
 const analyticsWebsiteIds = services.analytics.websiteIds;
@@ -388,7 +387,6 @@ const structuredData = {
     </div>
 
     <BarListener transition:persist />
-    <LanguageNotice transition:persist />
-    <EasterEgg transition:persist />
+    <Banners transition:persist />
   </body>
 </html>

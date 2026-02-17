@@ -1,0 +1,99 @@
+---
+// Notification banners: incomplete-translation warning + polyglot easter egg
+import { supportedLanguages } from "@/lib/constants";
+const langCount = supportedLanguages.length;
+---
+
+<!-- Language notice -->
+<div id="lang-notice" class="fixed top-16 inset-x-0 z-50 flex justify-center p-4 hidden">
+  <div class="bg-amber-100 dark:bg-amber-900 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-100 px-4 py-3 rounded-lg shadow-md flex items-center max-w-xl">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 flex-shrink-0" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" />
+    </svg>
+    <p id="lang-notice-msg" class="text-sm" data-i18n="languageNotice.message"></p>
+    <button data-dismiss="lang-notice" class="ml-4 p-1 rounded-full hover:bg-amber-200 dark:hover:bg-amber-800 transition-colors" aria-label="Dismiss">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Easter egg -->
+<div id="easter-egg" class="fixed top-16 inset-x-0 z-50 flex justify-center p-4 hidden">
+  <div class="bg-purple-100 dark:bg-purple-900 border border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-100 px-4 py-3 rounded-lg shadow-md flex items-center max-w-xl">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 flex-shrink-0" aria-hidden="true">
+      <path d="M5.8 11.3 2 22l10.7-3.79" /><path d="M4 3h.01" /><path d="M22 8h.01" /><path d="M15 2h.01" /><path d="M22 20h.01" />
+      <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" />
+      <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.63-.69 1.1-1.34 1.1H16c-1.1 0-2 .9-2 2v2a2 2 0 0 1-2 2H9.82a2 2 0 0 1-1.95-1.57L7 14" />
+    </svg>
+    <div class="flex flex-col">
+      <p class="text-sm font-medium">Achievement Unlocked: Polyglot!</p>
+      <p class="text-xs opacity-80">You&apos;ve visited all {langCount} language versions of this site. Impressive!</p>
+    </div>
+    <button data-dismiss="easter-egg" class="ml-4 p-1 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors" aria-label="Dismiss">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  import { languageStore, t, supportedLanguages } from "@/i18n";
+  import { completedLanguages } from "@/lib/constants";
+
+  // --- Language notice ---
+  const noticeEl = document.getElementById("lang-notice")!;
+  const noticeMsg = document.getElementById("lang-notice-msg")!;
+  const noticeDismissBtn = noticeEl.querySelector<HTMLButtonElement>("[data-dismiss]")!;
+  let noticeDismissed = false;
+  try { noticeDismissed = localStorage.getItem("languageNoticeDismissed") === "true"; } catch {}
+
+  function isComplete(lang: string): boolean {
+    const base = lang.split("-")[0];
+    return (completedLanguages as readonly string[]).some(
+      l => lang === l || lang.startsWith(l + "-") || base === l
+    );
+  }
+
+  noticeDismissBtn.addEventListener("click", () => {
+    noticeDismissed = true;
+    noticeEl.classList.add("hidden");
+    try { localStorage.setItem("languageNoticeDismissed", "true"); } catch {}
+  });
+
+  // --- Easter egg ---
+  const eggEl = document.getElementById("easter-egg")!;
+  const eggDismissBtn = eggEl.querySelector<HTMLButtonElement>("[data-dismiss]")!;
+  const allCodes = supportedLanguages.map(l => l.code);
+  let visited: Set<string>;
+  try {
+    const s = localStorage.getItem("language-tracker");
+    visited = s ? new Set(JSON.parse(s)) : new Set();
+  } catch { visited = new Set(); }
+
+  eggDismissBtn.addEventListener("click", () => {
+    eggEl.classList.add("hidden");
+    visited.clear();
+    try { localStorage.removeItem("language-tracker"); } catch {}
+  });
+
+  // --- Single subscription for both ---
+  function onLangChange(lang: string) {
+    // Notice: show if language is incomplete and not dismissed
+    if (noticeDismissed || isComplete(lang)) {
+      noticeEl.classList.add("hidden");
+    } else {
+      noticeMsg.textContent = t("languageNotice.message");
+      noticeDismissBtn.setAttribute("aria-label", t("languageNotice.dismiss"));
+      noticeEl.classList.remove("hidden");
+    }
+
+    // Easter egg: track visited languages
+    visited.add(lang);
+    try { localStorage.setItem("language-tracker", JSON.stringify([...visited])); } catch {}
+    if (allCodes.every(c => visited.has(c))) {
+      eggEl.classList.remove("hidden");
+    }
+  }
+
+  onLangChange(languageStore.get());
+  languageStore.subscribe(onLangChange);
+</script>
