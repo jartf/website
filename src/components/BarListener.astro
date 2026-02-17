@@ -1,0 +1,78 @@
+---
+// Lazy CommandBar loader + keyboard navigation
+---
+
+<div id="command-bar-root"></div>
+
+<script>
+  import { routes, keyboardShortcuts } from "@/lib/constants";
+  import { isTypingInInput } from "@/hooks";
+  import { cycleTheme } from "@/lib/theme-utils";
+  import { cycleLanguage } from "@/i18n";
+
+  // Build nav shortcut map: shortcut key → route path
+  const NAV_SHORTCUTS: Record<string, string> = {};
+  for (const [key, shortcut] of Object.entries(keyboardShortcuts)) {
+    if (key in routes) NAV_SHORTCUTS[shortcut] = routes[key as keyof typeof routes];
+  }
+
+  // Global actions shared between game and non-game pages
+  const GLOBAL_ACTIONS: Record<string, () => void> = {
+    m: cycleTheme,
+    y: cycleLanguage,
+  };
+
+  // Lazy CommandBar state
+  let loading = false;
+
+  // Find cat button (may render after this script)
+  let catBtn: HTMLButtonElement | null = null;
+  const findCatBtn = () => { catBtn = document.querySelector('button[aria-label="Refresh mood cat"]'); };
+  findCatBtn();
+  setTimeout(findCatBtn, 1000);
+
+  window.addEventListener("keydown", (e: KeyboardEvent) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (isTypingInInput()) return;
+
+    const { key } = e;
+
+    // Lazy-load CommandBar on "."
+    if (key === "." && !loading) {
+      e.preventDefault();
+      loading = true;
+      Promise.all([
+        import("@/components/CommandBar"),
+        import("react-dom/client"),
+        import("react"),
+      ]).then(([{ CommandBar }, { createRoot }, React]) => {
+        const el = document.getElementById("command-bar-root");
+        if (el) createRoot(el).render(React.createElement(CommandBar, { initialOpen: true }));
+      }).catch(() => { loading = false; });
+      return;
+    }
+
+    // Global shortcuts (theme, language) — work on all pages
+    if (key in GLOBAL_ACTIONS) {
+      e.preventDefault();
+      GLOBAL_ACTIONS[key]();
+      return;
+    }
+
+    const isGame = location.pathname.includes(routes.game2048) || location.pathname.includes(routes.tetris);
+
+    if (isGame) {
+      if (key === "h") { e.preventDefault(); location.href = "/"; }
+      return;
+    }
+
+    // Nav shortcuts (non-game pages only)
+    if (key in NAV_SHORTCUTS) {
+      e.preventDefault();
+      location.href = NAV_SHORTCUTS[key];
+    } else if (key === "r" && catBtn) {
+      e.preventDefault();
+      catBtn.click();
+    }
+  });
+</script>
