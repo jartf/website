@@ -1,6 +1,6 @@
 // Shared utilities for Now section and Now page
 import { t, applyDomTranslations } from "@/i18n";
-import { getTimezoneOption } from "@/lib/timezone-utils";
+import { formatDate, dateFull } from "@/lib/timezone-utils";
 
 export interface PremidActivity {
   name: string;
@@ -12,8 +12,6 @@ export interface PremidActivity {
 export interface LastfmTrack { type: "lastfm"; name: string; artist: string; url: string; nowplaying: boolean; image: string; date?: string; dateObj: Date }
 export interface PremidData { type: "premid"; activities: PremidActivity[]; dateObj: Date }
 export type LiveItem = LastfmTrack | PremidData;
-
-export const DATE_FMT: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" };
 
 const BADGE = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
 
@@ -64,7 +62,7 @@ function parseLastfm(xml: string): LastfmTrack | null {
   let date: string | undefined, dateObj = new Date();
   if (!nowplaying) {
     const uts = track.getElementsByTagName("date")[0]?.getAttribute("uts");
-    if (uts) { dateObj = new Date(+uts * 1000); date = dateObj.toLocaleString("en", { ...DATE_FMT, ...getTimezoneOption() }); }
+    if (uts) { dateObj = new Date(+uts * 1000); date = formatDate(dateObj, "en", dateFull); }
   }
   const image = Array.from(track.getElementsByTagName("image")).find(i => i.getAttribute("size") === "large")?.textContent?.trim() || "";
   return { type: "lastfm", name, artist, url: tag("url"), nowplaying, image, date, dateObj };

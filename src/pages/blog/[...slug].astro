@@ -208,7 +208,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
   import { setupPageI18n } from '@/lib/i18n-page';
   import { languageStore, t } from '@/i18n';
   import { services } from '@/lib/constants';
-  import { getTimezoneOption } from '@/lib/timezone-utils';
+  import { formatDate } from '@/lib/timezone-utils';
 
   // Declare CUSDIS on window
   declare global {
@@ -233,16 +233,8 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     // Update date with locale + timezone
     const lang = languageStore.get();
     document.querySelectorAll('time[data-date]').forEach((el) => {
-      const dateStr = el.getAttribute('data-date');
-      if (dateStr) {
-        const date = new Date(dateStr);
-        el.textContent = date.toLocaleDateString(lang, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          ...getTimezoneOption()
-        });
-      }
+      const iso = el.getAttribute('data-date');
+      if (iso) el.textContent = formatDate(iso, lang);
     });
   }
 

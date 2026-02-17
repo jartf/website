@@ -61,8 +61,8 @@ const getCategoryTranslation = (category: string) =>
 
 <script>
   import { languageStore } from "@/i18n";
-  import { fetchLiveData, renderCompact, updateI18nElements, CONFLICT_MAP, DATE_FMT } from "@/lib/now-utils";
-  import { getTimezoneOption } from "@/lib/timezone-utils";
+  import { fetchLiveData, renderCompact, updateI18nElements, CONFLICT_MAP } from "@/lib/now-utils";
+  import { formatDate, dateFull } from "@/lib/timezone-utils";
 
   async function enhance() {
     const container = document.getElementById("now-section")?.querySelector(".border.rounded-lg");
@@ -94,7 +94,7 @@ const getCategoryTranslation = (category: string) =>
     updateI18nElements(el, lang);
     el.querySelectorAll('time[data-date]').forEach(t => {
       const d = t.getAttribute('data-date');
-      if (d) t.textContent = new Date(d).toLocaleDateString(lang, { ...DATE_FMT, ...getTimezoneOption() });
+      if (d) t.textContent = formatDate(d, lang, dateFull);
     });
   }
 

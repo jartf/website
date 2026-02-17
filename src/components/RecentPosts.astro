@@ -9,29 +9,21 @@ type RecentPost = {
   title: string;
   excerpt: string;
   dateISO: string;
-  dateMs: number;
   readingTime: number;
   dateTextEn: string;
 };
 
-const dateFormatOptions: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
-const dateFormatter = new Intl.DateTimeFormat("en", dateFormatOptions);
-
 const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft))
   .sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3)
-  .map((post: CollectionEntry<"blog">) => {
-    const dateISO = post.data.date.toISOString();
-    return {
-      slug: post.slug,
-      title: post.data.title,
-      excerpt: post.data.excerpt ?? "No excerpt available",
-      dateISO,
-      dateMs: post.data.date.getTime(),
-      readingTime: post.data.readingTime ?? 5,
-      dateTextEn: dateFormatter.format(post.data.date),
-    };
-  });
+  .map((post: CollectionEntry<"blog">) => ({
+    slug: post.slug,
+    title: post.data.title,
+    excerpt: post.data.excerpt ?? "No excerpt available",
+    dateISO: post.data.date.toISOString(),
+    readingTime: post.data.readingTime ?? 5,
+    dateTextEn: post.data.date.toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" }),
+  }));
 ---
 
 <section aria-labelledby="recent-posts-heading">
@@ -53,7 +45,7 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
                 {post.excerpt}
               </p>
               <div class="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                <time datetime={post.dateISO} data-date-ms={post.dateMs}>
+                <time datetime={post.dateISO} data-date={post.dateISO}>
                   {post.dateTextEn}
                 </time>
                 <span>•</span>
@@ -78,18 +70,15 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
 
 <script>
   import { languageStore, initLanguage } from '@/i18n';
-  import { getTimezoneOption } from '@/lib/timezone-utils';
+  import { formatDate } from '@/lib/timezone-utils';
 
-  const dateFormatOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
   const rootSelector = 'section[aria-labelledby="recent-posts-heading"]';
 
   function updateDates(lang?: string) {
     const locale = typeof lang === 'string' && lang ? lang : languageStore.get();
-    const formatter = new Intl.DateTimeFormat(locale, { ...dateFormatOptions, ...getTimezoneOption() });
-    document.querySelectorAll(`${rootSelector} [data-date-ms]`).forEach((el) => {
-      const dateMs = el.getAttribute('data-date-ms');
-      if (!dateMs) return;
-      el.textContent = formatter.format(new Date(Number(dateMs)));
+    document.querySelectorAll(`${rootSelector} time[data-date]`).forEach((el) => {
+      const iso = el.getAttribute('data-date');
+      if (iso) el.textContent = formatDate(iso, locale);
     });
   }
 

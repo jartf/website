@@ -49,18 +49,14 @@ const dateFormat = { year: "numeric", month: "long", day: "numeric" } as const;
 <script>
   import { setupPageI18n } from '@/lib/i18n-page';
   import { languageStore } from '@/i18n';
-  import { getTimezoneOption } from '@/lib/timezone-utils';
-
-  const dateFormat = { year: "numeric", month: "long", day: "numeric" } as const;
+  import { formatDate } from '@/lib/timezone-utils';
 
   function updateScrapbook() {
     const lang = languageStore.get();
 
     document.querySelectorAll("time[data-date]").forEach((el) => {
-      const date = new Date(el.getAttribute("data-date")!);
-      if (!isNaN(date.getTime())) {
-        el.textContent = date.toLocaleDateString(lang, { ...dateFormat, ...getTimezoneOption() });
-      }
+      const iso = el.getAttribute("data-date");
+      if (iso) el.textContent = formatDate(iso, lang);
     });
 
     document.querySelectorAll("[data-content]").forEach((el) => {
