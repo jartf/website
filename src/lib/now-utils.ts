@@ -14,7 +14,7 @@ export type LiveItem = LastfmTrack | PremidData;
 
 export const DATE_FMT: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" };
 
-const BADGE = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded animate-pulse">Live</span>';
+const BADGE = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
 
 /** Escape HTML special characters to prevent XSS from external API data */
 function escapeHtml(str: string): string {
