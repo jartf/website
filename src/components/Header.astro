@@ -101,6 +101,20 @@ const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "c
             </button>
           </div>
 
+          <!-- Reduce motion -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke-dasharray="3 3" />
+              </svg>
+              <span class="text-sm font-medium">Reduce motion</span>
+            </div>
+            <button id="settings-motion-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle reduced motion"
+              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-muted">
+              <span class="pointer-events-none block size-4 rounded-full bg-muted-foreground shadow-sm translate-x-0.5 transition-transform" aria-hidden="true"></span>
+            </button>
+          </div>
+
           <!-- High contrast -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
@@ -111,20 +125,6 @@ const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "c
               <span class="text-sm font-medium">High contrast</span>
             </div>
             <button id="settings-contrast-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle high contrast"
-              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-muted">
-              <span class="pointer-events-none block size-4 rounded-full bg-muted-foreground shadow-sm translate-x-0.5 transition-transform" aria-hidden="true"></span>
-            </button>
-          </div>
-
-          <!-- Reduce motion -->
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" stroke-dasharray="3 3" />
-              </svg>
-              <span class="text-sm font-medium">Reduce motion</span>
-            </div>
-            <button id="settings-motion-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle reduced motion"
               class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-muted">
               <span class="pointer-events-none block size-4 rounded-full bg-muted-foreground shadow-sm translate-x-0.5 transition-transform" aria-hidden="true"></span>
             </button>
