@@ -57,6 +57,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('/fonts/OpenDyslexic-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 270 30% 10%;
@@ -244,6 +252,11 @@ html.i18n-updating [data-t-key] {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.dyslexia-font,
+.dyslexia-font * {
+  font-family: 'OpenDyslexic', sans-serif !important;
 }
 
 .reduce-motion *,

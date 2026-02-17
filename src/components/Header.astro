@@ -130,6 +130,20 @@ const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "c
             </button>
           </div>
 
+          <!-- Dyslexia font -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
+                <path d="M13 18L8 6L3 18M11 14H5M21 18V15M21 15V12M21 15C21 16.6569 19.6569 18 18 18C16.3431 18 15 16.6569 15 15C15 13.3431 16.3431 12 18 12C19.6569 12 21 13.3431 21 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="text-sm font-medium">Dyslexia font</span>
+            </div>
+            <button id="settings-dyslexia-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle dyslexia-friendly font"
+              class="settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-muted">
+              <span class="pointer-events-none block size-4 rounded-full bg-muted-foreground shadow-sm translate-x-0.5 transition-transform" aria-hidden="true"></span>
+            </button>
+          </div>
+
           <hr class="border-border" />
 
           <!-- Music -->
@@ -241,6 +255,9 @@ const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "c
 
     bindToggle('settings-contrast-toggle', 'high-contrast', (on) =>
       document.documentElement.classList.toggle('high-contrast', on));
+
+    bindToggle('settings-dyslexia-toggle', 'dyslexia-font', (on) =>
+      document.documentElement.classList.toggle('dyslexia-font', on));
 
     bindToggle('settings-motion-toggle', 'reduce-motion', (on) => {
       document.documentElement.classList.toggle('reduce-motion', on);
