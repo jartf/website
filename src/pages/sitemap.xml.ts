@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { siteUrl as constantSiteUrl } from '@/lib/constants';
+import { siteUrl as constantSiteUrl, routes } from '@/lib/constants';
 
 export const GET: APIRoute = async ({ site }) => {
   const siteUrl = (site?.toString() || constantSiteUrl).replace(/\/$/, '');
@@ -8,23 +8,10 @@ export const GET: APIRoute = async ({ site }) => {
   // Get all blog posts
   const blogPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => !data.draft);
 
-  // Define static pages
-  const staticPages = [
-    '',
-    '2048',
-    'about',
-    'badges',
-    'blog',
-    'colophon',
-    'contact',
-    'guestbook',
-    'now',
-    'projects',
-    'slashes',
-    'tetris',
-    'uses',
-    'webrings',
-  ];
+  // Get static pages from routes constant
+  const staticPages = Object.values(routes).map(route =>
+    route.replace(/^\/|\/$/g, '') // Remove leading/trailing slashes
+  );
 
   // Build URLs array
   const urls = [
