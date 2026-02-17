@@ -394,6 +394,22 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "settings": {
+    "title": "掑撻",
+    "theme": "交面",
+    "themeAuto": "自動",
+    "themeLight": "交面𤏵",
+    "themeDark": "交面𣋁",
+    "stars": "星𤑟𤑟",
+    "reduceMotion": "減轉動",
+    "highContrast": "相反高",
+    "dyslexiaFont": "風𡨸朱𠊛𠸋讀",
+    "timezone": "脢𣇞",
+    "tzYours": "𧵑伴",
+    "tzAuthor": "𧵑 Jarema",
+    "music": "樂",
+    "musicUnavailable": "現空可用"
+  },
   "webrings": {
     "title": "Webring",
     "description": "各 webring 𨉟當參加。勘破添仍 website 吧 blog 個人恪唲。",
