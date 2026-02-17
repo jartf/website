@@ -70,16 +70,14 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
 
 <script>
   import { languageStore, initLanguage } from '@/i18n';
-  import { formatDate } from '@/lib/timezone-utils';
+  import { updateDateElements } from '@/lib/timezone-utils';
 
   const rootSelector = 'section[aria-labelledby="recent-posts-heading"]';
 
   function updateDates(lang?: string) {
     const locale = typeof lang === 'string' && lang ? lang : languageStore.get();
-    document.querySelectorAll(`${rootSelector} time[data-date]`).forEach((el) => {
-      const iso = el.getAttribute('data-date');
-      if (iso) el.textContent = formatDate(iso, locale);
-    });
+    const root = document.querySelector(rootSelector);
+    if (root) updateDateElements(root, locale);
   }
 
   const initialLang = window.__INITIAL_LANG__;

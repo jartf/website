@@ -237,20 +237,10 @@ const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "c
     };
   }
 
-  function updateThemeButtons() {
-    const current = localStorage.getItem('theme') || 'system';
-    document.querySelectorAll<HTMLButtonElement>('.settings-theme-btn').forEach((btn) => {
-      const active = btn.dataset.setTheme === current;
-      btn.setAttribute('aria-checked', String(active));
-      ACTIVE.forEach(c => btn.classList.toggle(c, active));
-      INACTIVE.forEach(c => btn.classList.toggle(c, !active));
-    });
-  }
-
-  function updateTimezoneButtons() {
-    const current = localStorage.getItem('timezone-anchor') || 'local';
-    document.querySelectorAll<HTMLButtonElement>('.settings-tz-btn').forEach((btn) => {
-      const active = btn.dataset.setTz === current;
+  function updateRadioGroup(selector: string, storageKey: string, fallback: string) {
+    const current = localStorage.getItem(storageKey) || fallback;
+    document.querySelectorAll<HTMLButtonElement>(selector).forEach((btn) => {
+      const active = Object.values(btn.dataset)[0] === current;
       btn.setAttribute('aria-checked', String(active));
       ACTIVE.forEach(c => btn.classList.toggle(c, active));
       INACTIVE.forEach(c => btn.classList.toggle(c, !active));
@@ -264,14 +254,14 @@ const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "c
     ac = new AbortController();
     const { signal } = ac;
 
-    updateThemeButtons();
-    updateTimezoneButtons();
+    updateRadioGroup('.settings-theme-btn', 'theme', 'system');
+    updateRadioGroup('.settings-tz-btn', 'timezone-anchor', 'local');
 
     document.querySelectorAll<HTMLButtonElement>('.settings-theme-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         if (btn.dataset.setTheme) {
           applyTheme(btn.dataset.setTheme);
-          updateThemeButtons();
+          updateRadioGroup('.settings-theme-btn', 'theme', 'system');
         }
       }, { signal });
     });
@@ -280,7 +270,7 @@ const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "c
       btn.addEventListener('click', () => {
         if (btn.dataset.setTz) {
           localStorage.setItem('timezone-anchor', btn.dataset.setTz);
-          updateTimezoneButtons();
+          updateRadioGroup('.settings-tz-btn', 'timezone-anchor', 'local');
           document.dispatchEvent(new CustomEvent('timezone-change'));
         }
       }, { signal });

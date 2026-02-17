@@ -286,17 +286,14 @@ const feedButtons = [
 <script>
   import { languageStore, t } from '@/i18n';
   import { setupPageI18n } from '@/lib/i18n-page';
-  import { formatDate } from '@/lib/timezone-utils';
+  import { updateDateElements } from '@/lib/timezone-utils';
 
   const languageNames: Record<string, string> = { en: "English", vi: "Tiếng Việt", vih: "Tiếng Việt (Hán tự)", ru: "Русский", fi: "Suomi", pl: "Polski", sv: "Svenska", da: "Dansk", et: "Eesti", tr: "Türkçe", zh: "中文", tok: "toki pona" };
   const state = { search: '', sort: 'newest', langs: [] as string[], moods: [] as string[], cats: [] as string[], catApproved: null as boolean | null };
 
   const updateBlogTranslations = (lang: string) => {
     updateResultsCount();
-    document.querySelectorAll('time[data-date]').forEach(el => {
-      const iso = el.getAttribute('data-date');
-      if (iso) el.textContent = formatDate(iso, lang);
-    });
+    updateDateElements(document, lang);
     updateActiveFiltersDisplay();
   };
 

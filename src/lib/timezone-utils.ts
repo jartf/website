@@ -26,3 +26,15 @@ export function formatDate(
   const d = typeof date === "string" ? new Date(date) : date;
   return d.toLocaleDateString(lang, { ...fmt, ...getTimezoneOption() });
 }
+
+/** Update all `[data-date]` elements under a root with `formatDate`. */
+export function updateDateElements(
+  root: Element | Document,
+  lang: string,
+  fmt: Intl.DateTimeFormatOptions = dateLong,
+) {
+  root.querySelectorAll<HTMLElement>("[data-date]").forEach((el) => {
+    const d = el.getAttribute("data-date");
+    if (d) el.textContent = formatDate(d, lang, fmt);
+  });
+}

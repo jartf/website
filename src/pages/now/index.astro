@@ -82,7 +82,7 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
 <script>
   import { languageStore } from "@/i18n";
   import { fetchLiveData, renderCard, updateI18nElements, CONFLICT_MAP } from "@/lib/now-utils";
-  import { formatDate, dateFull } from "@/lib/timezone-utils";
+  import { updateDateElements, dateFull } from "@/lib/timezone-utils";
 
   const enhance = async () => {
     const container = document.getElementById("now-items-container");
@@ -103,12 +103,8 @@ const getCategoryTranslation = (category: string) => translations.en.now?.catego
   const translate = () => {
     const page = document.getElementById("now-page");
     if (!page) return;
-    const lang = languageStore.get();
-    updateI18nElements(page, lang);
-    page.querySelectorAll("[data-date]").forEach(el => {
-      const d = el.getAttribute("data-date");
-      if (d) el.textContent = formatDate(d, lang, dateFull);
-    });
+    updateI18nElements(page, languageStore.get());
+    updateDateElements(page, languageStore.get(), dateFull);
   };
 
   const setup = async () => { await enhance(); translate(); };
