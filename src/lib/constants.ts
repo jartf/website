@@ -278,6 +278,10 @@ export const domainHashes: Record<string, string> = {
 export const lastFmApiUrl =
   `${services.lastFm.apiUrl}?method=user.getrecenttracks&user=${author.lastFmUsername}&api_key=${services.lastFm.apiKey}`;
 
+// Timezone
+export const authorTimezone = "Antarctica/Davis";
+export const authorTimezoneLabel = "GMT+7";
+
 export const preMidConfig = {
   authorizedUserId: "490457129090547733",
   activityTimeoutMs: 20 * 60 * 1000,
