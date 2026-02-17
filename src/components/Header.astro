@@ -243,8 +243,27 @@ const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "c
     bindToggle('settings-contrast-toggle', 'high-contrast', (on) =>
       document.documentElement.classList.toggle('high-contrast', on));
 
-    bindToggle('settings-motion-toggle', 'reduce-motion', (on) =>
-      document.documentElement.classList.toggle('reduce-motion', on));
+    bindToggle('settings-motion-toggle', 'reduce-motion', (on) => {
+      document.documentElement.classList.toggle('reduce-motion', on);
+      const starsBtn = document.getElementById('settings-stars-toggle') as HTMLButtonElement | null;
+      if (!starsBtn) return;
+      if (on) {
+        // Force stars off and disable the toggle
+        setToggle(starsBtn, false);
+        document.documentElement.toggleAttribute('data-no-stars', true);
+        starsBtn.disabled = true;
+        starsBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        starsBtn.classList.remove('cursor-pointer');
+      } else {
+        // Re-enable and restore saved preference
+        starsBtn.disabled = false;
+        starsBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        starsBtn.classList.add('cursor-pointer');
+        const saved = (localStorage.getItem('stars-enabled') ?? 'true') === 'true';
+        setToggle(starsBtn, saved);
+        document.documentElement.toggleAttribute('data-no-stars', !saved);
+      }
+    });
 
     const menu = document.getElementById('settings-menu') as HTMLDetailsElement | null;
     if (menu) {
