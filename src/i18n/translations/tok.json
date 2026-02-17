@@ -409,6 +409,22 @@
   "scrapbook": {
     "title": "toki pali"
   },
+  "settings": {
+    "title": "nasin",
+    "theme": "kule",
+    "themeAuto": "Auto",
+    "themeLight": "kule suno",
+    "themeDark": "kule pimeja",
+    "stars": "suno lili pi sewi",
+    "reduceMotion": "lili e tawa",
+    "highContrast": "ante kule suli",
+    "dyslexiaFont": "sitelen pi ken lukin",
+    "timezone": "ma tenpo",
+    "tzYours": "sina",
+    "tzAuthor": "Jarema",
+    "music": "kalama musi",
+    "musicUnavailable": "lon ala lon tenpo ni"
+  },
   "webrings": {
     "title": "sike lipu",
     "description": "sike lipu ni li jo e mi. o lukin e lipu ante pi jan ante.",

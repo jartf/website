@@ -406,6 +406,22 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "settings": {
+    "title": "Ustawienia",
+    "theme": "Motyw",
+    "themeAuto": "Auto",
+    "themeLight": "Jasny motyw",
+    "themeDark": "Ciemny motyw",
+    "stars": "Migoczące gwiazdy",
+    "reduceMotion": "Ogranicz animacje",
+    "highContrast": "Wysoki kontrast",
+    "dyslexiaFont": "Czcionka dla dyslektyków",
+    "timezone": "Strefa czasowa",
+    "tzYours": "Twoja",
+    "tzAuthor": "Jaremy",
+    "music": "Muzyka",
+    "musicUnavailable": "Obecnie niedostępna"
+  },
   "webrings": {
     "title": "Webringi",
     "description": "Webringi, do których należę. Odkryj więcej niezależnych stron i blogów osobistych.",

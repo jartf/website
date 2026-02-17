@@ -420,6 +420,22 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "settings": {
+    "title": "Indstillinger",
+    "theme": "Tema",
+    "themeAuto": "Auto",
+    "themeLight": "Lyst tema",
+    "themeDark": "Mørkt tema",
+    "stars": "Blinkende stjerner",
+    "reduceMotion": "Reducer bevægelse",
+    "highContrast": "Høj kontrast",
+    "dyslexiaFont": "Ordblindeskrift",
+    "timezone": "Tidszone",
+    "tzYours": "Din",
+    "tzAuthor": "Jaremas",
+    "music": "Musik",
+    "musicUnavailable": "Ikke tilgængelig i øjeblikket"
+  },
   "webrings": {
     "title": "Webringe",
     "description": "Webringe jeg er med i. Opdag flere uafhængige websider og personlige blogs.",

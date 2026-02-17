@@ -416,6 +416,22 @@
   "scrapbook": {
     "title": "Девлог"
   },
+  "settings": {
+    "title": "Настройки",
+    "theme": "Тема",
+    "themeAuto": "Авто",
+    "themeLight": "Светлая тема",
+    "themeDark": "Тёмная тема",
+    "stars": "Мерцающие звёзды",
+    "reduceMotion": "Уменьшить анимацию",
+    "highContrast": "Высокий контраст",
+    "dyslexiaFont": "Шрифт для дислексии",
+    "timezone": "Часовой пояс",
+    "tzYours": "Ваш",
+    "tzAuthor": "Джаремы",
+    "music": "Музыка",
+    "musicUnavailable": "Сейчас недоступна"
+  },
   "webrings": {
     "title": "Веб-кольца",
     "description": "Веб-кольца, в которых я состою. Откройте для себя больше независимых сайтов и личных блогов.",

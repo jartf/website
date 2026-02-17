@@ -418,6 +418,22 @@
   "scrapbook": {
     "title": "开发日志"
   },
+  "settings": {
+    "title": "设置",
+    "theme": "主题",
+    "themeAuto": "自动",
+    "themeLight": "浅色主题",
+    "themeDark": "深色主题",
+    "stars": "闪烁星星",
+    "reduceMotion": "减少动画",
+    "highContrast": "高对比度",
+    "dyslexiaFont": "阅读障碍字体",
+    "timezone": "时区",
+    "tzYours": "你的",
+    "tzAuthor": "承靖的",
+    "music": "音乐",
+    "musicUnavailable": "暂时不可用"
+  },
   "webrings": {
     "title": "网站环",
     "description": "我加入的网站环。探索更多独立网站和个人博客。",

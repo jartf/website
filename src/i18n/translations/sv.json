@@ -406,6 +406,22 @@
   "scrapbook": {
     "title": "Devlogg"
   },
+  "settings": {
+    "title": "Inställningar",
+    "theme": "Tema",
+    "themeAuto": "Auto",
+    "themeLight": "Ljust tema",
+    "themeDark": "Mörkt tema",
+    "stars": "Blinkande stjärnor",
+    "reduceMotion": "Minska rörelse",
+    "highContrast": "Hög kontrast",
+    "dyslexiaFont": "Dyslexitypsnitt",
+    "timezone": "Tidszon",
+    "tzYours": "Din",
+    "tzAuthor": "Jaremas",
+    "music": "Musik",
+    "musicUnavailable": "Inte tillgänglig just nu"
+  },
   "webrings": {
     "title": "Webbringar",
     "description": "Webbringar som jag är med i. Upptäck fler oberoende webbplatser och personliga bloggar.",

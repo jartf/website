@@ -406,6 +406,22 @@
   "scrapbook": {
     "title": "Devlogi"
   },
+  "settings": {
+    "title": "Seaded",
+    "theme": "Teema",
+    "themeAuto": "Auto",
+    "themeLight": "Hele teema",
+    "themeDark": "Tume teema",
+    "stars": "Vilkuvad tähed",
+    "reduceMotion": "Vähenda liikumist",
+    "highContrast": "Kõrge kontrastsus",
+    "dyslexiaFont": "Düsleksiasõbralik font",
+    "timezone": "Ajavöönd",
+    "tzYours": "Sinu",
+    "tzAuthor": "Jarema",
+    "music": "Muusika",
+    "musicUnavailable": "Hetkel pole saadaval"
+  },
   "webrings": {
     "title": "Veebiringid",
     "description": "Veebiringid, kuhu ma kuulun. Avasta rohkem iseseisvaid veebilehti ja isiklikke blogisid.",

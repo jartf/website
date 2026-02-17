@@ -418,6 +418,22 @@
   "scrapbook": {
     "title": "Geliştirme Günlüğü"
   },
+  "settings": {
+    "title": "Ayarlar",
+    "theme": "Tema",
+    "themeAuto": "Otomatik",
+    "themeLight": "Açık tema",
+    "themeDark": "Koyu tema",
+    "stars": "Kırpışan yıldızlar",
+    "reduceMotion": "Hareketi azalt",
+    "highContrast": "Yüksek kontrast",
+    "dyslexiaFont": "Disleksi yazı tipi",
+    "timezone": "Saat dilimi",
+    "tzYours": "Senin",
+    "tzAuthor": "Jarema'nın",
+    "music": "Müzik",
+    "musicUnavailable": "Şu anda kullanılamıyor"
+  },
   "webrings": {
     "title": "Web çemberleri",
     "description": "Parçası olduğum web çemberleri. Daha fazla bağımsız web sitesi ve kişisel blog keşfedin.",

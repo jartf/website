@@ -406,6 +406,22 @@
   "scrapbook": {
     "title": "Devlogi"
   },
+  "settings": {
+    "title": "Asetukset",
+    "theme": "Teema",
+    "themeAuto": "Auto",
+    "themeLight": "Vaalea teema",
+    "themeDark": "Tumma teema",
+    "stars": "Tuikkivat tähdet",
+    "reduceMotion": "Vähennä liikettä",
+    "highContrast": "Korkea kontrasti",
+    "dyslexiaFont": "Lukihäiriöfontti",
+    "timezone": "Aikavyöhyke",
+    "tzYours": "Sinun",
+    "tzAuthor": "Jareman",
+    "music": "Musiikki",
+    "musicUnavailable": "Ei tällä hetkellä saatavilla"
+  },
   "webrings": {
     "title": "Verkkorenkaat",
     "description": "Verkkorenkaat, joissa olen mukana. Löydä lisää itsenäisiä verkkosivustoja ja henkilökohtaisia blogeja.",

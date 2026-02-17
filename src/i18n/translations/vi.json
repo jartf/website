@@ -408,6 +408,22 @@
   "scrapbook": {
     "title": "Devlog"
   },
+  "settings": {
+    "title": "Cài đặt",
+    "theme": "Giao diện",
+    "themeAuto": "Tự động",
+    "themeLight": "Giao diện sáng",
+    "themeDark": "Giao diện tối",
+    "stars": "Sao lấp lánh",
+    "reduceMotion": "Giảm chuyển động",
+    "highContrast": "Tương phản cao",
+    "dyslexiaFont": "Phông chữ cho người khó đọc",
+    "timezone": "Múi giờ",
+    "tzYours": "Của bạn",
+    "tzAuthor": "Của Jarema",
+    "music": "Nhạc",
+    "musicUnavailable": "Hiện không khả dụng"
+  },
   "webrings": {
     "title": "Webring",
     "description": "Các webring mình đang tham gia. Khám phá thêm những website và blog cá nhân khác nhé.",
