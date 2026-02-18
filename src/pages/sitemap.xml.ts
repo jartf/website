@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { siteUrl as constantSiteUrl } from '@/lib/constants';
+import { siteUrl as constantSiteUrl, localePages } from '@/lib/constants';
+import { locales } from '@/i18n/routing';
 
 export const GET: APIRoute = async ({ site }) => {
   const siteUrl = (site?.toString() || constantSiteUrl).replace(/\/$/, '');
@@ -13,13 +14,12 @@ export const GET: APIRoute = async ({ site }) => {
 
   const staticPages: string[] = [];
   for (const path of Object.keys(pages)) {
-    // Convert file path to URL path
     let urlPath = path
       .replace('/src/pages', '')
       .replace(/\.astro$/, '')
       .replace(/\/index$/, '');
 
-    // Skip API routes, 404, and dynamic routes
+    // Skip API routes, 404, and dynamic routes (locale variants added below)
     if (urlPath.includes('/api/') ||
         urlPath === '/404' ||
         urlPath.includes('[') ||
@@ -27,15 +27,26 @@ export const GET: APIRoute = async ({ site }) => {
       continue;
     }
 
-    // Normalize path
     urlPath = urlPath || '/';
     staticPages.push(urlPath);
   }
 
   // Build URLs array
   const urls = [
+    // Root (English) static pages
     ...staticPages.map(page => `  <url>\n    <loc>${siteUrl}${page === '/' ? '/' : `${page}/`}</loc>\n  </url>`),
+    // Root (English) blog posts
     ...blogPosts.map((post: CollectionEntry<'blog'>) => `  <url>\n    <loc>${siteUrl}/blog/${post.slug}/</loc>\n  </url>`),
+    // Locale homepages
+    ...locales.map(l => `  <url>\n    <loc>${siteUrl}/${l}/</loc>\n  </url>`),
+    // Locale static pages
+    ...locales.flatMap(l =>
+      localePages.map(p => `  <url>\n    <loc>${siteUrl}/${l}/${p}/</loc>\n  </url>`)
+    ),
+    // Locale blog posts
+    ...locales.flatMap(l =>
+      blogPosts.map((post: CollectionEntry<'blog'>) => `  <url>\n    <loc>${siteUrl}/${l}/blog/${post.slug}/</loc>\n  </url>`)
+    ),
   ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
