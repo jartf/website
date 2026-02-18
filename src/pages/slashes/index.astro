@@ -2,7 +2,10 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { routes } from "@/lib/constants";
+import { t as serverT } from "@/i18n";
+import { localePath } from "@/i18n/routing";
 
+const lang = Astro.locals?.lang || "en";
 const slashPages = [
   { path: routes.about, name: "nav.about", nameDefault: "About", desc: "about.description", descDefault: "Learn about me" },
   { path: routes.blog, name: "nav.blog", nameDefault: "Blog", desc: "blog.description", descDefault: "Read my posts" },
@@ -34,11 +37,11 @@ const slashPages = [
       </header>
 
       <div class="space-y-3">
-        {slashPages.map(({ path, name, nameDefault, desc, descDefault }) => (
-          <a href={path} class="flex items-start justify-between p-4 border rounded-lg bg-card hover:border-primary/50 transition-colors group">
+        {slashPages.map(({ path, name, desc }) => (
+          <a href={localePath(lang, path)} class="flex items-start justify-between p-4 border rounded-lg bg-card hover:border-primary/50 transition-colors group">
             <div class="flex-1">
-              <span class="font-medium group-hover:text-primary transition-colors" data-i18n={name}>{nameDefault}</span>
-              <p class="text-sm text-muted-foreground" data-i18n={desc}>{descDefault}</p>
+              <span class="font-medium group-hover:text-primary transition-colors">{serverT(lang, name)}</span>
+              <p class="text-sm text-muted-foreground">{serverT(lang, desc)}</p>
             </div>
             <span class="text-muted-foreground font-mono text-sm self-start text-right ml-4">{path}</span>
           </a>
@@ -47,8 +50,3 @@ const slashPages = [
     </div>
   </div>
 </BaseLayout>
-
-<script>
-  import { setupPageI18n } from '@/lib/i18n-page';
-  setupPageI18n();
-</script>

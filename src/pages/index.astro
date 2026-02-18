@@ -96,8 +96,7 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
 </BaseLayout>
 
 <script>
-  import { setupPageI18n } from '@/lib/i18n-page';
-  import { t } from "@/i18n";
+  import { t } from "@/i18n/client";
   import { services } from "@/lib/constants";
 
   const statusCafeProfileUrl = services.statusCafe.profileUrl;
@@ -112,17 +111,19 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
   function updateGreetingEmoji() {
     const hour = new Date().getHours();
     const emojiEl = document.getElementById("greeting-emoji");
-    const greetingTEl = document.querySelector('#greeting [data-t-key^="greetings."]');
-    if (!emojiEl || !greetingTEl) return;
+    const greetingEl = document.getElementById("greeting");
+    if (!emojiEl || !greetingEl) return;
 
     const greeting = greetings.find(g => hour >= g.hours[0] && hour < g.hours[1]) || greetings[3];
     emojiEl.textContent = greeting.emoji;
-    greetingTEl.setAttribute("data-t-key", greeting.key);
-    const translated = t(greeting.key);
-    if (translated && translated !== greeting.key) greetingTEl.textContent = translated;
+    const textEl = greetingEl.querySelector("span:last-child");
+    if (textEl) {
+      const translated = t(greeting.key);
+      if (translated !== greeting.key) textEl.textContent = translated;
+    }
   }
 
-  setupPageI18n(updateGreetingEmoji);
+  updateGreetingEmoji();
 
   const u = document.getElementById("statuscafe-username"), c = document.getElementById("statuscafe-content");
   if (u && c) {

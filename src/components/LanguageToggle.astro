@@ -1,25 +1,30 @@
 ---
-// Language toggle dropdown — rendered at build time, interactive via script
+// Language toggle — pure navigation links, no client-side state.
 import { supportedLanguages } from "@/lib/constants";
+import { localePath, stripLocale } from "@/i18n/routing";
+import { t } from "@/i18n";
+
+const lang = Astro.locals?.lang || "en";
+const basePath = stripLocale(Astro.url.pathname);
+const currentInfo = supportedLanguages.find(l => l.code === lang) || supportedLanguages[0];
 
 const sections = [
-  { key: "main",  label: "Main languages",    langs: supportedLanguages.filter(l => "main" in l && l.main) },
-  { key: "beta",  label: "Languages in beta", langs: supportedLanguages.filter(l => "beta" in l && l.beta) },
-  { key: "other", label: "Other languages",    langs: supportedLanguages.filter(l => "other" in l && l.other) },
+  { key: "main",  label: t(lang, "language.main"),    langs: supportedLanguages.filter(l => "main" in l && l.main) },
+  { key: "beta",  label: t(lang, "language.beta"),     langs: supportedLanguages.filter(l => "beta" in l && l.beta) },
+  { key: "other", label: t(lang, "language.other"),    langs: supportedLanguages.filter(l => "other" in l && l.other) },
 ];
-const itemCls = "lang-item relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground";
-const checkSvg = `<svg class="ml-auto h-4 w-4 flex-shrink-0 lang-check hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>`;
+const itemCls = "lang-item relative flex items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent hover:text-accent-foreground";
 ---
 
 <div class="relative" id="lang-toggle-wrapper">
   <button
     id="lang-toggle-btn"
     class="relative z-50 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3"
-    aria-label="EN - Select language" aria-expanded="false" aria-haspopup="listbox"
+    aria-label={`${currentInfo.name} - Select language`} aria-expanded="false" aria-haspopup="listbox"
   >
-    <span id="lang-flag" class="mr-2">🌐</span>
-    <span id="lang-name">EN</span>
-    <svg id="lang-chevron" class="ml-2 h-4 w-4 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <span class="mr-2">{currentInfo.flag}</span>
+    <span>{currentInfo.name}</span>
+    <svg class="ml-2 h-4 w-4 transition-transform" id="lang-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
       <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
     </svg>
   </button>
@@ -28,21 +33,29 @@ const checkSvg = `<svg class="ml-auto h-4 w-4 flex-shrink-0 lang-check hidden" f
 
   <div id="lang-dropdown" class="absolute right-0 mt-2 w-80 rounded-md border bg-popover p-1 text-popover-foreground shadow-md z-50 max-h-96 overflow-y-auto hidden">
     <div class="px-2 py-2">
-      <input id="lang-search" type="text" placeholder="Search languages..." data-i18n-placeholder="language.search"
+      <input id="lang-search" type="text" placeholder={t(lang, "language.search")}
         class="w-full px-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring" />
     </div>
 
-    {sections.map(({ key, label, langs }, i) => (
+    {sections.map(({ label, langs }, i) => (
       <div class="lang-section-group">
         {i > 0 && <div class="my-1 h-px bg-border" />}
-        <div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground" data-i18n={`language.${key}`}>{label}</div>
+        <div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground">{label}</div>
         <div class="grid grid-cols-2 gap-1 lang-section">
-          {langs.map(lang => (
-            <button class={itemCls} data-lang={lang.code} data-search={`${lang.name} ${lang.code} ${lang.aliases?.join(" ") ?? ""}`}>
-              <span class="mr-2">{lang.flag}</span>
-              <span class="truncate">{lang.name}</span>
-              <Fragment set:html={checkSvg} />
-            </button>
+          {langs.map(l => (
+            <a
+              href={localePath(l.code, basePath)}
+              class:list={[itemCls, l.code === lang && "bg-accent"]}
+              data-search={`${l.name} ${l.code} ${l.aliases?.join(" ") ?? ""}`}
+            >
+              <span class="mr-2">{l.flag}</span>
+              <span class="truncate">{l.name}</span>
+              {l.code === lang && (
+                <svg class="ml-auto h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </a>
           ))}
         </div>
       </div>
@@ -50,66 +63,34 @@ const checkSvg = `<svg class="ml-auto h-4 w-4 flex-shrink-0 lang-check hidden" f
   </div>
 </div>
 
-<script>
-  import { languageStore, setLanguage, supportedLanguages, type SupportedLanguage } from "@/i18n";
+<script is:inline>
+  // Minimal dropdown toggle + search filter — no i18n state, just UI.
+  (function () {
+    const btn = document.getElementById("lang-toggle-btn");
+    const chevron = document.getElementById("lang-chevron");
+    const backdrop = document.getElementById("lang-backdrop");
+    const dropdown = document.getElementById("lang-dropdown");
+    const search = document.getElementById("lang-search");
+    if (!btn || !dropdown || !backdrop || !search) return;
 
-  const $ = (id: string) => document.getElementById(id)!;
-  const btn = $("lang-toggle-btn");
-  const flagEl = $("lang-flag");
-  const nameEl = $("lang-name");
-  const chevron = $("lang-chevron");
-  const backdrop = $("lang-backdrop");
-  const dropdown = $("lang-dropdown");
-  const search = $("lang-search") as HTMLInputElement;
-  const items = dropdown.querySelectorAll<HTMLButtonElement>(".lang-item");
-  const groups = dropdown.querySelectorAll<HTMLElement>(".lang-section-group");
-  const langMap = Object.fromEntries(supportedLanguages.map(l => [l.code, l]));
-
-  // Use pre-detected language for faster initialization
-  const initial = window.__INITIAL_LANG__;
-  if (initial && initial !== languageStore.get()) languageStore.set(initial as SupportedLanguage);
-
-  function setOpen(open: boolean) {
-    dropdown.classList.toggle("hidden", !open);
-    backdrop.classList.toggle("hidden", !open);
-    chevron.classList.toggle("rotate-180", open);
-    btn.setAttribute("aria-expanded", String(open));
-    if (open) search.focus(); else { search.value = ""; filter(""); }
-  }
-
-  function filter(query: string) {
-    const q = query.toLowerCase();
-    for (const item of items)
-      item.classList.toggle("hidden", q !== "" && !item.dataset.search!.toLowerCase().includes(q));
-    for (const g of groups)
-      g.classList.toggle("hidden", [...g.querySelectorAll(".lang-item")].every(i => i.classList.contains("hidden")));
-  }
-
-  function syncUI(lang: string) {
-    const info = langMap[lang] || langMap["en"];
-    flagEl.textContent = info.flag;
-    nameEl.textContent = info.name;
-    btn.setAttribute("aria-label", `${info.name} - Select language`);
-    for (const item of items) {
-      const active = item.dataset.lang === lang;
-      item.classList.toggle("bg-accent", active);
-      item.querySelector(".lang-check")!.classList.toggle("hidden", !active);
+    function toggle(open) {
+      dropdown.classList.toggle("hidden", !open);
+      backdrop.classList.toggle("hidden", !open);
+      chevron?.classList.toggle("rotate-180", open);
+      btn.setAttribute("aria-expanded", String(open));
+      if (open) search.focus(); else { search.value = ""; filter(""); }
     }
-  }
-
-  btn.addEventListener("click", () => setOpen(dropdown.classList.contains("hidden")));
-  backdrop.addEventListener("click", () => setOpen(false));
-  search.addEventListener("input", () => filter(search.value));
-
-  // Event delegation for language selection
-  dropdown.addEventListener("click", (e) => {
-    const item = (e.target as HTMLElement).closest<HTMLButtonElement>(".lang-item");
-    if (!item?.dataset.lang) return;
-    setLanguage(item.dataset.lang as SupportedLanguage);
-    setOpen(false);
-    window.dispatchEvent(new CustomEvent("languageChange", { detail: item.dataset.lang }));
-  });
-
-  syncUI(languageStore.get());
-  languageStore.subscribe(syncUI);
+    function filter(q) {
+      q = q.toLowerCase();
+      dropdown.querySelectorAll(".lang-item").forEach(function (el) {
+        el.classList.toggle("hidden", q !== "" && !(el.dataset.search || "").toLowerCase().includes(q));
+      });
+      dropdown.querySelectorAll(".lang-section-group").forEach(function (g) {
+        g.classList.toggle("hidden", !g.querySelector(".lang-item:not(.hidden)"));
+      });
+    }
+    btn.addEventListener("click", function () { toggle(dropdown.classList.contains("hidden")); });
+    backdrop.addEventListener("click", function () { toggle(false); });
+    search.addEventListener("input", function () { filter(search.value); });
+  })();
 </script>

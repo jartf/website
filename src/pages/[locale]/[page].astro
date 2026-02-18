@@ -1,0 +1,26 @@
+---
+// Catch-all locale page
+import { locales } from "@/i18n/routing";
+import { localePages } from "@/lib/constants";
+
+export function getStaticPaths() {
+  return locales.flatMap((locale) =>
+    localePages.map((page) => ({ params: { locale, page } }))
+  );
+}
+
+const { page } = Astro.params;
+
+// Vite requires literal strings in import(), so we enumerate all possible pages.
+// This map is only used at build time; pages not in localePages are never reached.
+const views: Record<string, () => Promise<{ default: any }>> = Object.fromEntries(
+  Object.entries(import.meta.glob("../**/index.astro")).map(([path, loader]) => [
+    path.replace(/^\.\.\//, "").replace(/\/index\.astro$/, ""),
+    loader as () => Promise<{ default: any }>,
+  ])
+);
+
+const View = (await views[page!]()).default;
+---
+
+<View />

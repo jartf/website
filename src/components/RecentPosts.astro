@@ -3,6 +3,11 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import T from "@/components/T.astro";
 import { routes } from "@/lib/constants";
+import { localePath } from "@/i18n/routing";
+import { htmlLang } from "@/i18n";
+
+const lang = Astro.locals?.lang || "en";
+const displayLang = htmlLang(lang);
 
 type RecentPost = {
   slug: string;
@@ -22,20 +27,20 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
     excerpt: post.data.excerpt ?? "No excerpt available",
     dateISO: post.data.date.toISOString(),
     readingTime: post.data.readingTime ?? 5,
-    dateTextEn: post.data.date.toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" }),
+    dateTextEn: post.data.date.toLocaleDateString(displayLang, { year: "numeric", month: "long", day: "numeric" }),
   }));
 ---
 
 <section aria-labelledby="recent-posts-heading">
   <h2 id="recent-posts-heading" class="text-2xl font-bold mb-4 text-center">
-    <a href={routes.blog} tabindex="-1" class="no-underline hover:underline focus:underline text-inherit">
+    <a href={localePath(lang, routes.blog)} tabindex="-1" class="no-underline hover:underline focus:underline text-inherit">
       <T key="home.recentPosts" />
     </a>
   </h2>
   <div class="space-y-4">
     {posts.map((post, index) => (
       <article class="border rounded-lg p-4 bg-card card-hover-effect group">
-        <a href={`/blog/${post.slug}/`} class="block">
+        <a href={localePath(lang, `/blog/${post.slug}/`)} class="block">
           <div class="flex items-start justify-between gap-4">
             <div class="flex-1 min-w-0">
               <h3 class="font-semibold text-lg group-hover:text-primary transition-colors line-clamp-1">
@@ -61,7 +66,7 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
     ))}
   </div>
   <div class="text-center mt-4">
-    <a href={routes.blog} class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg hover:bg-accent transition-colors">
+    <a href={localePath(lang, routes.blog)} class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg hover:bg-accent transition-colors">
       <T key="nav.blog" />
       <span>→</span>
     </a>
@@ -69,25 +74,14 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
 </section>
 
 <script>
-  import { languageStore, initLanguage } from '@/i18n';
   import { updateDateElements } from '@/lib/timezone-utils';
 
-  const rootSelector = 'section[aria-labelledby="recent-posts-heading"]';
-
-  function updateDates(lang?: string) {
-    const locale = typeof lang === 'string' && lang ? lang : languageStore.get();
-    const root = document.querySelector(rootSelector);
+  function updateDates() {
+    const locale = document.documentElement.dataset.locale || 'en';
+    const root = document.querySelector('section[aria-labelledby="recent-posts-heading"]');
     if (root) updateDateElements(root, locale);
   }
 
-  const initialLang = window.__INITIAL_LANG__;
-  if (initialLang && initialLang !== 'en') {
-    languageStore.set(initialLang as import('@/lib/constants').SupportedLanguage);
-  } else {
-    initLanguage();
-  }
-
   updateDates();
-  window.addEventListener('languageChange', (e) => updateDates((e as CustomEvent<string>)?.detail));
-  document.addEventListener('timezone-change', () => updateDates());
+  document.addEventListener('timezone-change', updateDates);
 </script>

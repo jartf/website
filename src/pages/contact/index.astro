@@ -193,10 +193,9 @@ const icons: Record<string, string> = {
 </BaseLayout>
 
 <script>
-  import { setupPageI18n } from '@/lib/i18n-page';
-  import { languageStore } from '@/i18n';
+  import { getPageLocale } from '@/i18n/client';
 
-  const lang = languageStore.get();
+  const lang = getPageLocale();
   const qrConfigs = [
     { id: 'zalo', langs: ['vi', 'vih'] },
     { id: 'wechat', langs: ['zh'] }
@@ -220,10 +219,7 @@ const icons: Record<string, string> = {
 
   // Update Pronouns.page
   const pronounsLink = document.getElementById('pronouns-link') as HTMLAnchorElement;
-  const updatePronouns = () => {
-    const lang = languageStore.get();
-    if (!pronounsLink) return;
-
+  if (pronounsLink) {
     const urls = JSON.parse(pronounsLink.getAttribute('data-urls') || '{}');
     pronounsLink.href = urls[lang] || urls.default;
 
@@ -242,16 +238,11 @@ const icons: Record<string, string> = {
         elements.note.classList.remove('hidden');
       }
       if (elements.icon) elements.icon.setAttribute('title', ruNote);
-    } else {
-      if (elements.name) elements.name.textContent = 'Pronouns.page';
-      if (elements.note) elements.note.classList.add('hidden');
     }
 
     qrConfigs.forEach(({ id, langs }) => {
       const container = document.getElementById(`qr-${id}-container`);
       if (container) container.classList.toggle('hidden', !langs.includes(lang));
     });
-  };
-
-  setupPageI18n(updatePronouns);
+  }
 </script>

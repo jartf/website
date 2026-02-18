@@ -2,8 +2,8 @@
 // Ported from Next.js v4
 
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
-import { useStore } from "@nanostores/react";
-import { languageStore, cycleLanguage, t as i18nT } from "@/i18n";
+import { cycleLanguage, t as i18nT, getPageLocale } from "@/i18n/client";
+import { localePath } from "@/i18n/routing";
 import { routes, keyboardShortcuts } from "@/lib/constants";
 import { applyTheme } from "@/lib/theme-utils";
 import { useMounted, isTypingInInput } from "@/hooks";
@@ -65,7 +65,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
   const [pathname, setPathname] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const debouncedQuery = useDebounce(query, 200);
-  const lang = useStore(languageStore);
+  const lang = getPageLocale();
 
   useEffect(() => {
     setPathname(window.location.pathname);
@@ -95,7 +95,8 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
   const allActions = useMemo(() => {
     const isPage = (p: string) => pathname?.includes(p);
     const close = () => setOpen(false);
-    const nav = (path: string) => () => { window.location.href = path; close() };
+    const locale = getPageLocale();
+    const nav = (path: string) => () => { window.location.href = localePath(locale, path); close() };
 
     // Navigation actions (data-driven)
     const navIcons: Record<string, React.ReactNode> = {

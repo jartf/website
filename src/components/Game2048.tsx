@@ -3,29 +3,13 @@
 
 import { useEffect, useCallback, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useStore } from '@nanostores/react'
-import { languageStore, initLanguage, t as i18nT, type SupportedLanguage } from '@/i18n'
+import { t as i18nT } from '@/i18n/client'
 import { useGame2048, getTileColor, getFontSize } from '@/hooks/use-game-2048'
 
 // Size of each tile for animation calculations
 const TILE_SIZE = 80 // Approximate size including gap
 
 export default function Game2048() {
-  // Subscribe so the component re-renders on language changes
-  const lang = useStore(languageStore)
-  void lang
-
-  useEffect(() => {
-    // Use pre-detected language if available for faster initialization
-    const initialLang = window.__INITIAL_LANG__
-    if (initialLang && initialLang !== languageStore.get()) {
-      languageStore.set(initialLang as SupportedLanguage)
-      return
-    }
-
-    initLanguage()
-  }, [])
-
   const t = useCallback((key: string, fallback?: string): string => {
     const fullKey = `2048.${key}`
     const translated = i18nT(fullKey)

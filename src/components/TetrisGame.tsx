@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useStore } from '@nanostores/react'
-import { languageStore, initLanguage, t as i18nT } from '@/i18n'
+import { t as i18nT } from '@/i18n/client'
 
 // Tetromino shapes and colors
 const TETROMINOS = {
@@ -123,14 +122,6 @@ const rotateMatrix = (matrix: number[][]): number[][] => {
 }
 
 export default function TetrisGame() {
-  const storeLang = useStore(languageStore)
-
-  useEffect(() => {
-    initLanguage()
-  }, [])
-
-  // Re-render on language change
-  void storeLang
   const t = (key: string) => i18nT(`tetris.${key}`)
 
   // Game state

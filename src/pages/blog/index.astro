@@ -3,6 +3,10 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { supportedLanguages } from "@/lib/constants";
+import { t as serverT } from "@/i18n";
+import { localePath } from "@/i18n/routing";
+
+const lang = Astro.locals?.lang || "en";
 
 const languageNames = Object.fromEntries(supportedLanguages.map(lang => [lang.code, lang.name]));
 const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
@@ -69,19 +73,18 @@ const feedButtons = [
             <input
               type="search"
               id="blog-search"
-              placeholder="Search posts..."
+              placeholder={serverT(lang, "blog.search")}
               class="w-full pl-10 pr-4 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
-              data-i18n-placeholder="blog.search"
             />
           </div>
 
           <!-- Sort dropdown -->
-          <label for="sort-select" class="sr-only" data-i18n="blog.sort">Sort posts</label>
-          <select id="sort-select" aria-label="Sort posts" class="px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 min-w-[150px]">
-            <option value="newest" data-i18n="blog.sortNew">Newest first</option>
-            <option value="oldest" data-i18n="blog.sortOld">Oldest first</option>
-            <option value="readingTime" data-i18n="blog.sortReadTime">Reading time</option>
-            <option value="alphabetical" data-i18n="blog.sortABC">Alphabetical</option>
+          <label for="sort-select" class="sr-only">{serverT(lang, "blog.sort")}</label>
+          <select id="sort-select" aria-label={serverT(lang, "blog.sort")} class="px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 min-w-[150px]">
+            <option value="newest">{serverT(lang, "blog.sortNew")}</option>
+            <option value="oldest">{serverT(lang, "blog.sortOld")}</option>
+            <option value="readingTime">{serverT(lang, "blog.sortReadTime")}</option>
+            <option value="alphabetical">{serverT(lang, "blog.sortABC")}</option>
           </select>
 
           <!-- Filter button -->
@@ -180,10 +183,10 @@ const feedButtons = [
             data-mood={(post.data.mood || '').toLowerCase()}
             data-language={post.data.language || 'en'}
             data-cat-approved={post.data.catApproved ? 'true' : 'false'}
-            data-date={post.data.date.toISOString()}
+            data-sort-date={post.data.date.toISOString()}
             data-reading-time={post.data.readingTime || 5}
           >
-            <a href={`/blog/${post.slug}/`} class="block p-6">
+            <a href={localePath(lang, `/blog/${post.slug}/`)} class="block p-6">
               <h2 class="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
                 {post.data.title}
               </h2>
@@ -284,14 +287,14 @@ const feedButtons = [
 </BaseLayout>
 
 <script>
-  import { languageStore, t } from '@/i18n';
-  import { setupPageI18n } from '@/lib/i18n-page';
+  import { t, getPageLocale } from '@/i18n/client';
   import { updateDateElements } from '@/lib/timezone-utils';
 
   const languageNames: Record<string, string> = { en: "English", vi: "Tiếng Việt", vih: "Tiếng Việt (Hán tự)", ru: "Русский", fi: "Suomi", pl: "Polski", sv: "Svenska", da: "Dansk", et: "Eesti", tr: "Türkçe", zh: "中文", tok: "toki pona" };
   const state = { search: '', sort: 'newest', langs: [] as string[], moods: [] as string[], cats: [] as string[], catApproved: null as boolean | null };
 
-  const updateBlogTranslations = (lang: string) => {
+  const updateBlogTranslations = () => {
+    const lang = getPageLocale();
     updateResultsCount();
     updateDateElements(document, lang);
     updateActiveFiltersDisplay();
@@ -334,7 +337,7 @@ const feedButtons = [
   };
 
   const initDefaultLanguageFilter = () => {
-    const currentLang = languageStore.get(), baseLang = currentLang.split('-')[0];
+    const currentLang = getPageLocale(), baseLang = currentLang.split('-')[0];
     const hasPostsInLang = Array.from(document.querySelectorAll('.blog-post')).some(p => [currentLang, baseLang].includes(p.getAttribute('data-language') || ''));
     state.langs = baseLang === 'vih' || currentLang === 'vih' ? ['vi', 'vih'] : hasPostsInLang ? [baseLang] : ['en'];
     document.querySelectorAll('.language-filter').forEach(cb => (cb as HTMLInputElement).checked = state.langs.includes((cb as HTMLInputElement).value));
@@ -358,7 +361,7 @@ const feedButtons = [
 
     const visiblePosts = posts.filter(p => p.style.display !== 'none');
     visiblePosts.sort((a, b) => {
-      const [aDate, bDate] = [a, b].map(p => new Date(p.getAttribute('data-date') || '').getTime());
+      const [aDate, bDate] = [a, b].map(p => new Date(p.getAttribute('data-sort-date') || '').getTime());
       const [aTime, bTime] = [a, b].map(p => parseInt(p.getAttribute('data-reading-time') || '0'));
       const [aTitle, bTitle] = [a, b].map(p => p.getAttribute('data-title') || '');
       return { newest: bDate - aDate, oldest: aDate - bDate, readingTime: aTime - bTime, alphabetical: aTitle.localeCompare(bTitle) }[state.sort] || 0;
@@ -415,8 +418,7 @@ const feedButtons = [
   const updateActiveFiltersDisplay = () => {
     const container = document.getElementById('active-filters');
     if (!container) return;
-    const label = container.querySelector('span[data-i18n]');
-    container.innerHTML = ''; if (label) container.appendChild(label);
+    container.innerHTML = '';
     const hasFilters = state.langs.length > 0 || state.moods.length > 0 || state.cats.length > 0 || state.catApproved !== null;
     container.classList.toggle('hidden', !hasFilters); container.classList.toggle('flex', hasFilters);
     if (!hasFilters) return;
@@ -442,7 +444,7 @@ const feedButtons = [
     filterAndSortPosts();
   };
 
-  setupPageI18n(updateBlogTranslations);
+  updateBlogTranslations();
   initDefaultLanguageFilter();
 
   const handleCheckboxFilter = (selector: string, stateKey: 'langs' | 'moods' | 'cats') => {

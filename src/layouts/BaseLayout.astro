@@ -8,6 +8,8 @@ import Galaxy from "@/components/Galaxy.astro";
 import BarListener from "@/components/BarListener.astro";
 import Banners from "@/components/Banners.astro";
 import { hrefLangLanguages, siteUrl, siteName, siteDescription, siteKeywords, author, socialLinks, alternativeDomains, services, themeColors } from "@/lib/constants";
+import { htmlLang } from "@/i18n";
+import { localePath, stripLocale } from "@/i18n/routing";
 
 const analyticsWebsiteIds = services.analytics.websiteIds;
 const analyticsScriptUrl = services.analytics.scriptUrl;
@@ -30,10 +32,13 @@ const {
   title = siteName,
   description = siteDescription,
   isHomePage = false,
-  lang = "en",
+  lang: langProp,
   breadcrumbs = [],
   structuredData: structuredDataProp = [],
 } = Astro.props;
+
+const lang = langProp || Astro.locals?.lang || "en";
+const basePath = stripLocale(Astro.url.pathname);
 
 const extraStructuredData = Array.isArray(structuredDataProp)
   ? structuredDataProp
@@ -126,7 +131,7 @@ const structuredDataGraph: any[] = [
     url: siteUrl,
     name: siteName,
     description: siteDescription,
-    inLanguage: lang === "vih" ? "vi" : lang,
+    inLanguage: htmlLang(lang),
     publisher: { "@id": `${siteUrl}/#person` },
   },
 ];
@@ -153,7 +158,7 @@ const structuredData = {
 <!doctype html>
 <!--- Hello from Jarema :D --->
 <!--- My code's a lil messy, please bear with me :p --->
-<html lang={lang === "vih" ? "vi" : lang} class="dark">
+<html lang={htmlLang(lang)} data-locale={lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -219,11 +224,11 @@ const structuredData = {
     ))}
 
     <!-- hreflang tags -->
-    <link rel="canonical" href={Astro.url.href} />
-    {hrefLangLanguages.map((lang) => (
-        <link rel="alternate" hreflang={lang.code} href={Astro.url.href} />
+    <link rel="canonical" href={new URL(localePath(lang, basePath), siteUrl).href} />
+    {hrefLangLanguages.map((l) => (
+        <link rel="alternate" hreflang={l.code} href={new URL(localePath(l.code, basePath), siteUrl).href} />
       ))}
-    <link rel="alternate" hreflang="x-default" href={Astro.url.href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(basePath, siteUrl).href} />
 
     <!-- Structured data -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)}></script>
@@ -249,55 +254,6 @@ const structuredData = {
       })();
     </script>
 
-    <!-- Language initialization script (runs before page render) -->
-    <script is:inline>
-      (function () {
-        try {
-          const stored = localStorage.getItem("i18nextLng");
-          const lang = stored || "en";
-
-          // Set lang attribute immediately
-          document.documentElement.lang = lang === "vih" ? "vi" : lang;
-
-          // Store the detected language for quick access
-          window.__INITIAL_LANG__ = lang;
-
-          // Avoid flashes of English content: hide translatable text until i18n applies.
-          if (lang && lang !== "en") {
-            document.documentElement.classList.add("i18n-pending");
-          }
-        } catch (e) {
-          window.__INITIAL_LANG__ = "en";
-          document.documentElement.lang = "en";
-        }
-      })();
-    </script>
-
-    <!-- i18n runtime (single initializer + View Transitions re-apply) -->
-    <script>
-      import { applyDomTranslations, initLanguage, languageStore } from "@/i18n";
-
-      // Avoid duplicate listeners/subscriptions across View Transitions.
-      const guard = window as Window & { __I18N_RUNTIME_INIT__?: boolean };
-      if (!guard.__I18N_RUNTIME_INIT__) {
-        guard.__I18N_RUNTIME_INIT__ = true;
-
-        initLanguage();
-        applyDomTranslations(document);
-
-        document.documentElement.classList.remove("i18n-pending");
-
-        // Prevent FOEC during View Transitions swaps.
-        document.addEventListener("astro:before-swap", () => {
-          document.documentElement.classList.add("i18n-updating");
-        });
-
-        const apply = () => applyDomTranslations(document);
-        window.addEventListener("languageChange", apply);
-        document.addEventListener("astro:after-swap", apply);
-        languageStore.subscribe(apply);
-      }
-    </script>
 
     <script is:inline define:vars={{ analyticsWebsiteIds, analyticsScriptUrl }}>
       (function () {

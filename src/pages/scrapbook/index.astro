@@ -8,6 +8,8 @@ const entries = (await getCollection("scrapbook")).sort(
   (a: CollectionEntry<"scrapbook">, b: CollectionEntry<"scrapbook">) =>
     b.data.date.getTime() - a.data.date.getTime()
 );
+
+const lang = Astro.locals?.lang || "en";
 ---
 
 <BaseLayout title="Devlog" description="Some development logs when I was building this site.">
@@ -34,7 +36,7 @@ const entries = (await getCollection("scrapbook")).sort(
                   {entry.data.date.toLocaleDateString("en", dateLong)}
                 </time>
                 <p class="mt-3 text-muted-foreground" data-content={JSON.stringify(entry.data.content)}>
-                  {entry.data.content.en}
+                  {entry.data.content[lang] || entry.data.content.en}
                 </p>
               </div>
             </li>
@@ -46,22 +48,9 @@ const entries = (await getCollection("scrapbook")).sort(
 </BaseLayout>
 
 <script>
-  import { setupPageI18n } from '@/lib/i18n-page';
-  import { languageStore } from '@/i18n';
+  import { getPageLocale } from '@/i18n/client';
   import { updateDateElements } from '@/lib/timezone-utils';
 
-  function updateScrapbook() {
-    const lang = languageStore.get();
-
-    updateDateElements(document, lang);
-
-    document.querySelectorAll("[data-content]").forEach((el) => {
-      try {
-        const content = JSON.parse(el.getAttribute("data-content")!);
-        el.textContent = content[lang] || content.en;
-      } catch {}
-    });
-  }
-
-  setupPageI18n(updateScrapbook);
+  updateDateElements(document, getPageLocale());
+  document.addEventListener("timezone-change", () => updateDateElements(document, getPageLocale()));
 </script>

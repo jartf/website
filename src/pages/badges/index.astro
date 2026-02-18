@@ -181,10 +181,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
 </style>
 
 <script>
-  import { t } from '@/i18n';
-  import { setupPageI18n } from '@/lib/i18n-page';
-
-  setupPageI18n();
+  import { t } from '@/i18n/client';
 
   // View mode toggle
   const container = document.getElementById('badges-container')!;

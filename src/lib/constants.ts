@@ -131,7 +131,17 @@ export const routes = {
   game2048: "/2048/",
   retro: "/retro/",
   badges: "/badges/",
+  blank: "/blank/",
 } as const;
+
+/**
+ * Pages that get locale variants under /[locale]/[page].
+ * Derived from `routes`, excluding `home` (handled by [locale]/index)
+ * and `retro` (has its own sub-page routing).
+ */
+export const localePages = Object.values(routes)
+  .filter((p) => p !== "/" && p !== "/retro/")
+  .map((p) => p.replace(/^\//,  "").replace(/\/$/, ""));
 
 // Keyboard shortcuts
 export const keyboardShortcuts: Record<string, string> = {

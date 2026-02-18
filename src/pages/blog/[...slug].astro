@@ -5,6 +5,9 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import ShareButtons from "@/components/blog/ShareButtons.astro";
 import T from "@/components/T.astro";
 import { supportedLanguages, siteUrl, siteName, author, services, routes } from "@/lib/constants";
+import { localePath } from "@/i18n/routing";
+
+const lang = Astro.locals?.lang || "en";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -79,7 +82,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
   <article class="h-entry container mx-auto px-4 py-8 lg:py-12 max-w-3xl">
     <header class="mb-8">
       <div class="flex items-center gap-3 text-sm text-muted-foreground mb-4">
-        <a href={routes.blog} class="hover:text-primary transition-colors">
+        <a href={localePath(lang, routes.blog)} class="hover:text-primary transition-colors">
           ← <T key="blog.back" />
         </a>
       </div>
@@ -106,7 +109,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
         {post.data.mood && (
           <>
             <span>•</span>
-            <span><span data-i18n="blog.mood">Mood</span>: {post.data.mood}</span>
+            <span><T key="blog.mood" />: {post.data.mood}</span>
           </>
         )}
         {post.data.catApproved && (
@@ -161,7 +164,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {prevPost && (
           <a
-            href={`/blog/${prevPost.slug}/`}
+            href={localePath(lang, `/blog/${prevPost.slug}/`)}
             class="group p-4 border rounded-lg hover:border-primary/50 transition-colors"
           >
             <span class="text-xs text-muted-foreground">← </span>
@@ -173,7 +176,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
         )}
         {nextPost && (
           <a
-            href={`/blog/${nextPost.slug}/`}
+            href={localePath(lang, `/blog/${nextPost.slug}/`)}
             class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto"
           >
             <T key="blog.next" class="text-xs text-muted-foreground" />
@@ -205,8 +208,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 </BaseLayout>
 
 <script>
-  import { setupPageI18n } from '@/lib/i18n-page';
-  import { languageStore, t } from '@/i18n';
+  import { getPageLocale } from '@/i18n/client';
   import { services } from '@/lib/constants';
   import { updateDateElements } from '@/lib/timezone-utils';
 
@@ -219,22 +221,8 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     }
   }
 
-  function updateTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (key) {
-        const translated = t(key);
-        if (translated !== key) {
-          el.textContent = translated;
-        }
-      }
-    });
-
-    // Update date with locale + timezone
-    updateDateElements(document, languageStore.get());
-  }
-
-  setupPageI18n(updateTranslations);
+  // Update dates with timezone + locale
+  updateDateElements(document, getPageLocale());
 
   // Load Cusdis script
   const script = document.createElement('script');

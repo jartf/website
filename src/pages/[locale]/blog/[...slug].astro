@@ -1,0 +1,20 @@
+---
+// Locale blog post — same rendering as root blog post.
+import { locales } from "@/i18n/routing";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return locales.flatMap((locale) =>
+    posts.map((post: CollectionEntry<"blog">) => ({
+      params: { locale, slug: post.slug },
+      props: { post },
+    }))
+  );
+}
+
+import BlogPost from "../../blog/[...slug].astro";
+const { post } = Astro.props;
+---
+
+<BlogPost post={post} />

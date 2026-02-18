@@ -4,6 +4,7 @@ import T from "@/components/T.astro";
 import { USES_CATEGORIES } from "@/content/uses-items";
 import { t } from "@/i18n";
 
+const lang = Astro.locals?.lang || "en";
 const categoryIcons: Record<string, string> = {
   hardware: "💻", mobile: "📱", audio: "🎧", os: "🖥️", development: "⌨️",
   email: "📧", privacy: "🔒", mobile_tools: "🔧", mapping: "🗺️", gaming: "🎮",
@@ -34,7 +35,7 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
           <section id={category.title} class="scroll-mt-20">
             <div class="flex items-center gap-3 mb-6">
               <span class="text-2xl" aria-hidden="true">{getIcon(category.title)}</span>
-              <h2 class="text-2xl font-bold category-title" data-i18n={`uses.categories.${category.title}`}>{category.title}</h2>
+              <h2 class="text-2xl font-bold category-title">{t(lang, `uses.categories.${category.title}`)}</h2>
             </div>
 
             {category.items.length > 0 && (
@@ -48,8 +49,8 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
                           {item.name}<span class="text-xs ml-1 opacity-70">↗</span>
                         </a>
                       ) : <h3 class="text-lg font-medium">{item.name}</h3>}
-                      <p class="text-muted-foreground item-description" data-i18n={`uses.itemDescriptions.${item.descriptionKey}`}>
-                        {t(`uses.itemDescriptions.${item.descriptionKey}`)}
+                      <p class="text-muted-foreground item-description">
+                        {t(lang, `uses.itemDescriptions.${item.descriptionKey}`)}
                       </p>
                     </div>
                   </div>
@@ -61,7 +62,7 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
               <div class="mt-6">
                 <div class="flex items-center gap-2 mb-4">
                   <span class="text-lg" aria-hidden="true">{getIcon(subsection.title)}</span>
-                  <h3 class="text-xl font-medium subsection-title" data-i18n={`uses.subsections.${subsection.title}`}>{subsection.title}</h3>
+                  <h3 class="text-xl font-medium subsection-title">{t(lang, `uses.subsections.${subsection.title}`)}</h3>
                 </div>
                 <div class="space-y-4 ml-4">
                   {subsection.items.map((item) => isHiddenPlatform(item.name) ? (
@@ -89,8 +90,8 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
                           </a>
                         ) : <h4 class="text-lg font-medium">{item.name}</h4>}
                         {item.descriptionKey ? (
-                          <p class="text-muted-foreground item-description" data-i18n={`uses.itemDescriptions.${item.descriptionKey}`}>
-                            {t(`uses.itemDescriptions.${item.descriptionKey}`)}
+                          <p class="text-muted-foreground item-description">
+                            {t(lang, `uses.itemDescriptions.${item.descriptionKey}`)}
                           </p>
                         ) : item.description && <p class="text-muted-foreground">{item.description}</p>}
                       </div>
@@ -107,8 +108,6 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
 </BaseLayout>
 
 <script>
-  import { setupPageI18n } from '@/lib/i18n-page';
-
   const platformData: Record<string, { name: string; description: string; link: string }> = {
     revanced: { name: 'ReVanced', description: 'A patcher for YouTube that removes ads and adds features', link: 'https://revanced.app/' },
     stremio: { name: 'Stremio', description: 'A media center for streaming movies and TV shows', link: 'https://www.stremio.com/' }
@@ -188,6 +187,5 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
     });
   }
 
-  setupPageI18n();
   setupHiddenPlatforms();
 </script>

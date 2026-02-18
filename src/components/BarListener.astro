@@ -7,7 +7,8 @@
 <script>
   import { routes, keyboardShortcuts } from "@/lib/constants";
   import { cycleTheme } from "@/lib/theme-utils";
-  import { cycleLanguage } from "@/i18n";
+  import { cycleLanguage, getPageLocale } from "@/i18n/client";
+  import { localePath } from "@/i18n/routing";
 
   const isTypingInInput = () => {
     const el = document.activeElement;
@@ -15,9 +16,10 @@
   };
 
   // Build nav shortcut map: shortcut key → route path
+  const locale = getPageLocale();
   const NAV_SHORTCUTS: Record<string, string> = {};
   for (const [key, shortcut] of Object.entries(keyboardShortcuts)) {
-    if (key in routes) NAV_SHORTCUTS[shortcut] = routes[key as keyof typeof routes];
+    if (key in routes) NAV_SHORTCUTS[shortcut] = localePath(locale, routes[key as keyof typeof routes]);
   }
 
   // Global actions shared between game and non-game pages

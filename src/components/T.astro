@@ -1,7 +1,6 @@
 ---
-// Translation component for Astro
-
-import { translations, supportedLanguages, type SupportedLanguage, getNestedValue, translateWithParams } from "@/i18n";
+// Server-side translation component
+import { t } from "@/i18n";
 
 interface Props {
   key: string;
@@ -12,27 +11,8 @@ interface Props {
 }
 
 const { key, params, tag = "span", class: className, ...rest } = Astro.props;
-
-// Pre-render translations for all languages for this key.
-const translatedTexts: Record<string, string> = {};
-supportedLanguages.forEach((lang) => {
-  const langCode = lang.code as SupportedLanguage;
-  const trans = translations[langCode] || translations.en;
-  let value = getNestedValue(trans, key);
-
-  // Fallback to English
-  if (!value && langCode !== "en") {
-    value = getNestedValue(translations.en, key);
-  }
-
-  if (value) {
-    translatedTexts[langCode] = translateWithParams(value, params);
-  }
-});
-
+const lang = Astro.locals?.lang || "en";
 const Tag = tag as any;
 ---
 
-<Tag class={className} data-t-key={key} data-t-texts={JSON.stringify(translatedTexts)} {...rest}>
-  {translatedTexts["en"] || key}
-</Tag>
+<Tag class={className} {...rest}>{t(lang, key, params)}</Tag>

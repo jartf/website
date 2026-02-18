@@ -1,5 +1,5 @@
 // Shared utilities for Now section and Now page
-import { t, applyDomTranslations } from "@/i18n";
+import { t } from "@/i18n/client";
 import { formatDate, dateFull } from "@/lib/timezone-utils";
 
 export interface PremidActivity {
@@ -94,7 +94,7 @@ function liveContent(item: LiveItem, includeIcon = true): string {
     const imageSrc = item.image ? sanitizeUrl(item.image) : "";
     const trackUrl = sanitizeUrl(item.url);
     return `<div class="flex items-center gap-2 font-semibold mb-1">
-      ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎧</span>' : ''}<span class="now-category" data-i18n="now.categories.listening">${t("now.categories.listening") || "Listening"}</span>${item.nowplaying ? BADGE : ""}
+      ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎧</span>' : ''}<span class="now-category">${t("now.categories.listening") || "Listening"}</span>${item.nowplaying ? BADGE : ""}
     </div><div class="flex items-center gap-3 overflow-hidden py-1">
       ${imageSrc ? `<img src="${imageSrc}" alt="${escapeHtml(item.name)} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async"/>` : ''}
       <div class="flex-1 min-w-0 overflow-hidden">
@@ -105,7 +105,7 @@ function liveContent(item: LiveItem, includeIcon = true): string {
       </div></div>${item.date && !item.nowplaying ? `<time data-date="${item.dateObj.toISOString()}" class="text-xs text-muted-foreground mt-1 block">${item.date}</time>` : ""}`;
   }
   return `<div class="flex items-center gap-2 font-semibold mb-1">
-    ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎮</span>' : ''}<span class="now-category" data-i18n="now.categories.premid">${t("now.categories.premid") || "Discord activity"}</span>${BADGE}
+    ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎮</span>' : ''}<span class="now-category">${t("now.categories.premid") || "Discord activity"}</span>${BADGE}
   </div><div class="space-y-3">${item.activities.map(activityCard).join("")}</div>`;
 }
 
@@ -121,9 +121,7 @@ export const renderCard = (item: LiveItem) =>
 // --- i18n ---
 
 export function updateI18nElements(root: Element, lang: string) {
-  // Delegate [data-i18n] to the shared implementation
-  applyDomTranslations(root);
-  // Now-specific: update multilingual content blocks
+  // Update multilingual content blocks injected by live data
   root.querySelectorAll("[data-now-content]").forEach(article => {
     try {
       const content = JSON.parse(article.getAttribute("data-now-content")!);

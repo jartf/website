@@ -1,9 +1,12 @@
 ---
 // Now Section - displays recent activity items with i18n support
 // Server-side rendered with client-side progressive enhancement for Last.fm/PreMid
-import { nowItems } from "@/content/now-items";
+import { nowItems, type NowItemContent, type NowItemContentOptional } from "@/content/now-items";
 import T from "@/components/T.astro";
 import { translations } from "@/i18n";
+
+const lang = Astro.locals?.lang || "en";
+const k = lang as keyof NowItemContent;
 
 const categoryIcons: Record<string, string> = {
   listening: "🎧", premid: "🎮", planning: "📝", reading: "📖",
@@ -15,7 +18,7 @@ const displayItems = [...nowItems]
   .slice(0, 3);
 
 const getCategoryTranslation = (category: string) =>
-  translations.en.now?.categories?.[category] || category;
+  translations[lang]?.now?.categories?.[category] || translations.en.now?.categories?.[category] || category;
 ---
 
 <section aria-labelledby="now-heading" class="mb-12" id="now-section">
@@ -44,15 +47,15 @@ const getCategoryTranslation = (category: string) =>
           ) : null}
           {item.contentSecondary ? (
             <div class="flex-1 min-w-0 overflow-hidden">
-              <p class="now-text font-semibold break-words block">{item.content.en}</p>
-              <p class="now-subtext text-sm text-muted-foreground break-words">{item.contentSecondary.en}</p>
+              <p class="now-text font-semibold break-words block">{item.content[k] || item.content.en}</p>
+              <p class="now-subtext text-sm text-muted-foreground break-words">{(item.contentSecondary as NowItemContentOptional)[k] || item.contentSecondary.en}</p>
             </div>
           ) : (
-            <p class="now-text text-sm break-words min-w-0">{item.content.en}</p>
+            <p class="now-text text-sm break-words min-w-0">{item.content[k] || item.content.en}</p>
           )}
         </div>
         <time class="text-xs text-muted-foreground mt-1 block" datetime={item.date} data-date={item.date}>
-          {new Date(item.date).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
+          {new Date(item.date).toLocaleDateString(lang === "vih" ? "vi" : lang, { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
         </time>
       </article>
     ))}
@@ -60,7 +63,6 @@ const getCategoryTranslation = (category: string) =>
 </section>
 
 <script>
-  import { languageStore } from "@/i18n";
   import { fetchLiveData, renderCompact, updateI18nElements, CONFLICT_MAP } from "@/lib/now-utils";
   import { updateDateElements, dateFull } from "@/lib/timezone-utils";
 
@@ -90,7 +92,7 @@ const getCategoryTranslation = (category: string) =>
   function translate() {
     const el = document.getElementById("now-section");
     if (!el) return;
-    const lang = languageStore.get();
+    const lang = document.documentElement.dataset.locale || "en";
     updateI18nElements(el, lang);
     updateDateElements(el, lang, dateFull);
   }
@@ -101,7 +103,6 @@ const getCategoryTranslation = (category: string) =>
   declare global { interface Window { __nowSectionInit?: boolean } }
   if (!window.__nowSectionInit) {
     window.__nowSectionInit = true;
-    languageStore.subscribe(translate);
     document.addEventListener("astro:after-swap", setup);
     document.addEventListener("timezone-change", translate);
   }
