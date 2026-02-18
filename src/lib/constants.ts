@@ -97,13 +97,13 @@ export const supportedLanguages = [
   { code: "sv", name: "Svenska", flag: "🇸🇪", beta: true, aliases: ["Swedish"] },
   { code: "fi", name: "Suomi", flag: "🇫🇮", beta: true, aliases: ["Finnish"] },
   { code: "tok", name: "toki pona", flag: "😇", other: true, aliases: ["language of the good"] },
-  { code: "vih", name: "㗂越（漢喃）", flag: "🇻🇳", other: true, aliases: ["Vietnamese", "Han Nom", "Hannom"] },
+  { code: "vi-Hani", name: "㗂越（漢喃）", flag: "🇻🇳", other: true, aliases: ["Vietnamese", "Han Nom", "Hannom"] },
 ] as const;
 
 export type SupportedLanguage = (typeof supportedLanguages)[number]["code"];
 
-// Languages for hreflang tags (excludes tok and vih which don't have ISO codes)
-export const hrefLangLanguages = supportedLanguages.filter((l) => l.code !== "tok" && l.code !== "vih");
+// Languages for hreflang tags (excludes non-standard codes of tok and vi-Hani)
+export const hrefLangLanguages = supportedLanguages.filter((l) => l.code !== "tok" && l.code !== "vi-Hani");
 
 // Completed translations
 export const completedLanguages = ["en", "vi", "ru", "da"] as const;

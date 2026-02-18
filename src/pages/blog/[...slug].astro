@@ -26,7 +26,7 @@ const { Content } = await post.render();
 
 const postUrl = Astro.url.href;
 const postLang = post.data.language ?? "en";
-const postInLanguage = postLang === "vih" ? "vi" : postLang;
+const postInLanguage = postLang;
 
 const blogPostingStructuredData: Record<string, unknown> = {
   "@context": "https://schema.org",

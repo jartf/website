@@ -17,7 +17,7 @@ export { supportedLanguages, type SupportedLanguage } from "@/lib/constants";
 import { getNestedValue } from "./utils";
 
 export const translations: Record<string, Record<string, any>> = {
-  en, vi, ru, et, da, tr, zh, pl, sv, fi, tok, vih: viHani,
+  en, vi, ru, et, da, tr, zh, pl, sv, fi, tok, "vi-Hani": viHani,
 };
 
 /** Translate a key for a given locale, with optional {{param}} substitution. */
@@ -34,5 +34,5 @@ export function t(lang: string, key: string, params?: Record<string, string | nu
 
 /** Map locale code to HTML lang attribute value. */
 export function htmlLang(locale: string): string {
-  return locale === "vih" ? "vi" : locale;
+  return locale;
 }

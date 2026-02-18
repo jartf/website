@@ -42,7 +42,7 @@ const scrapbookCollection = defineCollection({
       sv: z.string().optional(),
       fi: z.string().optional(),
       tok: z.string().optional(),
-      vih: z.string().optional(),
+      'vi-Hani': z.string().optional(),
     }),
   }),
 });

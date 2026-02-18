@@ -1,5 +1,5 @@
 // Now items with multilingual support
-export type NowItemContent = Record<'en' | 'vi' | 'ru' | 'et' | 'da' | 'tr' | 'zh' | 'pl' | 'sv' | 'fi' | 'tok' | 'vih', string>;
+export type NowItemContent = Record<'en' | 'vi' | 'ru' | 'et' | 'da' | 'tr' | 'zh' | 'pl' | 'sv' | 'fi' | 'tok' | 'vi-Hani', string>;
 
 export type NowItemContentOptional = Partial<NowItemContent> & { en: string };
 
@@ -30,7 +30,7 @@ export const nowItems: NowItem[] = [
       sv: 'Hanataba (Bukett)',
       fi: 'Hanataba (Kukkakimppu)',
       tok: 'Hanataba (kulupu kasi kule)',
-      vih: '花束'
+      'vi-Hani': '花束'
     },
     contentSecondary: {
       en: "HoneyComeBear"
@@ -54,7 +54,7 @@ export const nowItems: NowItem[] = [
       fi: "Ei viimeaikaista Discord-toimintaa",
       sv: "Ingen nylig Discord-aktivitet",
       tok: "No recent Discord activity",
-      vih: "空固活動𨑗 Discord 𧵆低",
+      'vi-Hani': "空固活動𨑗𨃗 Discord 𧕆低",
     },
     date: "2015-05-13T00:00:00-07:00",
   },
@@ -74,7 +74,7 @@ export const nowItems: NowItem[] = [
       sv: "Ett forskningsprojekt om geoekonomi och hur Vietnam utnyttjar informationssuveränitet och cybersäkerhet som geoekonomiska hävstångar i landets kapplöpning om utveckling av datacenter.",
       fi: "Tutkimusprojekti geotaloudesta ja siitä, miten Vietnam hyödyntää tietosuvereniteettia ja kyberturvallisuutta geotaloudellisena vipuvartena maan datakeskusten kehityskilpailussa.",
       tok: "alasa sona pi mani ma, en nasin ni: ma Wije li kepeken lawa sona tawa wawa mani lon utala pi pali tomo ilo.",
-      vih: "𠬠預案研究𧗱地經濟吧格越南盡用主權通信吧安寧數𫜵杶㔥地經濟𥪝局𨅮發展中心與料",
+      'vi-Hani': "𠬠預案研究𧗱地經濟吧格越南盡用主權通信吧安寧數𫜵杶㔥地經濟𥪝局𨅮發展中心與料",
     },
     date: "2025-12-30T15:05:05+07:00",
   },
@@ -94,7 +94,7 @@ export const nowItems: NowItem[] = [
       fi: 'Jack Gantosin "Joey Pigza Loses Control" (Joey Pigza menettää hallinnan)',
       sv: '"Joey Pigza Loses Control" (Joey Pigza förlorar kontrollen) av Jack Gantos',
       tok: '"Joey Pigza Loses Control" tan jan Jack Gantos',
-      vih: '「Joey Pigza Loses Control」（Joey Pigza 被𠅒檢詧）𧵑 Jack Gantos',
+      'vi-Hani': '「Joey Pigza Loses Control」（Joey Pigza 被𠅒檢詧）𧕑 Jack Gantos',
     },
     date: "2026-02-15T21:32:18+07:00",
   },
@@ -114,7 +114,7 @@ export const nowItems: NowItem[] = [
       sv: "Förbättrar webbplatsen för att minska beroendet av React och återgå till Astro",
       fi: "Sivuston parantaminen vähentämällä React-riippuvuutta ja palaamalla Astroon",
       tok: "mi pona e lipu ni. mi wile kepeken lili e ilo React. mi wile kepeken sin e ilo Astro",
-      vih: "最優化張䇼尼抵𠃣附屬𠓨 React 欣吧𢮿吏使用 Astro",
+      'vi-Hani': "最優化張䇼尼抵𠃣附屬𠓨 React 欣吧𢮿吏使用 Astro",
     },
     date: "2026-02-15T18:09:36+00:00",
   },
@@ -134,7 +134,7 @@ export const nowItems: NowItem[] = [
       sv: "Lite uppfriskande vatten",
       fi: "Hieman virkistävää vettä",
       tok: "telo lete pona",
-      vih: "𠬠𡭧渃𠖾冷",
+      'vi-Hani': "𠬠𡭧渃𠖾冷",
     },
     date: "2026-02-14T06:10:18+00:00",
   },
@@ -154,7 +154,7 @@ export const nowItems: NowItem[] = [
       fi: 'Siitä, kuinka voin tehdä rakastamiani asioita useammin',
       sv: 'Om hur jag kan göra de saker jag älskar oftare',
       tok: 'toki pi nasin ni: mi ken pali mute e ijo olin mi',
-      vih: "𧗱格𨉟固体𫜵仍條𨉟㤇適常川欣",
+      'vi-Hani': "𧗱格𨉟固体𫜵仍條𨉟㤇適常川欣",
     },
     date: "2026-02-06T22:30:00+07:00",
   },
@@ -174,7 +174,7 @@ export const nowItems: NowItem[] = [
       fi: 'Kansainvälinen talous',
       sv: 'Internationell ekonomi',
       tok: 'sona mani pi ma ale',
-      vih: "經濟對外",
+      'vi-Hani': "經濟對外",
     },
     date: "2026-01-06T11:18:08+07:00",
   },

@@ -341,7 +341,7 @@ const feedButtons = [
   const initDefaultLanguageFilter = () => {
     const currentLang = getPageLocale(), baseLang = currentLang.split('-')[0];
     const hasPostsInLang = Array.from(document.querySelectorAll('.blog-post')).some(p => [currentLang, baseLang].includes(p.getAttribute('data-language') || ''));
-    state.langs = baseLang === 'vih' || currentLang === 'vih' ? ['vi', 'vih'] : hasPostsInLang ? [baseLang] : ['en'];
+    state.langs = baseLang === 'vi-Hani' || currentLang === 'vi-Hani' ? ['vi', 'vi-Hani'] : hasPostsInLang ? [baseLang] : ['en'];
     document.querySelectorAll('.language-filter').forEach(cb => (cb as HTMLInputElement).checked = state.langs.includes((cb as HTMLInputElement).value));
   };
 

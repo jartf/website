@@ -24,8 +24,7 @@ export function formatDate(
   fmt: Intl.DateTimeFormatOptions = dateLong,
 ): string {
   const d = typeof date === "string" ? new Date(date) : date;
-  const locale = lang === "vih" ? "vi" : lang;
-  return d.toLocaleDateString(locale, { ...fmt, ...getTimezoneOption() });
+  return d.toLocaleDateString(lang, { ...fmt, ...getTimezoneOption() });
 }
 
 /** Update all `[data-date]` elements under a root with `formatDate`. */

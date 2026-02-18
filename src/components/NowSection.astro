@@ -55,7 +55,7 @@ const getCategoryTranslation = (category: string) =>
           )}
         </div>
         <time class="text-xs text-muted-foreground mt-1 block" datetime={item.date} data-date={item.date}>
-          {new Date(item.date).toLocaleDateString(lang === "vih" ? "vi" : lang, { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
+          {new Date(item.date).toLocaleDateString(lang, { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZoneName: "short" })}
         </time>
       </article>
     ))}

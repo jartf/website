@@ -261,8 +261,8 @@ html.i18n-updating [data-t-key] {
   font-family: 'OpenDyslexic', sans-serif !important;
 }
 
-[data-locale="vih"],
-[data-locale="vih"] * {
+[data-locale="vi-Hani"],
+[data-locale="vi-Hani"] * {
   font-family: 'Han Nom Gothic', 'Space Grotesk', 'Lexend', ui-sans-serif, system-ui, sans-serif !important;
 }
 
