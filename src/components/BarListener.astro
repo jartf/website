@@ -9,11 +9,7 @@
   import { cycleTheme } from "@/lib/theme-utils";
   import { cycleLanguage, getPageLocale } from "@/i18n/client";
   import { localePath } from "@/i18n/routing";
-
-  const isTypingInInput = () => {
-    const el = document.activeElement;
-    return el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el?.getAttribute("contenteditable") === "true";
-  };
+  import { isTypingInInput } from "@/hooks";
 
   // Build nav shortcut map: shortcut key → route path
   const locale = getPageLocale();

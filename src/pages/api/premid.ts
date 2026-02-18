@@ -178,9 +178,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     if (activities.size >= preMidConfig.maxActivities) {
-      if (activities.size >= preMidConfig.maxActivities) {
-        removeOldestActivity();
-      }
+      removeOldestActivity();
     }
 
     const key = getActivityKey(active_activity);

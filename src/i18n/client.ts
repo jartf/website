@@ -3,15 +3,7 @@
 import { supportedLanguages } from "@/lib/constants";
 import { translations } from "@/i18n";
 import { locales, stripLocale } from "@/i18n/routing";
-
-function getNestedValue(obj: any, path: string): string | undefined {
-  let cur = obj;
-  for (const k of path.split(".")) {
-    if (cur && typeof cur === "object" && k in cur) cur = cur[k];
-    else return undefined;
-  }
-  return typeof cur === "string" ? cur : undefined;
-}
+import { getNestedValue } from "./utils";
 
 /** Current page locale code (reads from URL, not HTML lang). */
 export function getPageLocale(): string {

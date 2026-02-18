@@ -32,11 +32,11 @@ const categories = Object.keys(categoryIcons);
       </header>
 
       <div class="flex flex-wrap justify-center gap-2 mb-8">
-        <button class="filter-btn active px-4 py-2 rounded-full border transition-colors" data-filter="all">
+        <button class="filter-btn active px-4 py-2 rounded-full border transition-colors" data-filter="all" aria-pressed="true">
           <T key="projects.filters.all" />
         </button>
         {categories.map(cat => (
-          <button class="filter-btn px-4 py-2 rounded-full border transition-colors" data-filter={cat}>
+          <button class="filter-btn px-4 py-2 rounded-full border transition-colors" data-filter={cat} aria-pressed="false">
             {categoryIcons[cat]} <T key={`projects.filters.${cat}`} />
           </button>
         ))}
@@ -50,7 +50,7 @@ const categories = Object.keys(categoryIcons);
           </h2>
           <div class="grid gap-6 md:grid-cols-2">
             {groupProjects.map((project) => (
-              <article class="project-card group perspective" data-category={project.category} data-project-id={project.id} data-project-content={JSON.stringify(project.content)}>
+              <article class="project-card group perspective" data-category={project.category} data-project-id={project.id} data-project-content={JSON.stringify(project.content)} tabindex="0" role="button" aria-label={`${project.content[k]?.title || project.content.en.title} - click or press Enter to see details`}>
                 <div class="card-inner relative w-full h-64 transition-transform duration-500 transform-style-preserve-3d">
                   <div class="card-front absolute inset-0 backface-hidden rounded-xl border bg-card p-6 flex flex-col">
                     <div class="flex items-start justify-between mb-3">
@@ -129,16 +129,22 @@ const categories = Object.keys(categoryIcons);
   const cards = document.querySelectorAll('.project-card');
   const filterBtns = document.querySelectorAll('.filter-btn');
 
-  // Flip cards on click
-  cards.forEach(card => card.addEventListener('click', () =>
-    card.querySelector('.card-inner')?.classList.toggle('flipped')
-  ));
+  // Flip cards on click and keyboard
+  cards.forEach(card => {
+    const el = card as HTMLElement;
+    const flip = () => el.querySelector('.card-inner')?.classList.toggle('flipped');
+    el.addEventListener('click', flip);
+    el.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') { e.preventDefault(); flip(); }
+    });
+  });
 
   // Filter by category
   filterBtns.forEach(btn => btn.addEventListener('click', () => {
     const filter = btn.getAttribute('data-filter');
-    filterBtns.forEach(b => b.classList.remove('active'));
+    filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
     btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
     cards.forEach(card => card.classList.toggle('hidden',
       filter !== 'all' && card.getAttribute('data-category') !== filter
     ));

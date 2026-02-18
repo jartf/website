@@ -14,19 +14,11 @@ import tok from "./translations/tok.json";
 import viHani from "./translations/vi-Hani.json";
 
 export { supportedLanguages, type SupportedLanguage } from "@/lib/constants";
+import { getNestedValue } from "./utils";
 
 export const translations: Record<string, Record<string, any>> = {
   en, vi, ru, et, da, tr, zh, pl, sv, fi, tok, vih: viHani,
 };
-
-function getNestedValue(obj: Record<string, any>, path: string): string | undefined {
-  let cur: any = obj;
-  for (const k of path.split(".")) {
-    if (cur && typeof cur === "object" && k in cur) cur = cur[k];
-    else return undefined;
-  }
-  return typeof cur === "string" ? cur : undefined;
-}
 
 /** Translate a key for a given locale, with optional {{param}} substitution. */
 export function t(lang: string, key: string, params?: Record<string, string | number>): string {

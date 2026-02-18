@@ -73,6 +73,7 @@ const feedButtons = [
             <input
               type="search"
               id="blog-search"
+              aria-label={serverT(lang, "blog.search")}
               placeholder={serverT(lang, "blog.search")}
               class="w-full pl-10 pr-4 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
@@ -289,8 +290,9 @@ const feedButtons = [
 <script>
   import { t, getPageLocale } from '@/i18n/client';
   import { updateDateElements } from '@/lib/timezone-utils';
+  import { supportedLanguages } from '@/lib/constants';
 
-  const languageNames: Record<string, string> = { en: "English", vi: "Tiếng Việt", vih: "Tiếng Việt (Hán tự)", ru: "Русский", fi: "Suomi", pl: "Polski", sv: "Svenska", da: "Dansk", et: "Eesti", tr: "Türkçe", zh: "中文", tok: "toki pona" };
+  const languageNames: Record<string, string> = Object.fromEntries(supportedLanguages.map(l => [l.code, l.name]));
   const state = { search: '', sort: 'newest', langs: [] as string[], moods: [] as string[], cats: [] as string[], catApproved: null as boolean | null };
 
   const updateBlogTranslations = () => {
@@ -393,24 +395,10 @@ const feedButtons = [
 
     const removeBtn = document.createElement('button');
     removeBtn.className = 'ml-1 hover:text-foreground';
+    removeBtn.setAttribute('aria-label', `Remove ${type} filter: ${value}`);
     removeBtn.onclick = e => { e.stopPropagation(); onRemove(); };
+    removeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
 
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    svg.setAttribute('width', '12');
-    svg.setAttribute('height', '12');
-    svg.setAttribute('viewBox', '0 0 24 24');
-    svg.setAttribute('fill', 'none');
-    svg.setAttribute('stroke', 'currentColor');
-    svg.setAttribute('stroke-width', '2');
-
-    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path1.setAttribute('d', 'M18 6 6 18');
-    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path2.setAttribute('d', 'm6 6 12 12');
-    svg.append(path1, path2);
-
-    removeBtn.appendChild(svg);
     badge.appendChild(removeBtn);
     return badge;
   };

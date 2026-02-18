@@ -1,6 +1,7 @@
 // Shared utilities for Now section and Now page
 import { t } from "@/i18n/client";
 import { formatDate, dateFull } from "@/lib/timezone-utils";
+import { escapeHtml } from "@/lib/escape";
 
 export interface PremidActivity {
   name: string;
@@ -14,16 +15,6 @@ export interface PremidData { type: "premid"; activities: PremidActivity[]; date
 export type LiveItem = LastfmTrack | PremidData;
 
 const BADGE = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
-
-/** Escape HTML special characters to prevent XSS from external API data */
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
 
 /** Sanitize a URL — only allow http(s) schemes */
 function sanitizeUrl(url: string): string {

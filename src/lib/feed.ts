@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import { hrefLangLanguages, supportedLanguages, siteDescription, siteName, siteUrl, author, type SupportedLanguage } from "@/lib/constants";
+import { escapeXml } from "@/lib/escape";
 
 // Shared static paths and language validation for feed routes
 export function feedStaticPaths() {
@@ -25,15 +26,6 @@ export interface FeedPost {
   date: Date;
   tags: string[];
   language: string;
-}
-
-function escapeXml(value: string): string {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&apos;");
 }
 
 let allFeedPostsPromise: Promise<FeedPost[]> | null = null;

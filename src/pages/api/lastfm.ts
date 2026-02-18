@@ -1,7 +1,9 @@
 import type { APIRoute } from "astro";
-import { lastFmApiUrl } from "@/lib/constants";
+import { services, author } from "@/lib/constants";
 
 export const prerender = false;
+
+const lastFmApiUrl = `${services.lastFm.apiUrl}?method=user.getrecenttracks&user=${author.lastFmUsername}&api_key=${services.lastFm.apiKey}`;
 
 const UPSTREAM_TIMEOUT_MS = 5000;
 const MAX_XML_BYTES = 256 * 1024;

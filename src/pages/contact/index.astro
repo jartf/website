@@ -89,9 +89,9 @@ const icons: Record<string, string> = {
             const isMail = url.startsWith("mailto:");
             return (
               <a href={url} target={isMail ? undefined : "_blank"} rel={isMail ? undefined : "noopener noreferrer"} class={`flex items-center justify-center gap-3 p-4 rounded-lg border transition-colors ${color}`}>
-                <span set:html={icons[icon] || icons.mail} />
+                <span aria-hidden="true" set:html={icons[icon] || icons.mail} />
                 <span class="font-medium">{name}</span>
-                {!isMail && <span class="opacity-70" set:html={icons.external} />}
+                {!isMail && <span class="opacity-70" aria-hidden="true" set:html={icons.external} />}
               </a>
             );
           })}

@@ -285,9 +285,6 @@ export const domainHashes: Record<string, string> = {
   localhost: "dh=2147463847test",
 };
 
-export const lastFmApiUrl =
-  `${services.lastFm.apiUrl}?method=user.getrecenttracks&user=${author.lastFmUsername}&api_key=${services.lastFm.apiKey}`;
-
 // Timezone
 export const authorTimezone = "Antarctica/Davis";
 export const authorTimezoneLabel = "GMT+7";
