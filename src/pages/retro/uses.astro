@@ -1,6 +1,6 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { USES_CATEGORIES, usesDescriptions } from "@/content/uses-items";
+import { usesCategories, usesDescriptions } from "@/content/uses-items";
 ---
 
 <RetroLayout title="Uses - Jarema's Retro Site">
@@ -28,7 +28,7 @@ import { USES_CATEGORIES, usesDescriptions } from "@/content/uses-items";
   <br>
 
   <!-- Uses categories -->
-  {USES_CATEGORIES.map((category) => (
+  {usesCategories.map((category) => (
     <>
       <font size="4">
         <b>

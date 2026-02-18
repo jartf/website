@@ -67,7 +67,7 @@ type TetrominoType = keyof typeof TETROMINOS
 
 // Music playlist - using SoundHelix demo tracks (reliable, CORS-enabled)
 // These are royalty-free electronic/ambient tracks good for gaming
-const MUSIC_PLAYLIST = [
+const musicPlaylist = [
   {
     url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     title: 'SoundHelix Song 1'
@@ -91,15 +91,15 @@ const MUSIC_PLAYLIST = [
 ]
 
 // Game constants
-const BOARD_WIDTH = 10
-const BOARD_HEIGHT = 20
-const INITIAL_SPEED = 800
-const SPEED_INCREMENT = 50
-const MIN_SPEED = 100
+const boardWidth = 10
+const boardHeight = 20
+const initialSpeed = 800
+const speedIncrement = 50
+const minSpeed = 100
 
 // Create empty board
 const createEmptyBoard = () =>
-  Array(BOARD_HEIGHT).fill(null).map(() => Array(BOARD_WIDTH).fill(null))
+  Array(boardHeight).fill(null).map(() => Array(boardWidth).fill(null))
 
 // Get random tetromino
 const getRandomTetromino = (): TetrominoType => {
@@ -152,7 +152,7 @@ export default function TetrisGame() {
 
   // Calculate speed based on level
   const getSpeed = useCallback(() => {
-    return Math.max(MIN_SPEED, INITIAL_SPEED - (level - 1) * SPEED_INCREMENT)
+    return Math.max(minSpeed, initialSpeed - (level - 1) * speedIncrement)
   }, [level])
 
   // Check collision
@@ -169,8 +169,8 @@ export default function TetrisGame() {
           const newY = y + row
           if (
             newX < 0 ||
-            newX >= BOARD_WIDTH ||
-            newY >= BOARD_HEIGHT ||
+            newX >= boardWidth ||
+            newY >= boardHeight ||
             (newY >= 0 && boardState[newY][newX])
           ) {
             return true
@@ -192,7 +192,7 @@ export default function TetrisGame() {
         if (shape[row][col]) {
           const newY = py + row
           const newX = px + col
-          if (newY >= 0 && newY < BOARD_HEIGHT && newX >= 0 && newX < BOARD_WIDTH) {
+          if (newY >= 0 && newY < boardHeight && newX >= 0 && newX < boardWidth) {
             newBoard[newY][newX] = color
           }
         }
@@ -206,8 +206,8 @@ export default function TetrisGame() {
       if (isFull) linesCleared++
       return !isFull
     })
-    while (finalBoard.length < BOARD_HEIGHT) {
-      finalBoard.unshift(Array(BOARD_WIDTH).fill(null))
+    while (finalBoard.length < boardHeight) {
+      finalBoard.unshift(Array(boardWidth).fill(null))
     }
 
     if (linesCleared > 0) {
@@ -225,7 +225,7 @@ export default function TetrisGame() {
 
     const newType = nextPiece
     const newShape = TETROMINOS[newType].shape
-    const startX = Math.floor((BOARD_WIDTH - newShape[0].length) / 2)
+    const startX = Math.floor((boardWidth - newShape[0].length) / 2)
 
     if (checkCollision(newShape, startX, 0, finalBoard)) {
       setGameOver(true)
@@ -298,7 +298,7 @@ export default function TetrisGame() {
 
     const type = getRandomTetromino()
     const shape = TETROMINOS[type].shape
-    const startX = Math.floor((BOARD_WIDTH - shape[0].length) / 2)
+    const startX = Math.floor((boardWidth - shape[0].length) / 2)
 
     setCurrentPiece({
       type,
@@ -437,9 +437,9 @@ export default function TetrisGame() {
     if (!audioRef.current) {
       audioRef.current = new Audio()
       audioRef.current.volume = 0.5
-      audioRef.current.src = MUSIC_PLAYLIST[currentTrackIndex].url
+      audioRef.current.src = musicPlaylist[currentTrackIndex].url
       audioRef.current.onended = () => {
-        setCurrentTrackIndex(prev => (prev + 1) % MUSIC_PLAYLIST.length)
+        setCurrentTrackIndex(prev => (prev + 1) % musicPlaylist.length)
       }
     }
   }, [])
@@ -447,7 +447,7 @@ export default function TetrisGame() {
   // Update track when index changes
   useEffect(() => {
     if (audioRef.current && isMusicPlaying) {
-      audioRef.current.src = MUSIC_PLAYLIST[currentTrackIndex].url
+      audioRef.current.src = musicPlaylist[currentTrackIndex].url
       audioRef.current.load()
       audioRef.current.play().catch((err) => {
         console.warn('Failed to play track:', err)
@@ -462,13 +462,13 @@ export default function TetrisGame() {
       audioRef.current = new Audio()
       audioRef.current.volume = 0.5
       audioRef.current.crossOrigin = 'anonymous'
-      audioRef.current.src = MUSIC_PLAYLIST[currentTrackIndex].url
+      audioRef.current.src = musicPlaylist[currentTrackIndex].url
       audioRef.current.onended = () => {
-        setCurrentTrackIndex(prev => (prev + 1) % MUSIC_PLAYLIST.length)
+        setCurrentTrackIndex(prev => (prev + 1) % musicPlaylist.length)
       }
       audioRef.current.onerror = () => {
         console.warn('Track failed to load, trying next...')
-        setCurrentTrackIndex(prev => (prev + 1) % MUSIC_PLAYLIST.length)
+        setCurrentTrackIndex(prev => (prev + 1) % musicPlaylist.length)
       }
     }
 
@@ -483,7 +483,7 @@ export default function TetrisGame() {
       }).catch((err) => {
         console.error('Audio playback failed:', err)
         // Try next track
-        setCurrentTrackIndex(prev => (prev + 1) % MUSIC_PLAYLIST.length)
+        setCurrentTrackIndex(prev => (prev + 1) % musicPlaylist.length)
         setIsMusicPlaying(false)
       })
     }
@@ -503,7 +503,7 @@ export default function TetrisGame() {
           if (shape[row][col]) {
             const boardY = y + row
             const boardX = x + col
-            if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH) {
+            if (boardY >= 0 && boardY < boardHeight && boardX >= 0 && boardX < boardWidth) {
               displayBoard[boardY][boardX] = color
             }
           }
@@ -522,7 +522,7 @@ export default function TetrisGame() {
             if (shape[row][col]) {
               const boardY = ghostY + row
               const boardX = x + col
-              if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH && !displayBoard[boardY][boardX]) {
+              if (boardY >= 0 && boardY < boardHeight && boardX >= 0 && boardX < boardWidth && !displayBoard[boardY][boardX]) {
                 displayBoard[boardY][boardX] = 'ghost'
               }
             }
@@ -559,9 +559,9 @@ export default function TetrisGame() {
               <div
                 className="grid gap-px bg-slate-800"
                 style={{
-                  gridTemplateColumns: `repeat(${BOARD_WIDTH}, 1fr)`,
+                  gridTemplateColumns: `repeat(${boardWidth}, 1fr)`,
                   width: 'min(80vw, 300px)',
-                  aspectRatio: `${BOARD_WIDTH}/${BOARD_HEIGHT}`
+                  aspectRatio: `${boardWidth}/${boardHeight}`
                 }}
               >
                 {displayBoard.map((row, y) =>
@@ -746,7 +746,7 @@ export default function TetrisGame() {
             {/* Now playing */}
             {isMusicPlaying && (
               <div className="text-sm text-muted-foreground">
-                🎵 {t("nowPlaying")}: {MUSIC_PLAYLIST[currentTrackIndex].title}
+                🎵 {t("nowPlaying")}: {musicPlaylist[currentTrackIndex].title}
               </div>
             )}
           </div>

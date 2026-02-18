@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { USES_CATEGORIES } from "@/content/uses-items";
+import { usesCategories } from "@/content/uses-items";
 import { t } from "@/i18n";
 
 const lang = Astro.locals?.lang || "en";
@@ -31,7 +31,7 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
       </header>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-        {USES_CATEGORIES.map((category) => (
+        {usesCategories.map((category) => (
           <section id={category.title} class="scroll-mt-20">
             <div class="flex items-center gap-3 mb-6">
               <span class="text-2xl" aria-hidden="true">{getIcon(category.title)}</span>

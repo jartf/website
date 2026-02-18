@@ -83,7 +83,7 @@ const sortedItems = [...nowItems].sort((a, b) => new Date(b.date).getTime() - ne
 
 <script>
   import { getPageLocale } from "@/i18n/client";
-  import { fetchLiveData, renderCard, updateI18nElements, CONFLICT_MAP } from "@/lib/now-utils";
+  import { fetchLiveData, renderCard, updateI18nElements, conflictMap } from "@/lib/now-utils";
   import { updateDateElements, dateFull } from "@/lib/timezone-utils";
 
   const enhance = async () => {
@@ -95,7 +95,7 @@ const sortedItems = [...nowItems].sort((a, b) => new Date(b.date).getTime() - ne
       const types = new Set<string>(live.map(i => i.type));
       container.querySelectorAll("article").forEach(el => {
         const cat = el.getAttribute("data-category") || "";
-        if (CONFLICT_MAP[cat] && types.has(CONFLICT_MAP[cat])) el.remove();
+        if (conflictMap[cat] && types.has(conflictMap[cat])) el.remove();
       });
       container.insertAdjacentHTML("afterbegin", live.map(renderCard).join(""));
       translate();

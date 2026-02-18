@@ -18,9 +18,9 @@ interface ActivityEntry {
 }
 
 const activities = new Map<string, ActivityEntry>();
-const MAX_REQUEST_BYTES = 8 * 1024;
+const maxRequestBytes = 8 * 1024;
 
-const CORS_HEADERS = {
+const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
@@ -28,7 +28,7 @@ const CORS_HEADERS = {
 } as const;
 
 const json = (data: unknown, status = 200): Response =>
-  Response.json(data, { status, headers: { ...CORS_HEADERS } });
+  Response.json(data, { status, headers: { ...corsHeaders } });
 
 const isValidUrl = (url: string): boolean => {
   try {
@@ -130,12 +130,12 @@ async function fetchJsonWithTimeout(url: string, timeoutMs: number) {
 
 async function parseRequestBody(request: Request): Promise<{ body?: any; error?: Response }> {
   const contentLength = Number(request.headers.get("content-length") ?? "0");
-  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+  if (Number.isFinite(contentLength) && contentLength > maxRequestBytes) {
     return { error: json({ error: "Payload too large" }, 413) };
   }
 
   const rawBody = await request.text();
-  if (new TextEncoder().encode(rawBody).length > MAX_REQUEST_BYTES) {
+  if (new TextEncoder().encode(rawBody).length > maxRequestBytes) {
     return { error: json({ error: "Payload too large" }, 413) };
   }
 
@@ -151,7 +151,7 @@ async function parseRequestBody(request: Request): Promise<{ body?: any; error?:
 }
 
 export const OPTIONS: APIRoute = async () => {
-  return new Response(null, { status: 200, headers: { ...CORS_HEADERS } });
+  return new Response(null, { status: 200, headers: { ...corsHeaders } });
 };
 
 export const POST: APIRoute = async ({ request }) => {
@@ -230,6 +230,6 @@ export const GET: APIRoute = async ({ request }) => {
 
   return Response.json(
     { activities: activeActivities, count: activeActivities.length },
-    { status: 200, headers: { ...CORS_HEADERS } }
+    { status: 200, headers: { ...corsHeaders } }
   );
 };

@@ -20,7 +20,7 @@ export type UsesCategory = {
   }[]
 }
 
-export const USES_CATEGORIES: UsesCategory[] = [
+export const usesCategories: UsesCategory[] = [
   {
     title: "hardware",
     icon: "laptop",

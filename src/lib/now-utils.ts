@@ -14,7 +14,7 @@ export interface LastfmTrack { type: "lastfm"; name: string; artist: string; url
 export interface PremidData { type: "premid"; activities: PremidActivity[]; dateObj: Date }
 export type LiveItem = LastfmTrack | PremidData;
 
-const BADGE = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
+const badge = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
 
 /** Sanitize a URL — only allow http(s) schemes */
 function sanitizeUrl(url: string): string {
@@ -86,7 +86,7 @@ function liveContent(item: LiveItem, includeIcon = true, compact = false): strin
     const imageSrc = item.image ? sanitizeUrl(item.image) : "";
     const trackUrl = sanitizeUrl(item.url);
     return `<div class="flex items-center gap-2 font-semibold mb-1">
-      ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎧</span>' : ''}<span class="now-category">${t("now.categories.listening") || "Listening"}</span>${item.nowplaying ? BADGE : ""}
+      ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎧</span>' : ''}<span class="now-category">${t("now.categories.listening") || "Listening"}</span>${item.nowplaying ? badge : ""}
     </div><div class="flex items-center gap-3 overflow-hidden py-1">
       ${imageSrc ? `<img src="${imageSrc}" alt="${escapeHtml(item.name)} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async"/>` : ''}
       <div class="flex-1 min-w-0 overflow-hidden">
@@ -97,7 +97,7 @@ function liveContent(item: LiveItem, includeIcon = true, compact = false): strin
       </div></div>${item.date && !item.nowplaying ? `<time data-date="${item.dateObj.toISOString()}" class="text-xs text-muted-foreground mt-1 block">${item.date}</time>` : ""}`;
   }
   return `<div class="flex items-center gap-2 font-semibold mb-1">
-    ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎮</span>' : ''}<span class="now-category">${t("now.categories.premid") || "Discord activity"}</span>${BADGE}
+    ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎮</span>' : ''}<span class="now-category">${t("now.categories.premid") || "Discord activity"}</span>${badge}
   </div><div class="space-y-3">${item.activities.map(activityCard).join("")}</div>`;
 }
 
@@ -127,4 +127,4 @@ export function updateI18nElements(root: Element, lang: string) {
 }
 
 /** Conflict map: static category → live type that replaces it */
-export const CONFLICT_MAP: Record<string, string> = { listening: "lastfm", premid: "premid" };
+export const conflictMap: Record<string, string> = { listening: "lastfm", premid: "premid" };

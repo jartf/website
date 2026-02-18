@@ -7,7 +7,7 @@ import { t as i18nT } from '@/i18n/client'
 import { useGame2048, getTileColor, getFontSize } from '@/hooks/use-game-2048'
 
 // Size of each tile for animation calculations
-const TILE_SIZE = 80 // Approximate size including gap
+const tileSize = 80 // Approximate size including gap
 
 export default function Game2048() {
   const t = useCallback((key: string, fallback?: string): string => {
@@ -121,8 +121,8 @@ export default function Game2048() {
                     const key = `${rowIndex}-${colIndex}-${cell}`
                     const animation = animatingTiles[key]
 
-                    const initialX = animation ? (animation.from.col - colIndex) * TILE_SIZE : 0
-                    const initialY = animation ? (animation.from.row - rowIndex) * TILE_SIZE : 0
+                    const initialX = animation ? (animation.from.col - colIndex) * tileSize : 0
+                    const initialY = animation ? (animation.from.row - rowIndex) * tileSize : 0
 
                     return (
                       <motion.div

@@ -5,8 +5,8 @@ export const prerender = false;
 
 const lastFmApiUrl = `${services.lastFm.apiUrl}?method=user.getrecenttracks&user=${author.lastFmUsername}&api_key=${services.lastFm.apiKey}`;
 
-const UPSTREAM_TIMEOUT_MS = 5000;
-const MAX_XML_BYTES = 256 * 1024;
+const upstreamTimeoutMs = 5000;
+const maxXmlBytes = 256 * 1024;
 
 async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Response> {
   const controller = new AbortController();
@@ -24,13 +24,13 @@ async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Respons
 
 export const GET: APIRoute = async () => {
   try {
-    const response = await fetchWithTimeout(lastFmApiUrl, UPSTREAM_TIMEOUT_MS);
+    const response = await fetchWithTimeout(lastFmApiUrl, upstreamTimeoutMs);
     if (!response.ok) {
       return Response.json({ error: "Unable to fetch Last.fm data" }, { status: 502 });
     }
 
     const xml = await response.text();
-    if (new TextEncoder().encode(xml).length > MAX_XML_BYTES) {
+    if (new TextEncoder().encode(xml).length > maxXmlBytes) {
       return Response.json({ error: "Last.fm response too large" }, { status: 502 });
     }
 

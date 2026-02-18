@@ -63,7 +63,7 @@ const getCategoryTranslation = (category: string) =>
 </section>
 
 <script>
-  import { fetchLiveData, renderCompact, updateI18nElements, CONFLICT_MAP } from "@/lib/now-utils";
+  import { fetchLiveData, renderCompact, updateI18nElements, conflictMap } from "@/lib/now-utils";
   import { updateDateElements, dateFull } from "@/lib/timezone-utils";
 
   async function enhance() {
@@ -77,7 +77,7 @@ const getCategoryTranslation = (category: string) =>
       const hasType = (t: string) => live.some(i => i.type === t);
       const statics = Array.from(container.querySelectorAll("article"))
         .map(el => ({ el, cat: el.getAttribute("data-category") || "", dateObj: new Date(el.querySelector("time")?.getAttribute("datetime") || 0) }))
-        .filter(s => !hasType(CONFLICT_MAP[s.cat]));
+        .filter(s => !hasType(conflictMap[s.cat]));
 
       const sorted = [
         ...live.map(item => ({ dateObj: item.dateObj, html: (cls: string) => renderCompact(item, cls) })),

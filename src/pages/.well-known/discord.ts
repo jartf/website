@@ -3,7 +3,7 @@ import { domainHashes } from "@/lib/constants";
 
 export const prerender = false;
 
-const TEXT_HEADERS: HeadersInit = {
+const textHeaders: HeadersInit = {
   "Content-Type": "text/plain; charset=utf-8",
   "X-Content-Type-Options": "nosniff",
 };
@@ -18,8 +18,8 @@ export const GET: APIRoute = async ({ request }) => {
   const discordHash = Object.entries(domainHashes).find(([domain]) => matchesHost(host, domain))?.[1];
 
   if (discordHash) {
-    return new Response(discordHash, { status: 200, headers: TEXT_HEADERS });
+    return new Response(discordHash, { status: 200, headers: textHeaders });
   }
 
-  return new Response("File does not exist.", { status: 404, headers: TEXT_HEADERS });
+  return new Response("File does not exist.", { status: 404, headers: textHeaders });
 };
