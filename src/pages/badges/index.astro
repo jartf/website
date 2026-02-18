@@ -81,6 +81,7 @@ const CATEGORIES = ["all", "personal", "validation", "browsers", "privacy", "sof
         <!-- Controls -->
         <div class="flex flex-col sm:flex-row gap-4 mb-6">
           <div class="relative flex-1">
+            <label for="badge-search" class="sr-only"><T key="badges.search" /></label>
             <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input type="text" id="badge-search" placeholder="Search badges..." data-i18n-placeholder="badges.search" class="pl-10 w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm" />
           </div>
