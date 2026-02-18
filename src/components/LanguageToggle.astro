@@ -33,7 +33,7 @@ const itemCls = "lang-item relative flex items-center rounded-sm px-2 py-1.5 tex
 
   <div id="lang-dropdown" class="absolute right-0 mt-2 w-80 rounded-md border bg-popover p-1 text-popover-foreground shadow-md z-50 max-h-96 overflow-y-auto hidden">
     <div class="px-2 py-2">
-      <input id="lang-search" type="text" placeholder={t(lang, "language.search")}
+      <input id="lang-search" type="text" placeholder={t(lang, "language.search")} aria-label={t(lang, "language.search")}
         class="w-full px-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring" />
     </div>
 
