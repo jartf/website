@@ -80,7 +80,8 @@ function activityCard({ name, details, state, assets }: PremidActivity): string 
   </div></div>`;
 }
 
-function liveContent(item: LiveItem, includeIcon = true): string {
+function liveContent(item: LiveItem, includeIcon = true, compact = false): string {
+  const textSm = compact ? "text-sm " : "";
   if (item.type === "lastfm") {
     const imageSrc = item.image ? sanitizeUrl(item.image) : "";
     const trackUrl = sanitizeUrl(item.url);
@@ -90,8 +91,8 @@ function liveContent(item: LiveItem, includeIcon = true): string {
       ${imageSrc ? `<img src="${imageSrc}" alt="${escapeHtml(item.name)} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async"/>` : ''}
       <div class="flex-1 min-w-0 overflow-hidden">
         ${trackUrl
-          ? `<a href="${trackUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold break-words block">${escapeHtml(item.name)}</a>`
-          : `<span class="font-semibold break-words block">${escapeHtml(item.name)}</span>`}
+          ? `<a href="${trackUrl}" target="_blank" rel="noopener noreferrer" class="${textSm}hover:underline font-semibold break-words block">${escapeHtml(item.name)}</a>`
+          : `<span class="${textSm}font-semibold break-words block">${escapeHtml(item.name)}</span>`}
         <p class="text-sm text-muted-foreground break-words">${escapeHtml(item.artist)}</p>
       </div></div>${item.date && !item.nowplaying ? `<time data-date="${item.dateObj.toISOString()}" class="text-xs text-muted-foreground mt-1 block">${item.date}</time>` : ""}`;
   }
@@ -101,7 +102,7 @@ function liveContent(item: LiveItem, includeIcon = true): string {
 }
 
 export const renderCompact = (item: LiveItem, cls: string) =>
-  `<article class="${cls}">${liveContent(item, true)}</article>`;
+  `<article class="${cls}">${liveContent(item, true, true)}</article>`;
 
 export const renderCard = (item: LiveItem) =>
   `<article class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow"><div class="flex items-start gap-4">

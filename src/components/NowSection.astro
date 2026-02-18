@@ -47,7 +47,7 @@ const getCategoryTranslation = (category: string) =>
           ) : null}
           {item.contentSecondary ? (
             <div class="flex-1 min-w-0 overflow-hidden">
-              <p class="now-text font-semibold break-words block">{item.content[k] || item.content.en}</p>
+              <p class="now-text text-sm font-semibold break-words block">{item.content[k] || item.content.en}</p>
               <p class="now-subtext text-sm text-muted-foreground break-words">{(item.contentSecondary as NowItemContentOptional)[k] || item.contentSecondary.en}</p>
             </div>
           ) : (
