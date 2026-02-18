@@ -261,6 +261,11 @@ html.i18n-updating [data-t-key] {
   font-family: 'OpenDyslexic', sans-serif !important;
 }
 
+[data-locale="vih"],
+[data-locale="vih"] * {
+  font-family: 'Han Nom Gothic', 'Space Grotesk', 'Lexend', ui-sans-serif, system-ui, sans-serif !important;
+}
+
 .reduce-motion *,
 .reduce-motion ::before,
 .reduce-motion ::after {
