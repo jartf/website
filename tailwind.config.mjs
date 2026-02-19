@@ -55,8 +55,8 @@ export default {
         heading: ['var(--font-space-grotesk)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         body: ['var(--font-lexend)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         sans: ['var(--font-lexend)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        'noto-sans-sc': ['var(--font-noto-sans-sc)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        'han-nom': ['var(--font-han-nom)', 'serif'],
+        'noto-sans-sc': ['var(--font-zh-hans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        'han-nom': ['var(--font-vi-hani)', 'serif'],
       },
       keyframes: {
         'accordion-down': {

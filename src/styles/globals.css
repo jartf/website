@@ -113,9 +113,9 @@
     --font-space-grotesk: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
     --font-lexend: 'Lexend', ui-sans-serif, system-ui, sans-serif;
     --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
-    --font-noto-sans-sc: 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
-    --font-noto-sans-tc: 'Noto Sans TC', ui-sans-serif, system-ui, sans-serif;
-    --font-han-nom: 'Han Nom Gothic', serif;
+    --font-zh-hans: 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
+    --font-zh-hant: 'Noto Sans TC', ui-sans-serif, system-ui, sans-serif;
+    --font-vi-hani: 'Han Nom Gothic', serif;
   }
 
   .light {
