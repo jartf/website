@@ -18,7 +18,7 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
         <!-- Hero Section -->
         <div class="relative pt-10 pb-10 mb-8 text-center">
           <p class="text-lg text-muted-foreground mb-2" id="greeting"><span id="greeting-emoji">👋</span> <T key="greetings.morning" /></p>
-          <T key="home.heading" tag="h1" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" />
+          <T key="home.heading" tag="h1" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" />
           <T key="home.subheading" tag="p" class="text-lg md:text-xl text-muted-foreground mb-8" />
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href={routes.contact} class={btnPrimary}><T key="home.contactButton" /></a>
@@ -131,7 +131,7 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(r => {
         if (!r?.content?.length) return c.textContent = "No status yet.";
-        // Build status display safely — avoid injecting raw API data as HTML
+        // Avoid injecting raw API data as HTML
         u.textContent = '';
         const link = document.createElement('a');
         link.href = statusCafeProfileUrl;
