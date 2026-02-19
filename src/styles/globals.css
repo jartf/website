@@ -144,7 +144,7 @@
     /* Dark theme inherits from :root */
   }
 
-  /* High contrast overrides — dark */
+  /* High contrast overrides, dark */
   .high-contrast {
     --foreground: 0 0% 100%;
     --muted-foreground: 270 5% 85%;
@@ -154,7 +154,7 @@
     --popover: 270 30% 8%;
   }
 
-  /* High contrast overrides — light */
+  /* High contrast overrides, light */
   .high-contrast.light {
     --foreground: 240 10% 2%;
     --muted-foreground: 240 5% 25%;

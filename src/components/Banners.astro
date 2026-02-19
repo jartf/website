@@ -60,7 +60,7 @@ const isComplete = (completedLanguages as readonly string[]).includes(lang);
       try { if (localStorage.getItem("languageNoticeDismissed") === "true") notice.classList.add("hidden"); } catch (e) {}
     }
 
-    // Polyglot easter egg — track locale visits
+    // Polyglot easter egg
     var locale = document.documentElement.dataset.locale || "en";
     var allCodes = JSON.parse(document.getElementById("easter-egg")?.closest("[data-lang-codes]")?.dataset.langCodes || "[]");
     try {

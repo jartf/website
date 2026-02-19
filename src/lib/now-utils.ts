@@ -16,7 +16,7 @@ export type LiveItem = LastfmTrack | PremidData;
 
 const badge = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
 
-/** Sanitize a URL — only allow http(s) schemes */
+/** Sanitize URL */
 function sanitizeUrl(url: string): string {
   try {
     const parsed = new URL(url);
