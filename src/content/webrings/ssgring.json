@@ -1,0 +1,9 @@
+{
+  "name": "SSGRing",
+  "url": "https://jbc.lol/webrings/ssgring/",
+  "previous": "https://jbc.lol/webrings/ssgring/redirect?slug=jarema&way=prev",
+  "random": "https://jbc.lol/webrings/ssgring/redirect?slug=jarema&way=rand",
+  "next": "https://jbc.lol/webrings/ssgring/redirect?slug=jarema&way=next",
+  "description": "\"Webring for sites that uses any Static Site Generation frameworks.\"",
+  "status": "active"
+}

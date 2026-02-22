@@ -1,0 +1,26 @@
+{
+  "title": "gaming",
+  "icon": "gamepad-2",
+  "items": [
+    {
+      "name": "Lunar Client",
+      "descriptionKey": "minecraftClient",
+      "link": "https://www.lunarclient.com/"
+    },
+    {
+      "name": "Steam",
+      "descriptionKey": "gameDistribution",
+      "link": "https://store.steampowered.com/"
+    },
+    {
+      "name": "Epic Games",
+      "descriptionKey": "gameLauncher",
+      "link": "https://www.epicgames.com/"
+    },
+    {
+      "name": "itch.io",
+      "descriptionKey": "indieMarketplace",
+      "link": "https://itch.io/"
+    }
+  ]
+}

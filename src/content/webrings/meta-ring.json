@@ -1,0 +1,9 @@
+{
+  "name": "Meta Ring",
+  "url": "https://meta-ring.hedy.dev/",
+  "previous": "https://meta-ring.hedy.dev/previous",
+  "random": "https://meta-ring.hedy.dev/random",
+  "next": "https://meta-ring.hedy.dev/next",
+  "description": "A webring for \"personal website tinkerers; those with meta pages or colophons\".",
+  "status": "active"
+}

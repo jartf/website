@@ -1,0 +1,9 @@
+{
+  "name": "The retronaut webring",
+  "url": "https://webring.dinhe.net/",
+  "previous": "https://webring.dinhe.net/prev/https://jarema.me",
+  "random": "https://webring.dinhe.net/random",
+  "next": "https://webring.dinhe.net/next/https://jarema.me",
+  "description": "\"Some of us miss the messy old days of the Internet where we tried to get along and we'd link to each other's sites and it was all so much fun.\"",
+  "status": "active"
+}

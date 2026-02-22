@@ -1,0 +1,124 @@
+{
+  "title": "multimedia",
+  "icon": "image",
+  "items": [],
+  "subsections": [
+    {
+      "title": "design",
+      "icon": "palette",
+      "items": [
+        {
+          "name": "Adobe Illustrator",
+          "descriptionKey": "vectorGraphics",
+          "link": "https://www.adobe.com/products/illustrator.html"
+        },
+        {
+          "name": "Figma",
+          "descriptionKey": "uiUxDesign",
+          "link": "https://www.figma.com/"
+        },
+        {
+          "name": "Canva",
+          "descriptionKey": "graphicDesign",
+          "link": "https://www.canva.com/"
+        },
+        {
+          "name": "Krita",
+          "descriptionKey": "digitalPaintingDesktop",
+          "link": "https://krita.org/"
+        },
+        {
+          "name": "ibisPaint X",
+          "descriptionKey": "digitalPaintingMobile",
+          "link": "https://ibispaint.com/"
+        }
+      ]
+    },
+    {
+      "title": "photo",
+      "icon": "camera",
+      "items": [
+        {
+          "name": "Adobe Photoshop",
+          "descriptionKey": "photoEditing",
+          "link": "https://www.adobe.com/products/photoshop.html"
+        },
+        {
+          "name": "GIMP",
+          "descriptionKey": "openSourceEditor",
+          "link": "https://www.gimp.org/"
+        }
+      ]
+    },
+    {
+      "title": "video",
+      "icon": "video",
+      "items": [
+        {
+          "name": "Adobe Premiere Pro",
+          "descriptionKey": "professionalEditor",
+          "link": "https://www.adobe.com/products/premiere.html"
+        },
+        {
+          "name": "DaVinci Resolve",
+          "descriptionKey": "professionalEditorDavinci",
+          "link": "https://www.blackmagicdesign.com/products/davinciresolve/"
+        },
+        {
+          "name": "Kdenlive",
+          "descriptionKey": "openSourceVideoEditor",
+          "link": "https://kdenlive.org/"
+        },
+        {
+          "name": "CapCut",
+          "descriptionKey": "videoEditorCapcut",
+          "link": "https://www.capcut.com/"
+        },
+        {
+          "name": "Aegisub",
+          "descriptionKey": "subtitleEditor",
+          "link": "http://www.aegisub.org/"
+        },
+        {
+          "name": "VLC",
+          "descriptionKey": "videoPlayer",
+          "link": "https://www.videolan.org/vlc/"
+        },
+        {
+          "name": "Audacity",
+          "descriptionKey": "audioEditor",
+          "link": "https://www.audacityteam.org/"
+        }
+      ]
+    },
+    {
+      "title": "media",
+      "icon": "music",
+      "items": [
+        {
+          "name": "YouTube Music",
+          "descriptionKey": "musicStreamingYoutube",
+          "link": "https://music.youtube.com/"
+        },
+        {
+          "name": "Spotify",
+          "descriptionKey": "musicStreamingSpotify",
+          "link": "https://www.spotify.com/"
+        },
+        {
+          "name": "YouTube",
+          "descriptionKey": "videoStreaming",
+          "link": "https://www.youtube.com/"
+        },
+        {
+          "name": "Unspeakable Platform 1",
+          "description": "Click 5 times to reveal"
+        },
+        {
+          "name": "Unspeakable Platform 2",
+          "description": "Click 5 times to reveal"
+        }
+      ]
+    }
+  ]
+}

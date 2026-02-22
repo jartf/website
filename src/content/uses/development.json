@@ -1,0 +1,44 @@
+{
+  "title": "development",
+  "icon": "code",
+  "items": [
+    {
+      "name": "VS Code",
+      "descriptionKey": "primaryCodeEditor",
+      "link": "https://code.visualstudio.com/"
+    },
+    {
+      "name": "Warp / Black Box",
+      "descriptionKey": "terminalEmulators",
+      "link": "https://www.warp.dev/"
+    },
+    {
+      "name": "Git",
+      "descriptionKey": "versionControl"
+    },
+    {
+      "name": "Postman",
+      "descriptionKey": "apiTesting",
+      "link": "https://www.postman.com/"
+    },
+    {
+      "name": "MySQL",
+      "descriptionKey": "databaseManagement"
+    },
+    {
+      "name": "GitHub",
+      "descriptionKey": "codeHosting",
+      "link": "https://github.com/"
+    },
+    {
+      "name": "Vercel",
+      "descriptionKey": "webHosting",
+      "link": "https://vercel.com/"
+    },
+    {
+      "name": "Cloudflare",
+      "descriptionKey": "ddosProtection",
+      "link": "https://www.cloudflare.com/"
+    }
+  ]
+}

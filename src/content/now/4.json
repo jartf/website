@@ -1,0 +1,20 @@
+{
+  "id": 4,
+  "category": "reading",
+  "icon": "BookOpen",
+  "content": {
+    "en": "\"Joey Pigza Loses Control\" by Jack Gantos",
+    "vi": "\"Joey Pigza Loses Control\" (Joey Pigza bị mất kiểm soát) của Jack Gantos",
+    "ru": "\"Joey Pigza Loses Control\" (Джоуи Пигза теряет контроль) от Джека Гантоса",
+    "et": "\"Joey Pigza Loses Control\" (Joey Pigza kaotab kontrolli), autor Jack Gantos",
+    "da": "\"Joey Pigza Loses Control\" (Joey Pigza mister kontrollen) af Jack Gantos",
+    "tr": "Jack Gantos'tan \"Joey Pigza Loses Control\" (Joey Pigza Kontrolü Kaybediyor)",
+    "zh": "杰克·甘托斯 (Jack Gantos) 的《乔伊·皮格扎失控》(Joey Pigza Loses Control)",
+    "pl": "\"Joey Pigza Loses Control\" (Joey Pigza traci kontrolę) autorstwa Jacka Gantosa",
+    "fi": "Jack Gantosin \"Joey Pigza Loses Control\" (Joey Pigza menettää hallinnan)",
+    "sv": "\"Joey Pigza Loses Control\" (Joey Pigza förlorar kontrollen) av Jack Gantos",
+    "tok": "\"Joey Pigza Loses Control\" tan jan Jack Gantos",
+    "vi-Hani": "「Joey Pigza Loses Control」（Joey Pigza 被𠅒檢詧）𧕑 Jack Gantos"
+  },
+  "date": "2026-02-15T21:32:18+07:00"
+}

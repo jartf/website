@@ -1,0 +1,16 @@
+{
+  "title": "audio",
+  "icon": "headphones",
+  "items": [
+    {
+      "name": "Samsung Galaxy Buds2",
+      "descriptionKey": "primaryEarbuds",
+      "link": "https://www.samsung.com/us/app/mobile-audio/galaxy-buds2/"
+    },
+    {
+      "name": "Soundcore R50i",
+      "descriptionKey": "backupEarbuds",
+      "link": "https://versus.com/en/anker-soundcore-r50i"
+    }
+  ]
+}

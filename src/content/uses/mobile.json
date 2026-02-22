@@ -1,0 +1,21 @@
+{
+  "title": "mobile",
+  "icon": "smartphone",
+  "items": [
+    {
+      "name": "Samsung Galaxy S20 Ultra",
+      "descriptionKey": "mainPhone",
+      "link": "https://www.samsung.com/us/mobile/galaxy-s20-5g/instore/"
+    },
+    {
+      "name": "LG V50 ThinQ 5G",
+      "descriptionKey": "secondaryPhone",
+      "link": "https://www.lg.com/us/mobile-phones/v50-thinq"
+    },
+    {
+      "name": "Samsung Galaxy Watch4 LTE",
+      "descriptionKey": "smartwatch",
+      "link": "https://www.samsung.com/global/galaxy/galaxy-watch4/"
+    }
+  ]
+}

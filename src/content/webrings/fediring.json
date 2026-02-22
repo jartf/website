@@ -1,0 +1,9 @@
+{
+  "name": "Fediring",
+  "url": "https://fediring.net/",
+  "previous": "https://fediring.net/previous?host=jarema.me",
+  "random": "https://fediring.net/random",
+  "next": "https://fediring.net/next?host=jarema.me",
+  "description": "\"Personal sites of any member of the fediverse (also known as fedizens).\"",
+  "status": "active"
+}

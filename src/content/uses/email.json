@@ -1,0 +1,59 @@
+{
+  "title": "email",
+  "icon": "mail",
+  "items": [
+    {
+      "name": "Betterbird",
+      "descriptionKey": "desktopEmail",
+      "link": "https://www.betterbird.eu/"
+    },
+    {
+      "name": "Spark",
+      "descriptionKey": "emailClient",
+      "link": "https://sparkmailapp.com/"
+    },
+    {
+      "name": "Zoho",
+      "descriptionKey": "domainEmail",
+      "link": "https://www.zoho.com/mail/"
+    },
+    {
+      "name": "Workflowy",
+      "descriptionKey": "taskManagement",
+      "link": "https://workflowy.com/"
+    },
+    {
+      "name": "Google Calendar",
+      "descriptionKey": "calendar"
+    },
+    {
+      "name": "Toggl",
+      "descriptionKey": "timeTracking",
+      "link": "https://toggl.com/"
+    },
+    {
+      "name": "Zapier",
+      "descriptionKey": "automationTool",
+      "link": "https://zapier.com/"
+    },
+    {
+      "name": "KDE Connect",
+      "descriptionKey": "phoneLinking",
+      "link": "https://kdeconnect.kde.org/"
+    },
+    {
+      "name": "Notesnook",
+      "descriptionKey": "noteTaking",
+      "link": "https://notesnook.com/"
+    },
+    {
+      "name": "Microsoft Office Online",
+      "descriptionKey": "officeSuite"
+    },
+    {
+      "name": "Self-hosted Nextcloud",
+      "descriptionKey": "cloudStorage",
+      "link": "https://nextcloud.com/"
+    }
+  ]
+}

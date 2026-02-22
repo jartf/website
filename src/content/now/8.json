@@ -1,0 +1,20 @@
+{
+  "id": 8,
+  "category": "studying",
+  "icon": "GraduationCap",
+  "content": {
+    "en": "International economics",
+    "vi": "Kinh tế đối ngoại",
+    "ru": "Международная экономика",
+    "et": "Rahvusvaheline majandus",
+    "da": "International økonomi",
+    "tr": "Uluslararası ekonomi",
+    "zh": "国际经济学",
+    "pl": "Ekonomia międzynarodowa",
+    "fi": "Kansainvälinen talous",
+    "sv": "Internationell ekonomi",
+    "tok": "sona mani pi ma ale",
+    "vi-Hani": "經濟對外"
+  },
+  "date": "2026-01-06T11:18:08+07:00"
+}

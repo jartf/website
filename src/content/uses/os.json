@@ -1,0 +1,20 @@
+{
+  "title": "os",
+  "icon": "globe",
+  "items": [
+    {
+      "name": "Fedora Linux / Windows 11",
+      "descriptionKey": "dualBoot"
+    },
+    {
+      "name": "Firefox",
+      "descriptionKey": "primaryBrowser",
+      "link": "https://www.mozilla.org/firefox/"
+    },
+    {
+      "name": "Brave",
+      "descriptionKey": "secondaryBrowser",
+      "link": "https://brave.com/"
+    }
+  ]
+}

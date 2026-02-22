@@ -1,0 +1,23 @@
+{
+  "title": "hardware",
+  "icon": "laptop",
+  "items": [
+    {
+      "name": "MSI Modern 15 (15.6\")",
+      "descriptionKey": "ryzen"
+    },
+    {
+      "name": "WD My Passport 1TB",
+      "descriptionKey": "externalHDD"
+    },
+    {
+      "name": "Leaven K780 RGB",
+      "descriptionKey": "mechanicalKeyboard"
+    },
+    {
+      "name": "Logitech G304",
+      "descriptionKey": "wirelessMouse",
+      "link": "https://www.logitechg.com/en-us/products/gaming-mice/g304-lightspeed-wireless-gaming-mouse.html"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "The Online webring",
+  "url": "https://webring.ghostk.id/online/",
+  "previous": "https://webring.ghostk.id/online/jarema/previous",
+  "random": "https://webring.ghostk.id/online/random",
+  "next": "https://webring.ghostk.id/online/jarema/next",
+  "description": "A webring for \"websites that are actively maintained and updated. No ghost towns here!\"",
+  "status": "active"
+}

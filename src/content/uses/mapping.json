@@ -1,0 +1,36 @@
+{
+  "title": "mapping",
+  "icon": "map",
+  "items": [
+    {
+      "name": "QGIS",
+      "descriptionKey": "geographicSystem",
+      "link": "https://qgis.org/"
+    },
+    {
+      "name": "iD Editor",
+      "descriptionKey": "webOpenstreetmap",
+      "link": "https://wiki.openstreetmap.org/wiki/ID"
+    },
+    {
+      "name": "JOSM",
+      "descriptionKey": "desktopOpenstreetmap",
+      "link": "https://josm.openstreetmap.de/"
+    },
+    {
+      "name": "Vespucci",
+      "descriptionKey": "mobileOpenstreetmap",
+      "link": "https://vespucci.io/"
+    },
+    {
+      "name": "StreetComplete",
+      "descriptionKey": "mobileContributor",
+      "link": "https://streetcomplete.app/"
+    },
+    {
+      "name": "Waze Map Editor",
+      "descriptionKey": "communityNavigation",
+      "link": "https://www.waze.com/en/user/editor/vanhv"
+    }
+  ]
+}

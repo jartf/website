@@ -1,0 +1,36 @@
+{
+  "title": "privacy",
+  "icon": "shield",
+  "items": [
+    {
+      "name": "Windscribe",
+      "descriptionKey": "vpn",
+      "link": "https://windscribe.com/"
+    },
+    {
+      "name": "Bitwarden",
+      "descriptionKey": "passwordManager",
+      "link": "https://bitwarden.com/"
+    },
+    {
+      "name": "Ente Auth",
+      "descriptionKey": "twoFactorAuth",
+      "link": "https://ente.io/"
+    },
+    {
+      "name": "RethinkDNS",
+      "descriptionKey": "dnsProvider",
+      "link": "https://rethinkdns.com/"
+    },
+    {
+      "name": "Brave Search",
+      "descriptionKey": "privacySearch",
+      "link": "https://search.brave.com/"
+    },
+    {
+      "name": "Tailscale",
+      "descriptionKey": "networkVpn",
+      "link": "https://tailscale.com/"
+    }
+  ]
+}
