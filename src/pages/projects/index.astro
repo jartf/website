@@ -1,7 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { projects, type ProjectContent } from "@/content/project-items";
+import type { ProjectContent, Project } from "@/content/project-items";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+const projects: Project[] = (await getCollection("projects")).map((e: CollectionEntry<"projects">) => e.data);
 
 const lang = Astro.locals?.lang || "en";
 const k = lang as keyof ProjectContent;

@@ -1,6 +1,9 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { nowItems } from "@/content/now-items";
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { NowItem } from "@/content/now-items";
+
+const nowItems: NowItem[] = (await getCollection("now")).map((e: CollectionEntry<"now">) => e.data);
 ---
 
 <RetroLayout title="Now - Jarema's retro site">

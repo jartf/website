@@ -1,7 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { usesCategories } from "@/content/uses-items";
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { UsesCategory } from "@/content/uses-items";
+
+const usesCategories: UsesCategory[] = (await getCollection("uses")).map((e: CollectionEntry<"uses">) => e.data);
 import { t } from "@/i18n";
 
 const lang = Astro.locals?.lang || "en";

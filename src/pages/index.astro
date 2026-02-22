@@ -2,7 +2,10 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { routes, siteName, author, services } from "@/lib/constants";
-import { activeWebringItems } from "@/content/webring-items";
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { WebringItem } from "@/content/webring-items";
+
+const activeWebringItems: WebringItem[] = (await getCollection("webrings")).map((e: CollectionEntry<"webrings">) => e.data).filter((w: WebringItem) => w.status === "active");
 import MoodCat from "@/components/MoodCat.astro";
 import NowSection from "@/components/NowSection.astro";
 import RecentPosts from "@/components/RecentPosts.astro";

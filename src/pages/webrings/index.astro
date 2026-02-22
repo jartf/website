@@ -1,7 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { activeWebringItems, pendingWebringItems } from "@/content/webring-items";
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { WebringItem } from "@/content/webring-items";
+
+const allWebrings: WebringItem[] = (await getCollection("webrings")).map((e: CollectionEntry<"webrings">) => e.data);
+const activeWebringItems = allWebrings.filter(w => w.status === "active");
+const pendingWebringItems = allWebrings.filter(w => w.status === "pending");
 
 const navBtnClass = "px-4 py-2 rounded border hover:bg-primary/10 hover:border-primary transition-colors text-sm";
 ---

@@ -1,9 +1,12 @@
 ---
 // Now Section - displays recent activity items with i18n support
 // Server-side rendered with client-side progressive enhancement for Last.fm/PreMid
-import { nowItems, type NowItemContent, type NowItemContentOptional } from "@/content/now-items";
+import type { NowItemContent, NowItemContentOptional, NowItem } from "@/content/now-items";
 import T from "@/components/T.astro";
 import { translations } from "@/i18n";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+const nowItems: NowItem[] = (await getCollection("now")).map((e: CollectionEntry<"now">) => e.data);
 
 const lang = Astro.locals?.lang || "en";
 const k = lang as keyof NowItemContent;

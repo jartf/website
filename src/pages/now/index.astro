@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { nowItems } from "@/content/now-items";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { t } from "@/i18n";
-import type { NowItemContent, NowItemContentOptional } from "@/content/now-items";
+import type { NowItemContent, NowItemContentOptional, NowItem } from "@/content/now-items";
+
+const nowItems: NowItem[] = (await getCollection("now")).map((e: CollectionEntry<"now">) => e.data);
 
 const lang = Astro.locals?.lang || "en";
 const k = lang as keyof NowItemContent;

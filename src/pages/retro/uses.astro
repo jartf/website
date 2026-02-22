@@ -1,6 +1,10 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { usesCategories, usesDescriptions } from "@/content/uses-items";
+import { usesDescriptions } from "@/content/uses-items";
+import type { UsesCategory } from "@/content/uses-items";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+const usesCategories: UsesCategory[] = (await getCollection("uses")).map((e: CollectionEntry<"uses">) => e.data);
 ---
 
 <RetroLayout title="Uses - Jarema's Retro Site">
