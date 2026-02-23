@@ -14,25 +14,28 @@ import tok from "./translations/tok.json";
 import viHani from "./translations/vi-Hani.json";
 
 export { supportedLanguages, type SupportedLanguage } from "@/lib/constants";
-import { getNestedValue } from "./utils";
 
 export const translations: Record<string, Record<string, any>> = {
   en, vi, ru, et, da, tr, zh, pl, sv, fi, tok, "vi-Hani": viHani,
 };
 
-/** Translate a key for a given locale, with optional {{param}} substitution. */
+function getNestedValue(obj: Record<string, any>, path: string): string | undefined {
+  let cur: any = obj;
+  for (const k of path.split(".")) {
+    if (cur && typeof cur === "object" && k in cur) cur = cur[k];
+    else return undefined;
+  }
+  return typeof cur === "string" ? cur : undefined;
+}
+
 export function t(lang: string, key: string, params?: Record<string, string | number>): string {
-  const trans = translations[lang] || translations.en;
-  let value = getNestedValue(trans, key);
+  let value = getNestedValue(translations[lang] || translations.en, key);
   if (!value && lang !== "en") value = getNestedValue(translations.en, key);
   if (!value) return key;
   if (!params) return value;
-  let result = value;
-  for (const [k, v] of Object.entries(params)) result = result.replaceAll(`{{${k}}}`, String(v));
-  return result;
+  return Object.entries(params).reduce((s, [k, v]) => s.replaceAll(`{{${k}}}`, String(v)), value);
 }
 
-/** Map locale code to HTML lang attribute value. */
 export function htmlLang(locale: string): string {
   return locale;
 }

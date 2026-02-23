@@ -2,7 +2,6 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { hrefLangLanguages, supportedLanguages, siteDescription, siteName, siteUrl, author, type SupportedLanguage } from "@/lib/constants";
 import { escapeXml } from "@/lib/escape";
 
-// Shared static paths and language validation for feed routes
 export function feedStaticPaths() {
   return supportedLanguages.map((lang) => ({ params: { lang: lang.code } }));
 }
@@ -13,7 +12,6 @@ export function validateFeedLang(lang: string | undefined): lang is SupportedLan
   return !!lang && validLangCodes.has(lang as SupportedLanguage);
 }
 
-// Helper to get language name from code
 function getLanguageName(code: string): string {
   const lang = supportedLanguages.find((l) => l.code === code);
   return lang ? lang.name : code.toUpperCase();
@@ -207,7 +205,7 @@ export async function getAtomResponse(language?: string) {
 
   const feedUrl = language ? `${siteUrl}/atom/${language}.xml` : `${siteUrl}/atom.xml`;
 
-  return new Response(generateAtomFeed({ posts, title: feedTitle(language), description: siteDescription, language: language || "en", feedUrl }), {
+  return new Response(generateAtomFeed({ posts, title: feedTitle(language), description: feedDescription(language), language: language || "en", feedUrl }), {
     headers: cacheHeaders("application/atom+xml"),
   });
 }
