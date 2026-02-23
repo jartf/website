@@ -1,9 +1,8 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
-import type { Project } from "@/content/project-items";
+import { getData } from "@/lib/collections";
 
-const projects: Project[] = (await getCollection("projects")).map((e: CollectionEntry<"projects">) => e.data);
+const projects = await getData("projects");
 ---
 
 <RetroLayout title="Projects - Jarema's retro site">

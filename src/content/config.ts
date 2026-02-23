@@ -3,40 +3,36 @@
 
 import { defineCollection, z } from "astro:content";
 
-// Reusable i18n content schema (all languages required)
-const i18nContent = z.object({
-  en: z.string(),
-  vi: z.string(),
-  ru: z.string(),
-  et: z.string(),
-  da: z.string(),
-  tr: z.string(),
-  zh: z.string(),
-  pl: z.string(),
-  sv: z.string(),
-  fi: z.string(),
-  tok: z.string(),
-  'vi-Hani': z.string(),
+// Supported locales (shared shape for i18n content)
+const locales = ["en", "vi", "ru", "et", "da", "tr", "zh", "pl", "sv", "fi", "tok", "vi-Hani"] as const;
+type Locale = (typeof locales)[number];
+
+// i18n schemas
+const i18nContent = z.object(Object.fromEntries(locales.map(l => [l, z.string()])) as Record<Locale, z.ZodString>);
+const i18nContentOptional = z.object(
+  Object.fromEntries(locales.map(l => [l, l === "en" ? z.string() : z.string().optional()])) as
+    { en: z.ZodString } & Record<Exclude<Locale, "en">, z.ZodOptional<z.ZodString>>
+);
+
+// Shared item schema (name + optional description/link)
+const usesItem = z.object({
+  name: z.string(),
+  descriptionKey: z.string().optional(),
+  description: z.string().optional(),
+  link: z.string().optional(),
 });
 
-// Reusable i18n content schema (only en required)
-const i18nContentOptional = z.object({
-  en: z.string(),
-  vi: z.string().optional(),
-  ru: z.string().optional(),
-  et: z.string().optional(),
-  da: z.string().optional(),
-  tr: z.string().optional(),
-  zh: z.string().optional(),
-  pl: z.string().optional(),
-  sv: z.string().optional(),
-  fi: z.string().optional(),
-  tok: z.string().optional(),
-  'vi-Hani': z.string().optional(),
+const projectFields = z.object({
+  title: z.string(),
+  description: z.string(),
+  what: z.string(),
+  learned: z.string(),
+  why: z.string(),
 });
 
-// Blog posts collection
-const blogCollection = defineCollection({
+// --- Collection definitions ---
+
+const blog = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
@@ -50,24 +46,16 @@ const blogCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     category: z.string().nullable().optional(),
     draft: z.boolean().default(false),
-    alternates: z.array(z.object({
-      language: z.string(),
-      slug: z.string(),
-    })).optional(),
+    alternates: z.array(z.object({ language: z.string(), slug: z.string() })).optional(),
   }),
 });
 
-// Scrapbook collection with i18n support
-const scrapbookCollection = defineCollection({
+const scrapbook = defineCollection({
   type: "data",
-  schema: z.object({
-    date: z.coerce.date(),
-    content: i18nContentOptional,
-  }),
+  schema: z.object({ date: z.coerce.date(), content: i18nContentOptional }),
 });
 
-// Now items collection
-const nowCollection = defineCollection({
+const now = defineCollection({
   type: "data",
   schema: z.object({
     id: z.number(),
@@ -80,17 +68,7 @@ const nowCollection = defineCollection({
   }),
 });
 
-// Project fields schema
-const projectFields = z.object({
-  title: z.string(),
-  description: z.string(),
-  what: z.string(),
-  learned: z.string(),
-  why: z.string(),
-});
-
-// Projects collection
-const projectsCollection = defineCollection({
+const projects = defineCollection({
   type: "data",
   schema: z.object({
     id: z.number(),
@@ -102,33 +80,21 @@ const projectsCollection = defineCollection({
   }),
 });
 
-// Uses collection
-const usesCollection = defineCollection({
+const uses = defineCollection({
   type: "data",
   schema: z.object({
     title: z.string(),
     icon: z.string(),
-    items: z.array(z.object({
-      name: z.string(),
-      descriptionKey: z.string().optional(),
-      description: z.string().optional(),
-      link: z.string().optional(),
-    })),
+    items: z.array(usesItem),
     subsections: z.array(z.object({
       title: z.string(),
       icon: z.string().optional(),
-      items: z.array(z.object({
-        name: z.string(),
-        descriptionKey: z.string().optional(),
-        description: z.string().optional(),
-        link: z.string().optional(),
-      })),
+      items: z.array(usesItem),
     })).optional(),
   }),
 });
 
-// Webrings collection
-const webringsCollection = defineCollection({
+const webrings = defineCollection({
   type: "data",
   schema: z.object({
     name: z.string(),
@@ -141,11 +107,4 @@ const webringsCollection = defineCollection({
   }),
 });
 
-export const collections = {
-  blog: blogCollection,
-  scrapbook: scrapbookCollection,
-  now: nowCollection,
-  projects: projectsCollection,
-  uses: usesCollection,
-  webrings: webringsCollection,
-};
+export const collections = { blog, scrapbook, now, projects, uses, webrings };

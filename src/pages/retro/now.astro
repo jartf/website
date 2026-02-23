@@ -1,9 +1,12 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
-import type { NowItem } from "@/content/now-items";
+import { getData } from "@/lib/collections";
 
-const nowItems: NowItem[] = (await getCollection("now")).map((e: CollectionEntry<"now">) => e.data);
+const nowItems = await getData("now");
+const lastUpdated = nowItems.reduce((latest, item) => {
+  const d = new Date(item.date);
+  return d > latest ? d : latest;
+}, new Date(0));
 ---
 
 <RetroLayout title="Now - Jarema's retro site">
@@ -56,7 +59,7 @@ const nowItems: NowItem[] = (await getCollection("now")).map((e: CollectionEntry
   <center>
     <font size="2">
       <i>
-        Last updated: {new Date().toLocaleDateString('en-GB', {
+        Last updated: {lastUpdated.toLocaleDateString('en-GB', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',

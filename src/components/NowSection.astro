@@ -1,15 +1,14 @@
 ---
 // Now Section - displays recent activity items with i18n support
 // Server-side rendered with client-side progressive enhancement for Last.fm/PreMid
-import type { NowItemContent, NowItemContentOptional, NowItem } from "@/content/now-items";
 import T from "@/components/T.astro";
 import { translations } from "@/i18n";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getData, type I18nContent, type I18nContentOptional } from "@/lib/collections";
 
-const nowItems: NowItem[] = (await getCollection("now")).map((e: CollectionEntry<"now">) => e.data);
+const nowItems = await getData("now");
 
 const lang = Astro.locals?.lang || "en";
-const k = lang as keyof NowItemContent;
+const k = lang as keyof I18nContent;
 
 const categoryIcons: Record<string, string> = {
   listening: "🎧", premid: "🎮", planning: "📝", reading: "📖",
@@ -51,7 +50,7 @@ const getCategoryTranslation = (category: string) =>
           {item.contentSecondary ? (
             <div class="flex-1 min-w-0 overflow-hidden">
               <p class="now-text text-sm font-semibold break-words block">{item.content[k] || item.content.en}</p>
-              <p class="now-subtext text-sm text-muted-foreground break-words">{(item.contentSecondary as NowItemContentOptional)[k] || item.contentSecondary.en}</p>
+              <p class="now-subtext text-sm text-muted-foreground break-words">{(item.contentSecondary as I18nContentOptional)[k] || item.contentSecondary.en}</p>
             </div>
           ) : (
             <p class="now-text text-sm break-words min-w-0">{item.content[k] || item.content.en}</p>

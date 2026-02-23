@@ -1,10 +1,9 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { usesDescriptions } from "@/content/uses-items";
-import type { UsesCategory } from "@/content/uses-items";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { t } from "@/i18n";
+import { getData } from "@/lib/collections";
 
-const usesCategories: UsesCategory[] = (await getCollection("uses")).map((e: CollectionEntry<"uses">) => e.data);
+const usesCategories = await getData("uses");
 ---
 
 <RetroLayout title="Uses - Jarema's Retro Site">
@@ -56,7 +55,7 @@ const usesCategories: UsesCategory[] = (await getCollection("uses")).map((e: Col
             </td>
             <td>
               <font size="2">
-                {usesDescriptions.en[item.descriptionKey] || item.descriptionKey}
+                {t("en", `uses.itemDescriptions.${item.descriptionKey}`) || item.descriptionKey}
                 {item.link && (
                   <>
                     {' '}
@@ -77,7 +76,7 @@ const usesCategories: UsesCategory[] = (await getCollection("uses")).map((e: Col
               </td>
               <td>
                 <font size="2">
-                  {item.descriptionKey ? (usesDescriptions.en[item.descriptionKey] || item.descriptionKey) : item.description}
+                  {item.descriptionKey ? (t("en", `uses.itemDescriptions.${item.descriptionKey}`) || item.descriptionKey) : item.description}
                   {item.link && (
                     <>
                       {' '}

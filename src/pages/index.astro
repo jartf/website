@@ -2,16 +2,16 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { routes, siteName, author, services } from "@/lib/constants";
-import { getCollection, type CollectionEntry } from "astro:content";
-import type { WebringItem } from "@/content/webring-items";
-
-const activeWebringItems: WebringItem[] = (await getCollection("webrings")).map((e: CollectionEntry<"webrings">) => e.data).filter((w: WebringItem) => w.status === "active");
+import { getData } from "@/lib/collections";
 import MoodCat from "@/components/MoodCat.astro";
 import NowSection from "@/components/NowSection.astro";
 import RecentPosts from "@/components/RecentPosts.astro";
 
-const btnPrimary = "w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8";
-const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8";
+const activeWebringItems = (await getData("webrings")).filter(w => w.status === "active");
+
+const btnBase = "w-full sm:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-11 px-8";
+const btnPrimary = `${btnBase} bg-primary text-primary-foreground hover:bg-primary/90`;
+const btnSecondary = `${btnBase} border border-input bg-background hover:bg-accent hover:text-accent-foreground`;
 ---
 
 <BaseLayout title={siteName} isHomePage={true}>
@@ -45,7 +45,7 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
             <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-2xl font-bold mb-4 text-center" />
             <div class="border rounded-lg p-3 bg-card text-center flex-1 flex items-center justify-center">
               <a href={services.iMood.profileUrl} target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
-                <img src={services.iMood.widgetUrl} alt="My current mood, loaded from imood" class="inline-block h-[25px]" />
+                <img src={services.iMood.widgetUrl} alt="My current mood, loaded from imood" class="inline-block h-[25px]" width="80" height="25" loading="lazy" decoding="async" />
               </a>
             </div>
           </section>
@@ -130,7 +130,9 @@ const btnSecondary = "w-full sm:w-auto inline-flex items-center justify-center g
 
   const u = document.getElementById("statuscafe-username"), c = document.getElementById("statuscafe-content");
   if (u && c) {
-    fetch(`${statusCafeProfileUrl}/status.json`, { headers: { Accept: "application/json" } })
+    const ac = new AbortController();
+    setTimeout(() => ac.abort(), 5000);
+    fetch(`${statusCafeProfileUrl}/status.json`, { headers: { Accept: "application/json" }, signal: ac.signal })
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(r => {
         if (!r?.content?.length) return c.textContent = "No status yet.";

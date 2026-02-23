@@ -1,9 +1,8 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
-import type { WebringItem } from "@/content/webring-items";
+import { getData } from "@/lib/collections";
 
-const allWebrings: WebringItem[] = (await getCollection("webrings")).map((e: CollectionEntry<"webrings">) => e.data);
+const allWebrings = await getData("webrings");
 const activeWebringItems = allWebrings.filter(w => w.status === "active");
 const pendingWebringItems = allWebrings.filter(w => w.status === "pending");
 ---

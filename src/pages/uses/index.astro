@@ -1,10 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
-import type { UsesCategory } from "@/content/uses-items";
+import { getData } from "@/lib/collections";
 
-const usesCategories: UsesCategory[] = (await getCollection("uses")).map((e: CollectionEntry<"uses">) => e.data);
+const usesCategories = await getData("uses");
 import { t } from "@/i18n";
 
 const lang = Astro.locals?.lang || "en";
@@ -69,7 +68,7 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
                 </div>
                 <div class="space-y-4 ml-4">
                   {subsection.items.map((item) => isHiddenPlatform(item.name) ? (
-                    <div class="flex items-start gap-3 cursor-pointer group hidden-platform" data-platform={getHiddenPlatform(item.name)} data-clicks="0">
+                    <div class="flex items-start gap-3 cursor-pointer group hidden-platform" data-platform={getHiddenPlatform(item.name)} data-clicks="0" role="button" tabindex="0" aria-label="Hidden platform - click 5 times to reveal">
                       <div class="flex-shrink-0 mt-1.5 w-3 h-3 rounded-full bg-primary" />
                       <div class="flex-1">
                         <h4 class="text-lg font-medium flex items-center gap-2">
@@ -120,8 +119,15 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
     document.querySelectorAll('.hidden-platform').forEach((el) => {
       const platform = el.getAttribute('data-platform');
       if (!platform) return;
+      const key: string = platform;
 
-      el.addEventListener('click', () => {
+      el.addEventListener('click', handleReveal);
+      el.addEventListener('keydown', (e) => {
+        const ke = e as KeyboardEvent;
+        if (ke.key === 'Enter' || ke.key === ' ') { e.preventDefault(); handleReveal(); }
+      });
+
+      function handleReveal() {
         let clicks = parseInt(el.getAttribute('data-clicks') || '0') + 1;
         el.setAttribute('data-clicks', String(clicks));
 
@@ -131,7 +137,7 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
         if (remaining > 0 && counter) {
           counter.textContent = `(${remaining} click${remaining === 1 ? '' : 's'} to reveal)`;
         } else if (clicks >= 5) {
-          const data = platformData[platform];
+          const data = platformData[key];
           if (data) {
             const nameEl = el.querySelector('.platform-name');
             if (nameEl) {
@@ -186,7 +192,7 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
             el.classList.remove('cursor-pointer');
           }
         }
-      });
+      }
     });
   }
 

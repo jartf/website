@@ -1,14 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
 import { t } from "@/i18n";
-import type { NowItemContent, NowItemContentOptional, NowItem } from "@/content/now-items";
+import { getData, type I18nContent, type I18nContentOptional } from "@/lib/collections";
 
-const nowItems: NowItem[] = (await getCollection("now")).map((e: CollectionEntry<"now">) => e.data);
+const nowItems = await getData("now");
 
 const lang = Astro.locals?.lang || "en";
-const k = lang as keyof NowItemContent;
+const k = lang as keyof I18nContent;
 const iconMap: Record<string, string> = {
   Headphones: "🎧", BookOpen: "📚", Code: "💻", Coffee: "☕",
   Brain: "🧠", GraduationCap: "🎓", Activity: "📡", Lightbulb: "💡",
@@ -62,7 +61,7 @@ const sortedItems = [...nowItems].sort((a, b) => new Date(b.date).getTime() - ne
                   {item.contentSecondary ? (
                     <div class="flex-1 min-w-0 overflow-hidden">
                       <p class="now-text font-semibold break-words block">{item.content[k] || item.content.en}</p>
-                      <p class="now-subtext text-sm text-muted-foreground break-words">{(item.contentSecondary as NowItemContentOptional)[k] || item.contentSecondary.en}</p>
+                      <p class="now-subtext text-sm text-muted-foreground break-words">{(item.contentSecondary as I18nContentOptional)[k] || item.contentSecondary.en}</p>
                     </div>
                   ) : (
                     <p class="now-text min-w-0">{item.content[k] || item.content.en}</p>
