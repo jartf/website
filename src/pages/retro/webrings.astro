@@ -1,6 +1,6 @@
 ---
 import RetroLayout from "@/layouts/RetroLayout.astro";
-import { getData } from "@/lib/collections";
+import { getData } from "@/content/config";
 
 const allWebrings = await getData("webrings");
 const activeWebringItems = allWebrings.filter(w => w.status === "active");

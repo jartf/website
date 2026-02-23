@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
-import { getData } from "@/lib/collections";
+import { getData } from "@/content/config";
 
 const allWebrings = await getData("webrings");
 const activeWebringItems = allWebrings.filter(w => w.status === "active");
