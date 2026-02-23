@@ -6,9 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { t as i18nT } from '@/i18n/client'
 import { useGame2048, getTileColor, getFontSize } from '@/hooks/use-game-2048'
 
-// Size of each tile for animation calculations
-const tileSize = 80 // Approximate size including gap
-
 export default function Game2048() {
   const t = useCallback((key: string, fallback?: string): string => {
     const fullKey = `2048.${key}`
@@ -23,7 +20,6 @@ export default function Game2048() {
     gameOver,
     gameWon,
     history,
-    animatingTiles,
     isAnimating,
     undoMove,
     processMove,
@@ -117,41 +113,21 @@ export default function Game2048() {
                 className="grid grid-cols-4 gap-2 bg-muted rounded-lg p-2 w-[min(80vw,340px)]"
               >
                 {board.map((row, rowIndex) =>
-                  row.map((cell, colIndex) => {
-                    const key = `${rowIndex}-${colIndex}-${cell}`
-                    const animation = animatingTiles[key]
-
-                    const initialX = animation ? (animation.from.col - colIndex) * tileSize : 0
-                    const initialY = animation ? (animation.from.row - rowIndex) * tileSize : 0
-
-                    return (
-                      <motion.div
-                        key={key}
-                        className={`
-                          w-16 h-16 sm:w-20 sm:h-20 rounded-lg flex items-center justify-center
-                          ${getTileColor(cell, isDark)}
-                          ${getFontSize(cell)}
-                        `}
-                        initial={
-                          animation
-                            ? { x: initialX, y: initialY, scale: animation.merged ? 0.8 : 1 }
-                            : cell ? { scale: 0 } : { scale: 1 }
-                        }
-                        animate={{ x: 0, y: 0, scale: 1 }}
-                        transition={{ duration: 0.15, ease: animation?.merged ? 'easeOut' : 'easeInOut' }}
-                      >
-                        {cell > 0 && (
-                          <motion.span
-                            className="font-bold"
-                            animate={animation?.merged ? { scale: [1, 1.2, 1] } : {}}
-                            transition={{ duration: 0.15, times: [0, 0.5, 1], ease: 'easeInOut' }}
-                          >
-                            {cell}
-                          </motion.span>
-                        )}
-                      </motion.div>
-                    )
-                  })
+                  row.map((cell, colIndex) => (
+                    <motion.div
+                      key={`${rowIndex}-${colIndex}-${cell}`}
+                      className={`
+                        w-16 h-16 sm:w-20 sm:h-20 rounded-lg flex items-center justify-center
+                        ${getTileColor(cell, isDark)}
+                        ${getFontSize(cell)}
+                      `}
+                      initial={cell ? { scale: 0 } : { scale: 1 }}
+                      animate={{ x: 0, y: 0, scale: 1 }}
+                      transition={{ duration: 0.15, ease: 'easeInOut' }}
+                    >
+                      {cell > 0 && <span className="font-bold">{cell}</span>}
+                    </motion.div>
+                  ))
                 )}
               </div>
 

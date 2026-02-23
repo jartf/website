@@ -1,15 +1,8 @@
-// 2048 game hook - ported from Next.js v4
+// 2048 game hook
 import { useState, useEffect, useCallback } from 'react'
 
 // Types
 export type GameBoard = number[][]
-export type TileAnimation = {
-  from: { row: number; col: number }
-  merged: boolean
-}
-export type TileAnimations = {
-  [key: string]: TileAnimation
-}
 export type GameState = {
   board: GameBoard
   score: number
@@ -17,16 +10,13 @@ export type GameState = {
 export type MoveResult = {
   newBoard: GameBoard
   score: number
-  tileAnimations: TileAnimations
 }
 
-// Initialize empty board
 export const createEmptyBoard = (): GameBoard =>
   Array(4)
     .fill(0)
     .map(() => Array(4).fill(0))
 
-// Add a random tile (2 or 4) to the board
 export const addRandomTile = (board: GameBoard): GameBoard => {
   const newBoard = board.map((row) => [...row])
   const emptyCells = []
@@ -47,7 +37,6 @@ export const addRandomTile = (board: GameBoard): GameBoard => {
   return newBoard
 }
 
-// Check if two boards are equal
 export const areEqual = (board1: GameBoard, board2: GameBoard): boolean => {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
@@ -59,7 +48,6 @@ export const areEqual = (board1: GameBoard, board2: GameBoard): boolean => {
   return true
 }
 
-// Check if there are any valid moves left
 export const hasValidMoves = (board: GameBoard): boolean => {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
@@ -78,7 +66,6 @@ export const hasValidMoves = (board: GameBoard): boolean => {
   return false
 }
 
-// Check if the player has won
 export const hasWon = (board: GameBoard): boolean => {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
@@ -88,42 +75,38 @@ export const hasWon = (board: GameBoard): boolean => {
   return false
 }
 
-// Slide and merge a single line toward index 0
-function processLine(line: number[]): { result: number[]; score: number; mergedIndices: number[] } {
+function processLine(line: number[]): { result: number[]; score: number } {
   let filtered = line.filter((v) => v !== 0)
   let score = 0
-  const mergedIndices: number[] = []
+  const merged = new Set<number>()
 
   for (let i = 0; i < filtered.length - 1; i++) {
-    if (filtered[i] === filtered[i + 1] && !mergedIndices.includes(i)) {
+    if (filtered[i] === filtered[i + 1] && !merged.has(i)) {
       filtered[i] *= 2
       score += filtered[i]
       filtered[i + 1] = 0
-      mergedIndices.push(i)
+      merged.add(i)
     }
   }
 
   filtered = filtered.filter((v) => v !== 0)
   while (filtered.length < 4) filtered.push(0)
-  return { result: filtered, score, mergedIndices }
+  return { result: filtered, score }
 }
 
-// Extract a row or column from the board
 function getLine(board: GameBoard, index: number, vertical: boolean): number[] {
   return vertical ? [0, 1, 2, 3].map((i) => board[i][index]) : [...board[index]]
 }
 
-// Write a row or column back to the board
 function setLine(board: GameBoard, index: number, vertical: boolean, line: number[]) {
   if (vertical) { for (let i = 0; i < 4; i++) board[i][index] = line[i] }
   else { board[index] = line }
 }
 
-// Generic move: vertical=false for left/right, vertical=true for up/down, reverse=true for right/down
+// vertical=false for left/right, vertical=true for up/down, reverse=true for right/down
 function move(board: GameBoard, vertical: boolean, reverse: boolean): MoveResult {
   const newBoard = board.map((row) => [...row])
   let score = 0
-  const tileAnimations: TileAnimations = {}
 
   for (let i = 0; i < 4; i++) {
     let line = getLine(newBoard, i, vertical)
@@ -134,16 +117,14 @@ function move(board: GameBoard, vertical: boolean, reverse: boolean): MoveResult
     setLine(newBoard, i, vertical, result)
   }
 
-  return { newBoard, score, tileAnimations }
+  return { newBoard, score }
 }
 
-// Move functions
 export const moveLeft = (board: GameBoard): MoveResult => move(board, false, false)
 export const moveRight = (board: GameBoard): MoveResult => move(board, false, true)
 export const moveUp = (board: GameBoard): MoveResult => move(board, true, false)
 export const moveDown = (board: GameBoard): MoveResult => move(board, true, true)
 
-// Get tile color based on value
 export const getTileColor = (value: number, isDark: boolean): string => {
   const colors: Record<number, string> = {
     0: 'bg-transparent',
@@ -169,7 +150,6 @@ export const getTileColor = (value: number, isDark: boolean): string => {
     : 'bg-gradient-to-br from-purple-300 to-pink-300 text-purple-900')
 }
 
-// Get font size based on digit count
 export const getFontSize = (value: number): string => {
   if (value === 0) return 'text-2xl'
   const digits = Math.floor(Math.log10(value)) + 1
@@ -180,7 +160,6 @@ export const getFontSize = (value: number): string => {
   return 'text-sm'
 }
 
-// Main hook
 export function useGame2048() {
   const [board, setBoard] = useState<GameBoard>(() => addRandomTile(createEmptyBoard()))
   const [score, setScore] = useState(0)
@@ -188,7 +167,6 @@ export function useGame2048() {
   const [gameWon, setGameWon] = useState(false)
   const [hasWonBefore, setHasWonBefore] = useState(false)
   const [history, setHistory] = useState<GameState[]>([])
-  const [animatingTiles, setAnimatingTiles] = useState<TileAnimations>({})
   const [isAnimating, setIsAnimating] = useState(false)
 
   const [bestScore, setBestScore] = useState<number>(() => {
@@ -197,7 +175,6 @@ export function useGame2048() {
     return saved ? parseInt(saved) : 0
   })
 
-  // Check for game over or win
   useEffect(() => {
     const currentHasWon = hasWon(board)
     const currentHasValidMoves = hasValidMoves(board)
@@ -216,7 +193,6 @@ export function useGame2048() {
     }
   }, [board, hasWonBefore])
 
-  // Save best score
   useEffect(() => {
     if (score > bestScore) {
       queueMicrotask(() => {
@@ -226,7 +202,6 @@ export function useGame2048() {
     }
   }, [score, bestScore])
 
-  // Save to history
   const saveToHistory = useCallback((currentBoard: GameBoard, currentScore: number) => {
     setHistory((prev) => {
       const newHistory = [...prev, { board: currentBoard.map((row) => [...row]), score: currentScore }]
@@ -237,7 +212,6 @@ export function useGame2048() {
     })
   }, [])
 
-  // Undo
   const undoMove = useCallback(() => {
     if (history.length === 0 || isAnimating) return
 
@@ -249,7 +223,6 @@ export function useGame2048() {
     if (gameOver) setGameOver(false)
   }, [history, isAnimating, gameOver])
 
-  // Process move
   const processMove = useCallback((direction: 'left' | 'right' | 'up' | 'down') => {
     if (gameOver || isAnimating) return
 
@@ -274,7 +247,6 @@ export function useGame2048() {
     if (result && !areEqual(oldBoard, result.newBoard)) {
       saveToHistory(oldBoard, score)
 
-      setAnimatingTiles(result.tileAnimations)
       setIsAnimating(true)
 
       setScore((prevScore) => prevScore + result.score)
@@ -286,7 +258,6 @@ export function useGame2048() {
     }
   }, [gameOver, isAnimating, board, score, saveToHistory])
 
-  // Reset game
   const resetGame = useCallback(() => {
     setBoard(addRandomTile(createEmptyBoard()))
     setScore(0)
@@ -294,10 +265,8 @@ export function useGame2048() {
     setGameWon(false)
     setHasWonBefore(false)
     setHistory([])
-    setAnimatingTiles({})
   }, [])
 
-  // Continue after win
   const continueGame = useCallback(() => {
     setGameWon(false)
   }, [])
@@ -309,7 +278,6 @@ export function useGame2048() {
     gameOver,
     gameWon,
     history,
-    animatingTiles,
     isAnimating,
     undoMove,
     processMove,
