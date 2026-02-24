@@ -5,7 +5,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import ShareButtons from "@/components/blog/ShareButtons.astro";
 import T from "@/components/T.astro";
 import { t } from "@/i18n";
-import { supportedLanguages, siteUrl, siteName, author, services, routes } from "@/lib/constants";
+import { supportedLanguages, siteUrl, siteName, author, routes } from "@/lib/constants";
 import { localePath } from "@/i18n/routing";
 
 const lang = Astro.locals?.lang || "en";
@@ -332,53 +332,12 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", { year: "numeric", mo
         <p class="text-sm text-muted-foreground"><T key="blog.webmentionsNone" /></p>
       )}
     </section>
-
-    <!-- Comments (Cusdis) -->
-    <section class="mt-12 pt-8 border-t" aria-labelledby="comments-heading">
-      <h2 id="comments-heading" class="text-2xl font-bold mb-6"><T key="blog.comments" /></h2>
-      <div
-        id="cusdis_thread"
-        class="[&_iframe]:min-h-[380px] [&_iframe]:w-full"
-        data-host={services.cusdis.host}
-        data-app-id={services.cusdis.appId}
-        data-page-id={post.slug}
-        data-page-url={postUrl}
-        data-page-title={title}
-        data-theme="dark"
-      />
-    </section>
   </article>
 </BaseLayout>
 
 <script>
   import { getPageLocale } from "@/i18n/client";
-  import { services } from "@/lib/constants";
   import { updateDateElements } from "@/lib/timezone-utils";
 
-  declare global {
-    interface Window {
-      CUSDIS?: { initial: () => void };
-    }
-  }
-
   updateDateElements(document, getPageLocale());
-
-  // Load Cusdis
-  const script = document.createElement("script");
-  script.src = services.cusdis.scriptUrl;
-  script.async = true;
-  script.defer = true;
-  document.body.appendChild(script);
-  script.onload = () => window.CUSDIS?.initial();
-
-  // Cusdis theme sync
-  const cusdisEl = document.getElementById("cusdis_thread");
-  if (cusdisEl) {
-    const syncTheme = () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      cusdisEl.setAttribute("data-theme", isDark ? "dark" : "auto");
-    };
-    new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    syncTheme();
-  }
 </script>
