@@ -4,6 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import ShareButtons from "@/components/blog/ShareButtons.astro";
 import T from "@/components/T.astro";
+import { t } from "@/i18n";
 import { supportedLanguages, siteUrl, siteName, author, services, routes } from "@/lib/constants";
 import { localePath } from "@/i18n/routing";
 
@@ -23,107 +24,120 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+const { title, excerpt, date, updated, language, tags, category, readingTime, mood, catApproved, alternates } = post.data;
 
 const postUrl = Astro.url.href;
-const postLang = post.data.language ?? "en";
-const postInLanguage = postLang;
+const postLang = language ?? "en";
+const description = excerpt || `Read "${title}" on ${siteName}.`;
 
+// Structured data
 const blogPostingStructuredData: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "@id": `${postUrl}#blogposting`,
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": postUrl,
-  },
-  headline: post.data.title,
-  description: post.data.excerpt || `Read "${post.data.title}" on ${siteName}.`,
-  datePublished: post.data.date.toISOString(),
-  inLanguage: postInLanguage,
+  mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
+  headline: title,
+  description,
+  datePublished: date.toISOString(),
+  inLanguage: postLang,
   url: postUrl,
   author: { "@id": `${siteUrl}/#person` },
   publisher: { "@id": `${siteUrl}/#person` },
   image: [`${siteUrl}/android-chrome-512x512.png`],
   isAccessibleForFree: true,
+  ...(updated && { dateModified: updated.toISOString() }),
+  ...(tags?.length && { keywords: tags.join(", ") }),
+  ...(category && { articleSection: category }),
+  ...(readingTime && { timeRequired: `PT${Math.max(1, Math.round(readingTime))}M` }),
 };
 
-if (post.data.updated) {
-  blogPostingStructuredData.dateModified = post.data.updated.toISOString();
-}
-
-if (post.data.tags?.length) {
-  blogPostingStructuredData.keywords = post.data.tags.join(", ");
-}
-
-if (post.data.category) {
-  blogPostingStructuredData.articleSection = post.data.category;
-}
-
-if (post.data.readingTime) {
-  blogPostingStructuredData.timeRequired = `PT${Math.max(1, Math.round(post.data.readingTime))}M`;
-}
-
-// Get all posts for navigation
+// Post navigation
 const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
 const sortedPosts = allPosts.sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  b.data.date.getTime() - a.data.date.getTime()
 );
 const currentIndex = sortedPosts.findIndex((p: CollectionEntry<"blog">) => p.slug === post.slug);
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+
+// Webmentions
+interface WebmentionAuthor {
+  type?: string;
+  name?: string;
+  url?: string;
+  photo?: string;
+}
+interface Webmention {
+  type?: string;
+  author?: WebmentionAuthor;
+  url?: string;
+  published?: string;
+  "wm-received"?: string;
+  "wm-id"?: number;
+  "wm-property"?: string;
+  content?: { text?: string; html?: string };
+}
+
+const webmentionTarget = postUrl.endsWith("/") ? postUrl : `${postUrl}/`;
+let webmentions: Webmention[] = [];
+try {
+  const wmResponse = await fetch(`https://webmention.io/api/mentions.jf2?target=${encodeURI(webmentionTarget)}`);
+  if (wmResponse.ok) {
+    const wmJson = await wmResponse.json();
+    webmentions = wmJson.children ?? [];
+  }
+} catch { /* silently fail — webmentions are non-critical */ }
+
+const wmLikes = webmentions.filter((wm) => wm["wm-property"] === "like-of");
+const wmReposts = webmentions.filter((wm) => wm["wm-property"] === "repost-of");
+const wmReplies = webmentions.filter((wm) => wm["wm-property"] === "in-reply-to");
+const wmMentions = webmentions.filter((wm) => wm["wm-property"] === "mention-of");
+const hasWebmentions = webmentions.length > 0;
+
+// Helper: format date for display
+const formatDate = (d: Date) => d.toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" });
 ---
 
-<BaseLayout
-  title={post.data.title}
-  description={post.data.excerpt || `Read "${post.data.title}" on ${siteName}.`}
-  lang={post.data.language ?? 'en'}
-  structuredData={blogPostingStructuredData}
->
+<BaseLayout title={title} description={description} lang={postLang} structuredData={blogPostingStructuredData}>
   <article class="h-entry container mx-auto px-4 py-8 lg:py-12 max-w-3xl">
     <header class="mb-8">
-      <div class="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+      <div class="text-sm text-muted-foreground mb-4">
         <a href={localePath(lang, routes.blog)} class="hover:text-primary transition-colors">
           ← <T key="blog.back" />
         </a>
       </div>
 
-      <h1 class="p-name text-3xl md:text-4xl font-bold mb-4">{post.data.title}</h1>
-      {post.data.excerpt && (
-        <p class="p-summary hidden">{post.data.excerpt}</p>
-      )}
-      <a href={`${postUrl}/`} class="u-url u-uid hidden" aria-hidden="true">{`${postUrl}`}</a>
+      <h1 class="p-name text-3xl md:text-4xl font-bold mb-4">{title}</h1>
+      {excerpt && <p class="p-summary hidden">{excerpt}</p>}
+      <a href={postUrl} class="u-url u-uid hidden" aria-hidden="true">{postUrl}</a>
 
       <div class="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-        <time class="dt-published" datetime={post.data.date.toISOString()} data-date={post.data.date.toISOString()}>
-          {post.data.date.toLocaleDateString('en', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
+        <time class="dt-published" datetime={date.toISOString()} data-date={date.toISOString()}>
+          {formatDate(date)}
         </time>
-        {post.data.updated && (
-          <time class="dt-updated hidden" datetime={post.data.updated.toISOString()}>{post.data.updated.toISOString()}</time>
+        {updated && (
+          <time class="dt-updated hidden" datetime={updated.toISOString()}>{updated.toISOString()}</time>
         )}
-        <span>•</span>
-        <span><span id="reading-time-value">{post.data.readingTime || 5}</span> <T key="blog.minRead" /></span>
-        {post.data.mood && (
+        <span aria-hidden="true">•</span>
+        <span><span id="reading-time-value">{readingTime || 5}</span> <T key="blog.minRead" /></span>
+        {mood && (
           <>
-            <span>•</span>
-            <span><T key="blog.mood" />: {post.data.mood}</span>
+            <span aria-hidden="true">•</span>
+            <span><T key="blog.mood" />: {mood}</span>
           </>
         )}
-        {post.data.catApproved && (
+        {catApproved && (
           <>
-            <span>•</span>
-            <span title="Cat approved!">🐱 ✓</span>
+            <span aria-hidden="true">•</span>
+            <span title="Cat approved!" aria-label="Cat approved">🐱 ✓</span>
           </>
         )}
       </div>
 
-      {post.data.tags && post.data.tags.length > 0 && (
-        <div class="flex gap-2 flex-wrap mt-4">
-          {post.data.tags.map((tag: string) => (
-            <span class="p-category text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
+      {tags?.length && (
+        <div class="flex gap-2 flex-wrap mt-4" role="list" aria-label="Tags">
+          {tags.map((tag: string) => (
+            <span role="listitem" class="p-category text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
               {tag}
             </span>
           ))}
@@ -131,20 +145,18 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       )}
 
       <div class="mt-6">
-        <ShareButtons title={post.data.title} url={`${postUrl}`} />
+        <ShareButtons title={title} url={postUrl} />
       </div>
 
-      {post.data.alternates && post.data.alternates.length > 0 && (
+      {alternates?.length && (
         <div class="mt-4 p-3 rounded-lg bg-muted/50 border">
           <T key="blog.availableIn" class="text-sm text-muted-foreground" />
           <span class="text-sm text-muted-foreground"> </span>
-          {post.data.alternates.map((alt: { slug: string; language: string }, i: number) => (
+          {alternates.map((alt: { slug: string; language: string }, i: number) => (
             <>
-              <a
-                href={`/blog/${alt.slug}/`}
-                class="text-sm text-primary hover:underline"
-              >
-                {supportedLanguages.find(l => l.code === alt.language)?.name || alt.language.toUpperCase()}</a>{i < post.data.alternates!.length - 1 && <span class="text-muted-foreground">, </span>}
+              <a href={`/blog/${alt.slug}/`} class="text-sm text-primary hover:underline">
+                {supportedLanguages.find((l) => l.code === alt.language)?.name || alt.language.toUpperCase()}
+              </a>{i < alternates.length - 1 && <span class="text-muted-foreground">, </span>}
             </>
           ))}
         </div>
@@ -163,96 +175,210 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     <nav class="mt-12 pt-8 border-t" aria-label="Post navigation">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {prevPost && (
-          <a
-            href={localePath(lang, `/blog/${prevPost.slug}/`)}
-            class="group p-4 border rounded-lg hover:border-primary/50 transition-colors"
-          >
+          <a href={localePath(lang, `/blog/${prevPost.slug}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors">
             <span class="text-xs text-muted-foreground">← </span>
             <T key="blog.prev" class="text-xs text-muted-foreground" />
-            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">
-              {prevPost.data.title}
-            </p>
+            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">{prevPost.data.title}</p>
           </a>
         )}
         {nextPost && (
-          <a
-            href={localePath(lang, `/blog/${nextPost.slug}/`)}
-            class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto"
-          >
+          <a href={localePath(lang, `/blog/${nextPost.slug}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto">
             <T key="blog.next" class="text-xs text-muted-foreground" />
             <span class="text-xs text-muted-foreground"> →</span>
-            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">
-              {nextPost.data.title}
-            </p>
+            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">{nextPost.data.title}</p>
           </a>
         )}
       </div>
     </nav>
 
-    <!-- Comments section (Cusdis) -->
-    <section class="mt-12 pt-8 border-t">
-      <h2 class="text-2xl font-bold mb-6"><T key="blog.comments" /></h2>
+    <!-- Webmentions -->
+    <section class="mt-12 pt-8 border-t" aria-labelledby="webmentions-heading">
+      <h2 id="webmentions-heading" class="text-2xl font-bold mb-6"><T key="blog.webmentions" /></h2>
+
+      {hasWebmentions ? (
+        <div class="space-y-8">
+          {/* Likes */}
+          {wmLikes.length > 0 && (
+            <div>
+              <h3 class="text-sm font-semibold text-muted-foreground mb-3">❤️ {wmLikes.length} {t(lang, "blog.webmentionLike")}</h3>
+              <div class="flex flex-wrap gap-1" role="list" aria-label={t(lang, "blog.webmentionLike")}>
+                {wmLikes.map((wm) => (
+                  <a
+                    role="listitem"
+                    href={wm.author?.url || wm.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={wm.author?.name || "Anonymous"}
+                    class="block"
+                  >
+                    {wm.author?.photo ? (
+                      <img
+                        src={wm.author.photo}
+                        alt={wm.author?.name || "Anonymous"}
+                        width="32"
+                        height="32"
+                        class="rounded-full"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-muted text-xs font-medium">
+                        {(wm.author?.name || "?")[0]}
+                      </span>
+                    )}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Reposts */}
+          {wmReposts.length > 0 && (
+            <div>
+              <h3 class="text-sm font-semibold text-muted-foreground mb-3">🔁 {wmReposts.length} {t(lang, "blog.webmentionRepost")}</h3>
+              <div class="flex flex-wrap gap-1" role="list" aria-label={t(lang, "blog.webmentionRepost")}>
+                {wmReposts.map((wm) => (
+                  <a
+                    role="listitem"
+                    href={wm.author?.url || wm.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={wm.author?.name || "Anonymous"}
+                    class="block"
+                  >
+                    {wm.author?.photo ? (
+                      <img
+                        src={wm.author.photo}
+                        alt={wm.author?.name || "Anonymous"}
+                        width="32"
+                        height="32"
+                        class="rounded-full"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-muted text-xs font-medium">
+                        {(wm.author?.name || "?")[0]}
+                      </span>
+                    )}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Replies */}
+          {wmReplies.length > 0 && (
+            <div>
+              <h3 class="text-sm font-semibold text-muted-foreground mb-3">💬 {wmReplies.length} {t(lang, "blog.webmentionReply")}</h3>
+              <ol class="space-y-4" aria-label={t(lang, "blog.webmentionReply")}>
+                {wmReplies.map((wm) => (
+                  <li class="flex gap-3 p-3 rounded-lg bg-muted/30">
+                    <a href={wm.author?.url} target="_blank" rel="noopener noreferrer" class="shrink-0">
+                      {wm.author?.photo ? (
+                        <img src={wm.author.photo} alt="" width="40" height="40" class="rounded-full" loading="lazy" />
+                      ) : (
+                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-muted text-sm font-medium">
+                          {(wm.author?.name || "?")[0]}
+                        </span>
+                      )}
+                    </a>
+                    <div class="min-w-0">
+                      <div class="flex items-baseline gap-2 text-sm">
+                        <a href={wm.author?.url} target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline truncate">
+                          {wm.author?.name || "Anonymous"}
+                        </a>
+                        {wm.published && (
+                          <time class="text-xs text-muted-foreground shrink-0" datetime={wm.published}>
+                            {formatDate(new Date(wm.published))}
+                          </time>
+                        )}
+                      </div>
+                      {wm.content?.text && (
+                        <p class="mt-1 text-sm text-muted-foreground line-clamp-3">{wm.content.text}</p>
+                      )}
+                      {wm.url && (
+                        <a href={wm.url} target="_blank" rel="noopener noreferrer" class="text-xs text-primary hover:underline mt-1 inline-block">↗</a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {/* Generic mentions */}
+          {wmMentions.length > 0 && (
+            <div>
+              <h3 class="text-sm font-semibold text-muted-foreground mb-3">🔗 {wmMentions.length} {t(lang, "blog.webmentionMention")}</h3>
+              <ul class="space-y-2" aria-label={t(lang, "blog.webmentionMention")}>
+                {wmMentions.map((wm) => (
+                  <li class="flex items-center gap-2 text-sm">
+                    {wm.author?.photo ? (
+                      <img src={wm.author.photo} alt="" width="24" height="24" class="rounded-full" loading="lazy" />
+                    ) : (
+                      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-muted text-[10px] font-medium">
+                        {(wm.author?.name || "?")[0]}
+                      </span>
+                    )}
+                    <a href={wm.url} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline truncate">
+                      {wm.author?.name || wm.url}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ) : (
+        <p class="text-sm text-muted-foreground"><T key="blog.webmentionsNone" /></p>
+      )}
+    </section>
+
+    <!-- Comments (Cusdis) -->
+    <section class="mt-12 pt-8 border-t" aria-labelledby="comments-heading">
+      <h2 id="comments-heading" class="text-2xl font-bold mb-6"><T key="blog.comments" /></h2>
       <div
         id="cusdis_thread"
         class="[&_iframe]:min-h-[380px] [&_iframe]:w-full"
         data-host={services.cusdis.host}
         data-app-id={services.cusdis.appId}
         data-page-id={post.slug}
-        data-page-url={`${postUrl}`}
-        data-page-title={post.data.title}
+        data-page-url={postUrl}
+        data-page-title={title}
         data-theme="dark"
-      >
-      </div>
+      />
     </section>
   </article>
 </BaseLayout>
 
 <script>
-  import { getPageLocale } from '@/i18n/client';
-  import { services } from '@/lib/constants';
-  import { updateDateElements } from '@/lib/timezone-utils';
+  import { getPageLocale } from "@/i18n/client";
+  import { services } from "@/lib/constants";
+  import { updateDateElements } from "@/lib/timezone-utils";
 
-  // Declare CUSDIS on window
   declare global {
     interface Window {
-      CUSDIS?: {
-        initial: () => void;
-      };
+      CUSDIS?: { initial: () => void };
     }
   }
 
-  // Update dates with timezone + locale
   updateDateElements(document, getPageLocale());
 
-  // Load Cusdis script
-  const script = document.createElement('script');
+  // Load Cusdis
+  const script = document.createElement("script");
   script.src = services.cusdis.scriptUrl;
   script.async = true;
   script.defer = true;
   document.body.appendChild(script);
+  script.onload = () => window.CUSDIS?.initial();
 
-  script.onload = () => {
-    if (window.CUSDIS) {
-      window.CUSDIS.initial();
-    }
-  };
-
-  // Cusdis theme management
-  const cusdisEl = document.getElementById('cusdis_thread');
+  // Cusdis theme sync
+  const cusdisEl = document.getElementById("cusdis_thread");
   if (cusdisEl) {
-    const updateCusdisTheme = () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      // If site is in dark mode, use dark theme
-      // If site is in light mode, use auto to let Cusdis follow system preference
-      const cusdisTheme = isDark ? 'dark' : 'auto';
-      cusdisEl.setAttribute('data-theme', cusdisTheme);
+    const syncTheme = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      cusdisEl.setAttribute("data-theme", isDark ? "dark" : "auto");
     };
-
-    // Watch for theme changes
-    const themeObserver = new MutationObserver(updateCusdisTheme);
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    // Initial update
-    updateCusdisTheme();
+    new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    syncTheme();
   }
 </script>
