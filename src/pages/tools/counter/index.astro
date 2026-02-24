@@ -28,37 +28,42 @@ const inputCls = "mt-1 w-full px-3 py-1.5 text-sm rounded-lg border bg-card text
         <T key="textCounter.description" tag="p" class="text-lg text-muted-foreground max-w-2xl mx-auto" />
       </header>
 
-      {/* Language dropdown */}
-      <div class="mb-4">
-        <label for="text-lang" class="text-sm font-medium">{tl("textLanguage")}</label>
-        <select id="text-lang" class="mt-1 block w-full sm:w-auto px-3 py-1.5 text-sm rounded-lg border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
-          {textLangs.map((code) => <option value={code}>{tl(`languages.${code}`)}</option>)}
-        </select>
-      </div>
-
-      {/* Speed chooser */}
-      <fieldset class="mb-4">
-        <T key="textCounter.speed.label" tag="legend" class="text-sm font-medium mb-2" />
-        <div class="flex flex-wrap gap-2 mb-3">
-          {speedPresets.map((s) => (
-            <button type="button" data-speed={s}
-              class:list={["speed-btn px-3 py-1.5 text-sm rounded-full border transition-colors", s === "average" && "bg-primary text-primary-foreground border-primary"]}>
-              {tl(`speed.${s}`)}
-            </button>
-          ))}
+      {/* Language + speed + WPM row on md */}
+      <div class="flex flex-col md:flex-row md:items-end gap-4 mb-4">
+        {/* Language dropdown */}
+        <div class="shrink-0">
+          <label for="text-lang" class="text-sm font-medium">{tl("textLanguage")}</label>
+          <select id="text-lang" class="mt-1 block w-full px-3 py-1.5 text-sm rounded-lg border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+            {textLangs.map((code) => <option value={code}>{tl(`languages.${code}`)}</option>)}
+          </select>
         </div>
-        <p id="speed-warn" class="text-xs text-yellow-600 dark:text-yellow-400 mb-3 hidden">{tl("speed.englishDefaultsWarning")}</p>
-        <div class="grid grid-cols-2 gap-3">
-          <label class="text-xs text-muted-foreground">
+
+        {/* Speed presets */}
+        <fieldset class="shrink-0">
+          <T key="textCounter.speed.label" tag="legend" class="text-sm font-medium mb-1" />
+          <div class="flex flex-wrap gap-2">
+            {speedPresets.map((s) => (
+              <button type="button" data-speed={s}
+                class:list={["speed-btn px-3 py-1.5 text-sm rounded-full border transition-colors", s === "average" && "bg-primary text-primary-foreground border-primary"]}>
+                {tl(`speed.${s}`)}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+
+        {/* WPM display */}
+        <div class="flex gap-3 grow">
+          <label class="text-xs text-muted-foreground grow">
             {tl("speed.readingWpm")}
             <input id="wpm-read" type="number" min="1" max="9999" value="225" readonly class={inputCls + " read-only:opacity-60"} />
           </label>
-          <label class="text-xs text-muted-foreground">
+          <label class="text-xs text-muted-foreground grow">
             {tl("speed.speakingWpm")}
             <input id="wpm-speak" type="number" min="1" max="9999" value="145" readonly class={inputCls + " read-only:opacity-60"} />
           </label>
         </div>
-      </fieldset>
+      </div>
+      <p id="speed-warn" class="text-xs text-yellow-600 dark:text-yellow-400 -mt-2 mb-4 hidden">{tl("speed.englishDefaultsWarning")}</p>
 
       {/* Advanced toggles */}
       <fieldset class="mb-6 hidden" id="advanced-section">
@@ -209,7 +214,7 @@ const inputCls = "mt-1 w-full px-3 py-1.5 text-sm rounded-lg border bg-card text
   toggleNoWords.addEventListener("change", () => { noWords = toggleNoWords.checked; update(); });
   toggleLinePara.addEventListener("change", () => { linePara = toggleLinePara.checked; update(); });
 
-  // WPM inputs (only editable in custom mode)
+  // WPM inputs, only editable in custom mode
   wpmRead.addEventListener("input", update);
   wpmSpeak.addEventListener("input", update);
 
