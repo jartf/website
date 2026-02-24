@@ -7,6 +7,7 @@ import T from "@/components/T.astro";
 import { t } from "@/i18n";
 import { supportedLanguages, siteUrl, siteName, author, routes } from "@/lib/constants";
 import { localePath } from "@/i18n/routing";
+import { dateFull } from "@/lib/timezone-utils";
 
 const lang = Astro.locals?.lang || "en";
 
@@ -95,7 +96,7 @@ const wmMentions = webmentions.filter((wm) => wm["wm-property"] === "mention-of"
 const hasWebmentions = webmentions.length > 0;
 
 // Helper: format date for display
-const formatDate = (d: Date) => d.toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" });
+const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
 ---
 
 <BaseLayout title={title} description={description} lang={postLang} structuredData={blogPostingStructuredData}>
@@ -337,7 +338,7 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", { year: "numeric", mo
 
 <script>
   import { getPageLocale } from "@/i18n/client";
-  import { updateDateElements } from "@/lib/timezone-utils";
+  import { updateDateElements, dateFull } from "@/lib/timezone-utils";
 
-  updateDateElements(document, getPageLocale());
+  updateDateElements(document, getPageLocale(), dateFull);
 </script>
