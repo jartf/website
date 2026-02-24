@@ -727,5 +727,59 @@
     "message": "Arama çubuğunu açmak için",
     "suffix": "tuşuna basabilirsin :D",
     "dismiss": "Kapat"
+  },
+  "textCounter": {
+    "title": "Metin sayacı",
+    "description": "Karakterleri, kelimeleri, cümleleri, paragrafları sayın ve konuşma/okuma süresini hesaplayın.",
+    "placeholder": "Yazmaya başlayın veya metninizi buraya yapıştırın...",
+    "clear": "Temizle",
+    "stats": {
+      "characters": "Karakterler",
+      "charactersNoSpaces": "Karakterler (boşluksuz)",
+      "words": "Kelimeler",
+      "sentences": "Cümleler",
+      "paragraphs": "Paragraflar",
+      "lines": "Satırlar",
+      "readingTime": "Okuma süresi",
+      "speakingTime": "Konuşma süresi"
+    },
+    "textLanguage": "Metin dili",
+    "languages": {
+      "en": "İngilizce",
+      "vi": "Vietnamca",
+      "et": "Estonca",
+      "zh": "Çince",
+      "ru": "Rusça",
+      "custom": "Diğer / özel",
+      "advanced": "Gelişmiş ayarlar"
+    },
+    "speed": {
+      "label": "Hız",
+      "slow": "Yavaş",
+      "average": "Orta",
+      "fast": "Hızlı",
+      "custom": "Özel",
+      "readingWpm": "Okuma (Kelime/Dakika)",
+      "speakingWpm": "Konuşma (Kelime/Dakika)",
+      "englishDefaultsWarning": "Süre hesaplayıcıları şu anda İngilizce varsayılan hızları kullanıyor. Tam değerleri girmek için \"Özel\" seçeneğine geçin."
+    },
+    "advanced": {
+      "title": "Gelişmiş ayarlar",
+      "disableWords": "Kelime sayımını devre dışı bırak",
+      "disableWordsDesc": "Logografik ve Brahmik diller için boşluklar kelimeleri ayırmaz.",
+      "newlineAsParagraph": "Her satırı bir paragraf olarak kabul et",
+      "newlineAsParagraphDesc": "Boş satırlar gerektirmek yerine tek satır sonlarını paragraf sonu olarak sayın. Satır sayacı gizlenecektir."
+    }
+  },
+  "tools": {
+    "title": "Araçlar",
+    "description": "Bazı kullanışlı araçlar. İhtiyaçlarıma tam olarak uyan hiçbir şey bulamadığım için.",
+    "items": {
+      "counter": {
+        "title": "Metin sayacı",
+        "icon": "🔤",
+        "description": "Karakterleri, kelimeleri, cümleleri, paragrafları sayın ve okuma/konuşma süresini tahmin edin."
+      }
+    }
   }
 }

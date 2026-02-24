@@ -715,5 +715,59 @@
     "message": "Du kan trycka på",
     "suffix": "-tangenten för att öppna sökfältet :D",
     "dismiss": "Dölj"
+  },
+  "textCounter": {
+    "title": "Texträknare",
+    "description": "Räkna tecken, ord, meningar, stycken och beräkna tal-/lästid.",
+    "placeholder": "Börja skriva eller klistra in din text här...",
+    "clear": "Rensa",
+    "stats": {
+      "characters": "Tecken",
+      "charactersNoSpaces": "Tecken (utan mellanslag)",
+      "words": "Ord",
+      "sentences": "Meningar",
+      "paragraphs": "Stycken",
+      "lines": "Rader",
+      "readingTime": "Lästid",
+      "speakingTime": "Taltid"
+    },
+    "textLanguage": "Textspråk",
+    "languages": {
+      "en": "Engelska",
+      "vi": "Vietnamesiska",
+      "et": "Estniska",
+      "zh": "Kinesiska",
+      "ru": "Ryska",
+      "custom": "Annat / anpassat",
+      "advanced": "Avancerade inställningar"
+    },
+    "speed": {
+      "label": "Hastighet",
+      "slow": "Långsam",
+      "average": "Medel",
+      "fast": "Snabb",
+      "custom": "Anpassad",
+      "readingWpm": "Läsning (ord per minut)",
+      "speakingWpm": "Tal (ord per minut)",
+      "englishDefaultsWarning": "Tidsberäkningarna använder för närvarande engelska standardhastigheter. Byt till \"Anpassad\" för att ange exakta värden."
+    },
+    "advanced": {
+      "title": "Avancerade inställningar",
+      "disableWords": "Inaktivera ordräkning",
+      "disableWordsDesc": "För logografiska och brahmiska språk skiljer inte mellanslag ord åt.",
+      "newlineAsParagraph": "Behandla varje rad som ett stycke",
+      "newlineAsParagraphDesc": "Räkna enskilda radbrytningar som styckebrytningar istället för att kräva tomma rader. Radräknaren kommer att döljas."
+    }
+  },
+  "tools": {
+    "title": "Verktyg",
+    "description": "Några praktiska verktyg. Tja, för att jag inte kunde hitta några som verkligen passade mina behov.",
+    "items": {
+      "counter": {
+        "title": "Texträknare",
+        "icon": "🔤",
+        "description": "Räkna tecken, ord, meningar, stycken och uppskatta läs-/taltid."
+      }
+    }
   }
 }

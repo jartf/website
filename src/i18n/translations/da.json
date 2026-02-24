@@ -729,5 +729,59 @@
     "message": "Du kan trykke på",
     "suffix": "-tasten for at åbne søgefeltet :D",
     "dismiss": "Afvis hint"
+  },
+  "textCounter": {
+    "title": "Teksttæller",
+    "description": "Tæl tegn, ord, sætninger, afsnit og beregn tale-/læsetid.",
+    "placeholder": "Begynd at skrive eller indsæt din tekst her...",
+    "clear": "Ryd",
+    "stats": {
+      "characters": "Tegn",
+      "charactersNoSpaces": "Tegn (uden mellemrum)",
+      "words": "Ord",
+      "sentences": "Sætninger",
+      "paragraphs": "Afsnit",
+      "lines": "Linjer",
+      "readingTime": "Læsetid",
+      "speakingTime": "Taletid"
+    },
+    "textLanguage": "Tekstsprog",
+    "languages": {
+      "en": "Engelsk",
+      "vi": "Vietnamesisk",
+      "et": "Estisk",
+      "zh": "Kinesisk",
+      "ru": "Russisk",
+      "custom": "Andet / tilpasset",
+      "advanced": "Avancerede indstillinger"
+    },
+    "speed": {
+      "label": "Hastighed",
+      "slow": "Langsom",
+      "average": "Gennemsnit",
+      "fast": "Hurtig",
+      "custom": "Tilpasset",
+      "readingWpm": "Læsning (ord pr. minut)",
+      "speakingWpm": "Tale (ord pr. minut)",
+      "englishDefaultsWarning": "Tidsberegnerne bruger i øjeblikket engelske standardhastigheder. Skift til \"Tilpasset\" for at indtaste nøjagtige værdier."
+    },
+    "advanced": {
+      "title": "Avancerede indstillinger",
+      "disableWords": "Deaktiver ordtælling",
+      "disableWordsDesc": "For logografiske og brahmiske sprog adskiller mellemrum ikke ord.",
+      "newlineAsParagraph": "Behandl hver linje som et afsnit",
+      "newlineAsParagraphDesc": "Tæl enkelte linjeskift som afsnitsskift i stedet for at kræve blanke linjer. Linjetælleren skjules."
+    }
+  },
+  "tools": {
+    "title": "Værktøjer",
+    "description": "Nogle praktiske værktøjer. Jeg kunne ikke finde nogen der virkelig passede til mine behov.",
+    "items": {
+      "counter": {
+        "title": "Teksttæller",
+        "icon": "🔤",
+        "description": "Tæl tegn, ord, sætninger, afsnit og anslå læse-/taletid."
+      }
+    }
   }
 }

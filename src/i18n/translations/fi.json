@@ -715,5 +715,59 @@
     "message": "Voit avata haun painamalla",
     "suffix": "-näppäintä :D",
     "dismiss": "Sulje vinkki"
+  },
+  "textCounter": {
+    "title": "Tekstilaskuri",
+    "description": "Laske merkit, sanat, lauseet, kappaleet ja laske puhe-/lukuaika.",
+    "placeholder": "Aloita kirjoittaminen tai liitä tekstisi tähän...",
+    "clear": "Tyhjennä",
+    "stats": {
+      "characters": "Merkit",
+      "charactersNoSpaces": "Merkit (ilman välilyöntejä)",
+      "words": "Sanat",
+      "sentences": "Lauseet",
+      "paragraphs": "Kappaleet",
+      "lines": "Rivit",
+      "readingTime": "Lukuaika",
+      "speakingTime": "Puheaika"
+    },
+    "textLanguage": "Tekstin kieli",
+    "languages": {
+      "en": "Englanti",
+      "vi": "Vietnam",
+      "et": "Viro",
+      "zh": "Kiina",
+      "ru": "Venäjä",
+      "custom": "Muu / mukautettu",
+      "advanced": "Lisäasetukset"
+    },
+    "speed": {
+      "label": "Nopeus",
+      "slow": "Hidas",
+      "average": "Keskitaso",
+      "fast": "Nopea",
+      "custom": "Mukautettu",
+      "readingWpm": "Lukeminen (sanaa minuutissa)",
+      "speakingWpm": "Puhuminen (sanaa minuutissa)",
+      "englishDefaultsWarning": "Aika-arviot käyttävät tällä hetkellä englanninkielisiä oletusnopeuksia. Vaihda kohtaan \"Mukautettu\" syöttääksesi tarkat arvot."
+    },
+    "advanced": {
+      "title": "Lisäasetukset",
+      "disableWords": "Poista sanalasku käytöstä",
+      "disableWordsDesc": "Logografisissa ja brahmilaisissa kielissä välilyönnit eivät erota sanoja.",
+      "newlineAsParagraph": "Käsittele jokaista riviä kappaleena",
+      "newlineAsParagraphDesc": "Laske yksittäiset rivinvaihdot kappaleväleinä sen sijaan että vaadittaisiin tyhjiä rivejä. Rivitasolaskuri piilotetaan."
+    }
+  },
+  "tools": {
+    "title": "Työkalut",
+    "description": "Joitakin käteviä apuohjelmia. En löytänyt tarpeisiini sopivia, joten tein nämä.",
+    "items": {
+      "counter": {
+        "title": "Tekstilaskuri",
+        "icon": "🔤",
+        "description": "Laske merkit, sanat, lauseet, kappaleet ja arvioi luku-/puheaika."
+      }
+    }
   }
 }

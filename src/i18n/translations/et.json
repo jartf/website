@@ -715,5 +715,59 @@
     "message": "Otsinguriba avamiseks võid vajutada",
     "suffix": "klahvi :D",
     "dismiss": "Sulge vihje"
+  },
+  "textCounter": {
+    "title": "Tekstiloendur",
+    "description": "Loenda tähemärke, sõnu, lauseid, lõike ning arvuta lugemis-/kõneaeg.",
+    "placeholder": "Alusta kirjutamist või kleebi oma tekst siia...",
+    "clear": "Puhasta",
+    "stats": {
+      "characters": "Tähemärgid",
+      "charactersNoSpaces": "Tähemärgid (tühikuteta)",
+      "words": "Sõnad",
+      "sentences": "Laused",
+      "paragraphs": "Lõigud",
+      "lines": "Read",
+      "readingTime": "Lugemisaeg",
+      "speakingTime": "Kõneaeg"
+    },
+    "textLanguage": "Teksti keel",
+    "languages": {
+      "en": "Inglise",
+      "vi": "Vietnami",
+      "et": "Eesti",
+      "zh": "Hiina",
+      "ru": "Vene",
+      "custom": "Muu / kohandatud",
+      "advanced": "Täpsemad seaded"
+    },
+    "speed": {
+      "label": "Kiirus",
+      "slow": "Aeglane",
+      "average": "Keskmine",
+      "fast": "Kiire",
+      "custom": "Kohandatud",
+      "readingWpm": "Lugemine (sõna minutis)",
+      "speakingWpm": "Rääkimine (sõna minutis)",
+      "englishDefaultsWarning": "Aja hindajad kasutavad praegu ingliskeelseid vaikekiirusi. Lülitu valikule \"Kohandatud\" et sisestada täpsed väärtused."
+    },
+    "advanced": {
+      "title": "Täpsemad seaded",
+      "disableWords": "Keela sõnade loendamine",
+      "disableWordsDesc": "Logograafiliste ja braahmi keelte puhul ei eralda tühikud sõnu.",
+      "newlineAsParagraph": "Käsitle iga rida lõiguna",
+      "newlineAsParagraphDesc": "Loenda üksikuid reavahetusi lõiguvahedena selle asemel et nõuda tühje ridu. Ridade loendur peidetakse."
+    }
+  },
+  "tools": {
+    "title": "Tööriistad",
+    "description": "Mõned käepärased utiliidid. Sest ma ei leidnud ühtegi mis oleks minu vajadustele vastanud.",
+    "items": {
+      "counter": {
+        "title": "Tekstiloendur",
+        "icon": "🔤",
+        "description": "Loenda tähemärke, sõnu, lauseid, lõike ja hinda lugemis-/kõneaega."
+      }
+    }
   }
 }

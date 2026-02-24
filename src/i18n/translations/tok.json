@@ -718,5 +718,59 @@
     "message": "o luka e nena",
     "suffix": "tawa open e ilo alasa :D",
     "dismiss": "weka e sona"
+  },
+  "textCounter": {
+    "title": "ilo pi nanpa nimi",
+    "description": "o nanpa e sitelen, e nimi, e kulupu nimi, o sona e tenpo tawa lukin e lipu.",
+    "placeholder": "o sitelen tawa ni...",
+    "clear": "o weka",
+    "stats": {
+      "characters": "sitelen",
+      "charactersNoSpaces": "sitelen (ala weka)",
+      "words": "nimi",
+      "sentences": "kulupu nimi",
+      "paragraphs": "kipisi lipu",
+      "lines": "linja",
+      "readingTime": "tenpo lukin",
+      "speakingTime": "tenpo toki"
+    },
+    "textLanguage": "toki pi lipu ni",
+    "languages": {
+      "en": "toki Inli",
+      "vi": "toki Wetenan",
+      "et": "toki Esi",
+      "zh": "toki Sonko",
+      "ru": "toki Losi",
+      "custom": "toki ante",
+      "advanced": "ante suli"
+    },
+    "speed": {
+      "label": "tenpo suli",
+      "slow": "tawa lili",
+      "average": "tawa insa",
+      "fast": "tawa mute",
+      "custom": "tawa ante",
+      "readingWpm": "lukin (nimi lon tenpo lili)",
+      "speakingWpm": "toki (nimi lon tenpo lili)",
+      "englishDefaultsWarning": "ilo ni li kepeken e nasin pi toki Inli. o ante tawa \"tawa ante\" tawa pana e nanpa sina."
+    },
+    "advanced": {
+      "title": "ante suli",
+      "disableWords": "o pini e nanpa nimi",
+      "disableWordsDesc": "toki mute li jo ala e weka lon insa pi nimi tu.",
+      "newlineAsParagraph": "linja ali li kipisi lipu",
+      "newlineAsParagraphDesc": "linja sin li pali e kipisi lipu sin. ilo pi nanpa linja li lukin ala."
+    }
+  },
+  "tools": {
+    "title": "ilo",
+    "description": "ilo pona tu. mi ken ala alasa e ilo pona tawa mi la mi pali e ni.",
+    "items": {
+      "counter": {
+        "title": "ilo pi nanpa nimi",
+        "icon": "🔤",
+        "description": "o nanpa e sitelen, e nimi, o sona e tenpo tawa lukin e lipu."
+      }
+    }
   }
 }

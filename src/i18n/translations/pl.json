@@ -715,5 +715,59 @@
     "message": "Naciśnij klawisz",
     "suffix": ", aby otworzyć wyszukiwarkę :D",
     "dismiss": "Ukryj"
+  },
+  "textCounter": {
+    "title": "Licznik tekstu",
+    "description": "Licz znaki, słowa, zdania, akapity i obliczaj czas mówienia/czytania.",
+    "placeholder": "Zacznij pisać lub wklej swój tekst tutaj...",
+    "clear": "Wyczyść",
+    "stats": {
+      "characters": "Znaki",
+      "charactersNoSpaces": "Znaki (bez spacji)",
+      "words": "Słowa",
+      "sentences": "Zdania",
+      "paragraphs": "Akapity",
+      "lines": "Linie",
+      "readingTime": "Czas czytania",
+      "speakingTime": "Czas mówienia"
+    },
+    "textLanguage": "Język tekstu",
+    "languages": {
+      "en": "Angielski",
+      "vi": "Wietnamski",
+      "et": "Estoński",
+      "zh": "Chiński",
+      "ru": "Rosyjski",
+      "custom": "Inny / niestandardowy",
+      "advanced": "Ustawienia zaawansowane"
+    },
+    "speed": {
+      "label": "Prędkość",
+      "slow": "Wolno",
+      "average": "Średnio",
+      "fast": "Szybko",
+      "custom": "Niestandardowa",
+      "readingWpm": "Czytanie (słowa na minutę)",
+      "speakingWpm": "Mówienie (słowa na minutę)",
+      "englishDefaultsWarning": "Szacowany czas korzysta obecnie z domyślnych prędkości dla języka angielskiego. Zmień na \"Niestandardowa\" aby wprowadzić dokładne wartości."
+    },
+    "advanced": {
+      "title": "Ustawienia zaawansowane",
+      "disableWords": "Wyłącz licznik słów",
+      "disableWordsDesc": "W językach logograficznych i bramijskich spacje nie rozdzielają słów.",
+      "newlineAsParagraph": "Traktuj każdą linię jako akapit",
+      "newlineAsParagraphDesc": "Licz pojedyncze przejścia do nowej linii jako podziały akapitów zamiast wymagać pustych linii. Licznik linii zostanie ukryty."
+    }
+  },
+  "tools": {
+    "title": "Narzędzia",
+    "description": "Kilka przydatnych narzędzi. Cóż, bo nie mogłem znaleźć żadnych które naprawdę by mi odpowiadały.",
+    "items": {
+      "counter": {
+        "title": "Licznik tekstu",
+        "icon": "🔤",
+        "description": "Licz znaki, słowa, zdania, akapity i szacuj czas czytania/mówienia."
+      }
+    }
   }
 }

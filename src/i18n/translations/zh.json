@@ -727,5 +727,59 @@
     "message": "您可以按",
     "suffix": "键来打开搜索栏 :D",
     "dismiss": "关闭"
+  },
+  "textCounter": {
+    "title": "文本计数器",
+    "description": "统计字符、字词、句子、段落，并计算演讲/阅读时间。",
+    "placeholder": "开始输入或在此处粘贴您的文本...",
+    "clear": "清除",
+    "stats": {
+      "characters": "字符数",
+      "charactersNoSpaces": "字符数（不含空格）",
+      "words": "字词数",
+      "sentences": "句子数",
+      "paragraphs": "段落数",
+      "lines": "行数",
+      "readingTime": "阅读时间",
+      "speakingTime": "演讲时间"
+    },
+    "textLanguage": "文本语言",
+    "languages": {
+      "en": "英语",
+      "vi": "越南语",
+      "et": "爱沙尼亚语",
+      "zh": "中文",
+      "ru": "俄语",
+      "custom": "其他 / 自定义",
+      "advanced": "高级设置"
+    },
+    "speed": {
+      "label": "速度",
+      "slow": "慢",
+      "average": "中等",
+      "fast": "快",
+      "custom": "自定义",
+      "readingWpm": "阅读（词/分钟）",
+      "speakingWpm": "演讲（词/分钟）",
+      "englishDefaultsWarning": "时间估算器目前使用的是英语默认速度。请切换到“自定义”以输入准确的数值。"
+    },
+    "advanced": {
+      "title": "高级设置",
+      "disableWords": "停用字词统计",
+      "disableWordsDesc": "对于表意文字和婆罗米系文字，空格并不用于分隔字词。",
+      "newlineAsParagraph": "将每行视为一个段落",
+      "newlineAsParagraphDesc": "将单个换行符计为段落分隔，而不需要空行。行计数器将被隐藏。"
+    }
+  },
+  "tools": {
+    "title": "工具",
+    "description": "一些有用的小工具。因为我找不到真正符合我需求的，所以自己做了。",
+    "items": {
+      "counter": {
+        "title": "文本计数器",
+        "icon": "🔤",
+        "description": "统计字符、字词、句子、段落，并估算阅读/演讲时间。"
+      }
+    }
   }
 }

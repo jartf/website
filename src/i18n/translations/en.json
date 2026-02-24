@@ -739,7 +739,7 @@
   "textCounter": {
     "title": "Text counter",
     "description": "Count characters, words, sentences, paragraphs, and calculate speaking/reading time.",
-    "placeholder": "Start typing or paste your text here…",
+    "placeholder": "Start typing or paste your text here...",
     "clear": "Clear",
     "stats": {
       "characters": "Characters",
@@ -769,12 +769,12 @@
       "custom": "Custom",
       "readingWpm": "Reading (WPM)",
       "speakingWpm": "Speaking (WPM)",
-      "englishDefaultsWarning": "Using English defaults. Switch to \"Custom\" for exact values."
+      "englishDefaultsWarning": "The time estimators are currently using English default speeds. Switch to \"Custom\" to input exact values."
     },
     "advanced": {
       "title": "Advanced settings",
       "disableWords": "Disable word count",
-      "disableWordsDesc": "For logographic and Brahmic scripts where spaces don't separate words.",
+      "disableWordsDesc": "For logographic and Brahmic languages, spaces don't separate words.",
       "newlineAsParagraph": "Treat each line as a paragraph",
       "newlineAsParagraphDesc": "Count single newlines as paragraph breaks instead of requiring blank lines. The line counter will be hidden."
     }

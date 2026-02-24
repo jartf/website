@@ -717,5 +717,59 @@
     "message": "Bạn có thể nhấn phím",
     "suffix": "để mở thanh tìm kiếm :D",
     "dismiss": "Bỏ qua"
+  },
+  "textCounter": {
+    "title": "Công cụ đếm văn bản",
+    "description": "Đếm ký tự, từ, câu, đoạn văn, tính thời gian đọc và nói.",
+    "placeholder": "Bắt đầu nhập hoặc dán văn bản của bạn vào đây...",
+    "clear": "Xóa",
+    "stats": {
+      "characters": "Ký tự",
+      "charactersNoSpaces": "Ký tự (không tính dấu cách)",
+      "words": "Từ",
+      "sentences": "Câu",
+      "paragraphs": "Đoạn văn",
+      "lines": "Dòng",
+      "readingTime": "Thời gian đọc",
+      "speakingTime": "Thời gian nói"
+    },
+    "textLanguage": "Ngôn ngữ văn bản",
+    "languages": {
+      "en": "Tiếng Anh",
+      "vi": "Tiếng Việt",
+      "et": "Tiếng Estonia",
+      "zh": "Tiếng Trung",
+      "ru": "Tiếng Nga",
+      "custom": "Khác / tùy chỉnh",
+      "advanced": "Cài đặt nâng cao"
+    },
+    "speed": {
+      "label": "Tốc độ",
+      "slow": "Chậm",
+      "average": "Trung bình",
+      "fast": "Nhanh",
+      "custom": "Tùy chỉnh",
+      "readingWpm": "Đọc (từ/phút)",
+      "speakingWpm": "Nói (từ/phút)",
+      "englishDefaultsWarning": "Mục tùy chỉnh đang sử dụng tốc độ mặc định của tiếng Anh. Hãy chuyển tốc độ sang \"Tùy chỉnh\" để chỉnh sang giá trị chính xác bạn muốn."
+    },
+    "advanced": {
+      "title": "Cài đặt nâng cao",
+      "disableWords": "Tắt đếm từ",
+      "disableWordsDesc": "Dành cho các ngôn ngữ sử dụng chữ viết tượng hình không phân cách các từ bằng dấu cách.",
+      "newlineAsParagraph": "Coi mỗi lần xuống dòng là một đoạn văn",
+      "newlineAsParagraphDesc": "Đếm mỗi lần xuống dòng là một đoạn văn, không bắt buộc phải có dòng trống giữa hai đoạn văn. Bộ đếm dòng sẽ bị ẩn."
+    }
+  },
+  "tools": {
+    "title": "Công cụ",
+    "description": "Một số tiện ích hữu ích.",
+    "items": {
+      "counter": {
+        "title": "Trình đếm văn bản",
+        "icon": "🔤",
+        "description": "Đếm ký tự, từ, câu, đoạn văn, ước tính thời gian đọc và nói."
+      }
+    }
   }
 }
