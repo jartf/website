@@ -208,7 +208,13 @@
     "subscribeAtom": "Telli Atomi kaudu",
     "atomDescription": "Telli minu Atomi vood oma lemmiklugejas, et saada teavitusi uutest postitustest.",
     "availableIn": "Lehte saab lugeda ka keeltes",
-    "comments": "Kommentaarid"
+    "comments": "Kommentaarid",
+    "webmentions": "Veebiviited",
+    "webmentionsNone": "Veebiviiteid veel pole. Ole esimene, kes vastab!",
+    "webmentionLike": "meeldis see",
+    "webmentionRepost": "jagas seda",
+    "webmentionReply": "vastas",
+    "webmentionMention": "mainis seda"
   },
   "now": {
     "title": "Nüüd",

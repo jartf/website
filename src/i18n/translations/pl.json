@@ -208,7 +208,13 @@
     "subscribeAtom": "Subskrybuj przez Atom",
     "atomDescription": "Zasubskrybuj moje kanały Atom w swoim ulubionym czytniku, aby otrzymywać powiadomienia o nowych wpisach.",
     "availableIn": "Ta strona jest także dostępna w",
-    "comments": "Komentarze"
+    "comments": "Komentarze",
+    "webmentions": "Webmentions",
+    "webmentionsNone": "Brak webmentions. Bądź pierwszą osobą, która odpowie!",
+    "webmentionLike": "polubił(a) to",
+    "webmentionRepost": "udostępnił(a) to",
+    "webmentionReply": "odpowiedział(a)",
+    "webmentionMention": "wspomniał(a) o tym"
   },
   "now": {
     "title": "Teraz",

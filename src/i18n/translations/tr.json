@@ -217,7 +217,13 @@
     "subscribeAtom": "Atom ile abone ol",
     "atomDescription": "Yeni yazılardan haberdar olmak için favori Atom okuyucunuzdan Atom beslemelerime abone olun.",
     "availableIn": "Bu sayfa şu dillerde de mevcut:",
-    "comments": "Yorumlar"
+    "comments": "Yorumlar",
+    "webmentions": "Web Bahsetmeleri",
+    "webmentionsNone": "Henüz web bahsetmesi yok. İlk yanıtlayan siz olun!",
+    "webmentionLike": "bunu beğendi",
+    "webmentionRepost": "bunu paylaştı",
+    "webmentionReply": "yanıtladı",
+    "webmentionMention": "bundan bahsetti"
   },
   "now": {
     "title": "Şimdi",

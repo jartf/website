@@ -208,7 +208,13 @@
     "subscribeAtom": "Tilaa Atom-syöte",
     "atomDescription": "Tilaa Atom-syötteeni suosikkilukijassasi saadaksesi ilmoituksen uusista julkaisuista.",
     "availableIn": "Tämä sivu on saatavilla myös",
-    "comments": "Kommentit"
+    "comments": "Kommentit",
+    "webmentions": "Verkkomaininnat",
+    "webmentionsNone": "Ei vielä verkkomainintoja. Ole ensimmäinen vastaaja!",
+    "webmentionLike": "tykkäsi tästä",
+    "webmentionRepost": "jakoi tämän",
+    "webmentionReply": "vastasi",
+    "webmentionMention": "mainitsi tämän"
   },
   "now": {
     "title": "Nyt",

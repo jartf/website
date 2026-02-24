@@ -208,7 +208,13 @@
     "subscribeAtom": "o kama jo kepeken nasin Atom",
     "atomDescription": "o kama jo e lipu mi kepeken ilo lukin sina. sina ken kute e lipu sin.",
     "availableIn": "lipu ni li lon toki ante",
-    "comments": "nimi pi sitelen"
+    "comments": "nimi pi sitelen",
+    "webmentions": "toki tan lipu ante",
+    "webmentionsNone": "toki ala li lon. o toki e nanpa wan!",
+    "webmentionLike": "li pona tawa ni",
+    "webmentionRepost": "li pana sin e ni",
+    "webmentionReply": "li toki tawa",
+    "webmentionMention": "li toki e ni"
   },
   "now": {
     "title": "tenpo ni",

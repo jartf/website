@@ -210,7 +210,13 @@
     "subscribeAtom": "Đăng ký qua Atom",
     "atomDescription": "Đăng ký nguồn tin Atom của mình trên trình đọc bạn thích để nhận thông báo về bài viết mới.",
     "availableIn": "Trang này cũng được viết trong",
-    "comments": "Bình luận"
+    "comments": "Bình luận",
+    "webmentions": "Webmention",
+    "webmentionsNone": "Chưa có webmention nào. Hãy là người đầu tiên phản hồi!",
+    "webmentionLike": "đã thích bài này",
+    "webmentionRepost": "đã chia sẻ lại bài này",
+    "webmentionReply": "đã trả lời",
+    "webmentionMention": "đã đề cập bài này"
   },
   "now": {
     "title": "Hiện tại",

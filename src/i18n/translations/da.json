@@ -219,7 +219,13 @@
     "subscribeAtom": "Abonner via Atom",
     "atomDescription": "Abonner på mine Atom-feeds i din foretrukne feedlæser for at få besked om nye indlæg.",
     "availableIn": "Denne side er også tilgængelig på",
-    "comments": "Kommentarer"
+    "comments": "Kommentarer",
+    "webmentions": "Webmentions",
+    "webmentionsNone": "Ingen webmentions endnu. Vær den første til at svare!",
+    "webmentionLike": "syntes godt om dette",
+    "webmentionRepost": "delte dette",
+    "webmentionReply": "svarede",
+    "webmentionMention": "nævnte dette"
   },
   "now": {
     "title": "Nu",

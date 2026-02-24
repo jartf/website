@@ -208,7 +208,13 @@
     "subscribeAtom": "Prenumerera via Atom",
     "atomDescription": "Prenumerera på mina Atom-flöden i din favoritläsare för att få notiser om nya inlägg.",
     "availableIn": "Den här sidan finns också på",
-    "comments": "Kommentarer"
+    "comments": "Kommentarer",
+    "webmentions": "Webmentions",
+    "webmentionsNone": "Inga webmentions ännu. Bli den första att svara!",
+    "webmentionLike": "gillade detta",
+    "webmentionRepost": "delade detta",
+    "webmentionReply": "svarade",
+    "webmentionMention": "nämnde detta"
   },
   "now": {
     "title": "Nu",

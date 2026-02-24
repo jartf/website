@@ -215,7 +215,13 @@
     "subscribeAtom": "Подписаться через Атом",
     "atomDescription": "Подпишитесь на мои Атом-ленты в вашей любимой программе чтения, чтобы узнавать о новых публикациях.",
     "availableIn": "Эта страница также доступна на",
-    "comments": "Комментарии"
+    "comments": "Комментарии",
+    "webmentions": "Вебменшены",
+    "webmentionsNone": "Вебменшенов пока нет. Будьте первым!",
+    "webmentionLike": "понравилось",
+    "webmentionRepost": "поделились",
+    "webmentionReply": "ответил(а)",
+    "webmentionMention": "упомянул(а)"
   },
   "now": {
     "title": "Сейчас",

@@ -217,7 +217,13 @@
     "subscribeAtom": "通过 Atom 订阅",
     "atomDescription": "在您喜欢的阅读器中订阅我的 Atom 源，以便第一时间获取新文章通知。",
     "availableIn": "此页面也有以下语言版本",
-    "comments": "Comments"
+    "comments": "Comments",
+    "webmentions": "网络提及",
+    "webmentionsNone": "暂无网络提及。成为第一个回应的人吧！",
+    "webmentionLike": "赞了此文",
+    "webmentionRepost": "转发了此文",
+    "webmentionReply": "回复了",
+    "webmentionMention": "提及了此文"
   },
   "now": {
     "title": "现在",

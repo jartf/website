@@ -219,7 +219,13 @@
     "subscribeAtom": "Subscribe via Atom",
     "atomDescription": "Subscribe to my Atom feeds in your favorite RSS reader to get notified about new posts.",
     "availableIn": "This page is also available in",
-    "comments": "Comments"
+    "comments": "Comments",
+    "webmentions": "Webmentions",
+    "webmentionsNone": "No webmentions yet. Be the first to respond!",
+    "webmentionLike": "liked this",
+    "webmentionRepost": "reposted this",
+    "webmentionReply": "replied",
+    "webmentionMention": "mentioned this"
   },
   "now": {
     "title": "Now",
