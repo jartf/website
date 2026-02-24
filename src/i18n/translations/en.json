@@ -750,6 +750,33 @@
       "lines": "Lines",
       "readingTime": "Reading time",
       "speakingTime": "Speaking time"
+    },
+    "textLanguage": "Text language",
+    "languages": {
+      "en": "English",
+      "vi": "Vietnamese",
+      "et": "Estonian",
+      "zh": "Chinese",
+      "ru": "Russian",
+      "custom": "Other / custom",
+      "advanced": "Advanced settings"
+    },
+    "speed": {
+      "label": "Speed",
+      "slow": "Slow",
+      "average": "Average",
+      "fast": "Fast",
+      "custom": "Custom",
+      "readingWpm": "Reading (WPM)",
+      "speakingWpm": "Speaking (WPM)",
+      "englishDefaultsWarning": "Using English defaults. Switch to \"Custom\" for exact values."
+    },
+    "advanced": {
+      "title": "Advanced settings",
+      "disableWords": "Disable word count",
+      "disableWordsDesc": "For logographic and Brahmic scripts where spaces don't separate words.",
+      "newlineAsParagraph": "Treat each line as a paragraph",
+      "newlineAsParagraphDesc": "Count single newlines as paragraph breaks instead of requiring blank lines. The line counter will be hidden."
     }
   },
   "tools": {
