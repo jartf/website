@@ -732,5 +732,21 @@
     "message": "You can press the",
     "suffix": "key on your keyboard to open the global search bar :D",
     "dismiss": "Dismiss hint"
+  },
+  "textCounter": {
+    "title": "Text counter",
+    "description": "Count characters, words, sentences, paragraphs, and calculate speaking/reading time.",
+    "placeholder": "Start typing or paste your text here…",
+    "clear": "Clear",
+    "stats": {
+      "characters": "Characters",
+      "charactersNoSpaces": "Characters (no spaces)",
+      "words": "Words",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "lines": "Lines",
+      "readingTime": "Reading time",
+      "speakingTime": "Speaking time"
+    }
   }
 }
