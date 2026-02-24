@@ -113,6 +113,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
       scrapbook: <Calendar className="h-4 w-4 text-primary" />,
       slashes: <Slash className="h-4 w-4 text-primary" />,
       brand: <Tag className="h-4 w-4 text-primary" />,
+      tools: <Wrench className="h-4 w-4 text-primary" />,
     };
     const navCategory = t("keyboardShortcuts.navigation", "Navigation");
     const navItems: Action[] = Object.entries(navIcons).map(([id, icon]) => ({

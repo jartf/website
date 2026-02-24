@@ -42,9 +42,11 @@
     "guestbook": "Guestbook",
     "colophon": "Colophon",
     "webring": "Webrings",
+    "badges": "Badges",
     "scrapbook": "Scrapbook",
     "slashes": "Slashes",
-    "brand": "Brand kit"
+    "brand": "Brand kit",
+    "tools": "Tools"
   },
   "languageNotice": {
     "message": "Translations for this language are still under construction. Some content may be incomplete or missing.",
@@ -673,6 +675,7 @@
     "pressToOpen": "Press . to open command palette",
     "escToClose": "ESC to close",
     "fun": "Fun",
+    "tools": "Tools",
     "games": "Games",
     "tetris": "Play Tetris",
     "help": "Help",
@@ -747,6 +750,17 @@
       "lines": "Lines",
       "readingTime": "Reading time",
       "speakingTime": "Speaking time"
+    }
+  },
+  "tools": {
+    "title": "Tools",
+    "description": "Some handy utilities. Well, because I couldn't find any that really fit my needs.",
+    "items": {
+      "counter": {
+        "title": "Text counter",
+        "icon": "🔤",
+        "description": "Count characters, words, sentences, paragraphs, and estimate reading/speaking time."
+      }
     }
   }
 }
