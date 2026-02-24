@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import T from "@/components/T.astro";
+import { t } from "@/i18n";
+
+const lang = Astro.locals?.lang || "en";
+
+// Auto-scan: discover all tool subpages by globbing index.astro files under /tools/
+const toolPages = import.meta.glob("./**/index.astro", { eager: false });
+const tools = Object.keys(toolPages)
+  .map((path) => path.match(/^\.\/(.*?)\/index\.astro$/)?.[1])
+  .filter((slug): slug is string => !!slug)
+  .sort();
+---
+
+<BaseLayout title={t(lang, "tools.title")} description={t(lang, "tools.description")}>
+  <div class="container mx-auto px-4 py-8 lg:py-12">
+    <div class="max-w-4xl mx-auto">
+      <header class="mb-10 text-center">
+        <T key="tools.title" tag="h1" class="text-4xl font-bold mb-4" />
+        <T key="tools.description" tag="p" class="text-muted-foreground text-lg max-w-xl mx-auto" />
+      </header>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        {tools.map((slug) => (
+          <a
+            href={`/tools/${slug}/`}
+            class="group rounded-xl border bg-card p-6 flex flex-col transition-colors hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <span class="text-3xl mb-3" aria-hidden="true">
+              {t(lang, `tools.items.${slug}.icon`)}
+            </span>
+            <h2 class="text-xl font-bold mb-2 group-hover:underline">
+              {t(lang, `tools.items.${slug}.title`)}
+            </h2>
+            <p class="text-muted-foreground text-sm flex-1">
+              {t(lang, `tools.items.${slug}.description`)}
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
