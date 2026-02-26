@@ -19,11 +19,13 @@ export const GET: APIRoute = async ({ site }) => {
       .replace(/\.astro$/, '')
       .replace(/\/index$/, '');
 
-    // Skip API routes, 404, and dynamic routes (locale variants added below)
+    // Skip API routes, 404, dynamic routes, and /records (locale variants added below)
     if (urlPath.includes('/api/') ||
         urlPath === '/404' ||
         urlPath.includes('[') ||
-        urlPath.includes(']')) {
+        urlPath.includes(']') ||
+        urlPath === '/records' ||
+        urlPath.startsWith('/records/')) {
       continue;
     }
 
