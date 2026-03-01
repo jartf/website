@@ -1,0 +1,12 @@
+{
+  "origins": [
+    "https://jarema.me",
+    "https://jarema.vercel.app",
+    "https://jar.tf",
+    "https://jartf.vercel.app"
+  ],
+  "originsRegex": [
+    "https://website-([A-z0-9]|-)*jarema\\.vercel\\.app"
+  ],
+  "defaultCommentOrder": "newest"
+}
