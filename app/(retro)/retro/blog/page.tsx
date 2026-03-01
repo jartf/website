@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 import { getAllBlogPosts } from '@/lib/blog'
 import { siteName } from "@/lib/constants"
 

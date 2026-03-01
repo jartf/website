@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback, memo } from "react"
+import { useState, useRef, useCallback, memo } from "react"
 import { useTranslation } from "react-i18next"
 import i18n from "@/i18n/i18n"
 import Image from "next/image"
@@ -192,17 +192,12 @@ const CatImage = memo(function CatImage({ cat, isVisible }: { cat: MoodCat; isVi
 
 export function MoodCat() {
   const { t } = useTranslation()
-  const [currentCat, setCurrentCat] = useState<MoodCat>(moodCats[0])
+  const [currentCat, setCurrentCat] = useState<MoodCat>(getRandomCat)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const mounted = useMounted()
   const prefersReducedMotion = useReducedMotion()
   const refreshButtonRef = useRef<HTMLButtonElement>(null)
-
-  // Set random cat on mount to avoid hydration mismatch
-  useEffect(() => {
-    setCurrentCat(getRandomCat())
-  }, [])
 
   const refreshCat = useCallback(() => {
     setIsLoading(true)
@@ -224,7 +219,7 @@ export function MoodCat() {
   }, [currentCat, prefersReducedMotion])
 
   return (
-    <div className="relative">
+    <div className="relative" suppressHydrationWarning>
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold relative inline-block group">
           {mounted ? t("moodCat.title", "Cat of the day") : "Cat of the day"}

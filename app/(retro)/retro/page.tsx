@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { siteName, siteDescription } from '@/lib/constants'
 
 /**
@@ -89,7 +88,7 @@ export default function RetroHomePage() {
         </font>
         <br />
         <font size={2}>
-          This site is part of several webrings. Check them out, they're cool!
+          This site is part of several webrings. Check them out, they&apos;re cool!
           <br />
           <a href="/retro/webrings">View all webrings</a>
         </font>

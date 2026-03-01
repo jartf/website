@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { siteName } from '@/lib/constants'
 
 export const metadata = {
