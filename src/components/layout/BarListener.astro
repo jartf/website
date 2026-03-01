@@ -44,7 +44,7 @@
       e.preventDefault();
       loading = true;
       Promise.all([
-        import("@/components/CommandBar"),
+        import("@/components/layout/CommandBar"),
         import("react-dom/client"),
         import("react"),
       ]).then(([{ CommandBar }, { createRoot }, React]) => {
