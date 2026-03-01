@@ -74,7 +74,7 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
 </section>
 
 <script>
-  import { updateDateElements } from '@/lib/timezone-utils';
+  import { updateDateElements } from '@/lib/utils/timezone-utils';
 
   function updateDates() {
     const locale = document.documentElement.dataset.locale || 'en';

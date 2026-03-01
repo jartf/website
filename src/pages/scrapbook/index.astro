@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import T from "@/components/T.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import { dateLong } from "@/lib/timezone-utils";
+import { dateLong } from "@/lib/utils/timezone-utils";
 
 const entries = (await getCollection("scrapbook")).sort(
   (a: CollectionEntry<"scrapbook">, b: CollectionEntry<"scrapbook">) =>
@@ -49,7 +49,7 @@ const lang = Astro.locals?.lang || "en";
 
 <script>
   import { getPageLocale } from '@/i18n/client';
-  import { updateDateElements } from '@/lib/timezone-utils';
+  import { updateDateElements } from '@/lib/utils/timezone-utils';
 
   updateDateElements(document, getPageLocale());
   document.addEventListener("timezone-change", () => updateDateElements(document, getPageLocale()));

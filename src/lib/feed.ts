@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import { hrefLangLanguages, supportedLanguages, siteDescription, siteName, siteUrl, author, type SupportedLanguage } from "@/lib/constants";
-import { escapeXml } from "@/lib/escape";
+import { escapeXml } from "@/lib/utils/escape";
 
 export function feedStaticPaths() {
   return supportedLanguages.map((lang) => ({ params: { lang: lang.code } }));

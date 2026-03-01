@@ -1,7 +1,7 @@
 // Shared utilities for Now section and Now page
 import { t } from "@/i18n/client";
-import { formatDate, dateFull } from "@/lib/timezone-utils";
-import { escapeHtml } from "@/lib/escape";
+import { formatDate, dateFull } from "@/lib/utils/timezone-utils";
+import { escapeHtml } from "@/lib/utils/escape";
 
 export interface PremidActivity {
   name: string;

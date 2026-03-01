@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { cycleLanguage, t as i18nT, getPageLocale } from "@/i18n/client";
 import { localePath } from "@/i18n/routing";
 import { routes, keyboardShortcuts } from "@/lib/constants";
-import { applyTheme } from "@/lib/theme-utils";
+import { applyTheme } from "@/lib/utils/theme-utils";
 import { useMounted, isTypingInInput } from "@/hooks";
 import {
   ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, Calendar, Clock, Code, FileText,

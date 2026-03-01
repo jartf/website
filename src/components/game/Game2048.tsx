@@ -4,7 +4,7 @@
 import { useEffect, useCallback, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { t as i18nT } from '@/i18n/client'
-import { useGame2048, getTileColor, getFontSize } from '@/hooks/use-game-2048'
+import { useGame2048, getTileColor, getFontSize } from '@/hooks/game/use-game-2048'
 
 export default function Game2048() {
   const t = useCallback((key: string, fallback?: string): string => {
