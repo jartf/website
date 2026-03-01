@@ -70,8 +70,8 @@ src/
 │   ├── blog/         # Blog components
 │   ├── home/         # Homepage components
 │   ├── game/         # Game components
-│   ├── ...
-│   ├── CommandBar.tsx    # Command bar
+│   ├── layout/       # Site layout components
+│   ├── KeyboardShortcut.astro  # Keyboard shortcut helper component
 │   └── T.astro       # Translation component
 ├── content/          # Astro content collections
 │   ├── blog/         # Blog posts, in Markdown
@@ -81,24 +81,22 @@ src/
 │   ├── uses/         # Uses page categories, in JSON
 │   ├── webrings/     # Webring membership data, in JSON
 │   └── config.ts     # Collection schemas and exported types
-├── hooks/            # React hooks
-│   ├── index.ts
-│   └── use-game-2048.ts
+├── hooks/            # Hooks
+│   ├── game/         # Game hooks
+│   └── index.ts      # Other hooks
 ├── i18n/             # Translations and language utilities
+│   ├── translations/ # JSON translation files (one per locale)
 │   ├── client.ts     # Client-side language utilities
 │   ├── index.ts      # Server-side i18n utilities
-│   ├── routing.ts    # Locale routing helpers
-│   └── translations/ # JSON translation files (one per locale)
+│   └── routing.ts    # Locale routing helpers
 ├── layouts/
 │   ├── BaseLayout.astro    # Main site layout
 │   └── RetroLayout.astro   # Layout for browser compatibility pages
 ├── lib/              # Shared utilities and constants
+│   ├── utils/        # General utility functions
 │   ├── constants.ts  # Site metadata, author info, service config
-│   ├── escape.ts     # HTML escaping
 │   ├── feed.ts       # RSS/Atom/JSON feed helpers
-│   ├── now-utils.ts  # Helpers for the /now page
-│   ├── theme-utils.ts      # Theme helper
-│   └── timezone-utils.ts   # Timezone helper
+│   └── now-utils.ts  # Helpers for the /now page
 ├── pages/            # File-based routing
 │   ├── [locale]/     # Localised layout catch-all
 │   ├── blog/         # Blog pages
