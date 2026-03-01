@@ -4,8 +4,8 @@ import T from "@/components/T.astro";
 import { routes, siteName, author, services } from "@/lib/constants";
 import { getData } from "@/content/config";
 import MoodCat from "@/components/MoodCat.astro";
-import NowSection from "@/components/NowSection.astro";
-import RecentPosts from "@/components/RecentPosts.astro";
+import NowSection from "@/components/home/NowSection.astro";
+import RecentPosts from "@/components/home/RecentPosts.astro";
 
 const activeWebringItems = (await getData("webrings")).filter(w => w.status === "active");
 
