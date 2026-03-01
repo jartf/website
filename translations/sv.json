@@ -1,0 +1,561 @@
+{
+  "nav": {
+    "home": "Hem",
+    "about": "Om mig",
+    "projects": "Projekt",
+    "blog": "Blogg",
+    "now": "Nu",
+    "uses": "Verktyg",
+    "contact": "Kontakt",
+    "guestbook": "Gästbok",
+    "colophon": "Kolofon",
+    "webring": "Webbring",
+    "scrapbook": "Dagbok"
+  },
+  "languageNotice": {
+    "message": "Översättningar för detta språk är fortfarande under arbete. Viss information kan vara ofullständig eller saknas.",
+    "dismiss": "Stäng"
+  },
+  "language": {
+    "main": "Huvudspråk",
+    "beta": "Språk i beta",
+    "other": "Andra språk",
+    "auto": "Auto (webbläsarspråk)",
+    "search": "Sök språk...",
+    "en": "Engelska",
+    "vi": "Vietnamesiska",
+    "ru": "Ryska",
+    "et": "Estniska",
+    "da": "Danska",
+    "tr": "Turkiska",
+    "zh": "Kinesiska",
+    "pl": "Polska",
+    "sv": "Svenska",
+    "fi": "Finska",
+    "tok": "Toki Pona"
+  },
+  "greetings": {
+    "morning": "God morgon, resenär.",
+    "afternoon": "God eftermiddag, vandrare.",
+    "evening": "God kväll, upptäckare.",
+    "night": "Vaken fortfarande? Jag med."
+  },
+  "home": {
+    "buttons": {
+      "about": "Om mig",
+      "projects": "Se mina projekt"
+    },
+    "footer": "Välkommen till min digitala trädgård. Utforska gärna.",
+    "heading": "hej, jag är Jarema",
+    "subheading": "Ekonomistudent, ibland kodare, oftast kattviskare.",
+    "contactButton": "Kontakta mig",
+    "aboutButton": "Om mig",
+    "blogButton": "Läs min blogg",
+    "guestbookButton": "Skriv i min gästbok",
+    "recentPosts": "Senaste blogginlägg",
+    "latestNow": "Vad jag gör just nu"
+  },
+  "guestbook": {
+    "title": "Gästbok",
+    "description": "Lämna ett meddelande i min gästbok!"
+  },
+  "about": {
+    "title": "Om mig",
+    "chapters": {
+      "1": {
+        "title": "hur jag blev till",
+        "content1": "Jag föddes i Vietnam i mitten av 2000-talet, vilket tekniskt sett gör mig till Gen Z, men jag växte upp i ett slags mellanläge som inte riktigt passar någon etikett. Jag var det tysta barnet längst bak i klassrummet, men mitt sinne var aldrig tyst. Jag observerade allt, människor, mönster och maktdynamik, och satte ihop allt i tysthet.",
+        "content2": "Min barndom var en märklig blandning av digitala flykter och känslomässiga minor. Jag hade ingen perfekt familj. Jag tänker inte ens låtsas. Jag var tvungen att växa upp snabbt, känslomässigt, och lärde mig tidigt att vara känslig betyder att vara försiktig. Man lär sig att lyssna mer än man pratar. Man lär sig att byta kod, att gömma delar av sig själv i det öppna. Men man lär sig också motståndskraft. Man lär sig bygga sig själv från grunden när ingen ger dig ritningen.",
+        "content3": "Den här sidan är en del av den ritningen. Inte för att förklara allt, utan för att göra fred med kaoset."
+      },
+      "2": {
+        "title": "när jag insåg att världen är riggad",
+        "content1": "Det slog mig inte på en gång. Det fanns inget ögonblick av uppenbarelse. Det var mer som en långsam insikt: att systemen runt mig, från familj till utbildning till samhället i stort, inte var byggda för sådana som mig. Att stabilitet kan vara en fälla. Att även kärlek kan vara villkorad, användas som vapen. Att man kan följa alla \"regler\" och ändå förlora.",
+        "content2": "Så jag gjorde som många av oss gör: jag anpassade mig. Jag vässade mitt sinne, pansrade mitt hjärta och började studera allt. Ekonomi gav mig språket för att förstå makt. Kodning gav mig verktygen att bygga makt. Språk gav mig friheten att uttrycka och fly. Jag insåg att jag inte bara ville överleva i systemet, jag ville förstå det, avslöja det och kanske till och med undergräva det lite.",
+        "content3": "Den här sidan är inte bara en portfolio. Den är beviset på att jag existerar på mina egna villkor, inte de jag fick."
+      },
+      "3": {
+        "title": "kodning, språk och ADHD-mentalitet",
+        "content1": "Jag klarar inte av stela rutiner eller snygga tidslinjer. ADHD betyder att min hjärna går snabbt, snurrar i oändliga loopar, hyperfokuserar slumpmässigt klockan 2 på natten, glömmer att äta en hel dag och ibland drunknar i brus. Känslighet för ljud gör mig också galen ibland. Men det betyder också att jag är djupt nyfiken. Nästan besatt. Jag \"testar\" inte saker, jag kastar mig in. Jag multitaskar inte, jag lever bara i parallella flikar.",
+        "content2": "Kodning är för mig både kaos och tröst. Det ger struktur åt tankar som vägrar sitta still. Det ger mig kraften att skapa något som fungerar, något som speglar en del av mitt sinne som aldrig kan uttryckas helt. Och språk? Det är den andra halvan av pusslet. Jag växlar mellan vietnamesiska, engelska, ryska och ibland turkiska eller danska, inte för att skryta, utan för att olika språk låser upp olika versioner av mig själv. Olika känslor. Olika minnen. Engelska är mitt vassaste svärd. Vietnamesiska är mitt hjärtslag. Ryska är min melankoli. Turkiska är känslan av något nytt. Danska... laddar fortfarande.",
+        "content3": "Och ja, jag skriver rörigt, men jag skriver äkta. Jag kodar ofullkomligt, men med avsikt. Allt du ser här är byggt med samma energi."
+      },
+      "4": {
+        "title": "aktivism och att vara för äkta online",
+        "content1": "Jag är ingen influencer. Jag är inte en högljudd röst på en demonstration. Men jag tror på ansvar, empati och att skapa utrymmen där folk känner sig sedda, inte bara tolererade. Min aktivism är tyst, ibland osynlig. Den syns i det jag bygger, i samtalen jag har och i hur jag vägrar späda ut min sanning bara för att göra någon bekväm.",
+        "content2": "Det handlar om att påpeka orättvisor när det är säkrare att vara tyst. Det handlar om att förstärka marginaliserade röster, även när min egen känns tunn som en viskning. Det handlar om att säga:",
+        "quote": "\"Jag har inte alla svar, men jag tänker försöka ändå.\"",
+        "quoteTooltip": "ja, det var jag som sa det lol",
+        "content3": "Ibland försvinner jag i veckor. Ibland översharar jag klockan 3 på natten. Ibland postar jag en katt-meme och följer upp med ett citat jag hittar på. Jag rymmer många sidor."
+      },
+      "5": {
+        "title": "vart jag är på väg",
+        "content1": "Jag är inte här för att sälja dig ett personligt varumärke eller låtsas att jag har koll på livet. För det har jag verkligen inte. De flesta dagar försöker jag bara balansera att vara fungerande, snäll och ärlig. Men jag vet vad som är viktigt för mig.",
+        "content2": "Jag vill fortsätta skapa. Fortsätta skriva. Fortsätta lära mig språk som får hjärnan att surra. Jag vill bygga verktyg som betyder något, inte bara få likes. Jag vill resa till platser där historia, språk och identitet trasslar ihop sig. Jag vill lämna efter mig saker som känns varma, användbara och mänskliga. Inte polerad perfektion, utan berättelser och fragment som får folk att känna sig mindre ensamma.",
+        "content3": "Jag vill ha frid. Inte bara frånvaro av kaos, utan den sorts frid som kommer av att veta vem du är, vad du gått igenom och vad du valt att lämna bakom dig.",
+        "content4": "Om du läser detta så känner du kanske igen dig. Välkommen. Känn dig som hemma. Men se upp, vissa tankar här är fortfarande under konstruktion."
+      },
+      "6": {
+        "title": "jag är inte klar än",
+        "content1": "så här är delen de inte skulle läsa.",
+        "content2": "jag är fortfarande arg. sörjer fortfarande en version av mig själv som aldrig fick finnas. vaknar fortfarande vissa dagar och undrar varför allt känns lite fel. ibland tänker jag på att bara sticka, försvinna, nytt namn, ny stad, nytt språk. ibland är det nära att jag gör det.",
+        "content3": "det finns dagar då jag inte ens känner mig mänsklig. mer som ett minne som försöker bli verkligt. mer som ett eko av något mjukare jag inte längre når. andra dagar är jag elektrisk. jag känner varje detalj, solsken på huden, tysta spellistor, hur folks ansikten förändras när de äntligen känner sig trygga nog att vara sig själva. det håller mig vid liv, på något sätt.",
+        "content4": "jag är inte klar med att bli den jag ska bli. men jag är klar med att låtsas att det är okej att vara tyst."
+      }
+    }
+  },
+  "projects": {
+    "title": "Mina projekt",
+    "description": "En samling personliga, akademiska och aktivistiska projekt jag har arbetat med. Vissa klara, andra på gång.",
+    "status": {
+      "completed": "Färdig",
+      "inProgress": "Pågår",
+      "planned": "Planerad"
+    },
+    "statusLabels": {
+      "completed": "Färdig",
+      "inProgress": "Pågående",
+      "planned": "Planerad"
+    },
+    "categories": {
+      "personal": "Personligt",
+      "academic": "Akademiskt",
+      "activism": "Aktivism"
+    },
+    "details": {
+      "what": "Vad det är",
+      "learned": "Vad jag lärde mig",
+      "why": "Varför det är viktigt"
+    },
+    "cardActions": {
+      "clickForDetails": "Klicka för detaljer",
+      "clickToClose": "Klicka för att stänga"
+    },
+    "buttons": {
+      "showRandom": "Visa mer slump",
+      "hideRandom": "Dölj kaoset"
+    }
+  },
+  "blog": {
+    "title": "Blogg",
+    "description": "Tankar, reflektioner och ibland utbrott. Skrivet vid olika tider och sinnesstämningar.",
+    "language": "Språk",
+    "languageFilter": "Filtrera efter språk",
+    "tag": "Tagg",
+    "category": "Kategori",
+    "noPosts": "Inga inlägg än. Kom tillbaka snart!",
+    "search": "Sök inlägg...",
+    "sortNew": "Nyast först",
+    "sortOld": "Äldst först",
+    "sortReadTime": "Lästid",
+    "sortABC": "Alfabetisk",
+    "filter": "Filter",
+    "filterDescription": "Filtrera blogginlägg",
+    "activeFilter": "Aktiva filter:",
+    "filterNoMatch": "Inga inlägg matchar dina filter. Prova att ändra sökkriterier.",
+    "clearFilter": "Rensa alla filter",
+    "mood": "Humör",
+    "cat": "Godkänd av katten",
+    "prev": "Föregående inlägg",
+    "next": "Nästa inlägg",
+    "jumpToPost": "Hoppa till inlägg",
+    "back": "Tillbaka till blogglistan",
+    "showingPosts": "Visar {{current}} av {{total}} inlägg",
+    "minRead": "min läsning",
+    "availableIn": "Den här sidan finns också på"
+  },
+  "now": {
+    "title": "Nu",
+    "description": "Vad jag gör, tänker på och fokuserar på just nu.",
+    "lastUpdated": "Senast uppdaterad",
+    "categories": {
+      "reading": "Läser",
+      "coding": "Kodar",
+      "drinking": "Dricker",
+      "listening": "Lyssnar",
+      "premid": "Discord-aktivitet",
+      "thinking": "Tänker",
+      "studying": "Pluggar",
+      "planning": "Planerar"
+    }
+  },
+  "uses": {
+    "title": "Verktyg",
+    "description": "Alla saker jag använder dagligen. Inspirerad av",
+    "websiteDescription": "en webbplats där folk delar vad de använder.",
+    "categories": {
+      "hardware": "Hårdvara",
+      "mobile": "Mobil",
+      "audio": "Ljud",
+      "os": "Operativsystem & webbläsare",
+      "development": "Utveckling",
+      "email": "E-post & produktivitet",
+      "privacy": "Integritet & säkerhet",
+      "mobile_tools": "Mobilverktyg",
+      "mapping": "Kartläggning",
+      "gaming": "Spel",
+      "multimedia": "Multimedia",
+      "design": "Design & illustration",
+      "photo": "Bildredigering",
+      "video": "Video & ljud",
+      "media": "Streaming-tjänster"
+    },
+    "subsections": {
+      "design": "Design & illustration",
+      "photo": "Bildredigering",
+      "video": "Video & ljud",
+      "media": "Mediatjänster"
+    },
+    "itemDescriptions": {
+      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "externalHDD": "Extern hårddisk för backup",
+      "mechanicalKeyboard": "Mekaniskt tangentbord med röda switchar",
+      "wirelessMouse": "Trådlös gamingmus",
+      "mainPhone": "Huvudtelefon",
+      "secondaryPhone": "Andra telefonen",
+      "smartwatch": "Smartklocka",
+      "primaryEarbuds": "Primära trådlösa hörlurar",
+      "backupEarbuds": "Reservhörlurar",
+      "dualBoot": "Dual boot med härdad Windows",
+      "primaryBrowser": "Primär webbläsare",
+      "secondaryBrowser": "Sekundär webbläsare",
+      "primaryCodeEditor": "Primär kodredigerare",
+      "terminalEmulators": "Terminalemulatorer",
+      "versionControl": "Versionshanteringssystem",
+      "apiTesting": "API-testverktyg",
+      "databaseManagement": "Databashantering",
+      "codeHosting": "Kodhosting och samarbete",
+      "webHosting": "Webbhotell",
+      "ddosProtection": "DDoS-skydd och CDN",
+      "desktopEmail": "E-postklient på datorn",
+      "emailClient": "E-postklient (dator & mobil)",
+      "domainEmail": "Domän-e-postleverantör",
+      "taskManagement": "Uppgiftshantering",
+      "calendar": "Kalender och planering",
+      "timeTracking": "Tidrapportering",
+      "automationTool": "Automatiseringsverktyg",
+      "phoneLinking": "Koppla telefon till dator",
+      "noteTaking": "Anteckningsapp",
+      "officeSuite": "Kontorspaket",
+      "cloudStorage": "Molnlagring",
+      "vpn": "VPN med WireGuard-konfiguration",
+      "passwordManager": "Självhostad lösenordshanterare",
+      "twoFactorAuth": "Tvåfaktorsautentiseringsapp",
+      "dnsProvider": "DNS-leverantör",
+      "privacySearch": "Integritetsfokuserad sökmotor",
+      "networkVpn": "Säkert nätverks-VPN",
+      "lgFirmware": "LG firmware-verktyg",
+      "qualcommFlash": "Qualcomm Flash Image Loader",
+      "samsungFirmware": "Samsung firmware-verktyg",
+      "samsungDownload": "Samsung firmware-nedladdning",
+      "iosManagement": "iOS-enhetshantering",
+      "geographicSystem": "Geografiskt informationssystem",
+      "webOpenstreetmap": "Webbaserad OpenStreetMap-redigerare",
+      "desktopOpenstreetmap": "OpenStreetMap-redigerare för dator",
+      "mobileOpenstreetmap": "OpenStreetMap-redigerare för mobil",
+      "mobileContributor": "OpenStreetMap-bidragsgivare på mobil",
+      "communityNavigation": "Community-navigering och kartredigering",
+      "minecraftClient": "Minecraft-klient och launcher",
+      "minecraftServer": "Minecraft-server och modplattform",
+      "gameDistribution": "Speldistributionsplattform",
+      "gameLauncher": "Spelbutik och launcher",
+      "indieMarketplace": "Indie-spelmarknad",
+      "vectorGraphics": "Vektorgrafikredigerare",
+      "uiUxDesign": "UI/UX-designverktyg",
+      "graphicDesign": "Grafisk designplattform",
+      "digitalPaintingDesktop": "Digital målning (dator)",
+      "digitalPaintingMobile": "Digital målning (mobil)",
+      "photoEditing": "Bildredigering och manipulation",
+      "openSourceEditor": "Öppen källkod-bildredigerare",
+      "professionalEditor": "Professionell videoredigerare",
+      "professionalEditorDavinci": "Professionell videoredigerare",
+      "openSourceVideoEditor": "Öppen källkod-videoredigerare",
+      "videoEditorCapcut": "Videoredigerare (dator & mobil)",
+      "subtitleEditor": "Textningsredigerare",
+      "videoPlayer": "Videospelare",
+      "audioEditor": "Ljudredigerare",
+      "musicStreamingYoutube": "Musikstreamingtjänst",
+      "musicStreamingSpotify": "Musikstreamingtjänst",
+      "videoStreaming": "Videostreamingplattform",
+      "revancedDescription": "Jag betalar för YouTube Premium, men huvudappen är bara oanvändbar smh",
+      "stremioDescription": "shhhh, säg inget till Netflix",
+      "clickToReveal": "Klicka 5 gånger för att visa",
+      "moreClicksToReveal": "({count} klick kvar för att visa)",
+      "clicksRemaining": "klick kvar för att visa"
+    },
+    "hiddenPlatforms": {
+      "platform1": "Omtalad plattform 1",
+      "platform2": "Omtalad plattform 2",
+      "click5": "Klicka 5 gånger för att visa",
+      "moreClicks": "(5 klick kvar för att visa)"
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "description": "Sätt att nå ut och kontakta mig.",
+    "message": "var inte blyg. säg hej. eller boka ett 1:1 om du känner dig proffs :)",
+    "disclaimer": "jag svarar på mejl. troligen. om jag inte blir distraherad av en fågel eller något",
+    "sections": {
+      "contactMe": "Kontakta mig",
+      "socialMedia": "Jag på sociala medier",
+      "otherPlatforms": "Jag på andra plattformar"
+    },
+    "sectionTitles": {
+      "contactMe": "Kontakta mig",
+      "socialMedia": "Jag på sociala medier",
+      "otherPlatforms": "Jag på andra plattformar"
+    },
+    "links": {
+      "universityEmail": "Universitetsmejl",
+      "bookMeeting": "Boka möte med mig",
+      "messengerNote": "Jag är väldigt inaktiv på Facebook och Messenger. Svar sker i mån av tid."
+    },
+    "secretButton": "Hemlig knapp"
+  },
+  "moodCat": {
+    "title": "Dagens katt",
+    "hover": "dömer dig mjukt",
+    "refresh": "Ny katt, vem är du?",
+    "seeMore": "Se fler katter",
+    "imageSource": "Bildkälla"
+  },
+  "music": {
+    "play": "Spela bakgrundsmusik",
+    "pause": "Pausa bakgrundsmusik"
+  },
+  "tetris": {
+    "title": "Tetris",
+    "description": "Ett klassiskt spel med fallande block och försvinnande rader",
+    "gameInfo": "Spelinformation",
+    "score": "Poäng",
+    "level": "Nivå",
+    "status": "Status",
+    "gameOver": "Spelet över",
+    "paused": "Pausad",
+    "playing": "Spelar",
+    "controls": "Kontroller",
+    "moveLeft": "Flytta vänster",
+    "moveRight": "Flytta höger",
+    "moveDown": "Flytta ner",
+    "rotate": "Rotera block",
+    "hardDrop": "Snabbsläpp",
+    "pauseGame": "Pausa spelet",
+    "playAgain": "Spela igen",
+    "resetGame": "Återställ spel",
+    "resume": "Fortsätt",
+    "pause": "Paus",
+    "drop": "Släpp",
+    "musicOn": "Musik på",
+    "musicOff": "Musik av",
+    "gameOverMessage": "Spelet över!",
+    "finalScore": "Din slutpoäng:"
+  },
+  "404": {
+    "title": "Du har gått vilse",
+    "description": "Katten vet inte ens var detta är.",
+    "button": "Gå tillbaka hem",
+    "sitemap": "Visa webbplatskarta",
+    "enjoycat": "Medan du är vilse, njut av denna katt:"
+  },
+  "scrapbook": {
+    "title": "Devlogg"
+  },
+  "webrings": {
+    "title": "Webbringar",
+    "description": "Webbringar som jag är med i. Upptäck fler oberoende webbplatser och personliga bloggar.",
+    "intro1": "En webbring är en samling webbplatser skapade av likasinnade, oftast centrerade kring ett ämne, estetik eller gemensamt intresse. (från safonts webring)",
+    "intro2": "Denna webbplats är en del av dessa webbringar. Klicka på länkarna för att besöka mina grannars sidor, och andra medlemmar om den webbringen har en slumpfunktion. Välj vilken ring du vill!",
+    "previous": "Föregående",
+    "random": "Slumpmässig",
+    "next": "Nästa",
+    "previousAria": "Föregående sida i {{name}}",
+    "randomAria": "Slumpmässig sida i {{name}}",
+    "nextAria": "Nästa sida i {{name}}"
+  },
+  "badges": {
+    "title": "Samling av webbmärken",
+    "description": "En samling klassiska webbmärken och knappar som används på min webbplats.",
+    "pageTitle": "Klassisk webbmärkessamling",
+    "pageDescription": "Jag har samlat dessa 88x31-märken för att visa vad jag och den här sidan faktiskt bryr oss om. De är en tillbakablick till Geocities-eran då internet var mindre fyllt av företags- och AI-smörja. Om du har ett märke du vill att jag ska lägga till här, säg bara till.",
+    "myBadgeTitle": "Mitt märke (klicka för att expandera)",
+    "myBadgeIntro": "Använd detta märke för att länka till min webbplats:",
+    "hotlinkUrl": "Hotlink URL:",
+    "htmlCodeTitle": "HTML-kod",
+    "embeddingSuggestionsTitle": "Förslag för inbäddning",
+    "suggestion1": "Använd",
+    "suggestion1b": "i din CSS för att behålla pixelkonst-stilen.",
+    "suggestion2": "Länka direkt till min hemsida på",
+    "suggestion3": "Märket är 88x31 pixlar, dubbla bredden och höjden i din HTML till",
+    "suggestion3b": "för att göra dem lättare att läsa på högupplösta skärmar.",
+    "collectionHeading": "Märkessamling",
+    "search": "Sök märken...",
+    "filterByCategory": "Filtrera efter kategori",
+    "verboseView": "Detaljerad",
+    "badgeOnlyView": "Endast märke",
+    "showingCount": "Visar {{count}} märken",
+    "showingFiltered": "Visar {{filtered}} av {{total}} märken",
+    "noResults": "Inga märken hittades som matchar dina sökkriterier",
+    "visitBadge": "Besök {{name}}"
+  },
+  "colophon": {
+    "title": "Kolofon",
+    "description": "Historien bakom denna webbplats och hur den byggdes",
+    "siteHistory": {
+      "title": "Webbplatsens historia",
+      "content1": "Den här webbplatsen registrerades först i slutet av 2023, men designen har ändrats mycket under dess livstid. Första versionen var en enkel WordPress-sida på ett skumt gratis webbhotell, andra var Carrd-baserad, tredje byggd med Astro. Den nuvarande versionen (fjärde) är en total omdesign byggd från grunden med moderna webtekniker.",
+      "content2": "Varje version har varit en utveckling, där den senaste fokuserar på prestanda, tillgänglighet, fullständig tangentbordsnavigering och en mer personlig känsla som bättre representerar vem jag är och vad jag bryr mig om."
+    },
+    "technologyStack": {
+      "title": "Teknikstack",
+      "nextjs": "React-ramverk som möjliggör server-side rendering och statisk webbplatsgenerering",
+      "react": "JavaScript-bibliotek för att bygga användargränssnitt",
+      "tailwind": "Utility-first CSS-ramverk",
+      "shadcn": "Återanvändbart komponentbibliotek byggt med Radix UI och Tailwind",
+      "framer": "Animationsbibliotek för React",
+      "i18next": "Internationaliseringsramverk",
+      "typescript": "Starkt typat programmeringsspråk som bygger på JavaScript"
+    },
+    "hosting": {
+      "title": "Hosting & distribution",
+      "content1": "Sidan är hostad på",
+      "content2": "som erbjuder smidig distribution från GitHub, automatisk HTTPS och global CDN.",
+      "content3": "Domänen hanteras via",
+      "content4": "som ger extra säkerhet och prestanda."
+    },
+    "inspiration": {
+      "title": "Inspiration",
+      "content1": "Denna sida hämtar inspiration från",
+      "content2": "som i sin tur inspirerats av",
+      "content3": "Ursprunglig idé på"
+    }
+  },
+  "footer": {
+    "copyright": "inga rättigheter förbehållna, ta vad du behöver och gör vad du vill :p",
+    "madeWith": "gjord med kärlek",
+    "andChaos": "och några veckors kodande"
+  },
+  "2048": {
+    "description": "Slå ihop brickorna, nå 2048!",
+    "score": "Poäng",
+    "best": "Bästa",
+    "gameOver": "Spelet över!",
+    "finalScore": "Slutpoäng",
+    "tryAgain": "Försök igen",
+    "youWin": "Du vann!",
+    "currentScore": "Nuvarande poäng",
+    "keepPlaying": "Fortsätt spela",
+    "newGame": "Nytt spel",
+    "howToPlay": "Hur man spelar",
+    "instructions1": "Använd piltangenterna eller WASD för att flytta brickorna. När två brickor med samma nummer möts, slås de ihop!",
+    "instructions2": "Efter varje drag dyker en ny bricka upp (antingen 2 eller 4).",
+    "instructions3": "Skapa en bricka med siffran 2048 för att vinna spelet!",
+    "controls": "Kontroller",
+    "moveLeft": "Flytta vänster",
+    "moveRight": "Flytta höger",
+    "moveUp": "Flytta upp",
+    "moveDown": "Flytta ner",
+    "touchInstructions": "På mobila enheter, använd knapparna på skärmen för att flytta brickor.",
+    "undo": "Ångra"
+  },
+  "keyboardShortcuts": {
+    "title": "Tangentbordsgenvägar",
+    "navigation": "Navigering",
+    "actions": "Åtgärder",
+    "close": "Stäng",
+    "home": "Hem",
+    "about": "Om mig",
+    "blog": "Blogg",
+    "projects": "Projekt",
+    "now": "Nu",
+    "uses": "Verktyg",
+    "contact": "Kontakt",
+    "colophon": "Kolofon",
+    "slashes": "Snedstreck",
+    "scrapbook": "Devlogg",
+    "tetris": "Tetris",
+    "2048": "2048",
+    "cycleLanguage": "Byt språk",
+    "cycleTheme": "Byt tema",
+    "refreshCat": "Uppdatera humörkatt",
+    "gamePageNotice": "De flesta tangentbordsgenvägar är avstängda på spelsidor för att undvika konflikter med spelkontroller.",
+    "openShortcuts": "Öppna tangentbordsgenvägar",
+    "actionSearch": "Öppna åtgärdssökning"
+  },
+  "actionSearch": {
+    "title": "Sök åtgärder",
+    "placeholder": "Sök åtgärder...",
+    "noResults": "Inga åtgärder hittades",
+    "goTo": "Gå till sida",
+    "toggleTheme": "Byt tema",
+    "switchDarkMode": "Byt till mörkt läge",
+    "switchLightMode": "Byt till ljust läge",
+    "appearance": "Utseende",
+    "cycleLanguage": "Byt språk",
+    "refreshCat": "Hämta ny humörkatt",
+    "playGame": "Spela spel",
+    "viewShortcuts": "Visa alla genvägar",
+    "pressToOpen": "Tryck . för att öppna kommandopaletten",
+    "escToClose": "ESC för att stänga",
+    "fun": "Kul",
+    "games": "Spel",
+    "tetris": "Spela Tetris",
+    "2048": "Spela 2048",
+    "help": "Hjälp",
+    "projects": {
+      "category": "Navigera bland projektkort",
+      "closeCard": "Stäng vänt kort",
+      "closeCardDescription": "Stäng det öppnade projektkortet",
+      "left": "Navigera vänster",
+      "leftDescription": "Gå till föregående projektkort",
+      "right": "Navigera höger",
+      "rightDescription": "Gå till nästa projektkort",
+      "up": "Navigera upp",
+      "upDescription": "Navigera upp eller scrolla innehåll",
+      "down": "Navigera ner",
+      "downDescription": "Navigera ner eller scrolla innehåll",
+      "flipCard": "Vänd projektkort: {{title}}",
+      "flipCardDescription": "Vänd projektkortet för att se detaljer"
+    },
+    "blog": {
+      "category": "Navigera bland blogginlägg",
+      "next": "Till nästa inlägg",
+      "nextDescription": "Gå till nästa blogginlägg",
+      "prev": "Till föregående inlägg",
+      "prevDescription": "Gå till föregående blogginlägg",
+      "search": "Sök blogginlägg",
+      "searchDescription": "Sök bland titlar eller innehåll",
+      "filterTag": "Filtrera blogginlägg",
+      "filterTagDescription": "Öppna filtermeny",
+      "jumpToPost": "Hoppa till inlägg {{i}}",
+      "jumpToPostDescription": "Navigera till inlägg {{i}}",
+      "back": "Tillbaka till blogglistan",
+      "backDescription": "Gå tillbaka till blogglistan"
+    },
+    "about": {
+      "category": "Navigera bland om-sektioner",
+      "jumpToChapter": "Hoppa till kapitel {{i}}",
+      "jumpToChapterDescription": "Navigera till kapitel {{i}}"
+    },
+    "uses": {
+      "category": "Navigera bland verktygssektioner",
+      "jumpToCategory": "Hoppa till {{category}}",
+      "jumpToCategoryDescription": "Navigera till kategori {{category}}"
+    },
+    "now": {
+      "category": "Navigera bland nu-sektioner",
+      "jumpToCategory": "Hoppa till {{category}}",
+      "jumpToCategoryDescription": "Navigera till {{category}}"
+    },
+    "colophon": {
+      "category": "Navigera bland kolofonsektioner",
+      "jumpToSection": "Hoppa till {{section}}",
+      "jumpToSectionDescription": "Navigera till sektion {{section}}"
+    }
+  },
+  "firstVisitHint": {
+      "prefix": "Tips:",
+      "message": "Du kan trycka på",
+      "suffix": "-tangenten för att öppna sökfältet :D",
+      "dismiss": "Dölj"
+  }
+}

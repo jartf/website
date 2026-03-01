@@ -1,0 +1,561 @@
+{
+  "nav": {
+    "home": "Koti",
+    "about": "Minusta",
+    "projects": "Projektit",
+    "blog": "Blogi",
+    "now": "Nyt",
+    "uses": "Käytän",
+    "contact": "Yhteys",
+    "guestbook": "Vieraskirja",
+    "colophon": "Kolofoni",
+    "webring": "Webring",
+    "scrapbook": "Päiväkirja"
+  },
+  "languageNotice": {
+    "message": "Tämän kielen käännökset ovat vielä työn alla. Osa sisällöstä voi olla puutteellista tai puuttua kokonaan.",
+    "dismiss": "Sulje"
+  },
+  "language": {
+    "main": "Pääkielet",
+    "beta": "Kielet beetaversiossa",
+    "other": "Muut kielet",
+    "auto": "Auto (selaimen kieli)",
+    "search": "Etsi kieliä...",
+    "en": "Englanti",
+    "vi": "Vietnami",
+    "ru": "Venäjä",
+    "et": "Viro",
+    "da": "Tanska",
+    "tr": "Turkki",
+    "zh": "Kiina",
+    "pl": "Puola",
+    "sv": "Ruotsi",
+    "fi": "Suomi",
+    "tok": "Toki Pona"
+  },
+  "greetings": {
+    "morning": "Huomenta, matkaaja.",
+    "afternoon": "Hyvää iltapäivää, kulkija.",
+    "evening": "Hyvää iltaa, tutkija.",
+    "night": "Vielä hereillä? Niin minäkin."
+  },
+  "home": {
+    "buttons": {
+      "about": "Minusta",
+      "projects": "Katso projektini"
+    },
+    "footer": "Tervetuloa digitaaliseen puutarhaani. Tutustu vapaasti.",
+    "heading": "hei, olen Jarema",
+    "subheading": "Talousopiskelija, joskus koodari, useimmiten kissakuiskaaja.",
+    "contactButton": "Ota yhteyttä",
+    "aboutButton": "Minusta",
+    "blogButton": "Lue blogiani",
+    "guestbookButton": "Kirjoita vieraskirjaani",
+    "recentPosts": "Viimeisimmät blogikirjoitukset",
+    "latestNow": "Mitä teen nyt"
+  },
+  "guestbook": {
+    "title": "Vieraskirja",
+    "description": "Jätä viesti vieraskirjaani!"
+  },
+  "about": {
+    "title": "Minusta",
+    "chapters": {
+      "1": {
+        "title": "kuinka synnyin",
+        "content1": "Synnyin Vietnamissa 2000-luvun puolivälissä, joten olen teknisesti Gen Z, mutta kasvoin jonkinlaisessa välitilassa, joka ei oikein sovi mihinkään lokeroon. Olin se hiljainen lapsi luokan takana, mutta mieleni ei ollut koskaan hiljaa. Tarkkailin kaikkea, ihmisiä, kuvioita ja valtasuhteita, ja kokosin kaiken hiljaa yhteen.",
+        "content2": "Lapsuuteni oli outo sekoitus digitaalisia pakopaikkoja ja tunneansoja. Minulla ei ollut täydellistä perhettä. En edes yritä teeskennellä. Jouduin kasvamaan nopeasti henkisesti ja opin varhain, että herkkyys tarkoittaa varovaisuutta. Opit kuuntelemaan enemmän kuin puhumaan. Opit vaihtamaan roolia, piilottamaan osia itsestäsi näkyvillä. Mutta opit myös sitkeyttä. Opit rakentamaan itsesi tyhjästä, kun kukaan ei anna sinulle piirustusta.",
+        "content3": "Tämä sivusto on osa sitä piirustusta. Ei selittääkseen kaikkea, vaan tehdäkseen rauhan kaaoksen kanssa."
+      },
+      "2": {
+        "title": "kun tajusin että maailma on huijausta",
+        "content1": "Se ei iskenyt kerralla. Ei ollut mitään yhtä suurta oivalluksen hetkeä. Se oli enemmänkin hidas havahtuminen: järjestelmät ympärilläni, perheestä kouluun ja yhteiskuntaan, eivät olleet tehty kaltaisilleni. Vakaus voi olla ansa. Rakkauskin voi olla ehdollista, aseena. Voit noudattaa kaikkia \"sääntöjä\" ja silti hävitä.",
+        "content2": "Tein kuten moni muukin: sopeuduin. Teroitin mieltäni, panssaroin sydämeni ja aloin opiskella kaikkea. Taloustiede antoi minulle kielen ymmärtää valtaa. Koodaus antoi työkalut rakentaa valtaa. Kieli antoi vapauden ilmaista ja paeta. Tajusin, etten halua vain selviytyä järjestelmässä, vaan ymmärtää, paljastaa ja ehkä vähän horjuttaa sitä.",
+        "content3": "Tämä sivu ei ole vain portfolio. Se on todiste siitä, että olen olemassa omilla ehdoillani, en niillä jotka sain."
+      },
+      "3": {
+        "title": "koodaus, kielet ja ADHD-moodi",
+        "content1": "En pärjää jäykillä rutiineilla tai siisteillä aikatauluilla. ADHD tarkoittaa, että aivoni liikkuvat nopeasti, kiertävät loputtomasti, hyperfokusoivat satunnaisesti klo 2 yöllä, unohtavat syödä koko päivän ja joskus hukkuvat meluun. Herkkyys melulle tekee minut välillä hulluksi. Mutta se tekee minusta myös uteliaan. Pakkomielteisen uteliaan. En \"kokeile\" asioita, vaan sukellan niihin. En multitaskaa, elän vain rinnakkaisissa välilehdissä.",
+        "content2": "Koodaus on minulle sekä kaaosta että lohtua. Se antaa rakennetta ajatuksille, jotka eivät pysy paikallaan. Se antaa voiman luoda jotain toimivaa, jotain joka heijastaa mieltäni, jota ei voi täysin pukea sanoiksi. Ja kieli? Se on toinen puoli palapelistä. Vaihdan vietnamin, englannin, venäjän ja joskus turkin tai tanskan välillä, en siksi että haluaisin näyttää, vaan koska eri kielet avaavat eri puolia itsestäni. Eri tunteita. Eri muistoja. Englanti on terävin teräni. Vietnami on sydämenlyöntini. Venäjä on melankoliani. Turkki on uuden jännitys. Tanska... latautuu vielä.",
+        "content3": "Ja kyllä, kirjoitan sotkuisesti, mutta kirjoitan totta. Koodaan epätäydellisesti, mutta tarkoituksella. Kaikki täällä on tehty samalla energialla."
+      },
+      "4": {
+        "title": "aktivismi ja liika aitous netissä",
+        "content1": "En ole vaikuttaja. En ole kovaääninen mielenosoittaja. Mutta uskon vastuuseen, empatiaan ja tilojen luomiseen, joissa ihmiset kokevat tulevansa nähdyiksi, eivät vain siedetyiksi. Aktivismini on hiljaista, joskus näkymätöntä. Se näkyy rakentamissani asioissa, keskusteluissa ja siinä, etten laimenna totuuttani vain jonkun mukavuuden vuoksi.",
+        "content2": "Se on epäoikeudenmukaisuuden esiin nostamista, kun olisi helpompi olla hiljaa. Se on syrjäytettyjen äänien vahvistamista, vaikka oma ääneni olisi ohut kuin kuiskaus. Se on sanomisessa:",
+        "quote": "\"Minulla ei ole kaikkia vastauksia, mutta aion silti yrittää.\"",
+        "quoteTooltip": "joo, sanoin sen itse lol",
+        "content3": "Joskus katoan viikoiksi. Joskus jaan liikaa klo 3 yöllä. Joskus postaan kissameemin ja keksin siihen lainauksen. Olen monipuolinen."
+      },
+      "5": {
+        "title": "minne olen menossa",
+        "content1": "En ole täällä myymässä henkilöbrändiä tai teeskentelemässä että elämäni on hallinnassa. Koska ei todellakaan ole. Useimpina päivinä yritän vain tasapainotella toimivuuden, ystävällisyyden ja rehellisyyden välillä. Mutta tiedän mikä minulle on tärkeää.",
+        "content2": "Haluan jatkaa luomista. Jatkaa kirjoittamista. Jatkaa kielten oppimista, jotka saavat aivoni surisemaan. Haluan rakentaa työkaluja, joilla on merkitystä, en vain tykkäyksiä. Haluan matkustaa paikkoihin, joissa historia, kieli ja identiteetti kietoutuvat yhteen. Haluan jättää jälkeeni asioita, jotka tuntuvat lämpimiltä, hyödyllisiltä ja inhimillisiltä. En kiillotettua täydellisyyttä, vaan tarinoita ja paloja, jotka saavat ihmiset tuntemaan olonsa vähemmän yksinäiseksi.",
+        "content3": "Haluan rauhaa. En vain kaaoksen poissaoloa, vaan sellaista rauhaa, joka tulee siitä että tietää kuka on, mitä on kokenut ja mitä on päättänyt jättää taakseen.",
+        "content4": "Jos luet tätä, ehkä sama resonoi sinussa. Tervetuloa. Ole kuin kotonasi. Mutta varo, osa ajatuksista täällä on vielä keskeneräisiä."
+      },
+      "6": {
+        "title": "en ole vielä valmis",
+        "content1": "tässä on osa, jota ei pitänyt lukea.",
+        "content2": "olen yhä vihainen. suren yhä versiota itsestäni, jota ei koskaan saanut olla. herään yhä joskus ja ihmettelen miksi kaikki tuntuu vähän pielessä. joskus mietin karkaamista, katoamista, uusi nimi, uusi kaupunki, uusi kieli. joskus olen lähellä tehdä sen.",
+        "content3": "on päiviä jolloin en tunne itseäni ihmiseksi. enemmänkin muistoksi, joka yrittää muuttua todeksi. enemmänkin kaiuksi jostain pehmeästä, johon en enää yllä. toisina päivinä olen täynnä sähköä. tunnen jokaisen yksityiskohdan, auringon iholla, hiljaiset soittolistat, miten ihmisten kasvot muuttuvat kun he viimein uskaltavat olla omia itsejään. se pitää minut elossa, jotenkin.",
+        "content4": "en ole valmis tulemaan siksi, miksi minun kuuluu tulla. mutta olen valmis lopettamaan teeskentelyn että on ok olla hiljaa."
+      }
+    }
+  },
+  "projects": {
+    "title": "Projektini",
+    "description": "Kokoelma henkilökohtaisia, akateemisia ja aktivistisia projekteja, joita olen tehnyt. Osa valmiita, osa vielä työn alla.",
+    "status": {
+      "completed": "Valmis",
+      "inProgress": "Käynnissä",
+      "planned": "Suunniteltu"
+    },
+    "statusLabels": {
+      "completed": "Valmis",
+      "inProgress": "Käynnissä",
+      "planned": "Suunniteltu"
+    },
+    "categories": {
+      "personal": "Henkilökohtainen",
+      "academic": "Akateminen",
+      "activism": "Aktivismi"
+    },
+    "details": {
+      "what": "Mikä tämä on",
+      "learned": "Mitä opin",
+      "why": "Miksi tämä on tärkeää"
+    },
+    "cardActions": {
+      "clickForDetails": "Klikkaa nähdäksesi tiedot",
+      "clickToClose": "Klikkaa sulkeaksesi"
+    },
+    "buttons": {
+      "showRandom": "Näytä lisää satunnaisuutta",
+      "hideRandom": "Piilota kaaos"
+    }
+  },
+  "blog": {
+    "title": "Blogi",
+    "description": "Ajatuksia, pohdintoja ja joskus purkauksia. Kirjoitettu eri aikoina ja mielentiloissa.",
+    "language": "Kieli",
+    "languageFilter": "Suodata kielen mukaan",
+    "tag": "Tunniste",
+    "category": "Kategoria",
+    "noPosts": "Ei vielä kirjoituksia. Tule pian uudestaan!",
+    "search": "Etsi kirjoituksia...",
+    "sortNew": "Uusimmat ensin",
+    "sortOld": "Vanhimmat ensin",
+    "sortReadTime": "Lukuaika",
+    "sortABC": "Aakkosjärjestys",
+    "filter": "Suodatin",
+    "filterDescription": "Suodata blogikirjoituksia",
+    "activeFilter": "Aktiiviset suodattimet:",
+    "filterNoMatch": "Yksikään kirjoitus ei vastaa suodattimiasi. Kokeile muuttaa hakua.",
+    "clearFilter": "Tyhjennä kaikki suodattimet",
+    "mood": "Mieliala",
+    "cat": "Kissan hyväksymä",
+    "prev": "Edellinen kirjoitus",
+    "next": "Seuraava kirjoitus",
+    "jumpToPost": "Hyppää kirjoitukseen",
+    "back": "Takaisin blogilistaan",
+    "showingPosts": "Näytetään {{current}} / {{total}} kirjoitusta",
+    "minRead": "min lukuaika",
+    "availableIn": "Tämä sivu on saatavilla myös"
+  },
+  "now": {
+    "title": "Nyt",
+    "description": "Mitä teen, ajattelen ja mihin keskityn juuri nyt.",
+    "lastUpdated": "Viimeksi päivitetty",
+    "categories": {
+      "reading": "Lukeminen",
+      "coding": "Koodaus",
+      "drinking": "Juominen",
+      "listening": "Kuuntelu",
+      "premid": "Discordin toiminta",
+      "thinking": "Ajattelu",
+      "studying": "Opiskelu",
+      "planning": "Suunnittelu"
+    }
+  },
+  "uses": {
+    "title": "Käytän",
+    "description": "Kaikki asiat joita käytän päivittäin. Sivusto on saanut inspiraatiota",
+    "websiteDescription": "sivustolta, jossa ihmiset jakavat käyttämiään asioita.",
+    "categories": {
+      "hardware": "Laitteisto",
+      "mobile": "Mobiili",
+      "audio": "Ääni",
+      "os": "Käyttöjärjestelmä & selaimet",
+      "development": "Kehitys",
+      "email": "Sähköposti & tuottavuus",
+      "privacy": "Yksityisyys & turvallisuus",
+      "mobile_tools": "Mobiilityökalut",
+      "mapping": "Kartoitus",
+      "gaming": "Pelaaminen",
+      "multimedia": "Multimedia",
+      "design": "Design & kuvitus",
+      "photo": "Kuvankäsittely",
+      "video": "Video & ääni",
+      "media": "Suoratoistopalvelut"
+    },
+    "subsections": {
+      "design": "Design & kuvitus",
+      "photo": "Kuvankäsittely",
+      "video": "Video & ääni",
+      "media": "Mediapalvelut"
+    },
+    "itemDescriptions": {
+      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "externalHDD": "Ulkoinen kovalevy varmuuskopioihin",
+      "mechanicalKeyboard": "Mekaaninen näppäimistö punaisilla kytkimillä",
+      "wirelessMouse": "Langaton pelihiiri",
+      "mainPhone": "Pääpuhelin",
+      "secondaryPhone": "Toinen puhelin",
+      "smartwatch": "Älykello",
+      "primaryEarbuds": "Pääkuulokkeet (langattomat)",
+      "backupEarbuds": "Varakuulokkeet",
+      "dualBoot": "Kaksoiskäynnistys kovennetulla Windowsilla",
+      "primaryBrowser": "Pääselain",
+      "secondaryBrowser": "Toinen selain",
+      "primaryCodeEditor": "Pääkoodieditori",
+      "terminalEmulators": "Terminaaliemulaattorit",
+      "versionControl": "Versionhallintajärjestelmä",
+      "apiTesting": "API-testaustyökalu",
+      "databaseManagement": "Tietokannan hallinta",
+      "codeHosting": "Koodin hostaus ja yhteistyö",
+      "webHosting": "Webhotelli",
+      "ddosProtection": "DDoS-suojaus ja CDN",
+      "desktopEmail": "Sähköpostiohjelma (tietokone)",
+      "emailClient": "Sähköpostiohjelma (tietokone & mobiili)",
+      "domainEmail": "Domain-sähköpostipalvelu",
+      "taskManagement": "Tehtävienhallinta",
+      "calendar": "Kalenteri ja aikataulutus",
+      "timeTracking": "Ajanseuranta",
+      "automationTool": "Automaatio-ohjelma",
+      "phoneLinking": "Puhelimen yhdistäminen tietokoneeseen",
+      "noteTaking": "Muistiinpanosovellus",
+      "officeSuite": "Toimisto-ohjelmisto",
+      "cloudStorage": "Pilvitallennus",
+      "vpn": "VPN WireGuard-konfiguraatiolla",
+      "passwordManager": "Oma salasanojen hallinta",
+      "twoFactorAuth": "Kaksivaiheinen tunnistautuminen",
+      "dnsProvider": "DNS-palveluntarjoaja",
+      "privacySearch": "Yksityisyyttä korostava hakukone",
+      "networkVpn": "Turvallinen verkko-VPN",
+      "lgFirmware": "LG firmware-työkalu",
+      "qualcommFlash": "Qualcomm Flash Image Loader",
+      "samsungFirmware": "Samsung firmware-työkalu",
+      "samsungDownload": "Samsung firmware-lataussivu",
+      "iosManagement": "iOS-laitteiden hallinta",
+      "geographicSystem": "Paikkatietojärjestelmä",
+      "webOpenstreetmap": "Web-pohjainen OpenStreetMap-editori",
+      "desktopOpenstreetmap": "OpenStreetMap-editori (tietokone)",
+      "mobileOpenstreetmap": "OpenStreetMap-editori (mobiili)",
+      "mobileContributor": "OpenStreetMap-mobiilieditori",
+      "communityNavigation": "Yhteisön navigointi ja kartoitus",
+      "minecraftClient": "Minecraft-asiakas ja käynnistin",
+      "minecraftServer": "Minecraft-palvelin ja modausalusta",
+      "gameDistribution": "Pelien jakelualusta",
+      "gameLauncher": "Pelien kauppa ja käynnistin",
+      "indieMarketplace": "Indie-pelien markkinapaikka",
+      "vectorGraphics": "Vektoripiirrosohjelma",
+      "uiUxDesign": "UI/UX-suunnittelutyökalu",
+      "graphicDesign": "Graafisen suunnittelun alusta",
+      "digitalPaintingDesktop": "Digitaalinen maalaus (tietokone)",
+      "digitalPaintingMobile": "Digitaalinen maalaus (mobiili)",
+      "photoEditing": "Kuvankäsittely ja muokkaus",
+      "openSourceEditor": "Avoimen lähdekoodin kuvankäsittely",
+      "professionalEditor": "Ammattimainen videoeditori",
+      "professionalEditorDavinci": "Ammattimainen videoeditori",
+      "openSourceVideoEditor": "Avoimen lähdekoodin videoeditori",
+      "videoEditorCapcut": "Videoeditori (tietokone & mobiili)",
+      "subtitleEditor": "Tekstityseditori",
+      "videoPlayer": "Videotoistin",
+      "audioEditor": "Äänieditori",
+      "musicStreamingYoutube": "Musiikin suoratoistopalvelu",
+      "musicStreamingSpotify": "Musiikin suoratoistopalvelu",
+      "videoStreaming": "Videon suoratoistoalusta",
+      "revancedDescription": "Maksan YouTube Premiumista, mutta pääsovellus on käyttökelvoton smh",
+      "stremioDescription": "shhhh, älä kerro Netflixille",
+      "clickToReveal": "Klikkaa 5 kertaa paljastaaksesi",
+      "moreClicksToReveal": "({count} klikkausta jäljellä)",
+      "clicksRemaining": "klikkausta jäljellä"
+    },
+    "hiddenPlatforms": {
+      "platform1": "Nimeämätön alusta 1",
+      "platform2": "Nimeämätön alusta 2",
+      "click5": "Klikkaa 5 kertaa paljastaaksesi",
+      "moreClicks": "(5 klikkausta jäljellä)"
+    }
+  },
+  "contact": {
+    "title": "Yhteys",
+    "description": "Tapoja ottaa yhteyttä ja tavoittaa minut.",
+    "message": "älä ujostele. sano hei. tai varaa 1:1 jos haluat olla virallinen :)",
+    "disclaimer": "vastaan sähköposteihin. luultavasti. ellei lintu tai jokin muu vie huomiotani",
+    "sections": {
+      "contactMe": "Ota yhteyttä",
+      "socialMedia": "Minä somessa",
+      "otherPlatforms": "Minä muualla"
+    },
+    "sectionTitles": {
+      "contactMe": "Ota yhteyttä",
+      "socialMedia": "Minä somessa",
+      "otherPlatforms": "Minä muualla"
+    },
+    "links": {
+      "universityEmail": "Yliopiston sähköposti",
+      "bookMeeting": "Varaa tapaaminen kanssani",
+      "messengerNote": "Olen hyvin epäaktiivinen Facebookissa ja Messengerissä. Vastaukset tulevat jos tulevat."
+    },
+    "secretButton": "Salainen nappi"
+  },
+  "moodCat": {
+    "title": "Päivän kissa",
+    "hover": "arvostelee sinua lempeästi",
+    "refresh": "Uusi kissa, kuka tämä on?",
+    "seeMore": "Katso lisää kissoja",
+    "imageSource": "Kuvan lähde"
+  },
+  "music": {
+    "play": "Toista taustamusiikkia",
+    "pause": "Tauota taustamusiikki"
+  },
+  "tetris": {
+    "title": "Tetris",
+    "description": "Klassinen peli putoavista palikoista ja katoavista riveistä",
+    "gameInfo": "Pelinfo",
+    "score": "Pisteet",
+    "level": "Taso",
+    "status": "Tila",
+    "gameOver": "Peli ohi",
+    "paused": "Tauolla",
+    "playing": "Pelaa",
+    "controls": "Ohjaimet",
+    "moveLeft": "Siirrä vasemmalle",
+    "moveRight": "Siirrä oikealle",
+    "moveDown": "Siirrä alas",
+    "rotate": "Kierrä palikkaa",
+    "hardDrop": "Nopea pudotus",
+    "pauseGame": "Tauota peli",
+    "playAgain": "Pelaa uudelleen",
+    "resetGame": "Nollaa peli",
+    "resume": "Jatka",
+    "pause": "Tauko",
+    "drop": "Pudota",
+    "musicOn": "Musiikki päällä",
+    "musicOff": "Musiikki pois",
+    "gameOverMessage": "Peli ohi!",
+    "finalScore": "Loppupisteesi:"
+  },
+  "404": {
+    "title": "Olet eksynyt kartalta",
+    "description": "Kissakaan ei tiedä missä olet.",
+    "button": "Palaa kotiin",
+    "sitemap": "Näytä sivukartta",
+    "enjoycat": "Kun olet eksyksissä, katso tätä kissaa:"
+  },
+  "scrapbook": {
+    "title": "Devlogi"
+  },
+  "webrings": {
+    "title": "Verkkorenkaat",
+    "description": "Verkkorenkaat, joissa olen mukana. Löydä lisää itsenäisiä verkkosivustoja ja henkilökohtaisia blogeja.",
+    "intro1": "Verkkorengas on samanhenkisten ihmisten tekemä sivustokokoelma, joka keskittyy yleensä tiettyyn aiheeseen, estetiikkaan tai yhteiseen kiinnostuksen kohteeseen. (safonts-verkkorenkaalta)",
+    "intro2": "Tämä sivusto on osa näitä verkkorenkaita. Klikkaa linkkejä vieraillaksesi naapureideni sivuilla, tai muiden jäsenten, jos renkaassa on satunnaistoiminto. Valitse mikä tahansa rengas!",
+    "previous": "Edellinen",
+    "random": "Satunnainen",
+    "next": "Seuraava",
+    "previousAria": "Edellinen sivu ryhmässä {{name}}",
+    "randomAria": "Satunnainen sivu ryhmässä {{name}}",
+    "nextAria": "Seuraava sivu ryhmässä {{name}}"
+  },
+  "badges": {
+    "title": "Web-merkkien kokoelma",
+    "description": "Kokoelma klassisia web-merkkejä ja painikkeita, joita käytän sivustollani.",
+    "pageTitle": "Klassinen web-merkkikokoelma",
+    "pageDescription": "Olen kerännyt nämä 88x31-merkit näyttääkseni, mistä minä ja tämä sivusto todella välitämme. Ne ovat kunnianosoitus Geocities-aikakaudelle, jolloin internet oli vähemmän täynnä korporaatioiden ja tekoälyn moskaa. Jos sinulla on merkki, jonka haluaisit minun lisäävän tänne, kysy vain.",
+    "myBadgeTitle": "Oma merkkini (klikkaa laajentaaksesi)",
+    "myBadgeIntro": "Käytä tätä merkkiä linkittääksesi sivustolleni:",
+    "hotlinkUrl": "Suoralinkki (Hotlink URL):",
+    "htmlCodeTitle": "HTML-koodi",
+    "embeddingSuggestionsTitle": "Upotusehdotuksia",
+    "suggestion1": "Käytä",
+    "suggestion1b": "CSS:ssäsi säilyttääksesi pikselitaiteen tyylin.",
+    "suggestion2": "Linkitä suoraan kotisivulleni osoitteessa",
+    "suggestion3": "Merkki on 88x31 pikseliä, tuplaa leveys ja korkeus HTML:ssäsi kokoon",
+    "suggestion3b": "jotta ne olisivat helpommin luettavissa korkearesoluutioisilla näytöillä.",
+    "collectionHeading": "Merkkikokoelma",
+    "search": "Hae merkkejä...",
+    "filterByCategory": "Suodata kategorian mukaan",
+    "verboseView": "Yksityiskohtainen",
+    "badgeOnlyView": "Vain merkki",
+    "showingCount": "Näytetään {{count}} merkkiä",
+    "showingFiltered": "Näytetään {{filtered}} / {{total}} merkistä",
+    "noResults": "Hakukriteerejä vastaavia merkkejä ei löytynyt",
+    "visitBadge": "Vieraile {{name}}"
+  },
+  "colophon": {
+    "title": "Kolofoni",
+    "description": "Tarinani tämän sivuston takana ja miten se rakennettiin",
+    "siteHistory": {
+      "title": "Sivuston historia",
+      "content1": "Tämä sivusto rekisteröitiin vasta loppuvuodesta 2023, mutta ulkoasu on muuttunut paljon matkan varrella. Ensimmäinen versio oli yksinkertainen WordPress-sivu ilmaisella hostingilla, toinen Carrd-pohjainen, kolmas rakennettu Astrolla. Tämä nykyinen (neljäs) on täysin uudelleen rakennettu modernilla web-tekniikalla.",
+      "content2": "Jokainen versio on ollut kehitysaskel, ja uusin painottaa suorituskykyä, saavutettavuutta, täyttä näppäimistönavigointia ja henkilökohtaisempaa otetta, joka kuvastaa paremmin kuka olen ja mistä välitän."
+    },
+    "technologyStack": {
+      "title": "Teknologiapino",
+      "nextjs": "React-kehys, joka mahdollistaa palvelinpuolen renderöinnin ja staattisen sivuston generoinnin",
+      "react": "JavaScript-kirjasto käyttöliittymien rakentamiseen",
+      "tailwind": "Utility-first CSS-kehys",
+      "shadcn": "Uudelleenkäytettävä komponenttikirjasto Radix UI:lla ja Tailwindilla",
+      "framer": "Animaatiokirjasto Reactille",
+      "i18next": "Kansainvälistämiskehys",
+      "typescript": "Vahvasti tyypitetty ohjelmointikieli, joka pohjautuu JavaScriptiin"
+    },
+    "hosting": {
+      "title": "Hosting & julkaisu",
+      "content1": "Sivusto on hostattu",
+      "content2": "joka tarjoaa sujuvan julkaisun GitHubista, automaattisen HTTPS:n ja globaalin CDN:n.",
+      "content3": "Verkkotunnus hallinnoidaan",
+      "content4": "joka tarjoaa lisäturvaa ja suorituskykyä."
+    },
+    "inspiration": {
+      "title": "Inspiraatio",
+      "content1": "Tämä sivu on saanut inspiraatiota",
+      "content2": "joka puolestaan on saanut inspiraatiota",
+      "content3": "Alkuperäinen idea"
+    }
+  },
+  "footer": {
+    "copyright": "ei oikeuksia varattu, ota mitä tarvitset ja tee mitä haluat :p",
+    "madeWith": "tehty rakkaudella",
+    "andChaos": "ja muutaman viikon säätämisellä"
+  },
+  "2048": {
+    "description": "Yhdistä laatat, pääse 2048:aan!",
+    "score": "Pisteet",
+    "best": "Paras",
+    "gameOver": "Peli ohi!",
+    "finalScore": "Loppupisteet",
+    "tryAgain": "Yritä uudelleen",
+    "youWin": "Voitit!",
+    "currentScore": "Nykyiset pisteet",
+    "keepPlaying": "Jatka peliä",
+    "newGame": "Uusi peli",
+    "howToPlay": "Kuinka pelata",
+    "instructions1": "Käytä nuolinäppäimiä tai WASD:ta siirtääksesi laattoja. Kun kaksi samanlaista laattaa koskettaa, ne yhdistyvät!",
+    "instructions2": "Jokaisen siirron jälkeen ilmestyy uusi laatta (2 tai 4).",
+    "instructions3": "Luo laatta, jossa on numero 2048, voittaaksesi pelin!",
+    "controls": "Ohjaimet",
+    "moveLeft": "Siirrä vasemmalle",
+    "moveRight": "Siirrä oikealle",
+    "moveUp": "Siirrä ylös",
+    "moveDown": "Siirrä alas",
+    "touchInstructions": "Mobiililaitteilla käytä ruudun ohjaimia siirtääksesi laattoja.",
+    "undo": "Kumoa"
+  },
+  "keyboardShortcuts": {
+    "title": "Pikanäppäimet",
+    "navigation": "Navigointi",
+    "actions": "Toiminnot",
+    "close": "Sulje",
+    "home": "Koti",
+    "about": "Minusta",
+    "blog": "Blogi",
+    "projects": "Projektit",
+    "now": "Nyt",
+    "uses": "Käytän",
+    "contact": "Yhteys",
+    "colophon": "Kolofoni",
+    "slashes": "Vinoviivat",
+    "scrapbook": "Devlogi",
+    "tetris": "Tetris",
+    "2048": "2048",
+    "cycleLanguage": "Vaihda kieltä",
+    "cycleTheme": "Vaihda teemaa",
+    "refreshCat": "Päivitä kissatunnelma",
+    "gamePageNotice": "Useimmat pikanäppäimet eivät toimi pelisivuilla, jotta ne eivät häiritse pelin ohjausta.",
+    "openShortcuts": "Avaa pikanäppäimet",
+    "actionSearch": "Avaa toimintohaku"
+  },
+  "actionSearch": {
+    "title": "Toimintohaku",
+    "placeholder": "Hae toimintoja...",
+    "noResults": "Ei löytynyt toimintoja",
+    "goTo": "Siirry sivulle",
+    "toggleTheme": "Vaihda teemaa",
+    "switchDarkMode": "Vaihda tummaan tilaan",
+    "switchLightMode": "Vaihda vaaleaan tilaan",
+    "appearance": "Ulkoasu",
+    "cycleLanguage": "Vaihda kieltä",
+    "refreshCat": "Hae uusi kissatunnelma",
+    "playGame": "Pelaa peliä",
+    "viewShortcuts": "Näytä kaikki pikanäppäimet",
+    "pressToOpen": "Paina . avataksesi komentopaletti",
+    "escToClose": "ESC sulkee",
+    "fun": "Hauskaa",
+    "games": "Pelit",
+    "tetris": "Pelaa Tetrikstä",
+    "2048": "Pelaa 2048",
+    "help": "Apua",
+    "projects": {
+      "category": "Selaa projektikortteja",
+      "closeCard": "Sulje käännetty kortti",
+      "closeCardDescription": "Sulje avattu projektikortti",
+      "left": "Siirry vasemmalle",
+      "leftDescription": "Siirry edelliseen projektikorttiin",
+      "right": "Siirry oikealle",
+      "rightDescription": "Siirry seuraavaan projektikorttiin",
+      "up": "Siirry ylös",
+      "upDescription": "Siirry ylös tai selaa sisältöä",
+      "down": "Siirry alas",
+      "downDescription": "Siirry alas tai selaa sisältöä",
+      "flipCard": "Käännä projektikortti: {{title}}",
+      "flipCardDescription": "Käännä projektikortti nähdäksesi tiedot"
+    },
+    "blog": {
+      "category": "Selaa blogikirjoituksia",
+      "next": "Seuraavaan kirjoitukseen",
+      "nextDescription": "Siirry seuraavaan blogikirjoitukseen",
+      "prev": "Edelliseen kirjoitukseen",
+      "prevDescription": "Siirry edelliseen blogikirjoitukseen",
+      "search": "Etsi blogikirjoituksia",
+      "searchDescription": "Etsi otsikosta tai sisällöstä",
+      "filterTag": "Suodata blogikirjoituksia",
+      "filterTagDescription": "Avaa suodatinvalikko",
+      "jumpToPost": "Hyppää kirjoitukseen {{i}}",
+      "jumpToPostDescription": "Siirry kirjoitukseen {{i}}",
+      "back": "Takaisin blogilistaan",
+      "backDescription": "Palaa blogilistaan"
+    },
+    "about": {
+      "category": "Selaa minusta-osioita",
+      "jumpToChapter": "Hyppää lukuun {{i}}",
+      "jumpToChapterDescription": "Siirry lukuun {{i}}"
+    },
+    "uses": {
+      "category": "Selaa käytän-osioita",
+      "jumpToCategory": "Hyppää kategoriaan {{category}}",
+      "jumpToCategoryDescription": "Siirry kategoriaan {{category}}"
+    },
+    "now": {
+      "category": "Selaa nyt-osioita",
+      "jumpToCategory": "Hyppää kategoriaan {{category}}",
+      "jumpToCategoryDescription": "Siirry kategoriaan {{category}}"
+    },
+    "colophon": {
+      "category": "Selaa kolofoniosioita",
+      "jumpToSection": "Hyppää osioon {{section}}",
+      "jumpToSectionDescription": "Siirry osioon {{section}}"
+    }
+  },
+  "firstVisitHint": {
+      "prefix": "Vinkki:",
+      "message": "Voit avata haun painamalla",
+      "suffix": "-näppäintä :D",
+      "dismiss": "Sulje vinkki"
+  }
+}

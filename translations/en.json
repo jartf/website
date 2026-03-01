@@ -1,0 +1,562 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "blog": "Blog",
+    "now": "Now",
+    "uses": "Uses",
+    "contact": "Contact",
+    "guestbook": "Guestbook",
+    "colophon": "Colophon",
+    "webring": "Webrings",
+    "scrapbook": "Scrapbook"
+  },
+  "languageNotice": {
+    "message": "Translations for this language are still under construction. Some content may be incomplete or missing.",
+    "dismiss": "Dismiss"
+  },
+  "language": {
+    "main": "Main languages",
+    "beta": "Languages in beta",
+    "other": "Other languages",
+    "auto": "Auto (browser language)",
+    "search": "Search languages...",
+    "en": "English",
+    "vi": "Vietnamese",
+    "ru": "Russian",
+    "et": "Estonian",
+    "da": "Danish",
+    "tr": "Turkish",
+    "zh": "Chinese",
+    "pl": "Polish",
+    "sv": "Swedish",
+    "fi": "Finnish",
+    "tok": "Toki Pona"
+  },
+  "greetings": {
+    "morning": "Good morning, traveler.",
+    "afternoon": "Good afternoon, wanderer.",
+    "evening": "Good evening, explorer.",
+    "night": "Still awake? Me too."
+  },
+  "home": {
+    "buttons": {
+      "about": "About me",
+      "projects": "See my projects"
+    },
+    "footer": "Welcome to my digital garden. Feel free to explore.",
+    "heading": "hi there, i'm Jarema",
+    "subheading": "Economics major, sometimes coder, most times cat whisperer.",
+    "contactButton": "Contact me",
+    "aboutButton": "About me",
+    "blogButton": "Read my blog",
+    "guestbookButton": "Sign my guestbook",
+    "recentPosts": "Recent blog posts",
+    "latestNow": "What I'm up to now"
+  },
+  "guestbook": {
+    "title": "Guestbook",
+    "description": "Leave a message on my guestbook!"
+  },
+  "about": {
+    "title": "About me",
+    "chapters": {
+      "1": {
+        "title": "how i spawned",
+        "content1": "I was born in Vietnam in the mid-2000s, which technically makes me Gen Z, but I grew up with a kind of in-betweenness that doesn't quite fit any label. I was the quiet kid in the back of the room, but my mind was never really quiet. I was observing everything, whether that was people, patterns, or power dynamics, and quietly putting it all together.",
+        "content2": "My childhood was a strange mix of digital escapes and emotional landmines. I didn't have a perfect family. I won't even try to pretend I did. I had to grow up fast, emotionally speaking, and I learned early on that being sensitive meant being careful. You learn to listen more than you speak. You learn to code-switch, to hide pieces of yourself in plain sight. But you also learn resilience. You learn how to build a self from scratch when no one hands you the blueprint.",
+        "content3": "This site is part of that blueprint. Not to explain everything or even try to, but to make peace with the chaos."
+      },
+      "2": {
+        "title": "when i found out the world is rigged",
+        "content1": "It didn't hit all at once. There wasn't some singular moment of revelation. It was more like a slow burn: the realization that the systems around me, from family to education to society at large, weren't built with people like me in mind. That stability could be a trap. That even love can be conditional, weaponized. That you could follow all the \"rules\" and still lose.",
+        "content2": "So I did what a lot of us do: I adapted. I sharpened my mind, armored my heart, and started studying everything. Economics gave me the vocabulary to understand power. Coding gave me the tools to build power. Language gave me the freedom to express and escape. I realized I didn't want to just survive inside the system, I wanted to understand it, expose it, and maybe even subvert it a little.",
+        "content3": "This site isn't just a portfolio. It's proof that I exist on my own terms, not the ones I was handed."
+      },
+      "3": {
+        "title": "coding, languages, and the ADHD grindset",
+        "content1": "I don't do well with rigid routines or neat timelines. ADHD means my brain moves fast, loops endlessly, hyperfocuses randomly at 2am, forgets to eat for a day straight, and sometimes drowns in noise. Sensitivity to noise also makes me go insane sometimes. But it also means I'm deeply curious. Obsessively so. I don't \"dabble\" in things, rather I throw myself in. I don't multitask, it's just that I live in parallel tabs.",
+        "content2": "Coding, for me, is both chaos and comfort. It gives structure to thoughts that refuse to sit still. It gives me the power to make something that works, something that reflects a part of my mind that can never fully be verbalized. And language? That's the other half of the puzzle. I switch between Vietnamese, English, Russian, and sometimes Turkish or Danish, not because I want to show off, but because different languages unlock different selves. Different emotions. Different memories. English is my sharpest blade. Vietnamese is my heartbeat. Russian is my melancholy. Turkish is the thrill of newness. Danish is… well, still in progress.",
+        "content3": "And yeah, I write messy, but I write real. I code imperfectly, but intentionally. Everything you see here was built with that same energy."
+      },
+      "4": {
+        "title": "activism and being too real online",
+        "content1": "I'm not an influencer. I'm not a loud voice on a picket line. But I believe in accountability, in empathy, in building spaces where people feel seen, not just tolerated. My activism is quiet, sometimes invisible. It shows up in the things I build, the conversations I have, and the way I refuse to dilute my truth just to make someone comfortable.",
+        "content2": "It's in calling out injustice when it's safer to stay silent. It's in amplifying marginalized voices, even when I feel like mine is already whisper-thin. It's in the saying:",
+        "quote": "\"I don't have all the answers, but I'm still going to try.\"",
+        "quoteTooltip": "yeah I said it lol",
+        "content3": "Sometimes I vanish for weeks. Sometimes I overshare at 3am. Sometimes I post a cat meme and follow it with a quote I randomly make up. I contain multitudes."
+      },
+      "5": {
+        "title": "where i'm headed",
+        "content1": "I'm not here to sell you a personal brand or pretend I've got my life all figured out. Because I really don't. Most days, I'm just trying to balance being functional, being kind, and being honest. But I do know what matters to me.",
+        "content2": "I want to keep creating. Keep writing. Keep learning languages that make my brain buzz. I want to build tools that matter, not just get likes. I want to travel to the places where history, language, and identity tangle together. I want to leave behind things that feel warm, useful, and human. Not polished perfection, but stories and scraps that make people feel less alone.",
+        "content3": "I want peace. Not just the absence of chaos, but the kind of peace that comes from knowing who you are, what you've been through, and what you've chosen to leave behind.",
+        "content4": "If you're here reading this, then part of you resonates with that. Welcome. Make yourself at home. Just watch your step, some of the thoughts on this site are still under construction."
+      },
+      "6": {
+        "title": "i'm not done yet",
+        "content1": "so here's the part they weren't supposed to read.",
+        "content2": "i'm still angry. still grieving a version of myself that was never allowed to exist. still waking up some days wondering why everything feels a few degrees off. sometimes i think about running away, just disappearing, new name, new city, new language. sometimes i almost do it.",
+        "content3": "there are days i don't even feel human. more like a memory trying to solidify. more like an echo of something softer i can't reach anymore. other days, i'm electric. i feel every detail, sunlight on skin, quiet playlists, the way people's faces shift when they're finally safe enough to be themselves. it keeps me alive, somehow.",
+        "content4": "i'm not done becoming whoever the hell i'm supposed to be. but i am done pretending that i'm okay with staying silent."
+      }
+    }
+  },
+  "projects": {
+    "title": "My projects",
+    "description": "A collection of personal, academic, and activism projects I've worked on. Some finished, some still cooking.",
+    "status": {
+      "completed": "Completed",
+      "inProgress": "Still cooking",
+      "planned": "Planned"
+    },
+    "statusLabels": {
+      "completed": "Completed",
+      "inProgress": "In progress",
+      "planned": "Planned"
+    },
+    "categories": {
+      "personal": "Personal",
+      "academic": "Academic",
+      "activism": "Activism"
+    },
+    "details": {
+      "what": "What it is",
+      "learned": "What I learned",
+      "why": "Why it matters"
+    },
+    "cardActions": {
+      "clickForDetails": "Click for details",
+      "clickToClose": "Click to close"
+    },
+    "buttons": {
+      "showRandom": "Show more randomness",
+      "hideRandom": "Hide the chaos"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Thoughts, reflections, and occasional rants. Written at various hours and states of mind.",
+    "language": "Language",
+    "languageFilter": "Filter by language",
+    "tag": "Tag",
+    "category": "Category",
+    "noPosts": "No posts yet. Check back soon!",
+    "search": "Search posts...",
+    "sortNew": "Newest first",
+    "sortOld": "Oldest first",
+    "sortReadTime": "Reading time",
+    "sortABC": "Alphabetical",
+    "filter": "Filter",
+    "filterDescription": "Filter blog posts",
+    "activeFilter": "Active filters:",
+    "filterNoMatch": "No posts match your filters. Try adjusting your search criteria.",
+    "clearFilter": "Clear all filters",
+    "mood": "Mood",
+    "cat": "Cat Approved",
+    "prev": "Previous post",
+    "next": "Next post",
+    "jumpToPost": "Jump to post",
+    "back": "Back to blog list",
+    "showingPosts": "Showing {{current}} of {{total}} posts",
+    "minRead": "min read",
+    "availableIn": "This page is also available in"
+  },
+  "now": {
+    "title": "Now",
+    "description": "What I'm doing, thinking about, and focusing on right now.",
+    "lastUpdated": "Last updated",
+    "categories": {
+      "reading": "Reading",
+      "coding": "Coding",
+      "drinking": "Drinking",
+      "listening": "Listening",
+      "premid": "Discord activity",
+      "thinking": "Thinking",
+      "studying": "Studying",
+      "planning": "Planning"
+    }
+  },
+  "uses": {
+    "title": "Uses",
+    "description": "All the things I use on a daily basis. Also available on",
+    "websiteDescription": "a website where people share the stuff they use.",
+    "categories": {
+      "hardware": "Hardware",
+      "mobile": "Mobile",
+      "audio": "Audio",
+      "os": "Operating system & browsers",
+      "development": "Development",
+      "email": "Email & productivity",
+      "privacy": "Privacy & security",
+      "mobile_tools": "Mobile device tools",
+      "mapping": "Mapping",
+      "gaming": "Gaming",
+      "multimedia": "Multimedia",
+      "design": "Design & illustration",
+      "photo": "Photo editing",
+      "video": "Video & audio",
+      "media": "Streaming services"
+    },
+    "subsections": {
+      "design": "Design & illustration",
+      "photo": "Photo editing",
+      "video": "Video & audio",
+      "media": "Media services"
+    },
+    "itemDescriptions": {
+      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "externalHDD": "External HDD for backups",
+      "mechanicalKeyboard": "Mechanical keyboard with Red Switch",
+      "wirelessMouse": "Wireless gaming mouse",
+      "mainPhone": "Main phone",
+      "secondaryPhone": "Secondary phone",
+      "smartwatch": "Smartwatch",
+      "primaryEarbuds": "Primary wireless earbuds",
+      "backupEarbuds": "Backup earbuds",
+      "dualBoot": "Dual boot setup with hardened Windows",
+      "primaryBrowser": "Primary web browser",
+      "secondaryBrowser": "Secondary web browser",
+      "primaryCodeEditor": "Primary code editor",
+      "terminalEmulators": "Terminal emulators",
+      "versionControl": "Version control system",
+      "apiTesting": "API testing tool",
+      "databaseManagement": "Database management",
+      "codeHosting": "Code hosting and collaboration",
+      "webHosting": "Web hosting platform",
+      "ddosProtection": "DDoS protection and CDN",
+      "desktopEmail": "Desktop email client",
+      "emailClient": "Email client (desktop & mobile)",
+      "domainEmail": "Domain email provider",
+      "taskManagement": "Task management",
+      "calendar": "Calendar and scheduling",
+      "timeTracking": "Time tracking",
+      "automationTool": "Automation tool",
+      "phoneLinking": "Linking phone with PC",
+      "noteTaking": "Note-taking app",
+      "officeSuite": "Office suite",
+      "cloudStorage": "Cloud storage solution",
+      "vpn": "VPN with WireGuard config",
+      "passwordManager": "Self-hosted password manager",
+      "twoFactorAuth": "Two-factor authentication app",
+      "dnsProvider": "DNS provider",
+      "privacySearch": "Privacy-focused search engine",
+      "networkVpn": "Secure network mesh VPN",
+      "lgFirmware": "LG firmware flashing tool",
+      "qualcommFlash": "Qualcomm Flash Image Loader",
+      "samsungFirmware": "Samsung firmware flashing tool",
+      "samsungDownload": "Samsung firmware download site",
+      "iosManagement": "iOS device management",
+      "geographicSystem": "Geographic Information System",
+      "webOpenstreetmap": "Web-based OpenStreetMap editor",
+      "desktopOpenstreetmap": "Desktop OpenStreetMap editor",
+      "mobileOpenstreetmap": "Mobile OpenStreetMap editor",
+      "mobileContributor": "Mobile OpenStreetMap contributor",
+      "communityNavigation": "Community-based navigation and map editor",
+      "minecraftClient": "Minecraft client and launcher",
+      "minecraftServer": "Minecraft server and modding platform",
+      "gameDistribution": "Game distribution platform",
+      "gameLauncher": "Game store and launcher",
+      "indieMarketplace": "Indie game marketplace",
+      "vectorGraphics": "Vector graphics editor",
+      "uiUxDesign": "UI/UX design tool",
+      "graphicDesign": "Graphic design platform",
+      "digitalPaintingDesktop": "Digital painting (desktop)",
+      "digitalPaintingMobile": "Digital painting (mobile)",
+      "photoEditing": "Photo editing and manipulation",
+      "openSourceEditor": "Open-source photo editor",
+      "professionalEditor": "Professional video editor",
+      "professionalEditorDavinci": "Professional video editor",
+      "openSourceVideoEditor": "Open-source video editor",
+      "videoEditorCapcut": "Video editor (desktop & mobile)",
+      "subtitleEditor": "Subtitle editor",
+      "videoPlayer": "Video player",
+      "audioEditor": "Audio editor",
+      "musicStreamingYoutube": "Music streaming service",
+      "musicStreamingSpotify": "Music streaming service",
+      "videoStreaming": "Video streaming platform",
+      "revancedDescription": "I pay for YouTube Premium, but the main app is just unusable smh",
+      "stremioDescription": "shhhh, don't tell Netflix",
+      "clickToReveal": "Click 5 times to reveal",
+      "moreClicksToReveal": "({count} more clicks to reveal)",
+      "clicksRemaining": "more clicks to reveal"
+    },
+    "hiddenPlatforms": {
+      "platform1": "Unspeakable platform 1",
+      "platform2": "Unspeakable platform 2",
+      "click5": "Click 5 times to reveal",
+      "moreClicks": "(5 more clicks to reveal)"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Ways to reach out and connect with me.",
+    "message": "don't be shy. say hi. or book a 1:1 if you're feeling professional :)",
+    "disclaimer": "i do respond to emails. probably. unless i get distracted by a bird or something idk",
+    "sections": {
+      "contactMe": "Contact me",
+      "socialMedia": "Me on social media",
+      "otherPlatforms": "Me on other platforms"
+    },
+    "sectionTitles": {
+      "contactMe": "Contact me",
+      "socialMedia": "Me on social media",
+      "otherPlatforms": "Me on other platforms"
+    },
+    "links": {
+      "universityEmail": "University email",
+      "bookMeeting": "Book a meeting with me",
+      "messengerNote": "I'm very inactive on Facebook and Messenger. Replies will be on a best-effort basis."
+    },
+    "secretButton": "Secret button"
+  },
+  "moodCat": {
+    "title": "Cat of the day",
+    "hover": "judging you softly",
+    "refresh": "New cat, who dis?",
+    "seeMore": "See more cats",
+    "imageSource": "Image source"
+  },
+  "music": {
+    "play": "Play background music",
+    "pause": "Pause background music"
+  },
+  "tetris": {
+    "title": "Tetris",
+    "description": "A classic game of falling blocks and disappearing lines",
+    "gameInfo": "Game info",
+    "score": "Score",
+    "level": "Level",
+    "status": "Status",
+    "gameOver": "Game over",
+    "paused": "Paused",
+    "playing": "Playing",
+    "controls": "Controls",
+    "moveLeft": "Move left",
+    "moveRight": "Move right",
+    "moveDown": "Move down",
+    "rotate": "Rotate block",
+    "hardDrop": "Hard drop",
+    "pauseGame": "Pause game",
+    "playAgain": "Play again",
+    "resetGame": "Reset game",
+    "resume": "Resume",
+    "pause": "Pause",
+    "drop": "Drop",
+    "musicOn": "Music on",
+    "musicOff": "Music off",
+    "gameOverMessage": "Game Over!",
+    "finalScore": "Your final score:"
+  },
+  "404": {
+    "title": "You've wandered off the map",
+    "description": "The cat doesn't even know this place.",
+    "button": "Go back home",
+    "sitemap": "View site map",
+    "enjoycat": "While you're lost, enjoy this cat:"
+  },
+  "scrapbook": {
+    "title": "Devlog"
+  },
+  "webrings": {
+    "title": "Webrings",
+    "description": "Webrings I'm part of. Discover more independent websites and personal blogs.",
+    "intro1": "A webring is a collection of websites made by like-minded folks, usually centered around a topic, aesthetic, or common interest. (from the safonts webring)",
+    "intro2": "This website is part of these webrings. Click on the links to visit my neighbors' sites, and other members', if that webring has random functionality. Choose any ring you like!",
+    "previous": "Previous",
+    "random": "Random",
+    "next": "Next",
+    "previousAria": "Previous site in {{name}}",
+    "randomAria": "Random site in {{name}}",
+    "nextAria": "Next site in {{name}}"
+  },
+  "badges": {
+    "title": "Web badges collection",
+    "description": "A collection of classic web badges and buttons used on my website.",
+    "pageTitle": "Classic web badges collection",
+    "pageDescription": "I've collected these 88x31 badges to show what I and this site actually care about. They're a throwback to the Geocities era when the internet was less corporate/AI slop. If you have a badge you'd like me to add here, just ask me.",
+    "myBadgeTitle": "My badge (click to expand)",
+    "myBadgeIntro": "Use this badge to link to my website:",
+    "hotlinkUrl": "Hotlink URL:",
+    "htmlCodeTitle": "HTML code",
+    "embeddingSuggestionsTitle": "Suggestions for embedding",
+    "suggestion1": "Use",
+    "suggestion1b": "in your CSS to preserve the pixel art style.",
+    "suggestion2": "Link directly to my homepage at",
+    "suggestion3": "The badge is 88x31 pixels, double the width and height in your HTML to",
+    "suggestion3b": "to make them easier to read on higher-resolution screens.",
+    "collectionHeading": "Badges collection",
+    "search": "Search badges...",
+    "filterByCategory": "Filter by category",
+    "verboseView": "Verbose",
+    "badgeOnlyView": "Badge only",
+    "showingCount": "Showing {{count}} badges",
+    "showingFiltered": "Showing {{filtered}} of {{total}} badges",
+    "noResults": "No badges found matching your search criteria",
+    "visitBadge": "Visit {{name}}"
+  },
+  "colophon": {
+    "title": "Colophon",
+    "description": "The story behind this website and how it was built",
+    "siteHistory": {
+      "title": "Site history",
+      "content1": "This site was just registered in late 2023, yet the design has changed a lot over the span of its life. The first version was just a basic WordPress site hosted on a sketchy free hosting provider, the second was Carrd-based, and the third was built with Astro. This current iteration (the fourth version) is a complete redesign built from scratch with modern web technologies.",
+      "content2": "Each version has been an evolution, with this latest one focusing on performance, accessibility, full keyboard navigation, and a more personal touch that better represents who I am and what I care about."
+    },
+    "technologyStack": {
+      "title": "Technology stack",
+      "nextjs": "React framework that enables server-side rendering and static site generation",
+      "react": "JavaScript library for building user interfaces",
+      "tailwind": "Utility-first CSS framework",
+      "shadcn": "Reusable component library built with Radix UI and Tailwind",
+      "framer": "Animation library for React",
+      "i18next": "Internationalization framework",
+      "typescript": "Strongly typed programming language that builds on JavaScript"
+    },
+    "hosting": {
+      "title": "Hosting & deployment",
+      "content1": "The site is hosted on",
+      "content2": "which provides seamless deployment from GitHub, automatic HTTPS, and global CDN distribution.",
+      "content3": "The domain is managed through",
+      "content4": "which provides additional security and performance benefits."
+    },
+    "inspiration": {
+      "title": "Inspiration",
+      "content1": "This page draws inspiration from",
+      "content2": "which in turn draws inspiration from",
+      "content3": "Original idea on"
+    }
+  },
+  "footer": {
+    "copyright": "no rights reserved, take what you need and do what you want :p",
+    "madeWith": "made with love",
+    "andChaos": "and a few weeks of screwing around"
+  },
+  "2048": {
+    "description": "Join the tiles, get to 2048!",
+    "score": "Score",
+    "best": "Best",
+    "gameOver": "Game Over!",
+    "finalScore": "Final score",
+    "tryAgain": "Try again",
+    "youWin": "You win!",
+    "currentScore": "Current score",
+    "keepPlaying": "Keep playing",
+    "newGame": "New game",
+    "howToPlay": "How to play",
+    "instructions1": "Use your arrow keys or WASD to move the tiles. When two tiles with the same number touch, they merge into one!",
+    "instructions2": "After each move, a new tile appears (either 2 or 4).",
+    "instructions3": "Create a tile with the number 2048 to win the game!",
+    "controls": "Controls",
+    "moveLeft": "Move left",
+    "moveRight": "Move right",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "touchInstructions": "On mobile devices, use the on-screen controls to move tiles.",
+    "undo": "Undo"
+  },
+  "keyboardShortcuts": {
+    "title": "Keyboard shortcuts",
+    "navigation": "Navigation",
+    "actions": "Actions",
+    "close": "Close",
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog",
+    "projects": "Projects",
+    "now": "Now",
+    "uses": "Uses",
+    "contact": "Contact",
+    "colophon": "Colophon",
+    "webring": "Webrings",
+    "slashes": "Slashes",
+    "scrapbook": "Devlog",
+    "tetris": "Tetris",
+    "2048": "2048",
+    "cycleLanguage": "Cycle through languages",
+    "cycleTheme": "Cycle through themes",
+    "refreshCat": "Refresh mood cat",
+    "gamePageNotice": "Most keyboard shortcuts are disabled in game pages to avoid conflicts with game controls.",
+    "openShortcuts": "Open keyboard shortcuts",
+    "actionSearch": "Open Action Search"
+  },
+  "actionSearch": {
+    "title": "Search actions",
+    "placeholder": "Search actions...",
+    "noResults": "No actions found",
+    "goTo": "Go to page",
+    "toggleTheme": "Toggle theme",
+    "switchDarkMode": "Switch to dark mode",
+    "switchLightMode": "Switch to light mode",
+    "appearance": "Appearance",
+    "cycleLanguage": "Cycle through languages",
+    "refreshCat": "Get a new mood cat",
+    "playGame": "Play game",
+    "viewShortcuts": "View all shortcuts",
+    "pressToOpen": "Press . to open command palette",
+    "escToClose": "ESC to close",
+    "fun": "Fun",
+    "games": "Games",
+    "tetris": "Play Tetris",
+    "2048": "Play 2048",
+    "help": "Help",
+    "projects": {
+      "category": "Navigate through project cards",
+      "closeCard": "Close flipped card",
+      "closeCardDescription": "Close the currently opened card",
+      "left": "Navigate left",
+      "leftDescription": "Navigate to the previous project card",
+      "right": "Navigate right",
+      "rightDescription": "Navigate to the next project card",
+      "up": "Navigate up",
+      "upDescription": "Navigate up or scroll content",
+      "down": "Navigate down",
+      "downDescription": "Navigate down or scroll content",
+      "flipCard": "Flip project card: {{title}}",
+      "flipCardDescription": "Flip the project card to view details"
+    },
+    "blog": {
+      "category": "Navigate through blog posts",
+      "next": "To next post",
+      "nextDescription": "Navigate to the next blog post",
+      "prev": "To previous post",
+      "prevDescription": "Navigate to the previous blog post",
+      "search": "Search blog posts",
+      "searchDescription": "Search blog posts by title or content",
+      "filterTag": "Filter blog posts",
+      "filterTagDescription": "Open filter menu",
+      "jumpToPost": "Jump to post {{i}}",
+      "jumpToPostDescription": "Navigate to post {{i}}",
+      "back": "Back to blog list",
+      "backDescription": "Return to the blog list"
+    },
+    "about": {
+      "category": "Navigate through about sections",
+      "jumpToChapter": "Jump to chapter {{i}}",
+      "jumpToChapterDescription": "Navigate to chapter {{i}}"
+    },
+    "uses": {
+      "category": "Navigate through uses sections",
+      "jumpToCategory": "Jump to {{category}}",
+      "jumpToCategoryDescription": "Navigate to category {{category}}"
+    },
+    "now": {
+      "category": "Navigate through now sections",
+      "jumpToCategory": "Jump to {{category}}",
+      "jumpToCategoryDescription": "Navigate to {{category}}"
+    },
+    "colophon": {
+      "category": "Navigate through colophon sections",
+      "jumpToSection": "Jump to {{section}}",
+      "jumpToSectionDescription": "Navigate to section {{section}}"
+    }
+  },
+  "firstVisitHint": {
+    "prefix": "Hint:",
+    "message": "You can press the",
+    "suffix": "key on your keyboard to open the global search bar :D",
+    "dismiss": "Dismiss hint"
+  }
+}

@@ -1,0 +1,327 @@
+"use client"
+
+import { useState, useEffect, useMemo, useCallback, useRef, useSyncExternalStore } from "react"
+import { useTranslation } from "react-i18next"
+import { useRouter, usePathname } from "next/navigation"
+import { useTheme } from "next-themes"
+import { supportedLanguages, themes, keyboardShortcuts, routes } from "@/lib/constants"
+
+// ============================================================================
+// useMounted - Hydration-safe mounting detection
+// ============================================================================
+export function useMounted() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    queueMicrotask(() => setMounted(true))
+  }, [])
+
+  return mounted
+}
+
+// ============================================================================
+// useReducedMotion - Respects user's motion preferences (optimized)
+// ============================================================================
+const getReducedMotionSnapshot = () => {
+  if (typeof window === "undefined" || !window.matchMedia) return false
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+}
+
+const subscribeReducedMotion = (callback: () => void) => {
+  if (typeof window === "undefined" || !window.matchMedia) return () => {}
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+  mq.addEventListener("change", callback)
+  return () => mq.removeEventListener("change", callback)
+}
+
+export function useReducedMotion() {
+  return useSyncExternalStore(subscribeReducedMotion, getReducedMotionSnapshot, () => false)
+}
+
+// ============================================================================
+// useViewport - Responsive breakpoints with debounced resize + platform detection (optimized)
+// ============================================================================
+type ViewportState = {
+  windowWidth: number
+  isMobile: boolean
+  isTablet: boolean
+  isDesktop: boolean
+  isTouch: boolean
+  isMac: boolean
+  isWindows: boolean
+  isLinux: boolean
+}
+
+// Singleton state for viewport - prevents multiple subscriptions
+let viewportState: ViewportState | null = null
+let viewportListeners = new Set<() => void>()
+let resizeTimeout: ReturnType<typeof setTimeout> | null = null
+let resizeHandler: (() => void) | null = null
+
+const getViewportState = (): ViewportState => {
+  if (typeof window === "undefined") {
+    return { isMobile: false, isTablet: false, isDesktop: false, windowWidth: 0, isTouch: false, isMac: false, isWindows: false, isLinux: false }
+  }
+  if (viewportState) return viewportState
+
+  const width = window.innerWidth
+  const p = navigator.platform.toLowerCase()
+  viewportState = {
+    windowWidth: width,
+    isMobile: width < 768,
+    isTablet: width >= 768 && width < 1280,
+    isDesktop: width >= 1280,
+    isTouch: "ontouchstart" in window || navigator.maxTouchPoints > 0,
+    isMac: p.includes("mac"),
+    isWindows: p.includes("win"),
+    isLinux: p.includes("linux") || p.includes("x11"),
+  }
+  return viewportState
+}
+
+const updateViewportState = () => {
+  if (typeof window === "undefined") return
+  const width = window.innerWidth
+  const prev = viewportState
+  const newState = {
+    ...viewportState!,
+    windowWidth: width,
+    isMobile: width < 768,
+    isTablet: width >= 768 && width < 1280,
+    isDesktop: width >= 1280,
+  }
+  // Only update and notify if values actually changed
+  if (!prev || prev.windowWidth !== newState.windowWidth ||
+      prev.isMobile !== newState.isMobile ||
+      prev.isTablet !== newState.isTablet ||
+      prev.isDesktop !== newState.isDesktop) {
+    viewportState = newState
+    // Use a copy of listeners to avoid issues if listeners modify the set
+    const listeners = [...viewportListeners]
+    listeners.forEach(listener => listener())
+  }
+}
+
+const subscribeViewport = (callback: () => void) => {
+  viewportListeners.add(callback)
+
+  // Set up resize listener once
+  if (viewportListeners.size === 1 && typeof window !== "undefined" && !resizeHandler) {
+    resizeHandler = () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(updateViewportState, 150)
+    }
+    window.addEventListener("resize", resizeHandler, { passive: true })
+  }
+
+  return () => {
+    viewportListeners.delete(callback)
+    if (viewportListeners.size === 0) {
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout)
+        resizeTimeout = null
+      }
+      if (resizeHandler) {
+        window.removeEventListener("resize", resizeHandler)
+        resizeHandler = null
+      }
+    }
+  }
+}
+
+// Cached server snapshot to avoid infinite loop
+const SERVER_VIEWPORT_STATE: ViewportState = {
+  isMobile: false, isTablet: false, isDesktop: false, windowWidth: 0,
+  isTouch: false, isMac: false, isWindows: false, isLinux: false
+}
+
+export function useViewport() {
+  return useSyncExternalStore(subscribeViewport, getViewportState, () => SERVER_VIEWPORT_STATE)
+}
+
+/** @deprecated Use useViewport instead - kept for backwards compatibility */
+export const usePlatform = useViewport
+
+// ============================================================================
+// useCurrentLanguage - Normalized language detection (replaces useLanguageDetection and useCurrentLanguage)
+// ============================================================================
+export function useCurrentLanguage(syncHtmlLang = false) {
+  const { i18n } = useTranslation()
+
+  const currentLanguage = useMemo(() => {
+    const rawLang = i18n.language || "en"
+    if (supportedLanguages.includes(rawLang)) return rawLang
+    const match = supportedLanguages.find(lang => rawLang.startsWith(lang))
+    return match || "en"
+  }, [i18n.language])
+
+  // Optionally sync <html lang> attribute
+  useEffect(() => {
+    if (syncHtmlLang && typeof document !== "undefined") {
+      document.documentElement.setAttribute("lang", currentLanguage)
+    }
+  }, [currentLanguage, syncHtmlLang])
+
+  return currentLanguage
+}
+
+// ============================================================================
+// useLanguageTracker - Track visited languages for easter egg
+// ============================================================================
+const LANGUAGE_TRACKER_KEY = "language-tracker"
+
+export function useLanguageTracker() {
+  const { i18n } = useTranslation()
+  const lastTrackedLang = useRef<string | null>(null)
+
+  const [visitedLanguages, setVisitedLanguages] = useState<Set<string>>(() => {
+    if (typeof window === "undefined") return new Set()
+    try {
+      const stored = localStorage.getItem(LANGUAGE_TRACKER_KEY)
+      return stored ? new Set(JSON.parse(stored)) : new Set()
+    } catch {
+      return new Set()
+    }
+  })
+
+  const [allLanguagesVisited, setAllLanguagesVisited] = useState(false)
+
+  // Persist visited languages to localStorage
+  useEffect(() => {
+    if (visitedLanguages.size > 0 && typeof window !== "undefined") {
+      localStorage.setItem(LANGUAGE_TRACKER_KEY, JSON.stringify([...visitedLanguages]))
+    }
+  }, [visitedLanguages])
+
+  // Check if all languages visited whenever visitedLanguages changes
+  useEffect(() => {
+    if (visitedLanguages.size >= supportedLanguages.length) {
+      const allVisited = supportedLanguages.every(lang => visitedLanguages.has(lang))
+      if (allVisited && !allLanguagesVisited) {
+        queueMicrotask(() => setAllLanguagesVisited(true))
+      }
+    }
+  }, [visitedLanguages, allLanguagesVisited])
+
+  const trackLanguage = useCallback((code: string) => {
+    if (!code) return
+    setVisitedLanguages(prev => new Set([...prev, code]))
+  }, [])
+
+  const checkAllLanguagesVisited = useCallback(() => {
+    const allVisited = supportedLanguages.every(lang => visitedLanguages.has(lang))
+    return allVisited
+  }, [visitedLanguages])
+
+  const resetLanguageTracker = useCallback(() => {
+    setVisitedLanguages(new Set())
+    setAllLanguagesVisited(false)
+    if (typeof window !== "undefined") localStorage.removeItem(LANGUAGE_TRACKER_KEY)
+  }, [])
+
+  useEffect(() => {
+    if (i18n.language && i18n.language !== lastTrackedLang.current) {
+      lastTrackedLang.current = i18n.language
+      queueMicrotask(() => trackLanguage(i18n.language))
+    }
+  }, [i18n.language, trackLanguage])
+
+  return { visitedLanguages, allLanguagesVisited, trackLanguage, checkAllLanguagesVisited, resetLanguageTracker }
+}
+
+// ============================================================================
+// useKeyboardNavigation - Global keyboard shortcuts
+// ============================================================================
+const NAVIGATION_SHORTCUTS: Record<string, string> = {
+  [keyboardShortcuts.home]: routes.home,
+  [keyboardShortcuts.about]: routes.about,
+  [keyboardShortcuts.blog]: routes.blog,
+  [keyboardShortcuts.projects]: routes.projects,
+  [keyboardShortcuts.now]: routes.now,
+  [keyboardShortcuts.uses]: routes.uses,
+  [keyboardShortcuts.contact]: routes.contact,
+  [keyboardShortcuts.guestbook]: routes.guestbook,
+  [keyboardShortcuts.colophon]: routes.colophon,
+  [keyboardShortcuts.webring]: routes.webring,
+  [keyboardShortcuts.slashes]: routes.slashes,
+  [keyboardShortcuts.scrapbook]: routes.scrapbook,
+  [keyboardShortcuts.game2048]: routes.game2048,
+  [keyboardShortcuts.tetris]: routes.tetris,
+}
+
+export function useKeyboardNavigation() {
+  const router = useRouter()
+  const pathname = usePathname()
+  const { i18n } = useTranslation()
+  const { theme, setTheme } = useTheme()
+  const [refreshCatEl, setRefreshCatEl] = useState<Element | null>(null)
+
+  useEffect(() => {
+    const find = () => setRefreshCatEl(document.querySelector('button[aria-label="Refresh mood cat"]'))
+    find()
+    const t = setTimeout(find, 1000)
+    return () => clearTimeout(t)
+  }, [pathname])
+
+  const cycleTheme = useCallback(() => {
+    const idx = themes.indexOf(theme || "system")
+    setTheme(themes[(idx + 1) % themes.length])
+  }, [theme, setTheme])
+
+  const cycleLanguage = useCallback(() => {
+    const curr = i18n.language || "en"
+    let idx = supportedLanguages.indexOf(curr)
+    if (idx === -1) idx = supportedLanguages.findIndex(l => curr.startsWith(l))
+    if (idx === -1) idx = 0
+    const next = supportedLanguages[(idx + 1) % supportedLanguages.length]
+    i18n.changeLanguage(next)
+    document.documentElement?.setAttribute("lang", next)
+  }, [i18n])
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      const el = document.activeElement
+      if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el?.getAttribute("contenteditable") === "true") return
+      if (e.ctrlKey) return
+
+      const isGame = pathname?.includes(routes.game2048) || pathname?.includes(routes.tetris)
+
+      if (isGame) {
+        if (e.key === "h" && !e.metaKey && !e.altKey) { e.preventDefault(); router.push("/") }
+        else if (e.key === "m" && !e.metaKey && !e.altKey) { e.preventDefault(); cycleTheme() }
+        else if (e.key === "y" && !e.metaKey && !e.altKey) { e.preventDefault(); cycleLanguage() }
+        return
+      }
+
+      if (!e.metaKey && !e.altKey) {
+        if (e.key in NAVIGATION_SHORTCUTS) {
+          e.preventDefault()
+          router.push(NAVIGATION_SHORTCUTS[e.key])
+          return
+        }
+        if (e.key === "m") { e.preventDefault(); cycleTheme() }
+        else if (e.key === "y") { e.preventDefault(); cycleLanguage() }
+        else if (e.key === "r" && refreshCatEl) { e.preventDefault(); (refreshCatEl as HTMLButtonElement).click() }
+      }
+    }
+
+    window.addEventListener("keydown", handleKey)
+    return () => window.removeEventListener("keydown", handleKey)
+  }, [router, pathname, theme, setTheme, i18n, cycleTheme, cycleLanguage, refreshCatEl])
+
+  return null
+}
+
+// ============================================================================
+// useDebounce - Debounced value hook
+// ============================================================================
+export function useDebounce<T>(value: T, delay = 500): T {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay)
+    return () => clearTimeout(timer)
+  }, [value, delay])
+
+  return debouncedValue
+}

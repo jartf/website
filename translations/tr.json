@@ -1,0 +1,573 @@
+{
+  "nav": {
+    "home": "Ana sayfa",
+    "about": "Hakkında",
+    "projects": "Projeler",
+    "blog": "Blog",
+    "now": "Şimdi",
+    "uses": "Kullandıklarım",
+    "contact": "İletişim",
+    "guestbook": "Ziyaretçi defteri",
+    "colophon": "Künye",
+    "webring": "Web halkası",
+    "scrapbook": "Karalama defteri"
+  },
+  "languageNotice": {
+    "message": "Bu dil için çeviriler hala yapım aşamasındadır. Bazı içerikler eksik veya tamamlanmamış olabilir.",
+    "dismiss": "Kapat"
+  },
+  "language": {
+    "main": "Ana diller",
+    "beta": "Beta diller",
+    "other": "Diğer diller",
+    "auto": "Otomatik (tarayıcı dili)",
+    "search": "Dilleri ara...",
+    "en": "İngilizce",
+    "vi": "Vietnamca",
+    "et": "Estonca",
+    "ru": "Rusça",
+    "da": "Danca",
+    "tr": "Türkçe",
+    "zh": "Çince",
+    "pl": "Lehçe",
+    "sv": "İsveççe",
+    "fi": "Fince",
+    "tok": "Toki Pona"
+  },
+  "greetings": {
+    "morning": "Günaydın gezgin.",
+    "afternoon": "Tünaydın yolcu.",
+    "evening": "İyi akşamlar kaşif.",
+    "night": "Hala uyanık mısın? Ben de."
+  },
+  "home": {
+    "typing": {
+      "intro": "selam, ben Jarema.",
+      "economics": "ekonomi öğrencisi.",
+      "coder": "kodlayıcı.",
+      "cat": "kedi fısıldayan.",
+      "chaotic": "kaotik iyi."
+    },
+    "buttons": {
+      "about": "Hakkımda",
+      "projects": "Projelerimi Gör"
+    },
+    "footer": "Dijital bahçeme hoş geldin. Keşfetmekten çekinme.",
+    "heading": "selam, ben Jarema",
+    "subheading": "Ekonomiyi okurum, kod bazen yazarım, kedilerle hep oynarım.",
+    "contactButton": "Bana ulaş",
+    "aboutButton": "Hakkımda",
+    "blogButton": "Blogumu oku",
+    "guestbookButton": "Ziyaretçi defterime yaz",
+    "recentPosts": "Son blog yazıları",
+    "latestNow": "Şu anda ne yapıyorum"
+  },
+  "guestbook": {
+    "title": "Ziyaretçi defteri",
+    "description": "Ziyaretçi defterime bir mesaj bırak!"
+  },
+  "about": {
+    "title": "Hakkımda",
+    "chapters": {
+      "1": {
+        "title": "nasıl ortaya çıktım",
+        "content1": "2000'lerin ortasında Vietnam'da doğdum, bu da teknik olarak beni Z kuşağı yapıyor, ama hiçbir etikete tam olarak uymayan bir tür arada kalmışlıkla büyüdüm. Sınıfın arkasındaki sessiz çocuktum, ama zihnim asla gerçekten sessiz değildi. İnsanları, kalıpları veya güç dinamiklerini gözlemliyor ve sessizce her şeyi bir araya getiriyordum.",
+        "content2": "Çocukluğum dijital kaçışlar ve duygusal mayın tarlalarının tuhaf bir karışımıydı. Mükemmel bir ailem yoktu. Öyleymiş gibi davranmaya bile çalışmayacağım. Duygusal olarak hızlı büyümek zorunda kaldım ve hassas olmanın dikkatli olmak anlamına geldiğini erken öğrendim.",
+        "content3": "Konuşmaktan çok dinlemeyi öğrenirsin. Kod değiştirmeyi, kendinin parçalarını göz önünde saklamayı öğrenirsin. Ama aynı zamanda dayanıklılığı da öğrenirsin. Kimse sana planı vermediğinde sıfırdan bir benlik inşa etmeyi öğrenirsin. Bu site o planın bir parçası. Her şeyi açıklamak ya da denemek için değil, kaosla barışmak için."
+      },
+      "2": {
+        "title": "dünyanın hileli olduğunu öğrendiğimde",
+        "content1": "Hepsi bir anda olmadı. Tek bir aydınlanma anı yoktu. Daha çok yavaş bir yanmaydı: aileden eğitime, topluma kadar etrafımdaki sistemlerin benim gibi gibi insanlar düşünülerek inşa edilmediğinin farkına varılması. İstikrarın bir tuzak olabileceği. Sevginin bile koşullu olabileceği, silahlaştırılabileceği. Tüm \"kuralları\" takip edip yine de kaybedebileceğin gerçeği.",
+        "content2": "Bu yüzden çoğumuzun yaptığını yaptım: uyum sağladım. Zihnimi keskinleştirdim, kalbimi zırhladım ve her şeyi incelemeye başladım. Ekonomi bana gücü anlama kelime dağarcığını verdi. Kodlama bana güç inşa etme araçlarını verdi. Dil bana ifade etme ve kaçma özgürlüğünü verdi. Sadece sistemin içinde hayatta kalmak istemediğimi fark ettim; onu anlamak, ifşa etmek ve belki biraz da altüst etmek istedim.",
+        "content3": "Bu site sadece bir portföy değil. Bana dayatılan şartlarla değil, kendi şartlarımla var olduğumun kanıtı."
+      },
+      "3": {
+        "title": "kodlama, diller ve DEHB azmi",
+        "content1": "Katı rutinler veya düzenli zaman çizelgeleriyle aram iyi değil. DEHB, beynimin hızlı hareket ettiği, sonsuz döngülere girdiği, gece 2'de rastgele hiper-odaklandığı, bütün gün yemeyi unuttuğu ve bazen gürültüde boğulduğu anlamına geliyor. Gürültüye duyarlılık da bazen beni çıldırtıyor. Ama aynı zamanda derinden meraklı olduğum anlamına da geliyor. Takıntılı bir şekilde. Bir şeylerle sadece \"ilgilenmem\", daha çok kendimi içine atarım. Çoklu görev yapmam, sadece paralel sekmelerde yaşarım.",
+        "content2": "Kodlama benim için hem kaos hem de rahatlık. Yerinde durmayı reddeden düşüncelere yapı kazandırıyor. Çalışan, zihnimin asla tam olarak kelimelere dökülemeyen bir parçasını yansıtan bir şey yapma gücü veriyor. Peki ya dil? Bu, bulmacanın diğer yarısı. Vietnamca, İngilizce, Rusça ve bazen Türkçe veya Danca arasında geçiş yapıyorum, gösteriş yapmak istediğim için değil, çünkü farklı diller farklı benliklerin kilidini açıyor. Farklı duygular. Farklı anılar. İngilizce en keskin bıçağım. Vietnamca kalp atışım. Rusça melankolim. Türkçe yeniliğin heyecanı. Danca… eh, hala devam ediyor.",
+        "content3": "Ve evet, dağınık yazıyorum ama gerçek yazıyorum. Kusurlu kodluyorum ama kasıtlı olarak. Burada gördüğünüz her şey aynı enerjiyle inşa edildi."
+      },
+      "4": {
+        "title": "aktivizm ve internette fazla gerçek olmak",
+        "content1": "Ben bir influencer değilim. Bir grev hattında gürültülü bir ses değilim. Ama hesap verebilirliğe, empatiye, insanların sadece hoş görülmekle kalmayıp görüldüğünü hissettiği alanlar inşa etmeye inanıyorum. Aktivizmim sessiz, bazen görünmez. İnşa ettiğim şeylerde, yaptığım konuşmalarda ve sırf birini rahat ettirmek için gerçeğimi sulandırmayı reddetme şeklimde ortaya çıkıyor.",
+        "content2": "Sessiz kalmanın daha güvenli olduğu zamanlarda adaletsizliğe ses çıkarmakta. Kendi sesimin zaten fısıltı kadar ince olduğunu hissettiğimde bile marjinalleştirilmiş sesleri yükseltmekte. Şunu söylemekte:",
+        "quote": "\"Tüm cevaplara sahip değilim ama yine de deneyeceğim.\"",
+        "quoteTooltip": "evet ben söyledim haha",
+        "content3": "Bazen haftalarca ortadan kayboluyorum. Bazen gece 3'te fazla paylaşıyorum. Bazen bir kedi memesi paylaşıp ardından rastgele uydurduğum bir alıntıyla devam ediyorum. Çok yönlüyüm."
+      },
+      "5": {
+        "title": "nereye gidiyorum",
+        "content1": "Size kişisel bir marka satmak ya da hayatımı çözmüş gibi davranmak için burada değilim. Çünkü gerçekten çözmedim. Çoğu gün sadece işlevsel olmak, kibar olmak ve dürüst olmak arasında denge kurmaya çalışıyorum. Ama benim için neyin önemli olduğunu biliyorum.",
+        "content2": "Yaratmaya devam etmek istiyorum. Yazmaya devam etmek. Beynimi harekete geçiren dilleri öğrenmeye devam etmek. Sadece beğeni almak için değil, önemli araçlar oluşturmak istiyorum. Tarihin, dilin ve kimliğin iç içe geçtiği yerlere seyahat etmek istiyorum. Arkamda sıcak, kullanışlı ve insani hissettiren şeyler bırakmak istiyorum. Cilalı mükemmellik değil, insanları daha az yalnız hissettiren hikayeler ve parçalar.",
+        "content3": "Huzur istiyorum. Sadece kaosun yokluğu değil, kim olduğunu, neler yaşadığını ve geride bırakmayı seçtiğin şeylerden gelen türden bir huzur.",
+        "content4": "Eğer bunu okuyorsan, bir parçan bununla rezonansa giriyor demektir. Hoş geldin. Kendini evinde hisset. Sadece adımlarına dikkat et, bu sitedeki bazı düşünceler hala yapım aşamasında."
+      },
+      "6": {
+        "title": "henüz bitirmedim",
+        "content1": "işte okumamaları gereken kısım.",
+        "content2": "hala kızgınım. var olmasına asla izin verilmeyen bir versiyonumun yasını hala tutuyorum. hala bazı günler neden her şeyin birkaç derece yanlış hissettirdiğini merak ederek uyanıyorum. bazen kaçıp gitmeyi, sadece ortadan kaybolmayı düşünüyorum, yeni isim, yeni şehir, yeni dil. bazen neredeyse yapıyorum.",
+        "content3": "insan bile hissetmediğim günler var. daha çok katılaşmaya çalışan bir anı gibi. daha çok artık ulaşamadığım daha yumuşak bir şeyin yankısı gibi. diğer günler, elektriğim. her ayrıntıyı hissediyorum, tenimde güneş ışığı, sessiz çalma listeleri, insanların nihayet kendileri olabilecek kadar güvende olduklarında yüzlerinin değişme şekli. bir şekilde beni hayatta tutuyor.",
+        "content4": "olmam gereken kişi her kimse, o kişi olmayı henüz bitirmedim. ama sessiz kalmaktan memnunmuş gibi davranmayı bıraktım."
+      }
+    }
+  },
+  "projects": {
+    "title": "Projelerim",
+    "description": "Üzerinde çalıştığım kişisel, akademik ve aktivizm projelerinin bir derlemesi. Bazıları bitti, bazıları hala pişiyor.",
+    "status": {
+      "completed": "Tamamlandı",
+      "inProgress": "Hala Pişiyor",
+      "planned": "Planlandı"
+    },
+    "statusLabels": {
+      "completed": "Tamamlandı",
+      "inProgress": "Devam Ediyor",
+      "planned": "Planlandı"
+    },
+    "categories": {
+      "personal": "Kişisel",
+      "academic": "Akademik",
+      "activism": "Aktivizm"
+    },
+    "details": {
+      "what": "Ne olduğu",
+      "learned": "Ne öğrendim",
+      "why": "Neden önemli"
+    },
+    "clickForDetails": "Detaylar için tıkla",
+    "clickToClose": "Kapatmak için tıkla",
+    "cardActions": {
+      "clickForDetails": "Detaylar için tıkla",
+      "clickToClose": "Kapatmak için tıkla"
+    },
+    "buttons": {
+      "showRandom": "Daha fazla rastgelelik göster",
+      "hideRandom": "Kaosu gizle"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Düşünceler, yansımalar ve ara sıra atıp tutmalar. Çeşitli saatlerde ve ruh hallerinde yazılmıştır.",
+    "language": "Dil",
+    "languageFilter": "Dile göre filtrele",
+    "tag": "Etiket",
+    "category": "Kategori",
+    "noPosts": "Henüz hiç gönderi yok. Yakında tekrar kontrol et!",
+    "search": "Gönderilerde ara...",
+    "sortNew": "En yeniler önce",
+    "sortOld": "En eskiler önce",
+    "sortReadTime": "Okuma süresi",
+    "sortABC": "Alfabetik",
+    "filter": "Filtrele",
+    "filterDescription": "Blog gönderilerini filtrele",
+    "activeFilter": "Etkin filtreler:",
+    "filterNoMatch": "Filtrelerine uyan gönderi bulunamadı. Arama kriterlerini değiştirmeyi deneyebilirsin.",
+    "clearFilter": "Tüm filtreleri temizle",
+    "mood": "Ruh hali",
+    "cat": "Kedi mührünü bastı",
+    "prev": "Önceki gönderi",
+    "next": "Sonraki gönderi",
+    "jumpToPost": "Gönderiye git",
+    "back": "Blog listesine geri dön",
+    "showingPosts": "{{total}} gönderiden {{current}} tanesi gösteriliyor",
+    "minRead": "dakikalık okuma",
+    "availableIn": "Bu sayfa şu dillerde de mevcut:"
+  },
+  "now": {
+    "title": "Şimdi",
+    "description": "Şu anda ne yapıyorum, ne düşünüyorum ve neye odaklanıyorum.",
+    "lastUpdated": "Son güncelleme",
+    "categories": {
+      "reading": "Okuyorum",
+      "coding": "Kodluyorum",
+      "drinking": "İçiyorum",
+      "listening": "Dinliyorum",
+      "premid": "Discordetkinliği",
+      "thinking": "Düşünüyorum",
+      "studying": "Çalışıyorum",
+      "planning": "Planlıyorum"
+    }
+  },
+  "uses": {
+    "title": "Kullandıklarım",
+    "description": "Günlük olarak kullandığım her şey. Ayrıca şurada da mevcut:",
+    "websiteDescription": "insanların kullandıkları şeyleri paylaştığı bir web sitesi.",
+    "categories": {
+      "hardware": "Donanım",
+      "mobile": "Mobil",
+      "audio": "Ses",
+      "os": "İşletim Sistemi & Tarayıcılar",
+      "development": "Geliştirme",
+      "email": "E-posta & Üretkenlik",
+      "privacy": "Gizlilik & Güvenlik",
+      "mobile_tools": "Mobil Cihaz Araçları",
+      "mapping": "Haritalama",
+      "gaming": "Oyun",
+      "multimedia": "Multimedya",
+      "design": "Tasarım & İllüstrasyon",
+      "photo": "Fotoğraf Düzenleme",
+      "video": "Video & Ses",
+      "media": "Medya Hizmetleri"
+    },
+    "subsections": {
+      "design": "Tasarım & İllüstrasyon",
+      "photo": "Fotoğraf Düzenleme",
+      "video": "Video & Ses",
+      "media": "Medya Hizmetleri"
+    },
+    "itemDescriptions": {
+      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "externalHDD": "Yedeklemeler için harici HDD",
+      "mechanicalKeyboard": "Kırmızı Anahtarlı mekanik klavye",
+      "wirelessMouse": "Kablosuz oyuncu faresi",
+      "mainPhone": "Ana telefon",
+      "secondaryPhone": "İkincil telefon",
+      "smartwatch": "Akıllı saat",
+      "primaryEarbuds": "Birincil kablosuz kulaklık",
+      "backupEarbuds": "Yedek kulaklık",
+      "dualBoot": "Sertleştirilmiş Windows ile çift önyükleme kurulumu",
+      "primaryBrowser": "Birincil web tarayıcısı",
+      "secondaryBrowser": "İkincil web tarayıcısı",
+      "primaryCodeEditor": "Birincil kod düzenleyici",
+      "terminalEmulators": "Terminal emülatörleri",
+      "versionControl": "Sürüm kontrol sistemi",
+      "apiTesting": "API test aracı",
+      "databaseManagement": "Veritabanı yönetimi",
+      "codeHosting": "Kod barındırma ve işbirliği",
+      "webHosting": "Web barındırma platformu",
+      "ddosProtection": "DDoS koruması ve CDN",
+      "desktopEmail": "Masaüstü e-posta istemcisi",
+      "emailClient": "E-posta istemcisi (masaüstü & mobil)",
+      "domainEmail": "Alan adı e-posta sağlayıcısı",
+      "taskManagement": "Görev yönetimi",
+      "calendar": "Takvim ve zamanlama",
+      "timeTracking": "Zaman takibi",
+      "automationTool": "Otomasyon aracı",
+      "phoneLinking": "Telefonu PC ile bağlama",
+      "noteTaking": "Not alma uygulaması",
+      "officeSuite": "Ofis paketi",
+      "cloudStorage": "Bulut depolama çözümü",
+      "vpn": "WireGuard yapılandırmalı VPN",
+      "passwordManager": "Kendi kendine barındırılan şifre yöneticisi",
+      "twoFactorAuth": "İki faktörlü kimlik doğrulama uygulaması",
+      "dnsProvider": "DNS sağlayıcısı",
+      "privacySearch": "Gizlilik odaklı arama motoru",
+      "networkVpn": "Güvenli ağ örgüsü VPN",
+      "lgFirmware": "LG firmware flaşlama aracı",
+      "qualcommFlash": "Qualcomm Flaş Görüntü Yükleyici",
+      "samsungFirmware": "Samsung firmware flaşlama aracı",
+      "samsungDownload": "Samsung firmware indirme sitesi",
+      "iosManagement": "iOS cihaz yönetimi",
+      "geographicSystem": "Coğrafi Bilgi Sistemi",
+      "webOpenstreetmap": "Web tabanlı OpenStreetMap düzenleyici",
+      "desktopOpenstreetmap": "Masaüstü OpenStreetMap düzenleyici",
+      "mobileOpenstreetmap": "Mobil OpenStreetMap düzenleyici",
+      "mobileContributor": "Mobil OpenStreetMap katılımcısı",
+      "communityNavigation": "Topluluk tabanlı navigasyon ve harita düzenleyici",
+      "minecraftClient": "Minecraft istemcisi",
+      "minecraftServer": "Minecraft sunucusu ve modlama platformu",
+      "gameDistribution": "Oyun dağıtım platformu",
+      "gameLauncher": "Oyun mağazası ve başlatıcısı",
+      "indieMarketplace": "Bağımsız oyun pazarı",
+      "vectorGraphics": "Vektör grafik düzenleyici",
+      "uiUxDesign": "UI/UX tasarım aracı",
+      "graphicDesign": "Grafik tasarım platformu",
+      "digitalPaintingDesktop": "Dijital boyama (masaüstü)",
+      "digitalPaintingMobile": "Dijital boyama (mobil)",
+      "photoEditing": "Fotoğraf düzenleme ve manipülasyon",
+      "openSourceEditor": "Açık kaynaklı fotoğraf düzenleyici",
+      "professionalEditor": "Profesyonel video düzenleyici",
+      "professionalEditorDavinci": "Profesyonel video düzenleyici",
+      "openSourceVideoEditor": "Açık kaynaklı video düzenleyici",
+      "videoEditorCapcut": "Video düzenleyici (masaüstü & mobil)",
+      "subtitleEditor": "Altyazı düzenleyici",
+      "videoPlayer": "Video oynatıcı",
+      "audioEditor": "Ses düzenleyici",
+      "musicStreamingYoutube": "Müzik akış hizmeti",
+      "musicStreamingSpotify": "Müzik akış hizmeti",
+      "videoStreaming": "Video akış platformu",
+      "revancedDescription": "YouTube Premium için ödeme yapıyorum ama ana uygulama gerçekten kullanılamaz durumda smh",
+      "stremioDescription": "şşşt, Netflix'e söyleme",
+      "clickToReveal": "Ortaya çıkarmak için 5 kez tıkla",
+      "moreClicksToReveal": "(ortaya çıkarmak için {count} tıklama daha)",
+      "clicksRemaining": "tıklama daha kaldı"
+    },
+    "hiddenPlatforms": {
+      "platform1": "Söylenemez Platform 1",
+      "platform2": "Söylenemez Platform 2",
+      "click5": "Ortaya çıkarmak için 5 kez tıkla",
+      "moreClicks": "(ortaya çıkarmak için 5 tıklama daha)"
+    }
+  },
+  "contact": {
+    "title": "İletişim",
+    "description": "Bana ulaşmanın ve bağlantı kurmanın yolları.",
+    "message": "çekinme. selam ver. ya da profesyonel hissediyorsan 1:1 görüşme ayarla :)",
+    "disclaimer": "e-postalara cevap veriyorum. muhtemelen. bir kuş dikkatimi dağıtmazsa falan idk",
+    "showKofi": "Ko-fi'yi Göster",
+    "hideKofi": "Ko-fi'yi Gizle",
+    "supportKofi": "Beni Ko-fi'de destekle",
+    "sections": {
+      "contactMe": "Bana ulaş",
+      "socialMedia": "Sosyal medyada ben",
+      "otherPlatforms": "Diğer platformlarda ben"
+    },
+    "sectionTitles": {
+      "contactMe": "Bana ulaş",
+      "socialMedia": "Sosyal medyada ben",
+      "otherPlatforms": "Diğer platformlarda ben"
+    },
+    "links": {
+      "universityEmail": "Üniversite E-postası",
+      "bookMeeting": "Benimle bir toplantı ayarla",
+      "messengerNote": "Facebook ve Messenger'da çok aktif değilim. Cevaplar elimden geldiğince olacak."
+    },
+    "secretButton": "Gizli düğme"
+  },
+  "moodCat": {
+    "title": "Günün Mod Kedisi",
+    "hover": "seni usulca yargılıyor",
+    "refresh": "Yeni kedi, kimmiş o?",
+    "seeMore": "Daha fazla kedi gör",
+    "imageSource": "Görsel kaynağı"
+  },
+  "music": {
+    "play": "Arka plan müziğini çal",
+    "pause": "Arka plan müziğini duraklat"
+  },
+  "tetris": {
+    "title": "Tetris",
+    "description": "Düşen bloklar ve kaybolan çizgilerle klasik bir oyun",
+    "gameInfo": "Oyun Bilgisi",
+    "score": "Puan",
+    "level": "Seviye",
+    "status": "Durum",
+    "gameOver": "Oyun Bitti",
+    "paused": "Duraklatıldı",
+    "playing": "Oynanıyor",
+    "controls": "Kontroller",
+    "moveLeft": "Sola Git",
+    "moveRight": "Sağa Git",
+    "moveDown": "Aşağı Git",
+    "rotate": "Döndür",
+    "hardDrop": "Hızlı Düşür",
+    "pauseGame": "Oyunu Duraklat",
+    "playAgain": "Tekrar Oyna",
+    "resetGame": "Oyunu Sıfırla",
+    "resume": "Devam Et",
+    "pause": "Duraklat",
+    "drop": "Düşür",
+    "musicOn": "Müzik Açık",
+    "musicOff": "Müzik Kapalı",
+    "gameOverMessage": "Oyun Bitti!",
+    "finalScore": "Son puanınız:"
+  },
+  "404": {
+    "title": "Haritanın dışına çıktın",
+    "description": "Kedi bile burayı bilmiyor.",
+    "button": "Ana sayfaya dön",
+    "sitemap": "Site haritasını görüntüle",
+    "enjoycat": "Kaybolmuşken, bu kediyi seyret:"
+  },
+  "scrapbook": {
+    "title": "Geliştirme Günlüğü"
+  },
+  "webrings": {
+    "title": "Web çemberleri",
+    "description": "Parçası olduğum web çemberleri. Daha fazla bağımsız web sitesi ve kişisel blog keşfedin.",
+    "intro1": "Web çemberi, genellikle bir konu, estetik veya ortak ilgi alanı etrafında toplanan, kafa dengi insanlar tarafından oluşturulmuş web siteleri koleksiyonudur. (safonts web çemberinden)",
+    "intro2": "Bu web sitesi bu çemberlerin bir parçasıdır. Komşularımın ve (eğer rastgele fonksiyonu varsa) diğer üyelerin sitelerini ziyaret etmek için linklere tıklayın. İstediğiniz çemberi seçin!",
+    "previous": "Önceki",
+    "random": "Rastgele",
+    "next": "Sonraki",
+    "previousAria": "{{name}} içindeki önceki site",
+    "randomAria": "{{name}} içindeki rastgele site",
+    "nextAria": "{{name}} içindeki sonraki site"
+  },
+  "badges": {
+    "title": "Web rozetleri koleksiyonu",
+    "description": "Web sitemde kullanılan klasik web rozetleri ve butonlarından oluşan bir koleksiyon.",
+    "pageTitle": "Klasik web rozetleri koleksiyonu",
+    "pageDescription": "Benim ve bu sitenin aslında neye önem verdiğini göstermek için bu 88x31 rozetleri topladım. Bunlar, internetin kurumsal zırvalar ve yapay zeka çöplüğüyle daha az dolu olduğu Geocities dönemine bir geri dönüş. Eklememi istediğin bir rozet varsa, bana sorman yeterli.",
+    "myBadgeTitle": "Benim rozetim (genişletmek için tıkla)",
+    "myBadgeIntro": "Web siteme link vermek için bu rozeti kullan:",
+    "hotlinkUrl": "Hotlink URL:",
+    "htmlCodeTitle": "HTML kodu",
+    "embeddingSuggestionsTitle": "Gömme önerileri",
+    "suggestion1": "Piksel sanatı stilini korumak için CSS'inde",
+    "suggestion1b": "kullan.",
+    "suggestion2": "Doğrudan ana sayfama şu adresten link ver:",
+    "suggestion3": "Rozet 88x31 pikseldir, HTML'inde genişliği ve yüksekliği iki katına çıkararak",
+    "suggestion3b": "yaparsan yüksek çözünürlüklü ekranlarda okunması daha kolay olur.",
+    "collectionHeading": "Rozet koleksiyonu",
+    "search": "Rozet ara...",
+    "filterByCategory": "Kategoriye göre filtrele",
+    "verboseView": "Ayrıntılı",
+    "badgeOnlyView": "Sadece rozet",
+    "showingCount": "{{count}} rozet gösteriliyor",
+    "showingFiltered": "{{total}} rozetten {{filtered}} tanesi gösteriliyor",
+    "noResults": "Arama kriterlerinle eşleşen rozet bulunamadı",
+    "visitBadge": "Ziyaret et: {{name}}"
+  },
+  "colophon": {
+    "title": "Künye",
+    "description": "Bu web sitesinin arkasındaki hikaye ve nasıl oluşturulduğu",
+    "siteHistory": {
+      "title": "Site Geçmişi",
+      "content1": "Bu site 2023'ün sonlarında kaydedildi, ancak tasarımı ömrü boyunca çok değişti. İlk sürüm, şüpheli bir ücretsiz barındırma sağlayıcısında barındırılan temel bir WordPress sitesiydi, ikincisi Carrd tabanlıydı ve üçüncüsü Astro ile oluşturulmuştu. Bu mevcut iterasyon (dördüncü sürüm), modern web teknolojileriyle sıfırdan oluşturulmuş eksiksiz bir yeniden tasarımdır.",
+      "content2": "Her sürüm bir evrim olmuştur; bu en sonuncusu performans, erişilebilirlik ve kim olduğumu ve neye önem verdiğimi daha iyi temsil eden daha kişisel bir dokunuşa odaklanmaktadır."
+    },
+    "technologyStack": {
+      "title": "Teknoloji Yığını",
+      "nextjs": "Sunucu taraflı işleme ve statik site oluşturmayı sağlayan React framework'ü",
+      "react": "Kullanıcı arayüzleri oluşturmak için JavaScript kütüphanesi",
+      "tailwind": "Yardımcı program öncelikli CSS framework'ü",
+      "shadcn": "Radix UI ve Tailwind ile oluşturulmuş yeniden kullanılabilir bileşen kütüphanesi",
+      "framer": "React için animasyon kütüphanesi",
+      "i18next": "Uluslararasılaştırma framework'ü",
+      "typescript": "JavaScript üzerine kurulu, güçlü tipli programlama dili"
+    },
+    "hosting": {
+      "title": "Barındırma & Dağıtım",
+      "content1": "Site şurada barındırılıyor:",
+      "content2": "GitHub'dan sorunsuz dağıtım, otomatik HTTPS ve küresel CDN dağıtımı sağlayan.",
+      "content3": "Alan adı şunun aracılığıyla yönetiliyor:",
+      "content4": "ek güvenlik ve performans avantajları sağlayan."
+    },
+    "inspiration": {
+      "title": "İlham Kaynağı",
+      "content1": "Bu sayfa şuradan ilham alıyor:",
+      "content2": "o da şuradan ilham alıyor:",
+      "content3": "Orijinal fikir şurada:"
+    }
+  },
+  "footer": {
+    "copyright": "hiçbir hak saklı değildir, ihtiyacınız olanı alın ve istediğinizi yapın :p",
+    "madeWith": "sevgiyle yapıldı",
+    "andChaos": "ve birkaç günlük kodlamayla"
+  },
+  "2048": {
+    "description": "Karoları birleştirin, 2048'e ulaşın!",
+    "score": "Puan",
+    "best": "En İyi",
+    "gameOver": "Oyun Bitti!",
+    "finalScore": "Son Puan",
+    "tryAgain": "Tekrar Dene",
+    "youWin": "Kazandınız!",
+    "currentScore": "Mevcut Puan",
+    "keepPlaying": "Oynamaya Devam Et",
+    "newGame": "Yeni Oyun",
+    "howToPlay": "Nasıl Oynanır",
+    "instructions1": "Karoları hareket ettirmek için ok tuşlarını veya WASD'yi kullanın. Aynı sayıya sahip iki karo birbirine dokunduğunda, birleşerek tek bir karo oluşturur!",
+    "instructions2": "Her hareketten sonra yeni bir karo belirir (2 veya 4).",
+    "instructions3": "2048 sayısına sahip bir karo oluşturarak oyunu kazanın!",
+    "controls": "Kontroller",
+    "moveLeft": "Sola Hareket",
+    "moveRight": "Sağa Hareket",
+    "moveUp": "Yukarı Hareket",
+    "moveDown": "Aşağı Hareket",
+    "touchInstructions": "Mobil cihazlarda, karolar�� hareket ettirmek için kaydırın veya ekrandaki kontrolleri kullanın.",
+    "undo": "Geri Al"
+  },
+  "keyboardShortcuts": {
+    "title": "Klavye kısayolları",
+    "navigation": "Gezinme",
+    "actions": "Eylemler",
+    "close": "Kapat",
+    "home": "Anasayfa",
+    "about": "Hakkımda",
+    "blog": "Blog",
+    "projects": "Projeler",
+    "now": "Şu an",
+    "uses": "Kullandıklarım",
+    "contact": "İletişim",
+    "colophon": "Künye",
+    "slashes": "Eğik çizgiler",
+    "scrapbook": "Geliştirici günlüğü",
+    "tetris": "Tetris",
+    "2048": "2048",
+    "cycleLanguage": "Dilleri döngüyle değiştir",
+    "cycleTheme": "Temaları sırayla değiştir",
+    "refreshCat": "Mod kedisini yenile",
+    "gamePageNotice": "Oyun kontrolleriyle çakışmaları önlemek için oyun sayfalarında çoğu kısayol devre dışıdır.",
+    "openShortcuts": "Klavye kısayollarını aç",
+    "actionSearch": "Eylem Aramasını Aç"
+  },
+  "actionSearch": {
+    "title": "Eylemleri ara",
+    "placeholder": "Eylem ara...",
+    "noResults": "Hiçbir eylem bulunamadı",
+    "goTo": "Sayfaya git",
+    "toggleTheme": "Temayı değiştir",
+    "switchDarkMode": "Koyu moda geç",
+    "switchLightMode": "Açık moda geç",
+    "appearance": "Görünüm",
+    "cycleLanguage": "Dilleri sırayla değiştir",
+    "refreshCat": "Yeni ruh hali kedisi getir",
+    "playGame": "Oyun oyna",
+    "viewShortcuts": "Tüm kısayolları görüntüle",
+    "pressToOpen": ". tuşuna basarak komut paletini aç",
+    "escToClose": "ESC ile kapat",
+    "fun": "Eğlence",
+    "games": "Oyunlar",
+    "tetris": "Tetris oyna",
+    "2048": "2048 oyna",
+    "help": "Yardım",
+    "projects": {
+      "category": "Projeler arasında gezin",
+      "closeCard": "Kartı kapat",
+      "closeCardDescription": "Çevrilmiş projeyi kapat",
+      "left": "Sola git",
+      "leftDescription": "Önceki projeye git",
+      "right": "Sağa git",
+      "rightDescription": "Sonraki projeye git",
+      "up": "Yukarı git",
+      "upDescription": "Yukarı git veya kaydır",
+      "down": "Aşağı git",
+      "downDescription": "Aşağı git veya kaydır",
+      "flipCard": "Projeyi çevir: {{title}}",
+      "flipCardDescription": "Detayları görmek için kartı çevir"
+    },
+    "blog": {
+      "category": "Blog gönderilerinde gezin",
+      "next": "Sonraki gönderi",
+      "nextDescription": "Sonraki blog gönderisine geç",
+      "prev": "Önceki gönderi",
+      "prevDescription": "Önceki blog gönderisine dön",
+      "search": "Blog gönderilerini ara",
+      "searchDescription": "Başlığa veya içeriğe göre ara",
+      "filterTag": "Gönderileri filtrele",
+      "filterTagDescription": "Filtre menüsünü aç",
+      "jumpToPost": "{{i}} numaralı gönderiye git",
+      "jumpToPostDescription": "{{i}} numaralı gönderiye git",
+      "back": "Blog listesine geri dön",
+      "backDescription": "Tüm blog gönderilerine geri dön"
+    },
+    "about": {
+      "category": "Hakkımda bölümlerinde gezin",
+      "jumpToChapter": "{{i}}. bölüme git",
+      "jumpToChapterDescription": "{{i}}. bölüme git"
+    },
+    "uses": {
+      "category": "Kullanım bölümlerinde gezin",
+      "jumpToCategory": "{{category}} kategorisine git",
+      "jumpToCategoryDescription": "{{category}} kategorisine git"
+    },
+    "now": {
+      "category": "Şu an bölümlerinde gezin",
+      "jumpToCategory": "{{category}} kategorisine git",
+      "jumpToCategoryDescription": "{{category}} kategorisine git"
+    },
+    "colophon": {
+      "category": "Künye bölümlerinde gezin",
+      "jumpToSection": "{{section}} bölümüne git",
+      "jumpToSectionDescription": "{{section}} bölümüne git"
+    }
+  },
+  "firstVisitHint": {
+      "prefix": "İpucu:",
+      "message": "Arama çubuğunu açmak için",
+      "suffix": "tuşuna basabilirsin :D",
+      "dismiss": "Kapat"
+  }
+}
