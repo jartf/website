@@ -16,13 +16,15 @@ This is an Astro website using islands architecture, static HTML by default and 
 
 - Static site generation with Astro
 - Tailwind CSS for styling
-- Content collections for blog posts
+- Content collections for blog posts, now, projects, uses, scrapbook, and webrings
 - Dark/light theme support
-- Multilingual support ready
+- Multilingual support
 - Accessible (WCAG 2.1 AA)
 - Responsive design
-- RSS, Atom, and JSON feeds
-- Follows IndieWeb conventions with h-card
+- RSS, Atom, JSON feeds, sitemap
+- IndieWeb: h-card, webmentions, IndieAuth
+- Global command bar
+- Games: 2048, Tetris
 
 ## Getting started
 
@@ -50,29 +52,66 @@ pnpm preview
 ## Project structure
 
 ```text
+public/
+├── fonts/            # Self-hosted web fonts
+├── keys/             # Public PGP and SSH keys
+├── robots.txt        # Ask bad robots to go away politely :D
+├── site.webmanifest  # Manifest file
+└── ...               # Other static assets
 src/
-├── components/       # .astro (static) and .tsx (islands)
-├── content/          # Content for blog and scrapbook
-│   ├── blog/         # Blog posts in Markdown
-│   ├── scrapbook/    # Scrapbook entries
-│   └── config.ts     # Content collection schemas
-├── hooks/            # React hooks for islands
+├── components/       # .astro (static) and .tsx (React islands)
+│   ├── blog/         # Blog components
+│   ├── home/         # Homepage components
+│   ├── game/         # Game components
+│   ├── ...
+│   ├── CommandBar.tsx    # Command bar
+│   └── T.astro       # Translation component
+├── content/          # Astro content collections
+│   ├── blog/         # Blog posts, in Markdown
+│   ├── now/          # Now entries, in JSON
+│   ├── projects/     # Project entries, in JSON
+│   ├── scrapbook/    # Scrapbook entries, in JSON
+│   ├── uses/         # Uses page categories, in JSON
+│   ├── webrings/     # Webring membership data, in JSON
+│   └── config.ts     # Collection schemas and exported types
+├── hooks/            # React hooks
+│   ├── index.ts
+│   └── use-game-2048.ts
 ├── i18n/             # Translations and language utilities
-│   └── translations/ # JSON translation files
-├── layouts/          # BaseLayout.astro, RetroLayout.astro
-├── lib/              # constants.ts, utils.ts, feed.ts
+│   ├── client.ts     # Client-side language utilities
+│   ├── index.ts      # Server-side i18n utilities
+│   ├── routing.ts    # Locale routing helpers
+│   └── translations/ # JSON translation files (one per locale)
+├── layouts/
+│   ├── BaseLayout.astro    # Main site layout
+│   └── RetroLayout.astro   # Layout for browser compatibility pages
+├── lib/              # Shared utilities and constants
+│   ├── constants.ts  # Site metadata, author info, service config
+│   ├── escape.ts     # HTML escaping
+│   ├── feed.ts       # RSS/Atom/JSON feed helpers
+│   ├── now-utils.ts  # Helpers for the /now page
+│   ├── theme-utils.ts      # Theme helper
+│   └── timezone-utils.ts   # Timezone helper
 ├── pages/            # File-based routing
+│   ├── [locale]/     # Localised layout catch-all
 │   ├── blog/         # Blog pages
 │   ├── api/          # API routes
-│   └── ...           # Other pages
-└── styles/           # globals.css
+│   ├── ...           # Other pages
+│   ├── atom.xml.ts   # Atom feed
+│   ├── feed.json.ts  # JSON feed
+│   ├── rss.xml.ts    # RSS feed
+│   ├── sitemap.xml.ts      # Sitemap
+│   ├── sitemap-index.xml.ts
+│   └── index.astro   # Homepage
+└── styles/           # Global styling
 ```
 
 ## Development
 
 ### Adding a blog post
 
-Create a new Markdown file in `src/content/blog/` with the beginning as follows:
+Create a new Markdown file in `src/content/blog/` with the following frontmatter:
+
 ```yaml
 ---
 title: "Post title"           # Required
@@ -84,6 +123,7 @@ mood: "optimistic"            # Default: "contemplative"
 catApproved: true             # Default: true
 readingTime: 5                # Optional, in minutes
 tags: ["tag1", "tag2"]        # Optional array
+category: "coding"            # Optional
 draft: false                  # Default: false
 alternates:                   # Optional, for multilingual posts
   - language: vi
@@ -110,7 +150,7 @@ The site supports dark and light modes:
 **12 languages** supported: English, Tiếng Việt, Русский, Eesti, Dansk, 中文, Türkçe, Polski, Svenska, Suomi, toki pona, 漢喃
 
 - Translations in `src/i18n/translations/*.json`
-- Import the T component and use it for client-side translation
+- Use the `T.astro` component for static translations
 - Language state managed via `languageStore` nanostore
 - Language detection from browser or localStorage
 
@@ -119,7 +159,7 @@ The site supports dark and light modes:
 **When to use `.astro` vs `.tsx`:**
 
 - Use `.astro` for static content, layouts, pages
-- Use `.tsx` with `client:only="react"` for interactive features (search, toggles, games)
+- Use `.tsx` with `client:only="react"` for interactive features (command bar, language toggle, games)
 
 **Island hydration directives:**
 
@@ -128,42 +168,28 @@ The site supports dark and light modes:
 <StaticComponent />
 
 <!-- Interactive, skip SSR -->
-<LanguageToggle client:only="react" />
+<CommandBar client:only="react" />
 
 <!-- Interactive with SSR -->
 <Game2048 client:load />
 ```
 
-**Utility functions:**
-
-Use `cn()` from `src/lib/utils.ts` for conditional Tailwind classes:
-
-```tsx
-import { cn } from "@/lib/utils";
-<div className={cn("base-class", isActive && "active-class")} />
-```
-
 ## Commands
 
-| Command       | Action                                      |
-|---------------|---------------------------------------------|
-| `pnpm dev`    | Start dev server at `localhost:4321`        |
-| `pnpm build`  | Build for production to `./dist/`           |
-| `pnpm preview`| Preview production build locally            |
-| `pnpm check`  | Check TypeScript and Astro components       |
-
-## Migration notes
-
-This site was migrated from Next.js (v4) to Astro (v5). Key changes:
-
-1. Server-first architecture, components render static HTML by default
-2. Islands architecture for only interactive components in React
-3. Content collections using Astro's built-in content collections
-4. Simplified routing, file-based routing without route groups
+| Command        | Action                                      |
+|----------------|---------------------------------------------|
+| `pnpm dev`     | Start dev server at `localhost:4321`        |
+| `pnpm build`   | Build for production to `./dist/`           |
+| `pnpm preview` | Preview production build locally            |
+| `pnpm check`   | Check TypeScript and Astro components       |
 
 ## External integrations
 
-The site is deployed using Vercel, `vercel.json` adapter is configured for static output.
+- Deployment: Vercel (static output via `@astrojs/vercel`)
+- IndieAuth: implemented via indieauth.com
+- Webmentions: implemented via webmention.io
+- Last.fm: music listening data via API
+- imood and status.cafe: mood and status widgets
 
 ## License
 
