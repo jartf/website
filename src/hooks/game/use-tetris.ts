@@ -1,74 +1,21 @@
 // Tetris game hook
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 
 // Constants
 
 export const TETROMINOS = {
-  I: {
-    shape: [[1, 1, 1, 1]],
-    color: 'bg-cyan-500',
-    colorValue: '#06b6d4',
-  },
-  O: {
-    shape: [
-      [1, 1],
-      [1, 1],
-    ],
-    color: 'bg-yellow-500',
-    colorValue: '#eab308',
-  },
-  T: {
-    shape: [
-      [0, 1, 0],
-      [1, 1, 1],
-    ],
-    color: 'bg-purple-500',
-    colorValue: '#a855f7',
-  },
-  S: {
-    shape: [
-      [0, 1, 1],
-      [1, 1, 0],
-    ],
-    color: 'bg-green-500',
-    colorValue: '#22c55e',
-  },
-  Z: {
-    shape: [
-      [1, 1, 0],
-      [0, 1, 1],
-    ],
-    color: 'bg-red-500',
-    colorValue: '#ef4444',
-  },
-  J: {
-    shape: [
-      [1, 0, 0],
-      [1, 1, 1],
-    ],
-    color: 'bg-blue-500',
-    colorValue: '#3b82f6',
-  },
-  L: {
-    shape: [
-      [0, 0, 1],
-      [1, 1, 1],
-    ],
-    color: 'bg-orange-500',
-    colorValue: '#f97316',
-  },
+  I: { shape: [[1, 1, 1, 1]], color: 'bg-cyan-500' },
+  O: { shape: [[1, 1], [1, 1]], color: 'bg-yellow-500' },
+  T: { shape: [[0, 1, 0], [1, 1, 1]], color: 'bg-purple-500' },
+  S: { shape: [[0, 1, 1], [1, 1, 0]], color: 'bg-green-500' },
+  Z: { shape: [[1, 1, 0], [0, 1, 1]], color: 'bg-red-500' },
+  J: { shape: [[1, 0, 0], [1, 1, 1]], color: 'bg-blue-500' },
+  L: { shape: [[0, 0, 1], [1, 1, 1]], color: 'bg-orange-500' },
 } as const
 
 export type TetrominoType = keyof typeof TETROMINOS
-
-export type CurrentPiece = {
-  type: TetrominoType
-  shape: number[][]
-  x: number
-  y: number
-}
-
-export type TetrisBoard = (string | null)[][]
+type Board = (string | null)[][]
+type Piece = { type: TetrominoType; shape: number[][]; x: number; y: number }
 
 export const BOARD_WIDTH = 10
 export const BOARD_HEIGHT = 20
@@ -76,64 +23,56 @@ export const BOARD_HEIGHT = 20
 const INITIAL_SPEED = 800
 const SPEED_INCREMENT = 50
 const MIN_SPEED = 100
+const WALL_KICKS = [-1, 1, -2, 2]
+const LINE_POINTS = [0, 100, 300, 500, 800]
+const PIECE_TYPES = Object.keys(TETROMINOS) as TetrominoType[]
 
-// Music playlist
+export const musicPlaylist = Array.from({ length: 5 }, (_, i) => ({
+  url: `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${i + 1}.mp3`,
+  title: `SoundHelix Song ${i + 1}`,
+}))
 
-export const musicPlaylist = [
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', title: 'SoundHelix Song 1' },
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', title: 'SoundHelix Song 2' },
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', title: 'SoundHelix Song 3' },
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', title: 'SoundHelix Song 4' },
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', title: 'SoundHelix Song 5' },
-]
+// Utilities
 
-// Pure utilities
+const emptyBoard = (): Board =>
+  Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(null))
 
-export const createEmptyBoard = (): TetrisBoard =>
-  Array(BOARD_HEIGHT).fill(null).map(() => Array(BOARD_WIDTH).fill(null))
+const randomPiece = (): TetrominoType =>
+  PIECE_TYPES[Math.floor(Math.random() * PIECE_TYPES.length)]
 
-export const getRandomTetromino = (): TetrominoType => {
-  const types = Object.keys(TETROMINOS) as TetrominoType[]
-  return types[Math.floor(Math.random() * types.length)]
+const copyShape = (t: TetrominoType): number[][] =>
+  TETROMINOS[t].shape.map((r) => [...r])
+
+const inBounds = (x: number, y: number) =>
+  x >= 0 && x < BOARD_WIDTH && y >= 0 && y < BOARD_HEIGHT
+
+/** Iterate filled cells in a shape. */
+const eachCell = (shape: number[][], fn: (r: number, c: number) => void) => {
+  for (let r = 0; r < shape.length; r++)
+    for (let c = 0; c < shape[r].length; c++)
+      if (shape[r][c]) fn(r, c)
 }
 
-export const rotateMatrix = (matrix: number[][]): number[][] => {
-  const rows = matrix.length
-  const cols = matrix[0].length
-  const rotated: number[][] = []
-  for (let i = 0; i < cols; i++) {
-    rotated[i] = []
-    for (let j = rows - 1; j >= 0; j--) {
-      rotated[i].push(matrix[j][i])
-    }
-  }
-  return rotated
-}
+const rotateMatrix = (m: number[][]): number[][] =>
+  Array.from({ length: m[0].length }, (_, i) =>
+    Array.from({ length: m.length }, (_, j) => m[m.length - 1 - j][i])
+  )
 
-export const isColliding = (
-  shape: number[][],
-  x: number,
-  y: number,
-  board: TetrisBoard
-): boolean => {
-  for (let row = 0; row < shape.length; row++) {
-    for (let col = 0; col < shape[row].length; col++) {
-      if (shape[row][col]) {
-        const nx = x + col
-        const ny = y + row
-        if (nx < 0 || nx >= BOARD_WIDTH || ny >= BOARD_HEIGHT || (ny >= 0 && board[ny][nx])) {
+const isColliding = (shape: number[][], x: number, y: number, board: Board): boolean => {
+  for (let r = 0; r < shape.length; r++)
+    for (let c = 0; c < shape[r].length; c++)
+      if (shape[r][c]) {
+        const nx = x + c, ny = y + r
+        if (nx < 0 || nx >= BOARD_WIDTH || ny >= BOARD_HEIGHT || (ny >= 0 && board[ny][nx]))
           return true
-        }
       }
-    }
-  }
   return false
 }
 
-/** Builds the display board: placed pieces + ghost piece + active piece. */
-export const buildDisplayBoard = (board: TetrisBoard, piece: CurrentPiece | null): TetrisBoard => {
-  const display = board.map((row) => [...row])
-  if (!piece) return display
+/** Builds display board: locked cells + ghost piece + active piece. */
+const buildDisplayBoard = (board: Board, piece: Piece | null): Board => {
+  const d = board.map((row) => [...row])
+  if (!piece) return d
 
   const { type, shape, x, y } = piece
   const color = TETROMINOS[type].color
@@ -141,378 +80,256 @@ export const buildDisplayBoard = (board: TetrisBoard, piece: CurrentPiece | null
   // Ghost piece
   let ghostY = y
   while (!isColliding(shape, x, ghostY + 1, board)) ghostY++
+  if (ghostY !== y)
+    eachCell(shape, (r, c) => {
+      const by = ghostY + r, bx = x + c
+      if (inBounds(bx, by) && !d[by][bx]) d[by][bx] = 'ghost'
+    })
 
-  if (ghostY !== y) {
-    for (let row = 0; row < shape.length; row++) {
-      for (let col = 0; col < shape[row].length; col++) {
-        if (shape[row][col]) {
-          const by = ghostY + row
-          const bx = x + col
-          if (by >= 0 && by < BOARD_HEIGHT && bx >= 0 && bx < BOARD_WIDTH && !display[by][bx]) {
-            display[by][bx] = 'ghost'
-          }
-        }
-      }
-    }
-  }
+  // Active piece
+  eachCell(shape, (r, c) => {
+    const by = y + r, bx = x + c
+    if (inBounds(bx, by)) d[by][bx] = color
+  })
 
-  // Active piece (drawn after ghost so it always wins)
-  for (let row = 0; row < shape.length; row++) {
-    for (let col = 0; col < shape[row].length; col++) {
-      if (shape[row][col]) {
-        const by = y + row
-        const bx = x + col
-        if (by >= 0 && by < BOARD_HEIGHT && bx >= 0 && bx < BOARD_WIDTH) {
-          display[by][bx] = color
-        }
-      }
-    }
-  }
-
-  return display
+  return d
 }
 
 // Hook
 
 export function useTetris() {
-  // Game state
-  const [board, setBoard] = useState<TetrisBoard>(createEmptyBoard)
-  const [currentPiece, setCurrentPiece] = useState<CurrentPiece | null>(null)
-  const [nextPiece, setNextPiece] = useState<TetrominoType>(getRandomTetromino)
+  const [board, setBoard] = useState<Board>(emptyBoard)
+  const [currentPiece, setCurrentPiece] = useState<Piece | null>(null)
+  const [nextPiece, setNextPiece] = useState<TetrominoType>(randomPiece)
   const [score, setScore] = useState(0)
   const [, setLines] = useState(0)
   const [level, setLevel] = useState(1)
   const [gameOver, setGameOver] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
-
-  // Music state
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
+
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const touchRef = useRef<{ x: number; y: number } | null>(null)
+  const lastMoveRef = useRef(0)
+  const lastDropRef = useRef(0)
 
-  // Touch state
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null)
-  const lastMoveRef = useRef<number>(0)
-  const lastDropRef = useRef<number>(0)
+  const speed = Math.max(MIN_SPEED, INITIAL_SPEED - (level - 1) * SPEED_INCREMENT)
 
-  // Speed
-
-  const getSpeed = useCallback(
-    () => Math.max(MIN_SPEED, INITIAL_SPEED - (level - 1) * SPEED_INCREMENT),
-    [level]
+  const displayBoard = useMemo(
+    () => buildDisplayBoard(board, currentPiece),
+    [board, currentPiece]
   )
 
   // Core: place piece, clear lines, spawn next
 
   const placePieceAndSpawn = useCallback(
     (pieceType: TetrominoType, shape: number[][], px: number, py: number) => {
-      const newBoard = board.map((row) => [...row])
+      const nb = board.map((row) => [...row])
       const color = TETROMINOS[pieceType].color
 
-      for (let row = 0; row < shape.length; row++) {
-        for (let col = 0; col < shape[row].length; col++) {
-          if (shape[row][col]) {
-            const ny = py + row
-            const nx = px + col
-            if (ny >= 0 && ny < BOARD_HEIGHT && nx >= 0 && nx < BOARD_WIDTH) {
-              newBoard[ny][nx] = color
-            }
-          }
-        }
-      }
-
-      let linesCleared = 0
-      const finalBoard = newBoard.filter((row) => {
-        const full = row.every((cell) => cell !== null)
-        if (full) linesCleared++
-        return !full
+      eachCell(shape, (r, c) => {
+        const ny = py + r, nx = px + c
+        if (inBounds(nx, ny)) nb[ny][nx] = color
       })
-      while (finalBoard.length < BOARD_HEIGHT) {
-        finalBoard.unshift(Array(BOARD_WIDTH).fill(null))
-      }
 
-      if (linesCleared > 0) {
-        const points = [0, 100, 300, 500, 800][linesCleared] * level
-        setScore((prev) => prev + points)
+      let cleared = 0
+      const final = nb.filter((row) => {
+        if (row.every(Boolean)) { cleared++; return false }
+        return true
+      })
+      while (final.length < BOARD_HEIGHT)
+        final.unshift(Array(BOARD_WIDTH).fill(null))
+
+      if (cleared > 0) {
+        setScore((s) => s + LINE_POINTS[cleared] * level)
         setLines((prev) => {
-          const newLines = prev + linesCleared
-          const newLevel = Math.floor(newLines / 10) + 1
-          if (newLevel > level) setLevel(newLevel)
-          return newLines
+          const n = prev + cleared, nl = Math.floor(n / 10) + 1
+          if (nl > level) setLevel(nl)
+          return n
         })
       }
 
-      setBoard(finalBoard)
+      setBoard(final)
 
-      const newType = nextPiece
-      const newShape = TETROMINOS[newType].shape.map((r) => [...r])
+      const newShape = copyShape(nextPiece)
       const startX = Math.floor((BOARD_WIDTH - newShape[0].length) / 2)
 
-      if (isColliding(newShape, startX, 0, finalBoard)) {
+      if (isColliding(newShape, startX, 0, final)) {
         setGameOver(true)
         setCurrentPiece(null)
       } else {
-        setCurrentPiece({ type: newType, shape: newShape, x: startX, y: 0 })
-        setNextPiece(getRandomTetromino())
+        setCurrentPiece({ type: nextPiece, shape: newShape, x: startX, y: 0 })
+        setNextPiece(randomPiece())
       }
     },
     [board, nextPiece, level]
   )
-
-  const lockPiece = useCallback(() => {
-    if (!currentPiece) return
-    placePieceAndSpawn(currentPiece.type, currentPiece.shape, currentPiece.x, currentPiece.y)
-  }, [currentPiece, placePieceAndSpawn])
 
   // Move actions
 
   const movePiece = useCallback(
     (dx: number, dy: number) => {
       if (!currentPiece || gameOver || isPaused) return
-
-      const nx = currentPiece.x + dx
-      const ny = currentPiece.y + dy
-
-      if (!isColliding(currentPiece.shape, nx, ny, board)) {
-        setCurrentPiece((prev) => (prev ? { ...prev, x: nx, y: ny } : null))
-      } else if (dy > 0) {
-        lockPiece()
-      }
+      const nx = currentPiece.x + dx, ny = currentPiece.y + dy
+      if (!isColliding(currentPiece.shape, nx, ny, board))
+        setCurrentPiece((p) => (p ? { ...p, x: nx, y: ny } : null))
+      else if (dy > 0)
+        placePieceAndSpawn(currentPiece.type, currentPiece.shape, currentPiece.x, currentPiece.y)
     },
-    [currentPiece, board, gameOver, isPaused, lockPiece]
+    [currentPiece, board, gameOver, isPaused, placePieceAndSpawn]
   )
 
   const rotatePiece = useCallback(() => {
     if (!currentPiece || gameOver || isPaused) return
-
     const rotated = rotateMatrix(currentPiece.shape)
-
     if (!isColliding(rotated, currentPiece.x, currentPiece.y, board)) {
-      setCurrentPiece((prev) => (prev ? { ...prev, shape: rotated } : null))
+      setCurrentPiece((p) => (p ? { ...p, shape: rotated } : null))
       return
     }
-
-    for (const kick of [-1, 1, -2, 2]) {
+    for (const kick of WALL_KICKS)
       if (!isColliding(rotated, currentPiece.x + kick, currentPiece.y, board)) {
-        setCurrentPiece((prev) => (prev ? { ...prev, shape: rotated, x: prev.x + kick } : null))
+        setCurrentPiece((p) => (p ? { ...p, shape: rotated, x: p.x + kick } : null))
         return
       }
-    }
   }, [currentPiece, board, gameOver, isPaused])
 
   const hardDrop = useCallback(() => {
     if (!currentPiece || gameOver || isPaused) return
-
-    let dropY = currentPiece.y
-    while (!isColliding(currentPiece.shape, currentPiece.x, dropY + 1, board)) dropY++
-
-    placePieceAndSpawn(currentPiece.type, currentPiece.shape, currentPiece.x, dropY)
+    let y = currentPiece.y
+    while (!isColliding(currentPiece.shape, currentPiece.x, y + 1, board)) y++
+    placePieceAndSpawn(currentPiece.type, currentPiece.shape, currentPiece.x, y)
   }, [currentPiece, board, gameOver, isPaused, placePieceAndSpawn])
 
   // Lifecycle
 
   const startGame = useCallback(() => {
-    setBoard(createEmptyBoard())
-    setScore(0)
-    setLines(0)
-    setLevel(1)
-    setGameOver(false)
-    setIsStarted(true)
-    setIsPaused(false)
-
-    const type = getRandomTetromino()
-    const shape = TETROMINOS[type].shape.map((r) => [...r])
-    const startX = Math.floor((BOARD_WIDTH - shape[0].length) / 2)
-
-    setCurrentPiece({ type, shape, x: startX, y: 0 })
-    setNextPiece(getRandomTetromino())
+    setBoard(emptyBoard())
+    setScore(0); setLines(0); setLevel(1)
+    setGameOver(false); setIsStarted(true); setIsPaused(false)
+    const type = randomPiece()
+    const shape = copyShape(type)
+    setCurrentPiece({ type, shape, x: Math.floor((BOARD_WIDTH - shape[0].length) / 2), y: 0 })
+    setNextPiece(randomPiece())
   }, [])
 
   const togglePause = useCallback(() => {
-    if (isStarted && !gameOver) setIsPaused((prev) => !prev)
+    if (isStarted && !gameOver) setIsPaused((p) => !p)
   }, [isStarted, gameOver])
 
   // Game loop
 
   useEffect(() => {
     if (!isStarted || gameOver || isPaused) return
-
-    const id = setInterval(() => movePiece(0, 1), getSpeed())
+    const id = setInterval(() => movePiece(0, 1), speed)
     return () => clearInterval(id)
-  }, [isStarted, gameOver, isPaused, movePiece, getSpeed])
+  }, [isStarted, gameOver, isPaused, movePiece, speed])
 
-  // Keyboard controls
+  // Keyboard
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const actions: Record<string, () => void> = {
+      ArrowLeft: () => movePiece(-1, 0), KeyA: () => movePiece(-1, 0),
+      ArrowRight: () => movePiece(1, 0), KeyD: () => movePiece(1, 0),
+      ArrowDown: () => movePiece(0, 1), KeyS: () => movePiece(0, 1),
+      ArrowUp: () => rotatePiece(), KeyW: () => rotatePiece(),
+      Space: () => hardDrop(),
+      KeyP: () => togglePause(), Escape: () => togglePause(),
+    }
+    const onKey = (e: KeyboardEvent) => {
       if (!isStarted || gameOver) {
-        if (e.code === 'Space' || e.code === 'Enter') {
-          e.preventDefault()
-          startGame()
-        }
+        if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); startGame() }
         return
       }
-
-      switch (e.code) {
-        case 'ArrowLeft':
-        case 'KeyA':
-          e.preventDefault()
-          movePiece(-1, 0)
-          break
-        case 'ArrowRight':
-        case 'KeyD':
-          e.preventDefault()
-          movePiece(1, 0)
-          break
-        case 'ArrowDown':
-        case 'KeyS':
-          e.preventDefault()
-          movePiece(0, 1)
-          break
-        case 'ArrowUp':
-        case 'KeyW':
-          e.preventDefault()
-          rotatePiece()
-          break
-        case 'Space':
-          e.preventDefault()
-          hardDrop()
-          break
-        case 'KeyP':
-        case 'Escape':
-          e.preventDefault()
-          togglePause()
-          break
-      }
+      if (actions[e.code]) { e.preventDefault(); actions[e.code]() }
     }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
   }, [isStarted, gameOver, movePiece, rotatePiece, hardDrop, togglePause, startGame])
 
-  // Touch controls
+  // Touch
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0]
-    setTouchStart({ x: touch.clientX, y: touch.clientY })
+    touchRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
   }, [])
 
   const handleTouchMove = useCallback(
     (e: React.TouchEvent) => {
-      if (!touchStart || !isStarted || gameOver || isPaused) return
+      const start = touchRef.current
+      if (!start || !isStarted || gameOver || isPaused) return
+      const { clientX, clientY } = e.touches[0]
+      const dx = clientX - start.x, dy = clientY - start.y, now = Date.now()
 
-      const touch = e.touches[0]
-      const deltaX = touch.clientX - touchStart.x
-      const deltaY = touch.clientY - touchStart.y
-      const now = Date.now()
-
-      if (Math.abs(deltaX) > 30 && now - lastMoveRef.current > 100) {
-        movePiece(deltaX > 0 ? 1 : -1, 0)
-        setTouchStart({ x: touch.clientX, y: touchStart.y })
+      if (Math.abs(dx) > 30 && now - lastMoveRef.current > 100) {
+        movePiece(dx > 0 ? 1 : -1, 0)
+        touchRef.current = { x: clientX, y: start.y }
         lastMoveRef.current = now
       }
-
-      if (deltaY > 30 && now - lastDropRef.current > 50) {
+      if (dy > 30 && now - lastDropRef.current > 50) {
         movePiece(0, 1)
-        setTouchStart({ x: touchStart.x, y: touch.clientY })
+        touchRef.current = { x: start.x, y: clientY }
         lastDropRef.current = now
       }
     },
-    [touchStart, isStarted, gameOver, isPaused, movePiece]
+    [isStarted, gameOver, isPaused, movePiece]
   )
 
   const handleTouchEnd = useCallback(
     (e: React.TouchEvent) => {
-      if (!touchStart) return
-
-      const touch = e.changedTouches[0]
-      const deltaX = touch.clientX - touchStart.x
-      const deltaY = touch.clientY - touchStart.y
-
-      if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) rotatePiece()
-      if (deltaY > 100 && Math.abs(deltaX) < 50) hardDrop()
-
-      setTouchStart(null)
+      const start = touchRef.current
+      if (!start) return
+      const { clientX, clientY } = e.changedTouches[0]
+      const dx = clientX - start.x, dy = clientY - start.y
+      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) rotatePiece()
+      if (dy > 100 && Math.abs(dx) < 50) hardDrop()
+      touchRef.current = null
     },
-    [touchStart, rotatePiece, hardDrop]
+    [rotatePiece, hardDrop]
   )
 
   // Music
 
-  useEffect(() => {
+  const ensureAudio = () => {
     if (!audioRef.current) {
-      audioRef.current = new Audio()
-      audioRef.current.volume = 0.5
-      audioRef.current.src = musicPlaylist[currentTrackIndex].url
-      audioRef.current.onended = () => {
-        setCurrentTrackIndex((prev) => (prev + 1) % musicPlaylist.length)
-      }
+      const a = new Audio()
+      a.volume = 0.5
+      a.crossOrigin = 'anonymous'
+      a.onended = () => setCurrentTrackIndex((i) => (i + 1) % musicPlaylist.length)
+      a.onerror = () => setCurrentTrackIndex((i) => (i + 1) % musicPlaylist.length)
+      audioRef.current = a
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    return audioRef.current
+  }
+
+  useEffect(() => { ensureAudio() }, [])
 
   useEffect(() => {
     if (audioRef.current && isMusicPlaying) {
       audioRef.current.src = musicPlaylist[currentTrackIndex].url
       audioRef.current.load()
-      audioRef.current.play().catch((err) => {
-        console.warn('Failed to play track:', err)
-      })
+      audioRef.current.play().catch(() => {})
     }
+    // Only auto-play on track change, not on isMusicPlaying toggle
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackIndex])
 
   const toggleMusic = useCallback(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio()
-      audioRef.current.volume = 0.5
-      audioRef.current.crossOrigin = 'anonymous'
-      audioRef.current.src = musicPlaylist[currentTrackIndex].url
-      audioRef.current.onended = () => {
-        setCurrentTrackIndex((prev) => (prev + 1) % musicPlaylist.length)
-      }
-      audioRef.current.onerror = () => {
-        console.warn('Track failed to load, trying next...')
-        setCurrentTrackIndex((prev) => (prev + 1) % musicPlaylist.length)
-      }
-    }
-
+    const a = ensureAudio()
     if (isMusicPlaying) {
-      audioRef.current.pause()
+      a.pause()
       setIsMusicPlaying(false)
     } else {
-      audioRef.current.load()
-      audioRef.current
-        .play()
+      a.src = musicPlaylist[currentTrackIndex].url
+      a.load()
+      a.play()
         .then(() => setIsMusicPlaying(true))
-        .catch((err) => {
-          console.error('Audio playback failed:', err)
-          setCurrentTrackIndex((prev) => (prev + 1) % musicPlaylist.length)
+        .catch(() => {
+          setCurrentTrackIndex((i) => (i + 1) % musicPlaylist.length)
           setIsMusicPlaying(false)
         })
     }
   }, [isMusicPlaying, currentTrackIndex])
 
-  // Return
-
-  return {
-    displayBoard: buildDisplayBoard(board, currentPiece),
-    nextPiece,
-    score,
-    level,
-    gameOver,
-    isPaused,
-    isStarted,
-    isMusicPlaying,
-    currentTrackIndex,
-    startGame,
-    togglePause,
-    toggleMusic,
-    movePiece,
-    rotatePiece,
-    hardDrop,
-    handleTouchStart,
-    handleTouchMove,
-    handleTouchEnd,
-  }
+  return { displayBoard, nextPiece, score, level, gameOver, isPaused, isStarted, isMusicPlaying, currentTrackIndex, startGame, togglePause, toggleMusic, handleTouchStart, handleTouchMove, handleTouchEnd }
 }
