@@ -2,6 +2,8 @@
 
 A personal website built with [Astro](https://astro.build), migrated from Next.js.
 
+![Screenshot of the first fold of website's homepage in dark mode. The hero section centers a main heading, a short bio and a flex row of four action buttons. The lower section uses a two column layout. The left column displays three blog post cards with titles, excerpts, dates and read times. The right column displays a dynamic now section.](<jarema.me - Salvestamata.jpg>)
+
 ## Architecture
 
 This is an Astro website using islands architecture, static HTML by default and React for some specific interactive components.
