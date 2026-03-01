@@ -1,6 +1,11 @@
 # Jarema's digital garden, version 5 (Astro)
 
-A personal website built with [Astro](https://astro.build), migrated from Next.js.
+A personal website built with [Astro](https://astro.build).
+
+See the site in action:
+- https://jarema.me
+- https://z.is-a.dev
+- https://jarema.vercel.app (backup)
 
 ![Screenshot of the first fold of website's homepage in dark mode. The hero section centers a main heading, a short bio and a flex row of four action buttons. The lower section uses a two column layout. The left column displays three blog post cards with titles, excerpts, dates and read times. The right column displays a dynamic now section.](<jarema.me - Salvestamata.jpg>)
 
