@@ -522,12 +522,14 @@
         "spaceGrotesk": "Space Grotesk",
         "lexend": "Lexend",
         "notoSansSC": "Noto Sans SC",
+        "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Han Nom Gothic"
       },
       "usage": {
         "spaceGrotesk": "Rubriker och titlar",
         "lexend": "Brödtext och UI",
         "notoSansSC": "Kinesisk text",
+        "monaspice": "Kod och monospace-text",
         "hanNomGothic": "Vietnamesisk Chữ Nôm"
       },
       "weight": "Vikt:",

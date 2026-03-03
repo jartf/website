@@ -534,12 +534,14 @@
         "spaceGrotesk": "Space Grotesk",
         "lexend": "Lexend",
         "notoSansSC": "Noto Sans SC",
+        "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Han Nom Gothic"
       },
       "usage": {
         "spaceGrotesk": "Başlıklar",
         "lexend": "Gövde metni ve arayüz",
         "notoSansSC": "Çince metin",
+        "monaspice": "Kod ve sabit genişlikli metin",
         "hanNomGothic": "Vietnamca Chữ Nôm"
       },
       "weight": "Kalınlık:",

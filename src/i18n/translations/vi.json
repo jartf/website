@@ -524,12 +524,14 @@
         "spaceGrotesk": "Space Grotesk",
         "lexend": "Lexend",
         "notoSansSC": "Noto Sans SC",
+        "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Hán Nôm Gothic"
       },
       "usage": {
         "spaceGrotesk": "Tiêu đề",
         "lexend": "Nội dung và giao diện (UI)",
         "notoSansSC": "Tiếng Trung",
+        "monaspice": "Đoạn mã code",
         "hanNomGothic": "Chữ Nôm"
       },
       "weight": "Độ dày:",

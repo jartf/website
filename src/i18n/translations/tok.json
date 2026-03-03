@@ -525,12 +525,14 @@
         "spaceGrotesk": "Space Grotesk",
         "lexend": "Lexend",
         "notoSansSC": "Noto Sans SC",
+        "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Han Nom Gothic"
       },
       "usage": {
         "spaceGrotesk": "nimi suli",
         "lexend": "sitelen tawa jan",
         "notoSansSC": "toki Sonko",
+        "monaspice": "sitelen pi ilo nanpa",
         "hanNomGothic": "toki Wije (nasin Han Nom)"
       },
       "weight": "suli:",
