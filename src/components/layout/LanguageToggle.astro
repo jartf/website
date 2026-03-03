@@ -44,6 +44,7 @@ const itemCls = "lang-item relative flex items-center rounded-sm px-2 py-1.5 tex
               href={localePath(l.code, basePath)}
               class:list={[itemCls, l.code === lang && "bg-accent"]}
               data-search={`${l.name} ${l.code} ${l.aliases?.join(" ") ?? ""}`}
+              aria-label={l.name}
             >
               <span class="mr-2">{l.flag}</span>
               <span class="truncate">{l.name}</span>
