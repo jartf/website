@@ -3,10 +3,10 @@ Developer: ∴ Jarema
 Contact email: hello@jarema.me. See https://jarema.me/contact for more contact methods.
 Website: https://jarema.me
 Location: Vietnam
-Languages: Vietnamese, English, Russian, some Danish and Turkish. Emotions: work in progress.
+Languages: Vietnamese, English, Estonian, Russian, some Danish and Turkish. Emotions: work in progress.
 
 /* SITE */
-Last update: 2025-04-23
+Last update: 2026-03-03
 Components: Astro, React, Tailwind CSS, HTML5, CSS3, JavaScript
 Software: VS Code, Zed, Git, Vercel. See https://jarema.me/colophon for more info.
 
