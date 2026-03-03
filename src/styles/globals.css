@@ -80,6 +80,15 @@
 }
 
 @font-face {
+  font-family: 'MonaspiceNe Nerd Font';
+  src: url('/fonts/MonaspiceNeNerdFont-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-02CC, U+02CE-02D7, U+02DA, U+02DC, U+02DD-02FF, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1D00-1DBF, U+1E00-1EFF, U+2000-206F, U+20A0-20C0, U+2113, U+2122, U+2191, U+2193, U+2212, U+2215, U+2C60-2C7F, U+A720-A7FF, U+FEFF, U+FFFD;
+}
+
+@font-face {
   font-family: 'OpenDyslexic';
   src: url('/fonts/OpenDyslexic-Regular.woff2') format('woff2');
   font-weight: 400;
@@ -113,6 +122,7 @@
     --font-space-grotesk: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
     --font-lexend: 'Lexend', ui-sans-serif, system-ui, sans-serif;
     --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+    --font-monaspice: 'MonaspiceNe Nerd Font', monospace, ui-sans-serif, system-ui, sans-serif;
     --font-zh-hans: 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
     --font-zh-hant: 'Noto Sans TC', ui-sans-serif, system-ui, sans-serif;
     --font-vi-hani: 'Han Nom Gothic', serif;
