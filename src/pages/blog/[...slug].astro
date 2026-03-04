@@ -201,7 +201,7 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
           {/* Likes */}
           {wmLikes.length > 0 && (
             <div>
-              <h3 class="text-sm font-semibold text-muted-foreground mb-3">❤️ {wmLikes.length} {t(lang, "blog.webmentionLike")}</h3>
+              <h3 class="text-sm font-semibold text-muted-foreground mb-3">❤️ {wmLikes.length} <T key="blog.webmentionLike" /></h3>
               <div class="flex flex-wrap gap-1" role="list" aria-label={t(lang, "blog.webmentionLike")}>
                 {wmLikes.map((wm) => (
                   <a
@@ -235,7 +235,7 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
           {/* Reposts */}
           {wmReposts.length > 0 && (
             <div>
-              <h3 class="text-sm font-semibold text-muted-foreground mb-3">🔁 {wmReposts.length} {t(lang, "blog.webmentionRepost")}</h3>
+              <h3 class="text-sm font-semibold text-muted-foreground mb-3">🔁 {wmReposts.length} <T key="blog.webmentionRepost" /></h3>
               <div class="flex flex-wrap gap-1" role="list" aria-label={t(lang, "blog.webmentionRepost")}>
                 {wmReposts.map((wm) => (
                   <a
@@ -269,7 +269,7 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
           {/* Replies */}
           {wmReplies.length > 0 && (
             <div>
-              <h3 class="text-sm font-semibold text-muted-foreground mb-3">💬 {wmReplies.length} {t(lang, "blog.webmentionReply")}</h3>
+              <h3 class="text-sm font-semibold text-muted-foreground mb-3">💬 {wmReplies.length} <T key="blog.webmentionReply" /></h3>
               <ol class="space-y-4" aria-label={t(lang, "blog.webmentionReply")}>
                 {wmReplies.map((wm) => (
                   <li class="flex gap-3 p-3 rounded-lg bg-muted/30">
@@ -309,7 +309,7 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
           {/* Generic mentions */}
           {wmMentions.length > 0 && (
             <div>
-              <h3 class="text-sm font-semibold text-muted-foreground mb-3">🔗 {wmMentions.length} {t(lang, "blog.webmentionMention")}</h3>
+              <h3 class="text-sm font-semibold text-muted-foreground mb-3">🔗 {wmMentions.length} <T key="blog.webmentionMention" /></h3>
               <ul class="space-y-2" aria-label={t(lang, "blog.webmentionMention")}>
                 {wmMentions.map((wm) => (
                   <li class="flex items-center gap-2 text-sm">

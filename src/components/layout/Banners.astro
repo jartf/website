@@ -1,6 +1,7 @@
 ---
 // Notification banners: incomplete-translation warning + polyglot easter egg
 import { supportedLanguages, completedLanguages } from "@/lib/constants";
+import T from "@/components/T.astro";
 import { t } from "@/i18n";
 
 const lang = Astro.locals?.lang || "en";
@@ -15,7 +16,7 @@ const isComplete = (completedLanguages as readonly string[]).includes(lang);
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 flex-shrink-0" aria-hidden="true">
         <circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" />
       </svg>
-      <p class="text-sm">{t(lang, "languageNotice.message")}</p>
+      <T key="languageNotice.message" tag="p" class="text-sm" />
       <button data-dismiss="lang-notice" class="ml-4 p-1 rounded-full hover:bg-amber-200 dark:hover:bg-amber-800 transition-colors" aria-label={t(lang, "languageNotice.dismiss")}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
       </button>

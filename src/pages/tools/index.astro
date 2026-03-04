@@ -27,15 +27,9 @@ const tools = Object.keys(toolPages)
             href={`/tools/${slug}/`}
             class="group rounded-xl border bg-card p-6 flex flex-col transition-colors hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <span class="text-3xl mb-3" aria-hidden="true">
-              {t(lang, `tools.items.${slug}.icon`)}
-            </span>
-            <h2 class="text-xl font-bold mb-2 group-hover:underline">
-              {t(lang, `tools.items.${slug}.title`)}
-            </h2>
-            <p class="text-muted-foreground text-sm flex-1">
-              {t(lang, `tools.items.${slug}.description`)}
-            </p>
+            <T key={`tools.items.${slug}.icon`} tag="span" class="text-3xl mb-3" aria-hidden="true" />
+            <T key={`tools.items.${slug}.title`} tag="h2" class="text-xl font-bold mb-2 group-hover:underline" />
+            <T key={`tools.items.${slug}.description`} tag="p" class="text-muted-foreground text-sm flex-1" />
           </a>
         ))}
       </div>
