@@ -186,6 +186,75 @@ html.i18n-updating [data-t-key] {
   visibility: hidden;
 }
 
+/* Custom cursor overrides (designed by NOiiRE) */
+*, *::before, *::after {
+  cursor: url('/cursor/normal.gif'), auto;
+}
+
+a, button, [role="button"], [role="link"], label[for],
+summary, select, [type="submit"], [type="reset"], [type="button"],
+.card-hover-effect, [onclick], [tabindex="0"] {
+  cursor: url('/cursor/link.gif'), pointer !important;
+}
+
+input[type="text"], input[type="email"], input[type="password"],
+input[type="search"], input[type="url"], input[type="tel"],
+input[type="number"], input[type="date"], input[type="time"],
+textarea, [contenteditable="true"], [role="textbox"] {
+  cursor: url('/cursor/text.gif'), text !important;
+}
+
+[title], abbr[title], [role="tooltip"], .help-cursor,
+[data-tooltip], [aria-describedby] {
+  cursor: url('/cursor/help.gif'), help !important;
+}
+
+[disabled], [aria-disabled="true"], .disabled,
+button:disabled, input:disabled, select:disabled, textarea:disabled {
+  cursor: url('/cursor/unavailable.gif'), not-allowed !important;
+}
+
+[aria-busy="true"], .loading, .busy {
+  cursor: url('/cursor/busy.gif'), wait !important;
+}
+.working, .progress {
+  cursor: url('/cursor/work.gif'), progress !important;
+}
+
+.precision, [role="slider"] {
+  cursor: url('/cursor/precision.gif'), crosshair !important;
+}
+
+.avatar, .person-cursor, img[alt*="avatar"], img[alt*="Avatar"],
+img[alt*="profile"], img[alt*="Profile"] {
+  cursor: url('/cursor/person.gif'), pointer !important;
+}
+
+.alt-cursor, [role="menu"], [role="menuitem"] {
+  cursor: url('/cursor/alt.gif'), context-menu !important;
+}
+
+[draggable="true"], .draggable, .movable {
+  cursor: url('/cursor/move.gif'), move !important;
+}
+
+.grabbable, .grab {
+  cursor: url('/cursor/hand.gif'), grab !important;
+}
+
+.resize-horizontal, .resize-ew {
+  cursor: url('/cursor/horz.gif'), ew-resize !important;
+}
+.resize-vertical, .resize-ns {
+  cursor: url('/cursor/vert.gif'), ns-resize !important;
+}
+.resize-diagonal-1, .resize-nwse {
+  cursor: url('/cursor/dgn1.gif'), nwse-resize !important;
+}
+.resize-diagonal-2, .resize-nesw {
+  cursor: url('/cursor/dgn2.gif'), nesw-resize !important;
+}
+
 @layer base {
   * {
     @apply border-border;
