@@ -95,7 +95,7 @@ const btnSecondary = `${btnBase} border border-input bg-background hover:bg-acce
 
         <!-- Friend sites -->
         <section class="mt-10 lg:mt-12" aria-labelledby="check-out-heading">
-          <h2 id="check-out-heading" class="text-2xl font-bold mb-4 text-center">Check these sites out!</h2>
+          <T key="home.checkOutSites" tag="h2" id="check-out-heading" class="text-2xl font-bold mb-4 text-center" />
           {friendSites.length > 0 ? (
             <div class="border rounded-lg p-4 bg-card flex flex-wrap justify-center gap-2">
               {friendSites.map(({ src, alt, href }) =>

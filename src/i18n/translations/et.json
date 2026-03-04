@@ -88,7 +88,8 @@
     "latestNow": "Mida ma hetkel teen",
     "currentMood": "Praegune tuju",
     "currentStatus": "Praegune staatus",
-    "viewAllWebrings": "Vaata kõiki veebiringid"
+    "viewAllWebrings": "Vaata kõiki veebiringid",
+    "checkOutSites": "Vaata neid saite!"
   },
   "guestbook": {
     "title": "Külalisteraamat",

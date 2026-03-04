@@ -95,7 +95,8 @@
     "latestNow": "Şu anda ne yapıyorum",
     "currentMood": "Şu anki ruh halim",
     "currentStatus": "Şu anki durumum",
-    "viewAllWebrings": "Tüm web çemberlerini gör"
+    "viewAllWebrings": "Tüm web çemberlerini gör",
+    "checkOutSites": "Bu sitelere göz at!"
   },
   "guestbook": {
     "title": "Ziyaretçi defteri",

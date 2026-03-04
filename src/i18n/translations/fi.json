@@ -88,7 +88,8 @@
     "latestNow": "Mitä teen nyt",
     "currentMood": "Nykyinen mieliala",
     "currentStatus": "Nykyinen tila",
-    "viewAllWebrings": "Näytä kaikki verkkorenkaat"
+    "viewAllWebrings": "Näytä kaikki verkkorenkaat",
+    "checkOutSites": "Katso näitä sivustoja!"
   },
   "guestbook": {
     "title": "Vieraskirja",
