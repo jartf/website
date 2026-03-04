@@ -87,7 +87,7 @@ try {
     const wmJson = await wmResponse.json();
     webmentions = wmJson.children ?? [];
   }
-} catch { /* silently fail — webmentions are non-critical */ }
+} catch { /* silent fail */ }
 
 const wmLikes = webmentions.filter((wm) => wm["wm-property"] === "like-of");
 const wmReposts = webmentions.filter((wm) => wm["wm-property"] === "repost-of");
