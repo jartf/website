@@ -197,6 +197,8 @@ summary, select, [type="submit"], [type="reset"], [type="button"],
   cursor: url('/cursor/link.gif'), pointer !important;
 }
 
+p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption,
+dt, dd, td, th, caption, legend,
 input[type="text"], input[type="email"], input[type="password"],
 input[type="search"], input[type="url"], input[type="tel"],
 input[type="number"], input[type="date"], input[type="time"],
