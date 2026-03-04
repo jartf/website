@@ -106,6 +106,14 @@ const inputCls = "mt-1 w-full px-3 py-1.5 text-sm rounded-lg border bg-card text
       </div>
 
       <div id="speed-data" hidden data-v={JSON.stringify(speeds)} />
+
+      <details class="mt-8 text-sm border rounded-lg px-4 py-2 text-muted-foreground">
+        <summary class="cursor-pointer select-none font-medium text-foreground py-1">{tl("privacy.summary")}</summary>
+        <div class="mt-2 mb-1 space-y-2">
+          <p>{tl("privacy.body")}</p>
+          <p><span class="font-medium text-foreground">{tl("privacy.technicalLabel")}</span> {tl("privacy.technical")}</p>
+        </div>
+      </details>
     </div>
   </div>
 </BaseLayout>
