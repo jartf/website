@@ -41,10 +41,10 @@ const pendingWebringItems = allWebrings.filter(w => w.status === "pending");
 
   <!-- Active Webrings list -->
   {activeWebringItems.map((webring) => (
-    <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px groove #808080; margin-bottom: 10px;">
+    <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px groove #4A3F6F; margin-bottom: 10px;">
       <tr>
         <td align="center">
-          <font size="3" color="#000080">
+          <font size="3" color="#54D4FF">
             <b>
               <a href={webring.url}>{webring.name}</a>
             </b>
@@ -92,15 +92,15 @@ const pendingWebringItems = allWebrings.filter(w => w.status === "pending");
       <hr>
 
       {pendingWebringItems.map((webring) => (
-        <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px groove #808080; margin-bottom: 10px; opacity: 0.7; background-color: #fffacd;">
+        <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px groove #4A3F6F; margin-bottom: 10px; opacity: 0.7; background-color: #2A1F45;">
           <tr>
             <td align="center">
-              <font size="3" color="#000080">
+              <font size="3" color="#54D4FF">
                 <b>
                   <a href={webring.url}>{webring.name}</a>
                 </b>
                 {' '}
-                <font size="1" style="background-color: #ffeb3b; padding: 2px 5px; border: 1px solid #fbc02d;">
+                <font size="1" style="background-color: #54D4FF; padding: 2px 5px; border: 1px solid #4A3F6F;">
                   <b>PENDING</b>
                 </font>
               </font>
@@ -134,7 +134,7 @@ const pendingWebringItems = allWebrings.filter(w => w.status === "pending");
   )}
 
   <!-- Discover CTA -->
-  <table width="100%" border="0" cellpadding="15" cellspacing="0" style="border: 3px ridge #4caf50;">
+  <table width="100%" border="0" cellpadding="15" cellspacing="0" style="border: 3px ridge #54D4FF;">
     <tr>
       <td align="center">
         <font size="3">

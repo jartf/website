@@ -43,8 +43,8 @@ canvas,
 
 /* Base styles */
 body {
-  background-color: #1a1625;
-  color: #f2f2f2;
+  background-color: #1A0F2E;
+  color: #F2F2F2;
   font-family: "Times New Roman", Times, serif;
   font-size: 14px;
   margin: 0;
@@ -53,22 +53,22 @@ body {
 
 /* Links */
 a {
-  color: #5dd9f4;
+  color: #54D4FF;
 }
 
 a:visited {
-  color: #a78bfa;
+  color: #0099CC;
 }
 
 a:active {
-  color: #7dd3fc;
+  color: #54D4FF;
 }
 
 /* Headings */
 h1 {
   font-size: 24px;
   font-weight: bold;
-  color: #5dd9f4;
+  color: #54D4FF;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -76,7 +76,7 @@ h1 {
 h2 {
   font-size: 20px;
   font-weight: bold;
-  color: #5dd9f4;
+  color: #54D4FF;
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -84,7 +84,7 @@ h2 {
 h3 {
   font-size: 16px;
   font-weight: bold;
-  color: #5dd9f4;
+  color: #54D4FF;
   margin-top: 6px;
   margin-bottom: 6px;
 }
@@ -110,7 +110,7 @@ li {
 hr {
   border-style: none;
   height: 2px;
-  background-color: #3d2f5a;
+  background-color: #4A3F6F;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -128,11 +128,11 @@ td, th {
 blockquote {
   border-left-width: 4px;
   border-left-style: solid;
-  border-left-color: #5dd9f4;
+  border-left-color: #54D4FF;
   padding-left: 15px;
   margin-left: 10px;
   font-style: italic;
-  color: #b8b8b8;
+  color: #F4F4F5;
 }
 
 /* Definition lists */
@@ -149,8 +149,8 @@ dd {
 /* Pre and code */
 pre, code {
   font-family: "Courier New", Courier, monospace;
-  background-color: #2d1b4e;
-  color: #f2f2f2;
+  background-color: #2A1F45;
+  color: #F2F2F2;
   padding: 2px;
 }
 
@@ -158,7 +158,7 @@ pre {
   padding: 10px;
   border-width: 1px;
   border-style: solid;
-  border-color: #3d2f5a;
+  border-color: #4A3F6F;
   overflow: auto;
 }
 
@@ -169,20 +169,20 @@ input, textarea, select {
   padding: 2px;
   border-width: 2px;
   border-style: inset;
-  border-color: #3d2f5a;
-  background-color: #2d1b4e;
-  color: #f2f2f2;
+  border-color: #4A3F6F;
+  background-color: #2A1F45;
+  color: #F2F2F2;
 }
 
 button {
   font-family: "Times New Roman", Times, serif;
   font-size: 14px;
   padding: 4px 8px;
-  background-color: #2d1b4e;
-  color: #f2f2f2;
+  background-color: #2A1F45;
+  color: #F2F2F2;
   border-width: 2px;
   border-style: outset;
-  border-color: #5dd9f4;
+  border-color: #54D4FF;
   cursor: pointer;
 }
 
@@ -193,86 +193,86 @@ img {
 
 /* Header bar */
 .header {
-  background-color: #2d1b4e;
-  color: #ffffff;
+  background-color: #2A1F45;
+  color: #F2F2F2;
   padding: 10px;
 }
 
 .header a {
-  color: #5dd9f4;
+  color: #54D4FF;
 }
 
 /* Navigation */
 .nav {
-  background-color: #2d1b4e;
+  background-color: #2A1F45;
   padding: 5px;
   border-bottom-width: 2px;
   border-bottom-style: groove;
-  border-bottom-color: #3d2f5a;
+  border-bottom-color: #4A3F6F;
 }
 
 .nav a {
   margin-right: 10px;
-  color: #5dd9f4;
+  color: #54D4FF;
 }
 
 /* Content area */
 .content {
-  background-color: #211833;
-  color: #f2f2f2;
+  background-color: #2A1F45;
+  color: #F2F2F2;
   padding: 15px;
   border-width: 2px;
   border-style: inset;
-  border-color: #3d2f5a;
+  border-color: #4A3F6F;
 }
 
 /* Sidebar */
 .sidebar {
-  background-color: #2d1b4e;
-  color: #f2f2f2;
+  background-color: #2A1F45;
+  color: #F2F2F2;
   padding: 10px;
   border-width: 2px;
   border-style: inset;
-  border-color: #3d2f5a;
+  border-color: #4A3F6F;
 }
 
 /* Footer */
 .footer {
-  background-color: #2d1b4e;
-  color: #ffffff;
+  background-color: #2A1F45;
+  color: #F2F2F2;
   padding: 10px;
   text-align: center;
 }
 
 .footer a {
-  color: #5dd9f4;
+  color: #54D4FF;
 }
 
 /* Notice boxes */
 .notice {
-  background-color: #2d1b4e;
-  color: #f2f2f2;
+  background-color: #2A1F45;
+  color: #F2F2F2;
   border-width: 2px;
   border-style: solid;
-  border-color: #5dd9f4;
+  border-color: #54D4FF;
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .notice-info {
-  background-color: #1e3a5f;
-  border-color: #5dd9f4;
+  background-color: #2A1F45;
+  border-color: #54D4FF;
 }
 
 .notice-success {
-  background-color: #1e3a2f;
-  border-color: #4ade80;
+  background-color: #2A1F45;
+  border-color: #54D4FF;
 }
 
 .notice-warning {
-  background-color: #3a2e1e;
-  border-color: #fbbf24;
+  background-color: #2A1F45;
+  border-color: #4A3F6F;
 }
 
 /* Blink animation - for nostalgia! */
@@ -303,45 +303,45 @@ blink {
   margin: 5px;
   border-width: 1px;
   border-style: solid;
-  border-color: #000000;
+  border-color: #4A3F6F;
 }
 
 /* Retro button style */
 .button-retro {
   display: inline;
   padding: 4px 12px;
-  background-color: #2d1b4e;
+  background-color: #2A1F45;
   border-width: 3px;
   border-style: outset;
-  border-color: #5dd9f4 #3d2f5a #3d2f5a #5dd9f4;
+  border-color: #54D4FF #4A3F6F #4A3F6F #54D4FF;
   font-weight: bold;
   text-decoration: none;
-  color: #f2f2f2;
+  color: #F2F2F2;
 }
 
 /* Groove and ridge borders (90s favorite!) */
 .border-groove {
   border-width: 2px;
   border-style: groove;
-  border-color: #3d2f5a;
+  border-color: #4A3F6F;
 }
 
 .border-ridge {
   border-width: 2px;
   border-style: ridge;
-  border-color: #3d2f5a;
+  border-color: #4A3F6F;
 }
 
 .border-inset {
   border-width: 2px;
   border-style: inset;
-  border-color: #3d2f5a;
+  border-color: #4A3F6F;
 }
 
 .border-outset {
   border-width: 2px;
   border-style: outset;
-  border-color: #3d2f5a;
+  border-color: #4A3F6F;
 }
 
 /* Text alignment classes */
@@ -358,17 +358,17 @@ blink {
 }
 
 /* Common colors */
-.color-navy { color: #2d1b4e; }
-.color-red { color: #f87171; }
-.color-green { color: #4ade80; }
-.color-yellow { color: #fbbf24; }
-.color-cyan { color: #5dd9f4; }
-.color-magenta { color: #c084fc; }
-.color-gray { color: #9ca3af; }
-.color-white { color: #ffffff; }
+.color-navy { color: #2A1F45; }
+.color-red { color: #54D4FF; }
+.color-green { color: #4A3F6F; }
+.color-yellow { color: #F4F4F5; }
+.color-cyan { color: #54D4FF; }
+.color-magenta { color: #3A2F5A; }
+.color-gray { color: #4A3F6F; }
+.color-white { color: #F2F2F2; }
 
-.bg-navy { background-color: #2d1b4e; }
-.bg-silver { background-color: #211833; }
-.bg-white { background-color: #2d1b4e; }
-.bg-yellow { background-color: #3a2e1e; }
-.bg-gray { background-color: #1a1625; }
+.bg-navy { background-color: #2A1F45; }
+.bg-silver { background-color: #1A0F2E; }
+.bg-white { background-color: #FFFFFF; }
+.bg-yellow { background-color: #3A2F5A; }
+.bg-gray { background-color: #1A0F2E; }

@@ -34,7 +34,7 @@ const lastUpdated = nowItems.reduce((latest, item) => {
 
   <!-- Now items -->
   {nowItems.map((item) => (
-    <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px inset #808080; margin-bottom: 10px;">
+    <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px inset #4A3F6F; margin-bottom: 10px;">
       <tr>
         <td>
           <font size="3">
@@ -45,7 +45,7 @@ const lastUpdated = nowItems.reduce((latest, item) => {
             {item.content.en}
           </font>
           <br>
-          <font size="1" color="#bbbbbb">
+          <font size="1" color="#F4F4F5">
             <i>Updated: {new Date(item.date).toLocaleDateString('en-GB')}</i>
           </font>
         </td>

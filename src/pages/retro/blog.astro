@@ -31,12 +31,12 @@ const posts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blo
       </font>
 
       <table width="100%" border="1" cellpadding="5" cellspacing="0" style="margin-top: 10px;">
-        <tr style="background-color: #000080;">
+        <tr style="background-color: #2A1F45;">
           <th align="left" style="width: 120px;">
-            <font size="3" color="#ffffff">Date</font>
+            <font size="3" color="#F2F2F2">Date</font>
           </th>
           <th align="left">
-            <font size="3" color="#ffffff">Title</font>
+            <font size="3" color="#F2F2F2">Title</font>
           </th>
         </tr>
 
@@ -59,7 +59,7 @@ const posts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blo
                 {post.data.excerpt && (
                   <>
                     <br>
-                    <font size="2" color="#dddddd">
+                    <font size="2" color="#F4F4F5">
                       {post.data.excerpt.length > 150
                         ? post.data.excerpt.substring(0, 150) + '...'
                         : post.data.excerpt
@@ -91,10 +91,10 @@ const posts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blo
   <br>
 
   <!-- RSS feed -->
-  <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px solid #ff9800;">
+  <table width="100%" border="0" cellpadding="10" cellspacing="0" style="border: 2px solid #4A3F6F;">
     <tr>
       <td align="center">
-        <font size="3" color="#e65100">
+        <font size="3" color="#54D4FF">
           <b>Subscribe via XML feeds</b>
         </font>
         <br>

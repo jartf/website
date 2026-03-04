@@ -55,7 +55,7 @@ export const services = {
   // iMood
   iMood: {
     profileUrl: "https://www.imood.com/users/jarema",
-    widgetUrl: "https://moods.imood.com/display/uname-jarema/fg-FFFFFF/bg-2c2e84/imood.gif",
+    widgetUrl: "https://moods.imood.com/display/uname-jarema/fg-F2F2F2/bg-1A0F2E/imood.gif",
   },
   // status.cafe
   statusCafe: {
@@ -73,8 +73,8 @@ export const services = {
 
 // Theme colors
 export const themeColors = {
-  dark: "#2c2e84",
-  light: "#ffffff",
+  dark: "#1A0F2E",
+  light: "#FFFFFF",
 } as const;
 
 // Pride flag colors (for footer)
