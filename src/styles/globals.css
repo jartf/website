@@ -76,7 +76,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+4E00-9FFF, U+3400-4DBF, U+2E80-2FFF, U+3000-303F, U+20000-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+F900-FAFF;
+  unicode-range: U+4E00-9FFF, U+3400-4DBF, U+2E80-2FFF, U+3000-303F, U+20000-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+2F800-2FA1F, U+F900-FAFF, U+FF0C;
 }
 
 @font-face {
@@ -125,7 +125,7 @@
     --font-monaspice: 'MonaspiceNe Nerd Font', monospace, ui-sans-serif, system-ui, sans-serif;
     --font-zh-hans: 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
     --font-zh-hant: 'Noto Sans TC', ui-sans-serif, system-ui, sans-serif;
-    --font-vi-hani: 'Han Nom Gothic', serif;
+    --font-vi-hani: 'Han Nom Gothic', 'Noto Sans TC', 'Noto Sans SC', serif;
   }
 
   .light {
