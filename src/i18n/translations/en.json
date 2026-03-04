@@ -785,6 +785,12 @@
       "disableWordsDesc": "For logographic and Brahmic languages, spaces don't separate words.",
       "newlineAsParagraph": "Treat each line as a paragraph",
       "newlineAsParagraphDesc": "Count single newlines as paragraph breaks instead of requiring blank lines. The line counter will be hidden."
+    },
+    "privacy": {
+      "summary": "Privacy",
+      "body": "This tool runs entirely in your browser. You can disconnect from the internet and it will still work, your text is never sent anywhere.",
+      "technicalLabel": "Technical info:",
+      "technical": "To verify, open browser DevTools (F12) → Network tab, then type in the text area and confirm no requests are made after the page finishes loading."
     }
   },
   "tools": {

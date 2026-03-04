@@ -765,6 +765,12 @@
       "disableWordsDesc": "Logograafiliste ja braahmi keelte puhul ei eralda tühikud sõnu.",
       "newlineAsParagraph": "Käsitle iga rida lõiguna",
       "newlineAsParagraphDesc": "Loenda üksikuid reavahetusi lõiguvahedena selle asemel et nõuda tühje ridu. Ridade loendur peidetakse."
+    },
+    "privacy": {
+      "summary": "Privaatsusteave",
+      "body": "See tööriist töötab täielikult sinu brauseris. Sa võid internetiühenduse katkestada ja see töötab ikka, sinu teksti ei saadeta kunagi kuhugi.",
+      "technicalLabel": "Tehniline kontroll:",
+      "technical": "Kontrollimiseks ava brauseri DevTools (F12) → vahekaart Network, seejärel kirjuta tekstikasti ja veendu, et pärast lehe laadimist ei tehta ühtegi päringut."
     }
   },
   "tools": {

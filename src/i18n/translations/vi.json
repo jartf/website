@@ -767,6 +767,12 @@
       "disableWordsDesc": "Dành cho các ngôn ngữ sử dụng chữ viết tượng hình không phân cách các từ bằng dấu cách.",
       "newlineAsParagraph": "Coi mỗi lần xuống dòng là một đoạn văn",
       "newlineAsParagraphDesc": "Đếm mỗi lần xuống dòng là một đoạn văn, không bắt buộc phải có dòng trống giữa hai đoạn văn. Bộ đếm dòng sẽ bị ẩn."
+    },
+    "privacy": {
+      "summary": "Thông tin về quyền riêng tư",
+      "body": "Công cụ này chạy hoàn toàn trong trình duyệt của bạn. Bạn có thể ngắt kết nối internet và nó vẫn sẽ hoạt động, văn bản của bạn hoàn toàn không bị gửi đi bất cứ đâu.",
+      "technicalLabel": "Phương pháp xác minh kỹ thuật:",
+      "technical": "Để xác minh, hãy mở DevTools của trình duyệt (F12) → tab Mạng (Network), sau đó nhập vào vùng văn bản và xác nhận rằng không có yêu cầu mới nào được thực hiện sau khi trang hoàn tất tải."
     }
   },
   "tools": {

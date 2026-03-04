@@ -777,6 +777,12 @@
       "disableWordsDesc": "Logografik ve Brahmik diller için boşluklar kelimeleri ayırmaz.",
       "newlineAsParagraph": "Her satırı bir paragraf olarak kabul et",
       "newlineAsParagraphDesc": "Boş satırlar gerektirmek yerine tek satır sonlarını paragraf sonu olarak sayın. Satır sayacı gizlenecektir."
+    },
+    "privacy": {
+      "summary": "Gizlilik bilgileri",
+      "body": "Bu araç tamamen tarayıcınızda çalışır. İnternet bağlantınızı kesebilirsiniz ve yine de çalışmaya devam eder, metniniz asla hiçbir yere gönderilmez.",
+      "technicalLabel": "Teknik doğrulama yöntemi:",
+      "technical": "Doğrulamak için tarayıcı DevTools'u (F12) → Ağ (Network) sekmesini açın, ardından metin alanına bir şeyler yazın ve sayfa yüklenmesi bittikten sonra hiçbir istek yapılmadığını onaylayın."
     }
   },
   "tools": {

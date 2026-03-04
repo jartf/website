@@ -779,6 +779,12 @@
       "disableWordsDesc": "For logografiske og brahmiske sprog adskiller mellemrum ikke ord.",
       "newlineAsParagraph": "Behandl hver linje som et afsnit",
       "newlineAsParagraphDesc": "Tæl enkelte linjeskift som afsnitsskift i stedet for at kræve blanke linjer. Linjetælleren skjules."
+    },
+    "privacy": {
+      "summary": "Information om privatliv",
+      "body": "Dette værktøj kører udelukkende i din browser. Du kan afbryde forbindelsen til internettet, og det vil stadig virke, din tekst bliver aldrig sendt nogen steder hen.",
+      "technicalLabel": "Sådan bekræfter du teknisk:",
+      "technical": "For at bekræfte kan du åbne browserens DevTools (F12) → fanen Netværk, derefter skrive i tekstfeltet og bekræfte, at der ikke foretages nogen anmodninger, efter at siden er færdig med at indlæse."
     }
   },
   "tools": {

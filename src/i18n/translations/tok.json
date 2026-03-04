@@ -768,6 +768,12 @@
       "disableWordsDesc": "toki mute li jo ala e weka lon insa pi nimi tu.",
       "newlineAsParagraph": "linja ali li kipisi lipu",
       "newlineAsParagraphDesc": "linja sin li pali e kipisi lipu sin. ilo pi nanpa linja li lukin ala."
+    },
+    "privacy": {
+      "summary": "sona pi awen len",
+      "body": "ilo ni li pali lon ilo lukin sina taso. sina ken weka e linja sona, ilo ni li awen pali, lipu sina li tawa ala ma ante.",
+      "technicalLabel": "nasin lukin sona:",
+      "technical": "sina wile sona e ni la o lukin e ilo DevTools (F12) pi ilo lukin, o tawa lipu Network, o sitelen lon lupa toki, o lukin e ni: ilo li pana ala e ijo tawa ma ante lon tenpo pini pi kama lipu."
     }
   },
   "tools": {

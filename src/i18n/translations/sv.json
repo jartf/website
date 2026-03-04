@@ -765,6 +765,12 @@
       "disableWordsDesc": "För logografiska och brahmiska språk skiljer inte mellanslag ord åt.",
       "newlineAsParagraph": "Behandla varje rad som ett stycke",
       "newlineAsParagraphDesc": "Räkna enskilda radbrytningar som styckebrytningar istället för att kräva tomma rader. Radräknaren kommer att döljas."
+    },
+    "privacy": {
+      "summary": "Integritetsinformation",
+      "body": "Det här verktyget körs helt i din webbläsare. Du kan koppla från internet och det kommer fortfarande att fungera, din text skickas aldrig någonstans.",
+      "technicalLabel": "Teknisk verifiering:",
+      "technical": "För att verifiera detta öppnar du webbläsarens DevTools (F12) → fliken Nätverk (Network), skriver i textfältet och bekräftar att inga förfrågningar görs efter att sidan har laddats klart."
     }
   },
   "tools": {

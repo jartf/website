@@ -765,6 +765,12 @@
       "disableWordsDesc": "W językach logograficznych i bramijskich spacje nie rozdzielają słów.",
       "newlineAsParagraph": "Traktuj każdą linię jako akapit",
       "newlineAsParagraphDesc": "Licz pojedyncze przejścia do nowej linii jako podziały akapitów zamiast wymagać pustych linii. Licznik linii zostanie ukryty."
+    },
+    "privacy": {
+      "summary": "Informacje o prywatności",
+      "body": "To narzędzie działa całkowicie w Twojej przeglądarce. Możesz odłączyć się od internetu, a ono nadal będzie działać, Twój tekst nigdy nie jest nigdzie wysyłany.",
+      "technicalLabel": "Sposób weryfikacji technicznej:",
+      "technical": "Aby to sprawdzić, otwórz DevTools przeglądarki (F12) → zakładkę Sieć (Network), a następnie wpisz coś w polu tekstowym i upewnij się, że po zakończeniu ładowania strony nie są wysyłane żadne żądania."
     }
   },
   "tools": {

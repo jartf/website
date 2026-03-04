@@ -765,6 +765,12 @@
       "disableWordsDesc": "Logografisissa ja brahmilaisissa kielissä välilyönnit eivät erota sanoja.",
       "newlineAsParagraph": "Käsittele jokaista riviä kappaleena",
       "newlineAsParagraphDesc": "Laske yksittäiset rivinvaihdot kappaleväleinä sen sijaan että vaadittaisiin tyhjiä rivejä. Rivitasolaskuri piilotetaan."
+    },
+    "privacy": {
+      "summary": "Tietosuojatiedot",
+      "body": "Tämä työkalu toimii täysin selaimessasi. Voit katkaista internetyhteyden ja se toimii silti, tekstiäsi ei koskaan lähetetä minnekään.",
+      "technicalLabel": "Tekninen todennus:",
+      "technical": "Varmistaaksesi tämän, avaa selaimen DevTools (F12) → Verkko-välilehti (Network), kirjoita sitten tekstialueelle ja vahvista, ettei pyyntöjä tehdä sen jälkeen, kun sivu on latautunut."
     }
   },
   "tools": {
