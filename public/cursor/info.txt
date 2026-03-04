@@ -1,0 +1,9 @@
+Thanks to NOiiRE for designing the cursor! :D
+
+Author:
+Web: https://noiire.carrd.co	X: @noiireism
+Designed by NOiiRE © 2025 𝐍𝐎𝐢𝐢𝐑𝐄.
+
+Modifications made to NOiiRE's design:
+- Converted from ANI to GIF format
+- Set speed per frame to 15ms.
