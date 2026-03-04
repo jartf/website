@@ -86,64 +86,36 @@ import T from "@/components/T.astro";
 
 <script is:inline>
   (function () {
-    let tapCount = 0;
-    let tapTimeout = null;
-
     // Secret chapter 6 easter egg - tap footer 6 times to reveal
-    const footerTapArea = document.getElementById("footer-tap-area");
-    if (!footerTapArea) return;
-
-    footerTapArea.addEventListener("click", (e) => {
-      // Don't count clicks on links
-      if (e.target && e.target.tagName === "A") return;
-
-      tapCount++;
-
-      // Reset tap count after 2 seconds of no taps
-      if (tapTimeout) clearTimeout(tapTimeout);
-      tapTimeout = setTimeout(() => {
-        tapCount = 0;
-      }, 2000);
-
-      // On 6th tap, reveal chapter 6
-      if (tapCount === 6) {
-        sessionStorage.setItem("showHiddenChapter", "true");
-
-        // If already on about page, reveal chapter 6 directly
-        if (window.location.pathname.includes("/about")) {
-          document.querySelectorAll(".hidden-chapter").forEach((el) => {
-            el.classList.remove("hidden");
-          });
-          // Scroll to chapter 6
-          const chapter6 = document.getElementById("chapter-6");
-          if (chapter6) {
-            chapter6.scrollIntoView({ behavior: "smooth" });
+    var tapCount = 0;
+    var tapTimeout = null;
+    var footerTapArea = document.getElementById("footer-tap-area");
+    if (footerTapArea) {
+      footerTapArea.addEventListener("click", function (e) {
+        if (e.target && e.target.tagName === "A") return;
+        tapCount++;
+        if (tapTimeout) clearTimeout(tapTimeout);
+        tapTimeout = setTimeout(function () { tapCount = 0; }, 2000);
+        if (tapCount === 6) {
+          sessionStorage.setItem("showHiddenChapter", "true");
+          if (window.location.pathname.includes("/about")) {
+            document.querySelectorAll(".hidden-chapter").forEach(function (el) { el.classList.remove("hidden"); });
+            var chapter6 = document.getElementById("chapter-6");
+            if (chapter6) chapter6.scrollIntoView({ behavior: "smooth" });
+          } else {
+            window.location.href = "/about/#chapter-6";
           }
-        } else {
-          // Navigate to about page chapter 6
-          window.location.href = "/about/#chapter-6";
+          tapCount = 0;
         }
-
-        tapCount = 0;
-      }
-    });
-  })();
-</script>
-
-<script is:inline>
-  // Command bar trigger button
-  (function () {
-    const trigger = document.getElementById("footer-command-bar-trigger");
-    if (!trigger) return;
-
-    trigger.addEventListener("click", () => {
-      // Simulate "." keypress to open command bar
-      const event = new KeyboardEvent("keydown", {
-        key: ".",
-        bubbles: true,
-        cancelable: true
       });
-      window.dispatchEvent(event);
-    });
+    }
+
+    // Command bar trigger button
+    var trigger = document.getElementById("footer-command-bar-trigger");
+    if (trigger) {
+      trigger.addEventListener("click", function () {
+        window.dispatchEvent(new KeyboardEvent("keydown", { key: ".", bubbles: true, cancelable: true }));
+      });
+    }
   })();
 </script>

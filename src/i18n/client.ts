@@ -1,11 +1,10 @@
 // Client-side i18n helper
 import { supportedLanguages } from "@/lib/constants";
 import { t as serverT } from "@/i18n";
-import { locales, stripLocale } from "@/i18n/routing";
+import { getLocaleFromUrl, stripLocale } from "@/i18n/routing";
 
 export function getPageLocale(): string {
-  const [, segment] = location.pathname.split("/");
-  return (locales as string[]).includes(segment) ? segment : "en";
+  return getLocaleFromUrl(new URL(location.href));
 }
 
 export const t = (key: string, params?: Record<string, string | number>) =>

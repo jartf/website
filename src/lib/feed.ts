@@ -54,12 +54,9 @@ function postsForLanguage(allPosts: FeedPost[], language: string | undefined, mo
   return mode === "en-only" ? allPosts.filter((p) => p.language === "en") : allPosts;
 }
 
-function feedTitle(language: string | undefined) {
-  return language && language !== "en" ? `${siteName} - ${getLanguageName(language)}` : siteName;
-}
-
-function feedDescription(language: string | undefined) {
-  return language && language !== "en" ? `${siteDescription} - ${getLanguageName(language)}` : siteDescription;
+function feedMeta(language: string | undefined) {
+  const suffix = language && language !== "en" ? ` - ${getLanguageName(language)}` : "";
+  return { title: `${siteName}${suffix}`, description: `${siteDescription}${suffix}` };
 }
 
 interface FeedOptions {
@@ -169,58 +166,40 @@ export function generateJSONFeed({ posts, title, description, language, feedUrl 
 }
 
 function cacheHeaders(contentType?: string) {
-  const headers: Record<string, string> = {
-    "Cache-Control": "public, max-age=3600, s-maxage=3600",
-  };
+  const headers: Record<string, string> = { "Cache-Control": "public, max-age=3600, s-maxage=3600" };
   if (contentType) headers["Content-Type"] = contentType;
   return headers;
 }
 
-export async function getRSSResponse(language?: string) {
+async function feedResponse(
+  format: "rss" | "atom" | "json",
+  language?: string,
+): Promise<Response> {
   const allPosts = await getAllFeedPostsCached();
-  const posts = postsForLanguage(allPosts, language, "all");
-  const feedUrl = language ? `${siteUrl}/rss/${language}.xml` : `${siteUrl}/rss.xml`;
-
-  return new Response(
-    generateRSSFeed({
-      posts,
-      title: feedTitle(language),
-      description: feedDescription(language),
-      language: language || "en",
-      feedUrl,
-    }),
-    {
-      headers: cacheHeaders("application/xml"),
-    },
-  );
-}
-
-export async function getAtomResponse(language?: string) {
-  const allPosts = await getAllFeedPostsCached();
-  const posts = postsForLanguage(allPosts, language, "all");
-
-  if (posts.length === 0 && language) {
-    return new Response("No posts found for this language", { status: 404 });
-  }
-
-  const feedUrl = language ? `${siteUrl}/atom/${language}.xml` : `${siteUrl}/atom.xml`;
-
-  return new Response(generateAtomFeed({ posts, title: feedTitle(language), description: feedDescription(language), language: language || "en", feedUrl }), {
-    headers: cacheHeaders("application/atom+xml"),
-  });
-}
-
-export async function getJSONFeedResponse(language?: string) {
-  const allPosts = await getAllFeedPostsCached();
-  const posts = postsForLanguage(allPosts, language, "en-only");
+  const mode: FeedMode = format === "json" ? "en-only" : "all";
+  const posts = postsForLanguage(allPosts, language, mode);
 
   if (language && posts.length === 0) {
     return new Response("No posts found for this language", { status: 404 });
   }
 
-  const feedUrl = language ? `${siteUrl}/feed/${language}.json` : `${siteUrl}/feed.json`;
+  const { title, description } = feedMeta(language);
+  const lang = language || "en";
+  const pathMap = { rss: "rss", atom: "atom", json: "feed" } as const;
+  const extMap = { rss: ".xml", atom: ".xml", json: ".json" } as const;
+  const feedUrl = language
+    ? `${siteUrl}/${pathMap[format]}/${language}${extMap[format]}`
+    : `${siteUrl}/${pathMap[format]}${extMap[format]}`;
+  const opts: FeedOptions = { posts, title, description, language: lang, feedUrl };
 
-  return Response.json(generateJSONFeed({ posts, title: feedTitle(language), description: feedDescription(language), language: language || "en", feedUrl }), {
-    headers: cacheHeaders(),
-  });
+  if (format === "json") {
+    return Response.json(generateJSONFeed(opts), { headers: cacheHeaders() });
+  }
+  const contentTypes = { rss: "application/xml", atom: "application/atom+xml" } as const;
+  const generators = { rss: generateRSSFeed, atom: generateAtomFeed } as const;
+  return new Response(generators[format](opts), { headers: cacheHeaders(contentTypes[format]) });
 }
+
+export const getRSSResponse = (language?: string) => feedResponse("rss", language);
+export const getAtomResponse = (language?: string) => feedResponse("atom", language);
+export const getJSONFeedResponse = (language?: string) => feedResponse("json", language);

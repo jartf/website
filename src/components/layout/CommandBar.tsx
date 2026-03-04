@@ -98,6 +98,11 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
     const locale = getPageLocale();
     const nav = (path: string) => () => { window.location.href = localePath(locale, path); close() };
 
+    // Helper for keyboard-dispatch actions
+    const keyAction = (id: string, label: string, icon: React.ReactNode, shortcut: string, category: string, key: string, showOn: string[]): Action => ({
+      id, label, icon, shortcut, category, action: () => { dispatchKey(key); close(); }, showOn,
+    });
+
     // Navigation actions (data-driven)
     const navIcons: Record<string, React.ReactNode> = {
       home: <Home className="h-4 w-4 text-primary" />,
@@ -141,10 +146,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         icon: <Languages className="h-4 w-4 text-green-500" />,
         shortcut: "y",
         category: t("blog.language", "Language"),
-        action: () => {
-          cycleLanguage();
-          close();
-        },
+        action: () => { cycleLanguage(); close(); },
       },
     ];
 
@@ -157,8 +159,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
         shortcut: "r",
         category: t("actionSearch.fun", "Fun"),
         action: () => {
-          document
-            .querySelector('button[aria-label="Refresh mood cat"]')
+          document.querySelector('button[aria-label="Refresh mood cat"]')
             ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
           close();
         },
@@ -182,164 +183,56 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
     ];
 
     // Project page actions
-    const projectActions: Action[] = !isPage("/projects")
-      ? []
-      : [
-          {
-            id: "close-card",
-            label: t("actionSearch.projects.closeCard", "Close card"),
-            icon: <X className="h-4 w-4 text-red-500" />,
-            shortcut: "Esc",
-            category: t("actionSearch.projects.category", "Projects"),
-            action: () => {
-              document
-                .querySelector('.rotate-y-180 [id^="project-card-back-"]')
-                ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-              close();
-            },
-            showOn: ["/projects"],
-          },
-          {
-            id: "nav-left",
-            label: t("actionSearch.projects.left", "Navigate left"),
-            icon: <ArrowLeft className="h-4 w-4 text-blue-500" />,
-            shortcut: "←",
-            category: t("actionSearch.projects.category", "Projects"),
-            action: () => {
-              dispatchKey("ArrowLeft");
-              close();
-            },
-            showOn: ["/projects"],
-          },
-          {
-            id: "nav-right",
-            label: t("actionSearch.projects.right", "Navigate right"),
-            icon: <ArrowRight className="h-4 w-4 text-blue-500" />,
-            shortcut: "→",
-            category: t("actionSearch.projects.category", "Projects"),
-            action: () => {
-              dispatchKey("ArrowRight");
-              close();
-            },
-            showOn: ["/projects"],
-          },
-          {
-            id: "nav-up",
-            label: t("actionSearch.projects.up", "Navigate up"),
-            icon: <ArrowUp className="h-4 w-4 text-blue-500" />,
-            shortcut: "↑",
-            category: t("actionSearch.projects.category", "Projects"),
-            action: () => {
-              dispatchKey("ArrowUp");
-              close();
-            },
-            showOn: ["/projects"],
-          },
-          {
-            id: "nav-down",
-            label: t("actionSearch.projects.down", "Navigate down"),
-            icon: <ArrowDown className="h-4 w-4 text-blue-500" />,
-            shortcut: "↓",
-            category: t("actionSearch.projects.category", "Projects"),
-            action: () => {
-              dispatchKey("ArrowDown");
-              close();
-            },
-            showOn: ["/projects"],
-          },
-        ];
+    const projCat = t("actionSearch.projects.category", "Projects");
+    const blueArrow = "h-4 w-4 text-blue-500";
+    const projectActions: Action[] = !isPage("/projects") ? [] : [
+      {
+        id: "close-card",
+        label: t("actionSearch.projects.closeCard", "Close card"),
+        icon: <X className="h-4 w-4 text-red-500" />,
+        shortcut: "Esc",
+        category: projCat,
+        action: () => {
+          document.querySelector('.rotate-y-180 [id^="project-card-back-"]')
+            ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+          close();
+        },
+        showOn: ["/projects"],
+      },
+      keyAction("nav-left", t("actionSearch.projects.left", "Navigate left"), <ArrowLeft className={blueArrow} />, "←", projCat, "ArrowLeft", ["/projects"]),
+      keyAction("nav-right", t("actionSearch.projects.right", "Navigate right"), <ArrowRight className={blueArrow} />, "→", projCat, "ArrowRight", ["/projects"]),
+      keyAction("nav-up", t("actionSearch.projects.up", "Navigate up"), <ArrowUp className={blueArrow} />, "↑", projCat, "ArrowUp", ["/projects"]),
+      keyAction("nav-down", t("actionSearch.projects.down", "Navigate down"), <ArrowDown className={blueArrow} />, "↓", projCat, "ArrowDown", ["/projects"]),
+    ];
 
     // Blog actions
+    const blogCat = t("actionSearch.blog.category", "Blog");
     const blogActions: Action[] = !isPage("/blog")
       ? []
       : pathname !== "/blog" && pathname !== "/blog/"
         ? [
-            {
-              id: "blog-prev",
-              label: t("actionSearch.blog.prev", "Previous"),
-              icon: <ArrowLeft className="h-4 w-4 text-blue-500" />,
-              shortcut: "h",
-              category: t("actionSearch.blog.category", "Blog"),
-              action: () => {
-                dispatchKey("h");
-                close();
-              },
-              showOn: ["/blog/"],
-            },
-            {
-              id: "blog-next",
-              label: t("actionSearch.blog.next", "Next"),
-              icon: <ArrowRight className="h-4 w-4 text-blue-500" />,
-              shortcut: "l",
-              category: t("actionSearch.blog.category", "Blog"),
-              action: () => {
-                dispatchKey("l");
-                close();
-              },
-              showOn: ["/blog/"],
-            },
-            {
-              id: "blog-back",
-              label: t("actionSearch.blog.back", "Back to list"),
-              icon: <ArrowLeft className="h-4 w-4 text-blue-500" />,
-              shortcut: "b",
-              category: t("actionSearch.blog.category", "Blog"),
-              action: nav("/blog/"),
-              showOn: ["/blog/"],
-            },
+            keyAction("blog-prev", t("actionSearch.blog.prev", "Previous"), <ArrowLeft className={blueArrow} />, "h", blogCat, "h", ["/blog/"]),
+            keyAction("blog-next", t("actionSearch.blog.next", "Next"), <ArrowRight className={blueArrow} />, "l", blogCat, "l", ["/blog/"]),
+            { id: "blog-back", label: t("actionSearch.blog.back", "Back to list"), icon: <ArrowLeft className={blueArrow} />, shortcut: "b", category: blogCat, action: nav("/blog/"), showOn: ["/blog/"] },
           ]
         : [
-            {
-              id: "blog-down",
-              label: t("actionSearch.blog.next", "Next post"),
-              icon: <ArrowDown className="h-4 w-4 text-blue-500" />,
-              shortcut: "j",
-              category: t("actionSearch.blog.category", "Blog"),
-              action: () => {
-                dispatchKey("j");
-                close();
-              },
-              showOn: ["/blog"],
-            },
-            {
-              id: "blog-up",
-              label: t("actionSearch.blog.prev", "Previous post"),
-              icon: <ArrowUp className="h-4 w-4 text-blue-500" />,
-              shortcut: "k",
-              category: t("actionSearch.blog.category", "Blog"),
-              action: () => {
-                dispatchKey("k");
-                close();
-              },
-              showOn: ["/blog"],
-            },
+            keyAction("blog-down", t("actionSearch.blog.next", "Next post"), <ArrowDown className={blueArrow} />, "j", blogCat, "j", ["/blog"]),
+            keyAction("blog-up", t("actionSearch.blog.prev", "Previous post"), <ArrowUp className={blueArrow} />, "k", blogCat, "k", ["/blog"]),
             {
               id: "blog-search",
               label: t("actionSearch.blog.search", "Search"),
               icon: <Search className="h-4 w-4 text-blue-500" />,
               shortcut: "s",
-              category: t("actionSearch.blog.category", "Blog"),
-              action: () => {
-                (
-                  document.querySelector(
-                    'input[placeholder*="Search"]',
-                  ) as HTMLInputElement
-                )?.focus();
-                close();
-              },
+              category: blogCat,
+              action: () => { (document.querySelector('input[placeholder*="Search"]') as HTMLInputElement)?.focus(); close(); },
               showOn: ["/blog"],
             },
             {
               id: "blog-filter",
               label: t("actionSearch.blog.filterTag", "Filter"),
               icon: <Tag className="h-4 w-4 text-green-500" />,
-              category: t("actionSearch.blog.category", "Blog"),
-              action: () => {
-                document
-                  .querySelector("button:has(.lucide-filter)")
-                  ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-                close();
-              },
+              category: blogCat,
+              action: () => { document.querySelector("button:has(.lucide-filter)")?.dispatchEvent(new MouseEvent("click", { bubbles: true })); close(); },
               showOn: ["/blog"],
             },
           ];
@@ -353,72 +246,51 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
           icon: <BookOpen className="h-4 w-4 text-green-500" />,
           shortcut: `${i}`,
           category: t("actionSearch.about.category", "About"),
-          action: () => {
-            scrollTo(`chapter-${i}`, "center");
-            close();
-          },
+          action: () => { scrollTo(`chapter-${i}`, "center"); close(); },
           showOn: ["/about"],
         }));
 
-    // Now page - categories
-    const nowCategories = ["reading", "coding", "drinking", "listening", "thinking", "studying", "planning"];
-    const nowActions: Action[] = !isPage("/now")
-      ? []
-      : nowCategories.map((cat, idx) => {
-          const label = t(`now.categories.${cat}`, cat);
-          return {
-            id: `now-${cat}`,
-            label: t("actionSearch.now.jumpToCategory", { category: label }),
-            icon: <Clock className="h-4 w-4 text-green-500" />,
-            shortcut: `${idx + 1}`,
-            category: t("actionSearch.now.category", "Now"),
-            action: () => {
-              scrollTo(`category-${cat}`);
-              close();
-            },
-            showOn: ["/now"],
-          };
-        });
+    // Scroll-to-category helper for multiple pages
+    const scrollActions = (
+      page: string, items: string[], i18nPrefix: string, catKey: string,
+      icon: React.ReactNode, selectorFn: (item: string, idx: number) => string,
+    ): Action[] => !isPage(page) ? [] : items.map((item, idx) => {
+      const label = t(`${i18nPrefix}.${item}`, item);
+      const shortcut = idx < 9 ? `${idx + 1}` : idx === 9 ? "0" : "-";
+      return {
+        id: `${page.slice(1)}-${idx}`,
+        label: t(`actionSearch.${page.slice(1)}.jumpToCategory`, { category: label })
+          || t(`actionSearch.${page.slice(1)}.jumpToSection`, { section: label }),
+        icon, shortcut,
+        category: t(`actionSearch.${page.slice(1)}.category`, catKey),
+        action: () => { scrollTo(selectorFn(item, idx)); close(); },
+        showOn: [page],
+      };
+    });
 
-    // Uses page - categories
-    const usesCategories = ["hardware", "mobile", "audio", "os", "development", "email", "privacy", "mobile_tools", "mapping", "gaming", "multimedia"];
-    const usesActions: Action[] = !isPage("/uses")
-      ? []
-      : usesCategories.map((cat, idx) => {
-          const label = t(`uses.categories.${cat}`, cat);
-          return {
-            id: `uses-${idx}`,
-            label: t("actionSearch.uses.jumpToCategory", { category: label }),
-            icon: <Wrench className="h-4 w-4 text-blue-500" />,
-            shortcut: idx < 9 ? `${idx + 1}` : idx === 9 ? "0" : "-",
-            category: t("actionSearch.uses.category", "Uses"),
-            action: () => {
-              scrollTo(`[id^="category-"]:nth-of-type(${idx + 1})`);
-              close();
-            },
-            showOn: ["/uses"],
-          };
-        });
+    const nowActions = scrollActions(
+      "/now",
+      ["reading", "coding", "drinking", "listening", "thinking", "studying", "planning"],
+      "now.categories", "Now",
+      <Clock className="h-4 w-4 text-green-500" />,
+      (cat) => `category-${cat}`,
+    );
 
-    // Colophon page - sections
-    const colophonSections = ["siteHistory", "technologyStack", "hosting", "inspiration"];
-    const colophonActions: Action[] = !isPage("/colophon")
-      ? []
-      : colophonSections.map((sec, idx) => {
-          const label = t(`colophon.${sec}.title`, sec);
-          return {
-            id: `colophon-${idx}`,
-            label: t("actionSearch.colophon.jumpToSection", { section: label }),
-            icon: <FileText className="h-4 w-4 text-purple-500" />,
-            shortcut: `${idx + 1}`,
-            category: t("actionSearch.colophon.category", "Colophon"),
-            action: () => {
-              scrollTo(`[id^="section-"]:nth-of-type(${idx + 1})`);
-              close();
-            },
-            showOn: ["/colophon"],
-          };
-        });
+    const usesActions = scrollActions(
+      "/uses",
+      ["hardware", "mobile", "audio", "os", "development", "email", "privacy", "mobile_tools", "mapping", "gaming", "multimedia"],
+      "uses.categories", "Uses",
+      <Wrench className="h-4 w-4 text-blue-500" />,
+      (_cat, idx) => `[id^="category-"]:nth-of-type(${idx + 1})`,
+    );
+
+    const colophonActions = scrollActions(
+      "/colophon",
+      ["siteHistory", "technologyStack", "hosting", "inspiration"],
+      "colophon", "Colophon",
+      <FileText className="h-4 w-4 text-purple-500" />,
+      (_sec, idx) => `[id^="section-"]:nth-of-type(${idx + 1})`,
+    );
 
     return [
       ...navItems,

@@ -18,26 +18,18 @@ const gearPath = "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0
 const iconBase = { xmlns: "http://www.w3.org/2000/svg", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round" as const, "stroke-linejoin": "round" as const, viewBox: "0 0 24 24" };
 
 // Toggle switch class constants
-const toggleOn = "settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-primary";
-const toggleOff = "settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors bg-muted";
-const knobOn = "pointer-events-none block size-4 rounded-full bg-white shadow-sm translate-x-4 transition-transform";
-const knobOff = "pointer-events-none block size-4 rounded-full bg-muted-foreground shadow-sm translate-x-0.5 transition-transform";
+const toggleBase = "settings-toggle relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-border transition-colors";
+const knobBase = "pointer-events-none block size-4 rounded-full shadow-sm transition-transform";
+const toggleCls = (on: boolean) => `${toggleBase} ${on ? "bg-primary" : "bg-muted"}`;
+const knobCls = (on: boolean) => `${knobBase} ${on ? "bg-white translate-x-4" : "bg-muted-foreground translate-x-0.5"}`;
 
-// Settings toggle definitions (id, i18n key, default on)
+// Settings toggles: id, i18n key, default on, SVG icon fragment
 const toggles = [
-  { id: "settings-stars-toggle",    i18n: "settings.stars",        defaultOn: true  },
-  { id: "settings-motion-toggle",   i18n: "settings.reduceMotion", defaultOn: false },
-  { id: "settings-contrast-toggle", i18n: "settings.highContrast", defaultOn: false },
-  { id: "settings-dyslexia-toggle", i18n: "settings.dyslexiaFont", defaultOn: false },
+  { id: "settings-stars-toggle",    i18n: "settings.stars",        defaultOn: true,  icon: `<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />` },
+  { id: "settings-motion-toggle",   i18n: "settings.reduceMotion", defaultOn: false, icon: `<circle cx="12" cy="12" r="10" stroke-dasharray="3 3" />` },
+  { id: "settings-contrast-toggle", i18n: "settings.highContrast", defaultOn: false, icon: `<circle cx="12" cy="12" r="10" /><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" />` },
+  { id: "settings-dyslexia-toggle", i18n: "settings.dyslexiaFont", defaultOn: false, icon: `<path d="M13 18L8 6L3 18M11 14H5M21 18V15M21 15V12M21 15C21 16.6569 19.6569 18 18 18C16.3431 18 15 16.6569 15 15C15 13.3431 16.3431 12 18 12C19.6569 12 21 13.3431 21 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` },
 ] as const;
-
-// SVG icon fragments per toggle (keyed by id)
-const toggleIcons: Record<string, string> = {
-  "settings-stars-toggle": `<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />`,
-  "settings-motion-toggle": `<circle cx="12" cy="12" r="10" stroke-dasharray="3 3" />`,
-  "settings-contrast-toggle": `<circle cx="12" cy="12" r="10" /><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" />`,
-  "settings-dyslexia-toggle": `<path d="M13 18L8 6L3 18M11 14H5M21 18V15M21 15V12M21 15C21 16.6569 19.6569 18 18 18C16.3431 18 15 16.6569 15 15C15 13.3431 16.3431 12 18 12C19.6569 12 21 13.3431 21 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
-};
 ---
 
 <header class="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
@@ -113,17 +105,17 @@ const toggleIcons: Record<string, string> = {
           </div>
 
           <!-- Toggle switches -->
-          {toggles.map(({ id, i18n, defaultOn }) => (
+          {toggles.map(({ id, i18n, defaultOn, icon }) => (
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2.5">
                 <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
-                  <Fragment set:html={toggleIcons[id]} />
+                  <Fragment set:html={icon} />
                 </svg>
                 <T key={i18n} class="text-sm font-medium" id={`${id}-label`} />
               </div>
               <button id={id} type="button" role="switch" aria-checked={defaultOn ? "true" : "false"} aria-labelledby={`${id}-label`}
-                class={defaultOn ? toggleOn : toggleOff}>
-                <span class={defaultOn ? knobOn : knobOff} aria-hidden="true"></span>
+                class={toggleCls(defaultOn)}>
+                <span class={knobCls(defaultOn)} aria-hidden="true"></span>
               </button>
             </div>
           ))}
@@ -158,8 +150,8 @@ const toggleIcons: Record<string, string> = {
               </div>
             </div>
             <button type="button" disabled aria-pressed="false" aria-label="Music currently unavailable"
-              class={`${toggleOff} cursor-not-allowed opacity-50`}>
-              <span class={knobOff} aria-hidden="true"></span>
+              class={`${toggleCls(false)} cursor-not-allowed opacity-50`}>
+              <span class={knobCls(false)} aria-hidden="true"></span>
             </button>
           </div>
         </div>

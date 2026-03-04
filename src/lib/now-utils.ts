@@ -17,12 +17,18 @@ export type LiveItem = LastfmTrack | PremidData;
 const badge = '<span class="ml-2 text-sm font-bold text-red-600 dark:text-white dark:bg-red-600 px-2 py-0.5 rounded">Live</span>';
 
 /** Sanitize URL */
-function sanitizeUrl(url: string): string {
+function safeUrl(url: string): string {
   try {
     const parsed = new URL(url);
     if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return parsed.href;
   } catch {}
   return '';
+}
+
+/** Safe img */
+function safeImg(src: string, alt: string, cls: string, extra = ''): string {
+  const url = safeUrl(src);
+  return url ? `<img src="${url}" alt="${escapeHtml(alt)}" class="${cls}" loading="lazy"${extra}/>` : '';
 }
 
 // --- Fetching ---
@@ -63,36 +69,30 @@ function parseLastfm(xml: string): LastfmTrack | null {
 
 function activityCard({ name, details, state, assets }: PremidActivity): string {
   const safeName = escapeHtml(name);
-  const safeDetails = details ? escapeHtml(details) : '';
-  const safeState = state ? escapeHtml(state) : '';
-  const safeLargeAlt = escapeHtml(assets?.large_text || name);
-  const safeSmallAlt = escapeHtml(assets?.small_text || '');
-  const largeSrc = assets?.large_image ? sanitizeUrl(assets.large_image) : '';
-  const smallSrc = assets?.small_image ? sanitizeUrl(assets.small_image) : '';
-  const img = largeSrc ? `<div class="relative w-12 h-12 flex-shrink-0">
-    <img src="${largeSrc}" alt="${safeLargeAlt}" class="w-12 h-12 rounded-lg" loading="lazy"/>
-    ${smallSrc ? `<img src="${smallSrc}" alt="${safeSmallAlt}" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background" loading="lazy"/>` : ''}
-  </div>` : '';
+  const largeImg = assets?.large_image ? safeImg(assets.large_image, assets?.large_text || name, "w-12 h-12 rounded-lg") : '';
+  const smallImg = assets?.small_image ? safeImg(assets.small_image, assets?.small_text || '', "absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-1 border-background bg-background") : '';
+  const img = largeImg ? `<div class="relative w-12 h-12 flex-shrink-0">${largeImg}${smallImg}</div>` : '';
   return `<div class="flex items-center gap-3 overflow-hidden">${img}<div class="flex-1 min-w-0 overflow-hidden">
     <span class="font-semibold break-words block">${safeName}</span>
-    ${safeDetails ? `<p class="text-sm break-words">${safeDetails}</p>` : ''}
-    ${safeState ? `<p class="text-sm text-muted-foreground break-words">${safeState}</p>` : ''}
+    ${details ? `<p class="text-sm break-words">${escapeHtml(details)}</p>` : ''}
+    ${state ? `<p class="text-sm text-muted-foreground break-words">${escapeHtml(state)}</p>` : ''}
   </div></div>`;
 }
 
 function liveContent(item: LiveItem, includeIcon = true, compact = false): string {
   const textSm = compact ? "text-sm " : "";
   if (item.type === "lastfm") {
-    const imageSrc = item.image ? sanitizeUrl(item.image) : "";
-    const trackUrl = sanitizeUrl(item.url);
+    const coverImg = item.image ? safeImg(item.image, `${item.name} cover art`, "w-12 h-12 rounded-lg flex-shrink-0", ' decoding="async"') : '';
+    const trackUrl = safeUrl(item.url);
+    const trackLink = trackUrl
+      ? `<a href="${trackUrl}" target="_blank" rel="noopener noreferrer" class="${textSm}hover:underline font-semibold break-words block">${escapeHtml(item.name)}</a>`
+      : `<span class="${textSm}font-semibold break-words block">${escapeHtml(item.name)}</span>`;
     return `<div class="flex items-center gap-2 font-semibold mb-1">
       ${includeIcon ? '<span class="text-lg" aria-hidden="true">🎧</span>' : ''}<span class="now-category">${t("now.categories.listening") || "Listening"}</span>${item.nowplaying ? badge : ""}
     </div><div class="flex items-center gap-3 overflow-hidden py-1">
-      ${imageSrc ? `<img src="${imageSrc}" alt="${escapeHtml(item.name)} cover art" class="w-12 h-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async"/>` : ''}
+      ${coverImg}
       <div class="flex-1 min-w-0 overflow-hidden">
-        ${trackUrl
-          ? `<a href="${trackUrl}" target="_blank" rel="noopener noreferrer" class="${textSm}hover:underline font-semibold break-words block">${escapeHtml(item.name)}</a>`
-          : `<span class="${textSm}font-semibold break-words block">${escapeHtml(item.name)}</span>`}
+        ${trackLink}
         <p class="text-sm text-muted-foreground break-words">${escapeHtml(item.artist)}</p>
       </div></div>${item.date && !item.nowplaying ? `<time data-date="${item.dateObj.toISOString()}" class="text-xs text-muted-foreground mt-1 block">${item.date}</time>` : ""}`;
   }
