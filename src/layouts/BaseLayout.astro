@@ -8,7 +8,6 @@ import Galaxy from "@/components/layout/Galaxy.astro";
 import BarListener from "@/components/layout/BarListener.astro";
 import Banners from "@/components/layout/Banners.astro";
 import { hrefLangLanguages, siteUrl, siteName, siteDescription, siteKeywords, author, socialLinks, alternativeDomains, services, themeColors } from "@/lib/constants";
-import { htmlLang } from "@/i18n";
 import { localePath, stripLocale } from "@/i18n/routing";
 
 const analyticsWebsiteIds = services.analytics.websiteIds;
@@ -131,7 +130,7 @@ const structuredDataGraph: any[] = [
     url: siteUrl,
     name: siteName,
     description: siteDescription,
-    inLanguage: htmlLang(lang),
+    inLanguage: lang,
     publisher: { "@id": `${siteUrl}/#person` },
   },
 ];
@@ -158,7 +157,7 @@ const structuredData = {
 <!doctype html>
 <!--- Hello from Jarema :D --->
 <!--- My code's a lil messy, please bear with me :p --->
-<html lang={htmlLang(lang)} data-locale={lang} class="dark">
+<html lang={lang} data-locale={lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

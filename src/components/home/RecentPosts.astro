@@ -4,10 +4,8 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import T from "@/components/T.astro";
 import { routes } from "@/lib/constants";
 import { localePath } from "@/i18n/routing";
-import { htmlLang } from "@/i18n";
 
 const lang = Astro.locals?.lang || "en";
-const displayLang = htmlLang(lang);
 
 type RecentPost = {
   slug: string;
@@ -27,7 +25,7 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
     excerpt: post.data.excerpt ?? "No excerpt available",
     dateISO: post.data.date.toISOString(),
     readingTime: post.data.readingTime ?? 5,
-    dateTextEn: post.data.date.toLocaleDateString(displayLang, { year: "numeric", month: "long", day: "numeric" }),
+    dateTextEn: post.data.date.toLocaleDateString(lang, { year: "numeric", month: "long", day: "numeric" }),
   }));
 ---
 

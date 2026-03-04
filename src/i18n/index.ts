@@ -35,7 +35,3 @@ export function t(lang: string, key: string, params?: Record<string, string | nu
   if (!params) return value;
   return Object.entries(params).reduce((s, [k, v]) => s.replaceAll(`{{${k}}}`, String(v)), value);
 }
-
-export function htmlLang(locale: string): string {
-  return locale;
-}
