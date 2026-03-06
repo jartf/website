@@ -457,7 +457,16 @@
     "showingCount": "當顯示 {{count}} 徽號",
     "showingFiltered": "當顯示 {{filtered}} 𨑗總數 {{total}} 徽號",
     "noResults": "空尋𧡊徽號𱜢𨨤貝尋檢",
-    "visitBadge": "㨳㖭探 {{name}}"
+    "visitBadge": "㨳㖭探 {{name}}",
+    "categories": {
+      "all": "悉哿",
+      "personal": "個人",
+      "friends": "伴佊",
+      "other-sites": "張恪",
+      "software": "份繌",
+      "web": "䇼",
+      "fun": "恪"
+    }
   },
   "brand": {
     "pageTitle": "部認面",

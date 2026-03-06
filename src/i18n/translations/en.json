@@ -487,7 +487,16 @@
     "showingCount": "Showing {{count}} badges",
     "showingFiltered": "Showing {{filtered}} of {{total}} badges",
     "noResults": "No badges found matching your search criteria",
-    "visitBadge": "Visit {{name}}"
+    "visitBadge": "Visit {{name}}",
+    "categories": {
+      "all": "All",
+      "personal": "Personal",
+      "friends": "Friends",
+      "other-sites": "Other sites",
+      "software": "Software",
+      "web": "Web",
+      "fun": "Fun"
+    }
   },
   "brand": {
     "pageTitle": "Brand",

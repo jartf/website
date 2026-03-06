@@ -481,7 +481,16 @@
     "showingCount": "{{count}} rozet gösteriliyor",
     "showingFiltered": "{{total}} rozetten {{filtered}} tanesi gösteriliyor",
     "noResults": "Arama kriterlerinle eşleşen rozet bulunamadı",
-    "visitBadge": "Ziyaret et: {{name}}"
+    "visitBadge": "Ziyaret et: {{name}}",
+    "categories": {
+      "all": "Tümü",
+      "personal": "Kişisel",
+      "friends": "Arkadaşlar",
+      "other-sites": "Diğer siteler",
+      "software": "Yazılım",
+      "web": "Web",
+      "fun": "Eğlence"
+    }
   },
   "brand": {
     "pageTitle": "Marka",

@@ -472,7 +472,16 @@
     "showingCount": "sitelen {{count}} li lon",
     "showingFiltered": "sitelen {{filtered}} pi {{total}} li lon",
     "noResults": "mi alasa, taso mi lukin ala e sitelen",
-    "visitBadge": "o tawa {{name}}"
+    "visitBadge": "o tawa {{name}}",
+    "categories": {
+      "all": "ale",
+      "personal": "mi",
+      "friends": "jan pona",
+      "other-sites": "lipu ante",
+      "software": "ilo",
+      "web": "linja lipu",
+      "fun": "musi"
+    }
   },
   "brand": {
     "pageTitle": "lukin mi",

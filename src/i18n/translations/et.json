@@ -469,7 +469,16 @@
     "showingCount": "Kuvatud {{count}} märki",
     "showingFiltered": "Kuvatud {{filtered}} märki {{total}}-st",
     "noResults": "Otsingukriteeriumidele vastavaid märke ei leitud",
-    "visitBadge": "Külasta {{name}}"
+    "visitBadge": "Külasta {{name}}",
+    "categories": {
+      "all": "Kõik",
+      "personal": "Isiklik",
+      "friends": "Sõbrad",
+      "other-sites": "Muud saidid",
+      "software": "Tarkvara",
+      "web": "Veeb",
+      "fun": "Meelelahutus"
+    }
   },
   "brand": {
     "pageTitle": "Bränd",

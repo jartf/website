@@ -469,7 +469,16 @@
     "showingCount": "Visar {{count}} märken",
     "showingFiltered": "Visar {{filtered}} av {{total}} märken",
     "noResults": "Inga märken hittades som matchar dina sökkriterier",
-    "visitBadge": "Besök {{name}}"
+    "visitBadge": "Besök {{name}}",
+    "categories": {
+      "all": "Alla",
+      "personal": "Personligt",
+      "friends": "Vänner",
+      "other-sites": "Andra sidor",
+      "software": "Programvara",
+      "web": "Webb",
+      "fun": "Nöje"
+    }
   },
   "brand": {
     "pageTitle": "Profil",

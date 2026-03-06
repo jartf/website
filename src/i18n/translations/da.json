@@ -483,7 +483,16 @@
     "showingCount": "Viser {{count}} badges",
     "showingFiltered": "Viser {{filtered}} af {{total}} badges",
     "noResults": "Ingen badges matcher din søgning",
-    "visitBadge": "Besøg {{name}}"
+    "visitBadge": "Besøg {{name}}",
+    "categories": {
+      "all": "Alle",
+      "personal": "Personligt",
+      "friends": "Venner",
+      "other-sites": "Andre sider",
+      "software": "Software",
+      "web": "Web",
+      "fun": "Sjov"
+    }
   },
   "brand": {
     "pageTitle": "Brand",

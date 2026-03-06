@@ -469,7 +469,16 @@
     "showingCount": "Näytetään {{count}} merkkiä",
     "showingFiltered": "Näytetään {{filtered}} / {{total}} merkistä",
     "noResults": "Hakukriteerejä vastaavia merkkejä ei löytynyt",
-    "visitBadge": "Vieraile {{name}}"
+    "visitBadge": "Vieraile {{name}}",
+    "categories": {
+      "all": "Kaikki",
+      "personal": "Henkilökohtainen",
+      "friends": "Ystävät",
+      "other-sites": "Muut sivustot",
+      "software": "Ohjelmistot",
+      "web": "Verkko",
+      "fun": "Viihde"
+    }
   },
   "brand": {
     "pageTitle": "Brändi",

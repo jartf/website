@@ -481,7 +481,16 @@
     "showingCount": "显示 {{count}} 个徽章",
     "showingFiltered": "显示 {{total}} 个徽章中的 {{filtered}} 个",
     "noResults": "未找到符合搜索条件的徽章",
-    "visitBadge": "访问 {{name}}"
+    "visitBadge": "访问 {{name}}",
+    "categories": {
+      "all": "全部",
+      "personal": "个人",
+      "friends": "朋友",
+      "other-sites": "其他网站",
+      "software": "软件",
+      "web": "网页",
+      "fun": "娱乐"
+    }
   },
   "brand": {
     "pageTitle": "品牌",

@@ -471,7 +471,16 @@
     "showingCount": "Đang hiện {{count}} huy hiệu",
     "showingFiltered": "Đang hiện {{filtered}} trong tổng số {{total}} huy hiệu",
     "noResults": "Không tìm thấy huy hiệu nào khớp với tìm kiếm",
-    "visitBadge": "Ghé thăm {{name}}"
+    "visitBadge": "Ghé thăm {{name}}",
+    "categories": {
+      "all": "Tất cả",
+      "personal": "Cá nhân",
+      "friends": "Bạn bè",
+      "other-sites": "Trang khác",
+      "software": "Phần mềm",
+      "web": "Web",
+      "fun": "Khác"
+    }
   },
   "brand": {
     "pageTitle": "Bộ nhận diện",

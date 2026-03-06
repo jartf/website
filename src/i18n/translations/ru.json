@@ -479,7 +479,16 @@
     "showingCount": "Показано значков: {{count}}",
     "showingFiltered": "Показано {{filtered}} из {{total}} значков",
     "noResults": "Значки по вашему запросу не найдены",
-    "visitBadge": "Посетить {{name}}"
+    "visitBadge": "Посетить {{name}}",
+    "categories": {
+      "all": "Все",
+      "personal": "Личное",
+      "friends": "Друзья",
+      "other-sites": "Другие сайты",
+      "software": "Программы",
+      "web": "Веб",
+      "fun": "Развлечения"
+    }
   },
   "brand": {
     "pageTitle": "Бренд",

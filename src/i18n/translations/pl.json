@@ -469,7 +469,16 @@
     "showingCount": "Wyświetlono {{count}} odznak",
     "showingFiltered": "Wyświetlono {{filtered}} z {{total}} odznak",
     "noResults": "Nie znaleziono odznak pasujących do kryteriów wyszukiwania",
-    "visitBadge": "Odwiedź {{name}}"
+    "visitBadge": "Odwiedź {{name}}",
+    "categories": {
+      "all": "Wszystkie",
+      "personal": "Osobiste",
+      "friends": "Znajomi",
+      "other-sites": "Inne strony",
+      "software": "Oprogramowanie",
+      "web": "Web",
+      "fun": "Rozrywka"
+    }
   },
   "brand": {
     "pageTitle": "Marka",
