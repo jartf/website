@@ -45,9 +45,6 @@ User-agent: cohere-training-data-crawler
 User-agent: Cotoyogi
 User-agent: Crawlspace
 User-agent: ClaudeBot
-User-agent: Claude-Web
-User-agent: Claude-SearchBot
-User-agent: Claude-User
 User-agent: CloudVertexBot
 User-agent: Crawl4AI
 User-agent: Datenbank Crawler
