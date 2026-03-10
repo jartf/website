@@ -1,0 +1,34 @@
+#cloud-config
+users:
+  - name: ernesti
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      -ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJkOil4OnL2KdjrXUGNQqxJGcjdHmkEzXKLDWBv/hdjH
+      -ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAks4/ss3py29ZYQnlNU06A9AMGHzxUwby8L/kCCg3Ni
+packages:
+  - fail2ban
+  - ufw
+package_update: true
+package_upgrade: true
+write_files:
+  - path: /etc/ssh/sshd_config.d/ssh-hardening.conf
+    content: |
+      PermitRootLogin no
+      PasswordAuthentication no
+      Port 2222
+      KbdInteractiveAuthentication no
+      ChallengeResponseAuthentication no
+      MaxAuthTries 2
+      AllowTcpForwarding no
+      X11Forwarding no
+      AllowAgentForwarding no
+      AuthorizedKeysFile .ssh/authorized_keys
+      AllowUsers ernesti
+runcmd:
+  - printf "[sshd]\nenabled = true\nport = ssh, 2222\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+  - systemctl enable fail2ban
+  - ufw allow 2222
+  - ufw enable
+  - reboot
