@@ -7,8 +7,7 @@ Disallow: /api
 # Sitemap
 Sitemap: https://jarema.me/sitemap.xml
 
-# These 8 bots specifically ignore robots.txt
-User-agent: ChatGPT-Atlas
+# These bots specifically ignore robots.txt
 User-agent: Google-NotebookLM
 User-agent: Kangaroo Bot
 User-agent: PanguBot
@@ -18,11 +17,29 @@ User-agent: Perplexity-User
 User-agent: TerraCotta
 Disallow: /
 
-# Specially allowed bots (peak dev tools, thanks!)
-User-agent: Google-InspectionTool
-Allow: /
+# LLM user-triggered bots
+## QuitGPT
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: ChatGPT Atlas
+User-agent: ChatGPT-Atlas
+Disallow: /
 
-# GenAI training bots
+## Kimi isn't exactly transparent, https://kimi.moonshot.cn/kimibot redirects to the homepage.
+User-agent: Kimibot
+User-agent: KimiCrawler
+Disallow: /
+
+## Proton Lumo doesn't identify itself, can't block it for now.
+
+## The good ones (for now?)
+# User-agent: Claude-SearchBot
+# User-agent: Claude-User
+# User-agent: DuckAssistBot
+# User-agent: MistralAI-User
+# Disallow: /
+
+# LLM training bots
 User-agent: AI2Bot
 User-agent: AI2Bot-Dolma
 User-agent: AliyunSecBot
@@ -36,10 +53,12 @@ User-agent: AwarioBot
 User-agent: AwarioRssBot
 User-agent: AwarioSmartBot
 User-agent: bigsur.ai
+User-agent: Big Sur AI
 User-agent: Brightbot
 User-agent: Bytespider
 User-agent: CCBot
 User-agent: ChatGLM-Spider
+User-agent: ChatGPT Operator
 User-agent: cohere-ai
 User-agent: cohere-training-data-crawler
 User-agent: Cotoyogi
@@ -50,6 +69,7 @@ User-agent: Crawl4AI
 User-agent: Datenbank Crawler
 User-agent: DeepseekBot
 User-agent: Diffbot
+User-agent: DigitalOceanGenAICrawler
 User-agent: FacebookBot
 User-agent: FirecrawlAgent
 User-agent: FriendlyCrawler
@@ -59,6 +79,8 @@ User-agent: Google-Extended
 User-agent: GoogleAgent-Mariner
 User-agent: GoogleOther
 User-agent: GPTBot
+User-agent: Grok
+User-agent: GrokBot
 User-agent: Groq-Bot
 User-agent: heritrix
 User-agent: HuggingFace-Bot
@@ -75,13 +97,16 @@ User-agent: KunatoCrawler
 User-agent: laion-huggingface-processor
 User-agent: LCC
 User-agent: LinerBot
+User-agent: LINER Bot
 User-agent: MachineLearningForPeaceBot
-User-agent: magpie-crawler
+User-agent: Manus Bot
 User-agent: Manus-User
 User-agent: Meltwater
 User-agent: meta-webindexer
 User-agent: meta-externalagent
 User-agent: meta-externalfetcher
+User-agent: Moonshot-AI
+User-agent: MoonshotBot
 User-agent: MyCentralAIScraperBot
 User-agent: netEstate Imprint Crawler
 User-agent: Nicecrawler
@@ -163,6 +188,7 @@ User-agent: MegaIndex.ru
 User-agent: MJ12Bot
 User-agent: Moz dotbot
 User-agent: Moz rogerbot
+User-agent: Netvibes
 User-agent: Nitro-
 User-agent: NitroBot
 User-agent: noorobot
@@ -179,6 +205,7 @@ User-agent: RSiteAuditor
 User-agent: RyteBot
 User-agent: Screaming Frog SEO Spider
 User-agent: SearchAtlas Bot
+User-agent: SearchmetricsBot
 User-agent: SEBot-WA
 User-agent: SemrushBot
 User-agent: SemrushBot-BA
@@ -198,6 +225,7 @@ User-agent: SEOkicks
 User-agent: SEOlizer
 User-agent: SERankingBacklinksBot
 User-agent: serpstatbot
+User-agent: Sidetrade Indexer Bot
 User-agent: SiteAuditBot
 User-agent: Sitebulb
 User-agent: SiteCheck-sitecrawl
@@ -206,22 +234,26 @@ User-agent: Siteimprove Crawl
 User-agent: StatusNestBacklinkSpider
 User-agent: Storebot-Google
 User-agent: W3 Validator Services
+User-agent: WooRank
 User-agent: woorankreview
 User-agent: XoviOnpageCrawler
 User-agent: ZoomBot
 Disallow: /
 
 # IP-violation scanners (from seirdy.one)
-User-Agent: AcademicBotRTU
+User-agent: AcademicBotRTU
 User-agent: BrandVerity
 User-agent: CheckMarkNetwork
-User-Agent: SlySearch
-User-Agent: TurnitinBot
+User-agent: quillbot.com
+User-agent: SlySearch
+User-agent: Turnitin
+User-agent: TurnitinBot
 Disallow: /
 
 # Scrapers
 User-agent: 008
 User-agent: AdsTxtCrawler
+User-agent: Amazon Kendra
 User-agent: Dataprovider
 User-agent: Dataprovider.com
 User-agent: dcrawl
@@ -229,6 +261,7 @@ User-agent: HelloworkJobPostingBot
 User-agent: HTTrack
 User-agent: HTTrack 3.0
 User-agent: IndeedJobBot
+User-agent: JenkersBot
 User-agent: KrawlerBot
 User-agent: MetaInspector
 User-agent: MetaJobBot
@@ -242,9 +275,12 @@ User-agent: Potions
 User-agent: Scrapy
 User-agent: ServerHunterSpider
 User-agent: StatsDroneBot
+User-agent: ViennaTinyBot
+User-agent: yacy
+User-agent: yacybot
 Disallow: /
 
-# Intelligence gatherer (from darkvisitors.com)
+# Intelligence gatherer (from darkvisitors.com and crawlercheck.com)
 User-agent: A360-Search
 User-agent: ActiveComply
 User-agent: Adagiobot
@@ -265,6 +301,7 @@ User-agent: Bing Ads
 User-agent: BitSightBot
 User-agent: Blackboard
 User-agent: BomboraBot
+User-agent: Brandwatch
 User-agent: BrightEdge Bot
 User-agent: BrightEdge Crawler
 User-agent: Buck
@@ -325,9 +362,9 @@ User-agent: NanoInteractive
 User-agent: Netcraft
 User-agent: NetcraftSurveyAgent
 User-agent: netEstate NE Crawler
+User-agent: NeticleBot
 User-agent: Neticle Crawler
 User-agent: NetSeer crawler
-User-agent: Netvibes
 User-agent: NostoCrawlerBot
 User-agent: outbrain
 User-agent: Owler
@@ -375,3 +412,39 @@ User-agent: Yext Inc
 User-agent: YextBot
 User-agent: ZoominfoBot
 Disallow: /
+
+# Fake security scanners
+User-agent: BuiltWith
+User-agent: CensysInspect
+User-agent: DomainCategorizer
+User-agent: InternetMeasurement
+User-agent: PrivateMonitor
+User-agent: ResearchScan
+User-agent: Shodan
+Disallow: /
+
+# Other weird and/or resource-intensive crawlers
+User-agent: Apache-HttpClient
+User-agent: aria2
+User-agent: BW/1.1
+User-agent: BrowserEmulator
+User-agent: Dalvik/2.1.0
+User-agent: Expanse
+User-agent: fasthttp
+User-agent: Funnelback
+User-agent: Go-http-client
+User-agent: ISSCyberRiskCrawler
+User-agent: Java
+User-agent: manager(_internet-surf)
+User-agent: Mozila
+User-agent: Mozlila
+User-agent: Mozilla/5.0 (compatible)
+User-agent: Python-urllib
+User-agent: winHttp_5225689
+User-agent: wp_is_mobile
+Disallow: /
+
+# I love curl, but have to consider blocking these too, if logs become bad enough then will.
+# User-agent: curl
+# User-agent: wget
+# Disallow: /
