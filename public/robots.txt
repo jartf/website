@@ -8,6 +8,7 @@ Disallow: /api
 Sitemap: https://jarema.me/sitemap.xml
 
 # These bots specifically ignore robots.txt
+User-agent: k2spider
 User-agent: Google-NotebookLM
 User-agent: Kangaroo Bot
 User-agent: PanguBot
@@ -122,6 +123,7 @@ User-agent: ProRataInc
 User-agent: QualifiedBot
 User-agent: Replicate-Bot
 User-agent: RunPod-Bot
+User-agent: RuxitSynthetic
 User-agent: SBIntuitionsBot
 User-agent: Scoop.it
 User-agent: Seekr
@@ -256,15 +258,22 @@ User-agent: AdsTxtCrawler
 User-agent: Amazon Kendra
 User-agent: Dataprovider
 User-agent: Dataprovider.com
+User-agent: Download Ninja
 User-agent: dcrawl
+User-agent: Fetch
 User-agent: HelloworkJobPostingBot
 User-agent: HTTrack
 User-agent: HTTrack 3.0
 User-agent: IndeedJobBot
 User-agent: JenkersBot
 User-agent: KrawlerBot
+User-agent: larbin
+User-agent: libwww
+User-agent: linko
 User-agent: MetaInspector
 User-agent: MetaJobBot
+User-agent: Microsoft.URL.Control
+User-agent: MSIECrawler
 User-agent: newspaper
 User-agent: Nutch
 User-agent: nyt_scraping
@@ -274,10 +283,21 @@ User-agent: Orbbot
 User-agent: Potions
 User-agent: Scrapy
 User-agent: ServerHunterSpider
+User-agent: sitecheck.internetseer.com
+User-agent: SiteSnagger
 User-agent: StatsDroneBot
+User-agent: Teleport
+User-agent: TeleportPro
 User-agent: ViennaTinyBot
+User-agent: WebCopier
+User-agent: WebReaper
+User-agent: WebStripper
+User-agent: WebZIP
+User-agent: Xenu
 User-agent: yacy
 User-agent: yacybot
+User-agent: Zealbot
+User-agent: ZyBORG
 Disallow: /
 
 # Intelligence gatherer (from darkvisitors.com and crawlercheck.com)
