@@ -3,9 +3,10 @@
 A personal website built with [Astro](https://astro.build).
 
 See the site in action:
-- https://jarema.me
-- https://z.is-a.dev
-- https://jarema.vercel.app (backup)
+
+- [https://jarema.me](https://jarema.me)
+- [https://z.is-a.dev](https://z.is-a.dev)
+- [https://jarema.vercel.app](https://jarema.vercel.app) (backup)
 
 ![Screenshot of the first fold of website's homepage in dark mode. The hero section centers a main heading, a short bio and a flex row of four action buttons. The lower section uses a two column layout. The left column displays three blog post cards with titles, excerpts, dates and read times. The right column displays a dynamic now section.](<jarema.me - Salvestamata.jpg>)
 
@@ -198,7 +199,7 @@ The site supports dark and light modes:
 
 ## License
 
-**TL;DR: You are free to use, modify, redistribute, and sell the source code and the content on this website, provided proper attribution is given back to me. Attribution should include a link to my website (https://jarema.me).**
+**TL;DR: You are free to use, modify, redistribute, and sell the source code and the content on this website, provided proper attribution is given back to me. Attribution should include a link to my website ([https://jarema.me](https://jarema.me)).**
 
 This repository is dual-licensed.
 
