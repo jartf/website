@@ -29,10 +29,11 @@ This is an Astro website using islands architecture, static HTML by default and 
 - Multilingual support
 - Accessible (WCAG 2.1 AA)
 - Responsive design
-- RSS, Atom, JSON feeds, sitemap
+- RSS, Atom, JSON feeds per language, sitemap
 - IndieWeb: h-card, webmentions, IndieAuth
 - Global command bar
 - Games: 2048, Tetris
+- Tools: text counter
 
 ## Getting started
 
@@ -63,10 +64,14 @@ pnpm preview
 public/
 ├── fonts/            # Self-hosted web fonts
 ├── keys/             # Public PGP and SSH keys
+├── cursor/           # Custom cursor GIFs
 ├── robots.txt        # Ask bad robots to go away politely :D
 ├── site.webmanifest  # Manifest file
 └── ...               # Other static assets
 src/
+├── content.config.ts # Content collections config
+├── middleware.ts     # Injects lang into Astro.locals from URL
+├── env.d.ts          # TypeScript types
 ├── components/       # .astro (static) and .tsx (React islands)
 │   ├── blog/         # Blog components
 │   ├── home/         # Homepage components
@@ -74,14 +79,13 @@ src/
 │   ├── layout/       # Site layout components
 │   ├── KeyboardShortcut.astro  # Keyboard shortcut helper component
 │   └── T.astro       # Translation component
-├── content/          # Astro content collections
+├── content/          # Astro content collections data
 │   ├── blog/         # Blog posts, in Markdown
 │   ├── now/          # Now entries, in JSON
 │   ├── projects/     # Project entries, in JSON
 │   ├── scrapbook/    # Scrapbook entries, in JSON
 │   ├── uses/         # Uses page categories, in JSON
-│   ├── webrings/     # Webring membership data, in JSON
-│   └── config.ts     # Collection schemas and exported types
+│   └── webrings/     # Webring membership data, in JSON
 ├── hooks/            # Hooks
 │   ├── game/         # Game hooks
 │   └── index.ts      # Other hooks
@@ -92,16 +96,16 @@ src/
 │   └── routing.ts    # Locale routing helpers
 ├── layouts/
 │   ├── BaseLayout.astro    # Main site layout
-│   └── RetroLayout.astro   # Layout for browser compatibility pages
+│   └── RetroLayout.astro   # Layout for /retro/* (old style) pages
 ├── lib/              # Shared utilities and constants
 │   ├── utils/        # General utility functions
 │   ├── constants.ts  # Site metadata, author info, service config
 │   ├── feed.ts       # RSS/Atom/JSON feed helpers
 │   └── now-utils.ts  # Helpers for the /now page
 ├── pages/            # File-based routing
-│   ├── [locale]/     # Localised layout catch-all
+│   ├── [locale]/     # Locale catch-all
 │   ├── blog/         # Blog pages
-│   ├── api/          # API routes
+│   ├── api/          # API endpoints
 │   ├── ...           # Other pages
 │   ├── atom.xml.ts   # Atom feed
 │   ├── feed.json.ts  # JSON feed
@@ -195,6 +199,7 @@ The site supports dark and light modes:
 - IndieAuth: implemented via indieauth.com
 - Webmentions: implemented via webmention.io
 - Last.fm: music listening data via API
+- PreMID: Discord activity for the Now section
 - imood and status.cafe: mood and status widgets
 
 ## License
