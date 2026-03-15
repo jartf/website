@@ -284,6 +284,7 @@ export const footerBadges: FooterBadge[] = [
 // Friend/recommended site badges
 export const friendSites: FooterBadge[] = [
   { src: "https://nogginzmart.neocities.org/catbox%20aint%20working/mysitebutton.gif", alt: "Nogginzmart's site", href: "https://nogginzmart.neocities.org" },
+  { src: "https://ghostk.id/i/ww-88x31-right-black.png", alt: "Web Weavers invite link", href: "https://discord.gg/qePupaKk" },
 ];
 
 // API configuration
