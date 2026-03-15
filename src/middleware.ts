@@ -1,8 +1,26 @@
-import { defineMiddleware } from "astro:middleware";
+import { defineMiddleware, sequence } from "astro:middleware";
 import { getLocaleFromUrl } from "@/i18n/routing";
 import type { SupportedLanguage } from "@/lib/constants";
 
-export const onRequest = defineMiddleware(({ url, locals }, next) => {
+const locale = defineMiddleware(({ url, locals }, next) => {
   locals.lang = getLocaleFromUrl(url) as SupportedLanguage;
   return next();
 });
+
+const imageCaptions = defineMiddleware(async ({ url }, next) => {
+  const response = await next();
+  if (!url.pathname.startsWith("/blog/") || !response.headers.get("content-type")?.includes("text/html")) {
+    return response;
+  }
+  const html = await response.text();
+  const transformed = html.replace(
+    /<p>(<img\s[^>]*alt="([^"]+)"[^>]*>)<\/p>/g,
+    (_, img, alt) => `<figure>${img}<figcaption>${alt.replaceAll("&amp;", "&")}</figcaption></figure>`,
+  );
+  return new Response(transformed, {
+    status: response.status,
+    headers: response.headers,
+  });
+});
+
+export const onRequest = sequence(locale, imageCaptions);

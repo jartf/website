@@ -502,6 +502,10 @@ img[alt*="profile"], img[alt*="Profile"] {
   @apply my-8;
 }
 
+.blog-content figcaption {
+  @apply text-center text-sm text-muted-foreground mt-2 italic;
+}
+
 /* Badge pixelated rendering */
 .pixelated {
   image-rendering: -webkit-optimize-contrast; /* Edge 79+, Chrome, Safari */
