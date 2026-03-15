@@ -33,21 +33,21 @@ import ceoCat from "@/../public/ceo-cat.jpg";
 
 // Pre-optimize all images at build time
 const optimizedImages = await Promise.all([
-  getImage({ src: catOnLaptop, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: catInBox, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: keyboardNap, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: contemplativeCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: catStudying, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: academicCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: dateNightCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: baristaCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: securityCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: retailCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: singingCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: postalCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: pestControlCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: mechanicCat, format: "jpg", quality: 85, width: 800, height: 425 }),
-  getImage({ src: ceoCat, format: "jpg", quality: 85, width: 800, height: 425 }),
+  getImage({ src: catOnLaptop, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: catInBox, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: keyboardNap, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: contemplativeCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: catStudying, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: academicCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: dateNightCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: baristaCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: securityCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: retailCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: singingCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: postalCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: pestControlCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: mechanicCat, format: "jpg", quality: 85, width: 600, height: 450 }),
+  getImage({ src: ceoCat, format: "jpg", quality: 85, width: 600, height: 450 }),
 ]);
 
 const moodCats: MoodCat[] = [
@@ -175,7 +175,7 @@ const initialCat = moodCats[0];
   <div class="border rounded-lg p-4 bg-card flex flex-col flex-1">
     <div class="relative rounded-xl overflow-hidden bg-muted flex-1">
       <!-- Taller aspect ratio on mobile/tablet, adjusted on desktop -->
-      <div class="relative w-full h-[439px]">
+      <div class="relative w-full h-[445px]">
         <img
           id="mood-cat-image"
           src={initialCat.image}
