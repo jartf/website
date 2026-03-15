@@ -11,12 +11,12 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.6",
-    "@astrojs/react": "4.4.2",
+    "@astrojs/check": "0.9.7",
+    "@astrojs/react": "5.0.0",
     "@astrojs/tailwind": "^6.0.2",
-    "@astrojs/vercel": "^9.0.5",
+    "@astrojs/vercel": "^10.0.0",
     "@nanostores/react": "^0.8.4",
-    "astro": "^5.18.1",
+    "astro": "^6.0.4",
     "framer-motion": "^12.36.0",
     "lucide-react": "^0.562.0",
     "nanostores": "^0.11.4",
