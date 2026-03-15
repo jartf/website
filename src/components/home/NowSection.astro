@@ -3,7 +3,7 @@
 // Server-side rendered with client-side progressive enhancement for Last.fm/PreMid
 import T from "@/components/T.astro";
 import { translations } from "@/i18n";
-import { getData, type I18nContent, type I18nContentOptional } from "@/content/config";
+import { getData, type I18nContent, type I18nContentOptional } from "@/content.config";
 
 const nowItems = await getData("now");
 

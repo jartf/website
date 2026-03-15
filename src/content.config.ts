@@ -2,6 +2,7 @@
 // https://docs.astro.build/en/guides/content-collections/
 
 import { defineCollection, z, getCollection } from "astro:content";
+import { glob } from "astro/loaders";
 import { supportedLanguages } from "@/lib/constants";
 type Locale = (typeof supportedLanguages)[number]["code"];
 const localeCodes = supportedLanguages.map(l => l.code);
@@ -28,7 +29,7 @@ const projectFields = z.object({
 });
 
 const blog = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "src/content/blog" }),
   schema: z.object({
     title: z.string(),
     excerpt: z.string().optional(),
@@ -46,7 +47,7 @@ const blog = defineCollection({
 });
 
 const scrapbook = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.json", base: "src/content/scrapbook" }),
   schema: z.object({ date: z.coerce.date(), content: i18nContentOptional }),
 });
 
@@ -61,7 +62,7 @@ const nowSchema = z.object({
   });
 
 const now = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.json", base: "src/content/now" }),
   schema: nowSchema,
 });
 
@@ -75,7 +76,7 @@ const projectsSchema = z.object({
   });
 
 const projects = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.json", base: "src/content/projects" }),
   schema: projectsSchema,
 });
 
@@ -91,7 +92,7 @@ const usesSchema = z.object({
   });
 
 const uses = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.json", base: "src/content/uses" }),
   schema: usesSchema,
 });
 
@@ -106,7 +107,7 @@ const webringsSchema = z.object({
   });
 
 const webrings = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.json", base: "src/content/webrings" }),
   schema: webringsSchema,
 });
 
