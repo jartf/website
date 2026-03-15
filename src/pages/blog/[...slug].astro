@@ -168,29 +168,9 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
       <a class="p-name u-url" href={siteUrl}>{author.name}</a>
     </div>
 
-    <div class="e-content prose prose-lg dark:prose-invert max-w-none blog-content">
+    <div class="e-content prose dark:prose-invert max-w-none blog-content">
       <Content />
     </div>
-
-    <!-- Post navigation -->
-    <nav class="mt-12 pt-8 border-t" aria-label="Post navigation">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {prevPost && (
-          <a href={localePath(lang, `/blog/${prevPost.id}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors">
-            <span class="text-xs text-muted-foreground">← </span>
-            <T key="blog.prev" class="text-xs text-muted-foreground" />
-            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">{prevPost.data.title}</p>
-          </a>
-        )}
-        {nextPost && (
-          <a href={localePath(lang, `/blog/${nextPost.id}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto">
-            <T key="blog.next" class="text-xs text-muted-foreground" />
-            <span class="text-xs text-muted-foreground"> →</span>
-            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">{nextPost.data.title}</p>
-          </a>
-        )}
-      </div>
-    </nav>
 
     <!-- Webmentions -->
     <section class="mt-12 pt-8 border-t" aria-labelledby="webmentions-heading">
@@ -330,9 +310,29 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
           )}
         </div>
       ) : (
-        <p class="text-sm text-muted-foreground"><T key="blog.webmentionsNone" /></p>
+        <p class="text-muted-foreground"><T key="blog.webmentionsNone" /></p>
       )}
     </section>
+
+    <!-- Post navigation -->
+    <nav class="mt-12 pt-8 border-t" aria-label="Post navigation">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {prevPost && (
+          <a href={localePath(lang, `/blog/${prevPost.id}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors">
+            <span class="text-xs text-muted-foreground">← </span>
+            <T key="blog.prev" class="text-xs text-muted-foreground" />
+            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">{prevPost.data.title}</p>
+          </a>
+        )}
+        {nextPost && (
+          <a href={localePath(lang, `/blog/${nextPost.id}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto">
+            <T key="blog.next" class="text-xs text-muted-foreground" />
+            <span class="text-xs text-muted-foreground"> →</span>
+            <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">{nextPost.data.title}</p>
+          </a>
+        )}
+      </div>
+    </nav>
   </article>
 </BaseLayout>
 
