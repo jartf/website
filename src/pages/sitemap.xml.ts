@@ -38,7 +38,7 @@ export const GET: APIRoute = async ({ site }) => {
     // Root (English) static pages
     ...staticPages.map(page => `  <url>\n    <loc>${siteUrl}${page === '/' ? '/' : `${page}/`}</loc>\n  </url>`),
     // Root (English) blog posts
-    ...blogPosts.map((post: CollectionEntry<'blog'>) => `  <url>\n    <loc>${siteUrl}/blog/${post.slug}/</loc>\n  </url>`),
+    ...blogPosts.map((post: CollectionEntry<'blog'>) => `  <url>\n    <loc>${siteUrl}/blog/${post.id}/</loc>\n  </url>`),
     // Locale homepages
     ...locales.map(l => `  <url>\n    <loc>${siteUrl}/${l}/</loc>\n  </url>`),
     // Locale static pages
@@ -47,7 +47,7 @@ export const GET: APIRoute = async ({ site }) => {
     ),
     // Locale blog posts
     ...locales.flatMap(l =>
-      blogPosts.map((post: CollectionEntry<'blog'>) => `  <url>\n    <loc>${siteUrl}/${l}/blog/${post.slug}/</loc>\n  </url>`)
+      blogPosts.map((post: CollectionEntry<'blog'>) => `  <url>\n    <loc>${siteUrl}/${l}/blog/${post.id}/</loc>\n  </url>`)
     ),
   ];
 

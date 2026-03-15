@@ -20,7 +20,7 @@ const posts: RecentPost[] = (await getCollection("blog", ({ data }: CollectionEn
   .sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3)
   .map((post: CollectionEntry<"blog">) => ({
-    slug: post.slug,
+    slug: post.id,
     title: post.data.title,
     excerpt: post.data.excerpt ?? "No excerpt available",
     dateISO: post.data.date.toISOString(),

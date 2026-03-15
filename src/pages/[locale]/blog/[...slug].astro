@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return locales.flatMap((locale) =>
     posts.map((post: CollectionEntry<"blog">) => ({
-      params: { locale, slug: post.slug },
+      params: { locale, slug: post.id },
       props: { post },
     }))
   );

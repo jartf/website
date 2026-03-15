@@ -33,7 +33,7 @@ async function getAllFeedPosts(): Promise<FeedPost[]> {
 
   return posts
     .map((post: CollectionEntry<"blog">) => ({
-      slug: post.slug,
+      slug: post.id,
       title: post.data.title,
       excerpt: post.data.excerpt ?? "",
       date: post.data.date,

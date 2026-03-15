@@ -53,7 +53,7 @@ const posts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blo
             </td>
             <td>
               <font size="3">
-                <a href={`/blog/${post.slug}/`}>
+                <a href={`/blog/${post.id}/`}>
                   <b>{post.data.title}</b>
                 </a>
                 {post.data.excerpt && (
