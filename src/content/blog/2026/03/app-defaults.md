@@ -53,7 +53,7 @@ Okay, let's start:
 | 📄 PDF Editor | *new* | [PDF Arranger](https://github.com/pdfarranger/pdfarranger) | |
 | 🗺️ Navigation | *new* | [Organic Maps](https://organicmaps.app/) (offline), [Waze](https://www.waze.com/) (driving) | |
 | ✍️ Blogging | *new* | [Astro](https://astro.build/) | |
-| 💻 Terminal | *new* | [Ptyxis](https://apps.gnome.org/Ptyxis/) | |
+| 💻 Terminal | *new* | [Ptyxis](https://gitlab.gnome.org/chergert/ptyxis) | |
 | ⌨️ Code Editor | *new* | [Zed](https://zed.dev/) (main), VSCode | Zed's AI features are [turned off](https://www.neowin.net/news/its-now-possible-to-disable-all-ai-features-in-zed-editor/) |
 | 🖥️ OS | *new* | [Fedora](https://fedoraproject.org/) (desktop), [LineageOS](https://www.lineageos.org/) (mobile) | In 2024 I was dual-booting Fedora and Windows on desktop |
 
