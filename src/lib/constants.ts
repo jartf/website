@@ -46,6 +46,7 @@ export const services = {
   webmention: {
     endpoint: "https://webmention.io/jarema.me/webmention",
     microsubEndpoint: "https://aperture.p3k.io/microsub/1060",
+    pingbackEndpoint: "https://webmention.io/jarema.me/xmlrpc",
   },
   // Last.fm
   lastFm: {
