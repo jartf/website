@@ -11,7 +11,7 @@ export const author = {
   displayName: "∴ Jarema",
   email: "hello@jarema.me",
   note: "Economics major, sometimes coder, most times cat whisperer.",
-  image: "/favicons.png",
+  image: "/favicons-128.png",
   keyUrl: "/keys/gpg",
   country: "Vietnam/Estonia",
   category: "student",
