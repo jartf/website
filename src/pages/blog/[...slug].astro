@@ -1,7 +1,7 @@
 ---
 // Dynamic blog post page
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import ShareButtons from "@/components/blog/ShareButtons.astro";
 import T from "@/components/T.astro";
 import { t } from "@/i18n";
@@ -14,7 +14,7 @@ const lang = Astro.locals?.lang || "en";
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post: CollectionEntry<"blog">) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
@@ -24,7 +24,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 const { title, excerpt, date, updated, language, tags, category, readingTime, mood, catApproved, alternates } = post.data;
 
 const postUrl = Astro.url.href;
@@ -57,7 +57,7 @@ const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">)
 const sortedPosts = allPosts.sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
   b.data.date.getTime() - a.data.date.getTime()
 );
-const currentIndex = sortedPosts.findIndex((p: CollectionEntry<"blog">) => p.slug === post.slug);
+const currentIndex = sortedPosts.findIndex((p: CollectionEntry<"blog">) => p.id === post.id);
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
@@ -176,14 +176,14 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
     <nav class="mt-12 pt-8 border-t" aria-label="Post navigation">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {prevPost && (
-          <a href={localePath(lang, `/blog/${prevPost.slug}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors">
+          <a href={localePath(lang, `/blog/${prevPost.id}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors">
             <span class="text-xs text-muted-foreground">← </span>
             <T key="blog.prev" class="text-xs text-muted-foreground" />
             <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">{prevPost.data.title}</p>
           </a>
         )}
         {nextPost && (
-          <a href={localePath(lang, `/blog/${nextPost.slug}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto">
+          <a href={localePath(lang, `/blog/${nextPost.id}/`)} class="group p-4 border rounded-lg hover:border-primary/50 transition-colors md:text-right md:ml-auto">
             <T key="blog.next" class="text-xs text-muted-foreground" />
             <span class="text-xs text-muted-foreground"> →</span>
             <p class="font-medium group-hover:text-primary transition-colors line-clamp-1">{nextPost.data.title}</p>
