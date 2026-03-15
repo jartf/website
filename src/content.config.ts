@@ -1,7 +1,8 @@
 // Content Collections
 // https://docs.astro.build/en/guides/content-collections/
 
-import { defineCollection, z, getCollection } from "astro:content";
+import { defineCollection, getCollection } from "astro:content";
+import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 import { supportedLanguages } from "@/lib/constants";
 type Locale = (typeof supportedLanguages)[number]["code"];
