@@ -490,7 +490,7 @@ Here's the list of extensions I use:
 
 ### And of course, the apps
 
-Now it's time to install the apps you use. Oh, you want my recommendations? Well go check out [my app defaults post](/2026/03/app-defaults/) for the list!
+Now it's time to install the apps you use. Oh, you want my recommendations? Well go check out [my app defaults post](/blog/2026/03/app-defaults/) for the list!
 
 That's it for me!
 
