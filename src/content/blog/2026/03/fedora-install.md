@@ -2,9 +2,10 @@
 title: "My Fedora setup and hardening process"
 excerpt: "I had to reinstall Fedora, so I documented the thing. This is the setup, the hardening, and everything I do to get it to a state I'm comfortable with."
 date: "2026-03-17T17:10:00Z"
+updated: "2026-03-17T20:15:00Z"
 mood: "neutral"
 catApproved: true
-readingTime: 16
+readingTime: 18
 language: "en"
 ---
 
@@ -59,7 +60,7 @@ sudo dnf remove -y gnome-tour gnome-maps gnome-weather gnome-contacts gnome-cloc
 
 Adjust this to whatever you actually don't use. Don't blindly nuke things, some of these pull in dependencies that other things rely on, so check first if you're unsure.
 
-### And I don't want a weak crypto policy (not that kind of crypto)
+### I don't want a weak crypto policy (not that kind of crypto)
 
 Fedora uses a system-wide cryptographic policy that controls what algorithms and key sizes are acceptable across TLS, IPsec, SSH, DNSSec, and Kerberos. The default is `DEFAULT` (duh), which still allows SHA-1 in digital signatures and certificates. SHA-1 has been practically broken for years.
 
@@ -78,6 +79,23 @@ update-crypto-policies --show
 ```
 
 The output should be `DEFAULT:NO-SHA1`.
+
+### And we need to harden boot parameters
+
+Let's do a quick one-liner to add a bunch of good security-related boot parameters:
+
+```bash
+sudo grubby --update-kernel=ALL --args="mitigations=auto spectre_v2=on spectre_bhi=on spec_store_bypass_disable=on tsx=off kvm.nx_huge_pages=force l1d_flush=on spec_rstack_overflow=safe-ret gather_data_sampling=force reg_file_data_sampling=on slab_nomerge init_on_alloc=1 pti=on vsyscall=none page_alloc.shuffle=1 randomize_kstack_offset=on debugfs=off quiet loglevel=0 random.trust_cpu=off random.trust_bootloader=off intel_iommu=on amd_iommu=force_isolation efi=disable_early_pci_dma iommu=force iommu.passthrough=0 iommu.strict=1"
+```
+
+For the explanation:
+
+- The line `mitigations=auto spectre_v2=on spectre_bhi=on spec_store_bypass_disable=on tsx=off kvm.nx_huge_pages=force l1d_flush=on spec_rstack_overflow=safe-ret gather_data_sampling=force reg_file_data_sampling=on` enables various mitigations for Spectre and related CPU vulnerabilities, and thus protects against side-channel attacks that leak sensitive data from memory.
+- The part `slab_nomerge init_on_alloc=1 init_on_free=1 pti=on vsyscall=none page_alloc.shuffle=1 randomize_kstack_offset=on debugfs=off quiet loglevel=0` hardens the kernel against local attack vectors. It also reduces the amount of information available in case of a crash.
+- The `random.trust_cpu=off random.trust_bootloader=off` part tells the kernel not to trust any random number generator provided by the CPU or bootloader, and to rely solely on its own entropy sources. Some hardware RNGs are known to be insecure, and if the bootloader is compromised, it could generate predictable values. This will increase boot time.
+- The line `intel_iommu=on amd_iommu=force_isolation efi=disable_early_pci_dma iommu=force iommu.passthrough=0 iommu.strict=1` enables input-output memory management unit (hence, IOMMU) for Intel and AMD processors, which in turn helps mitigate direct memory access attacks.
+
+If you want more details on what these parameters do, check out [Madaidan's Linux hardening guide](https://madaidans-insecurities.github.io/guides/linux-hardening.html#boot-parameters).
 
 ### We can finally update the system now
 
@@ -140,7 +158,7 @@ Change 022 to 027 and you're good to go.
 
 `/etc/login.defs` controls defaults for password aging, UID ranges, and so on. A few things worth tightening, open it and adjust these values:
 
-```conf
+```txt
 PASS_MAX_DAYS   180
 PASS_MIN_DAYS   1
 PASS_WARN_AGE   7
@@ -168,7 +186,7 @@ sudo usermod -L root
 
 `sysctl` controls kernel parameters at runtime. Some of the defaults are fine, but there are others worth hardening. Create a new file at `/etc/sysctl.d/99-hardening.conf` and add the following:
 
-```conf
+```txt
 # Restrict access to kernel pointers in /proc
 kernel.kptr_restrict = 2
 
@@ -244,7 +262,7 @@ If you're wondering about why `kernel.yama.ptrace_scope = 1` isn't on there, I'v
 
 To disable core dumps at the PAM level as well, add these lines to `/etc/security/limits.conf`:
 
-```conf
+```txt
 * hard core 0
 * soft core 0
 ```
@@ -284,7 +302,7 @@ Normally you'd need to reboot here for the fstab changes to take effect, but we'
 
 Some modules have no reason to be on a personal workstation and have been sources of vulnerabilities. Let's just blacklist them. Create a custom blacklist at `/etc/modprobe.d/custom-blacklist.conf`:
 
-```conf
+```txt
 install dccp /bin/false
 install sctp /bin/false
 install rds /bin/false
@@ -471,7 +489,7 @@ Tailscale does have a preset for Mullvad DNS, but that preset is the Unfiltered 
 
 A few quality-of-life changes to `/etc/dnf/dnf.conf`:
 
-```conf
+```txt
 max_parallel_downloads=10
 fastestmirror=True
 defaultyes=True
@@ -494,7 +512,7 @@ sudo dnf install -y dnf-automatic
 
 Edit `/etc/dnf/automatic.conf` and set:
 
-```conf
+```txt
 [commands]
 upgrade_type = default
 download_updates = True
