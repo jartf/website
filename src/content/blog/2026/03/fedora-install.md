@@ -121,7 +121,7 @@ Add this line:
 Defaults timestamp_timeout=0
 ```
 
-`timestamp_timeout=0` means the sudo session timeout to zero minutes, effectively meaning sudo always asks for a password.
+`timestamp_timeout=0` means the sudo session timeout is set to zero minutes, effectively meaning sudo always asks for a password.
 
 #### bashrc
 
