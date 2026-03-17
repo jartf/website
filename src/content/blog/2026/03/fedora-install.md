@@ -202,6 +202,8 @@ net.ipv4.icmp_echo_ignore_broadcasts = 1
 net.ipv4.conf.all.accept_redirects = 0
 net.ipv4.conf.default.accept_redirects = 0
 net.ipv4.conf.all.send_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+net.ipv6.conf.default.accept_redirects = 0
 
 # Disable source routing
 net.ipv4.conf.all.accept_source_route = 0
@@ -215,6 +217,19 @@ net.ipv4.tcp_rfc1337 = 1
 
 # Randomize virtual address space
 kernel.randomize_va_space = 2
+vm.mmap_rnd_bits = 32
+vm.mmap_rnd_compat_bits = 16
+
+# Harden BPF
+kernel.unprivileged_bpf_disabled = 1
+net.core.bpf_jit_harden = 2
+
+# Protect symlink and hardlink
+fs.protected_symlinks = 1
+fs.protected_hardlinks = 1
+
+# Restrict performance events to root
+kernel.perf_event_paranoid = 2
 ```
 
 Apply immediately:
@@ -339,6 +354,20 @@ sudo dnf install -y fuse-libs
 
 That's it.
 
+### On SELinux
+
+Fedora comes with SELinux enabled and enforcing by default, which is great. Just make sure it stays that way:
+
+```bash
+sestatus
+```
+
+If it shows "SELinux status: enabled" and "Current mode: enforcing", you're good to go. If not, you can re-enable it with:
+
+```bash
+sudo setenforce 1
+```
+
 ### Oh, and we want an intrusion detection system
 
 I use AIDE, which is a file integrity checker that can alert you if system files are modified. It works by building a database of file checksums and metadata, then lets you compare the current state of your system against that baseline to detect unexpected changes.
@@ -456,6 +485,22 @@ keepcache=False
 `defaultyes=True` means you don't have to confirm with `y` every single time.
 
 `keepcache=False` clears the package cache after installs so it doesn't build up over time.
+
+Automate dnf updates with `dnf-automatic`:
+
+```bash
+sudo dnf install -y dnf-automatic
+```
+
+Edit `/etc/dnf/automatic.conf` and set:
+
+```conf
+[commands]
+upgrade_type = default
+download_updates = True
+apply_updates = True
+reboot = when-needed
+```
 
 ### Install the Extensions Manager app and some GNOME extensions
 
