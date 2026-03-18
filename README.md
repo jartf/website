@@ -133,7 +133,7 @@ mood: "optimistic"            # Default: "contemplative"
 catApproved: true             # Default: true
 readingTime: 5                # Optional, in minutes
 tags: ["tag1", "tag2"]        # Optional array
-category: "coding"            # Optional
+categories: ["coding", "guides"]  # Optional array
 draft: false                  # Default: false
 alternates:                   # Optional, for multilingual posts
   - language: vi
