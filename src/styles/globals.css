@@ -472,19 +472,38 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
   @apply text-center text-sm text-muted-foreground mt-2 italic;
 }
 
-/* Enable text wrapping in code blocks */
+/* Enable text wrapping in code blocks and blockquotes */
 .blog-content pre,
-.blog-content code {
+.blog-content blockquote {
   word-wrap: break-word;
   word-break: break-word;
-  white-space: pre-wrap;
   overflow-wrap: break-word;
 }
 
-/* Enable text wrapping in blockquotes */
+.blog-content pre,
+.blog-content code {
+  white-space: pre-wrap;
+}
+
+/* Copy button styling */
+.blog-content pre,
 .blog-content blockquote {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  @apply relative;
+}
+
+.copy-button {
+  @apply absolute top-2 right-2 p-2 rounded bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all opacity-0 focus:opacity-100 focus-visible:ring-2 focus-visible:ring-ring;
+}
+
+.blog-content pre:hover .copy-button,
+.blog-content pre:focus-within .copy-button,
+.blog-content blockquote:hover .copy-button,
+.blog-content blockquote:focus-within .copy-button {
+  @apply opacity-100;
+}
+
+.copy-button.copied {
+  @apply bg-green-600/20 text-green-600;
 }
 
 /* Badge pixelated rendering */
