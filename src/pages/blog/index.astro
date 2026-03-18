@@ -18,6 +18,37 @@ const feedButtons = [
   { id: 'rss', icon: '<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>', label: 'blog.rss', titleKey: 'blog.subscribeRSS', descKey: 'blog.rssDescription', path: '/rss' },
   { id: 'atom', icon: '<path d="M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C0.588547 18.4728 2.59033 12.4675 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768ZM3.05768 3.05782C0.588349 5.52715 2.59013 11.5325 7.52879 16.4712C12.4674 21.4099 18.4728 23.4117 20.9421 20.9423C23.4115 18.473 21.4097 12.4676 16.471 7.52894C11.5324 2.59028 5.527 0.588485 3.05768 3.05782Z" stroke="currentColor" stroke-width="1.5"/><path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" fill="currentColor"/>', label: 'blog.atom', titleKey: 'blog.subscribeAtom', descKey: 'blog.atomDescription', path: '/atom' }
 ];
+
+const filterFieldsetClass = 'space-y-2 rounded-xl border p-3';
+const filterChipInputClass = 'peer absolute h-0 w-0 opacity-0 appearance-none';
+const filterChipLabelClass = 'inline-flex items-center rounded-full border border-border/70 px-3 py-1.5 text-sm transition-colors hover:bg-accent/60 peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-primary/60 peer-checked:border-primary/50 peer-checked:bg-primary/15 peer-checked:text-foreground';
+
+const checkboxFilterGroups = [
+  {
+    key: 'blog.language',
+    filterClass: 'language-filter',
+    fieldsetClass: filterFieldsetClass,
+    items: (uniqueLanguages as string[]).map(value => ({ value, label: languageNames[value] || value })),
+  },
+  {
+    key: 'blog.mood',
+    filterClass: 'mood-filter',
+    fieldsetClass: filterFieldsetClass,
+    items: (uniqueMoods as string[]).map(value => ({ value, label: value })),
+  },
+  {
+    key: 'blog.category',
+    filterClass: 'category-filter',
+    fieldsetClass: filterFieldsetClass,
+    items: (uniqueCategories as string[]).map(value => ({ value, label: value })),
+  },
+].filter(group => group.items.length > 0);
+
+const catApprovedOptions = [
+  { value: 'any', label: 'Any', isDefault: true },
+  { value: 'yes', label: 'Yes', isDefault: false },
+  { value: 'no', label: 'No', isDefault: false },
+];
 ---
 
 <BaseLayout title="Blog" description="Read my thoughts on economics, coding, and life.">
@@ -91,7 +122,10 @@ const feedButtons = [
           <!-- Filter button -->
           <button
             id="filter-button"
-            class="flex items-center gap-2 px-3 py-2 border rounded-lg hover:bg-accent transition-colors"
+            type="button"
+            aria-controls="filter-panel"
+            aria-expanded="false"
+            class="flex items-center gap-2 px-3 py-2 border rounded-lg hover:bg-accent transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
@@ -102,64 +136,51 @@ const feedButtons = [
         </div>
 
         <!-- Filter panel -->
-        <div id="filter-panel" class="hidden p-4 border rounded-lg bg-card space-y-4">
-          <div>
-            <T key="blog.language" tag="h4" class="text-sm font-medium mb-2" />
-            <div class="flex flex-wrap gap-2">
-              {uniqueLanguages.map(lang => (
-                <label class="flex items-center gap-2 text-sm cursor-pointer">
-                  <input type="checkbox" value={lang as string} class="language-filter rounded" />
-                  <span>{languageNames[lang as string] || lang}</span>
-                </label>
-              ))}
-            </div>
+        <section
+          id="filter-panel"
+          class="hidden rounded-2xl border bg-card/80 p-4 md:p-5 backdrop-blur-sm"
+          role="region"
+          aria-label={serverT(lang, "blog.filter")}
+        >
+          <div class="mb-4 flex items-center justify-between gap-3 border-b pb-3">
+            <T key="blog.activeFilter" tag="p" class="text-sm text-muted-foreground" />
+            <button id="reset-filters" type="button" class="text-sm text-muted-foreground hover:text-foreground">
+              <T key="blog.clearFilter" />
+            </button>
           </div>
-          {uniqueMoods.length > 0 && (
-            <div>
-              <T key="blog.mood" tag="h4" class="text-sm font-medium mb-2" />
+
+          <div class="space-y-4">
+            {checkboxFilterGroups.map(group => (
+              <fieldset class={group.fieldsetClass}>
+                <legend class="px-1 text-sm font-medium">
+                  <T key={group.key} />
+                </legend>
+                <div class="flex flex-wrap gap-2">
+                  {group.items.map(item => (
+                    <label class="relative cursor-pointer">
+                      <input type="checkbox" value={item.value} class={`${group.filterClass} ${filterChipInputClass}`} />
+                      <span class={filterChipLabelClass}>{item.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            ))}
+
+            <fieldset class={filterFieldsetClass}>
+              <legend class="px-1 text-sm font-medium">
+                <T key="blog.cat" />
+              </legend>
               <div class="flex flex-wrap gap-2">
-                {uniqueMoods.map(mood => (
-                  <label class="flex items-center gap-2 text-sm cursor-pointer">
-                    <input type="checkbox" value={mood} class="mood-filter rounded" />
-                    <span>{mood}</span>
+                {catApprovedOptions.map(option => (
+                  <label class="relative cursor-pointer">
+                    <input type="radio" name="cat-approved" value={option.value} class={filterChipInputClass} checked={option.isDefault} />
+                    <span class={filterChipLabelClass}>{option.label}</span>
                   </label>
                 ))}
               </div>
-            </div>
-          )}
-          {uniqueCategories.length > 0 && (
-            <div>
-              <T key="blog.category" tag="h4" class="text-sm font-medium mb-2" />
-              <div class="flex flex-wrap gap-2">
-                {uniqueCategories.map(cat => (
-                  <label class="flex items-center gap-2 text-sm cursor-pointer">
-                    <input type="checkbox" value={cat} class="category-filter rounded" />
-                    <span>{cat}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <!-- Cat approved filter -->
-          <div>
-            <T key="blog.cat" tag="h4" class="text-sm font-medium mb-2" />
-            <div class="flex gap-4">
-              <label class="flex items-center gap-2 text-sm cursor-pointer">
-                <input type="checkbox" id="cat-approved-yes" class="rounded" />
-                <span>Yes</span>
-              </label>
-              <label class="flex items-center gap-2 text-sm cursor-pointer">
-                <input type="checkbox" id="cat-approved-no" class="rounded" />
-                <span>No</span>
-              </label>
-            </div>
+            </fieldset>
           </div>
-
-          <button id="reset-filters" class="text-sm text-muted-foreground hover:text-foreground">
-            <T key="blog.clearFilter" />
-          </button>
-        </div>
+        </section>
 
         <!-- Active filters display -->
         <div id="active-filters" class="hidden flex-wrap gap-2 items-center">
@@ -293,7 +314,17 @@ const feedButtons = [
   import { supportedLanguages } from '@/lib/constants';
 
   const languageNames: Record<string, string> = Object.fromEntries(supportedLanguages.map(l => [l.code, l.name]));
-  const state = { search: '', sort: 'newest', langs: [] as string[], moods: [] as string[], cats: [] as string[], catApproved: null as boolean | null };
+  const state = {
+    search: '',
+    sort: 'newest',
+    langs: [] as string[],
+    moods: [] as string[],
+    cats: [] as string[],
+    catApproved: null as boolean | null,
+  };
+  const posts = Array.from(document.querySelectorAll('.blog-post')) as HTMLElement[];
+  const postsContainer = document.getElementById('blog-posts');
+  const noResults = document.getElementById('no-results');
 
   const updateBlogTranslations = () => {
     const lang = getPageLocale();
@@ -340,38 +371,47 @@ const feedButtons = [
 
   const initDefaultLanguageFilter = () => {
     const currentLang = getPageLocale(), baseLang = currentLang.split('-')[0];
-    const hasPostsInLang = Array.from(document.querySelectorAll('.blog-post')).some(p => [currentLang, baseLang].includes(p.getAttribute('data-language') || ''));
+    const hasPostsInLang = posts.some(p => [currentLang, baseLang].includes(p.dataset.language || ''));
     state.langs = baseLang === 'vi-Hani' || currentLang === 'vi-Hani' ? ['vi', 'vi-Hani'] : hasPostsInLang ? [baseLang] : ['en'];
     document.querySelectorAll('.language-filter').forEach(cb => (cb as HTMLInputElement).checked = state.langs.includes((cb as HTMLInputElement).value));
   };
 
   const filterAndSortPosts = () => {
-    const posts = Array.from(document.querySelectorAll('.blog-post')) as HTMLElement[];
-    const [container, noResults, filteredCountEl] = ['blog-posts', 'no-results', 'filtered-count'].map(id => document.getElementById(id));
+    const filteredCountEl = document.getElementById('filtered-count');
+    const searchQuery = state.search.trim().toLowerCase();
 
     let visibleCount = 0;
     posts.forEach(post => {
-      const attrs = ['title', 'tags', 'excerpt', 'category', 'mood', 'language', 'cat-approved'].reduce((acc, key) => ({ ...acc, [key]: post.getAttribute(`data-${key}`) || '' }), {} as Record<string, string>);
-      const matches = (!state.search || ['title', 'tags', 'excerpt', 'category'].some(k => attrs[k].includes(state.search.toLowerCase()))) &&
-        (!state.langs.length || state.langs.includes(attrs.language || 'en')) &&
-        (!state.moods.length || state.moods.includes(attrs.mood)) &&
-        (!state.cats.length || state.cats.includes(attrs.category)) &&
-        (state.catApproved === null || attrs['cat-approved'] === String(state.catApproved));
-      post.style.display = matches ? 'block' : 'none';
+      const title = post.dataset.title || '';
+      const tags = post.dataset.tags || '';
+      const excerpt = post.dataset.excerpt || '';
+      const category = post.dataset.category || '';
+      const mood = post.dataset.mood || '';
+      const language = post.dataset.language || 'en';
+      const catApproved = post.dataset.catApproved || 'false';
+
+      const matches =
+        (!searchQuery || [title, tags, excerpt, category].some(value => value.includes(searchQuery))) &&
+        (!state.langs.length || state.langs.includes(language)) &&
+        (!state.moods.length || state.moods.includes(mood)) &&
+        (!state.cats.length || state.cats.includes(category)) &&
+        (state.catApproved === null || catApproved === String(state.catApproved));
+
+      post.hidden = !matches;
       if (matches) visibleCount++;
     });
 
-    const visiblePosts = posts.filter(p => p.style.display !== 'none');
+    const visiblePosts = posts.filter(p => !p.hidden);
     visiblePosts.sort((a, b) => {
-      const [aDate, bDate] = [a, b].map(p => new Date(p.getAttribute('data-sort-date') || '').getTime());
-      const [aTime, bTime] = [a, b].map(p => parseInt(p.getAttribute('data-reading-time') || '0'));
-      const [aTitle, bTitle] = [a, b].map(p => p.getAttribute('data-title') || '');
+      const [aDate, bDate] = [a, b].map(p => new Date(p.dataset.sortDate || '').getTime());
+      const [aTime, bTime] = [a, b].map(p => parseInt(p.dataset.readingTime || '0', 10));
+      const [aTitle, bTitle] = [a, b].map(p => p.dataset.title || '');
       return { newest: bDate - aDate, oldest: aDate - bDate, readingTime: aTime - bTime, alphabetical: aTitle.localeCompare(bTitle) }[state.sort] || 0;
     });
-    visiblePosts.forEach(post => container?.appendChild(post));
+    visiblePosts.forEach(post => postsContainer?.appendChild(post));
 
     noResults?.classList.toggle('hidden', visibleCount > 0);
-    container?.classList.toggle('hidden', visibleCount === 0);
+    postsContainer?.classList.toggle('hidden', visibleCount === 0);
     if (filteredCountEl) filteredCountEl.textContent = String(visibleCount);
     const total = String(posts.length);
     const current = String(visibleCount);
@@ -386,7 +426,7 @@ const feedButtons = [
   const createFilterBadge = (type: string, value: string, onRemove: () => void) => {
     const typeMap: Record<string, string> = { Language: t('blog.language'), Mood: t('blog.mood'), Category: t('blog.category'), 'Cat Approved': t('blog.cat') };
     const badge = document.createElement('span');
-    badge.className = 'inline-flex items-center gap-1 px-2 py-1 rounded border text-xs';
+    badge.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs bg-card';
 
     const label = document.createElement('span');
     label.className = 'font-medium';
@@ -394,10 +434,11 @@ const feedButtons = [
     badge.append(label, document.createTextNode(` ${value}`));
 
     const removeBtn = document.createElement('button');
-    removeBtn.className = 'ml-1 hover:text-foreground';
+    removeBtn.type = 'button';
+    removeBtn.className = 'ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full hover:bg-muted hover:text-foreground';
     removeBtn.setAttribute('aria-label', `Remove ${type} filter: ${value}`);
     removeBtn.onclick = e => { e.stopPropagation(); onRemove(); };
-    removeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+    removeBtn.textContent = '×';
 
     badge.appendChild(removeBtn);
     return badge;
@@ -406,7 +447,7 @@ const feedButtons = [
   const updateActiveFiltersDisplay = () => {
     const container = document.getElementById('active-filters');
     if (!container) return;
-    container.innerHTML = '';
+    container.replaceChildren();
     const hasFilters = state.langs.length > 0 || state.moods.length > 0 || state.cats.length > 0 || state.catApproved !== null;
     container.classList.toggle('hidden', !hasFilters); container.classList.toggle('flex', hasFilters);
     if (!hasFilters) return;
@@ -414,10 +455,11 @@ const feedButtons = [
     [...state.langs.map(l => ['Language', languageNames[l] || l, () => { state.langs = state.langs.filter(x => x !== l); (document.querySelector(`.language-filter[value="${l}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
      ...state.moods.map(m => ['Mood', m, () => { state.moods = state.moods.filter(x => x !== m); (document.querySelector(`.mood-filter[value="${m}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
      ...state.cats.map(c => ['Category', c, () => { state.cats = state.cats.filter(x => x !== c); (document.querySelector(`.category-filter[value="${c}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
-     ...(state.catApproved !== null ? [['Cat Approved', state.catApproved ? 'Yes' : 'No', () => { state.catApproved = null; ['cat-approved-yes', 'cat-approved-no'].forEach(id => (document.getElementById(id) as HTMLInputElement).checked = false); filterAndSortPosts(); }]] : [])
+     ...(state.catApproved !== null ? [['Cat Approved', state.catApproved ? 'Yes' : 'No', () => { state.catApproved = null; (document.querySelector('input[name="cat-approved"][value="any"]') as HTMLInputElement).checked = true; filterAndSortPosts(); }]] : [])
     ].forEach(([type, value, onRemove]) => container.appendChild(createFilterBadge(type as string, value as string, onRemove as () => void)));
 
     const clearBtn = document.createElement('button');
+    clearBtn.type = 'button';
     clearBtn.className = 'text-xs text-muted-foreground hover:text-foreground ml-2';
     clearBtn.textContent = t('blog.clearFilter'); clearBtn.onclick = resetFilters;
     container.appendChild(clearBtn);
@@ -428,24 +470,26 @@ const feedButtons = [
     const searchInput = document.getElementById('blog-search') as HTMLInputElement; if (searchInput) searchInput.value = '';
     const sortSelect = document.getElementById('sort-select') as HTMLSelectElement; if (sortSelect) sortSelect.value = 'newest';
     document.querySelectorAll('.language-filter, .mood-filter, .category-filter').forEach(el => (el as HTMLInputElement).checked = false);
-    ['cat-approved-yes', 'cat-approved-no'].forEach(id => (document.getElementById(id) as HTMLInputElement).checked = false);
+    const anyCatApproved = document.querySelector('input[name="cat-approved"][value="any"]') as HTMLInputElement | null;
+    if (anyCatApproved) anyCatApproved.checked = true;
     filterAndSortPosts();
   };
 
   updateBlogTranslations();
   initDefaultLanguageFilter();
 
-  const handleCheckboxFilter = (selector: string, stateKey: 'langs' | 'moods' | 'cats') => {
-    document.querySelectorAll(selector).forEach(cb => cb.addEventListener('change', e => {
-      const { value, checked } = e.target as HTMLInputElement;
-      state[stateKey] = checked ? [...state[stateKey], value] : state[stateKey].filter(v => v !== value);
-      filterAndSortPosts();
-    }));
-  };
-
   document.getElementById('blog-search')?.addEventListener('input', e => { state.search = (e.target as HTMLInputElement).value; filterAndSortPosts(); });
   document.getElementById('sort-select')?.addEventListener('change', e => { state.sort = (e.target as HTMLSelectElement).value; filterAndSortPosts(); });
-  document.getElementById('filter-button')?.addEventListener('click', () => document.getElementById('filter-panel')?.classList.toggle('hidden'));
+  const filterButton = document.getElementById('filter-button');
+  const filterPanel = document.getElementById('filter-panel');
+  const setFilterPanelOpen = (open: boolean) => {
+    filterPanel?.classList.toggle('hidden', !open);
+    filterButton?.setAttribute('aria-expanded', String(open));
+  };
+  filterButton?.addEventListener('click', () => {
+    const isOpen = filterButton.getAttribute('aria-expanded') === 'true';
+    setFilterPanelOpen(!isOpen);
+  });
 
   ['rss', 'atom'].forEach(type => {
     const button = document.getElementById(`${type}-button`);
@@ -454,20 +498,46 @@ const feedButtons = [
     button?.addEventListener('click', e => { e.stopPropagation(); popover?.classList.toggle('hidden'); other?.classList.add('hidden'); });
   });
 
-  document.addEventListener('click', e => ['rss-popover', 'atom-popover'].forEach(id => { const el = document.getElementById(id); if (el && !el.contains(e.target as Node)) el.classList.add('hidden'); }));
-
-  handleCheckboxFilter('.language-filter', 'langs');
-  handleCheckboxFilter('.mood-filter', 'moods');
-  handleCheckboxFilter('.category-filter', 'cats');
-
-  ['yes', 'no'].forEach(val => {
-    document.getElementById(`cat-approved-${val}`)?.addEventListener('change', e => {
-      if ((e.target as HTMLInputElement).checked) {
-        state.catApproved = val === 'yes';
-        (document.getElementById(`cat-approved-${val === 'yes' ? 'no' : 'yes'}`) as HTMLInputElement).checked = false;
-      } else { state.catApproved = null; }
-      filterAndSortPosts();
+  document.addEventListener('click', e => {
+    ['rss-popover', 'atom-popover'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && !el.contains(e.target as Node)) el.classList.add('hidden');
     });
+
+    if (filterPanel && filterButton) {
+      const clickedInsidePanel = filterPanel.contains(e.target as Node);
+      const clickedToggle = filterButton.contains(e.target as Node);
+      if (!clickedInsidePanel && !clickedToggle) setFilterPanelOpen(false);
+    }
+  });
+
+  filterPanel?.addEventListener('change', e => {
+    const target = e.target as HTMLInputElement;
+    if (!target) return;
+
+    if (target.classList.contains('language-filter')) {
+      state.langs = target.checked ? [...state.langs, target.value] : state.langs.filter(v => v !== target.value);
+      filterAndSortPosts();
+      return;
+    }
+    if (target.classList.contains('mood-filter')) {
+      state.moods = target.checked ? [...state.moods, target.value] : state.moods.filter(v => v !== target.value);
+      filterAndSortPosts();
+      return;
+    }
+    if (target.classList.contains('category-filter')) {
+      state.cats = target.checked ? [...state.cats, target.value] : state.cats.filter(v => v !== target.value);
+      filterAndSortPosts();
+      return;
+    }
+    if (target.name === 'cat-approved') {
+      state.catApproved = target.value === 'yes' ? true : target.value === 'no' ? false : null;
+      filterAndSortPosts();
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') setFilterPanelOpen(false);
   });
 
   ['reset-filters', 'reset-filters-empty'].forEach(id => document.getElementById(id)?.addEventListener('click', resetFilters));
