@@ -30,6 +30,7 @@ const { title, excerpt, date, updated, language, tags, category, readingTime, mo
 const postUrl = Astro.url.href;
 const postLang = language ?? "en";
 const description = excerpt || `Read "${title}" on ${siteName}.`;
+const hasUpdatedDate = Boolean(updated && updated.getTime() > date.getTime());
 
 // Structured data
 const blogPostingStructuredData: Record<string, unknown> = {
@@ -116,8 +117,16 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
         <time class="dt-published" datetime={date.toISOString()} data-date={date.toISOString()}>
           {formatDate(date)}
         </time>
-        {updated && (
-          <time class="dt-updated hidden" datetime={updated.toISOString()}>{updated.toISOString()}</time>
+        {hasUpdatedDate && updated && (
+          <>
+            <span aria-hidden="true">•</span>
+            <span>
+              <T key="now.lastUpdated" />{" "}
+              <time class="dt-updated" datetime={updated.toISOString()} data-date={updated.toISOString()}>
+                {formatDate(updated)}
+              </time>
+            </span>
+          </>
         )}
         <span aria-hidden="true">•</span>
         <span><span id="reading-time-value">{readingTime || 5}</span> <T key="blog.minRead" /></span>
