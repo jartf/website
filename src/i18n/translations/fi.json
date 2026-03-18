@@ -215,7 +215,41 @@
     "webmentionLike": "tykkäsi tästä",
     "webmentionRepost": "jakoi tämän",
     "webmentionReply": "vastasi",
-    "webmentionMention": "mainitsi tämän"
+    "webmentionMention": "mainitsi tämän",
+    "tagLabels": {
+      "first-post": "ensimmäinen postaus",
+      "identity": "identiteetti",
+      "belonging": "yhteenkuuluvuus",
+      "introspection": "itsetutkiskelu",
+      "browsers": "selaimet",
+      "chrome": "Chrome",
+      "open-web": "avoin verkko",
+      "app-defaults": "oletussovellukset",
+      "software": "ohjelmisto",
+      "tools": "työkalut",
+      "new-year": "uusi vuosi",
+      "reflection": "pohdinta",
+      "health": "terveys",
+      "tet": "Tet-juhla",
+      "vietnam": "Vietnam",
+      "military": "armeija",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "kovettaminen",
+      "values": "arvot",
+      "personal-philosophy": "henkilökohtainen filosofia"
+    },
+    "categoryLabels": {
+      "personal": "Henkilökohtainen",
+      "meta": "Meta",
+      "identity": "Identiteetti",
+      "technical": "Tekninen",
+      "privacy": "Yksityisyys",
+      "opinions": "Mielipiteet",
+      "life": "Elämä",
+      "security": "Tietoturva",
+      "guides": "Oppaat"
+    }
   },
   "now": {
     "title": "Nyt",

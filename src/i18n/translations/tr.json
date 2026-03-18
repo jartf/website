@@ -224,7 +224,41 @@
     "webmentionLike": "bunu beğendi",
     "webmentionRepost": "bunu paylaştı",
     "webmentionReply": "yanıtladı",
-    "webmentionMention": "bundan bahsetti"
+    "webmentionMention": "bundan bahsetti",
+    "tagLabels": {
+      "first-post": "ilk yazı",
+      "identity": "kimlik",
+      "belonging": "aidiyet",
+      "introspection": "iç gözlem",
+      "browsers": "tarayıcılar",
+      "chrome": "Chrome",
+      "open-web": "açık web",
+      "app-defaults": "varsayılan uygulamalar",
+      "software": "yazılım",
+      "tools": "araçlar",
+      "new-year": "yeni yıl",
+      "reflection": "öz-yansıma",
+      "health": "sağlık",
+      "tet": "Tet Bayramı",
+      "vietnam": "Vietnam",
+      "military": "askerlik",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "güvenlik sertleştirme",
+      "values": "değerler",
+      "personal-philosophy": "kişisel felsefe"
+    },
+    "categoryLabels": {
+      "personal": "Kişisel",
+      "meta": "Meta",
+      "identity": "Kimlik",
+      "technical": "Teknik",
+      "privacy": "Gizlilik",
+      "opinions": "Görüşler",
+      "life": "Yaşam",
+      "security": "Güvenlik",
+      "guides": "Rehberler"
+    }
   },
   "now": {
     "title": "Şimdi",

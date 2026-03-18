@@ -226,7 +226,41 @@
     "webmentionLike": "syntes godt om dette",
     "webmentionRepost": "delte dette",
     "webmentionReply": "svarede",
-    "webmentionMention": "nævnte dette"
+    "webmentionMention": "nævnte dette",
+    "tagLabels": {
+      "first-post": "første indlæg",
+      "identity": "identitet",
+      "belonging": "tilhørsforhold",
+      "introspection": "selvindsigt",
+      "browsers": "browsere",
+      "chrome": "Chrome",
+      "open-web": "åbent web",
+      "app-defaults": "standardapps",
+      "software": "software",
+      "tools": "værktøjer",
+      "new-year": "nytår",
+      "reflection": "refleksion",
+      "health": "sundhed",
+      "tet": "Tet-ferie",
+      "vietnam": "Vietnam",
+      "military": "militær",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "sikkerhedshærdning",
+      "values": "værdier",
+      "personal-philosophy": "personlig filosofi"
+    },
+    "categoryLabels": {
+      "personal": "Personligt",
+      "meta": "Meta",
+      "identity": "Identitet",
+      "technical": "Teknisk",
+      "privacy": "Privatliv",
+      "opinions": "Meninger",
+      "life": "Liv",
+      "security": "Sikkerhed",
+      "guides": "Vejledninger"
+    }
   },
   "now": {
     "title": "Nu",

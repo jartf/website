@@ -215,7 +215,41 @@
     "webmentionLike": "polubił(a) to",
     "webmentionRepost": "udostępnił(a) to",
     "webmentionReply": "odpowiedział(a)",
-    "webmentionMention": "wspomniał(a) o tym"
+    "webmentionMention": "wspomniał(a) o tym",
+    "tagLabels": {
+      "first-post": "pierwszy wpis",
+      "identity": "tożsamość",
+      "belonging": "przynależność",
+      "introspection": "introspekcja",
+      "browsers": "przeglądarki",
+      "chrome": "Chrome",
+      "open-web": "otwarty internet",
+      "app-defaults": "domyślne aplikacje",
+      "software": "oprogramowanie",
+      "tools": "narzędzia",
+      "new-year": "nowy rok",
+      "reflection": "refleksja",
+      "health": "zdrowie",
+      "tet": "Święto Tet",
+      "vietnam": "Wietnam",
+      "military": "wojsko",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "utwardzanie",
+      "values": "wartości",
+      "personal-philosophy": "osobista filozofia"
+    },
+    "categoryLabels": {
+      "personal": "Osobiste",
+      "meta": "Meta",
+      "identity": "Tożsamość",
+      "technical": "Techniczne",
+      "privacy": "Prywatność",
+      "opinions": "Opinie",
+      "life": "Życie",
+      "security": "Bezpieczeństwo",
+      "guides": "Poradniki"
+    }
   },
   "now": {
     "title": "Teraz",

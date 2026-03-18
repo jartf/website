@@ -226,7 +226,41 @@
     "webmentionLike": "liked this",
     "webmentionRepost": "reposted this",
     "webmentionReply": "replied",
-    "webmentionMention": "mentioned this"
+    "webmentionMention": "mentioned this",
+    "tagLabels": {
+      "first-post": "first post",
+      "identity": "identity",
+      "belonging": "belonging",
+      "introspection": "introspection",
+      "browsers": "browsers",
+      "chrome": "Chrome",
+      "open-web": "open web",
+      "app-defaults": "app defaults",
+      "software": "software",
+      "tools": "tools",
+      "new-year": "new year",
+      "reflection": "reflection",
+      "health": "health",
+      "tet": "Tet Holiday",
+      "vietnam": "Vietnam",
+      "military": "military",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "hardening",
+      "values": "values",
+      "personal-philosophy": "personal philosophy"
+    },
+    "categoryLabels": {
+      "personal": "Personal",
+      "meta": "Meta",
+      "identity": "Identity",
+      "technical": "Technical",
+      "privacy": "Privacy",
+      "opinions": "Opinions",
+      "life": "Life",
+      "security": "Security",
+      "guides": "Guides"
+    }
   },
   "now": {
     "title": "Now",

@@ -222,7 +222,41 @@
     "webmentionLike": "понравилось",
     "webmentionRepost": "поделились",
     "webmentionReply": "ответил(а)",
-    "webmentionMention": "упомянул(а)"
+    "webmentionMention": "упомянул(а)",
+    "tagLabels": {
+      "first-post": "первая запись",
+      "identity": "идентичность",
+      "belonging": "принадлежность",
+      "introspection": "интроспекция",
+      "browsers": "браузеры",
+      "chrome": "Chrome",
+      "open-web": "открытый веб",
+      "app-defaults": "приложения по умолчанию",
+      "software": "программы",
+      "tools": "инструменты",
+      "new-year": "новый год",
+      "reflection": "рефлексия",
+      "health": "здоровье",
+      "tet": "Праздник Тет",
+      "vietnam": "Вьетнам",
+      "military": "армия",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "усиление безопасности",
+      "values": "ценности",
+      "personal-philosophy": "личная философия"
+    },
+    "categoryLabels": {
+      "personal": "Личное",
+      "meta": "Мета",
+      "identity": "Идентичность",
+      "technical": "Техническое",
+      "privacy": "Конфиденциальность",
+      "opinions": "Мнения",
+      "life": "Жизнь",
+      "security": "Безопасность",
+      "guides": "Руководства"
+    }
   },
   "now": {
     "title": "Сейчас",

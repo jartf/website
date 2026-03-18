@@ -217,7 +217,41 @@
     "webmentionLike": "đã thích bài này",
     "webmentionRepost": "đã chia sẻ lại bài này",
     "webmentionReply": "đã trả lời",
-    "webmentionMention": "đã đề cập bài này"
+    "webmentionMention": "đã đề cập bài này",
+    "tagLabels": {
+      "first-post": "bài đầu tiên",
+      "identity": "bản sắc",
+      "belonging": "sự thuộc về",
+      "introspection": "nội tâm",
+      "browsers": "trình duyệt",
+      "chrome": "Chrome",
+      "open-web": "web mở",
+      "app-defaults": "ứng dụng mặc định",
+      "software": "phần mềm",
+      "tools": "công cụ",
+      "new-year": "năm mới",
+      "reflection": "suy ngẫm",
+      "health": "sức khỏe",
+      "tet": "Tết",
+      "vietnam": "Việt Nam",
+      "military": "quân sự",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "tăng cường bảo mật",
+      "values": "giá trị",
+      "personal-philosophy": "triết lý cá nhân"
+    },
+    "categoryLabels": {
+      "personal": "Cá nhân",
+      "meta": "Meta",
+      "identity": "Bản sắc",
+      "technical": "Kỹ thuật",
+      "privacy": "Quyền riêng tư",
+      "opinions": "Quan điểm",
+      "life": "Cuộc sống",
+      "security": "Bảo mật",
+      "guides": "Hướng dẫn"
+    }
   },
   "now": {
     "title": "Hiện tại",

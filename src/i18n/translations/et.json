@@ -215,7 +215,41 @@
     "webmentionLike": "meeldis see",
     "webmentionRepost": "jagas seda",
     "webmentionReply": "vastas",
-    "webmentionMention": "mainis seda"
+    "webmentionMention": "mainis seda",
+    "tagLabels": {
+      "first-post": "esimene postitus",
+      "identity": "identiteet",
+      "belonging": "kuuluvus",
+      "introspection": "enesevaatlus",
+      "browsers": "brauserid",
+      "chrome": "Chrome",
+      "open-web": "avatud veeb",
+      "app-defaults": "vaikerakendused",
+      "software": "tarkvara",
+      "tools": "tööriistad",
+      "new-year": "uus aasta",
+      "reflection": "mõtisklus",
+      "health": "tervis",
+      "tet": "Tet-püha",
+      "vietnam": "Vietnam",
+      "military": "sõjavägi",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "tugevdamine",
+      "values": "väärtused",
+      "personal-philosophy": "isiklik filosoofia"
+    },
+    "categoryLabels": {
+      "personal": "Isiklik",
+      "meta": "Meta",
+      "identity": "Identiteet",
+      "technical": "Tehniline",
+      "privacy": "Privaatsus",
+      "opinions": "Arvamused",
+      "life": "Elu",
+      "security": "Turvalisus",
+      "guides": "Juhendid"
+    }
   },
   "now": {
     "title": "Nüüd",

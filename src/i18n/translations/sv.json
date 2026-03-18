@@ -215,7 +215,41 @@
     "webmentionLike": "gillade detta",
     "webmentionRepost": "delade detta",
     "webmentionReply": "svarade",
-    "webmentionMention": "nämnde detta"
+    "webmentionMention": "nämnde detta",
+    "tagLabels": {
+      "first-post": "första inlägg",
+      "identity": "identitet",
+      "belonging": "tillhörighet",
+      "introspection": "introspektion",
+      "browsers": "webbläsare",
+      "chrome": "Chrome",
+      "open-web": "öppet webb",
+      "app-defaults": "standardappar",
+      "software": "programvara",
+      "tools": "verktyg",
+      "new-year": "nyår",
+      "reflection": "reflektion",
+      "health": "hälsa",
+      "tet": "Tet-högtid",
+      "vietnam": "Vietnam",
+      "military": "militär",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "säkerhetshärdning",
+      "values": "värderingar",
+      "personal-philosophy": "personlig filosofi"
+    },
+    "categoryLabels": {
+      "personal": "Personligt",
+      "meta": "Meta",
+      "identity": "Identitet",
+      "technical": "Tekniskt",
+      "privacy": "Integritet",
+      "opinions": "Åsikter",
+      "life": "Liv",
+      "security": "Säkerhet",
+      "guides": "Guider"
+    }
   },
   "now": {
     "title": "Nu",

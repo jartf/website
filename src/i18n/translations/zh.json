@@ -224,7 +224,41 @@
     "webmentionLike": "赞了此文",
     "webmentionRepost": "转发了此文",
     "webmentionReply": "回复了",
-    "webmentionMention": "提及了此文"
+    "webmentionMention": "提及了此文",
+    "tagLabels": {
+      "first-post": "第一篇文章",
+      "identity": "身份认同",
+      "belonging": "归属感",
+      "introspection": "内省",
+      "browsers": "浏览器",
+      "chrome": "Chrome",
+      "open-web": "开放网络",
+      "app-defaults": "默认应用",
+      "software": "软件",
+      "tools": "工具",
+      "new-year": "新年",
+      "reflection": "反思",
+      "health": "健康",
+      "tet": "越南新年",
+      "vietnam": "越南",
+      "military": "军事",
+      "fedora": "Fedora",
+      "linux": "Linux",
+      "hardening": "安全加固",
+      "values": "价值观",
+      "personal-philosophy": "个人哲学"
+    },
+    "categoryLabels": {
+      "personal": "个人",
+      "meta": "元",
+      "identity": "身份认同",
+      "technical": "技术",
+      "privacy": "隐私",
+      "opinions": "观点",
+      "life": "生活",
+      "security": "安全",
+      "guides": "指南"
+    }
   },
   "now": {
     "title": "现在",

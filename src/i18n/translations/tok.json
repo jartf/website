@@ -215,7 +215,41 @@
     "webmentionLike": "li pona tawa ni",
     "webmentionRepost": "li pana sin e ni",
     "webmentionReply": "li toki tawa",
-    "webmentionMention": "li toki e ni"
+    "webmentionMention": "li toki e ni",
+    "tagLabels": {
+      "first-post": "lipu nanpa wan",
+      "identity": "nasin mi",
+      "belonging": "lon kulupu",
+      "introspection": "lukin insa",
+      "browsers": "ilo lipu",
+      "chrome": "Chrome",
+      "open-web": "lipu open",
+      "app-defaults": "ilo nanpa wan",
+      "software": "ilo nanpa",
+      "tools": "ilo",
+      "new-year": "tenpo sike sin",
+      "reflection": "pilin insa",
+      "health": "pona sijelo",
+      "tet": "tenpo Tet",
+      "vietnam": "ma Wijen",
+      "military": "kulupu utala",
+      "fedora": "Fedora",
+      "linux": "Linuksi",
+      "hardening": "awen wawa",
+      "values": "nasin pona",
+      "personal-philosophy": "nasin pi mi"
+    },
+    "categoryLabels": {
+      "personal": "pi mi",
+      "meta": "lon ni",
+      "identity": "nasin mi",
+      "technical": "pi ilo",
+      "privacy": "awen mi",
+      "opinions": "toki mi",
+      "life": "lon",
+      "security": "awen",
+      "guides": "pana sona"
+    }
   },
   "now": {
     "title": "tenpo ni",
