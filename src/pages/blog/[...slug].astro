@@ -80,8 +80,9 @@ interface Webmention {
   content?: { text?: string; html?: string };
 }
 
-const webmentionUrl = new URL(postUrl);
-webmentionUrl.pathname = stripLocale(webmentionUrl.pathname);
+const webmentionPath = stripLocale(new URL(postUrl).pathname);
+const webmentionUrl = import.meta.env.DEV ? new URL(siteUrl) : new URL(postUrl);
+webmentionUrl.pathname = webmentionPath;
 webmentionUrl.search = "";
 webmentionUrl.hash = "";
 const webmentionTarget = webmentionUrl.href.endsWith("/") ? webmentionUrl.href : `${webmentionUrl.href}/`;
