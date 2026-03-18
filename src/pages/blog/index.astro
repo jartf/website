@@ -11,8 +11,14 @@ const lang = Astro.locals?.lang || "en";
 const languageNames = Object.fromEntries(supportedLanguages.map(lang => [lang.code, lang.name]));
 const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
 const posts = allPosts.sort((a: any, b: any) => b.data.date.getTime() - a.data.date.getTime());
-const getUnique = (field: string) => [...new Set(posts.map((p: any) => p.data[field]).filter(Boolean))] as string[];
-const [uniqueMoods, uniqueCategories, uniqueLanguages] = [getUnique('mood'), getUnique('category'), [...new Set(posts.map((p: any) => p.data.language || 'en'))]];
+const getPostTags = (post: CollectionEntry<"blog">) => post.data.tags || [];
+const getPostCategories = (post: CollectionEntry<"blog">) => post.data.categories?.length ? post.data.categories : post.data.category ? [post.data.category] : [];
+const getUniqueScalar = (field: string) => [...new Set(posts.map((p: any) => p.data[field]).filter(Boolean))] as string[];
+const getUniqueFromArrays = (getter: (post: CollectionEntry<"blog">) => string[]) => [...new Set(posts.flatMap(getter).filter(Boolean))] as string[];
+const uniqueMoods = getUniqueScalar('mood');
+const uniqueCategories = getUniqueFromArrays(getPostCategories);
+const uniqueTags = getUniqueFromArrays(getPostTags);
+const uniqueLanguages = [...new Set(posts.map((p: any) => p.data.language || 'en'))];
 
 const feedButtons = [
   { id: 'rss', icon: '<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>', label: 'blog.rss', titleKey: 'blog.subscribeRSS', descKey: 'blog.rssDescription', path: '/rss' },
@@ -41,6 +47,12 @@ const checkboxFilterGroups = [
     filterClass: 'category-filter',
     fieldsetClass: filterFieldsetClass,
     items: (uniqueCategories as string[]).map(value => ({ value, label: value })),
+  },
+  {
+    key: 'blog.tag',
+    filterClass: 'tag-filter',
+    fieldsetClass: filterFieldsetClass,
+    items: (uniqueTags as string[]).map(value => ({ value, label: value })),
   },
 ].filter(group => group.items.length > 0);
 
@@ -199,9 +211,9 @@ const catApprovedOptions = [
           <article
             class="border rounded-lg overflow-hidden bg-card transition-all duration-300 hover:shadow-md hover:border-primary/50 group blog-post"
             data-title={post.data.title.toLowerCase()}
-            data-tags={(post.data.tags || []).join(',').toLowerCase()}
+            data-tags={getPostTags(post).join(',').toLowerCase()}
+            data-categories={getPostCategories(post).join(',').toLowerCase()}
             data-excerpt={(post.data.excerpt || '').toLowerCase()}
-            data-category={(post.data.category || '').toLowerCase()}
             data-mood={(post.data.mood || '').toLowerCase()}
             data-language={post.data.language || 'en'}
             data-cat-approved={post.data.catApproved ? 'true' : 'false'}
@@ -267,12 +279,12 @@ const catApprovedOptions = [
 
               <!-- Category and tags -->
               <div class="flex flex-wrap gap-2 mb-3">
-                {post.data.category && (
+                {getPostCategories(post).map((category: string) => (
                   <span class="px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
-                    {post.data.category}
+                    {category}
                   </span>
-                )}
-                {post.data.tags?.map((tag: string) => (
+                ))}
+                {getPostTags(post).map((tag: string) => (
                   <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded border text-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>
@@ -320,6 +332,7 @@ const catApprovedOptions = [
     langs: [] as string[],
     moods: [] as string[],
     cats: [] as string[],
+    tags: [] as string[],
     catApproved: null as boolean | null,
   };
   const posts = Array.from(document.querySelectorAll('.blog-post')) as HTMLElement[];
@@ -384,17 +397,20 @@ const catApprovedOptions = [
     posts.forEach(post => {
       const title = post.dataset.title || '';
       const tags = post.dataset.tags || '';
+      const tagsArray = tags.split(',').filter(Boolean);
+      const categories = (post.dataset.categories || '').split(',').filter(Boolean);
       const excerpt = post.dataset.excerpt || '';
-      const category = post.dataset.category || '';
       const mood = post.dataset.mood || '';
       const language = post.dataset.language || 'en';
       const catApproved = post.dataset.catApproved || 'false';
+      const categoriesText = categories.join(' ');
 
       const matches =
-        (!searchQuery || [title, tags, excerpt, category].some(value => value.includes(searchQuery))) &&
+        (!searchQuery || [title, tags, excerpt, categoriesText].some(value => value.includes(searchQuery))) &&
         (!state.langs.length || state.langs.includes(language)) &&
         (!state.moods.length || state.moods.includes(mood)) &&
-        (!state.cats.length || state.cats.includes(category)) &&
+        (!state.cats.length || state.cats.some(category => categories.includes(category))) &&
+        (!state.tags.length || state.tags.some(tag => tagsArray.includes(tag))) &&
         (state.catApproved === null || catApproved === String(state.catApproved));
 
       post.hidden = !matches;
@@ -417,14 +433,14 @@ const catApprovedOptions = [
     const current = String(visibleCount);
     renderResultsCount(current, total);
 
-    const filterCount = state.langs.length + state.moods.length + state.cats.length + (state.catApproved !== null ? 1 : 0);
+    const filterCount = state.langs.length + state.moods.length + state.cats.length + state.tags.length + (state.catApproved !== null ? 1 : 0);
     const filterCountEl = document.getElementById('filter-count');
     if (filterCountEl) { filterCountEl.textContent = String(filterCount); filterCountEl.classList.toggle('hidden', filterCount === 0); }
     updateActiveFiltersDisplay();
   };
 
   const createFilterBadge = (type: string, value: string, onRemove: () => void) => {
-    const typeMap: Record<string, string> = { Language: t('blog.language'), Mood: t('blog.mood'), Category: t('blog.category'), 'Cat Approved': t('blog.cat') };
+    const typeMap: Record<string, string> = { Language: t('blog.language'), Mood: t('blog.mood'), Category: t('blog.category'), Tag: t('blog.tag'), 'Cat Approved': t('blog.cat') };
     const badge = document.createElement('span');
     badge.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs bg-card';
 
@@ -448,13 +464,14 @@ const catApprovedOptions = [
     const container = document.getElementById('active-filters');
     if (!container) return;
     container.replaceChildren();
-    const hasFilters = state.langs.length > 0 || state.moods.length > 0 || state.cats.length > 0 || state.catApproved !== null;
+    const hasFilters = state.langs.length > 0 || state.moods.length > 0 || state.cats.length > 0 || state.tags.length > 0 || state.catApproved !== null;
     container.classList.toggle('hidden', !hasFilters); container.classList.toggle('flex', hasFilters);
     if (!hasFilters) return;
 
     [...state.langs.map(l => ['Language', languageNames[l] || l, () => { state.langs = state.langs.filter(x => x !== l); (document.querySelector(`.language-filter[value="${l}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
      ...state.moods.map(m => ['Mood', m, () => { state.moods = state.moods.filter(x => x !== m); (document.querySelector(`.mood-filter[value="${m}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
      ...state.cats.map(c => ['Category', c, () => { state.cats = state.cats.filter(x => x !== c); (document.querySelector(`.category-filter[value="${c}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
+     ...state.tags.map(tag => ['Tag', tag, () => { state.tags = state.tags.filter(x => x !== tag); (document.querySelector(`.tag-filter[value="${tag}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
      ...(state.catApproved !== null ? [['Cat Approved', state.catApproved ? 'Yes' : 'No', () => { state.catApproved = null; (document.querySelector('input[name="cat-approved"][value="any"]') as HTMLInputElement).checked = true; filterAndSortPosts(); }]] : [])
     ].forEach(([type, value, onRemove]) => container.appendChild(createFilterBadge(type as string, value as string, onRemove as () => void)));
 
@@ -466,10 +483,10 @@ const catApprovedOptions = [
   };
 
   const resetFilters = () => {
-    Object.assign(state, { search: '', sort: 'newest', langs: [], moods: [], cats: [], catApproved: null });
+    Object.assign(state, { search: '', sort: 'newest', langs: [], moods: [], cats: [], tags: [], catApproved: null });
     const searchInput = document.getElementById('blog-search') as HTMLInputElement; if (searchInput) searchInput.value = '';
     const sortSelect = document.getElementById('sort-select') as HTMLSelectElement; if (sortSelect) sortSelect.value = 'newest';
-    document.querySelectorAll('.language-filter, .mood-filter, .category-filter').forEach(el => (el as HTMLInputElement).checked = false);
+    document.querySelectorAll('.language-filter, .mood-filter, .category-filter, .tag-filter').forEach(el => (el as HTMLInputElement).checked = false);
     const anyCatApproved = document.querySelector('input[name="cat-approved"][value="any"]') as HTMLInputElement | null;
     if (anyCatApproved) anyCatApproved.checked = true;
     filterAndSortPosts();
@@ -527,6 +544,11 @@ const catApprovedOptions = [
     }
     if (target.classList.contains('category-filter')) {
       state.cats = target.checked ? [...state.cats, target.value] : state.cats.filter(v => v !== target.value);
+      filterAndSortPosts();
+      return;
+    }
+    if (target.classList.contains('tag-filter')) {
+      state.tags = target.checked ? [...state.tags, target.value] : state.tags.filter(v => v !== target.value);
       filterAndSortPosts();
       return;
     }

@@ -25,7 +25,8 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const { title, excerpt, date, updated, language, tags, category, readingTime, mood, catApproved, alternates } = post.data;
+const { title, excerpt, date, updated, language, tags, categories: rawCategories, readingTime, mood, catApproved, alternates } = post.data;
+const categories = rawCategories?.length ? rawCategories : post.data.category ? [post.data.category] : [];
 
 const postUrl = Astro.url.href;
 const postLang = language ?? "en";
@@ -49,7 +50,7 @@ const blogPostingStructuredData: Record<string, unknown> = {
   isAccessibleForFree: true,
   ...(updated && { dateModified: updated.toISOString() }),
   ...(tags?.length && { keywords: tags.join(", ") }),
-  ...(category && { articleSection: category }),
+  ...(categories.length && { articleSection: categories.join(", ") }),
   ...(readingTime && { timeRequired: `PT${Math.max(1, Math.round(readingTime))}M` }),
 };
 
@@ -154,6 +155,16 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
           {tags.map((tag: string) => (
             <span role="listitem" class="p-category text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
               {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {categories.length > 0 && (
+        <div class="flex gap-2 flex-wrap mt-2" role="list" aria-label="Categories">
+          {categories.map((entry: string) => (
+            <span role="listitem" class="p-category text-xs px-2 py-1 rounded border text-muted-foreground">
+              {entry}
             </span>
           ))}
         </div>
