@@ -7,7 +7,7 @@ catApproved: true
 readingTime: 2
 language: "vi"
 categories: ["personal", "meta"]
-tags: ["first post", "hello world"]
+tags: ["first post"]
 alternates:
   - language: en
     slug: hello-world

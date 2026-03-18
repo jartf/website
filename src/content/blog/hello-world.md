@@ -7,7 +7,7 @@ catApproved: true
 readingTime: 1
 language: "en"
 categories: ["personal", "meta"]
-tags: ["first post", "hello world"]
+tags: ["first post"]
 alternates:
   - language: vi
     slug: xin-chao
