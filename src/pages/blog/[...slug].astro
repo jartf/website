@@ -341,4 +341,53 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
   import { updateDateElements, dateFull } from "@/lib/utils/timezone-utils";
 
   updateDateElements(document, getPageLocale(), dateFull);
+
+  const copyIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>';
+  const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+  async function copyHandler(button: HTMLButtonElement, text: string): Promise<void> {
+    if (!text?.trim()) return;
+    try {
+      await navigator.clipboard.writeText(text);
+      button.classList.add('copied');
+      button.innerHTML = checkIcon;
+      setTimeout(() => {
+        button.classList.remove('copied');
+        button.innerHTML = copyIcon;
+      }, 2000);
+    } catch (err) {
+      console.error('Copy failed:', err);
+    }
+  }
+
+  function createButton(label: string): HTMLButtonElement {
+    const btn = document.createElement('button');
+    btn.className = 'copy-button';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', 'Copy to clipboard');
+    btn.innerHTML = copyIcon;
+    return btn;
+  }
+
+  function addCopyButtons(): void {
+    const blogContent = document.querySelector<HTMLElement>('.blog-content');
+    if (!blogContent) return;
+
+    [
+      { selector: 'pre', label: 'Copy code', textSel: 'code' },
+      { selector: 'blockquote', label: 'Copy quote', textSel: null }
+    ].forEach(({ selector, label, textSel }) => {
+      blogContent.querySelectorAll(selector).forEach((el) => {
+        if (el.querySelector('.copy-button')) return;
+        const btn = createButton(label);
+        btn.addEventListener('click', () => copyHandler(btn, (textSel ? el.querySelector(textSel) : el)?.textContent || ''));
+        el.appendChild(btn);
+      });
+    });
+  }
+
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', addCopyButtons)
+    : addCopyButtons();
 </script>
