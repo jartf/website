@@ -6,6 +6,8 @@ mood: "optimistic"
 catApproved: true
 readingTime: 2
 language: "vi"
+categories: ["personal", "meta"]
+tags: ["first post", "hello world"]
 alternates:
   - language: en
     slug: hello-world

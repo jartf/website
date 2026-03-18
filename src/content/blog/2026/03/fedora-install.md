@@ -7,6 +7,8 @@ mood: "neutral"
 catApproved: true
 readingTime: 18
 language: "en"
+categories: ["technical", "security", "privacy", "guides"]
+tags: ["Fedora", "Linux", "hardening"]
 ---
 
 I recently had to do a clean reinstall of Fedora, it was just about time anyway because my system config drifts far enough from what I remember that reinstalling is faster. The upside was that I had to redo everything from scratch, which forced me to actually document it this time. I'd already updated my app defaults post after realizing how outdated the 2024 version had gotten, and so now it's time for the system itself.

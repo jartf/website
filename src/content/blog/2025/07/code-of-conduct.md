@@ -6,6 +6,8 @@ mood: "neutral"
 catApproved: true
 readingTime: 2
 language: "en"
+categories: ["personal", "opinions"]
+tags: ["values", "personal philosophy"]
 ---
 
 This is my personal code of conduct. Nobody has to agree with it, but it's the way I live, and it's what I expect people to keep in mind if they want to deal with me respectfully.

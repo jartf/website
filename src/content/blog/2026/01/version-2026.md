@@ -6,6 +6,8 @@ mood: "celebrating"
 catApproved: true
 readingTime: 1
 language: "en"
+categories: ["personal", "life", "meta"]
+tags: ["new year", "reflection"]
 ---
 
 Here we are again, it's the first minutes of 2026. Some of my friends are going out to celebrate, meanwhile I'm just sitting at home talking in a Discord call with my bros. One bro is screaming too hard, another one is basically AFK, other bros complaining about past semester, and sometimes there's just silence because we're all a bit sleepy. I've finished all my university work (read: deadlines) for the semester, so this night there's just this oddly calm feeling because I have nothing to rush anymore.

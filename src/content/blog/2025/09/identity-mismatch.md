@@ -6,6 +6,8 @@ mood: "optimistic"
 catApproved: true
 readingTime: 6
 language: "en"
+categories: ["personal", "identity"]
+tags: ["identity", "belonging", "introspection"]
 alternates:
   - language: vi
     slug: 2025/09/lech-pha

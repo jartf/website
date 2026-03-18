@@ -6,6 +6,8 @@ mood: "optimistic"
 catApproved: true
 readingTime: 1
 language: "en"
+categories: ["personal", "meta"]
+tags: ["first post", "hello world"]
 alternates:
   - language: vi
     slug: xin-chao

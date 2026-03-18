@@ -6,6 +6,8 @@ mood: "tired"
 catApproved: true
 readingTime: 1
 language: "en"
+categories: ["personal", "life"]
+tags: ["health", "Tết", "Vietnam", "military"]
 ---
 
 I spent the last days of the old lunar year, from January 15th right up until the Kitchen God Festival, doing my military training duty. It was a character building experience, to say the least, and I guess I brought back a souvenir because I've been absolutely wrecked by the flu ever since. I can technically say I have been sick from last year to this year now. What an experience :D

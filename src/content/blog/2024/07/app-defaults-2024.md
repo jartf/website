@@ -6,6 +6,8 @@ mood: "happy"
 catApproved: true
 readingTime: 2
 language: "en"
+categories: ["technical", "personal"]
+tags: ["app defaults", "software", "tools"]
 ---
 
 So I just found out about the podcast Hemispheric Views, and [Episode 097 - Duel of the Defaults!](https://listen.hemisphericviews.com/097) inspired me to share my list of default apps I'm using now. Template shamelessly stolen from [Robb Knight](https://rknight.me/blog/app-defaults/):

@@ -6,6 +6,8 @@ mood: "happy"
 catApproved: true
 readingTime: 3
 language: "en"
+categories: ["technical", "personal"]
+tags: ["app defaults", "software", "tools"]
 ---
 
 It's been about a year and a half since I posted my [first defaults list](/blog/2024/07/app-defaults-2024), which was inspired by [Robb Knight's App Defaults](https://defaults.rknight.me/). Enough has changed since then and I think it's about time I do a proper update now. The changes are mostly toward less cloud, more control and more open source. I moved off Windows entirely, switched my phone to LineageOS, started self-hosting more things, and thought about privacy a lot more. Hence, there were a lot of changes in my daily apps.

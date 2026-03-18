@@ -6,6 +6,8 @@ mood: "frustrated"
 catApproved: true
 readingTime: 5
 language: "en"
+categories: ["technical", "privacy", "opinions"]
+tags: ["browsers", "Chrome", "open web", "privacy"]
 ---
 
 Okay, let's get this straight right off the bat: I do not use Chrome. I don't touch it. I don't keep it around as a backup "just in case". Heck, I don't even let it sit on my machines like some ugly pest hogging space in the corner. If you see a laptop and the first icon on the dock is that clown-colored wheel, odds are the person behind it didn't really choose Chrome. Chrome chose *them*. And that's the whole problem. It's not a browser anymore, it's a default state of existence, like gravity or taxes. People don't think about *why* they use it. They just... do.

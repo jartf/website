@@ -6,6 +6,8 @@ mood: "optimistic"
 catApproved: true
 readingTime: 6
 language: "vi"
+categories: ["personal", "identity"]
+tags: ["identity", "belonging", "introspection"]
 alternates:
   - language: en
     slug: 2025/09/identity-mismatch
