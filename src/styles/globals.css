@@ -472,6 +472,21 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
   @apply text-center text-sm text-muted-foreground mt-2 italic;
 }
 
+/* Enable text wrapping in code blocks */
+.blog-content pre,
+.blog-content code {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* Enable text wrapping in blockquotes */
+.blog-content blockquote {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 /* Badge pixelated rendering */
 .pixelated {
   image-rendering: -webkit-optimize-contrast; /* Edge 79+, Chrome, Safari */
