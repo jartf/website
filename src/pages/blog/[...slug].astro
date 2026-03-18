@@ -28,6 +28,28 @@ const { Content } = await render(post);
 const { title, excerpt, date, updated, language, tags, categories: rawCategories, readingTime, mood, catApproved, alternates } = post.data;
 const categories = rawCategories?.length ? rawCategories : post.data.category ? [post.data.category] : [];
 
+type TaxonomyMeta = { key: string; label: string };
+
+const toTaxonomyKey = (value: string): string => {
+  const base = value.trim().toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+  const slug = base.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  return slug || value;
+};
+
+const getCategoryMeta = (raw: string): TaxonomyMeta => {
+  const key = toTaxonomyKey(raw);
+  const translationKey = `blog.categoryLabels.${key}`;
+  const translated = t(lang, translationKey);
+  return { key, label: translated === translationKey ? raw : translated };
+};
+
+const getTagMeta = (raw: string): TaxonomyMeta => {
+  const key = toTaxonomyKey(raw);
+  const translationKey = `blog.tagLabels.${key}`;
+  const translated = t(lang, translationKey);
+  return { key, label: translated === translationKey ? raw : translated };
+};
+
 const postUrl = Astro.url.href;
 const postLang = language ?? "en";
 const description = excerpt || `Read "${title}" on ${siteName}.`;
@@ -151,20 +173,20 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
       </div>
 
       {tags?.length && (
-        <div class="flex gap-2 flex-wrap mt-4" role="list" aria-label="Tags">
+        <div class="flex gap-2 flex-wrap mt-4" role="list" aria-label={t(lang, "blog.tag")}>
           {tags.map((tag: string) => (
             <span role="listitem" class="p-category text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
-              {tag}
+              {getTagMeta(tag).label}
             </span>
           ))}
         </div>
       )}
 
       {categories.length > 0 && (
-        <div class="flex gap-2 flex-wrap mt-2" role="list" aria-label="Categories">
+        <div class="flex gap-2 flex-wrap mt-2" role="list" aria-label={t(lang, "blog.category")}>
           {categories.map((entry: string) => (
             <span role="listitem" class="p-category text-xs px-2 py-1 rounded border text-muted-foreground">
-              {entry}
+              {getCategoryMeta(entry).label}
             </span>
           ))}
         </div>

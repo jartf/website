@@ -14,11 +14,47 @@ const posts = allPosts.sort((a: any, b: any) => b.data.date.getTime() - a.data.d
 const getPostTags = (post: CollectionEntry<"blog">) => post.data.tags || [];
 const getPostCategories = (post: CollectionEntry<"blog">) => post.data.categories?.length ? post.data.categories : post.data.category ? [post.data.category] : [];
 const getUniqueScalar = (field: string) => [...new Set(posts.map((p: any) => p.data[field]).filter(Boolean))] as string[];
-const getUniqueFromArrays = (getter: (post: CollectionEntry<"blog">) => string[]) => [...new Set(posts.flatMap(getter).filter(Boolean))] as string[];
 const uniqueMoods = getUniqueScalar('mood');
-const uniqueCategories = getUniqueFromArrays(getPostCategories);
-const uniqueTags = getUniqueFromArrays(getPostTags);
 const uniqueLanguages = [...new Set(posts.map((p: any) => p.data.language || 'en'))];
+
+type TaxonomyMeta = { key: string; label: string };
+
+const toTaxonomyKey = (value: string): string => {
+  const base = value.trim().toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+  const slug = base.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  return slug || value;
+};
+
+const resolveCategory = (raw: string): TaxonomyMeta => {
+  const key = toTaxonomyKey(raw);
+  const translationKey = `blog.categoryLabels.${key}`;
+  const translated = serverT(lang, translationKey);
+  return { key, label: translated === translationKey ? raw : translated };
+};
+
+const resolveTag = (raw: string): TaxonomyMeta => {
+  const key = toTaxonomyKey(raw);
+  const translationKey = `blog.tagLabels.${key}`;
+  const translated = serverT(lang, translationKey);
+  return { key, label: translated === translationKey ? raw : translated };
+};
+
+const categoryMetaMap = new Map<string, TaxonomyMeta>();
+const tagMetaMap = new Map<string, TaxonomyMeta>();
+
+for (const post of posts) {
+  for (const category of getPostCategories(post)) {
+    const meta = resolveCategory(category);
+    if (!categoryMetaMap.has(meta.key)) categoryMetaMap.set(meta.key, meta);
+  }
+  for (const tag of getPostTags(post)) {
+    const meta = resolveTag(tag);
+    if (!tagMetaMap.has(meta.key)) tagMetaMap.set(meta.key, meta);
+  }
+}
+
+const categoryOptions = Array.from(categoryMetaMap.values()).sort((a, b) => a.label.localeCompare(b.label));
+const tagOptions = Array.from(tagMetaMap.values()).sort((a, b) => a.label.localeCompare(b.label));
 
 const feedButtons = [
   { id: 'rss', icon: '<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>', label: 'blog.rss', titleKey: 'blog.subscribeRSS', descKey: 'blog.rssDescription', path: '/rss' },
@@ -46,13 +82,13 @@ const checkboxFilterGroups = [
     key: 'blog.category',
     filterClass: 'category-filter',
     fieldsetClass: filterFieldsetClass,
-    items: (uniqueCategories as string[]).map(value => ({ value, label: value })),
+    items: categoryOptions.map(({ key, label }) => ({ value: key, label })),
   },
   {
     key: 'blog.tag',
     filterClass: 'tag-filter',
     fieldsetClass: filterFieldsetClass,
-    items: (uniqueTags as string[]).map(value => ({ value, label: value })),
+    items: tagOptions.map(({ key, label }) => ({ value: key, label })),
   },
 ].filter(group => group.items.length > 0);
 
@@ -211,8 +247,8 @@ const catApprovedOptions = [
           <article
             class="border rounded-lg overflow-hidden bg-card transition-all duration-300 hover:shadow-md hover:border-primary/50 group blog-post"
             data-title={post.data.title.toLowerCase()}
-            data-tags={getPostTags(post).join(',').toLowerCase()}
-            data-categories={getPostCategories(post).join(',').toLowerCase()}
+            data-tags={getPostTags(post).map(tag => resolveTag(tag).key).join(',')}
+            data-categories={getPostCategories(post).map(category => resolveCategory(category).key).join(',')}
             data-excerpt={(post.data.excerpt || '').toLowerCase()}
             data-mood={(post.data.mood || '').toLowerCase()}
             data-language={post.data.language || 'en'}
@@ -281,7 +317,7 @@ const catApprovedOptions = [
               <div class="flex flex-wrap gap-2 mb-3">
                 {getPostCategories(post).map((category: string) => (
                   <span class="px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
-                    {category}
+                    {resolveCategory(category).label}
                   </span>
                 ))}
                 {getPostTags(post).map((tag: string) => (
@@ -289,7 +325,7 @@ const catApprovedOptions = [
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>
                     </svg>
-                    {tag}
+                    {resolveTag(tag).label}
                   </span>
                 ))}
               </div>
@@ -382,6 +418,18 @@ const catApprovedOptions = [
     renderResultsCount(filtered, total);
   };
 
+  const resolveCategoryLabel = (key: string): string => {
+    const translationKey = `blog.categoryLabels.${key}`;
+    const translated = t(translationKey);
+    return translated === translationKey ? key : translated;
+  };
+
+  const resolveTagLabel = (key: string): string => {
+    const translationKey = `blog.tagLabels.${key}`;
+    const translated = t(translationKey);
+    return translated === translationKey ? key : translated;
+  };
+
   const initDefaultLanguageFilter = () => {
     const currentLang = getPageLocale(), baseLang = currentLang.split('-')[0];
     const hasPostsInLang = posts.some(p => [currentLang, baseLang].includes(p.dataset.language || ''));
@@ -470,8 +518,8 @@ const catApprovedOptions = [
 
     [...state.langs.map(l => ['Language', languageNames[l] || l, () => { state.langs = state.langs.filter(x => x !== l); (document.querySelector(`.language-filter[value="${l}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
      ...state.moods.map(m => ['Mood', m, () => { state.moods = state.moods.filter(x => x !== m); (document.querySelector(`.mood-filter[value="${m}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
-     ...state.cats.map(c => ['Category', c, () => { state.cats = state.cats.filter(x => x !== c); (document.querySelector(`.category-filter[value="${c}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
-     ...state.tags.map(tag => ['Tag', tag, () => { state.tags = state.tags.filter(x => x !== tag); (document.querySelector(`.tag-filter[value="${tag}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
+      ...state.cats.map(c => ['Category', resolveCategoryLabel(c), () => { state.cats = state.cats.filter(x => x !== c); (document.querySelector(`.category-filter[value="${c}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
+      ...state.tags.map(tag => ['Tag', resolveTagLabel(tag), () => { state.tags = state.tags.filter(x => x !== tag); (document.querySelector(`.tag-filter[value="${tag}"]`) as HTMLInputElement).checked = false; filterAndSortPosts(); }]),
      ...(state.catApproved !== null ? [['Cat Approved', state.catApproved ? 'Yes' : 'No', () => { state.catApproved = null; (document.querySelector('input[name="cat-approved"][value="any"]') as HTMLInputElement).checked = true; filterAndSortPosts(); }]] : [])
     ].forEach(([type, value, onRemove]) => container.appendChild(createFilterBadge(type as string, value as string, onRemove as () => void)));
 
