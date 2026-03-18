@@ -85,7 +85,7 @@ The output should be `DEFAULT:NO-SHA1`.
 Let's do a quick one-liner to add a bunch of good security-related boot parameters:
 
 ```bash
-sudo grubby --update-kernel=ALL --args="mitigations=auto spectre_v2=on spectre_bhi=on spec_store_bypass_disable=on tsx=off kvm.nx_huge_pages=force l1d_flush=on spec_rstack_overflow=safe-ret gather_data_sampling=force reg_file_data_sampling=on slab_nomerge init_on_alloc=1 pti=on vsyscall=none page_alloc.shuffle=1 randomize_kstack_offset=on debugfs=off quiet loglevel=0 random.trust_cpu=off random.trust_bootloader=off intel_iommu=on amd_iommu=force_isolation efi=disable_early_pci_dma iommu=force iommu.passthrough=0 iommu.strict=1"
+sudo grubby --update-kernel=ALL --args="mitigations=auto spectre_v2=on spectre_bhi=on spec_store_bypass_disable=on tsx=off kvm.nx_huge_pages=force l1d_flush=on spec_rstack_overflow=safe-ret gather_data_sampling=force reg_file_data_sampling=on slab_nomerge init_on_alloc=1 init_on_free=1 pti=on vsyscall=none page_alloc.shuffle=1 randomize_kstack_offset=on debugfs=off quiet loglevel=0 random.trust_cpu=off random.trust_bootloader=off intel_iommu=on amd_iommu=on efi=disable_early_pci_dma iommu=force iommu.passthrough=0 iommu.strict=1"
 ```
 
 For the explanation:
@@ -93,7 +93,11 @@ For the explanation:
 - The line `mitigations=auto spectre_v2=on spectre_bhi=on spec_store_bypass_disable=on tsx=off kvm.nx_huge_pages=force l1d_flush=on spec_rstack_overflow=safe-ret gather_data_sampling=force reg_file_data_sampling=on` enables various mitigations for Spectre and related CPU vulnerabilities, and thus protects against side-channel attacks that leak sensitive data from memory.
 - The part `slab_nomerge init_on_alloc=1 init_on_free=1 pti=on vsyscall=none page_alloc.shuffle=1 randomize_kstack_offset=on debugfs=off quiet loglevel=0` hardens the kernel against local attack vectors. It also reduces the amount of information available in case of a crash.
 - The `random.trust_cpu=off random.trust_bootloader=off` part tells the kernel not to trust any random number generator provided by the CPU or bootloader, and to rely solely on its own entropy sources. Some hardware RNGs are known to be insecure, and if the bootloader is compromised, it could generate predictable values. This will increase boot time.
-- The line `intel_iommu=on amd_iommu=force_isolation efi=disable_early_pci_dma iommu=force iommu.passthrough=0 iommu.strict=1` enables input-output memory management unit (hence, IOMMU) for Intel and AMD processors, which in turn helps mitigate direct memory access attacks.
+- The line `intel_iommu=on amd_iommu=on efi=disable_early_pci_dma iommu=force iommu.passthrough=0 iommu.strict=1` enables input-output memory management unit (hence, IOMMU) for Intel and AMD processors, which in turn helps mitigate direct memory access attacks.
+
+> **Note**: Some of these mitigations will have performance impacts on older hardware. You can selectively disable the ones that cause issues for you, but I recommend keeping as many on as possible for better security.
+
+> Also, some guides recommend setting `amd_iommu` to `force_isolation` instead of `on`, but that can cause a black screen with some AMD GPUs during boot. If you still see a black screen with `on` however, try removing the IOMMU parameters entirely, but be aware that this does reduce security against DMA attacks.
 
 If you want more details on what these parameters do, check out [Madaidan's Linux hardening guide](https://madaidans-insecurities.github.io/guides/linux-hardening.html#boot-parameters).
 
