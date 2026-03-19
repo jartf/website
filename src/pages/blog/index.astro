@@ -84,12 +84,6 @@ const checkboxFilterGroups = [
     fieldsetClass: filterFieldsetClass,
     items: categoryOptions.map(({ key, label }) => ({ value: key, label })),
   },
-  {
-    key: 'blog.tag',
-    filterClass: 'tag-filter',
-    fieldsetClass: filterFieldsetClass,
-    items: tagOptions.map(({ key, label }) => ({ value: key, label })),
-  },
 ].filter(group => group.items.length > 0);
 
 const catApprovedOptions = [
