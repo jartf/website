@@ -313,8 +313,8 @@ const catApprovedOptions = [
                 )}
               </div>
 
-              <!-- Category and tags -->
-              <div class="flex flex-wrap gap-2 mb-3">
+              <!-- Category and tags: keep in DOM for filtering but hide badges on cards -->
+              <div class="flex flex-wrap gap-2 mb-3 hidden" aria-hidden="true">
                 {getPostCategories(post).map((category: string) => (
                   <span class="px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
                     {resolveCategory(category).label}
