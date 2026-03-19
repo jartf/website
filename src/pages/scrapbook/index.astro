@@ -21,7 +21,7 @@ const lang = Astro.locals?.lang || "en";
       </header>
 
       {!entries.length ? (
-        <p class="text-muted-foreground">No entries yet.</p>
+        <p class="text-muted-foreground"><T key="scrapbook.noEntries" /></p>
       ) : (
         <ol class="space-y-6">
           {entries.map((entry: CollectionEntry<"scrapbook">) => (
