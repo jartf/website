@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "o pana e anpa lili sin",
       "hideRandom": "o len e anpa"
-    }
+    },
+    "filters": {
+      "all": "ali"
+    },
+    "clickToFlip": "o luka tawa sike",
+    "what": "ni li seme?",
+    "learned": "mi kama sona e seme",
+    "why": "tan seme la mi pali e ni?"
   },
   "blog": {
     "title": "lipu toki",
@@ -383,6 +390,11 @@
       "platform2": "lipu pi toki ala 2",
       "click5": "o luka 5 tawa lukin",
       "moreClicks": "(luka 5 sin tawa lukin)"
+    },
+    "hidden": {
+      "clickToReveal": "o luka 5 tawa lukin",
+      "clicksLeft": "(luka {{clicks}} sin tawa lukin)",
+      "platformPrefix": "lipu len"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "o awen e musi",
     "musicOn": "kalama lon",
     "musicOff": "kalama weka",
-    "nowPlaying": "kalama ni"
+    "nowPlaying": "kalama ni",
+    "spacebar": "namako tawa pini pi poki nimi"
   },
   "scrapbook": {
     "title": "toki pali",
-    "description": "toki pali tenpo pi mi pali e lipu ni."
+    "description": "toki pali tenpo pi mi pali e lipu ni.",
+    "noEntries": "toki ala li lon."
   },
   "settings": {
     "title": "nasin",
@@ -666,13 +680,16 @@
       "title": "kon suli",
       "content1": "lipu ni li kama tan",
       "content2": "ona li kama tan",
-      "content3": "pilin open li lon"
+      "content3": "pilin open li lon",
+      "maggie": "lipu pini pi jan Maggie Appleton",
+      "gwern": "lipu pini pi jan Gwern Branwen"
     }
   },
   "footer": {
     "copyright": "tenpo sike 2026, jan Jarema, nasin CC BY 4.0",
     "madeWith": "mi pali kepeken olin",
-    "andChaos": "en tenpo lili pi musi ilo"
+    "andChaos": "en tenpo lili pi musi ilo",
+    "decorativeStripe": "linja len pi anpa lipu"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "lipu lili",
     "description": "kulupu pi lipu suli ali pi lipu ni."
+  },
+  "game": {
+    "javascriptRequired": "wile e ilo JavaScript",
+    "javascriptRequiredDesc": "musi ni li wile e ilo JavaScript. o open e ilo JavaScript li sin e lipu."
   }
 }

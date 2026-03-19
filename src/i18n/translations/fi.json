@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "Näytä lisää satunnaisuutta",
       "hideRandom": "Piilota kaaos"
-    }
+    },
+    "filters": {
+      "all": "Kaikki"
+    },
+    "clickToFlip": "Klikkaa kääntääksesi",
+    "what": "Mikä se on?",
+    "learned": "Mitä opin",
+    "why": "Miksi tein sen?"
   },
   "blog": {
     "title": "Blogi",
@@ -383,6 +390,11 @@
       "platform2": "Nimeämätön alusta 2",
       "click5": "Klikkaa 5 kertaa paljastaaksesi",
       "moreClicks": "(5 klikkausta jäljellä)"
+    },
+    "hidden": {
+      "clickToReveal": "Klikkaa 5 kertaa paljastaaksesi",
+      "clicksLeft": "({{clicks}} klikkausta jäljellä)",
+      "platformPrefix": "Piilotettu alusta"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "Tauota peli",
     "musicOn": "Musiikki päällä",
     "musicOff": "Musiikki pois",
-    "nowPlaying": "Nyt soi"
+    "nowPlaying": "Nyt soi",
+    "spacebar": "Välilyönti"
   },
   "scrapbook": {
     "title": "Devlogi",
-    "description": "Muutamia kehityslokeja ajalta, jolloin tein tämän sivuston."
+    "description": "Muutamia kehityslokeja ajalta, jolloin tein tämän sivuston.",
+    "noEntries": "Ei merkintöjä vielä."
   },
   "settings": {
     "title": "Asetukset",
@@ -666,13 +680,16 @@
       "title": "Inspiraatio",
       "content1": "Tämä sivu on saanut inspiraatiota",
       "content2": "joka puolestaan on saanut inspiraatiota",
-      "content3": "Alkuperäinen idea"
+      "content3": "Alkuperäinen idea",
+      "maggie": "Maggie Appletonin kolofoni",
+      "gwern": "Gwern Branwenin kolofoni"
     }
   },
   "footer": {
     "copyright": "2026, ∴ Jarema, CC BY 4.0",
     "madeWith": "tehty rakkaudella",
-    "andChaos": "ja muutaman viikon säätämisellä"
+    "andChaos": "ja muutaman viikon säätämisellä",
+    "decorativeStripe": "Koristeellinen alatunnisteen raita"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "Vinoviivat",
     "description": "Luettelo kaikista tämän sivuston pääsivuista."
+  },
+  "game": {
+    "javascriptRequired": "JavaScript vaaditaan",
+    "javascriptRequiredDesc": "Tämä peli tarvitsee JavaScriptin toimiakseen. Ota JavaScript käyttöön ja lataa sivu uudelleen."
   }
 }

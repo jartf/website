@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "Hiện thêm vài dự án khác",
       "hideRandom": "Thôi ẩn đi, nhiều quá"
-    }
+    },
+    "filters": {
+      "all": "Tất cả"
+    },
+    "clickToFlip": "Nhấn để lật",
+    "what": "Nó là gì?",
+    "learned": "Những gì tôi học được",
+    "why": "Tại sao tôi làm cái này?"
   },
   "blog": {
     "title": "Blog",
@@ -383,6 +390,11 @@
       "platform2": "Nền tảng bí mật số 2",
       "click5": "Nhấn 5 lần để hiện",
       "moreClicks": "(còn 5 lần nhấn nữa để hiện)"
+    },
+    "hidden": {
+      "clickToReveal": "Nhấn 5 lần để hiện",
+      "clicksLeft": "(còn {{clicks}} lần nhấn nữa để hiện)",
+      "platformPrefix": "Nền tảng ẩn"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "Tạm dừng trò chơi",
     "musicOn": "Bật nhạc",
     "musicOff": "Tắt nhạc",
-    "nowPlaying": "Đang phát"
+    "nowPlaying": "Đang phát",
+    "spacebar": "Phím cách"
   },
   "scrapbook": {
     "title": "Devlog",
-    "description": "Một vài nhật ký phát triển khi tôi tạo ra trang web này."
+    "description": "Một vài nhật ký phát triển khi tôi tạo ra trang web này.",
+    "noEntries": "Chưa có mục nào."
   },
   "settings": {
     "title": "Cài đặt",
@@ -666,13 +680,16 @@
       "title": "Nguồn cảm hứng",
       "content1": "Trang này lấy cảm hứng từ",
       "content2": "mà lại có cảm hứng từ",
-      "content3": "Ý tưởng ban đầu ở trên"
+      "content3": "Ý tưởng ban đầu ở trên",
+      "maggie": "Colophon của Maggie Appleton",
+      "gwern": "Colophon của Gwern Branwen"
     }
   },
   "footer": {
     "copyright": "2026, ∴ Jarema, CC BY 4.0",
     "madeWith": "làm với mọi yêu thương",
-    "andChaos": "và vài tuần nghịch code"
+    "andChaos": "và vài tuần nghịch code",
+    "decorativeStripe": "Dải trang trí chân trang"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "Slashes",
     "description": "Danh sách tất cả các trang chính trên trang web này."
+  },
+  "game": {
+    "javascriptRequired": "Cần có JavaScript",
+    "javascriptRequiredDesc": "Trò chơi này cần JavaScript để chạy. Vui lòng bật JavaScript và tải lại trang."
   }
 }

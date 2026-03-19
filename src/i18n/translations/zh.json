@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "再显示几个项目",
       "hideRandom": "隐藏吧，太多了"
-    }
+    },
+    "filters": {
+      "all": "全部"
+    },
+    "clickToFlip": "翻转",
+    "what": "这是什么？",
+    "learned": "我学到了什么",
+    "why": "我为什么要做这个？"
   },
   "blog": {
     "title": "博客",
@@ -383,6 +390,11 @@
       "platform2": "秘密平台 2",
       "click5": "点击 5 次显示",
       "moreClicks": "(还需点击 5 次才能显示)"
+    },
+    "hidden": {
+      "clickToReveal": "点击 5 次显示",
+      "clicksLeft": "(还需点击 {{clicks}} 次才能显示)",
+      "platformPrefix": "隐藏平台"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "暂停游戏",
     "musicOn": "音乐开",
     "musicOff": "音乐关",
-    "nowPlaying": "正在播放"
+    "nowPlaying": "正在播放",
+    "spacebar": "空格键"
   },
   "scrapbook": {
     "title": "开发日志",
-    "description": "我搭建这个网站时的一些开发日志。"
+    "description": "我搭建这个网站时的一些开发日志。",
+    "noEntries": "暂无记录。"
   },
   "settings": {
     "title": "设置",
@@ -666,13 +680,16 @@
       "title": "灵感来源",
       "content1": "这个页面的灵感来自",
       "content2": "，而它的灵感又来自",
-      "content3": "最初的想法来自"
+      "content3": "最初的想法来自",
+      "maggie": "Maggie Appleton 的 colophon",
+      "gwern": "Gwern Branwen 的 colophon"
     }
   },
   "footer": {
     "copyright": "2026，∴ 承靖 (Jarema)，知识共享-署名 4.0 国际 (CC BY-4.0)",
     "madeWith": "用所有的爱制作",
-    "andChaos": "和几天瞎搞代码的时光"
+    "andChaos": "和几天瞎搞代码的时光",
+    "decorativeStripe": "页脚装饰条"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "斜杠",
     "description": "本网站所有主要页面的列表。"
+  },
+  "game": {
+    "javascriptRequired": "需要 JavaScript",
+    "javascriptRequiredDesc": "此游戏需要 JavaScript 才能运行。请启用 JavaScript 并重新加载页面。"
   }
 }

@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "Näita rohkem juhuslikkust",
       "hideRandom": "Peida kaos"
-    }
+    },
+    "filters": {
+      "all": "Kõik"
+    },
+    "clickToFlip": "Klõpsake pööramiseks",
+    "what": "Mis see on?",
+    "learned": "Mida ma õppisin",
+    "why": "Miks ma selle ehitasin?"
   },
   "blog": {
     "title": "Blogi",
@@ -383,6 +390,11 @@
       "platform2": "Nimetu platvorm 2",
       "click5": "Klõpsake 5 korda, et kuvada",
       "moreClicks": "(veel 5 klikki, et paljastada)"
+    },
+    "hidden": {
+      "clickToReveal": "Vajutage 5 korda, et kuvada",
+      "clicksLeft": "({{clicks}} klõpsu veel, et paljastada)",
+      "platformPrefix": "Peidetud platvorm"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "Mängu peatamine",
     "musicOn": "Muusika sees",
     "musicOff": "Muusika välja lülitatud",
-    "nowPlaying": "Praegu mängib"
+    "nowPlaying": "Praegu mängib",
+    "spacebar": "Tühik"
   },
   "scrapbook": {
     "title": "Devlogi",
-    "description": "Mõned arenduslogid sellest ajast, kui ma seda lehte ehitasin."
+    "description": "Mõned arenduslogid sellest ajast, kui ma seda lehte ehitasin.",
+    "noEntries": "Sissekandeid veel pole."
   },
   "settings": {
     "title": "Seaded",
@@ -666,13 +680,16 @@
       "title": "Inspiratsioon",
       "content1": "See leht ammutab inspiratsiooni",
       "content2": "mis omakorda on inspireeritud",
-      "content3": "Algne idee teemal"
+      "content3": "Algne idee teemal",
+      "maggie": "Maggie Appletoni kolofoon",
+      "gwern": "Gwern Branweni kolofoon"
     }
   },
   "footer": {
     "copyright": "2026, ∴ Jarema, CC BY 4.0",
     "madeWith": "armastusega tehtud",
-    "andChaos": "ja paar nädalat mängimist"
+    "andChaos": "ja paar nädalat mängimist",
+    "decorativeStripe": "Dekoratiivne jaluse triip"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "Kaldkriipsud",
     "description": "Nimekiri kõikidest selle saidi pealehtedest."
+  },
+  "game": {
+    "javascriptRequired": "JavaScript on nõutav",
+    "javascriptRequiredDesc": "See mäng vajab töötamiseks JavaScripti. Palun luba JavaScript ja lae leht uuesti."
   }
 }

@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "Daha fazla rastgelelik göster",
       "hideRandom": "Kaosu gizle"
-    }
+    },
+    "filters": {
+      "all": "Tümü"
+    },
+    "clickToFlip": "Çevirmek için tıkla",
+    "what": "Bu nedir?",
+    "learned": "Ne öğrendim",
+    "why": "Bunu neden yaptım?"
   },
   "blog": {
     "title": "Blog",
@@ -383,6 +390,11 @@
       "platform2": "Söylenemez Platform 2",
       "click5": "Ortaya çıkarmak için 5 kez tıkla",
       "moreClicks": "(ortaya çıkarmak için 5 tıklama daha)"
+    },
+    "hidden": {
+      "clickToReveal": "Ortaya çıkarmak için 5 kez tıkla",
+      "clicksLeft": "(ortaya çıkarmak için {{clicks}} tıklama daha)",
+      "platformPrefix": "Gizli Platform"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "Oyunu Duraklat",
     "musicOn": "Müzik Açık",
     "musicOff": "Müzik Kapalı",
-    "nowPlaying": "Şimdi çalıyor"
+    "nowPlaying": "Şimdi çalıyor",
+    "spacebar": "Boşluk"
   },
   "scrapbook": {
     "title": "Geliştirme Günlüğü",
-    "description": "Bu siteyi yaparkenki bazı geliştirme günlüklerim."
+    "description": "Bu siteyi yaparkenki bazı geliştirme günlüklerim.",
+    "noEntries": "Henüz giriş yok."
   },
   "settings": {
     "title": "Ayarlar",
@@ -666,13 +680,16 @@
       "title": "İlham Kaynağı",
       "content1": "Bu sayfa şuradan ilham alıyor:",
       "content2": "o da şuradan ilham alıyor:",
-      "content3": "Orijinal fikir şurada:"
+      "content3": "Orijinal fikir şurada:",
+      "maggie": "Maggie Appleton'ın kolofonu",
+      "gwern": "Gwern Branwen'in kolofonu"
     }
   },
   "footer": {
     "copyright": "2026, ∴ Jarema, CC BY 4.0",
     "madeWith": "sevgiyle yapıldı",
-    "andChaos": "ve birkaç günlük kodlamayla"
+    "andChaos": "ve birkaç günlük kodlamayla",
+    "decorativeStripe": "Dekoratif altbilgi şeridi"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "Slashler",
     "description": "Bu sitedeki tüm ana sayfaların bir listesi."
+  },
+  "game": {
+    "javascriptRequired": "JavaScript gerekli",
+    "javascriptRequiredDesc": "Bu oyunun çalışması için JavaScript gereklidir. Lütfen JavaScript'i etkinleştirin ve sayfayı yeniden yükleyin."
   }
 }

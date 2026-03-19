@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "Show more randomness",
       "hideRandom": "Hide the chaos"
-    }
+    },
+    "filters": {
+      "all": "All"
+    },
+    "clickToFlip": "Click to flip",
+    "what": "What is it?",
+    "learned": "What I learned",
+    "why": "Why did I build it?"
   },
   "blog": {
     "title": "Blog",
@@ -383,6 +390,11 @@
       "platform2": "Unspeakable platform 2",
       "click5": "Click 5 times to reveal",
       "moreClicks": "(5 more clicks to reveal)"
+    },
+    "hidden": {
+      "clickToReveal": "Click 5 times to reveal",
+      "clicksLeft": "({{clicks}} clicks to reveal)",
+      "platformPrefix": "Hidden platform"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "Pause game",
     "musicOn": "Music on",
     "musicOff": "Music off",
-    "nowPlaying": "Now playing"
+    "nowPlaying": "Now playing",
+    "spacebar": "Space"
   },
   "scrapbook": {
     "title": "Devlog",
-    "description": "Some development logs when I was building this site."
+    "description": "Some development logs when I was building this site.",
+    "noEntries": "No entries yet."
   },
   "settings": {
     "title": "Settings",
@@ -670,13 +684,16 @@
       "title": "Inspiration",
       "content1": "This page draws inspiration from",
       "content2": "which in turn draws inspiration from",
-      "content3": "Original idea on"
+      "content3": "Original idea on",
+      "maggie": "Maggie Appleton's colophon",
+      "gwern": "Gwern Branwen's colophon"
     }
   },
   "footer": {
     "copyright": "2026, ∴ Jarema, CC BY 4.0",
     "madeWith": "made with love",
-    "andChaos": "and a few weeks of screwing around"
+    "andChaos": "and a few weeks of screwing around",
+    "decorativeStripe": "Decorative footer stripe"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
         "description": "Count characters, words, sentences, paragraphs, and estimate reading/speaking time."
       }
     }
+  },
+  "game": {
+    "javascriptRequired": "JavaScript required",
+    "javascriptRequiredDesc": "This game needs JavaScript to run. Please enable JavaScript and reload the page."
   }
 }

@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "Vis mere tilfældighed",
       "hideRandom": "Skjul kaosset"
-    }
+    },
+    "filters": {
+      "all": "Alle"
+    },
+    "clickToFlip": "Klik for at vende",
+    "what": "Hvad er det?",
+    "learned": "Hvad jeg lærte",
+    "why": "Hvorfor byggede jeg det?"
   },
   "blog": {
     "title": "Blog",
@@ -383,6 +390,11 @@
       "platform2": "Ubeskrivelig platform 2",
       "click5": "Klik 5 gange for at afsløre",
       "moreClicks": "(5 flere klik for at afsløre)"
+    },
+    "hidden": {
+      "clickToReveal": "Klik 5 gange for at afsløre",
+      "clicksLeft": "({{clicks}} klik mere for at afsløre)",
+      "platformPrefix": "Skjult platform"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "Pause spil",
     "musicOn": "Musik til",
     "musicOff": "Musik fra",
-    "nowPlaying": "Spiller nu"
+    "nowPlaying": "Spiller nu",
+    "spacebar": "Mellemrum"
   },
   "scrapbook": {
     "title": "Devlog",
-    "description": "Nogle udviklingslogge fra da jeg byggede dette websted."
+    "description": "Nogle udviklingslogge fra da jeg byggede dette websted.",
+    "noEntries": "Ingen indlæg endnu."
   },
   "settings": {
     "title": "Indstillinger",
@@ -666,13 +680,16 @@
       "title": "Inspiration",
       "content1": "Denne side henter inspiration fra",
       "content2": "som igen henter inspiration fra",
-      "content3": "Original idé på"
+      "content3": "Original idé på",
+      "maggie": "Maggie Appletons kolofon",
+      "gwern": "Gwern Branwens kolofon"
     }
   },
   "footer": {
     "copyright": "2026, ∴ Jarema, CC BY 4.0",
     "madeWith": "lavet med kærlighed",
-    "andChaos": "og et par dages kodning"
+    "andChaos": "og et par dages kodning",
+    "decorativeStripe": "Dekorativ sidfods-stribe"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "Slashes",
     "description": "En liste over alle hovedsider på dette websted."
+  },
+  "game": {
+    "javascriptRequired": "JavaScript kræves",
+    "javascriptRequiredDesc": "Dette spil kræver JavaScript for at køre. Aktivér JavaScript og genindlæs siden."
   }
 }

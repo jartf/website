@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "Pokaż więcej losowych",
       "hideRandom": "Ukryj chaos"
-    }
+    },
+    "filters": {
+      "all": "Wszystkie"
+    },
+    "clickToFlip": "Kliknij, aby odwrócić",
+    "what": "Co to jest?",
+    "learned": "Czego się nauczyłem",
+    "why": "Dlaczego to zbudowałem?"
   },
   "blog": {
     "title": "Blog",
@@ -383,6 +390,11 @@
       "platform2": "Niewymawialna Platforma 2",
       "click5": "Kliknij 5 razy, by pokazać",
       "moreClicks": "(jeszcze 5 kliknięć, by pokazać)"
+    },
+    "hidden": {
+      "clickToReveal": "Kliknij 5 razy, by pokazać",
+      "clicksLeft": "(jeszcze {{clicks}} kliknięć, by pokazać)",
+      "platformPrefix": "Ukryta Platforma"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "Pauza",
     "musicOn": "Muzyka włączona",
     "musicOff": "Muzyka wyłączona",
-    "nowPlaying": "Teraz gra"
+    "nowPlaying": "Teraz gra",
+    "spacebar": "Spacja"
   },
   "scrapbook": {
     "title": "Devlog",
-    "description": "Niektóre logi deweloperskie z czasu tworzenia tej strony."
+    "description": "Niektóre logi deweloperskie z czasu tworzenia tej strony.",
+    "noEntries": "Brak wpisów."
   },
   "settings": {
     "title": "Ustawienia",
@@ -666,13 +680,16 @@
       "title": "Inspiracje",
       "content1": "Ta strona czerpie inspirację z",
       "content2": "która z kolei czerpie z",
-      "content3": "Oryginalny pomysł na"
+      "content3": "Oryginalny pomysł na",
+      "maggie": "Kolofon Maggie Appleton",
+      "gwern": "Kolofon Gwerna Branwena"
     }
   },
   "footer": {
     "copyright": "2026, ∴ Jarema, CC BY 4.0",
     "madeWith": "zrobione z miłością",
-    "andChaos": "i kilkoma dniami kodowania"
+    "andChaos": "i kilkoma dniami kodowania",
+    "decorativeStripe": "Ozdobny pasek stopki"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "Slashes",
     "description": "Lista wszystkich głównych stron w tej witrynie."
+  },
+  "game": {
+    "javascriptRequired": "Wymagany JavaScript",
+    "javascriptRequiredDesc": "Ta gra wymaga JavaScriptu do działania. Proszę włączyć JavaScript i odświeżyć stronę."
   }
 }

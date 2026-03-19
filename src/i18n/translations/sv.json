@@ -177,7 +177,14 @@
     "buttons": {
       "showRandom": "Visa mer slump",
       "hideRandom": "Dölj kaoset"
-    }
+    },
+    "filters": {
+      "all": "Alla"
+    },
+    "clickToFlip": "Klicka för att vända",
+    "what": "Vad är det?",
+    "learned": "Vad jag lärde mig",
+    "why": "Varför byggde jag den?"
   },
   "blog": {
     "title": "Blogg",
@@ -383,6 +390,11 @@
       "platform2": "Omtalad plattform 2",
       "click5": "Klicka 5 gånger för att visa",
       "moreClicks": "(5 klick kvar för att visa)"
+    },
+    "hidden": {
+      "clickToReveal": "Klicka 5 gånger för att visa",
+      "clicksLeft": "({{clicks}} klick kvar för att visa)",
+      "platformPrefix": "Dold plattform"
     }
   },
   "contact": {
@@ -448,11 +460,13 @@
     "pauseGame": "Pausa spelet",
     "musicOn": "Musik på",
     "musicOff": "Musik av",
-    "nowPlaying": "Spelar nu"
+    "nowPlaying": "Spelar nu",
+    "spacebar": "Mellanslag"
   },
   "scrapbook": {
     "title": "Devlogg",
-    "description": "Några utvecklingsloggar från när jag byggde den här sidan."
+    "description": "Några utvecklingsloggar från när jag byggde den här sidan.",
+    "noEntries": "Inga inlägg ännu."
   },
   "settings": {
     "title": "Inställningar",
@@ -666,13 +680,16 @@
       "title": "Inspiration",
       "content1": "Denna sida hämtar inspiration från",
       "content2": "som i sin tur inspirerats av",
-      "content3": "Ursprunglig idé på"
+      "content3": "Ursprunglig idé på",
+      "maggie": "Maggie Appletons kolofon",
+      "gwern": "Gwern Branwens kolofon"
     }
   },
   "footer": {
     "copyright": "2026, ∴ Jarema, CC BY 4.0",
     "madeWith": "gjord med kärlek",
-    "andChaos": "och några veckors kodande"
+    "andChaos": "och några veckors kodande",
+    "decorativeStripe": "Dekorativ sidfotsrand"
   },
   "keyboardShortcuts": {
     "2048": "2048",
@@ -840,5 +857,9 @@
   "slashes": {
     "title": "Snedstreck",
     "description": "En lista över alla huvudsidor på denna webbplats."
+  },
+  "game": {
+    "javascriptRequired": "JavaScript krävs",
+    "javascriptRequiredDesc": "Det här spelet behöver JavaScript för att köras. Aktivera JavaScript och ladda om sidan."
   }
 }
