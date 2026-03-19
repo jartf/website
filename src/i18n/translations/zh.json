@@ -215,7 +215,7 @@
     "subscribeAtom": "通过 Atom 订阅",
     "atomDescription": "在您喜欢的阅读器中订阅我的 Atom 源，以便第一时间获取新文章通知。",
     "availableIn": "此页面也有以下语言版本",
-    "comments": "Comments",
+    "comments": "评论",
     "webmentions": "网络提及",
     "webmentionsNone": "暂无网络提及。成为第一个回应的人吧！",
     "webmentionLike": "赞了此文",
@@ -302,7 +302,7 @@
       "media": "媒体服务"
     },
     "itemDescriptions": {
-      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "ryzen": "Ryzen 5 5500U, 512GB 固态硬盘",
       "externalHDD": "用于数据备份的外置硬盘",
       "mechanicalKeyboard": "红轴机械键盘",
       "wirelessMouse": "无线游戏鼠标",
@@ -531,7 +531,7 @@
       "symbolNote": "“所以”符号 (∴) 始终是我显示名称的一部分。它代表结果、逻辑结论、连接以及思维过程的终点；它直接且形状稳定。"
     },
     "logo": {
-      "title": "Logo",
+      "title": "标志",
       "faceOnly": "仅头像",
       "faceAndBody": "半身像",
       "dimensions1": "384×384px (或其倍数)",
@@ -838,9 +838,7 @@
     }
   },
   "slashes": {
-    "title": "Slashes",
-    "descriptionStart": "本网站上常见的页面，遵循 ",
-    "linkText": "slash pages",
-    "descriptionEnd": " 约定。"
+    "title": "斜杠",
+    "description": "本网站所有主要页面的列表。"
   }
 }

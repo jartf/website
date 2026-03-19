@@ -838,9 +838,7 @@
     }
   },
   "slashes": {
-    "title": "Slashes",
-    "descriptionStart": "Частые страницы на этом сайте в соответствии с концепцией ",
-    "linkText": "slash pages",
-    "descriptionEnd": "."
+    "title": "Слеши",
+    "description": "Список всех основных страниц на этом сайте."
   }
 }

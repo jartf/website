@@ -193,7 +193,7 @@
     "sortOld": "Äldst först",
     "sortReadTime": "Lästid",
     "sortABC": "Alfabetisk",
-    "filter": "Filter",
+    "filter": "Filtrera",
     "filterDescription": "Filtrera blogginlägg",
     "activeFilter": "Aktiva filter:",
     "filterNoMatch": "Inga inlägg matchar dina filter. Prova att ändra sökkriterier.",
@@ -838,9 +838,7 @@
     }
   },
   "slashes": {
-    "title": "Slashes",
-    "descriptionStart": "Vanliga sidor på denna webbplats, som följer ",
-    "linkText": "slash pages",
-    "descriptionEnd": "-konventionen."
+    "title": "Snedstreck",
+    "description": "En lista över alla huvudsidor på denna webbplats."
   }
 }

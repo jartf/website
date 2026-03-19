@@ -838,9 +838,7 @@
     }
   },
   "slashes": {
-    "title": "Slashes",
-    "descriptionStart": "Yleisiä sivuston lehtiä, jotka noudattavat ",
-    "linkText": "slash pages",
-    "descriptionEnd": " -käytäntöä."
+    "title": "Vinoviivat",
+    "description": "Luettelo kaikista tämän sivuston pääsivuista."
   }
 }

@@ -216,7 +216,7 @@
     "atomDescription": "Zasubskrybuj moje kanały Atom w swoim ulubionym czytniku, aby otrzymywać powiadomienia o nowych wpisach.",
     "availableIn": "Ta strona jest także dostępna w",
     "comments": "Komentarze",
-    "webmentions": "Webmentions",
+    "webmentions": "Wzmianki",
     "webmentionsNone": "Brak webmentions. Bądź pierwszą osobą, która odpowie!",
     "webmentionLike": "polubił(a) to",
     "webmentionRepost": "udostępnił(a) to",
@@ -302,7 +302,7 @@
       "media": "Serwisy medialne"
     },
     "itemDescriptions": {
-      "ryzen": "Ryzen 5 5500U, 512GB SSD",
+      "ryzen": "Ryzen 5 5500U, dysk 512GB SSD",
       "externalHDD": "Zewnętrzny dysk HDD do kopii zapasowych",
       "mechanicalKeyboard": "Klawiatura mechaniczna z czerwonymi switchami",
       "wirelessMouse": "Bezprzewodowa mysz gamingowa",
@@ -517,7 +517,7 @@
       "friends": "Znajomi",
       "other-sites": "Inne strony",
       "software": "Oprogramowanie",
-      "web": "Web",
+      "web": "Strony",
       "fun": "Rozrywka"
     }
   },
@@ -624,7 +624,7 @@
       "title": "Stos technologiczny",
       "nextjs": "Framework React umożliwiający SSR i generowanie stron statycznych",
       "react": "Biblioteka JavaScript do budowania interfejsów",
-      "tailwind": "Utility-first CSS framework",
+      "tailwind": "Narzędziowy framework CSS",
       "shadcn": "Biblioteka komponentów zbudowana z Radix UI i Tailwind",
       "framer": "Biblioteka animacji dla React",
       "i18next": "Framework do internacjonalizacji",
@@ -839,8 +839,6 @@
   },
   "slashes": {
     "title": "Slashes",
-    "descriptionStart": "Częste strony dostępne w tej witrynie, zgodne z konwencją ",
-    "linkText": "slash pages",
-    "descriptionEnd": "."
+    "description": "Lista wszystkich głównych stron w tej witrynie."
   }
 }

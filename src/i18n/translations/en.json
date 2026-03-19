@@ -472,9 +472,7 @@
   },
   "slashes": {
     "title": "Slashes",
-    "descriptionStart": "Common pages available on this site, following the",
-    "linkText": "slash pages",
-    "descriptionEnd": "convention."
+    "description": "A list of all main pages on this site."
   },
   "webrings": {
     "title": "Webrings",

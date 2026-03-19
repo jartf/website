@@ -839,8 +839,6 @@
   },
   "slashes": {
     "title": "Slashes",
-    "descriptionStart": "Các trang thường gặp có sẵn trên trang web này tuân theo quy ước ",
-    "linkText": "slash pages",
-    "descriptionEnd": "."
+    "description": "Danh sách tất cả các trang chính trên trang web này."
   }
 }

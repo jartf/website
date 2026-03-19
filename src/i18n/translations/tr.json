@@ -838,9 +838,7 @@
     }
   },
   "slashes": {
-    "title": "Slashes",
-    "descriptionStart": "Bu sitede bulunan ortak sayfalar, ",
-    "linkText": "slash pages",
-    "descriptionEnd": " kuralını takip eder."
+    "title": "Slashler",
+    "description": "Bu sitedeki tüm ana sayfaların bir listesi."
   }
 }

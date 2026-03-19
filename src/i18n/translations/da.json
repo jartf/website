@@ -185,7 +185,7 @@
     "language": "Sprog",
     "languageFilter": "Filtrer efter sprog",
     "tag": "Tag",
-    "sort": "Sort posts",
+    "sort": "Sortér indlæg",
     "category": "Kategori",
     "noPosts": "Ingen opslag endnu. Kig forbi igen snart!",
     "search": "Søg i opslag...",
@@ -289,7 +289,7 @@
       "mobile_tools": "Værktøjer til mobile enheder",
       "mapping": "Kortlægning",
       "gaming": "Gaming",
-      "multimedia": "Multimedia",
+      "multimedia": "Multimedie",
       "design": "Design & Illustration",
       "photo": "Fotoredigering",
       "video": "Video & Lyd",
@@ -654,7 +654,7 @@
       "title": "Tilgængelighed",
       "intro": "Jeg bestræber mig på at gøre denne side tilgængelig for alle. Funktioner inkluderer:",
       "item1": "Semantisk HTML-struktur",
-      "item2": "Skip-to-content links",
+      "item2": "Spring til indhold links",
       "item3": "Korrekt overskriftshierarki",
       "item4": "WCAG 2.1 AA farvekontrast",
       "item5": "Tastaturnavigation",
@@ -772,7 +772,7 @@
     "tools": "Værktøjer"
   },
   "firstVisitHint": {
-    "prefix": "Hint:",
+    "prefix": "Tip:",
     "message": "Du kan trykke på",
     "suffix": "-tasten for at åbne søgefeltet :D",
     "dismiss": "Afvis hint"
@@ -839,8 +839,6 @@
   },
   "slashes": {
     "title": "Slashes",
-    "descriptionStart": "Almindelige sider på dette websted, der følger ",
-    "linkText": "slash pages",
-    "descriptionEnd": "-konventionen."
+    "description": "En liste over alle hovedsider på dette websted."
   }
 }
