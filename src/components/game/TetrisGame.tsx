@@ -138,7 +138,7 @@ export default function TetrisGame() {
                   </div>
                 ))}
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex min-w-[65px] h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded px-2">Space</span>
+                  <span className="inline-flex min-w-[65px] h-8 bg-primary text-primary-foreground text-xs items-center justify-center rounded px-2">{t('spacebar')}</span>
                   <span>{t('hardDrop')}</span>
                 </div>
                 <div className="flex items-center gap-2">
