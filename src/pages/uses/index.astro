@@ -72,10 +72,10 @@ const getHiddenPlatform = (name: string) => name === 'Unspeakable Platform 1' ? 
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                           </svg>
-                          <span class="platform-name">Hidden Platform {item.name === 'Unspeakable Platform 1' ? '1' : '2'}</span>
-                          <span class="text-xs text-muted-foreground platform-counter">(5 clicks to reveal)</span>
+                          <span class="platform-name"><T key="uses.hidden.platformPrefix" /> {item.name === 'Unspeakable Platform 1' ? '1' : '2'}</span>
+                          <T key="uses.hidden.clicksLeft" tag="span" params={{ clicks: 5 }} class="text-xs text-muted-foreground platform-counter" />
                         </h4>
-                        <p class="text-muted-foreground platform-description">Click 5 times to reveal</p>
+                        <T key="uses.hidden.clickToReveal" tag="p" class="text-muted-foreground platform-description" />
                       </div>
                     </div>
                   ) : (
