@@ -173,9 +173,9 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
       </div>
 
       {tags?.length && (
-        <div class="flex gap-2 flex-wrap mt-4" role="list" aria-label={t(lang, "blog.tag")}>
+        <div class="flex gap-2 flex-wrap" role="list" aria-label={t(lang, "blog.tag")}>
           {tags.map((tag: string) => (
-            <span role="listitem" class="p-category text-xs px-2 py-1 rounded bg-muted text-muted-foreground">
+            <span role="listitem" class="p-category text-xs px-2 py-1 rounded bg-muted text-muted-foreground hidden" aria-hidden="true">
               {getTagMeta(tag).label}
             </span>
           ))}
@@ -183,9 +183,9 @@ const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
       )}
 
       {categories.length > 0 && (
-        <div class="flex gap-2 flex-wrap mt-2" role="list" aria-label={t(lang, "blog.category")}>
+        <div class="flex gap-2 flex-wrap" role="list" aria-label={t(lang, "blog.category")}>
           {categories.map((entry: string) => (
-            <span role="listitem" class="p-category text-xs px-2 py-1 rounded border text-muted-foreground">
+            <span role="listitem" class="p-category text-xs px-2 py-1 rounded border text-muted-foreground hidden" aria-hidden="true">
               {getCategoryMeta(entry).label}
             </span>
           ))}
