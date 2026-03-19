@@ -27,7 +27,9 @@
     "moveUp": "W górę",
     "moveDown": "W dół",
     "touchInstructions": "Na telefonie użyj przycisków na ekranie.",
-    "undo": "Cofnij"
+    "undo": "Cofnij",
+    "title": "2048",
+    "instructions4": "Po zdobyciu 2048, możesz kontynuować grę, aby osiągnąć jeszcze wyższe wyniki!"
   },
   "nav": {
     "home": "Strona główna",
@@ -42,7 +44,9 @@
     "webring": "Webring",
     "scrapbook": "Devlog",
     "slashes": "Mapa strony",
-    "brand": "Zestaw marki"
+    "brand": "Zestaw marki",
+    "badges": "Odznaki",
+    "tools": "Narzędzia"
   },
   "languageNotice": {
     "message": "Tłumaczenie na ten język jest w trakcie tworzenia. Niektóre treści mogą być niekompletne lub brakujące.",
@@ -93,7 +97,9 @@
   },
   "guestbook": {
     "title": "Księga gości",
-    "description": "Zostaw wpis w mojej księdze gości!"
+    "description": "Zostaw wpis w mojej księdze gości!",
+    "poweredBy": "Zasilane przez",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "O mnie",
@@ -445,7 +451,8 @@
     "nowPlaying": "Teraz gra"
   },
   "scrapbook": {
-    "title": "Devlog"
+    "title": "Devlog",
+    "description": "Niektóre logi deweloperskie z czasu tworzenia tej strony."
   },
   "settings": {
     "title": "Ustawienia",
@@ -689,7 +696,8 @@
     "refreshCat": "Odśwież kota nastroju",
     "gamePageNotice": "Większość skrótów jest wyłączona na stronach gier, by nie kolidowały ze sterowaniem.",
     "openShortcuts": "Otwórz skróty klawiaturowe",
-    "actionSearch": "Otwórz wyszukiwarkę akcji"
+    "actionSearch": "Otwórz wyszukiwarkę akcji",
+    "webring": "Webringi"
   },
   "actionSearch": {
     "2048": "Zagraj w 2048",
@@ -760,7 +768,8 @@
       "category": "Nawigacja po sekcjach kolofonu",
       "jumpToSection": "Przejdź do sekcji {{section}}",
       "jumpToSectionDescription": "Przejdź do sekcji {{section}}"
-    }
+    },
+    "tools": "Narzędzia"
   },
   "firstVisitHint": {
     "prefix": "Wskazówka:",
@@ -827,5 +836,11 @@
         "description": "Licz znaki, słowa, zdania, akapity i szacuj czas czytania/mówienia."
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "Częste strony dostępne w tej witrynie, zgodne z konwencją ",
+    "linkText": "slash pages",
+    "descriptionEnd": "."
   }
 }

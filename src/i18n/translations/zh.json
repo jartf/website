@@ -27,7 +27,9 @@
     "moveUp": "向上移动",
     "moveDown": "向下移动",
     "touchInstructions": "在移动设备上，滑动来移动方块或使用屏幕上的控制按钮。",
-    "undo": "撤销"
+    "undo": "撤销",
+    "title": "2048",
+    "instructions4": "达到2048后，您可以继续玩以获得更高的分数！"
   },
   "nav": {
     "home": "首页",
@@ -42,7 +44,9 @@
     "webring": "Webring",
     "scrapbook": "随笔",
     "slashes": "网站地图",
-    "brand": "品牌素材包"
+    "brand": "品牌素材包",
+    "badges": "徽章",
+    "tools": "工具"
   },
   "languageNotice": {
     "message": "此语言的翻译仍在进行中。某些内容可能不完整或缺失。",
@@ -73,13 +77,6 @@
     "night": "还没睡？我也是呢。"
   },
   "home": {
-    "typing": {
-      "intro": "你好，我是承靖。",
-      "economics": "经济学学生。",
-      "coder": "程序员。",
-      "cat": "爱猫人士。",
-      "chaotic": "有点乱但人很好。"
-    },
     "buttons": {
       "about": "关于我",
       "projects": "看看我的项目"
@@ -100,7 +97,9 @@
   },
   "guestbook": {
     "title": "留言簿",
-    "description": "在我的留言簿上留言吧！"
+    "description": "在我的留言簿上留言吧！",
+    "poweredBy": "技术支持由",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "关于我",
@@ -175,8 +174,6 @@
       "inProgress": "进行中",
       "planned": "计划中"
     },
-    "clickForDetails": "点击查看详情",
-    "clickToClose": "点击关闭",
     "buttons": {
       "showRandom": "再显示几个项目",
       "hideRandom": "隐藏吧，太多了"
@@ -394,9 +391,6 @@
     "message": "别害羞，来打个招呼吧。如果你想专业点，也可以预约 1 对 1 交流",
     "pgpNote": "PGP 密钥及其他验证方式可应要求提供。",
     "disclaimer": "我会回复邮件的。嗯，大概吧。除非我被猫或其他什么东西分心了",
-    "showKofi": "显示 Ko-fi",
-    "hideKofi": "隐藏 Ko-fi",
-    "supportKofi": "在 Ko-fi 上支持我",
     "sections": {
       "contactMe": "联系我",
       "socialMedia": "我在社交媒体上",
@@ -457,7 +451,8 @@
     "nowPlaying": "正在播放"
   },
   "scrapbook": {
-    "title": "开发日志"
+    "title": "开发日志",
+    "description": "我搭建这个网站时的一些开发日志。"
   },
   "settings": {
     "title": "设置",
@@ -701,7 +696,8 @@
     "refreshCat": "刷新猫咪心情",
     "gamePageNotice": "为了避免与游戏操作冲突，大多数快捷键在游戏页面上已被禁用。",
     "openShortcuts": "打开快捷键列表",
-    "actionSearch": "打开操作搜索"
+    "actionSearch": "打开操作搜索",
+    "webring": "Webrings"
   },
   "actionSearch": {
     "2048": "玩 2048",
@@ -772,7 +768,8 @@
       "category": "浏览尾注部分",
       "jumpToSection": "跳转到 {{section}}",
       "jumpToSectionDescription": "跳转到部分 {{section}}"
-    }
+    },
+    "tools": "工具"
   },
   "firstVisitHint": {
     "prefix": "提示：",
@@ -839,5 +836,11 @@
         "description": "统计字符、字词、句子、段落，并估算阅读/演讲时间。"
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "本网站上常见的页面，遵循 ",
+    "linkText": "slash pages",
+    "descriptionEnd": " 约定。"
   }
 }

@@ -27,7 +27,9 @@
     "moveUp": "tawa sewi",
     "moveDown": "tawa anpa",
     "touchInstructions": "lon ilo tawa la, o kepeken noka poka lon insa sitelen.",
-    "undo": "wekamoli"
+    "undo": "wekamoli",
+    "title": "2048",
+    "instructions4": "sina pini e 2048 la, sina ken musi awen tawa nanpa suli!"
   },
   "nav": {
     "home": "lipu open",
@@ -42,7 +44,9 @@
     "webring": "sike lipu",
     "scrapbook": "toki pali",
     "slashes": "lipu ale",
-    "brand": "poki pi sitelen mi"
+    "brand": "poki pi sitelen mi",
+    "badges": "len suli",
+    "tools": "ilo"
   },
   "languageNotice": {
     "message": "toki ni li lon pali. ijo ante li ken weka anu lili.",
@@ -93,7 +97,9 @@
   },
   "guestbook": {
     "title": "lipu pi jan kama",
-    "description": "o sitelen lon lipu pi jan kama mi!"
+    "description": "o sitelen lon lipu pi jan kama mi!",
+    "poweredBy": "wawa tan",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "sona mi",
@@ -385,9 +391,6 @@
     "message": "o wawa ala. o toki. anu o ante e tenpo 1:1 la sina wile pona :)",
     "pgpNote": "sina wile la, mi pana e ilo open PGP e nasin pi sona lon ante.",
     "disclaimer": "mi ken pana e toki e-mail. ken la waso li alasa e pilin mi.",
-    "showKofi": "o open Ko-fi",
-    "hideKofi": "o len Ko-fi",
-    "supportKofi": "o pana mani tawa mi lon Ko-fi",
     "sections": {
       "contactMe": "toki tawa mi",
       "socialMedia": "mi lon lipu pi kulupu",
@@ -448,7 +451,8 @@
     "nowPlaying": "kalama ni"
   },
   "scrapbook": {
-    "title": "toki pali"
+    "title": "toki pali",
+    "description": "toki pali tenpo pi mi pali e lipu ni."
   },
   "settings": {
     "title": "nasin",
@@ -692,7 +696,8 @@
     "refreshCat": "sin e soweli pilin",
     "gamePageNotice": "lon lipu musi la, nasin noka mute li weka tawa weka pakala.",
     "openShortcuts": "open e nasin noka",
-    "actionSearch": "open e alasa pali"
+    "actionSearch": "open e alasa pali",
+    "webring": "kulupu lipu webring"
   },
   "actionSearch": {
     "2048": "musi 2048",
@@ -763,7 +768,8 @@
       "category": "tawa lon 'tan lipu'",
       "jumpToSection": "tawa {{section}}",
       "jumpToSectionDescription": "tawa kulupu {{section}}"
-    }
+    },
+    "tools": "ilo"
   },
   "firstVisitHint": {
     "prefix": "sona:",
@@ -830,5 +836,11 @@
         "description": "o nanpa e sitelen, e nimi, o sona e tenpo tawa lukin e lipu."
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "lipu lili mute pi lipu suli ni li kepeken nasin ",
+    "linkText": "slash pages",
+    "descriptionEnd": "."
   }
 }

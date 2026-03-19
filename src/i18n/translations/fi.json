@@ -27,7 +27,9 @@
     "moveUp": "Siirrä ylös",
     "moveDown": "Siirrä alas",
     "touchInstructions": "Mobiililaitteilla käytä ruudun ohjaimia siirtääksesi laattoja.",
-    "undo": "Kumoa"
+    "undo": "Kumoa",
+    "title": "2048",
+    "instructions4": "Kun olet saavuttanut 2048:n, voit jatkaa peliä saadaksesi vielä korkeammat pisteet!"
   },
   "nav": {
     "home": "Koti",
@@ -42,7 +44,9 @@
     "webring": "Webring",
     "scrapbook": "Päiväkirja",
     "slashes": "Sivukartta",
-    "brand": "Brändimateriaalit"
+    "brand": "Brändimateriaalit",
+    "badges": "Merkit",
+    "tools": "Työkalut"
   },
   "languageNotice": {
     "message": "Tämän kielen käännökset ovat vielä työn alla. Osa sisällöstä voi olla puutteellista tai puuttua kokonaan.",
@@ -93,7 +97,9 @@
   },
   "guestbook": {
     "title": "Vieraskirja",
-    "description": "Jätä viesti vieraskirjaani!"
+    "description": "Jätä viesti vieraskirjaani!",
+    "poweredBy": "Tarjoaa",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "Minusta",
@@ -445,7 +451,8 @@
     "nowPlaying": "Nyt soi"
   },
   "scrapbook": {
-    "title": "Devlogi"
+    "title": "Devlogi",
+    "description": "Muutamia kehityslokeja ajalta, jolloin tein tämän sivuston."
   },
   "settings": {
     "title": "Asetukset",
@@ -689,7 +696,8 @@
     "refreshCat": "Päivitä kissatunnelma",
     "gamePageNotice": "Useimmat pikanäppäimet eivät toimi pelisivuilla, jotta ne eivät häiritse pelin ohjausta.",
     "openShortcuts": "Avaa pikanäppäimet",
-    "actionSearch": "Avaa toimintohaku"
+    "actionSearch": "Avaa toimintohaku",
+    "webring": "Verkkorenkaat"
   },
   "actionSearch": {
     "2048": "Pelaa 2048",
@@ -760,7 +768,8 @@
       "category": "Selaa kolofoniosioita",
       "jumpToSection": "Hyppää osioon {{section}}",
       "jumpToSectionDescription": "Siirry osioon {{section}}"
-    }
+    },
+    "tools": "Työkalut"
   },
   "firstVisitHint": {
     "prefix": "Vinkki:",
@@ -827,5 +836,11 @@
         "description": "Laske merkit, sanat, lauseet, kappaleet ja arvioi luku-/puheaika."
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "Yleisiä sivuston lehtiä, jotka noudattavat ",
+    "linkText": "slash pages",
+    "descriptionEnd": " -käytäntöä."
   }
 }

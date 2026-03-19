@@ -27,7 +27,9 @@
     "moveUp": "Flyt op",
     "moveDown": "Flyt ned",
     "touchInstructions": "På mobile enheder, swipe for at flytte brikker eller brug knapperne på skærmen.",
-    "undo": "Fortryd"
+    "undo": "Fortryd",
+    "title": "2048",
+    "instructions4": "Når du når 2048, kan du fortsætte med at spille for at opnå endnu højere point!"
   },
   "nav": {
     "home": "Hjem",
@@ -42,7 +44,9 @@
     "webring": "Webring",
     "scrapbook": "Scrapbog",
     "slashes": "Sideoversigt",
-    "brand": "Brand-kit"
+    "brand": "Brand-kit",
+    "badges": "Badges",
+    "tools": "Værktøjer"
   },
   "languageNotice": {
     "message": "Oversættelser til dette sprog er stadig under opbygning. Noget indhold kan være ufuldstændigt eller manglende.",
@@ -73,13 +77,6 @@
     "night": "Stadig vågen? Jeg også."
   },
   "home": {
-    "typing": {
-      "intro": "hej, jeg er Jarema.",
-      "economics": "økonomistuderende.",
-      "coder": "programmør.",
-      "cat": "katteelsker.",
-      "chaotic": "kaotisk god."
-    },
     "buttons": {
       "about": "Om mig",
       "projects": "Se mine projekter"
@@ -100,7 +97,9 @@
   },
   "guestbook": {
     "title": "Gæstebog",
-    "description": "Skriv en hilsen i min gæstebog!"
+    "description": "Skriv en hilsen i min gæstebog!",
+    "poweredBy": "Drevet af",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "Om mig",
@@ -110,9 +109,7 @@
         "title": "hvordan jeg blev til",
         "content1": "Jeg blev født i Vietnam i midten af 2000'erne, hvilket teknisk set gør mig til Gen Z, men jeg voksede op med en slags mellemting, der ikke helt passer ind i nogen kategori. Jeg var det stille barn bagerst i lokalet, men mit sind var aldrig rigtig stille. Jeg observerede alt, uanset om det var mennesker, mønstre eller magtdynamikker, og satte det hele stille og roligt sammen.",
         "content2": "Min barndom var en underlig blanding af digitale flugter og følelsesmæssige minefelter. Jeg havde ikke en perfekt familie. Jeg vil ikke engang lade som om, at jeg havde det.",
-        "content3": "Jeg var nødt til at vokse op hurtigt, følelsesmæssigt set, og jeg lærte tidligt, at det at være følsom betød, at man skulle være forsigtig.",
-        "content4": "Du lærer at lytte mere end at tale, at \"ændre din stemme\" og være neutral for at passe til situationen, at skjule dig selv, selv når ingen tvinger dig til det.",
-        "content5": "Men man lærer også modstandskraft. Du lærer at bygge et selv op fra bunden, når ingen giver dig en tegning."
+        "content3": "Jeg var nødt til at vokse op hurtigt, følelsesmæssigt set, og jeg lærte tidligt, at det at være følsom betød, at man skulle være forsigtig."
       },
       "2": {
         "title": "da jeg indså, at denne verden er et fusk",
@@ -173,8 +170,6 @@
       "learned": "Hvad jeg lærte",
       "why": "Hvorfor det er vigtigt"
     },
-    "clickForDetails": "Klik for detaljer",
-    "clickToClose": "Klik for at lukke",
     "cardActions": {
       "clickForDetails": "Klik for detaljer",
       "clickToClose": "Klik for at lukke"
@@ -396,9 +391,6 @@
     "message": "vær ikke genert. sig hej. eller book en 1:1, hvis du føler dig professionel :)",
     "disclaimer": "jeg svarer på e-mails. sandsynligvis. medmindre jeg bliver distraheret af en fugl eller noget idk",
     "pgpNote": "PGP-nøgler og andre bekræftelsesmetoder fås ved henvendelse.",
-    "showKofi": "Vis Ko-fi",
-    "hideKofi": "Skjul Ko-fi",
-    "supportKofi": "Støt mig på Ko-fi",
     "sections": {
       "contactMe": "Kontakt mig",
       "socialMedia": "Mig på sociale medier",
@@ -459,7 +451,8 @@
     "nowPlaying": "Spiller nu"
   },
   "scrapbook": {
-    "title": "Devlog"
+    "title": "Devlog",
+    "description": "Nogle udviklingslogge fra da jeg byggede dette websted."
   },
   "settings": {
     "title": "Indstillinger",
@@ -703,7 +696,8 @@
     "refreshCat": "Opdatér humørkatten",
     "gamePageNotice": "De fleste tastaturgenveje er deaktiveret på spil-sider for at undgå konflikter med spilkontroller.",
     "openShortcuts": "Åbn tastaturgenveje",
-    "actionSearch": "Åbn Handlingssøgning"
+    "actionSearch": "Åbn Handlingssøgning",
+    "webring": "Webringe"
   },
   "actionSearch": {
     "2048": "Spil 2048",
@@ -774,7 +768,8 @@
       "category": "Navigér i kolofonsektionerne",
       "jumpToSection": "Hop til {{section}}",
       "jumpToSectionDescription": "Gå til sektion {{section}}"
-    }
+    },
+    "tools": "Værktøjer"
   },
   "firstVisitHint": {
     "prefix": "Hint:",
@@ -841,5 +836,11 @@
         "description": "Tæl tegn, ord, sætninger, afsnit og anslå læse-/taletid."
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "Almindelige sider på dette websted, der følger ",
+    "linkText": "slash pages",
+    "descriptionEnd": "-konventionen."
   }
 }

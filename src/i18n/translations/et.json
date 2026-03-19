@@ -27,7 +27,9 @@
     "moveUp": "Liiguta üles",
     "moveDown": "Liiguta alla",
     "touchInstructions": "On mobile devices, use the on-screen controls to move tiles.",
-    "undo": "Võta tagasi"
+    "undo": "Võta tagasi",
+    "title": "2048",
+    "instructions4": "Pärast 2048 saavutamist võid jätkata mängimist, et saada veelgi suurem skoor."
   },
   "nav": {
     "home": "Avaleht",
@@ -42,7 +44,9 @@
     "webring": "Veebiring",
     "scrapbook": "Arenduspäevik",
     "slashes": "Sisukaart",
-    "brand": "Brändikomplekt"
+    "brand": "Brändikomplekt",
+    "badges": "Märgid",
+    "tools": "Tööriistad "
   },
   "languageNotice": {
     "message": "Selle keele tõlked on veel pooleli. Osa sisust võib olla puudulik või puudu.",
@@ -93,7 +97,9 @@
   },
   "guestbook": {
     "title": "Külalisteraamat",
-    "description": "Jäta teade minu külalisteraamatusse"
+    "description": "Jäta teade minu külalisteraamatusse",
+    "poweredBy": "Toetab",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "Minust",
@@ -445,7 +451,8 @@
     "nowPlaying": "Praegu mängib"
   },
   "scrapbook": {
-    "title": "Devlogi"
+    "title": "Devlogi",
+    "description": "Mõned arenduslogid sellest ajast, kui ma seda lehte ehitasin."
   },
   "settings": {
     "title": "Seaded",
@@ -689,7 +696,8 @@
     "refreshCat": "Refresh mood cat",
     "gamePageNotice": "Most keyboard shortcuts are disabled in game pages to avoid conflicts with game controls.",
     "openShortcuts": "Ava klaviatuuri otseteed",
-    "actionSearch": "Open Action Search"
+    "actionSearch": "Open Action Search",
+    "webring": "Veebiringid"
   },
   "actionSearch": {
     "2048": "Mängi 2048",
@@ -760,7 +768,8 @@
       "category": "Navigate through colophon sections",
       "jumpToSection": "Jump to {{section}}",
       "jumpToSectionDescription": "Navigate to section {{section}}"
-    }
+    },
+    "tools": "Tööriistad"
   },
   "firstVisitHint": {
     "prefix": "Vihje:",
@@ -827,5 +836,11 @@
         "description": "Loenda tähemärke, sõnu, lauseid, lõike ja hinda lugemis-/kõneaega."
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "Sellel saidil on levinud lehed, mis järgivad ",
+    "linkText": "slash pages",
+    "descriptionEnd": " tava."
   }
 }

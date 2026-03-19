@@ -27,7 +27,9 @@
     "moveUp": "Flytta upp",
     "moveDown": "Flytta ner",
     "touchInstructions": "På mobila enheter, använd knapparna på skärmen för att flytta brickor.",
-    "undo": "Ångra"
+    "undo": "Ångra",
+    "title": "2048",
+    "instructions4": "När du har nått 2048 kan du fortsätta spela för att få ännu högre poäng!"
   },
   "nav": {
     "home": "Hem",
@@ -42,7 +44,9 @@
     "webring": "Webbring",
     "scrapbook": "Dagbok",
     "slashes": "Sidkarta",
-    "brand": "Brand-kit"
+    "brand": "Brand-kit",
+    "badges": "Märken",
+    "tools": "Verktyg"
   },
   "languageNotice": {
     "message": "Översättningar för detta språk är fortfarande under arbete. Viss information kan vara ofullständig eller saknas.",
@@ -93,7 +97,9 @@
   },
   "guestbook": {
     "title": "Gästbok",
-    "description": "Lämna ett meddelande i min gästbok!"
+    "description": "Lämna ett meddelande i min gästbok!",
+    "poweredBy": "Drivs av",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "Om mig",
@@ -445,7 +451,8 @@
     "nowPlaying": "Spelar nu"
   },
   "scrapbook": {
-    "title": "Devlogg"
+    "title": "Devlogg",
+    "description": "Några utvecklingsloggar från när jag byggde den här sidan."
   },
   "settings": {
     "title": "Inställningar",
@@ -689,7 +696,8 @@
     "refreshCat": "Uppdatera humörkatt",
     "gamePageNotice": "De flesta tangentbordsgenvägar är avstängda på spelsidor för att undvika konflikter med spelkontroller.",
     "openShortcuts": "Öppna tangentbordsgenvägar",
-    "actionSearch": "Öppna åtgärdssökning"
+    "actionSearch": "Öppna åtgärdssökning",
+    "webring": "Webbringar"
   },
   "actionSearch": {
     "2048": "Spela 2048",
@@ -760,7 +768,8 @@
       "category": "Navigera bland kolofonsektioner",
       "jumpToSection": "Hoppa till {{section}}",
       "jumpToSectionDescription": "Navigera till sektion {{section}}"
-    }
+    },
+    "tools": "Verktyg"
   },
   "firstVisitHint": {
     "prefix": "Tips:",
@@ -827,5 +836,11 @@
         "description": "Räkna tecken, ord, meningar, stycken och uppskatta läs-/taltid."
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "Vanliga sidor på denna webbplats, som följer ",
+    "linkText": "slash pages",
+    "descriptionEnd": "-konventionen."
   }
 }

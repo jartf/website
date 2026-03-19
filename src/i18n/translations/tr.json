@@ -27,7 +27,9 @@
     "moveUp": "Yukarı Hareket",
     "moveDown": "Aşağı Hareket",
     "touchInstructions": "Mobil cihazlarda, karolar�� hareket ettirmek için kaydırın veya ekrandaki kontrolleri kullanın.",
-    "undo": "Geri Al"
+    "undo": "Geri Al",
+    "title": "2048",
+    "instructions4": "2048'e ulaştıktan sonra daha da yüksek puanlar elde etmek için oynamaya devam edebilirsiniz!"
   },
   "nav": {
     "home": "Ana sayfa",
@@ -42,7 +44,9 @@
     "webring": "Web halkası",
     "scrapbook": "Karalama defteri",
     "slashes": "Site haritası",
-    "brand": "Marka kiti"
+    "brand": "Marka kiti",
+    "badges": "Rozetler",
+    "tools": "Araçlar"
   },
   "languageNotice": {
     "message": "Bu dil için çeviriler hala yapım aşamasındadır. Bazı içerikler eksik veya tamamlanmamış olabilir.",
@@ -73,13 +77,6 @@
     "night": "Hala uyanık mısın? Ben de."
   },
   "home": {
-    "typing": {
-      "intro": "selam, ben Jarema.",
-      "economics": "ekonomi öğrencisi.",
-      "coder": "kodlayıcı.",
-      "cat": "kedi fısıldayan.",
-      "chaotic": "kaotik iyi."
-    },
     "buttons": {
       "about": "Hakkımda",
       "projects": "Projelerimi Gör"
@@ -100,7 +97,9 @@
   },
   "guestbook": {
     "title": "Ziyaretçi defteri",
-    "description": "Ziyaretçi defterime bir mesaj bırak!"
+    "description": "Ziyaretçi defterime bir mesaj bırak!",
+    "poweredBy": "Altyapı",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "Hakkımda",
@@ -171,8 +170,6 @@
       "learned": "Ne öğrendim",
       "why": "Neden önemli"
     },
-    "clickForDetails": "Detaylar için tıkla",
-    "clickToClose": "Kapatmak için tıkla",
     "cardActions": {
       "clickForDetails": "Detaylar için tıkla",
       "clickToClose": "Kapatmak için tıkla"
@@ -394,9 +391,6 @@
     "message": "çekinme. selam ver. ya da profesyonel hissediyorsan 1:1 görüşme ayarla :)",
     "pgpNote": "PGP anahtarları ve diğer doğrulama yöntemleri istek üzerine paylaşılır.",
     "disclaimer": "e-postalara cevap veriyorum. muhtemelen. bir kuş dikkatimi dağıtmazsa falan idk",
-    "showKofi": "Ko-fi'yi Göster",
-    "hideKofi": "Ko-fi'yi Gizle",
-    "supportKofi": "Beni Ko-fi'de destekle",
     "sections": {
       "contactMe": "Bana ulaş",
       "socialMedia": "Sosyal medyada ben",
@@ -457,7 +451,8 @@
     "nowPlaying": "Şimdi çalıyor"
   },
   "scrapbook": {
-    "title": "Geliştirme Günlüğü"
+    "title": "Geliştirme Günlüğü",
+    "description": "Bu siteyi yaparkenki bazı geliştirme günlüklerim."
   },
   "settings": {
     "title": "Ayarlar",
@@ -701,7 +696,8 @@
     "refreshCat": "Mod kedisini yenile",
     "gamePageNotice": "Oyun kontrolleriyle çakışmaları önlemek için oyun sayfalarında çoğu kısayol devre dışıdır.",
     "openShortcuts": "Klavye kısayollarını aç",
-    "actionSearch": "Eylem Aramasını Aç"
+    "actionSearch": "Eylem Aramasını Aç",
+    "webring": "Web halkaları"
   },
   "actionSearch": {
     "2048": "2048 oyna",
@@ -772,7 +768,8 @@
       "category": "Künye bölümlerinde gezin",
       "jumpToSection": "{{section}} bölümüne git",
       "jumpToSectionDescription": "{{section}} bölümüne git"
-    }
+    },
+    "tools": "Araçlar"
   },
   "firstVisitHint": {
     "prefix": "İpucu:",
@@ -839,5 +836,11 @@
         "description": "Karakterleri, kelimeleri, cümleleri, paragrafları sayın ve okuma/konuşma süresini tahmin edin."
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "Bu sitede bulunan ortak sayfalar, ",
+    "linkText": "slash pages",
+    "descriptionEnd": " kuralını takip eder."
   }
 }

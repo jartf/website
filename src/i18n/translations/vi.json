@@ -44,7 +44,9 @@
     "webring": "Webring",
     "scrapbook": "Ghi chép",
     "slashes": "Sơ đồ trang web",
-    "brand": "Bộ nhận diện"
+    "brand": "Bộ nhận diện",
+    "badges": "Huy hiệu",
+    "tools": "Công cụ"
   },
   "languageNotice": {
     "message": "Bản dịch cho ngôn ngữ này vẫn đang được xây dựng. Một số nội dung có thể chưa hoàn chỉnh hoặc bị thiếu.",
@@ -95,7 +97,9 @@
   },
   "guestbook": {
     "title": "Sổ lưu bút",
-    "description": "Hãy để lại lời nhắn trong sổ lưu bút của mình nhé!"
+    "description": "Hãy để lại lời nhắn trong sổ lưu bút của mình nhé!",
+    "poweredBy": "Được cung cấp bởi",
+    "atabook": "Atabook"
   },
   "about": {
     "title": "Về mình",
@@ -447,7 +451,8 @@
     "nowPlaying": "Đang phát"
   },
   "scrapbook": {
-    "title": "Devlog"
+    "title": "Devlog",
+    "description": "Một vài nhật ký phát triển khi tôi tạo ra trang web này."
   },
   "settings": {
     "title": "Cài đặt",
@@ -691,7 +696,8 @@
     "refreshCat": "Thay đổi ảnh mèo",
     "gamePageNotice": "Hầu hết các phím tắt ở các trang khác đều bị vô hiệu hóa ở các trang trò chơi để tránh xung đột với các phím điều hướng của các trò.",
     "openShortcuts": "Mở bảng phím tắt",
-    "actionSearch": "Mở thanh tìm kiếm"
+    "actionSearch": "Mở thanh tìm kiếm",
+    "webring": "Webrings"
   },
   "actionSearch": {
     "2048": "Chơi 2048",
@@ -762,7 +768,8 @@
       "category": "Điều hướng qua các phần thông tin",
       "jumpToSection": "Đi đến phần {{section}}",
       "jumpToSectionDescription": ""
-    }
+    },
+    "tools": "Công cụ"
   },
   "firstVisitHint": {
     "prefix": "Mách nhỏ:",
@@ -829,5 +836,11 @@
         "description": "Đếm ký tự, từ, câu, đoạn văn, ước tính thời gian đọc và nói."
       }
     }
+  },
+  "slashes": {
+    "title": "Slashes",
+    "descriptionStart": "Các trang thường gặp có sẵn trên trang web này tuân theo quy ước ",
+    "linkText": "slash pages",
+    "descriptionEnd": "."
   }
 }
