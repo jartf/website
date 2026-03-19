@@ -55,6 +55,58 @@ for (const post of posts) {
 
 const categoryOptions = Array.from(categoryMetaMap.values()).sort((a, b) => a.label.localeCompare(b.label));
 const tagOptions = Array.from(tagMetaMap.values()).sort((a, b) => a.label.localeCompare(b.label));
+const blogTitleKey = "blog.title";
+const blogDescriptionKey = "blog.description";
+const fallbackBlogTitle = "Blog";
+const fallbackBlogDescription = "Read my thoughts on economics, coding, and life.";
+const localizedBlogTitle = (() => {
+  const translated = serverT(lang, blogTitleKey);
+  return translated === blogTitleKey ? fallbackBlogTitle : translated;
+})();
+const localizedBlogDescription = (() => {
+  const translated = serverT(lang, blogDescriptionKey);
+  return translated === blogDescriptionKey ? fallbackBlogDescription : translated;
+})();
+const taxonomyKeywords = Array.from(new Set([
+  ...categoryOptions.map((entry: TaxonomyMeta) => entry.label),
+  ...tagOptions.map((entry: TaxonomyMeta) => entry.label),
+]));
+
+const blogIndexStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${Astro.url.href}#collection-page`,
+  url: Astro.url.href,
+  name: localizedBlogTitle,
+  description: localizedBlogDescription,
+  inLanguage: lang,
+  ...(taxonomyKeywords.length && {
+    about: taxonomyKeywords.map((label) => ({
+      "@type": "Thing",
+      name: label,
+    })),
+  }),
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: posts.map((post: CollectionEntry<"blog">, index: number) => {
+      const postTags = getPostTags(post).map((entry: string) => resolveTag(entry).label);
+      const postCategories = getPostCategories(post).map((entry: string) => resolveCategory(entry).label);
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        url: new URL(localePath(lang, `/blog/${post.id}/`), Astro.url.origin).href,
+        item: {
+          "@type": "BlogPosting",
+          headline: post.data.title,
+          datePublished: post.data.date.toISOString(),
+          inLanguage: post.data.language || "en",
+          ...(postTags.length && { keywords: postTags.join(", ") }),
+          ...(postCategories.length && { articleSection: postCategories.join(", ") }),
+        },
+      };
+    }),
+  },
+};
 
 const feedButtons = [
   { id: 'rss', icon: '<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>', label: 'blog.rss', titleKey: 'blog.subscribeRSS', descKey: 'blog.rssDescription', path: '/rss' },
@@ -93,7 +145,12 @@ const catApprovedOptions = [
 ];
 ---
 
-<BaseLayout title="Blog" description="Read my thoughts on economics, coding, and life.">
+<BaseLayout
+  title={localizedBlogTitle}
+  description={localizedBlogDescription}
+  keywords={[localizedBlogTitle, ...taxonomyKeywords]}
+  structuredData={blogIndexStructuredData}
+>
   <div class="container mx-auto px-4 py-8 lg:py-12">
     <div class="max-w-4xl mx-auto">
       <div class="flex justify-between items-center mb-6">
@@ -241,8 +298,8 @@ const catApprovedOptions = [
           <article
             class="border rounded-lg overflow-hidden bg-card transition-all duration-300 hover:shadow-md hover:border-primary/50 group blog-post"
             data-title={post.data.title.toLowerCase()}
-            data-tags={getPostTags(post).map(tag => resolveTag(tag).key).join(',')}
-            data-categories={getPostCategories(post).map(category => resolveCategory(category).key).join(',')}
+            data-tags={getPostTags(post).map((tag: string) => resolveTag(tag).key).join(',')}
+            data-categories={getPostCategories(post).map((category: string) => resolveCategory(category).key).join(',')}
             data-excerpt={(post.data.excerpt || '').toLowerCase()}
             data-mood={(post.data.mood || '').toLowerCase()}
             data-language={post.data.language || 'en'}

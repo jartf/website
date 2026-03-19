@@ -18,6 +18,12 @@ interface BreadcrumbItem {
   url: string;
 }
 
+interface MetaTag {
+  name?: string;
+  property?: string;
+  content: string;
+}
+
 interface Props {
   title?: string;
   description?: string;
@@ -25,6 +31,11 @@ interface Props {
   lang?: string;
   breadcrumbs?: BreadcrumbItem[];
   structuredData?: unknown | unknown[];
+  keywords?: string | string[];
+  canonicalUrl?: string;
+  ogType?: string;
+  ogImage?: string;
+  metaTags?: MetaTag[];
 }
 
 const {
@@ -34,6 +45,11 @@ const {
   lang: langProp,
   breadcrumbs = [],
   structuredData: structuredDataProp = [],
+  keywords = siteKeywords,
+  canonicalUrl,
+  ogType = "website",
+  ogImage,
+  metaTags = [],
 } = Astro.props;
 
 const lang = langProp || Astro.locals?.lang || "en";
@@ -46,6 +62,13 @@ const extraStructuredData = Array.isArray(structuredDataProp)
     : [];
 
 const fullTitle = isHomePage ? title : `${title} - ${siteName}`;
+const canonicalHref = canonicalUrl ?? new URL(localePath(lang, basePath), siteUrl).href;
+const resolvedKeywords = Array.isArray(keywords) ? keywords.join(", ") : keywords;
+const resolvedOgImage = ogImage
+  ? /^https?:\/\//.test(ogImage)
+    ? ogImage
+    : new URL(ogImage, siteUrl).href
+  : `${siteUrl}/android-chrome-512x512.png`;
 
 const defaultBreadcrumbs: BreadcrumbItem[] = (() => {
   const pathname = Astro.url.pathname;
@@ -168,7 +191,7 @@ const structuredData = {
     <meta name="title" content={fullTitle} />
     <meta name="description" content={description} />
     <meta name="keywords"
-      content={siteKeywords}
+      content={resolvedKeywords}
     />
     <meta name="author" content={author.name} />
 
@@ -183,11 +206,11 @@ const structuredData = {
     <meta name="theme-color" content={themeColors.light} media="(prefers-color-scheme: light)" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalHref} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${siteUrl}/android-chrome-512x512.png`} />
+    <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content={ogLocale} />
 
@@ -195,7 +218,15 @@ const structuredData = {
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${siteUrl}/android-chrome-512x512.png`} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+
+    {metaTags.map((tag) => (
+      tag.property ? (
+        <meta property={tag.property} content={tag.content} />
+      ) : tag.name ? (
+        <meta name={tag.name} content={tag.content} />
+      ) : null
+    ))}
 
     <!-- Identity verification -->
     <link rel="me" href={socialLinks.github} />
@@ -224,7 +255,7 @@ const structuredData = {
     ))}
 
     <!-- hreflang tags -->
-    <link rel="canonical" href={new URL(localePath(lang, basePath), siteUrl).href} />
+    <link rel="canonical" href={canonicalHref} />
     {hrefLangLanguages.map((l) => (
         <link rel="alternate" hreflang={l.code} href={new URL(localePath(l.code, basePath), siteUrl).href} />
       ))}

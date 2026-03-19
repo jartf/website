@@ -50,6 +50,13 @@ const getTagMeta = (raw: string): TaxonomyMeta => {
   return { key, label: translated === translationKey ? raw : translated };
 };
 
+const categoryMeta = categories.map(getCategoryMeta);
+const tagMeta = (tags ?? []).map(getTagMeta);
+const taxonomyKeywords = Array.from(new Set([
+  ...categoryMeta.map((entry: TaxonomyMeta) => entry.label),
+  ...tagMeta.map((entry: TaxonomyMeta) => entry.label),
+]));
+
 const postUrl = Astro.url.href;
 const postLang = language ?? "en";
 const description = excerpt || `Read "${title}" on ${siteName}.`;
@@ -71,10 +78,23 @@ const blogPostingStructuredData: Record<string, unknown> = {
   image: [`${siteUrl}/android-chrome-512x512.png`],
   isAccessibleForFree: true,
   ...(updated && { dateModified: updated.toISOString() }),
-  ...(tags?.length && { keywords: tags.join(", ") }),
-  ...(categories.length && { articleSection: categories.join(", ") }),
+  ...(taxonomyKeywords.length && { keywords: taxonomyKeywords.join(", ") }),
+  ...(categoryMeta.length && { articleSection: categoryMeta.map((entry: TaxonomyMeta) => entry.label).join(", ") }),
+  ...(taxonomyKeywords.length && {
+    about: taxonomyKeywords.map((label) => ({
+      "@type": "Thing",
+      name: label,
+    })),
+  }),
   ...(readingTime && { timeRequired: `PT${Math.max(1, Math.round(readingTime))}M` }),
 };
+
+const postMetaTags = [
+  { property: "article:published_time", content: date.toISOString() },
+  ...(updated ? [{ property: "article:modified_time", content: updated.toISOString() }] : []),
+  ...categoryMeta.map((entry: TaxonomyMeta) => ({ property: "article:section", content: entry.label })),
+  ...tagMeta.map((entry: TaxonomyMeta) => ({ property: "article:tag", content: entry.label })),
+];
 
 // Post navigation
 const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
@@ -128,7 +148,16 @@ const hasWebmentions = webmentions.length > 0;
 const formatDate = (d: Date) => d.toLocaleDateString("en", dateFull);
 ---
 
-<BaseLayout title={title} description={description} lang={postLang} structuredData={blogPostingStructuredData}>
+<BaseLayout
+  title={title}
+  description={description}
+  lang={postLang}
+  structuredData={blogPostingStructuredData}
+  canonicalUrl={postUrl}
+  ogType="article"
+  keywords={[title, ...taxonomyKeywords]}
+  metaTags={postMetaTags}
+>
   <article class="h-entry container mx-auto px-4 py-8 lg:py-12 max-w-3xl">
     <header class="mb-8">
       <div class="text-sm text-muted-foreground mb-4">
