@@ -92,6 +92,9 @@
     "latestNow": "Mitä teen nyt",
     "currentMood": "Nykyinen mieliala",
     "currentStatus": "Nykyinen tila",
+    "time": "Nykyinen aika",
+    "yourTime": "Sinun aikasi",
+    "myTime": "Minun aikani",
     "viewAllWebrings": "Näytä kaikki verkkorenkaat",
     "checkOutSites": "Katso näitä sivustoja!"
   },

@@ -92,6 +92,9 @@
     "latestNow": "seme li lon mi lon tenpo ni",
     "currentMood": "pilin mi lon tenpo ni",
     "currentStatus": "ijo mi lon tenpo ni",
+    "time": "tenpo ni",
+    "yourTime": "tenpo sina",
+    "myTime": "tenpo mi",
     "viewAllWebrings": "o lukin e sike lipu ale",
     "checkOutSites": "o lukin e lipu ni!"
   },

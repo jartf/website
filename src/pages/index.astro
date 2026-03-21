@@ -34,7 +34,7 @@ const card = "border rounded-lg p-4 bg-card card-hover-effect";
             <T key="home.currentStatus" tag="h3" id="status-cafe-heading" class="text-lg font-bold mb-3 text-center" />
             <div class="text-center">
               <div id="statuscafe" class="w-full text-sm" data-statuscafe-user={author.statusCafeUsername}><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
-              <noscript><a href={services.statusCafe.profileUrl} class="text-sm text-primary hover:underline">status.cafe</a></noscript>
+              <noscript><a href={services.statusCafe.profileUrl} class="text-sm text-primary hover:underline">See my status.cafe profile here!</a></noscript>
             </div>
           </section>
 
@@ -48,15 +48,15 @@ const card = "border rounded-lg p-4 bg-card card-hover-effect";
           </section>
 
           <section class={card} aria-labelledby="timezone-heading">
-            <h3 id="timezone-heading" class="text-lg font-bold mb-3 text-center">Timezone</h3>
+            <T key="home.time" tag="h3" id="timezone-heading" class="text-lg font-bold mb-3 text-center" />
             <div class="flex items-center justify-center gap-6">
               <div class="text-center">
                 <p id="user-time" class="text-xl font-mono font-bold">--:--:--</p>
-                <p class="text-xs text-muted-foreground mt-1">Your time</p>
+                <p class="text-xs text-muted-foreground mt-1"><T key="home.yourTime" /></p>
               </div>
               <div class="text-center">
                 <p id="author-time" class="text-xl font-mono font-bold" data-timezone={authorTimezone}>--:--:--</p>
-                <p class="text-xs text-muted-foreground mt-1">My time ({authorTimezoneLabel})</p>
+                <p class="text-xs text-muted-foreground mt-1"><T key="home.myTime" /> ({authorTimezoneLabel})</p>
               </div>
             </div>
           </section>
@@ -81,6 +81,7 @@ const card = "border rounded-lg p-4 bg-card card-hover-effect";
                 <nav class="flex items-center justify-between gap-1 text-sm" aria-label={`Navigate ${ring.name}`}>
                   <a href={ring.previous} class="text-primary hover:text-primary/80 transition-colors px-1" aria-label={`Previous site in ${ring.name}`}>←</a>
                   <a href={ring.url} class="text-primary hover:underline font-medium mx-2 truncate flex-1 text-center" target="_blank" rel="noopener noreferrer">{ring.name}</a>
+                  {ring.random && <a href={ring.random} class="text-primary hover:text-primary/80 transition-colors px-1" aria-label={`Random site in ${ring.name}`}>🎲</a>}
                   <a href={ring.next} class="text-primary hover:text-primary/80 transition-colors px-1" aria-label={`Next site in ${ring.name}`}>→</a>
                 </nav>
               </div>

@@ -92,6 +92,9 @@
     "latestNow": "Что я делаю сейчас",
     "currentMood": "Текущее настроение",
     "currentStatus": "Текущий статус",
+    "time": "Текущее время",
+    "yourTime": "Ваше время",
+    "myTime": "Мое время",
     "viewAllWebrings": "Посмотреть все веб-кольца",
     "checkOutSites": "Загляните на эти сайты!"
   },

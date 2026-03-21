@@ -92,6 +92,9 @@
     "latestNow": "Hvad jeg laver lige nu",
     "currentMood": "Nuværende humør",
     "currentStatus": "Nuværende status",
+    "time": "Nuværende tid",
+    "yourTime": "Din tid",
+    "myTime": "Min tid",
     "viewAllWebrings": "Se alle webringe",
     "checkOutSites": "Tjek disse sider ud!"
   },

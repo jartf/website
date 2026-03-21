@@ -92,6 +92,9 @@
     "latestNow": "我现在在做什么",
     "currentMood": "当前心情",
     "currentStatus": "当前状态",
+    "time": "当前时间",
+    "yourTime": "你的时间",
+    "myTime": "我的时间",
     "viewAllWebrings": "查看所有网站环",
     "checkOutSites": "去看看这些网站吧！"
   },

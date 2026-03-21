@@ -92,6 +92,9 @@
     "latestNow": "Vad jag gör just nu",
     "currentMood": "Nuvarande humör",
     "currentStatus": "Nuvarande status",
+    "time": "Aktuell tid",
+    "yourTime": "Din tid",
+    "myTime": "Min tid",
     "viewAllWebrings": "Se alla webbringar",
     "checkOutSites": "Kolla in dessa sajter!"
   },

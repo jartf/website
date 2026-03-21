@@ -92,6 +92,9 @@
     "latestNow": "Mida ma hetkel teen",
     "currentMood": "Praegune tuju",
     "currentStatus": "Praegune staatus",
+    "time": "Praegune aeg",
+    "yourTime": "Sinu aeg",
+    "myTime": "Minu aeg",
     "viewAllWebrings": "Vaata kõiki veebiringid",
     "checkOutSites": "Vaata neid saite!"
   },

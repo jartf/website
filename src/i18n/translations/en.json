@@ -92,6 +92,9 @@
     "latestNow": "What I'm up to now",
     "currentMood": "Current mood",
     "currentStatus": "Current status",
+    "time": "Time",
+    "yourTime": "Your time",
+    "myTime": "My time",
     "viewAllWebrings": "View all webrings",
     "checkOutSites": "Check these sites out!"
   },

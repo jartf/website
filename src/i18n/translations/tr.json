@@ -92,6 +92,9 @@
     "latestNow": "Şu anda ne yapıyorum",
     "currentMood": "Şu anki ruh halim",
     "currentStatus": "Şu anki durumum",
+    "time": "Şu anki zaman",
+    "yourTime": "Senin zamanın",
+    "myTime": "Benim zamanım",
     "viewAllWebrings": "Tüm web çemberlerini gör",
     "checkOutSites": "Bu sitelere göz at!"
   },
