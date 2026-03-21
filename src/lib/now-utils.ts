@@ -102,7 +102,7 @@ function liveContent(item: LiveItem, includeIcon = true, compact = false): strin
 }
 
 export const renderCompact = (item: LiveItem, cls: string) =>
-  `<article class="${cls}">${liveContent(item, true, true)}</article>`;
+  `<article class="${cls} transition-all duration-200 hover:shadow-md hover:scale-[1.02]">${liveContent(item, true, true)}</article>`;
 
 export const renderCard = (item: LiveItem) =>
   `<article class="border rounded-lg p-6 bg-card hover:shadow-md transition-shadow"><div class="flex items-start gap-4">
