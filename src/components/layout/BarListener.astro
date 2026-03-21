@@ -45,11 +45,10 @@
       loading = true;
       Promise.all([
         import("@/components/layout/CommandBar"),
-        import("react-dom/client"),
-        import("react"),
-      ]).then(([{ CommandBar }, { createRoot }, React]) => {
+        import("preact"),
+      ]).then(([{ CommandBar }, { render, h }]) => {
         const el = document.getElementById("command-bar-root");
-        if (el) createRoot(el).render(React.createElement(CommandBar, { initialOpen: true }));
+        if (el) render(h(CommandBar, { initialOpen: true }), el);
       }).catch(() => { loading = false; });
       return;
     }
