@@ -296,7 +296,7 @@ export const domainHashes: Record<string, string> = {
 
 // Timezone
 export const authorTimezone = "Antarctica/Davis";
-export const authorTimezoneLabel = "GMT+7";
+export const authorTimezoneLabel = "Davis, 🇦🇶";
 
 export const preMidConfig = {
   authorizedUserId: "490457129090547733",
