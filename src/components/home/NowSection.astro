@@ -23,16 +23,16 @@ const getCategoryTranslation = (category: string) =>
   translations[lang]?.now?.categories?.[category] || translations.en.now?.categories?.[category] || category;
 ---
 
-<section aria-labelledby="now-heading" class="mb-12" id="now-section">
+<section aria-labelledby="now-heading" id="now-section">
   <h2 id="now-heading" class="text-2xl font-bold mb-4 text-center">
     <a href="/now/" tabindex="-1" class="no-underline hover:underline focus:underline text-inherit">
       <T key="home.latestNow" />
     </a>
   </h2>
-  <div class="border rounded-lg p-5 bg-card space-y-4 lg:max-h-[415px] overflow-y-auto overflow-x-hidden">
-    {displayItems.map((item, i) => (
+  <div class="grid grid-cols-1 gap-3" id="now-items-container">
+    {displayItems.map((item) => (
       <article
-        class={i < displayItems.length - 1 ? "border-b border-border pb-4" : ""}
+        class="border rounded-lg p-4 bg-card card-hover-effect hover:scale-[1.02]"
         data-now-content={JSON.stringify(item.content)}
         data-now-content-secondary={item.contentSecondary ? JSON.stringify(item.contentSecondary) : undefined}
         data-category={item.category}
@@ -69,7 +69,7 @@ const getCategoryTranslation = (category: string) =>
   import { updateDateElements, dateFull } from "@/lib/utils/timezone-utils";
 
   async function enhance() {
-    const container = document.getElementById("now-section")?.querySelector(".border.rounded-lg");
+    const container = document.getElementById("now-items-container");
     if (!container) return;
 
     try {
@@ -82,11 +82,11 @@ const getCategoryTranslation = (category: string) =>
         .filter(s => !hasType(conflictMap[s.cat]));
 
       const sorted = [
-        ...live.map(item => ({ dateObj: item.dateObj, html: (cls: string) => renderCompact(item, cls) })),
+        ...live.map(item => ({ dateObj: item.dateObj, html: () => renderCompact(item, "border rounded-lg p-4 bg-card") })),
         ...statics.map(s => ({ dateObj: s.dateObj, html: () => s.el.outerHTML })),
       ].sort((a, b) => b.dateObj.getTime() - a.dateObj.getTime()).slice(0, 3);
 
-      container.innerHTML = sorted.map((c, i) => c.html(i < sorted.length - 1 ? "border-b border-border pb-4" : "")).join("");
+      container.innerHTML = sorted.map(c => c.html()).join("");
       translate();
     } catch (e) { console.error("Failed to enhance with live data:", e); }
   }
