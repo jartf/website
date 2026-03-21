@@ -283,7 +283,7 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
 @layer utilities {
   /* Card hover effects */
   .card-hover-effect {
-    @apply transition-all duration-300 hover:shadow-md relative overflow-hidden cursor-pointer border border-border hover:border-primary/50;
+    @apply transition-all duration-300 hover:shadow-md hover:scale-[1.02] relative overflow-hidden cursor-pointer border border-border hover:border-primary/50;
   }
 
   .card-hover-effect::before {
