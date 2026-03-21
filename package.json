@@ -13,16 +13,14 @@
   "dependencies": {
     "@astrojs/check": "0.9.7",
     "@astrojs/netlify": "^7.0.2",
-    "@astrojs/react": "5.0.0",
+    "@astrojs/preact": "^4.0.0",
     "@astrojs/tailwind": "^6.0.2",
     "@astrojs/vercel": "^10.0.0",
-    "@nanostores/react": "^0.8.4",
     "astro": "^6.0.4",
     "framer-motion": "^12.36.0",
     "lucide-react": "^0.562.0",
     "nanostores": "^0.11.4",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "preact": "^10.24.1",
     "sharp": "^0.34.5"
   },
   "overrides": {
@@ -31,8 +29,6 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.8",
     "tailwindcss": "^3.4.19",

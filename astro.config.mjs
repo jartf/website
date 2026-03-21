@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import react from '@astrojs/react';
+import preact from '@astrojs/preact';
 import vercel from '@astrojs/vercel';
 import netlify from '@astrojs/netlify';
 
@@ -17,7 +17,7 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    react(),
+    preact({ compat: true }),
   ],
 
   // Image optimization

@@ -18,8 +18,8 @@ This is an Astro website using islands architecture, static HTML by default and 
 ### Key points
 
 - Static-first, most components are `.astro`
-- Interactive islands are implemented with React (`.tsx`)
-  - `client:only="react"` is used for client-only UI (for example, command bar)
+- Interactive islands are implemented with React (`.tsx`) through Preact
+  - `client:only="preact"` is used for client-only UI (for example, command bar)
   - `client:load` is used where hydration after SSR is wanted (for example, games)
 - Locale is inferred in middleware and injected into `Astro.locals.lang`
 - Blog HTML is post-processed in middleware to wrap standalone images into `<figure><figcaption>` using image alt text
