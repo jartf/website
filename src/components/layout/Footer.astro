@@ -57,19 +57,19 @@ import T from "@/components/T.astro";
           target="_blank"
           rel="noopener noreferrer"
           aria-label={alt}
-          class="focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
+          class="focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded transition-transform duration-200 hover:-translate-y-1"
         >
-          <Image src={src} alt={alt} width={88} height={31} class="hover:opacity-90 transition-opacity" loading="lazy" />
+          <Image src={src} alt={alt} width={88} height={31} class="transition-all duration-200 hover:brightness-110" loading="lazy" />
         </a>
       ) : (
-        <Image src={src} alt={alt} width={88} height={31} class="hover:opacity-90 transition-opacity" loading="lazy" />
+        <Image src={src} alt={alt} width={88} height={31} class="transition-all duration-200 hover:brightness-110 hover:-translate-y-1" loading="lazy" />
       )
     )}
   </nav>
 
   <!-- Site badge -->
-    <a class="flex justify-center mt-2 pb-3" href="/badges/" aria-label="View all badges">
-    <Image src="/badge.png" alt="A smiling Jarema in blue headphones under the stars" width={88} height={31} class="opacity-90 hover:opacity-100 transition-opacity" loading="lazy" />
+    <a class="flex justify-center mt-2 pb-3 transition-transform duration-200 hover:-translate-y-1" href="/badges/" aria-label="View all badges">
+    <Image src="/badge.png" alt="A smiling Jarema in blue headphones under the stars" width={88} height={31} class="transition-all duration-200 hover:brightness-110" loading="lazy" />
   </a>
 
   <!-- Pride flag stripe -->
