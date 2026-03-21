@@ -16,9 +16,21 @@ This is an Astro website using islands architecture, static HTML by default and 
 
 ### Key points
 
-- Static-first, most components are `.astro` files to utilize server-rendered HTML
-- React islands, with `client:only="react"` for client-side interactivity and `client:load` for SSR with hydration
-- State management using `nanostores` with `@nanostores/react` for shared state across islands
+- Static-first, most components are `.astro`
+- Interactive islands are implemented with React (`.tsx`)
+  - `client:only="react"` is used for client-only UI (for example, command bar)
+  - `client:load` is used where hydration after SSR is wanted (for example, games)
+- Locale is inferred in middleware and injected into `Astro.locals.lang`
+- Blog HTML is post-processed in middleware to wrap standalone images into `<figure><figcaption>` using image alt text
+
+### Deployment
+
+The project supports both Vercel and Netlify adapters. The adapter is selected based on environment variables:
+
+- Default adapter: `@astrojs/vercel`
+- If `NETLIFY` environment variable is set: `@astrojs/netlify`
+
+Build output is static (`output: "static"`) with dynamic runtime endpoints only where explicitly configured.
 
 ## Features
 
@@ -30,8 +42,8 @@ This is an Astro website using islands architecture, static HTML by default and 
 - Accessible (WCAG 2.1 AA)
 - Responsive design
 - RSS, Atom, JSON feeds per language, sitemap
-- IndieWeb: h-card, webmentions, IndieAuth
-- Global command bar
+- IndieWeb conventions (h-card, IndieAuth, Webmention)
+- Global command bar and keyboard navigation
 - Games: 2048, Tetris
 - Tools: text counter
 
@@ -57,6 +69,15 @@ pnpm build
 # Preview production build
 pnpm preview
 ```
+
+### Commands
+
+| Command        | Action                                |
+|----------------|---------------------------------------|
+| `pnpm dev`     | Start dev server at `localhost:4321`  |
+| `pnpm build`   | Build production output to `./dist/`  |
+| `pnpm preview` | Preview production build              |
+| `pnpm check`   | Run Astro + TypeScript checks         |
 
 ## Project structure
 
@@ -118,9 +139,7 @@ src/
 
 ## Development
 
-### Adding a blog post
-
-Create a new Markdown file in `src/content/blog/` with the following frontmatter:
+### Blog post frontmatter
 
 ```yaml
 ---
@@ -164,6 +183,20 @@ The site supports dark and light modes:
 - Language state managed via `languageStore` nanostore
 - Language detection from browser or localStorage
 
+### Runtime endpoints
+
+- `GET /api/lastfm`: fetches recent Last.fm tracks
+- `GET /api/premid` and `POST /api/premid`: PreMID activity bridge
+- `GET /.well-known/discord`: host-based Discord verification token (because I have multiple domains)
+
+### Feeds and SEO
+
+- RSS endpoint: `src/pages/rss.xml.ts`
+- Atom endpoint: `src/pages/atom.xml.ts`
+- JSON feed endpoint: `src/pages/feed.json.ts`
+- Sitemap: `src/pages/sitemap.xml.ts`
+- XML stylesheets are provided in `public/*.xsl`
+
 ### Component conventions
 
 **When to use `.astro` vs `.tsx`:**
@@ -171,36 +204,28 @@ The site supports dark and light modes:
 - Use `.astro` for static content, layouts, pages
 - Use `.tsx` with `client:only="react"` for interactive features (command bar, language toggle, games)
 
-**Island hydration directives:**
+**Island hydration examples:**
 
 ```astro
-<!-- No JS needed -->
+<!-- Static component -->
 <StaticComponent />
 
-<!-- Interactive, skip SSR -->
+<!-- Client-only interactive island -->
 <CommandBar client:only="react" />
 
-<!-- Interactive with SSR -->
+<!-- Hydrated interactive island -->
 <Game2048 client:load />
 ```
 
-## Commands
-
-| Command        | Action                                      |
-|----------------|---------------------------------------------|
-| `pnpm dev`     | Start dev server at `localhost:4321`        |
-| `pnpm build`   | Build for production to `./dist/`           |
-| `pnpm preview` | Preview production build locally            |
-| `pnpm check`   | Check TypeScript and Astro components       |
-
 ## External integrations
 
-- Deployment: Vercel (static output via `@astrojs/vercel`)
-- IndieAuth: implemented via indieauth.com
-- Webmentions: implemented via webmention.io
+- Deployment: Vercel (default) and Netlify
+- IndieAuth: indieauth.com
+- Webmentions: webmention.io
 - Last.fm: music listening data via API
 - PreMID: Discord activity for the Now section
 - imood and status.cafe: mood and status widgets
+- Analytics: Umami script proxied under `/stats/*`
 
 ## License
 
