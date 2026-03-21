@@ -7,7 +7,7 @@
       "@/*": ["./src/*"]
     },
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
+    "jsxImportSource": "preact",
     "resolveJsonModule": true
   },
   "include": ["src/**/*", "src/**/*.astro"],

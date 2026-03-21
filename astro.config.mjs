@@ -27,7 +27,7 @@ export default defineConfig({
 
   vite: {
     ssr: {
-      noExternal: ['lucide-react'],
+      noExternal: ['lucide-preact'],
     },
   },
 

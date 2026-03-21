@@ -32,7 +32,7 @@ const Icon = ({ d }: { d: string }) => (
   </svg>
 )
 
-const Overlay = (props: React.ComponentProps<typeof motion.div>) => (
+const Overlay = (props: any) => (
   <motion.div className={overlayBase} {...props} />
 )
 

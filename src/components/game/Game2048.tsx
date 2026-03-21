@@ -1,7 +1,7 @@
 // 2048 - React component for Astro
 // Ported from Next.js v4
 
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useCallback, useState } from 'preact/hooks'
 import { motion, AnimatePresence } from 'framer-motion'
 import { t as i18nT } from '@/i18n/client'
 import { useGame2048, getTileColor, getFontSize } from '@/hooks/game/use-game-2048'

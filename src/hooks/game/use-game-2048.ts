@@ -1,5 +1,5 @@
 // 2048 game hook
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'preact/hooks'
 
 // Types
 export type GameBoard = number[][]

@@ -1,7 +1,8 @@
 // Command palette
 // Ported from Next.js v4
 
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "preact/hooks";
+import type { JSX } from "preact";
 import { cycleLanguage, t as i18nT, getPageLocale } from "@/i18n/client";
 import { localePath } from "@/i18n/routing";
 import { routes, keyboardShortcuts } from "@/lib/constants";
@@ -11,10 +12,10 @@ import {
   ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, Calendar, Clock, Code, FileText,
   FlipHorizontal, Gamepad2, Home, Languages, Mail, MessagesSquare, Moon, RefreshCw,
   Search, Slash, Sun, Tag, User, Wrench, X
-} from "lucide-react";
+} from "lucide-preact";
 
 // Inline KeyboardShortcut component
-const KeyboardShortcut = ({ children }: { children: React.ReactNode }) => (
+const KeyboardShortcut = ({ children }: { children: JSX.Element | string | number }) => (
   <kbd className="px-1.5 py-0.5 text-xs bg-muted rounded border border-border font-mono">
     {children}
   </kbd>
@@ -44,7 +45,7 @@ const scrollTo = (id: string, block: ScrollLogicalPosition = "start") => {
 interface Action {
   id: string;
   label: string;
-  icon: React.ReactNode;
+  icon: JSX.Element;
   shortcut?: string;
   category: string;
   action: () => void;
@@ -99,12 +100,12 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
     const nav = (path: string) => () => { window.location.href = localePath(locale, path); close() };
 
     // Helper for keyboard-dispatch actions
-    const keyAction = (id: string, label: string, icon: React.ReactNode, shortcut: string, category: string, key: string, showOn: string[]): Action => ({
+    const keyAction = (id: string, label: string, icon: JSX.Element, shortcut: string, category: string, key: string, showOn: string[]): Action => ({
       id, label, icon, shortcut, category, action: () => { dispatchKey(key); close(); }, showOn,
     });
 
     // Navigation actions (data-driven)
-    const navIcons: Record<string, React.ReactNode> = {
+    const navIcons: Record<string, JSX.Element> = {
       home: <Home className="h-4 w-4 text-primary" />,
       about: <User className="h-4 w-4 text-primary" />,
       projects: <Code className="h-4 w-4 text-primary" />,
@@ -253,7 +254,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
     // Scroll-to-category helper for multiple pages
     const scrollActions = (
       page: string, items: string[], i18nPrefix: string, catKey: string,
-      icon: React.ReactNode, selectorFn: (item: string, idx: number) => string,
+      icon: JSX.Element, selectorFn: (item: string, idx: number) => string,
     ): Action[] => !isPage(page) ? [] : items.map((item, idx) => {
       const label = t(`${i18nPrefix}.${item}`, item);
       const shortcut = idx < 9 ? `${idx + 1}` : idx === 9 ? "0" : "-";
@@ -396,7 +397,7 @@ export function CommandBar({ initialOpen = false }: CommandBarProps) {
                   )}
                   value={query}
                   onChange={(e) => {
-                    setQuery(e.target.value);
+                    setQuery((e.target as HTMLInputElement).value);
                     setSelectedIndex(0);
                   }}
                   className="w-full pl-10 pr-4 h-10 bg-background border rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-ring"

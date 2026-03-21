@@ -1,5 +1,5 @@
 // Hooks for Astro v5
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'preact/hooks'
 
 // Shared hook: returns true after first mount (SSR-safe)
 export function useMounted() {

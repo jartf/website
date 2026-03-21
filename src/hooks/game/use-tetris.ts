@@ -1,5 +1,5 @@
 // Tetris game hook
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'preact/hooks'
 
 // Constants
 
@@ -250,12 +250,12 @@ export function useTetris() {
 
   // Touch
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+  const handleTouchStart = useCallback((e: TouchEvent) => {
     touchRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
   }, [])
 
   const handleTouchMove = useCallback(
-    (e: React.TouchEvent) => {
+    (e: TouchEvent) => {
       const start = touchRef.current
       if (!start || !isStarted || gameOver || isPaused) return
       const { clientX, clientY } = e.touches[0]
@@ -276,7 +276,7 @@ export function useTetris() {
   )
 
   const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
+    (e: TouchEvent) => {
       const start = touchRef.current
       if (!start) return
       const { clientX, clientY } = e.changedTouches[0]
