@@ -246,19 +246,6 @@ const initialCat = moodCats[0];
   const captionEl = document.getElementById('mood-cat-caption');
   const attributionEl = document.getElementById('mood-cat-attribution');
 
-  // Set fetchpriority="high" only on lg+ viewports
-  function updateFetchPriority() {
-    if (catImage) {
-      if (window.innerWidth >= 1024) {
-        catImage.setAttribute('fetchpriority', 'high');
-      } else {
-        catImage.removeAttribute('fetchpriority');
-      }
-    }
-  }
-  updateFetchPriority();
-  window.addEventListener('resize', updateFetchPriority);
-
   // Get a random cat different from current
   function getRandomCat() {
     let newCat;
