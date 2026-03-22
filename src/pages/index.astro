@@ -31,7 +31,7 @@ const card = "border rounded-lg p-4 bg-card card-hover-effect";
 
         <div class="grid grid-cols-1 sm:grid-cols-[1.75fr_1fr_1.75fr] gap-4 min-h-32">
           <section class={card} aria-labelledby="status-cafe-heading">
-            <T key="home.currentStatus" tag="h3" id="status-cafe-heading" class="text-lg font-bold mb-3 text-center" />
+            <T key="home.currentStatus" tag="h2" id="status-cafe-heading" class="text-lg font-bold mb-3 text-center" />
             <div class="text-center">
               <div id="statuscafe" class="w-full text-sm" data-statuscafe-user={author.statusCafeUsername}><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>
               <noscript><a href={services.statusCafe.profileUrl} class="text-sm text-primary hover:underline">See my status.cafe profile here!</a></noscript>
@@ -39,7 +39,7 @@ const card = "border rounded-lg p-4 bg-card card-hover-effect";
           </section>
 
           <section class={card} aria-labelledby="current-mood-heading">
-            <T key="home.currentMood" tag="h3" id="current-mood-heading" class="text-lg font-bold mb-3 text-center" />
+            <T key="home.currentMood" tag="h2" id="current-mood-heading" class="text-lg font-bold mb-3 text-center" />
             <div class="text-center flex items-center justify-center">
               <a href={services.iMood.profileUrl} target="_blank" rel="noopener noreferrer">
                 <img src={services.iMood.widgetUrl} alt="My current mood, loaded from imood" class="inline-block pixelated h-[25px]" width="80" height="25" loading="lazy" decoding="async" />
@@ -48,7 +48,7 @@ const card = "border rounded-lg p-4 bg-card card-hover-effect";
           </section>
 
           <section class={card} aria-labelledby="timezone-heading">
-            <T key="home.time" tag="h3" id="timezone-heading" class="text-lg font-bold mb-3 text-center" />
+            <T key="home.time" tag="h2" id="timezone-heading" class="text-lg font-bold mb-3 text-center" />
             <div class="flex items-center justify-center gap-6">
               <div class="text-center">
                 <p id="user-time" class="text-xl font-mono font-bold">--:--:--</p>
