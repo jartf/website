@@ -27,7 +27,7 @@ export const socialLinks = {
 } as const;
 
 // Alternative domains/mirrors
-export const alternativeDomains = ["https://jar.tf"] as const;
+export const alternativeDomains = ["https://jar.tf", "https://z.is-a.dev"] as const;
 
 // External services configuration
 export const services = {
@@ -107,7 +107,7 @@ export type SupportedLanguage = (typeof supportedLanguages)[number]["code"];
 export const hrefLangLanguages = supportedLanguages.filter((l) => l.code !== "tok" && l.code !== "vi-Hani");
 
 // Completed translations
-export const completedLanguages = ["en", "vi", "ru", "da"] as const;
+export const completedLanguages = ["en", "vi", "et", "ru", "da"] as const;
 
 // Theme constants
 export const themes = ["light", "dark", "system"] as const;
