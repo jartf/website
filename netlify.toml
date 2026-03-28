@@ -1,10 +1,11 @@
 [[redirects]]
-  from = "/stats/*"
-  to = "https://cloud.umami.is/:splat"
+  from = "/api/status.json"
+  to = "https://status.cafe/users/jarema/status.json"
   status = 200
   force = true
 
 [[redirects]]
-  from = "/blog/default-apps-2024"
-  to = "/blog/2024/07/app-defaults-2024/"
-  status = 301
+  from = "/stats/*"
+  to = "https://cloud.umami.is/:splat"
+  status = 200
+  force = true

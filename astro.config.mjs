@@ -13,6 +13,10 @@ export default defineConfig({
   output: 'static',
   adapter,
 
+  redirects: {
+    '/blog/default-apps-2024': '/blog/2024/07/app-defaults-2024/',
+  },
+
   integrations: [
     tailwind({
       applyBaseStyles: false,
@@ -26,6 +30,20 @@ export default defineConfig({
   },
 
   vite: {
+    server: {
+      proxy: {
+        '/api/status.json': {
+          target: 'https://status.cafe',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/status\.json/, '/users/jarema/status.json')
+        },
+        '/stats': {
+          target: 'https://cloud.umami.is',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/stats/, '')
+        }
+      }
+    },
     ssr: {
       noExternal: ['lucide-preact'],
     },

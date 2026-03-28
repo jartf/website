@@ -155,7 +155,7 @@ const card = "border rounded-lg p-4 bg-card card-hover-effect";
     const url = services.statusCafe.profileUrl;
     const ac = new AbortController();
     setTimeout(() => ac.abort(), 5000);
-    fetch(`${url}/status.json`, { signal: ac.signal })
+    fetch('/api/status.json', { signal: ac.signal })
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(r => {
         if (!r?.content?.length) { c.textContent = "No status yet."; return; }
