@@ -9,6 +9,43 @@ import { supportedLanguages, siteUrl, siteName, author, routes } from "@/lib/con
 import { localePath, stripLocale } from "@/i18n/routing";
 import { dateFull } from "@/lib/utils/timezone-utils";
 
+type BlogEntry = CollectionEntry<"blog">;
+
+const publishedBlogPostsSortedPromise = getCollection("blog", ({ data }: BlogEntry) => !data.draft)
+  .then((posts: BlogEntry[]) => posts.sort((a: BlogEntry, b: BlogEntry) => b.data.date.getTime() - a.data.date.getTime()));
+
+interface WebmentionAuthor {
+  type?: string;
+  name?: string;
+  url?: string;
+  photo?: string;
+}
+
+interface Webmention {
+  type?: string;
+  author?: WebmentionAuthor;
+  url?: string;
+  published?: string;
+  "wm-received"?: string;
+  "wm-id"?: number;
+  "wm-property"?: string;
+  content?: { text?: string; html?: string };
+}
+
+const webmentionsCache = new Map<string, Promise<Webmention[]>>();
+
+async function fetchWebmentions(target: string): Promise<Webmention[]> {
+  let cached = webmentionsCache.get(target);
+  if (!cached) {
+    cached = fetch(`https://webmention.io/api/mentions.jf2?target=${encodeURIComponent(target)}`)
+      .then(r => r.ok ? r.json() : { children: [] })
+      .then(j => j.children ?? [])
+      .catch(() => []);
+    webmentionsCache.set(target, cached);
+  }
+  return cached;
+}
+
 const lang = Astro.locals?.lang || "en";
 
 export async function getStaticPaths() {
@@ -97,46 +134,20 @@ const postMetaTags = [
 ];
 
 // Post navigation
-const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
-const sortedPosts = allPosts.sort((a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-  b.data.date.getTime() - a.data.date.getTime()
-);
+const sortedPosts = await publishedBlogPostsSortedPromise;
 const currentIndex = sortedPosts.findIndex((p: CollectionEntry<"blog">) => p.id === post.id);
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
 // Webmentions
-interface WebmentionAuthor {
-  type?: string;
-  name?: string;
-  url?: string;
-  photo?: string;
-}
-interface Webmention {
-  type?: string;
-  author?: WebmentionAuthor;
-  url?: string;
-  published?: string;
-  "wm-received"?: string;
-  "wm-id"?: number;
-  "wm-property"?: string;
-  content?: { text?: string; html?: string };
-}
-
 const webmentionPath = stripLocale(new URL(postUrl).pathname);
 const webmentionUrl = import.meta.env.DEV ? new URL(siteUrl) : new URL(postUrl);
 webmentionUrl.pathname = webmentionPath;
 webmentionUrl.search = "";
 webmentionUrl.hash = "";
 const webmentionTarget = webmentionUrl.href.endsWith("/") ? webmentionUrl.href : `${webmentionUrl.href}/`;
-let webmentions: Webmention[] = [];
-try {
-  const wmResponse = await fetch(`https://webmention.io/api/mentions.jf2?target=${encodeURI(webmentionTarget)}`);
-  if (wmResponse.ok) {
-    const wmJson = await wmResponse.json();
-    webmentions = wmJson.children ?? [];
-  }
-} catch { /* silent fail */ }
+const skipWebmentions = process.env.SKIP_WEBMENTIONS === "1";
+const webmentions = skipWebmentions ? [] : await fetchWebmentions(webmentionTarget);
 
 const wmLikes = webmentions.filter((wm) => wm["wm-property"] === "like-of");
 const wmReposts = webmentions.filter((wm) => wm["wm-property"] === "repost-of");
