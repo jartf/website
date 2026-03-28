@@ -506,12 +506,12 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
 
 [data-locale="zh"],
 [data-locale="zh"] * {
-  font-family: 'Noto Sans SC', 'Space Grotesk', 'Lexend', ui-sans-serif, system-ui, sans-serif !important;
+  font-family: 'Noto Sans SC', var(--font-system) !important;
 }
 
 [data-locale="vi-Hani"],
 [data-locale="vi-Hani"] * {
-  font-family: 'Han Nom Gothic', 'Noto Sans TC', 'Space Grotesk', 'Lexend', ui-sans-serif, system-ui, sans-serif !important;
+  font-family: 'Han Nom Gothic', 'Noto Sans TC', var(--font-system) !important;
 }
 
 .reduce-motion *,
