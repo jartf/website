@@ -119,27 +119,27 @@ const toggles = [
             </div>
           ))}
 
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-2.5">
               <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
                 <path d="M4 7V4h16v3M9 20h6M12 4v16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               <T key="settings.fontFamily" class="text-sm font-medium" id="font-family-label" />
             </div>
-            <select id="settings-font-select" aria-labelledby="font-family-label" class="px-2.5 py-1 text-xs font-medium bg-background border border-border rounded-md transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer">
-              <option value="personal"><T key="settings.fontPersonal" /></option>
-              <option value="system"><T key="settings.fontSystem" /></option>
-              <option value="atkinson">Atkinson Hyperlegible</option>
-              <option value="basier">Basier Square</option>
-              <option value="be-vietnam-pro">Be Vietnam Pro</option>
-              <option value="dyslexia">OpenDyslexic</option>
-              <option value="geist">Geist</option>
-              <option value="grandstander">Grandstander</option>
-              <option value="lexend">Lexend</option>
-              <option value="outfit">Outfit</option>
-              <option value="recursive">Recursive</option>
-              <option value="space-grotesk">Space Grotesk</option>
-              <option value="tiresias">Tiresias Infofont</option>
+            <select id="settings-font-select" aria-labelledby="font-family-label" class="font-preview-select px-3 py-1.5 text-sm font-medium bg-muted text-foreground border border-border rounded-md transition-all hover:bg-muted/80 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-primary cursor-pointer">
+              <option value="personal" style="font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;"><T key="settings.fontPersonal" /></option>
+              <option value="system" style="font-family: -apple-system, BlinkMacSystemFont, 'Avenir Next', Avenir, 'Nimbus Sans L', Roboto, Noto, 'Segoe UI', Arial, Helvetica, 'Helvetica Neue', sans-serif;"><T key="settings.fontSystem" /></option>
+              <option value="atkinson" style="font-family: 'Atkinson Hyperlegible', sans-serif;">Atkinson Hyperlegible</option>
+              <option value="basier" style="font-family: 'Basier Square', sans-serif;">Basier Square</option>
+              <option value="be-vietnam-pro" style="font-family: 'Be Vietnam Pro', sans-serif;">Be Vietnam Pro</option>
+              <option value="dyslexia" style="font-family: 'OpenDyslexic', sans-serif;">OpenDyslexic</option>
+              <option value="geist" style="font-family: 'Geist', sans-serif;">Geist</option>
+              <option value="grandstander" style="font-family: 'Grandstander', sans-serif;">Grandstander</option>
+              <option value="lexend" style="font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;">Lexend</option>
+              <option value="outfit" style="font-family: 'Outfit', sans-serif;">Outfit</option>
+              <option value="recursive" style="font-family: 'Recursive', sans-serif;">Recursive</option>
+              <option value="space-grotesk" style="font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;">Space Grotesk</option>
+              <option value="tiresias" style="font-family: 'Tiresias Infofont', sans-serif;">Tiresias Infofont</option>
             </select>
           </div>
 
