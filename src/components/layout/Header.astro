@@ -119,9 +119,6 @@ const toggles = [
             </div>
           ))}
 
-          <hr class="border-border" />
-
-          <!-- Font family selector -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
               <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
@@ -134,9 +131,12 @@ const toggles = [
               <option value="system"><T key="settings.fontSystem" /></option>
               <option value="atkinson">Atkinson Hyperlegible</option>
               <option value="basier">Basier Square</option>
+              <option value="be-vietnam-pro">Be Vietnam Pro</option>
               <option value="dyslexia">OpenDyslexic</option>
+              <option value="geist">Geist</option>
               <option value="grandstander">Grandstander</option>
               <option value="lexend">Lexend</option>
+              <option value="outfit">Outfit</option>
               <option value="recursive">Recursive</option>
               <option value="space-grotesk">Space Grotesk</option>
               <option value="tiresias">Tiresias Infofont</option>
@@ -210,7 +210,7 @@ const toggles = [
 
   const activeClass = ['bg-primary', 'text-primary-foreground'];
   const inactiveClass = ['text-muted-foreground', 'hover:bg-muted'];
-  const fontClasses = ['personal-fonts', 'atkinson-font', 'basier-font', 'dyslexia-font', 'grandstander-font', 'lexend-font', 'recursive-font', 'space-grotesk-font', 'tiresias-font'];
+  const fontClasses = ['personal-fonts', 'atkinson-font', 'be-vietnam-pro-font', 'basier-font', 'dyslexia-font', 'geist-font', 'grandstander-font', 'lexend-font', 'outfit-font', 'recursive-font', 'space-grotesk-font', 'tiresias-font'];
 
   const setToggle = (btn: HTMLButtonElement, on: boolean) => {
     btn.setAttribute('aria-checked', String(on));
