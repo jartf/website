@@ -587,15 +587,15 @@
     "fonts": {
       "title": "Шрифты",
       "names": {
-        "spaceGrotesk": "Space Grotesk",
-        "lexend": "Lexend",
+        "heading": "Be Vietnam Pro",
+        "body": "Lexend",
         "notoSansSC": "Noto Sans SC",
         "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Han Nom Gothic"
       },
       "usage": {
-        "spaceGrotesk": "Заголовки",
-        "lexend": "Основной текст и интерфейс",
+        "heading": "Заголовки",
+        "body": "Основной текст и интерфейс",
         "notoSansSC": "Китайский текст",
         "monaspice": "Код и моноширинный текст",
         "hanNomGothic": "Вьетнамский Тьы-ном"

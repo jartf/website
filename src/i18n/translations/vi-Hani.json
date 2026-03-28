@@ -517,14 +517,14 @@
     "fonts": {
       "title": "Phông chữ",
       "names": {
-        "spaceGrotesk": "Space Grotesk",
-        "lexend": "Lexend",
+        "heading": "Be Vietnam Pro",
+        "body": "Lexend",
         "notoSansSC": "Noto Sans SC",
         "hanNomGothic": "漢喃 Gothic"
       },
       "usage": {
-        "spaceGrotesk": "標題",
-        "lexend": "內容吧交面 (UI)",
+        "heading": "標題",
+        "body": "內容吧交面 (UI)",
         "notoSansSC": "㗂中",
         "hanNomGothic": "𡨸喃"
       },

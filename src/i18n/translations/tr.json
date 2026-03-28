@@ -587,15 +587,15 @@
     "fonts": {
       "title": "Yazı Tipleri",
       "names": {
-        "spaceGrotesk": "Space Grotesk",
-        "lexend": "Lexend",
+        "heading": "Be Vietnam Pro",
+        "body": "Lexend",
         "notoSansSC": "Noto Sans SC",
         "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Han Nom Gothic"
       },
       "usage": {
-        "spaceGrotesk": "Başlıklar",
-        "lexend": "Gövde metni ve arayüz",
+        "heading": "Başlıklar",
+        "body": "Gövde metni ve arayüz",
         "notoSansSC": "Çince metin",
         "monaspice": "Kod ve sabit genişlikli metin",
         "hanNomGothic": "Vietnamca Chữ Nôm"

@@ -587,15 +587,15 @@
     "fonts": {
       "title": "Typsnitt",
       "names": {
-        "spaceGrotesk": "Space Grotesk",
-        "lexend": "Lexend",
+        "heading": "Be Vietnam Pro",
+        "body": "Lexend",
         "notoSansSC": "Noto Sans SC",
         "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Han Nom Gothic"
       },
       "usage": {
-        "spaceGrotesk": "Rubriker och titlar",
-        "lexend": "Brödtext och UI",
+        "heading": "Rubriker och titlar",
+        "body": "Brödtext och UI",
         "notoSansSC": "Kinesisk text",
         "monaspice": "Kod och monospace-text",
         "hanNomGothic": "Vietnamesisk Chữ Nôm"

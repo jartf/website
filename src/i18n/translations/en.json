@@ -593,15 +593,15 @@
     "fonts": {
       "title": "Fonts",
       "names": {
-        "spaceGrotesk": "Space Grotesk",
-        "lexend": "Lexend",
+        "heading": "Be Vietnam Pro",
+        "body": "Lexend",
         "notoSansSC": "Noto Sans SC",
         "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Han Nom Gothic"
       },
       "usage": {
-        "spaceGrotesk": "Headings and titles",
-        "lexend": "Body text and UI elements",
+        "heading": "Headings and titles",
+        "body": "Body text and UI elements",
         "notoSansSC": "Chinese text",
         "monaspice": "Code and monospace text",
         "hanNomGothic": "Vietnamese Chữ Nôm"

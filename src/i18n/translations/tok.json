@@ -587,15 +587,15 @@
     "fonts": {
       "title": "nasin sitelen",
       "names": {
-        "spaceGrotesk": "Space Grotesk",
-        "lexend": "Lexend",
+        "heading": "Be Vietnam Pro",
+        "body": "Lexend",
         "notoSansSC": "Noto Sans SC",
         "monaspice": "MonaspiceNe Nerd Font",
         "hanNomGothic": "Han Nom Gothic"
       },
       "usage": {
-        "spaceGrotesk": "nimi suli",
-        "lexend": "sitelen tawa jan",
+        "heading": "nimi suli",
+        "body": "sitelen tawa jan",
         "notoSansSC": "toki Sonko",
         "monaspice": "sitelen pi ilo nanpa",
         "hanNomGothic": "toki Wije (nasin Han Nom)"
