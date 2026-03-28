@@ -52,8 +52,8 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        heading: ['var(--font-system)'],
-        body: ['var(--font-system)'],
+        heading: ['var(--font-personal-heading)'],
+        body: ['var(--font-personal-body)'],
         sans: ['var(--font-system)'],
         monaspice: ['var(--font-monaspice)', 'monospace'],
         'zh-hans': ['var(--font-zh-hans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],

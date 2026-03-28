@@ -205,9 +205,9 @@
     --radius: 0.75rem;
 
     --font-system: Adwaita Sans, Noto Sans, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Nimbus Sans L", Roboto, Noto, "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
-    --font-space-grotesk: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-    --font-lexend: 'Lexend', ui-sans-serif, system-ui, sans-serif;
     --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+    --font-personal-heading: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+    --font-personal-body: 'Lexend', ui-sans-serif, system-ui, sans-serif;
     --font-monaspice: 'MonaspiceNe Nerd Font', monospace, ui-sans-serif, system-ui, sans-serif;
     --font-zh-hans: 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
     --font-zh-hant: 'Noto Sans TC', ui-sans-serif, system-ui, sans-serif;
@@ -421,7 +421,7 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
 .personal-fonts h4,
 .personal-fonts h5,
 .personal-fonts h6 {
-  font-family: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif !important;
+  font-family: var(--font-personal-heading) !important;
 }
 
 .personal-fonts,
@@ -430,7 +430,7 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
 .personal-fonts li,
 .personal-fonts a,
 .personal-fonts button {
-  font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif !important;
+  font-family: var(--font-personal-body) !important;
 }
 
 .lexend-font,
@@ -730,3 +730,24 @@ html:not([lang="en"]) [data-t-key]:empty {
 }
 .reduce-motion ::view-transition-old(root),
 .reduce-motion ::view-transition-new(root) { animation: none; }
+
+/* Keep brand-page font previews stable regardless of global font preference classes */
+.brand-font-preview .font-heading {
+  font-family: var(--font-personal-heading) !important;
+}
+
+.brand-font-preview .font-body {
+  font-family: var(--font-personal-body) !important;
+}
+
+.brand-font-preview .font-monaspice {
+  font-family: 'MonaspiceNe Nerd Font', monospace, ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.brand-font-preview .font-zh-hans {
+  font-family: 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.brand-font-preview .font-vi-hani {
+  font-family: 'Han Nom Gothic', 'Noto Sans TC', 'Noto Sans SC', serif !important;
+}

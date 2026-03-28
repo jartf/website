@@ -150,11 +150,11 @@ const cardClasses = "bg-card border rounded-lg p-6";
                 <T key="brand.fonts.viewOnGoogleFonts" />
               </a>
             </div>
-            <div class="bg-background rounded p-6 grid md:grid-cols-2 gap-4">
+            <div class="brand-font-preview bg-background rounded p-6 grid md:grid-cols-2 gap-4">
               {samples.map(({ key: langKey, text }, i) => (
                 <div class:list={[i === samples.length - 1 && samples.length % 2 !== 0 && "md:col-span-2"]}>
                   <T key={`brand.fonts.languages.${langKey}`} tag="p" class="text-sm text-muted-foreground mb-1" />
-                  <p class:list={["text-base", fontClass, key === "spaceGrotesk" && "font-bold"]}>{text}</p>
+                  <p class:list={["text-base", fontClass, key === "heading" && "font-bold"]}>{text}</p>
                 </div>
               ))}
             </div>
