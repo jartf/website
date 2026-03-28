@@ -208,24 +208,26 @@ const toggles = [
 <script>
   import { applyTheme } from '@/lib/utils/theme-utils';
 
-  const ACTIVE = ['bg-primary', 'text-primary-foreground'];
-  const INACTIVE = ['text-muted-foreground', 'hover:bg-muted'];
+  const activeClass = ['bg-primary', 'text-primary-foreground'];
+  const inactiveClass = ['text-muted-foreground', 'hover:bg-muted'];
+  const fontClasses = ['personal-fonts', 'atkinson-font', 'basier-font', 'dyslexia-font', 'grandstander-font', 'lexend-font', 'recursive-font', 'space-grotesk-font', 'tiresias-font'];
 
-  function setToggle(btn: HTMLButtonElement, on: boolean) {
+  const setToggle = (btn: HTMLButtonElement, on: boolean) => {
     btn.setAttribute('aria-checked', String(on));
     const knob = btn.querySelector('span');
+    if (!knob) return;
     btn.classList.toggle('bg-primary', on);
     btn.classList.toggle('bg-muted', !on);
-    knob?.classList.toggle('translate-x-4', on);
-    knob?.classList.toggle('translate-x-0.5', !on);
-    knob?.classList.toggle('bg-white', on);
-    knob?.classList.toggle('bg-muted-foreground', !on);
-  }
+    knob.classList.toggle('translate-x-4', on);
+    knob.classList.toggle('translate-x-0.5', !on);
+    knob.classList.toggle('bg-white', on);
+    knob.classList.toggle('bg-muted-foreground', !on);
+  };
 
-  function bindToggle(id: string, key: string, onUpdate: (on: boolean) => void) {
+  const bindToggle = (id: string, key: string, onUpdate: (on: boolean) => void) => {
     const btn = document.getElementById(id) as HTMLButtonElement | null;
     if (!btn) return;
-    const on = (localStorage.getItem(key) ?? (btn.getAttribute('aria-checked') === 'true' ? 'true' : 'false')) === 'true';
+    const on = (localStorage.getItem(key) ?? btn.getAttribute('aria-checked')) === 'true';
     setToggle(btn, on);
     onUpdate(on);
     btn.onclick = () => {
@@ -234,83 +236,59 @@ const toggles = [
       setToggle(btn, next);
       onUpdate(next);
     };
-  }
+  };
 
-  function updateRadioGroup(selector: string, storageKey: string, fallback: string) {
+  const updateRadioGroup = (selector: string, storageKey: string, fallback: string) => {
     const current = localStorage.getItem(storageKey) || fallback;
     document.querySelectorAll<HTMLButtonElement>(selector).forEach((btn) => {
       const active = Object.values(btn.dataset)[0] === current;
       btn.setAttribute('aria-checked', String(active));
-      ACTIVE.forEach(c => btn.classList.toggle(c, active));
-      INACTIVE.forEach(c => btn.classList.toggle(c, !active));
+      activeClass.forEach(c => btn.classList.toggle(c, active));
+      inactiveClass.forEach(c => btn.classList.toggle(c, !active));
     });
-  }
+  };
+
+  const bindRadioGroup = (selector: string, storageKey: string, fallback: string, signal: AbortSignal, onUpdate?: (value: string) => void) => {
+    updateRadioGroup(selector, storageKey, fallback);
+    document.querySelectorAll<HTMLButtonElement>(selector).forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const value = Object.values(btn.dataset)[0];
+        if (value) {
+          localStorage.setItem(storageKey, value);
+          updateRadioGroup(selector, storageKey, fallback);
+          onUpdate?.(value);
+        }
+      }, { signal });
+    });
+  };
+
+  const applyFont = (font: string) => {
+    document.documentElement.classList.remove(...fontClasses);
+    const className = font === 'personal' ? 'personal-fonts' : font === 'system' ? '' : `${font}-font`;
+    if (className) document.documentElement.classList.add(className);
+  };
 
   let ac: AbortController;
 
-  function init() {
+  const init = () => {
     ac?.abort();
     ac = new AbortController();
     const { signal } = ac;
 
-    updateRadioGroup('.settings-theme-btn', 'theme', 'system');
-    updateRadioGroup('.settings-tz-btn', 'timezone-anchor', 'local');
+    bindRadioGroup('.settings-theme-btn', 'theme', 'system', signal, applyTheme);
+    bindRadioGroup('.settings-tz-btn', 'timezone-anchor', 'local', signal, () =>
+      document.dispatchEvent(new CustomEvent('timezone-change'))
+    );
 
-    document.querySelectorAll<HTMLButtonElement>('.settings-theme-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (btn.dataset.setTheme) {
-          applyTheme(btn.dataset.setTheme);
-          updateRadioGroup('.settings-theme-btn', 'theme', 'system');
-        }
-      }, { signal });
-    });
-
-    document.querySelectorAll<HTMLButtonElement>('.settings-tz-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (btn.dataset.setTz) {
-          localStorage.setItem('timezone-anchor', btn.dataset.setTz);
-          updateRadioGroup('.settings-tz-btn', 'timezone-anchor', 'local');
-          document.dispatchEvent(new CustomEvent('timezone-change'));
-        }
-      }, { signal });
-    });
-
-    // Font family dropdown
     const fontSelect = document.getElementById('settings-font-select') as HTMLSelectElement | null;
     if (fontSelect) {
-      const fontClasses = ['personal-fonts', 'lexend-font', 'dyslexia-font', 'atkinson-font', 'basier-font', 'grandstander-font', 'recursive-font', 'space-grotesk-font', 'tiresias-font'];
-      const fontMap: Record<string, string> = {
-        'personal': 'personal-fonts',
-        'lexend': 'lexend-font',
-        'dyslexia': 'dyslexia-font',
-        'atkinson': 'atkinson-font',
-        'basier': 'basier-font',
-        'grandstander': 'grandstander-font',
-        'recursive': 'recursive-font',
-        'space-grotesk': 'space-grotesk-font',
-        'tiresias': 'tiresias-font'
-      };
-
       const savedFont = localStorage.getItem('font-family') || 'personal';
       fontSelect.value = savedFont;
-
-      // Apply font on page load
-      document.documentElement.classList.remove(...fontClasses);
-      if (fontMap[savedFont]) {
-        document.documentElement.classList.add(fontMap[savedFont]);
-      }
-
+      applyFont(savedFont);
       fontSelect.addEventListener('change', () => {
         const font = fontSelect.value;
         localStorage.setItem('font-family', font);
-
-        // Remove all font classes
-        document.documentElement.classList.remove(...fontClasses);
-
-        // Apply the selected font
-        if (fontMap[font]) {
-          document.documentElement.classList.add(fontMap[font]);
-        }
+        applyFont(font);
       }, { signal });
     }
 
@@ -324,18 +302,14 @@ const toggles = [
       document.documentElement.classList.toggle('reduce-motion', on);
       const starsBtn = document.getElementById('settings-stars-toggle') as HTMLButtonElement | null;
       if (!starsBtn) return;
+      starsBtn.disabled = on;
+      starsBtn.classList.toggle('opacity-50', on);
+      starsBtn.classList.toggle('cursor-not-allowed', on);
+      starsBtn.classList.toggle('cursor-pointer', !on);
       if (on) {
-        // Force stars off and disable the toggle
         setToggle(starsBtn, false);
         document.documentElement.toggleAttribute('data-no-stars', true);
-        starsBtn.disabled = true;
-        starsBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        starsBtn.classList.remove('cursor-pointer');
       } else {
-        // Re-enable and restore saved preference
-        starsBtn.disabled = false;
-        starsBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-        starsBtn.classList.add('cursor-pointer');
         const saved = (localStorage.getItem('stars-enabled') ?? 'true') === 'true';
         setToggle(starsBtn, saved);
         document.documentElement.toggleAttribute('data-no-stars', !saved);
@@ -348,8 +322,7 @@ const toggles = [
         if (menu.open && !menu.contains(e.target as Node)) menu.open = false;
       }, { signal });
     }
-
-  }
+  };
 
   init();
   document.addEventListener('astro:after-swap', init);
