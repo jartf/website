@@ -213,8 +213,8 @@ export const footerBadges: FooterBadge[] = [
     alt: "The Realm of Dream",
   },
   {
-    src: "/teto.gif",
-    alt: "Kasane Teto dancing",
+    src: "/clouds.gif",
+    alt: "Clouds are nice",
   },
   {
     src: "/button2019.gif",
