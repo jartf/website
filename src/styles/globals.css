@@ -31,7 +31,6 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0000-02CC, U+02CE-02D7, U+02DA, U+02DC, U+02DD-02FF, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1D00-1DBF, U+1E00-1EFF, U+2000-206F, U+20A0-20C0, U+2113, U+2122, U+2191, U+2193, U+2212, U+2215, U+2C60-2C7F, U+A720-A7FF, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -40,7 +39,6 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0000-02CC, U+02CE-02D7, U+02DA, U+02DC, U+02DD-02FF, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1D00-1DBF, U+1E00-1EFF, U+2000-206F, U+20A0-20C0, U+2113, U+2122, U+2191, U+2193, U+2212, U+2215, U+2C60-2C7F, U+A720-A7FF, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -49,7 +47,6 @@
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0000-02CC, U+02CE-02D7, U+02DA, U+02DC, U+02DD-02FF, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1D00-1DBF, U+1E00-1EFF, U+2000-206F, U+20A0-20C0, U+2113, U+2122, U+2191, U+2193, U+2212, U+2215, U+2C60-2C7F, U+A720-A7FF, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -121,6 +118,22 @@
 }
 
 @font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('/fonts/BeVietnamPro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('/fonts/BeVietnamPro-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Grandstander';
   src: url('/fonts/Grandstander-Regular.woff2') format('woff2');
   font-weight: 400;
@@ -137,9 +150,25 @@
 }
 
 @font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist[wght].woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/Outfit[wght].woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Recursive';
   src: url('/fonts/Recursive-VariableFont_CASL,CRSV,MONO,slnt,wght.ttf') format('truetype');
-  font-weight: 300 1000;
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
@@ -392,7 +421,7 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
 .personal-fonts h4,
 .personal-fonts h5,
 .personal-fonts h6 {
-  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif !important;
+  font-family: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif !important;
 }
 
 .personal-fonts,
@@ -419,9 +448,24 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
   font-family: 'Basier Square', sans-serif !important;
 }
 
+.be-vietnam-pro-font,
+.be-vietnam-pro-font * {
+  font-family: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.geist-font,
+.geist-font * {
+  font-family: 'Geist', sans-serif !important;
+}
+
 .grandstander-font,
 .grandstander-font * {
   font-family: 'Grandstander', sans-serif !important;
+}
+
+.outfit-font,
+.outfit-font * {
+  font-family: 'Outfit', sans-serif !important;
 }
 
 .recursive-font,
