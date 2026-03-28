@@ -28,8 +28,6 @@ const toggles = [
   { id: "settings-stars-toggle",    i18n: "settings.stars",        defaultOn: true,  icon: `<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />` },
   { id: "settings-motion-toggle",   i18n: "settings.reduceMotion", defaultOn: false, icon: `<circle cx="12" cy="12" r="10" stroke-dasharray="3 3" />` },
   { id: "settings-contrast-toggle", i18n: "settings.highContrast", defaultOn: false, icon: `<circle cx="12" cy="12" r="10" /><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" />` },
-  { id: "settings-personal-fonts-toggle", i18n: "settings.personalFonts", defaultOn: false, icon: `<path d="M4 7V4h16v3M9 20h6M12 4v16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` },
-  { id: "settings-dyslexia-toggle", i18n: "settings.dyslexiaFont", defaultOn: false, icon: `<path d="M13 18L8 6L3 18M11 14H5M21 18V15M21 15V12M21 15C21 16.6569 19.6569 18 18 18C16.3431 18 15 16.6569 15 15C15 13.3431 16.3431 12 18 12C19.6569 12 21 13.3431 21 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` },
 ] as const;
 ---
 
@@ -120,6 +118,23 @@ const toggles = [
               </button>
             </div>
           ))}
+
+          <hr class="border-border" />
+
+          <!-- Font family selector -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <svg {...iconBase} width="18" height="18" class="text-muted-foreground" aria-hidden="true">
+                <path d="M4 7V4h16v3M9 20h6M12 4v16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <T key="settings.fontFamily" class="text-sm font-medium" id="font-family-label" />
+            </div>
+            <select id="settings-font-select" aria-labelledby="font-family-label" class="px-2.5 py-1 text-xs font-medium bg-background border border-border rounded-md transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer">
+              <option value="system"><T key="settings.fontSystem" /></option>
+              <option value="personal"><T key="settings.fontPersonal" /></option>
+              <option value="dyslexia">OpenDyslexic</option>
+            </select>
+          </div>
 
           <hr class="border-border" />
 
@@ -253,17 +268,41 @@ const toggles = [
       }, { signal });
     });
 
+    // Font family dropdown
+    const fontSelect = document.getElementById('settings-font-select') as HTMLSelectElement | null;
+    if (fontSelect) {
+      const savedFont = localStorage.getItem('font-family') || 'system';
+      fontSelect.value = savedFont;
+
+      // Apply font on page load
+      document.documentElement.classList.remove('personal-fonts', 'dyslexia-font');
+      if (savedFont === 'personal') {
+        document.documentElement.classList.add('personal-fonts');
+      } else if (savedFont === 'dyslexia') {
+        document.documentElement.classList.add('dyslexia-font');
+      }
+
+      fontSelect.addEventListener('change', () => {
+        const font = fontSelect.value;
+        localStorage.setItem('font-family', font);
+
+        // Remove all font classes
+        document.documentElement.classList.remove('personal-fonts', 'dyslexia-font');
+
+        // Apply the selected font
+        if (font === 'personal') {
+          document.documentElement.classList.add('personal-fonts');
+        } else if (font === 'dyslexia') {
+          document.documentElement.classList.add('dyslexia-font');
+        }
+      }, { signal });
+    }
+
     bindToggle('settings-stars-toggle', 'stars-enabled', (on) =>
       document.documentElement.toggleAttribute('data-no-stars', !on));
 
     bindToggle('settings-contrast-toggle', 'high-contrast', (on) =>
       document.documentElement.classList.toggle('high-contrast', on));
-
-    bindToggle('settings-personal-fonts-toggle', 'personal-fonts', (on) =>
-      document.documentElement.classList.toggle('personal-fonts', on));
-
-    bindToggle('settings-dyslexia-toggle', 'dyslexia-font', (on) =>
-      document.documentElement.classList.toggle('dyslexia-font', on));
 
     bindToggle('settings-motion-toggle', 'reduce-motion', (on) => {
       document.documentElement.classList.toggle('reduce-motion', on);
