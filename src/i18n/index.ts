@@ -15,22 +15,22 @@ import viHani from "./translations/vi-Hani.json";
 
 export { supportedLanguages, type SupportedLanguage } from "@/lib/constants";
 
-export const translations: Record<string, Record<string, any>> = {
+export const translations: Record<string, Record<string, unknown>> = {
   en, vi, ru, et, da, tr, zh, pl, sv, fi, tok, "vi-Hani": viHani,
 };
 
-function getNestedValue(obj: Record<string, any>, path: string): string | undefined {
-  let cur: any = obj;
+export function getNestedValue(obj: Record<string, unknown>, path: string): string | undefined {
+  let cur: unknown = obj;
   for (const k of path.split(".")) {
-    if (cur && typeof cur === "object" && k in cur) cur = cur[k];
+    if (cur && typeof cur === "object" && k in cur) cur = (cur as Record<string, unknown>)[k];
     else return undefined;
   }
   return typeof cur === "string" ? cur : undefined;
 }
 
 export function t(lang: string, key: string, params?: Record<string, string | number>): string {
-  let value = getNestedValue(translations[lang] || translations.en, key);
-  if (!value && lang !== "en") value = getNestedValue(translations.en, key);
+  const value = getNestedValue(translations[lang] || translations.en, key)
+    ?? (lang !== "en" ? getNestedValue(translations.en, key) : undefined);
   if (!value) return key;
   if (!params) return value;
   return Object.entries(params).reduce((s, [k, v]) => s.replaceAll(`{{${k}}}`, String(v)), value);

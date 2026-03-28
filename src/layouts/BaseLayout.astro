@@ -9,6 +9,7 @@ import BarListener from "@/components/layout/BarListener.astro";
 import Banners from "@/components/layout/Banners.astro";
 import { hrefLangLanguages, siteUrl, siteName, siteDescription, siteKeywords, author, socialLinks, alternativeDomains, services, themeColors } from "@/lib/constants";
 import { localePath, stripLocale } from "@/i18n/routing";
+import { translations } from "@/i18n";
 
 const analyticsWebsiteIds = services.analytics.websiteIds;
 const analyticsScriptUrl = services.analytics.scriptUrl;
@@ -182,6 +183,9 @@ const structuredData = {
 <!--- My code's a lil messy, please bear with me :p --->
 <html lang={lang} data-locale={lang} class="dark">
   <head>
+    <script is:inline define:vars={{ dict: translations[lang] || translations.en }}>
+      window._I18N_DICT = dict;
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />

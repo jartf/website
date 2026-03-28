@@ -2,7 +2,7 @@
 // Now Section - displays recent activity items with i18n support
 // Server-side rendered with client-side progressive enhancement for Last.fm/PreMid
 import T from "@/components/T.astro";
-import { translations } from "@/i18n";
+import { t } from "@/i18n";
 import { getData, type I18nContent, type I18nContentOptional } from "@/content.config";
 
 const nowItems = await getData("now");
@@ -19,8 +19,11 @@ const displayItems = [...nowItems]
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   .slice(0, 3);
 
-const getCategoryTranslation = (category: string) =>
-  translations[lang]?.now?.categories?.[category] || translations.en.now?.categories?.[category] || category;
+const getCategoryTranslation = (category: string) => {
+  const key = `now.categories.${category}`;
+  const translated = t(lang, key);
+  return translated !== key ? translated : category;
+};
 ---
 
 <section aria-labelledby="now-heading" id="now-section">
