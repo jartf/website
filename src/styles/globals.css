@@ -96,6 +96,62 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/AtkinsonHyperlegible-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/AtkinsonHyperlegible-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Basier Square';
+  src: url('/fonts/Basier Square.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Grandstander';
+  src: url('/fonts/Grandstander-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Grandstander';
+  src: url('/fonts/Grandstander-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Recursive';
+  src: url('/fonts/Recursive-VariableFont_CASL,CRSV,MONO,slnt,wght.ttf') format('truetype');
+  font-weight: 300 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tiresias Infofont';
+  src: url('/fonts/Tiresias_Infofont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 270 30% 10%;
@@ -346,6 +402,41 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
 .personal-fonts a,
 .personal-fonts button {
   font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.lexend-font,
+.lexend-font * {
+  font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.atkinson-font,
+.atkinson-font * {
+  font-family: 'Atkinson Hyperlegible', sans-serif !important;
+}
+
+.basier-font,
+.basier-font * {
+  font-family: 'Basier Square', sans-serif !important;
+}
+
+.grandstander-font,
+.grandstander-font * {
+  font-family: 'Grandstander', sans-serif !important;
+}
+
+.recursive-font,
+.recursive-font * {
+  font-family: 'Recursive', sans-serif !important;
+}
+
+.space-grotesk-font,
+.space-grotesk-font * {
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.tiresias-font,
+.tiresias-font * {
+  font-family: 'Tiresias Infofont', sans-serif !important;
 }
 
 [data-locale="zh"],

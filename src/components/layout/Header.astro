@@ -130,9 +130,16 @@ const toggles = [
               <T key="settings.fontFamily" class="text-sm font-medium" id="font-family-label" />
             </div>
             <select id="settings-font-select" aria-labelledby="font-family-label" class="px-2.5 py-1 text-xs font-medium bg-background border border-border rounded-md transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer">
-              <option value="system"><T key="settings.fontSystem" /></option>
               <option value="personal"><T key="settings.fontPersonal" /></option>
+              <option value="system"><T key="settings.fontSystem" /></option>
+              <option value="atkinson">Atkinson Hyperlegible</option>
+              <option value="basier">Basier Square</option>
               <option value="dyslexia">OpenDyslexic</option>
+              <option value="grandstander">Grandstander</option>
+              <option value="lexend">Lexend</option>
+              <option value="recursive">Recursive</option>
+              <option value="space-grotesk">Space Grotesk</option>
+              <option value="tiresias">Tiresias Infofont</option>
             </select>
           </div>
 
@@ -271,15 +278,26 @@ const toggles = [
     // Font family dropdown
     const fontSelect = document.getElementById('settings-font-select') as HTMLSelectElement | null;
     if (fontSelect) {
-      const savedFont = localStorage.getItem('font-family') || 'system';
+      const fontClasses = ['personal-fonts', 'lexend-font', 'dyslexia-font', 'atkinson-font', 'basier-font', 'grandstander-font', 'recursive-font', 'space-grotesk-font', 'tiresias-font'];
+      const fontMap: Record<string, string> = {
+        'personal': 'personal-fonts',
+        'lexend': 'lexend-font',
+        'dyslexia': 'dyslexia-font',
+        'atkinson': 'atkinson-font',
+        'basier': 'basier-font',
+        'grandstander': 'grandstander-font',
+        'recursive': 'recursive-font',
+        'space-grotesk': 'space-grotesk-font',
+        'tiresias': 'tiresias-font'
+      };
+
+      const savedFont = localStorage.getItem('font-family') || 'personal';
       fontSelect.value = savedFont;
 
       // Apply font on page load
-      document.documentElement.classList.remove('personal-fonts', 'dyslexia-font');
-      if (savedFont === 'personal') {
-        document.documentElement.classList.add('personal-fonts');
-      } else if (savedFont === 'dyslexia') {
-        document.documentElement.classList.add('dyslexia-font');
+      document.documentElement.classList.remove(...fontClasses);
+      if (fontMap[savedFont]) {
+        document.documentElement.classList.add(fontMap[savedFont]);
       }
 
       fontSelect.addEventListener('change', () => {
@@ -287,13 +305,11 @@ const toggles = [
         localStorage.setItem('font-family', font);
 
         // Remove all font classes
-        document.documentElement.classList.remove('personal-fonts', 'dyslexia-font');
+        document.documentElement.classList.remove(...fontClasses);
 
         // Apply the selected font
-        if (font === 'personal') {
-          document.documentElement.classList.add('personal-fonts');
-        } else if (font === 'dyslexia') {
-          document.documentElement.classList.add('dyslexia-font');
+        if (fontMap[font]) {
+          document.documentElement.classList.add(fontMap[font]);
         }
       }, { signal });
     }
