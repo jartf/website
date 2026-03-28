@@ -415,80 +415,101 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
   font-family: 'OpenDyslexic', sans-serif !important;
 }
 
-.personal-fonts h1,
-.personal-fonts h2,
-.personal-fonts h3,
-.personal-fonts h4,
-.personal-fonts h5,
-.personal-fonts h6 {
+.personal-fonts :is(h1, h2, h3, h4, h5, h6) {
   font-family: var(--font-personal-heading) !important;
 }
 
 .personal-fonts,
-.personal-fonts p,
-.personal-fonts span,
-.personal-fonts li,
-.personal-fonts a,
-.personal-fonts button {
+.personal-fonts :is(p, span, li, a, button) {
   font-family: var(--font-personal-body) !important;
 }
 
 .lexend-font,
-.lexend-font * {
-  font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif !important;
-}
-
 .atkinson-font,
-.atkinson-font * {
-  font-family: 'Atkinson Hyperlegible', sans-serif !important;
-}
-
 .basier-font,
-.basier-font * {
-  font-family: 'Basier Square', sans-serif !important;
-}
-
 .be-vietnam-pro-font,
-.be-vietnam-pro-font * {
-  font-family: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif !important;
-}
-
 .geist-font,
-.geist-font * {
-  font-family: 'Geist', sans-serif !important;
-}
-
 .grandstander-font,
-.grandstander-font * {
-  font-family: 'Grandstander', sans-serif !important;
-}
-
 .outfit-font,
-.outfit-font * {
-  font-family: 'Outfit', sans-serif !important;
-}
-
 .recursive-font,
-.recursive-font * {
-  font-family: 'Recursive', sans-serif !important;
-}
-
 .space-grotesk-font,
-.space-grotesk-font * {
-  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif !important;
+.tiresias-font {
+  --preferred-font-family: inherit;
 }
 
-.tiresias-font,
-.tiresias-font * {
-  font-family: 'Tiresias Infofont', sans-serif !important;
+.lexend-font {
+  --preferred-font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+}
+
+.atkinson-font {
+  --preferred-font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.basier-font {
+  --preferred-font-family: 'Basier Square', sans-serif;
+}
+
+.be-vietnam-pro-font {
+  --preferred-font-family: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+}
+
+.geist-font {
+  --preferred-font-family: 'Geist', sans-serif;
+}
+
+.grandstander-font {
+  --preferred-font-family: 'Grandstander', sans-serif;
+}
+
+.outfit-font {
+  --preferred-font-family: 'Outfit', sans-serif;
+}
+
+.recursive-font {
+  --preferred-font-family: 'Recursive', sans-serif;
+}
+
+.space-grotesk-font {
+  --preferred-font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+
+.tiresias-font {
+  --preferred-font-family: 'Tiresias Infofont', sans-serif;
+}
+
+:is(
+  .lexend-font,
+  .atkinson-font,
+  .basier-font,
+  .be-vietnam-pro-font,
+  .geist-font,
+  .grandstander-font,
+  .outfit-font,
+  .recursive-font,
+  .space-grotesk-font,
+  .tiresias-font
+),
+:is(
+  .lexend-font,
+  .atkinson-font,
+  .basier-font,
+  .be-vietnam-pro-font,
+  .geist-font,
+  .grandstander-font,
+  .outfit-font,
+  .recursive-font,
+  .space-grotesk-font,
+  .tiresias-font
+) * {
+  font-family: var(--preferred-font-family) !important;
 }
 
 /* Font preview dropdown styling */
 .font-preview-select {
   min-width: 140px;
-  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
@@ -509,11 +530,6 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
   font-family: 'Noto Sans SC', var(--font-system) !important;
 }
 
-[data-locale="vi-Hani"],
-[data-locale="vi-Hani"] * {
-  font-family: 'Han Nom Gothic', 'Noto Sans TC', var(--font-system) !important;
-}
-
 .reduce-motion *,
 .reduce-motion ::before,
 .reduce-motion ::after {
@@ -526,7 +542,8 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
 /* Stars background for dark mode */
 .stars-1a,
 .stars-2a,
-.stars-3a {
+.stars-3a,
+.particles-1 {
   background: transparent;
   position: fixed;
   top: 0;
@@ -534,6 +551,11 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
   width: 100%;
   height: 100%;
   z-index: -1;
+}
+
+.stars-1a,
+.stars-2a,
+.stars-3a {
   opacity: 0;
   visibility: hidden;
 }
@@ -599,30 +621,20 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
   66% { opacity: 0.4; }
 }
 
-/* Light mode particles */
 .particles-1 {
-  background: transparent;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  /* Light mode particles */
   opacity: 1;
   visibility: visible;
-}
-
-.dark .particles-1 {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.particles-1 {
   background-image: radial-gradient(4px 4px at 20px 30px, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)),
     radial-gradient(2px 2px at 40px 70px, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
   background-repeat: repeat;
   background-size: 200px 200px;
   animation: particles-animation 60s linear infinite;
+}
+
+.dark .particles-1 {
+  opacity: 0;
+  visibility: hidden;
 }
 
 @keyframes particles-animation {
@@ -647,23 +659,18 @@ button:disabled, input:disabled, select:disabled, textarea:disabled {
   @apply text-center text-sm text-muted-foreground mt-2 italic;
 }
 
-/* Enable text wrapping in code blocks and blockquotes */
 .blog-content pre,
 .blog-content blockquote {
+  /* Enable text wrapping in code blocks and blockquotes */
   word-wrap: break-word;
   word-break: break-word;
   overflow-wrap: break-word;
+  @apply relative;
 }
 
 .blog-content pre,
 .blog-content code {
   white-space: pre-wrap;
-}
-
-/* Copy button styling */
-.blog-content pre,
-.blog-content blockquote {
-  @apply relative;
 }
 
 .copy-button {
@@ -749,5 +756,14 @@ html:not([lang="en"]) [data-t-key]:empty {
 }
 
 .brand-font-preview .font-vi-hani {
+  font-family: 'Han Nom Gothic', 'Noto Sans TC', 'Noto Sans SC', serif !important;
+}
+
+/* Force Han-Nôm rendering for vi-Hani content */
+html[data-locale="vi-Hani"],
+[data-locale="vi-Hani"],
+[data-locale="vi-Hani"] *,
+:lang(vi-Hani),
+:lang(vi-Hani) * {
   font-family: 'Han Nom Gothic', 'Noto Sans TC', 'Noto Sans SC', serif !important;
 }
