@@ -65,6 +65,15 @@
       "source": "/records/:path*",
       "headers": [
         { "key": "Request-OTR", "value": "1" },
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, max-age=0" },
+        { "key": "CDN-Cache-Control", "value": "no-store" },
+        { "key": "Pragma", "value": "no-cache" },
+        { "key": "Expires", "value": "0" },
+        { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
+        { "key": "Origin-Agent-Cluster", "value": "?1" },
+        { "key": "X-Frame-Options", "value": "DENY" },
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'none'; connect-src 'self' jarema.me api-gateway.umami.dev cloud.umami.is; font-src 'self'; frame-src 'none'; img-src 'self'; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
