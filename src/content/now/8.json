@@ -3,18 +3,18 @@
   "category": "studying",
   "icon": "GraduationCap",
   "content": {
-    "en": "International economics",
-    "vi": "Kinh tế đối ngoại",
-    "ru": "Международная экономика",
-    "et": "Rahvusvaheline majandus",
-    "da": "International økonomi",
-    "tr": "Uluslararası ekonomi",
-    "zh": "国际经济学",
-    "pl": "Ekonomia międzynarodowa",
-    "fi": "Kansainvälinen talous",
-    "sv": "Internationell ekonomi",
-    "tok": "sona mani pi ma ale",
-    "vi-Hani": "經濟對外"
+    "en": "Applied economics",
+    "vi": "Kinh tế học ứng dụng",
+    "ru": "Прикладная экономика",
+    "et": "Rakenduslik majandus",
+    "da": "Anvendt økonomi",
+    "tr": "Uygulamalı ekonomi",
+    "zh": "应用经济学",
+    "pl": "Ekonomia stosowana",
+    "fi": "Sovellettu taloustiede",
+    "sv": "Tillämpad ekonomi",
+    "tok": "sona pi mani kepeken",
+    "vi-Hani": "經濟學應用"
   },
-  "date": "2026-01-06T11:18:08+07:00"
+  "date": "2026-04-01T11:18:08+07:00"
 }

@@ -96,7 +96,8 @@
     "yourTime": "Sinu aeg",
     "myTime": "Minu aeg",
     "viewAllWebrings": "Vaata kõiki veebiringid",
-    "checkOutSites": "Vaata neid saite!"
+    "checkOutSites": "Vaata neid saite!",
+    "androidCountdown": "Android muutub X päeva jooksul suletud operatsioonisüsteemiks"
   },
   "guestbook": {
     "title": "Külalisteraamat",

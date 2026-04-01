@@ -287,6 +287,7 @@ export const friendSites: FooterBadge[] = [
   { src: "/nogginzmart.gif", alt: "Nogginzmart's site", href: "https://nogginzmart.neocities.org" },
   { src: "/ww-88x31-right-black.png", alt: "Web Weavers invite link", href: "https://discord.gg/qePupaKk" },
   { src: "/espy-world-button.gif", alt: "Espy's site", href: "https://espy.world/" },
+  { src: "/melonland-badge-2.gif", alt: "MelonLand Forum", href: "https://forum.melonland.net/" },
 ];
 
 // API configuration

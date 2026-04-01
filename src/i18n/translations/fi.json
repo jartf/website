@@ -96,7 +96,8 @@
     "yourTime": "Sinun aikasi",
     "myTime": "Minun aikani",
     "viewAllWebrings": "Näytä kaikki verkkorenkaat",
-    "checkOutSites": "Katso näitä sivustoja!"
+    "checkOutSites": "Katso näitä sivustoja!",
+    "androidCountdown": "Androidista tulee suljettu käyttöjärjestelmä X päivän kuluessa"
   },
   "guestbook": {
     "title": "Vieraskirja",
