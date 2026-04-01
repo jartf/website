@@ -30,7 +30,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev cloud.umami.is status.cafe; font-src 'self'; frame-src jarema.atabook.org; img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com moods.imood.com lastfm.freetls.fastly.net; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' geekring.net kagi.com; upgrade-insecure-requests"
+          "value": "default-src 'none'; connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev cloud.umami.is status.cafe; font-src 'self'; frame-src jarema.atabook.org; img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com moods.imood.com lastfm.freetls.fastly.net; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https: geekring.net kagi.com *.me; upgrade-insecure-requests"
         }
       ]
     },
@@ -39,7 +39,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev cloud.umami.is status.cafe; font-src 'self'; img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com moods.imood.com lastfm.freetls.fastly.net; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' geekring.net kagi.com; upgrade-insecure-requests"
+          "value": "default-src 'none'; connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev cloud.umami.is status.cafe; font-src 'self'; img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com moods.imood.com lastfm.freetls.fastly.net; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https: geekring.net kagi.com *.me; upgrade-insecure-requests"
         }
       ]
     },
@@ -48,7 +48,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev cloud.umami.is; font-src 'self'; frame-src jarema.atabook.org; img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' geekring.net kagi.com; upgrade-insecure-requests"
+          "value": "default-src 'none'; connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev cloud.umami.is; font-src 'self'; frame-src jarema.atabook.org; img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https: geekring.net kagi.com *.me; upgrade-insecure-requests"
         }
       ]
     },
@@ -57,7 +57,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev cloud.umami.is; font-src 'self'; img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' geekring.net kagi.com; upgrade-insecure-requests"
+          "value": "default-src 'none'; connect-src 'self' jarema.me ws.audioscrobbler.com api-gateway.umami.dev cloud.umami.is; font-src 'self'; img-src 'self' https: *.ytimg.com *.rcd.gg *.googleusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https: geekring.net kagi.com *.me; upgrade-insecure-requests"
         }
       ]
     },
@@ -85,7 +85,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; connect-src 'self' jarema.me api-gateway.umami.dev cloud.umami.is; font-src 'self'; img-src 'self' https: *.githubusercontent.com moods.imood.com lastfm.freetls.fastly.net; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' geekring.net kagi.com; upgrade-insecure-requests"
+          "value": "default-src 'none'; connect-src 'self' jarema.me api-gateway.umami.dev cloud.umami.is; font-src 'self'; img-src 'self' https: *.githubusercontent.com moods.imood.com lastfm.freetls.fastly.net; manifest-src 'self'; media-src 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https: geekring.net kagi.com *.me; upgrade-insecure-requests"
         }
       ]
     }
