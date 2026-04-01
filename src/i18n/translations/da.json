@@ -96,7 +96,8 @@
     "yourTime": "Din tid",
     "myTime": "Min tid",
     "viewAllWebrings": "Se alle webringe",
-    "checkOutSites": "Tjek disse sider ud!"
+    "checkOutSites": "Tjek disse sider ud!",
+    "androidCountdown": "Android vil blive en lukket operativsystem om X dage"
   },
   "guestbook": {
     "title": "Gæstebog",
