@@ -25,8 +25,7 @@
     "sharp": "^0.34.5"
   },
   "overrides": {
-    "lodash": ">=4.17.23",
-    "path-to-regexp": ">=6.3.0"
+    "yaml": ">=2.8.3"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
